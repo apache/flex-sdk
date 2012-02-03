@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.animation"><apiName>spark.effects.animation</apiName><apiDetail/><apiClassifier id="spark.effects.animation:Keyframe"><apiName>Keyframe</apiName><shortdesc>
+  La classe Keyframe définit la valeur d’une propriété à un instant précis au cours d’un effet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Keyframe&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Keyframe 
+    id="ID"
+    easier="Linear"
+    time="val"
+    value="val"
+    valueBy="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Keyframe définit la valeur d’une propriété à un instant précis au cours d’un effet. Vous pouvez par exemple créer trois images-clés définissant la valeur d’une propriété au début de l’effet, au milieu de l’effet et à la fin de l’effet. L’effet anime la modification de la propriété sur la cible entre les images-clés, pendant toute la durée de l’effet. 
+ 
+  <p>La collection des images-clés d’un effet est appelée trajectoire de mouvement. Une trajectoire de mouvement peut définir un nombre illimité d’images-clés. L’effet calcule alors la valeur de la propriété par interpolation, à partir des valeurs spécifiées par deux images-clés. </p>
+ 
+  <p>Utilisez la classe MotionPath pour stocker la collection d’objets KeyFrame représentant la trajectoire de mouvement de l’effet. La classe MotionPath spécifie le nom de la propriété sur la cible. La collection d’objets KeyFrame spécifie quant à elle les valeurs de la propriété à différents moments de l’effet.</p>
+  
+  </apiDesc><example conref="KeyFrameEffectExample.mxml"><swfblock conref="examples/KeyFrameEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>MotionPath</linktext></link></related-links><apiConstructor id="spark.effects.animation:Keyframe:Keyframe"><apiName>Keyframe</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>time</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Position temporelle, en millisecondes, à laquelle la cible d’effet de cette image-clé doit prendre la valeur spécifiée par le paramètre <codeph>value</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Valeur de la cible de l’effet à la position temporelle <codeph>time</codeph> spécifiée.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueBy</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Paramètre facultatif. S’il est défini, la valeur <codeph>value</codeph> est calculée de façon dynamique en ajoutant la valeur <codeph>valueBy</codeph> à la valeur <codeph>value</codeph> de l’image-clé précédente dans l’ensemble d’images-clés d’un objet MotionPath. Cette valeur est ignorée s’il s’agit de la première image-clé d’une séquence.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:Keyframe:clone"><apiName>clone</apiName><shortdesc>
+      Renvoie une copie de cet objet KeyFrame.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Copie de cet objet KeyFrame.
+     
+      </apiDesc><apiOperationClassifier>spark.effects.animation:Keyframe</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une copie de cet objet KeyFrame.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:Keyframe:easer"><apiName>easer</apiName><shortdesc>
+      Comportement d’accélération appliqué au mouvement entre l’objet KeyFrame précédent dans la trajectoire de mouvement et cet objet KeyFrame.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>Linear
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Comportement d’accélération appliqué au mouvement entre l’objet KeyFrame précédent dans la trajectoire de mouvement et cet objet KeyFrame. Par défaut, l’accélération est linéaire ou aucune accélération n’est appliquée. 
+     
+      <p>Il est également possible qu’une accélération soit déjà appliquée à l’effet parent sur toute la durée de l’animation. Par conséquent, si vous préférez réaliser une animation par intervalle d’image-clé, il est nécessaire de définir l’accélérateur global de l’effet sur linéaire (spark.effects.easing.Linear), puis de définir le paramètre <codeph>easer</codeph> pour chaque image-clé Keyframe requise.</p>
+     
+      <p>Cette propriété agissant sur l’intervalle situé entre l’objet KeyFrame précédent dans la séquence et cet objet KeyFrame, la propriété <codeph>easer</codeph> est ignorée pour le premier objet KeyFrame d’une séquence.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:time"><apiName>time</apiName><shortdesc>
+      Position temporelle, en millisecondes, à laquelle la cible d’effet de cette image-clé doit prendre la valeur spécifiée par la propriété value.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position temporelle, en millisecondes, à laquelle la cible d’effet de cette image-clé doit prendre la valeur spécifiée par la propriété <codeph>value</codeph>. La position temporelle est relative à la position temporelle de départ de l’effet défini par cette image-clé.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:valueBy"><apiName>valueBy</apiName><shortdesc>
+      Paramètre facultatif qui, le cas échéant, est utilisé pour calculer la valeur value au niveau de cette image-clé ou de l’image-clé précédente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Paramètre facultatif qui, le cas échéant, est utilisé pour calculer la valeur <codeph>value</codeph> au niveau de cette image-clé ou de l’image-clé précédente. Si la valeur <codeph>value</codeph> n’est pas définie pour l’image-clé précédente, mais que cette image-clé définit à la fois <codeph>value</codeph> et <codeph>valueBy</codeph>, alors la valeur <codeph>value</codeph> de l’image-clé précédente est calculée en soustrayant la valeur <codeph>valueBy</codeph> de l’image-clé de sa valeur <codeph>value</codeph>.
+     
+      <p>De même, si la valeur <codeph>value</codeph> de cette image-clé n’est pas définie, mais que la valeur <codeph>valueBy</codeph> de cette image-clé et la valeur <codeph>value</codeph> de l’image-clé précédente sont toutes deux définies, alors la valeur <codeph>value</codeph> de cette image-clé est calculée en ajoutant la valeur <codeph>value</codeph> de l’image-clé précédente à la valeur <codeph>valueBy</codeph> de cette image-clé.</p>
+      
+      <p>La valeur <codeph>valueBy</codeph> est ignorée pour la première image-clé d’une séquence, car elle s’applique uniquement à l’intervalle précédent une image-clé et qu’il n’existe pas d’intervalle précédent pour la première image-clé.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:value"><apiName>value</apiName><shortdesc>
+      Valeur de la propriété de la cible de l’effet à la position temporelle spécifiée par la propriété time.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur de la propriété de la cible de l’effet à la position temporelle spécifiée par la propriété <codeph>time</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:IAnimationTarget"><apiName>IAnimationTarget</apiName><shortdesc>
+  L’interface IAnimationTarget est implémentée par les classes qui prennent en charge les événements d’une occurrence Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IAnimationTarget est implémentée par les classes qui prennent en charge les événements d’une occurrence Animation.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Animation"><linktext>spark.effects.animation.Animation</linktext></link></related-links><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationEnd"><apiName>animationEnd</apiName><shortdesc>
+      Appelée à la fin d’une occurrence Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Objet Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelée à la fin d’une occurrence Animation.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationRepeat"><apiName>animationRepeat</apiName><shortdesc>
+      Appelée lorsqu’une occurrence Animation se répète.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Objet Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelée lorsqu’une occurrence Animation se répète. La valeur de la propriété <codeph>repeatCount</codeph> de l’occurrence Animation doit être 0 (répétition à l’infini) ou un nombre supérieur à 1.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationStart"><apiName>animationStart</apiName><shortdesc>
+      Appelée au début d’une occurrence Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Objet Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelée au début d’une occurrence Animation. Si un délai d’attente <codeph>startDelay</codeph> est défini pour l’animation, cette fonction est appelée à l’issue de ce délai.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationStop"><apiName>animationStop</apiName><shortdesc>
+      Appelée à l’arrêt d’une occurrence Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Objet Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelée à l’arrêt d’une occurrence Animation. Ceci diffère de la méthode <codeph>animationEnd</codeph>, qui est appelée lorsque l’animation se termine, définissant automatiquement les valeurs de fin des cibles. La méthode <codeph>animationStop()</codeph> est appelée lorsque une animation est arrêtée là où elle se trouve. Manipuler cet événement permet le nettoyage nécessaire lorsque l’animation est interrompue. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationUpdate"><apiName>animationUpdate</apiName><shortdesc>
+      Appelée à chaque mise à jour d’une occurrence Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Objet Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelée à chaque mise à jour d’une occurrence Animation. Si une classe d’implémentation écoute une animation spécifique dans le but de réaliser une action après le calcul des valeurs d’animation pour une période donnée, il s’agit de la fonction dans laquelle ces valeurs doivent être utilisées. Les autres méthodes de cette interface sont davantage de nature informationnelle. Elles indiquent aux écouteurs lorsque l’objet Animation démarre, arrête ou est répétée. Cette méthode est appelée lorsque des valeurs ont été calculées et qu’elles peuvent être utilisées pour réaliser une action. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.animation:MotionPath"><apiName>MotionPath</apiName><shortdesc>
+  La classe MotionPath défini la collection d’objets Keyframes d’un effet et le nom de la propriété sur la cible à animer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="keyframes"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:MotionPath&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:MotionPath 
+    id="ID"
+    interpolator="NumberInterpolator"
+    keyframes="val"
+    property="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe MotionPath défini la collection d’objets Keyframes d’un effet et le nom de la propriété sur la cible à animer. Chaque objet KeyFrame définit la valeur de la propriété à un instant précis pendant l’effet. L’effet calcule ensuite la valeur de la propriété cible par interpolation, à partir des valeurs spécifiées par deux images-clés.
+  
+  </apiDesc><example conref="KeyFrameEffectExample.mxml"><swfblock conref="examples/KeyFrameEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Keyframe"><linktext>Keyframe</linktext></link><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link></related-links><apiConstructor id="spark.effects.animation:MotionPath:MotionPath"><apiName>MotionPath</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom de la propriété sur la cible à animer.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:MotionPath:clone"><apiName>clone</apiName><shortdesc>
+      Renvoie une copie de cet objet MotionPath, y compris les copies de chaque image-clé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Copie de cet objet MotionPath, y compris les copies de chaque image-clé.
+      
+      </apiDesc><apiOperationClassifier>spark.effects.animation:MotionPath</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une copie de cet objet MotionPath, y compris les copies de chaque image-clé.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:MotionPath:getValue"><apiName>getValue</apiName><shortdesc>
+      Calcule et renvoie une valeur interpolée, en fonction de la fraction de durée écoulée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur interpolée.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Fraction de la durée totale de l’effet (valeur comprise entre 0.0 et 1.0).
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Calcule et renvoie une valeur interpolée, en fonction de la fraction de durée écoulée. La fonction détermine l’intervalle d’images-clés correspondant à la fraction et réalise dans cet intervalle une interpolation entre les valeurs des images-clés délimitant l’intervalle.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:MotionPath:interpolator"><apiName>interpolator</apiName><shortdesc>
+      L’interpolateur détermine comment sont calculées les valeurs intermédiaires d’une animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+      L’interpolateur détermine comment sont calculées les valeurs intermédiaires d’une animation. Par défaut, la classe MotionPath suppose que les valeurs sont de type Number et peut calculer automatiquement les valeurs Number intermédiaires. Si des images-clés contenant des valeurs autres que des valeurs Number sont fournies à la classe MotionPath ou si le comportement souhaité doit utiliser une autre approche d’interpolation (interpolation de couleurs par canal, par exemple), il est nécessaire de fournir un interpolateur.
+     
+      <p>Flex fournit des interpolateurs prédéfinis dans le package spark.effects.interpolation.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:MotionPath:keyframes"><apiName>keyframes</apiName><shortdesc>
+      Séquence d’objets KeyFrame représentant les paires position temporelle/valeur que la propriété utilise pendant l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Vector$spark.effects.animation:Keyframe"/></apiValueDef><apiDesc>
+      Séquence d’objets KeyFrame représentant les paires position temporelle/valeur que la propriété utilise pendant l’animation. Chaque paire successive d’images-clés contrôle l’animation pendant le laps de temps qui les sépare. Les propriétés facultatives <codeph>easer</codeph> et <codeph>valueBy</codeph> de l’image-clé la plus récente sont utilisées pour déterminer le comportement pendant cet intervalle. La séquence d’images-clés doit être triée par ordre croissant des valeurs temporelles.
+     
+      <p>Les animations commencent toujours à la position time=0 et leur durée correspond à la valeur de la propriété <codeph>time</codeph> de la dernière image-clé. Si aucune image-clé n’est définie à la position time=0, cette image-clé est implicite et la valeur de la propriété cible au moment où l’animation commence est alors utilisée. </p>
+     
+      <p>Les images-clés définissant explicitement les positions temporelles impliquées dans une animation, la durée d’un effet utilisant des images-clés dépend de la position temporelle maximale de l’image-clé finale de tous les objets MotionPath de l’effet. Par exemple, si un effet compose des images-clés aux positions temporelles 0, 500, 1000 et 2000, la durée réelle de cet effet est de 2000 ms, même si la propriété <codeph>duration</codeph> est définie pour l’effet lui-même. Comme l’image-clé finale détermine la durée, un objet MotionPath doit toujours comporter une image-clé finale. Implicitement, la position temporelle de l’image-clé finale correspond à la durée de l’objet MotionPath.</p>
+     
+      <p>La valeur <codeph>value</codeph> d’une image-clé peut ne pas être définie (soit parce qu’aucune valeur n’est précisée, soit parce que la valeur est <codeph>null</codeph> ou <codeph>NaN</codeph>). Dans ce cas, la valeur est déterminée dynamiquement au démarrage de l’animation. Une valeur non définie est déterminée comme suit :  </p>
+      <ol>
+        <li>S’il s’agit de la première image-clé, elle est calculée à partir de l’image-clé suivante si les propriétés <codeph>value</codeph> et <codeph>valueBy</codeph> de cette dernière sont toutes deux définies. La valeur calculée correspond alors à la différence entre ces valeurs. Dans tous les autres cas, la valeur correspond à la valeur actuelle de la propriété obtenue auprès de la cible.</li>
+        <li>S’il s’agit de l’image-clé finale et que l’animation fait partie d’une transition, la valeur de l’état d’affichage de destination de la transition est utilisée.</li>
+        <li>Dans tous les autres cas, la valeur <codeph>value</codeph> d’une image-clé est calculée en ajoutant la valeur <codeph>value</codeph> de l’image-clé précédente à la valeur <codeph>valueBy</codeph> de l’image-clé actuelle, si cette propriété <codeph>valueBy</codeph> est définie. </li>
+      </ol>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#Keyframe"><linktext>Keyframe</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:MotionPath:property"><apiName>property</apiName><shortdesc>
+      Nom de la propriété à animer sur l’effet cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom de la propriété à animer sur l’effet cible.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:RepeatBehavior"><apiName>RepeatBehavior</apiName><shortdesc>
+  La classe RepeatBehavior définit les constantes à utiliser avec la propriété repeatBehavior des classes Animate et Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe RepeatBehavior définit les constantes à utiliser avec la propriété <codeph>repeatBehavior</codeph> des classes Animate et Animation.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Animate/repeatBehavior"><linktext>spark.effects.Animate.repeatBehavior</linktext></link><link href="spark.effects.animation.xml#Animation/repeatBehavior"><linktext>Animation.repeatBehavior</linktext></link></related-links><apiValue id="spark.effects.animation:RepeatBehavior:LOOP"><apiName>LOOP</apiName><shortdesc>
+     Spécifie qu’une animation répétée doit être lue en sens normal pour chaque répétition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>loop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Spécifie qu’une animation répétée doit être lue en sens normal pour chaque répétition.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:RepeatBehavior:REVERSE"><apiName>REVERSE</apiName><shortdesc>
+     Spécifie qu’une animation répétée doit être lue à l’envers pour chaque répétition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>reverse</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Spécifie qu’une animation répétée doit être lue à l’envers pour chaque répétition. Par exemple, une animation inversée serait lue en avant sur les mêmes itérations et en marche arrière sur les itérations impaires. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:SimpleMotionPath"><apiName>SimpleMotionPath</apiName><shortdesc>
+  La classe SimpleMotionPath spécifie le nom d’une propriété et les différentes valeurs prises par cette propriété, pour les occurrences de l’effet Animate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="keyframes"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.animation:MotionPath</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SimpleMotionPath spécifie le nom d’une propriété et les différentes valeurs prises par cette propriété, pour les occurrences de l’effet Animate. 
+ 
+  <p>Cette classe est une sous-classe simple de MotionPath permettant de définir deux images-clés contenant les propriétés <codeph>valueFrom</codeph>, <codeph>valueTo</codeph> et <codeph>valueBy</codeph>. La classe MotionPath elle-même peut définir un nombre illimité d’images-clés.</p>
+ 
+  </apiDesc><example conref="SimpleMotionPathEffectExample.mxml"><swfblock conref="examples/SimpleMotionPathEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>MotionPath</linktext></link></related-links><apiConstructor id="spark.effects.animation:SimpleMotionPath:SimpleMotionPath"><apiName>SimpleMotionPath</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom de la propriété animée.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFrom</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Valeur initiale de la propriété.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>valueTo</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Valeur finale de la propriété.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>valueBy</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Paramètre facultatif spécifiant le delta à utiliser pour calculer la valeur de début ou de fin si l’une d’entre elles est omise. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. Vous pouvez spécifier les deux paramètres <codeph>valueFrom</codeph> et <codeph>valueTo</codeph>, ou spécifier le paramètre <codeph>valueBy</codeph> et soit <codeph>valueFrom</codeph>, soit <codeph>valueTo</codeph>. Si vous omettez ces paramètres, Flex les calcule à partir de la cible de l’effet.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.animation:SimpleMotionPath:valueBy:get"><apiName>valueBy</apiName><shortdesc>
+      Propriété facultative spécifiant le delta utilisé pour calculer la valeur valueFrom ou valueTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Propriété facultative spécifiant le delta utilisé pour calculer la valeur <codeph>valueFrom</codeph> ou <codeph>valueTo</codeph>. Grâce à cette propriété facultative, l’effet peut calculer les valeurs de début ou de fin nécessaires si l’une d’entre elles n’est pas spécifiée ou si elles doivent être déterminées de façon dynamique au début de l’animation.
+     
+      <p>La valeur <codeph>valueBy</codeph> est utilisée de différentes manières, en fonction des valeurs définies. Si aucune valeur n’est définie, la valeur <codeph>valueFrom</codeph> est déterminée en fonction de la valeur actuelle de la propriété dans la cible et la valeur de <codeph>valueTo</codeph> est égale à <codeph>valueFrom + valueBy</codeph>. Si seulement l’une des deux valeurs est définie, la valeur non définie est calculée par l’autre valeur : <codeph>valueTo = valueFrom + valueBy</codeph> ou <codeph>valueFrom = valueTo - valueBy</codeph>. Si les deux valeurs sont définies, la propriété <codeph>valueBy</codeph> est ignorée.</p>
+     
+      <p><codeph>valueBy</codeph> étant une valeur de type Object, l’effet ne peut pas calculer directement les autres valeurs à partir de cette valeur. Il utilise l’interpolateur de l’effet pour calculer les valeurs, en appelant les méthodes <codeph>increment()</codeph> et <codeph>decrement()</codeph> de l’interpolateur. Si aucun interpolateur n’est défini, NumberInterpolator est utilisé par défaut.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:SimpleMotionPath:valueFrom:get"><apiName>valueFrom</apiName><shortdesc>
+      Valeur de départ de la propriété pendant l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur de départ de la propriété pendant l’animation.
+     
+      <p>La valeur null ou NaN (dans le cas de valeurs Number) spécifie qu’une valeur doit être déterminée de façon dynamique lors de l’exécution, soit en l’extrayant directement à partir de la propriété cible, soit en la calculant si l’autre valeur est valide et qu’une valeur <codeph>valueBy</codeph> valide est également fournie.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:SimpleMotionPath:valueTo:get"><apiName>valueTo</apiName><shortdesc>
+      Valeur vers laquelle la propriété nommée progressera dans le cadre de l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Valeur vers laquelle la propriété nommée progressera dans le cadre de l’animation.
+     
+      <p>La valeur null ou l’élément NaN (dans le cas de valeurs Number) spécifie qu’une valeur doit être déterminée de façon dynamique lors de l’exécution, soit en l’extrayant directement à partir de la propriété cible, soit en la calculant si l’autre valeur est valide et qu’une valeur <codeph>valueBy</codeph> valide est également fournie.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:Animation"><apiName>Animation</apiName><shortdesc>
+  La classe Animation définit une animation qui se déroule entre les valeurs de début et de fin d’une propriété sur une période donnée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Animation définit une animation qui se déroule entre les valeurs de début et de fin d’une propriété sur une période donnée. L’animation peut correspondre à un changement de position (effet Move, par exemple), un changement de taille (effet Resize), un changement de visibilité (effet Fade) ou à d’autres types d’animations réalisées par des effets ou exécutées directement par le biais de la classe Animation.
+ 
+  <p>Cette classe définit la durée et les valeurs de l’animation. D’autres séquences de code, définies dans le code des effets ou de l’application, associent l’animation à des objets et des propriétés cible. Les valeurs d’animation produites par la classe Animation peuvent ainsi être appliquées à des objets et propriétés cible pour permettre l’animation de ces objets.</p>
+ 
+  <p>Pour définir des effets d’animation, la procédure normale consiste à créer une occurrence de la classe Animate ou une sous-classe d’Animate. Ainsi, vous créez une occurrence Animation dans la méthode <codeph>play()</codeph>. L’occurrence Animation accepte des valeurs de début, de fin, de durée, ainsi que des paramètres facultatifs, par exemple des objets d’accélération et d’interpolation.</p>
+ 
+  <p>L’objet Animation appelle des écouteurs d’événement au début et à la fin de l’animation, lorsque l’animation est répétée, mais aussi à intervalle régulier tout au long de l’animation. Ces appels transmettent des valeurs calculées par l’occurrence Animation à partir des valeurs de début et de fin et des objets d’accélération et d’interpolation. Ces valeurs peuvent ensuite être utilisées pour définir les valeurs des propriétés sur les objets cible.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Animate"><linktext>spark.effects.Animate</linktext></link><link href="spark.effects.supportClasses.xml#AnimateInstance"><linktext>spark.effects.supportClasses.AnimateInstance</linktext></link></related-links><apiConstructor id="spark.effects.animation:Animation:Animation"><apiName>Animation</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>duration</apiItemName><apiType value="Number"/><apiData>500</apiData><apiDesc>Durée de l’animation, en millisecondes.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Propriété devant faire l’objet d’une animation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Valeur initiale de la propriété.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Valeur finale de la propriété.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. Les paramètres facultatifs <codeph>property</codeph>, <codeph>startValue</codeph> et <codeph>endValue</codeph> définissent une animation simple utilisant un seul objet MotionPath et deux images-clés KeyFrame. Si une des valeurs n’est pas null, la valeur <codeph>startValue</codeph> devient la valeur <codeph>value</codeph> de la première image-clé, à la position temporelle 0, et la valeur <codeph>endValue</codeph> devient la valeur <codeph>value</codeph> de la deuxième image-clé, à la fin de l’animation.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:Animation:end"><apiName>end</apiName><shortdesc>
+      Interrompt l’animation, atteint immédiatement la fin de l’animation, et appelle la fonction animationEnd() sur la cible animationTarget. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Interrompt l’animation, atteint immédiatement la fin de l’animation, et appelle la fonction animationEnd() sur la cible <codeph>animationTarget</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:pause"><apiName>pause</apiName><shortdesc>
+      Suspend l’effet jusqu’à ce que la méthode resume() soit appelée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Suspend l’effet jusqu’à ce que la méthode <codeph>resume()</codeph> soit appelée. Si la méthode <codeph>stop()</codeph> est appelée avant la méthode <codeph>resume()</codeph>, il est impossible de reprendre l’animation.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:play"><apiName>play</apiName><shortdesc>
+      Démarre l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Démarre l’animation. Si l’animation est déjà en cours, elle est arrêtée puis relancée.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:resume"><apiName>resume</apiName><shortdesc>
+      Reprend l’effet après une interruption demandée par un appel de la méthode pause().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Reprend l’effet après une interruption demandée par un appel de la méthode <codeph>pause()</codeph>. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:stop"><apiName>stop</apiName><shortdesc>
+      Arrête l’animation et la termine sans appeler la méthode end(). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Arrête l’animation et la termine sans appeler la méthode <codeph>end()</codeph>. La fonction animationStop() sur la cible <codeph>animationTarget</codeph> sera appelée.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:Animation:currentValue"><apiName>currentValue</apiName><shortdesc>
+      Objet contenant les valeurs calculées correspondant à l’image en cours de l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet contenant les valeurs calculées correspondant à l’image en cours de l’animation. Les valeurs sont stockées sous forme de valeurs de mappage, en utilisant comme clé les noms de propriété.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:duration"><apiName>duration</apiName><shortdesc>
+      Durée de l’animation, en millisecondes, sans compter les répétitions définies par la propriété repeatCount.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>500</apiData><apiType value="Number"/><apiDefaultValue>500
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Durée de l’animation, en millisecondes, sans compter les répétitions définies par la propriété <codeph>repeatCount</codeph>.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:interpolator"><apiName>interpolator</apiName><shortdesc>
+      Interpolateur utilisé par l’occurrence Animation pour calculer les valeurs situées entre les valeurs de début et de fin de la propriété.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+      Interpolateur utilisé par l’occurrence Animation pour calculer les valeurs situées entre les valeurs de début et de fin de la propriété. Par défaut, la classe utilise la classe NumberInterpolator ou, dans les cas où les valeurs de début et de fin sont des tableaux ou des vecteurs, par la classe MultiValueInterpolator. L’interpolation d’autres types de données ou de valeurs Number devant être interpolées de façon différente, par exemple des valeurs <codeph>uint</codeph> contenant des informations de canal de couleur, peut être traitée en spécifiant un autre interpolateur.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link><link href="spark.effects.interpolation.xml#MultiValueInterpolator"><linktext>spark.effects.interpolation.MultiValueInterpolator</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:motionPaths"><apiName>motionPaths</apiName><shortdesc>
+      Jeu d’objets MotionPath définissant les propriétés et valeurs qui font l’objet d’une animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Vector$spark.effects.animation:MotionPath"/></apiValueDef><apiDesc>
+      Jeu d’objets MotionPath définissant les propriétés et valeurs qui font l’objet d’une animation.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>spark.effects.animation.MotionPath</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:animationTarget:get"><apiName>animationTarget</apiName><shortdesc>
+      Objet IAnimationTarget devant recevoir une notification pour tous les événements de début, de fin, de répétition et de mise à jour de cette animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.animation:IAnimationTarget</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Objet IAnimationTarget devant recevoir une notification pour tous les événements de début, de fin, de répétition et de mise à jour de cette animation. La valeur <codeph>null</codeph> indique qu’il n’y a pas de cible à notifier.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:cycleFraction:get"><apiName>cycleFraction</apiName><shortdesc>
+      La fraction en cours écoulée dans ’animation, après l’accélération a été appliqué. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      La fraction écoulé dans l’animation, après que l’accélération ait été appliquée. Cette valeur est comprise entre 0 et 1. Un « cycle » d’animation est définic comme une seule répétition de l’animation, où la propriété <codeph>repeatCount</codeph> définit le nombre de cycles qui seront joués.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:cycleTime:get"><apiName>cycleTime</apiName><shortdesc>
+      La position en millisecondes actuelle dans le cycle d’animation en cours. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      La position en millisecondes actuelle dans le cycle d’animation en cours. Cette valeur est comprise entre 0 et <codeph>duration</codeph>. Un « cycle » d’animation est définic comme une seule répétition de l’animation, où la propriété <codeph>repeatCount</codeph> définit le nombre de cycles qui seront lus. Utilisez la méthode <codeph>seek()</codeph> pour modifier la position de l’animation.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:easer:get"><apiName>easer</apiName><shortdesc>
+      Comportement d’accélération de cet effet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>Sine(.5)
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Comportement d’accélération de cet effet. Cet objet IEaser est utilisé pour convertir la partie écoulée de l’animation en partie accélérée, qui est ensuite utilisée pour calculer la valeur au niveau de cette fraction écoulée accélérée. 
+     
+      <p>La valeur <codeph>null</codeph> signifie qu’aucune accélération n’est mise en œuvre, ce qui revient à utiliser une accélération Linear ou <codeph>animation.easer = Linear.getInstance();</codeph>.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:isPlaying:get"><apiName>isPlaying</apiName><shortdesc>
+      Si la valeur est true, l’animation est en cours de lecture.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, l’animation est en cours de lecture. La valeur est <codeph>false</codeph>, sauf si l’animation a été lancée et n’a pas encore été arrêtée (soit par programmation, soit automatiquement) ni suspendue.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:playReversed:get"><apiName>playReversed</apiName><shortdesc>
+      Si la valeur est true, l’animation est lue à l’envers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, l’animation est lue à l’envers. Si l’animation est en cours de lecture dans la direction opposée à la valeur <codeph>playReversed</codeph> spécifiée, l’animation change de direction de manière dynamique.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+      Temps écoulé depuis le début de l’animation, en incluant le délai d’attente et les répétitions.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Temps écoulé depuis le début de l’animation, en incluant le délai d’attente et les répétitions. Pendant le premier cycle d’une animation, cette valeur est égale à celle de <codeph>cycleTime</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:repeatBehavior:get"><apiName>repeatBehavior</apiName><shortdesc>
+      Définit le comportement d’une animation répétée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RepeatBehavior.LOOP
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Définit le comportement d’une animation répétée. La propriété <codeph>repeatCount</codeph> d’une animation répétée est définie sur 0 ou sur une valeur supérieure à 1. Cette valeur doit être soit <codeph>RepeatBehavior.LOOP</codeph>, auquel cas l’animation est répétée systématiquement dans le même sens, soit <codeph>RepeatBehavior.REVERSE</codeph>, auquel cas l’animation est inversée à chaque répétition.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#RepeatBehavior"><linktext>spark.effects.animation.RepeatBehavior</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:repeatCount:set"><apiName>repeatCount</apiName><shortdesc>
+      Nombre de répétitions de cette animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre de répétitions de cette animation. La valeur 0 signifie qu’elle se répète indéfiniment.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:repeatDelay:set"><apiName>repeatDelay</apiName><shortdesc>
+      Délai d’attente, en millisecondes, avant le début de chaque cycle de répétition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Délai d’attente, en millisecondes, avant le début de chaque cycle de répétition. Si cette valeur n’est pas nulle, le cycle d’animation précédent s’arrête exactement au niveau de la valeur de fin. Cependant, les répétitions non retardées peuvent ignorer totalement cette valeur, lorsque l’animation passe progressivement d’un point situé peu avant la fin d’un cycle à un point situé peu après le début du cycle suivant. La valeur de cette propriété doit être supérieure ou égale à 0.
+     
+      <p>Cette propriété est utilisée pour la première répétition après le premier cycle de l’animation. Pour retarder le premier cycle de l’animation, utilisez la propriété <codeph>startDelay</codeph>.  </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#Animation/startDelay"><linktext>startDelay</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:startDelay:set"><apiName>startDelay</apiName><shortdesc>
+      Délai d’attente avant le début de l’animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Délai d’attente avant le début de l’animation. La valeur de cette propriété doit être supérieure ou égale à 0.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

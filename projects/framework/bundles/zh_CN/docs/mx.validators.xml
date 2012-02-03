@@ -1,0 +1,1495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.validators"><apiName>mx.validators</apiName><apiDetail/><apiClassifier id="mx.validators:CurrencyValidatorAlignSymbol"><apiName>CurrencyValidatorAlignSymbol</apiName><shortdesc>
+  CurrencyValidatorAlignSymbol 类定义用于指定货币符号对齐方式的值常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CurrencyValidatorAlignSymbol 类定义用于指定货币符号对齐方式的值常量。这些值在 <codeph>CurrencyValidator.alignSymbol</codeph> 属性中使用。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#CurrencyValidator"><linktext>mx.validators.CurrencyValidator</linktext></link></related-links><apiValue id="mx.validators:CurrencyValidatorAlignSymbol:ANY"><apiName>ANY</apiName><shortdesc>
+	  将“any”指定为 CurrencyValidator 类的货币符号的对齐方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>any</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将 <codeph>"any"</codeph> 指定为 CurrencyValidator 类的货币符号的对齐方式。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidatorAlignSymbol:LEFT"><apiName>LEFT</apiName><shortdesc>
+	  将“left”指定为 CurrencyValidator 类的货币符号的对齐方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将 <codeph>"left"</codeph> 指定为 CurrencyValidator 类的货币符号的对齐方式。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidatorAlignSymbol:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+	  将“right”指定为 CurrencyValidator 类的货币符号的对齐方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将 <codeph>"right"</codeph> 指定为 CurrencyValidator 类的货币符号的对齐方式。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:DateValidator"><apiName>DateValidator</apiName><shortdesc>
+  DateValidator 类用于验证字符串、日期或对象是否包含合适的日期以及是否符合指定的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:DateValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>  
+  
+  <pre>
+  &lt;mx:DateValidator 
+    allowedFormatChars="/\-. " 
+    dayListener="<i>Object specified by daySource</i>"
+    dayProperty="<i>No default</i>"
+    daySource="<i>No default</i>"
+    formatError= "Configuration error: Incorrect formatting string." 
+    inputFormat="MM/DD/YYYY" 
+    invalidCharError="The date contains invalid characters."
+    monthListener="<i>Object specified by monthSource</i>"
+    monthProperty="<i>No default</i>"
+    monthSource="<i>No default</i>"
+    validateAsString="true|false"
+    wrongDayError="Enter a valid day for the month."
+    wrongLengthError="Type the date in the format <i>inputFormat</i>." 
+    wrongMonthError="Enter a month between 1 and 12."
+    wrongYearError="Enter a year between 0 and 9999."
+    yearListener="<i>Object specified by yearSource</i>"
+    yearProperty="<i>No default</i>"
+    yearSource="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateValidator 类用于验证字符串、日期或对象是否包含合适的日期以及是否符合指定的格式。用户可以为月、日和年输入一位或两位数字。默认情况下，验证程序可确保以下格式：
+ 
+  <ul>
+    <li>月介于 1 和 12 之间（或者，对于 <codeph>Date</codeph> 对象，为 0-11）</li>
+    <li>日介于 1 和 31 之间</li>
+    <li>年是数字</li>
+  </ul>
+ 
+  <p>您可以按两种方式在 DateValidator 类中指定日期：</p>
+  <ul>
+    <li>包含日期的单个字符串 - 使用 <codeph>source</codeph> 和 <codeph>property</codeph> 属性指定字符串。该字符串可以包含数字和由 <codeph>allowedFormatChars</codeph> 属性指定的格式化字符，包括“/\-.”字符。默认情况下，字符串字段中的日期输入格式为“MM/DD/YYYY”，其中“MM”表示月，“DD”表示日，“YYYY”表示年。可以使用 <codeph>inputFormat</codeph> 属性指定不同的格式。</li>
+ 	  <li><codeph>Date</codeph> 对象。</li>
+    <li>包含日、月和年的对象或多个字段。可使用所有以下属性来指定日、月和年输入：<codeph>daySource</codeph>、<codeph>dayProperty</codeph>、<codeph>monthSource</codeph>、<codeph>monthProperty</codeph>、<codeph>yearSource</codeph> 和 <codeph>yearProperty</codeph>。</li>
+  </ul>
+  
+  </apiDesc><example conref="DateValidatorExample.mxml"><swfblock conref="examples/DateValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:DateValidator:DateValidator"><apiName>DateValidator</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:DateValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证日期。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字符串或对象。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证日期。
+	 
+	  <p>不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 validator 类，则必须实现此方法。 </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:DateValidator:validateDate"><apiName>validateDate</apiName><shortdesc>
+	  用于从自定义验证函数内调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:DateValidator</apiOperationClassifier><apiDesc>DateValidator 实例。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字段。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在值参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.date，则 <codeph>baseField</codeph> 值为“date”。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  用于从自定义验证函数内调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:DateValidator:dayProperty"><apiName>dayProperty</apiName><shortdesc>
+	  要验证的日属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  要验证的日属性的名称。此属性为可选项，但如果指定 <codeph>daySource</codeph> 属性，则应同时设置此属性。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:monthProperty"><apiName>monthProperty</apiName><shortdesc>
+	  要验证的月属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  要验证的月属性的名称。此属性为可选项，但如果指定 <codeph>monthSource</codeph> 属性，则应同时设置此属性。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:yearProperty"><apiName>yearProperty</apiName><shortdesc>
+	  要验证的年属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  要验证的年属性的名称。此属性为可选项，但如果指定 <codeph>yearSource</codeph> 属性，则应同时设置此属性。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc> 
+	  允许用于分隔月、日和年值的格式化字符集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"/\-. "
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  允许用于分隔月、日和年值的格式化字符集。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:dayListener:get"><apiName>dayListener</apiName><shortdesc> 
+	  侦听日子字段验证结果的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  侦听日子字段验证结果的组件。如果未进行指定，则使用为 <codeph>daySource</codeph> 属性指定的值。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:daySource:get"><apiName>daySource</apiName><shortdesc> 
+	  包含日字段的值的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  包含日字段的值的对象。如果为此属性指定值，则必须同时为 <codeph>dayProperty</codeph> 属性指定值。如果设置 <codeph>source</codeph> 和 <codeph>property</codeph> 属性，请不要使用此属性。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:formatError:get"><apiName>formatError</apiName><shortdesc> 
+	  inputFormat 属性的格式不正确时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Configuration error: Incorrect formatting string." 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>inputFormat</codeph> 属性的格式不正确时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:inputFormat:get"><apiName>inputFormat</apiName><shortdesc> 
+	  用于验证值的日期格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"MM/DD/YYYY"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  用于验证值的日期格式。“MM”表示月，“DD”表示日，“YYYY”表示年。此字符串区分大小写。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc> 
+	  日期中存在无效字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid characters in your date."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  日期中存在无效字符时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:monthListener:get"><apiName>monthListener</apiName><shortdesc> 
+	  侦听月子字段验证结果的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  侦听月子字段验证结果的组件。如果未进行指定，则使用为 <codeph>monthSource</codeph> 属性指定的值。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:monthSource:get"><apiName>monthSource</apiName><shortdesc> 
+	  包含月字段的值的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  包含月字段的值的对象。如果为此属性指定值，则必须同时为 <codeph>monthProperty</codeph> 属性指定值。如果设置 <codeph>source</codeph> 和 <codeph>property</codeph> 属性，请不要使用此属性。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:validateAsString:get"><apiName>validateAsString</apiName><shortdesc> 
+	  确定验证值的方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true	 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  确定验证值的方式。如果设置为 <codeph>true</codeph>，除非值具有 <codeph>month</codeph>、<codeph>day</codeph> 或 <codeph>year</codeph> 属性，否则验证程序将值作为字符串进行评估。如果为 <codeph>false</codeph>，则验证程序将值作为日期对象进行评估。 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:wrongDayError:get"><apiName>wrongDayError</apiName><shortdesc> 
+	  日无效时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Enter a valid day for the month." 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  日无效时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:wrongLengthError:get"><apiName>wrongLengthError</apiName><shortdesc> 
+	  日期的长度不符合 inputFormat 属性时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Type the date in the format &lt;i>inputFormat&lt;/i>." 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  日期的长度不符合 <codeph>inputFormat</codeph> 属性时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:wrongMonthError:get"><apiName>wrongMonthError</apiName><shortdesc> 
+	  月无效时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Enter a month between 1 and 12."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  月无效时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:wrongYearError:get"><apiName>wrongYearError</apiName><shortdesc> 
+	  年无效时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Enter a year between 0 and 9999."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  年无效时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:yearListener:get"><apiName>yearListener</apiName><shortdesc> 
+	  侦听年子字段验证结果的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  侦听年子字段验证结果的组件。如果未进行指定，则使用为 <codeph>yearSource</codeph> 属性指定的值。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:DateValidator:yearSource:get"><apiName>yearSource</apiName><shortdesc> 
+	  包含年字段的值的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  包含年字段的值的对象。如果为此属性指定值，则必须同时为 <codeph>yearProperty</codeph> 属性指定值。如果设置 <codeph>source</codeph> 和 <codeph>property</codeph> 属性，请不要使用此属性。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:ZipCodeValidator"><apiName>ZipCodeValidator</apiName><shortdesc>
+  ZipCodeValidator 类用于验证字符串是否具有五位邮政编码、五位+四位美国邮政编码或加拿大邮政编码的正确长度和格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:ZipCodeValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:ZipCodeValidator
+    allowedFormatChars=" -" 
+    domain="US Only | US or Canada | Canada Only"
+    invalidCharError="The ZIP code contains invalid characters." 
+    invalidDomainError="The domain parameter is invalid. It must be either 'US Only', 'Canada Only', or 'US or Canada'." 
+    wrongCAFormatError="The Canadian postal code must be formatted 'A1B 2C3'." 
+    wrongLengthError="The ZIP code must be 5 digits or 5+4 digits." 
+    wrongUSFormatError="The ZIP+4 code must be formatted '12345-6789'." 
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZipCodeValidator 类用于验证字符串是否具有五位邮政编码、五位+四位美国邮政编码或加拿大邮政编码的正确长度和格式。
+  
+  </apiDesc><example conref="ZipCodeValidatorExample.mxml"><swfblock conref="examples/ZipCodeValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.validators.xml#ZipCodeValidatorDomainType"><linktext>mx.validators.ZipCodeValidatorDomainType</linktext></link></related-links><apiConstructor id="mx.validators:ZipCodeValidator:ZipCodeValidator"><apiName>ZipCodeValidator</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:ZipCodeValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证邮政编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证邮政编码。
+     
+      <p>不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 Validator 类，则必须实现此方法。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:ZipCodeValidator:validateZipCode"><apiName>validateZipCode</apiName><shortdesc>
+      用于调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:ZipCodeValidator</apiOperationClassifier><apiDesc>ZipCodeValidator 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字段。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在 <codeph>value</codeph> 参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.zipCode，则 <codeph>baseField</codeph> 值为 <codeph>"zipCode"</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:ZipCodeValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc> 
+      邮政编码中允许的格式化字符集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>" -". 
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      邮政编码中允许的格式化字符集。这不能包括数字或字母 [a-z A-Z]。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:domain:get"><apiName>domain</apiName><shortdesc> 
+      要检查的邮政编码的类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ZipCodeValidatorDomainType.US_ONLY
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      要检查的邮政编码的类型。在 MXML 中，有效值为 <codeph>"US or Canada"</codeph>、<codeph>"US Only"</codeph> 和 <codeph>"Canada Only"</codeph>。
+     
+      <p>在 ActionScript 中，可以使用以下常量来设置此属性：<codeph>ZipCodeValidatorDomainType.US_ONLY</codeph>、<codeph>ZipCodeValidatorDomainType.US_OR_CANADA</codeph> 或 <codeph>ZipCodeValidatorDomainType.CANADA_ONLY</codeph>。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc> 
+      邮政编码包含无效字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The ZIP code contains invalid characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      邮政编码包含无效字符时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:invalidDomainError:get"><apiName>invalidDomainError</apiName><shortdesc> 
+      domain 属性包含无效值时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The domain parameter is invalid. It must be either 'US Only' or 'US or Canada'."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      <codeph>domain</codeph> 属性包含无效值时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:wrongCAFormatError:get"><apiName>wrongCAFormatError</apiName><shortdesc> 
+      加拿大邮政编码无效时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The Canadian postal code must be formatted 'A1B 2C3'."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      加拿大邮政编码无效时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:wrongLengthError:get"><apiName>wrongLengthError</apiName><shortdesc> 
+      美国邮政编码无效时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The ZIP code must be 5 digits or 5+4 digits."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      美国邮政编码无效时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidator:wrongUSFormatError:get"><apiName>wrongUSFormatError</apiName><shortdesc> 
+      邮政编码格式不正确时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The ZIP+4 code must be formatted '12345-6789'."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      邮政编码格式不正确时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:IValidator"><apiName>IValidator</apiName><shortdesc>
+  该接口指定 Validator 对象必须实现的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  该接口指定 Validator 对象必须实现的方法和属性。 
+  <p>该接口可以用来验证在 mx 和 spark 命名空间中定义的多个数据类型，例如数字、货币、电话号码和邮政编码等。mx:Validator 类和 spark:GlobaliationValidatorBase 类实现该接口。这些类中的 validateAll() 方法使用该接口类型调用多个 validator 对象上的 validate() 方法。</p>
+  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#Validator"><linktext>mx.validators.Validator</linktext></link><link href="" invalidHref="spark.validators.GlobalizationValidatorBase.xml"><linktext>spark.validators.GlobalizationValidatorBase</linktext></link></related-links><apiOperation id="mx.validators:IValidator:mx.validators:IValidator:validate"><apiName>validate</apiName><shortdesc>
+      执行验证并（可选）将结果通知给侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含验证结果的 ValidationResultEvent 对象。如果验证成功，则 <codeph>ValidationResultEvent.results</codeph> 数组属性为空。如果验证失败，则 <codeph>ValidationResultEvent.results</codeph> 数组属性包含验证程序所检查的每个字段的一个 ValidationResult 对象，对于验证失败的字段和通过验证的字段都是如此。检查 <codeph>ValidationResult.isError</codeph> 属性以确定字段的验证是通过还是失败。 
+     
+      </apiDesc><apiOperationClassifier>mx.events:ValidationResultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要验证的可选值。如果为 null，则验证程序使用 <codeph>source</codeph> 和 <codeph>property</codeph> 属性确定值。如果指定此参数，则还应设置 <codeph>listener</codeph> 属性以指定验证错误消息的目标组件。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>suppressEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>false</codeph>，则在验证后，验证程序会将结果通知给侦听器。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      执行验证并（可选）将结果通知给侦听器。 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:IValidator:mx.validators:IValidator:enabled:get"><apiName>enabled</apiName><shortdesc>
+      用于启用/禁用验证过程的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于启用/禁用验证过程的属性。
+      <p>将此值设置为 <codeph>false</codeph> 将停止验证程序执行验证操作。禁用验证程序时，它将不分派任何事件，且 <codeph>validate()</codeph> 方法返回 null。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+  CurrencyValidator 类确保字符串表示有效货币表达式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.validators:CurrencyValidator" replacement="spark.validators.CurrencyValidator" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:CurrencyValidator&gt;</code> tag
+  inherits all of the tag properties of its superclass,
+  and adds the following tag properties:</p>
+ 
+  <pre>
+  &lt;mx:CurrencyValidator
+    alignSymbol="left|right|any"
+    allowNegative="true|false"
+    currencySymbol="$"
+    currencySymbolError="The currency symbol occurs in an invalid location."
+    decimalPointCountError="The decimal separator can occur only once."
+    decimalSeparator="."
+    exceedsMaxError="The amount entered is too large."
+    invalidCharError="The input contains invalid characters."
+    invalidFormatCharsError="One of the formatting parameters is invalid."
+    lowerThanMinError="The amount entered is too small."
+    maxValue="NaN"
+    minValue="NaN"
+    negativeError="The amount may not be negative."
+    precision="2"
+    precisionError="The amount entered has too many digits beyond the decimal point."
+    separationError="The thousands separator must be followed by three digits."
+    thousandsSeparator=","
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CurrencyValidator 类确保字符串表示有效货币表达式。它可确保输入处于给定范围（由 <codeph>minValue</codeph> 和 <codeph>maxValue</codeph> 指定）内，为非负值（由 <codeph>allowNegative</codeph> 指定）并且不超过指定的 <codeph>precision</codeph>。CurrencyValidator 类可正确验证带格式和无格式的货币表达式，例如，“$12,345.00”和“12345”。您可以自定义 <codeph>currencySymbol</codeph>、<codeph>alignSymbol</codeph>、<codeph>thousandsSeparator</codeph> 和 <codeph>decimalSeparator</codeph> 属性以实现国际化。
+ 
+  </apiDesc><example conref="CurrencyValidatorExample.mxml"><swfblock conref="examples/CurrencyValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.validators.xml#CurrencyValidatorAlignSymbol"><linktext>mx.validators.CurrencyValidatorAlignSymbol</linktext></link></related-links><apiConstructor id="mx.validators:CurrencyValidator:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:CurrencyValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证货币表达式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证货币表达式。
+     
+      <p>不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 Validator 类，则必须实现此方法。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:CurrencyValidator:validateCurrency"><apiName>validateCurrency</apiName><shortdesc>
+      用于调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:CurrencyValidator</apiOperationClassifier><apiDesc>CurrencyValidator 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在 <codeph>value</codeph> 参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.currency，则 baseField 值为“currency”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:CurrencyValidator:alignSymbol:get"><apiName>alignSymbol</apiName><shortdesc>
+      指定 currencySymbol 相对于其余表达式的对齐方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CurrencyValidatorAlignSymbol.LEFT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定 <codeph>currencySymbol</codeph> 相对于其余表达式的对齐方式。ActionScript 中的可接受的值为 <codeph>CurrencyValidatorAlignSymbol.LEFT</codeph>、<codeph>CurrencyValidatorAlignSymbol.RIGHT</codeph> 和 <codeph>CurrencyValidatorAlignSymbol.ANY</codeph>。MXML 中的可接受的值为 <codeph>"left"</codeph>、<codeph>"right"</codeph> 和 <codeph>"any"</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.validators.xml#CurrencyValidatorAlignSymbol"><linktext>mx.validators.CurrencyValidatorAlignSymbol</linktext></link></related-links></apiValue><apiValue id="mx.validators:CurrencyValidator:allowNegative:get"><apiName>allowNegative</apiName><shortdesc>
+      指定是否允许为负数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否允许为负数。可以为 <codeph>true</codeph> 或 <codeph>false</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:currencySymbolError:get"><apiName>currencySymbolError</apiName><shortdesc>
+      currencySymbol 所定义的货币符号所处位置不当时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The currency symbol occurs in an invalid location."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>currencySymbol</codeph> 所定义的货币符号所处位置不当时的错误消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      用于指定货币符号（如“$”、“R$”或“&amp;#163;”）的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"$"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于指定货币符号（如“$”、“R$”或“£”）的字符 String。不能是数字且必须有别于 <codeph>thousandsSeparator</codeph> 和 <codeph>decimalSeparator</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:decimalPointCountError:get"><apiName>decimalPointCountError</apiName><shortdesc>
+      多次出现小数分隔符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The decimal separator can only occur once."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      多次出现小数分隔符时的错误消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      用于分隔数字的整数部分和小数部分的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于分隔数字的整数部分和小数部分的字符。不能是数字且必须有别于 <codeph>currencySymbol</codeph> 和 <codeph>thousandsSeparator</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:exceedsMaxError:get"><apiName>exceedsMaxError</apiName><shortdesc>
+      值大于 maxValue 时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered is too large."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值大于 <codeph>maxValue</codeph> 时的错误消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+      货币包含无效字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The input contains invalid characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      货币包含无效字符时的错误消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:invalidFormatCharsError:get"><apiName>invalidFormatCharsError</apiName><shortdesc>
+      值包含的格式化字符无效时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"One of the formatting parameters is invalid."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值包含的格式化字符无效时的错误消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:lowerThanMinError:get"><apiName>lowerThanMinError</apiName><shortdesc>
+      值小于 minValue 时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered is too small."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值小于 <codeph>minValue</codeph> 时的错误消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:maxValue:get"><apiName>maxValue</apiName><shortdesc>
+      有效数字的最大值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有效数字的最大值。值为 NaN 表示忽略此属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:minValue:get"><apiName>minValue</apiName><shortdesc>
+      有效数字的最小值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有效数字的最小值。值为 NaN 表示忽略此属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:negativeError:get"><apiName>negativeError</apiName><shortdesc>
+      值为负且 allowNegative 属性为 false 时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount may not be negative."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值为负且 <codeph>allowNegative</codeph> 属性为 <codeph>false</codeph> 时的错误消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:precisionError:get"><apiName>precisionError</apiName><shortdesc>
+      值的精度超过 precision 属性所定义值时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered has too many digits beyond 
+      the decimal point."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值的精度超过 <codeph>precision</codeph> 属性所定义值时的错误消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:precision:get"><apiName>precision</apiName><shortdesc>
+      小数点后允许的最大位数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>2
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      小数点后允许的最大位数。可以为任何非负整数。注意：设置为 <codeph>0</codeph> 与将 <codeph>NumberValidator.domain</codeph> 设置为 <codeph>int</codeph> 效果相同。将其设置为 -1 表示忽略此属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:separationError:get"><apiName>separationError</apiName><shortdesc>
+      千分位分隔符置于不正确位置时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The thousands separator must be followed by three digits."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      千分位分隔符置于不正确位置时的错误消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CurrencyValidator:thousandsSeparator:get"><apiName>thousandsSeparator</apiName><shortdesc>
+      用于分隔千分位的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于分隔千分位的字符。不能是数字且必须有别于 <codeph>currencySymbol</codeph> 和 <codeph>decimalSeparator</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:NumberValidatorDomainType"><apiName>NumberValidatorDomainType</apiName><shortdesc>
+  NumberValidatorDomainType 类定义 NumberValidator 类的 domain 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberValidatorDomainType 类定义 NumberValidator 类的 <codeph>domain</codeph> 属性值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#NumberValidator"><linktext>mx.validators.NumberValidator</linktext></link></related-links><apiValue id="mx.validators:NumberValidatorDomainType:INT"><apiName>INT</apiName><shortdesc>
+	  指定用于验证整数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>int</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  指定用于验证整数。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidatorDomainType:REAL"><apiName>REAL</apiName><shortdesc>
+	  指定用于验证实数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>real</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  指定用于验证实数。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:StringValidator"><apiName>StringValidator</apiName><shortdesc>
+  StringValidator 类用于验证字符串的长度是否位于指定范围内。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:StringValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and add the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:StringValidator
+    maxLength="NaN" 
+    minLength="NaN" 
+    tooLongError="This string is longer than the maximum allowed length. This must be less than {0} characters long." 
+    tooShortError="This string is shorter than the minimum allowed length. This must be at least {0} characters long." 
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StringValidator 类用于验证字符串的长度是否位于指定范围内。 
+  
+  </apiDesc><example conref="StringValidatorExample.mxml"><swfblock conref="examples/StringValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:StringValidator:StringValidator"><apiName>StringValidator</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:StringValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证字符串。
+     
+      <p>不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 Validator 类，则必须实现此方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:StringValidator:validateString"><apiName>validateString</apiName><shortdesc>
+      用于调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:StringValidator</apiOperationClassifier><apiDesc>StringValidator 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字段。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>在 <codeph>value</codeph> 参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.mystring，则 <codeph>baseField</codeph> 值为 <codeph>"mystring"</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:StringValidator:maxLength:get"><apiName>maxLength</apiName><shortdesc> 
+      有效字符串的最大长度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      有效字符串的最大长度。值为 NaN 表示忽略此属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:StringValidator:minLength:get"><apiName>minLength</apiName><shortdesc> 
+      有效字符串的最小长度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      有效字符串的最小长度。值为 NaN 表示忽略此属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:StringValidator:tooLongError:get"><apiName>tooLongError</apiName><shortdesc> 
+      字符串的长度长于 maxLength 属性时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"This string is longer than the maximum allowed length. This must be less than {0} characters long."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      字符串的长度长于 <codeph>maxLength</codeph> 属性时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:StringValidator:tooShortError:get"><apiName>tooShortError</apiName><shortdesc> 
+      字符串的长度短于 minLength 属性时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"This string is shorter than the minimum allowed length. This must be at least {0} characters long."
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      字符串的长度短于 <codeph>minLength</codeph> 属性时的错误消息。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:ZipCodeValidatorDomainType"><apiName>ZipCodeValidatorDomainType</apiName><shortdesc>
+  ZipCodeValidatorDomainType 类定义 ZipCodeValidator 类的 domain 属性的值，此值用于指定要验证的邮政编码的类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZipCodeValidatorDomainType 类定义 ZipCodeValidator 类的 <codeph>domain</codeph> 属性的值，此值用于指定要验证的邮政编码的类型。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#ZipCodeValidator"><linktext>mx.validators.ZipCodeValidator</linktext></link></related-links><apiValue id="mx.validators:ZipCodeValidatorDomainType:CANADA_ONLY"><apiName>CANADA_ONLY</apiName><shortdesc>
+	  指定该常量可验证加拿大的邮政编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Canada Only</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  指定该常量可验证加拿大的邮政编码。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidatorDomainType:US_ONLY"><apiName>US_ONLY</apiName><shortdesc>
+	  指定以验证美国邮政编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>US Only</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  指定以验证美国邮政编码。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ZipCodeValidatorDomainType:US_OR_CANADA"><apiName>US_OR_CANADA</apiName><shortdesc>
+	  指定以验证美国或加拿大邮政编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>US or Canada</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  指定以验证美国或加拿大邮政编码。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:RegExpValidator"><apiName>RegExpValidator</apiName><shortdesc> 
+  RegExpValidator 类允许您使用正则表达式验证字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RegExpValidator&gt;</code> tag 
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:RegExpValidator
+    expression="<i>No default</i>" 
+    flags="<i>No default</i>" 
+    noExpressionError="The expression is missing." 
+    noMatchError="The field is invalid." 
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  RegExpValidator 类允许您使用正则表达式验证字段。可使用 <codeph>expression</codeph> 属性将正则表达式传递给验证程序，然后使用 <codeph>flags</codeph> 属性传递用于控制正则表达式模式匹配情况的其他标志。 
+ 
+  <p>如果验证程序可以在要验证的字段中找到正则表达式的匹配项，则验证成功。如果验证程序找不到匹配项，则会出现验证错误。</p>
+ 
+  <p>RegExpValidator 类分派 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件。对于 <codeph>invalid</codeph> 事件，事件对象是 ValidationResultEvent 类的实例，并且它包含 ValidationResult 对象的数组。</p>
+ 
+  <p>但是，对于 <codeph>valid</codeph> 事件，ValidationResultEvent 对象包含 RegExpValidationResult 对象的数组。RegExpValidationResult 类是 ValidationResult 类的子类，并且包含与正则表达式一起使用的其他属性，其中包括：</p>
+  <ul>
+    <li><codeph>matchedIndex</codeph> 包含匹配项输入字符串中的起始索引的整数。</li>
+    <li><codeph>matchedString</codeph> 包含与正则表达式匹配的输入字符串的子字符串的字符串。</li>
+    <li><codeph>matchedSubStrings</codeph> 包含用括弧括住的子字符串匹配项（如果有）的字符串数组。如果未找到子字符串匹配项，则此数组的长度为 0。使用 matchedSubStrings[0] 访问第一个子字符串匹配项。</li>
+  </ul>
+  
+  </apiDesc><example conref="RegExValidatorExample.mxml"><swfblock conref="examples/RegExValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.validators.xml#RegExpValidationResult"><linktext>mx.validators.RegExpValidationResult</linktext></link><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link><link href="" invalidHref="mx.validators.RegExp.xml"><linktext>RegExp</linktext></link></related-links><apiConstructor id="mx.validators:RegExpValidator:RegExpValidator"><apiName>RegExpValidator</apiName><shortdesc> 
+      构造函数
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc> 
+      构造函数
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:RegExpValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证正则表达式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>对于无效结果，为 ValidationResult 对象的数组，其中包含验证程序所检查的每个字段的一个 ValidationResult 对象。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证正则表达式。
+     
+      <p>不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 Validator 类，则必须实现此方法。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.validators:RegExpValidator:expression:get"><apiName>expression</apiName><shortdesc>
+      要用于验证的正则表达式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      要用于验证的正则表达式。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidator:flags:get"><apiName>flags</apiName><shortdesc>
+      匹配时使用的正则表达式标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      匹配时使用的正则表达式标志。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidator:noExpressionError:get"><apiName>noExpressionError</apiName><shortdesc> 
+      未指定任何正则表达式时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc> 
+      未指定任何正则表达式时的错误消息。默认值为“The expression is missing”。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidator:noMatchError:get"><apiName>noMatchError</apiName><shortdesc> 
+      没有正则表达式的匹配项时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc> 
+      没有正则表达式的匹配项时的错误消息。默认值为“The field is invalid”。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+  NumberValidator 类确保字符串表示有效数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.validators:NumberValidator" replacement="spark.validators.NumberValidator" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:NumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:NumberValidator 
+    allowNegative="true|false" 
+    decimalPointCountError="The decimal separator can only occur once." 
+    decimalSeparator="." 
+    domain="real|int" 
+    exceedsMaxError="The number entered is too large." 
+    integerError="The number must be an integer." 
+    invalidCharError="The input contains invalid characters." 
+    invalidFormatCharsError="One of the formatting parameters is invalid." 
+    lowerThanMinError="The amount entered is too small." 
+    maxValue="NaN" 
+    minValue="NaN" 
+    negativeError="The amount may not be negative." 
+    precision="-1" 
+    precisionError="The amount entered has too many digits beyond the decimal point." 
+    separationError="The thousands separator must be followed by three digits." 
+    thousandsSeparator="," 
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberValidator 类确保字符串表示有效数字。它可确保输入处于给定范围（由 <codeph>minValue</codeph> 和 <codeph>maxValue</codeph> 指定）内，是整数（由 <codeph>domain</codeph> 指定），为非负值（由 <codeph>allowNegative</codeph> 指定）并且不超过指定的 <codeph>precision</codeph>。验证程序可正确验证带格式的数字（例如，“12,345.67”），并且您可以自定义 <codeph>thousandsSeparator</codeph> 和 <codeph>decimalSeparator</codeph> 属性以实现国际化。
+  
+  </apiDesc><example conref="NumberValidatorExample.mxml"><swfblock conref="examples/NumberValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:NumberValidator:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:NumberValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的对象。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证数字。
+     
+	  <p>不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 Validator 类，则必须实现此方法。 </p>
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:NumberValidator:validateNumber"><apiName>validateNumber</apiName><shortdesc>
+      用于从自定义验证函数内调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:NumberValidator</apiOperationClassifier><apiDesc>NumberValidator 实例。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字段。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在 <codeph>value</codeph> 参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.number，则 <codeph>baseField</codeph> 值为“number”。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于从自定义验证函数内调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:NumberValidator:allowNegative:get"><apiName>allowNegative</apiName><shortdesc>
+      指定是否允许为负数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否允许为负数。有效值为 <codeph>true</codeph> 或 <codeph>false</codeph>。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:decimalPointCountError:get"><apiName>decimalPointCountError</apiName><shortdesc>
+      多次出现小数分隔符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The decimal separator can occur only once."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      多次出现小数分隔符时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      用于分隔数字的整数部分和小数部分的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于分隔数字的整数部分和小数部分的字符。不能是数字且必须有别于 <codeph>thousandsSeparator</codeph>。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:domain:get"><apiName>domain</apiName><shortdesc>
+      要验证的数字类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"real"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要验证的数字类型。允许的值为 <codeph>"real"</codeph> 和 <codeph>"int"</codeph>。
+	 
+	  <p>在 ActionScript 中，您可以使用下列常量来设置此属性：<codeph>NumberValidatorDomainType.REAL</codeph> 或 <codeph>NumberValidatorDomainType.INT</codeph>。</p>
+     
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:exceedsMaxError:get"><apiName>exceedsMaxError</apiName><shortdesc>
+      值超过 maxValue 属性时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The number entered is too large."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值超过 <codeph>maxValue</codeph> 属性时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:integerError:get"><apiName>integerError</apiName><shortdesc>
+      数字必须为整数（如 domain 属性所定义）时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The number must be an integer."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数字必须为整数（如 <codeph>domain</codeph> 属性所定义）时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+      值包含无效字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>The input contains invalid characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值包含无效字符时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:invalidFormatCharsError:get"><apiName>invalidFormatCharsError</apiName><shortdesc>
+      值包含无效格式字符（这意味着它包含数字或负号 (-) 作为分隔符，或者它包含两个或多个连续分隔符）时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"One of the formatting parameters is invalid."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值包含无效格式字符（这意味着它包含数字或负号 (-) 作为分隔符，或者它包含两个或多个连续分隔符）时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:lowerThanMinError:get"><apiName>lowerThanMinError</apiName><shortdesc>
+      值小于 minValue 时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered is too small."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值小于 <codeph>minValue</codeph> 时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:maxValue:get"><apiName>maxValue</apiName><shortdesc>
+      有效数字的最大值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有效数字的最大值。值为 NaN 表示没有最大值。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:minValue:get"><apiName>minValue</apiName><shortdesc>
+      有效数字的最小值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      有效数字的最小值。值为 NaN 表示没有最小值。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:negativeError:get"><apiName>negativeError</apiName><shortdesc>
+      值为负且 allowNegative 属性为 false 时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount may not be negative."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值为负且 <codeph>allowNegative</codeph> 属性为 <codeph>false</codeph> 时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:precisionError:get"><apiName>precisionError</apiName><shortdesc>
+      值的精度超过 precision 属性所定义值时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The amount entered has too many digits beyond the decimal point."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      值的精度超过 precision 属性所定义值时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:precision:get"><apiName>precision</apiName><shortdesc>
+      小数点后允许的最大位数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      小数点后允许的最大位数。可以为任何非负整数。注意：设置为 <codeph>0</codeph> 与将 <codeph>domain</codeph> 设置为 <codeph>"int"</codeph> 效果相同。值为 -1 表示忽略此属性。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:separationError:get"><apiName>separationError</apiName><shortdesc>
+      千分位分隔符所处位置不当时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The thousands separator must be followed by three digits."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      千分位分隔符所处位置不当时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:NumberValidator:thousandsSeparator:get"><apiName>thousandsSeparator</apiName><shortdesc>
+      用于在数字的整数部分中分隔千分位的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于在数字的整数部分中分隔千分位的字符。不能是数字且必须有别于 <codeph>decimalSeparator</codeph>。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:PhoneNumberValidator"><apiName>PhoneNumberValidator</apiName><shortdesc>
+  PhoneNumberValidator 类用于验证字符串是否为有效电话号码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:PhoneNumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:PhoneNumberValidator 
+    allowedFormatChars="()- .+" 
+    invalidCharError="Your telephone number contains invalid characters."
+ 	  minDigits="10"
+    wrongLengthError="Your telephone number must contain at least 10 digits."
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PhoneNumberValidator 类用于验证字符串是否为有效电话号码。有效电话号码包含至少 10 位数字，以及其它格式化字符。该验证程序不检查电话号码是否为实际有效的电话号码。
+  
+  </apiDesc><example conref="PhoneNumberValidatorExample.mxml"><swfblock conref="examples/PhoneNumberValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:PhoneNumberValidator:PhoneNumberValidator"><apiName>PhoneNumberValidator</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:PhoneNumberValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证电话号码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的对象。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证电话号码。
+     
+	  <p>通常不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 Validator 类，则必须实现此方法。 </p>
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:PhoneNumberValidator:validatePhoneNumber"><apiName>validatePhoneNumber</apiName><shortdesc>
+	  用于从自定义验证函数内调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:PhoneNumberValidator</apiOperationClassifier><apiDesc>PhoneNumberValidator 实例。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字段。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在 <codeph>value</codeph> 参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.phone，则 <codeph>baseField</codeph> 值为“phone”。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  用于从自定义验证函数内调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:PhoneNumberValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc> 
+	  允许的格式化字符集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"()- .+"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  允许的格式化字符集。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:PhoneNumberValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc> 
+	  值包含无效字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your telephone number contains invalid characters."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  值包含无效字符时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:PhoneNumberValidator:minDigits:get"><apiName>minDigits</apiName><shortdesc> 
+      有效电话号码的最小位数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>10
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      有效电话号码的最小位数。值为 NaN 表示忽略此属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:PhoneNumberValidator:wrongLengthError:get"><apiName>wrongLengthError</apiName><shortdesc> 
+	  值少于 10 位数字时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your telephone number must contain at least 10 digits."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  值少于 10 位数字时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:EmailValidator"><apiName>EmailValidator</apiName><shortdesc>
+  EmailValidator 类用于验证字符串中有一个 &amp;#64; 符号，域名中有句点，以及顶级域后缀中有两个、三个、四个或六个字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:EmailValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:EmailValidator 
+    invalidCharError="Your e-mail address contains invalid characters."
+    invalidDomainError= "The domain in your e-mail address is incorrectly formatted." 
+    invalidIPDomainError="The IP domain in your e-mail address is incorrectly formatted." 
+    invalidPeriodsInDomainError="The domain in your e-mail address has consecutive periods." 
+    missingAtSignError="An at sign (&64;) is missing in your e-mail address."
+    missingPeriodInDomainError="The domain in your e-mail address is missing a period." 
+    missingUsernameError="The username in your e-mail address is missing." 
+    tooManyAtSignsError="Your e-mail address contains too many &64; characters."
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  EmailValidator 类用于验证字符串中是否有一个 @ 符号，域名中是否有句点，以及顶级域后缀中是否有两个、三个、四个或六个字符。如果用方括号括住 IP 域名，则 IP 域名是有效的。验证程序不检查域名和用户名是否实际存在。
+ 
+  <p>如果用方括号括住 IP 域名，则可以使用它们；例如，myname@[206.132.22.1]。可以使用从 0 到 255 的各个 IP 数字。</p>
+  
+  </apiDesc><example conref="EmailValidatorExample.mxml"><swfblock conref="examples/EmailValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:EmailValidator:EmailValidator"><apiName>EmailValidator</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:EmailValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证电子邮件地址。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字符串或对象。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证电子邮件地址。
+	 
+	  <p>不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 Validator 类，则必须实现此方法。 </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:EmailValidator:validateEmail"><apiName>validateEmail</apiName><shortdesc>
+	  用于从自定义验证函数内调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:EmailValidator</apiOperationClassifier><apiDesc>EmailValidator 实例。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字段。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在值参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.email，则 <codeph>baseField</codeph> 值为“email”。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  用于从自定义验证函数内调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:EmailValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+	  电子邮件地址中存在无效字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your e-mail address contains invalid characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  电子邮件地址中存在无效字符时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:invalidDomainError:get"><apiName>invalidDomainError</apiName><shortdesc>
+	  后缀（顶级域）的长度不是 2、3、4 或 6 个字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The domain in your e-mail address is incorrectly formatted."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  后缀（顶级域）的长度不是 2、3、4 或 6 个字符时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:invalidIPDomainError:get"><apiName>invalidIPDomainError</apiName><shortdesc>
+	  IP 域无效时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The IP domain in your e-mail address is incorrectly formatted."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  IP 域无效时的错误消息。必须用方括号括住 IP 域。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:invalidPeriodsInDomainError:get"><apiName>invalidPeriodsInDomainError</apiName><shortdesc>
+	  域中存在连续句点时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The domain in your e-mail address has continous periods."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  域中存在连续句点时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:missingAtSignError:get"><apiName>missingAtSignError</apiName><shortdesc>
+	  电子邮件地址中不存在 @ 符号时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"An at sign (&amp;64;) is missing in your e-mail address."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  电子邮件地址中不存在 @ 符号时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:missingPeriodInDomainError:get"><apiName>missingPeriodInDomainError</apiName><shortdesc>
+	  域中不存在句点时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The domain in your e-mail address is missing a period."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  域中不存在句点时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:missingUsernameError:get"><apiName>missingUsernameError</apiName><shortdesc>
+	  不存在用户名时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The username in your e-mail address is missing."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  不存在用户名时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:EmailValidator:tooManyAtSignsError:get"><apiName>tooManyAtSignsError</apiName><shortdesc>
+	  电子邮件地址中存在多个 @ 符号时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your e-mail address contains too many &amp;64; characters."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+	  电子邮件地址中存在多个 @ 符号时的错误消息。此属性是可选的。 
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:RegExpValidationResult"><apiName>RegExpValidationResult</apiName><shortdesc>
+  RegExpValidator 类分派有效和无效事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:ValidationResult</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RegExpValidator 类分派 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件。对于 <codeph>invalid</codeph> 事件，事件对象是 ValidationResultEvent 类的实例，并且 <codeph>ValidationResultEvent.results</codeph> 属性包含 ValidationResult 对象的数组。
+ 
+  <p>但是，对于 <codeph>valid</codeph> 事件，<codeph>ValidationResultEvent.results</codeph> 属性包含 RegExpValidationResult 对象的数组。RegExpValidationResult 类是 ValidationResult 类的子类，并且包含与正则表达式一起使用的其他属性。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link></related-links><apiConstructor id="mx.validators:RegExpValidationResult:RegExpValidationResult"><apiName>RegExpValidationResult</apiName><shortdesc> 
+	  构造函数
+	  
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>isError</apiItemName><apiType value="Boolean"/><apiDesc>如果存在验证错误，则传递 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>subField</apiItemName><apiType value="String"/><apiData/><apiDesc>所验证对象的子字段的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>errorCode</apiItemName><apiType value="String"/><apiData/><apiDesc> 验证错误代码。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>errorMessage</apiItemName><apiType value="String"/><apiData/><apiDesc>验证错误消息。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matchedString</apiItemName><apiType value="String"/><apiData/><apiDesc>匹配子字符串。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matchedIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>匹配字符串的索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matchedSubstrings</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>子字符串匹配项的数组。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc> 
+	  构造函数
+	  
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.validators:RegExpValidationResult:matchedIndex"><apiName>matchedIndex</apiName><shortdesc> 
+	  包含匹配项输入字符串中的起始索引的整数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc> 
+	  包含匹配项输入字符串中的起始索引的整数。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidationResult:matchedString"><apiName>matchedString</apiName><shortdesc>
+	  包含与正则表达式匹配的输入字符串的子字符串的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  包含与正则表达式匹配的输入字符串的子字符串的字符串。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:RegExpValidationResult:matchedSubstrings"><apiName>matchedSubstrings</apiName><shortdesc>
+	  包含用括弧括住的子字符串匹配项（如果有）的字符串数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  包含用括弧括住的子字符串匹配项（如果有）的字符串数组。如果未找到子字符串匹配项，则此数组的长度为 0。使用 <codeph>matchedSubStrings[0]</codeph> 访问第一个子字符串匹配项。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:ValidationResult"><apiName>ValidationResult</apiName><shortdesc>
+  ValidationResult 类包含验证的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ValidationResult 类包含验证的结果。 
+ 
+  <p>ValidationResultEvent 类定义传递到 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 验证程序事件的事件侦听器的事件对象。该类还定义 <codeph>results</codeph> 属性，该属性包含 ValidationResult 对象的数组（验证程序所检查的每个字段的一个对象）。这样，您便可以从事件侦听器内访问 ValidationResult 对象。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link></related-links><apiConstructor id="mx.validators:ValidationResult:ValidationResult"><apiName>ValidationResult</apiName><shortdesc>
+	  构造函数
+	 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>isError</apiItemName><apiType value="Boolean"/><apiDesc>如果存在验证错误，则传递 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>subField</apiItemName><apiType value="String"/><apiData/><apiDesc>所验证对象的子字段的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>errorCode</apiItemName><apiType value="String"/><apiData/><apiDesc> 验证错误代码。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>errorMessage</apiItemName><apiType value="String"/><apiData/><apiDesc>验证错误消息。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数
+	 
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.validators:ValidationResult:errorCode"><apiName>errorCode</apiName><shortdesc>
+	  isError 属性的值为 true 时的验证错误代码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  <codeph>isError</codeph> 属性的值为 <codeph>true</codeph> 时的验证错误代码。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ValidationResult:errorMessage"><apiName>errorMessage</apiName><shortdesc>
+	  isError 属性的值为 true 时的验证错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  <codeph>isError</codeph> 属性的值为 <codeph>true</codeph> 时的验证错误消息。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ValidationResult:isError"><apiName>isError</apiName><shortdesc>
+	  如果字段发生了验证错误，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  如果字段发生了验证错误，则包含 <codeph>true</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:ValidationResult:subField"><apiName>subField</apiName><shortdesc>
+	  与结果关联的子字段的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  与结果关联的子字段的名称。某些验证程序（如 CreditCardValidator 和 DateValidator）可同时验证多个子字段。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:CreditCardValidatorCardType"><apiName>CreditCardValidatorCardType</apiName><shortdesc>
+  CreditCardValidatorCardType 类定义用于指定要验证的信用卡类型的值常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CreditCardValidatorCardType 类定义用于指定要验证的信用卡类型的值常量。这些值在 <codeph>CreditCardValidator.cardType</codeph> 属性中使用。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.validators.xml#CreditCardValidator"><linktext>mx.validators.CreditCardValidator</linktext></link></related-links><apiValue id="mx.validators:CreditCardValidatorCardType:AMERICAN_EXPRESS"><apiName>AMERICAN_EXPRESS</apiName><shortdesc>
+	  将卡类型指定为 American Express。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>American Express</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将卡类型指定为 American Express。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidatorCardType:DINERS_CLUB"><apiName>DINERS_CLUB</apiName><shortdesc>
+	  将卡类型指定为 Diners Club。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Diners Club</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将卡类型指定为 Diners Club。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidatorCardType:DISCOVER"><apiName>DISCOVER</apiName><shortdesc>
+	  将卡类型指定为 Discover。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Discover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将卡类型指定为 Discover。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidatorCardType:MASTER_CARD"><apiName>MASTER_CARD</apiName><shortdesc>
+	  将卡类型指定为 MasterCard。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>MasterCard</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将卡类型指定为 MasterCard。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidatorCardType:VISA"><apiName>VISA</apiName><shortdesc>
+	  将卡类型指定为 Visa。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Visa</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将卡类型指定为 Visa。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:Validator"><apiName>Validator</apiName><shortdesc>
+  Validator 类是所有 Flex 验证程序的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The Validator class defines the following tag attributes, 
+  which all of its subclasses inherit:</p>
+ 
+  <pre>
+  &lt;mx:Validator 
+    enabled="true|false" 
+    listener="<i>Value of the source property</i>" 
+    property="<i>No default</i>" 
+    required="true|false" 
+    requiredFieldError="This field is required." 
+    source="<i>No default</i>" 
+    trigger="<i>Value of the source property</i>" 
+    triggerEvent="valueCommit" 
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseInterface>mx.validators:IValidator</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Validator 类是所有 Flex 验证程序的基类。此类实现使验证程序生成必填字段的功能，必填字段是指用户必须在该字段中输入值，否则验证会失败。
+ 
+  </apiDesc><example conref="SimpleValidatorExample.mxml"><swfblock conref="examples/SimpleValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link><link href="mx.validators.xml#RegExpValidationResult"><linktext>mx.validators.RegExpValidationResult</linktext></link></related-links><adobeApiEvent id="mx.validators:Validator_mx.events.ValidationResultEvent.INVALID_invalid"><apiName>invalid</apiName><shortdesc> 
+  在验证失败时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ValidationResultEvent.INVALID</apiEventType><adobeApiEventClassifier>mx.events.ValidationResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc> 
+  在验证失败时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.validators:Validator_mx.events.ValidationResultEvent.VALID_valid"><apiName>valid</apiName><shortdesc>
+  在验证成功时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ValidationResultEvent.VALID</apiEventType><adobeApiEventClassifier>mx.events.ValidationResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在验证成功时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.validators:Validator:Validator"><apiName>Validator</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:Validator:protected:addListenerHandler"><apiName>addListenerHandler</apiName><shortdesc>
+      为从验证程序分派的有效和无效事件设置所有侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      为从验证程序分派的 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件设置所有侦听器。如果这些侦听器或资源之一的值发生更改，则 Validator 类的子类应先调用 <codeph>removeListenerHandler()</codeph> 方法，然后再调用 <codeph>addListenerHandler()</codeph> 方法。CreditCardValidator 和 DateValidator 类在内部使用此函数。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      执行此验证程序的验证逻辑，包括验证缺少值或空值是否会导致如 required 属性的值所定义的验证错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>对于无效结果，为 ValidationResult 对象的数组，其中包含验证程序所检查的每个验证失败的字段的一个 ValidationResult 对象。
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      执行此验证程序的验证逻辑，包括验证缺少值或空值是否会导致如 <codeph>required</codeph> 属性的值所定义的验证错误。
+     
+      <p>如果创建 validator 类的子类，则必须覆盖此方法。 </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiOperation id="mx.validators:Validator:protected:getValueFromSource"><apiName>getValueFromSource</apiName><shortdesc>
+      返回要验证的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>要验证的对象。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      返回要验证的对象。诸如 CreditCardValidator 和 DateValidator 类之类的子类将覆盖此方法，因为它们需要从多个子字段访问值。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:handleResults"><apiName>handleResults</apiName><shortdesc>
+      从错误结果数组返回 ValidationResultEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>validate()</codeph> 方法返回的 ValidationResultEvent。 
+      
+      </apiDesc><apiOperationClassifier>mx.events:ValidationResultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>errorResults</apiItemName><apiType value="Array"/><apiDesc>ValidationResult 对象的数组。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从错误结果数组返回 ValidationResultEvent。在内部，此函数从 <codeph>doValidation()</codeph> 方法获取结果，并将其置于 ValidationResultEvent 对象中。如果诸如 RegExpValidator 类之类的子类输出 ValidationResultEvent 对象的子类（如 RegExpValidationResult 对象）且需要使用其他信息填充该对象，则它们应该覆盖此函数。永远不要直接调用此函数，并且应该极少覆盖它。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:initialized"><apiName>initialized</apiName><shortdesc>
+       如果 Validator 是使用 MXML 标签创建的，则由 MXML 编译器自动调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>包含此 Validator 的 MXML 文档。
+      
+       </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>已忽略。
+       
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+       如果 Validator 是使用 MXML 标签创建的，则由 MXML 编译器自动调用。  
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:isRealValue"><apiName>isRealValue</apiName><shortdesc>
+      如果值不为 null，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果 <codeph>value</codeph> 不为 null，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要测试的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 <codeph>value</codeph> 不为 null，则返回 <codeph>true</codeph>。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:removeListenerHandler"><apiName>removeListenerHandler</apiName><shortdesc>
+      断开从验证程序分派的有效和无效事件的所有侦听器的连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      断开从验证程序分派的 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件的所有侦听器的连接。如果这些侦听器或资源之一的值发生更改，则子类应先调用 <codeph>removeListenerHandler()</codeph> 方法，然后再调用 <codeph>addListenerHandler</codeph> 方法。CreditCardValidator 和 DateValidator 类在内部使用此函数。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:protected:resourcesChanged"><apiName>resourcesChanged</apiName><shortdesc>
+      构造 Validator 后，每当 ResourceManager 又分派一个“change”事件以指示已通过某种方式更改了本地化资源时，将会调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      构造 Validator 后，每当 ResourceManager 又分派一个 <codeph>"change"</codeph> 事件以指示已通过某种方式更改了本地化资源时，将会调用此方法。
+     
+      <p>在下列情形中分派此事件：设置 ResourceManager 的 <codeph>localeChain</codeph> 属性时，资源模块完成加载时，以及调用 ResourceManager 的 <codeph>update()</codeph> 方法时。</p>
+     
+      <p>子类应覆盖此方法，并在调用 <codeph>super.resourcesChanged()</codeph> 后，执行任何适当的操作以响应新资源值。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:validateAll"><apiName>validateAll</apiName><shortdesc>
+      调用验证程序数组中的所有验证程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResultEvent 对象的数组，其中数组包含每个失败验证程序的一个 ValidationResultEvent 对象。如果所有验证程序都成功，则数组为空。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validators</apiItemName><apiType value="Array"/><apiDesc>包含要执行的 Validator 对象的数组。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      调用 <codeph>validators</codeph> 数组中的所有验证程序。返回一个数组，其中包含每个失败验证程序的一个 ValidationResultEvent 对象。如果所有验证程序都成功，则返回空数组。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:Validator:validate"><apiName>validate</apiName><shortdesc>
+      执行验证并（可选）将结果通知给侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含验证结果的 ValidationResultEvent 对象。如果验证成功，则 <codeph>ValidationResultEvent.results</codeph> 数组属性为空。如果验证失败，则 <codeph>ValidationResultEvent.results</codeph> 数组属性包含验证程序所检查的每个字段的一个 ValidationResult 对象，对于验证失败的字段和通过验证的字段都是如此。检查 <codeph>ValidationResult.isError</codeph> 属性以确定字段的验证是通过还是失败。 
+     
+      </apiDesc><apiOperationClassifier>mx.events:ValidationResultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要验证的可选值。如果为 null，则验证程序使用 <codeph>source</codeph> 和 <codeph>property</codeph> 属性确定值。如果指定此参数，则还应设置 <codeph>listener</codeph> 属性以指定验证错误消息的目标组件。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>suppressEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>false</codeph>，则在验证后，验证程序会将结果通知给侦听器。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      执行验证并（可选）将结果通知给侦听器。 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:Validator:protected:DECIMAL_DIGITS"><apiName>DECIMAL_DIGITS</apiName><shortdesc>
+      包含十进制数字 0 到 9 的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>0123456789</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      包含十进制数字 0 到 9 的字符串。    
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:ROMAN_LETTERS"><apiName>ROMAN_LETTERS</apiName><shortdesc>
+      包含大写和小写罗马字母（“A”到“Z”和“a”到“z”）的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      包含大写和小写罗马字母（“A”到“Z”和“a”到“z”）的字符串。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:required"><apiName>required</apiName><shortdesc>
+      如果为 true，则指定缺少值或空值将导致验证错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则指定缺少值或空值将导致验证错误。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:subFields"><apiName>subFields</apiName><shortdesc>
+      一个字符串数组，其中包含传递到 validate() 方法的 value 对象中所含属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      一个字符串数组，其中包含传递到 <codeph>validate()</codeph> 方法的 <codeph>value</codeph> 对象中所含属性的名称。例如，CreditCardValidator 将此属性设置为 <codeph>[ "cardNumber", "cardType" ]</codeph>。此值表示传递到 <codeph>validate()</codeph> 方法的 <codeph>value</codeph> 对象应该包含 <codeph>cardNumber</codeph> 和 <codeph>cardType</codeph> 属性。 
+     
+      <p>验证多个数据字段的 Validator 类的子类（如 CreditCardValidator 和 DateValidator）应该在其构造函数中分配这一属性。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:actualListeners:get"><apiName>actualListeners</apiName><shortdesc>
+      包含侦听器对象（如果有）的数组或源对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      包含侦听器对象（如果有）的数组或源对象。用于确定向哪个对象通知验证结果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:actualTrigger:get"><apiName>actualTrigger</apiName><shortdesc>
+      包含触发器对象（如果有）或源对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+      包含触发器对象（如果有）或源对象。用于确定 <codeph>triggerEvent</codeph> 的侦听器对象。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:enabled:get"><apiName>enabled</apiName><shortdesc> 
+      将此值设置为 false 将停止验证程序执行验证操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      将此值设置为 <codeph>false</codeph> 将停止验证程序执行验证操作。禁用验证程序时，它不分派任何事件，<codeph>validate()</codeph> 方法返回 null。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:listener:get"><apiName>listener</apiName><shortdesc>
+      指定验证侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      指定验证侦听器。
+     
+      <p>如果不指定侦听器，则 Flex 使用 <codeph>source</codeph> 属性的值。Flex 确定源组件后，它将更改组件的边框颜色，显示错误消息（如果验证失败）或者隐藏任何现有错误消息（如果验证成功）。</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:property:get"><apiName>property</apiName><shortdesc>
+      一个字符串，用于指定包含要验证的值的 source 对象的属性名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个字符串，用于指定包含要验证的值的 <codeph>source</codeph> 对象的属性名称。该属性为可选项，但如果指定 <codeph>source</codeph>，则应同时设置此属性的值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:requiredFieldError:get"><apiName>requiredFieldError</apiName><shortdesc>
+      缺少值和 required 属性为 true 时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"This field is required."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      缺少值和 <codeph>required</codeph> 属性为 <codeph>true</codeph> 时的错误消息。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc conref="mx.core.UIComponent#resourceManager">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="unused"/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.resources:IResourceManager</apiValueClassifier></apiValueDef><apiDesc conref="mx.core.UIComponent#resourceManager">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:source:get"><apiName>source</apiName><shortdesc>
+      指定包含要验证的属性的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定包含要验证的属性的对象。将此设置为组件或数据模型的实例。使用 MXML 中的数据绑定语法指定该值。此属性支持使用句点分隔的字符串指定嵌套属性。如果为 <codeph>source</codeph> 属性指定值，则应该同时为 <codeph>property</codeph> 属性指定值。<codeph>source</codeph> 属性是可选的。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:triggerEvent:get"><apiName>triggerEvent</apiName><shortdesc>
+      指定触发验证的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定触发验证的事件。如果省略，则 Flex 使用 <codeph>valueCommit</codeph> 事件。当用户完成在控件中输入数据时，Flex 分派 <codeph>valueCommit</codeph> 事件。通常，当用户从组件删除焦点或者以编程方式更改属性值时发生此操作。如果希望验证程序忽略所有事件，则将 <codeph>triggerEvent</codeph> 设置为空字符串 ("")。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:Validator:trigger:get"><apiName>trigger</apiName><shortdesc>
+      指定生成触发验证程序的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+      指定生成触发验证程序的组件。如果省略，则在默认情况下，Flex 使用 <codeph>source</codeph> 属性的值。当 <codeph>trigger</codeph> 分派 <codeph>triggerEvent</codeph> 时，执行验证。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:CreditCardValidator"><apiName>CreditCardValidator</apiName><shortdesc>
+  CreditCardValidator 类验证信用卡号码的长度是否正确，是否具有正确的前缀，以及是否为指定的卡类型传递 Luhn mod10 算法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:CreditCardValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:CreditCardValidator
+    allowedFormatChars=" -" 
+    cardNumberListener="<i>Object specified by cardNumberSource</i>"
+    cardNumberProperty="<i>No default</i>"
+    cardNumberSource="<i>No default</i>"
+    cardTypeListener="<i>Object specified by cardTypeSource</i>"
+    cardTypeProperty="<i>No default</i>"
+    cardTypeSource="<i>No default</i>"
+    invalidCharError= "Invalid characters in your credit card number. (Enter numbers only.)"
+    invalidNumberError="The credit card number is invalid." 
+    noNumError="No credit card number is specified."
+    noTypeError="No credit card type is specified or the type is not valid." 
+    wrongLengthError="Your credit card number contains the wrong number of digits." 
+    wrongTypeError="Incorrect card type is specified." 
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CreditCardValidator 类验证信用卡号码的长度是否正确，是否具有正确的前缀，以及是否为指定的卡类型传递 Luhn mod10 算法。此验证程序不检查信用卡是否为实际有效的信用卡帐户。
+ 
+  <p>您可以按两种方式指定 CreditCardValidator 的输入：</p>
+  <ul>
+    <li>使用 <codeph>cardNumberSource</codeph> 和 <codeph>cardNumberProperty</codeph> 属性指定信用卡号码的位置，使用 <codeph>cardTypeSource</codeph> 和 <codeph>cardTypeProperty</codeph> 属性指定要验证的信用卡类型的位置。</li>
+    <li>使用 <codeph>source</codeph> 和 <codeph>property</codeph> 属性指定单个对象。该对象应该包含以下字段：
+    <ul>
+        <li><codeph>cardType</codeph> - 指定要验证的信用卡的类型。 
+         <p>在 MXML 中，使用以下值：<codeph>"American Express"</codeph>、<codeph>"Diners Club"</codeph>、<codeph>"Discover"</codeph>、<codeph>"MasterCard"</codeph> 或 <codeph>"Visa"</codeph>。</p>
+         <p>在 ActionScript 中，使用静态常量 <codeph>CreditCardValidatorCardType.MASTER_CARD</codeph>、<codeph>CreditCardValidatorCardType.VISA</codeph> 或 <codeph>CreditCardValidatorCardType.AMERICAN_EXPRESS</codeph> <codeph>CreditCardValidatorCardType.DISCOVER</codeph> 或 <codeph>CreditCardValidatorCardType.DINERS_CLUB</codeph>。</p>
+          </li>
+       <li><codeph>cardNumber</codeph> - 指定要验证的卡的号码。</li>
+     </ul>
+    </li>
+  </ul>
+  
+  <p>为了执行验证，它使用以下指导原则：</p>
+  <p>长度:</p>
+  <ol>
+    <li>Visa：13 或 16 位数字</li> 
+    <li>MasterCard：16 位数字</li> 
+    <li>Discover：16 位数字</li> 
+    <li>American Express：15 位数字</li> 
+    <li>Diners Club：14 位数字，或者如果它还用作 MasterCard，则为 16 位数字</li>
+  </ol>
+  前缀：
+  <ol>
+    <li>Visa：4</li> 
+    <li>MasterCard：51 到 55</li>
+    <li>Discover：6011</li>
+    <li>American Express：34 或 37</li>
+    <li>Diners Club：300 到 305、36 或 38、51 到 55</li>
+  </ol>
+  
+  </apiDesc><example conref="CreditCardValidatorExample.mxml"><swfblock conref="examples/CreditCardValidatorExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.validators.xml#CreditCardValidatorCardType"><linktext>mx.validators.CreditCardValidatorCardType</linktext></link></related-links><apiConstructor id="mx.validators:CreditCardValidator:CreditCardValidator"><apiName>CreditCardValidator</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:CreditCardValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证信用卡号码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的对象。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证信用卡号码。
+	 
+	  <p>不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 Validator 类，则必须实现此方法。 </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:CreditCardValidator:validateCreditCard"><apiName>validateCreditCard</apiName><shortdesc>
+	  用于调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。 
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:CreditCardValidator</apiOperationClassifier><apiDesc>CreditCardValidator 实例。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字段，它必须包含以下字段：
+	  <ul>
+	    <li><codeph>cardType</codeph> - 指定要验证的信用卡的类型。使用静态常量 <codeph>CreditCardValidatorCardType.MASTER_CARD</codeph>、<codeph>CreditCardValidatorCardType.VISA</codeph>、<codeph>CreditCardValidatorCardType.AMERICAN_EXPRESS</codeph>、<codeph>CreditCardValidatorCardType.DISCOVER</codeph> 或 <codeph>CreditCardValidatorCardType.DINERS_CLUB</codeph>。</li>
+	    <li><codeph>cardNumber</codeph> - 指定要验证的卡的号码。</li></ul>
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在值参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.date，则 <codeph>baseField</codeph> 值为“date”。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  用于调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:CreditCardValidator:cardNumberProperty"><apiName>cardNumberProperty</apiName><shortdesc>
+	  要验证的卡号码属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  要验证的卡号码属性的名称。此属性为可选项，但如果指定 <codeph>cardNumberSource</codeph> 属性，则应同时设置此属性。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardTypeProperty"><apiName>cardTypeProperty</apiName><shortdesc>
+	  要验证的卡类型属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  要验证的卡类型属性的名称。此属性为可选项，但如果指定 <codeph>cardTypeSource</codeph> 属性，则应同时设置此属性。
+	 
+      <p>在 MXML 中，有效值为：</p>
+      <ul>
+        <li><codeph>"American Express"</codeph></li>
+        <li><codeph>"Diners Club"</codeph></li>
+        <li><codeph>"Discover"</codeph></li>
+        <li><codeph>"MasterCard"</codeph></li>
+        <li><codeph>"Visa"</codeph></li>
+      </ul>
+	 
+	  <p>在 ActionScript 中，可以使用以下常量来设置此属性：</p>
+	  <p><codeph>CreditCardValidatorCardType.AMERICAN_EXPRESS</codeph>、<codeph>CreditCardValidatorCardType.DINERS_CLUB</codeph>、<codeph>CreditCardValidatorCardType.DISCOVER</codeph>、<codeph>CreditCardValidatorCardType.MASTER_CARD</codeph> 和 <codeph>CreditCardValidatorCardType.VISA</codeph>。</p>
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.validators.xml#CreditCardValidatorCardType"><linktext>mx.validators.CreditCardValidatorCardType</linktext></link></related-links></apiValue><apiValue id="mx.validators:CreditCardValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc> 
+	  cardNumber 字段中允许的格式化字符集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>" -" (space and dash)
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardNumber</codeph> 字段中允许的格式化字符集。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardNumberListener:get"><apiName>cardNumberListener</apiName><shortdesc> 
+	  侦听卡号码子字段验证结果的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  侦听卡号码子字段验证结果的组件。如果未进行指定，则使用为 <codeph>cardNumberSource</codeph> 属性指定的值。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardNumberSource:get"><apiName>cardNumberSource</apiName><shortdesc> 
+	  包含卡号码字段的值的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  包含卡号码字段的值的对象。如果为此属性指定值，则必须同时为 <codeph>cardNumberProperty</codeph> 属性指定值。如果设置 <codeph>source</codeph> 和 <codeph>property</codeph> 属性，请不要使用此属性。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardTypeListener:get"><apiName>cardTypeListener</apiName><shortdesc> 
+	  侦听卡类型子字段验证结果的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.validators:IValidatorListener</apiValueClassifier></apiValueDef><apiDesc> 
+	  侦听卡类型子字段验证结果的组件。如果未进行指定，则使用为 <codeph>cardTypeSource</codeph> 属性指定的值。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:cardTypeSource:get"><apiName>cardTypeSource</apiName><shortdesc> 
+	  包含卡类型字段的值的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc> 
+	  包含卡类型字段的值的对象。如果为此属性指定值，则必须同时为 <codeph>cardTypeProperty</codeph> 属性指定值。如果设置 <codeph>source</codeph> 和 <codeph>property</codeph> 属性，请不要使用此属性。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc> 
+	  cardNumber 字段包含无效字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid characters in your credit card number. (Enter numbers only.)"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardNumber</codeph> 字段包含无效字符时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:invalidNumberError:get"><apiName>invalidNumberError</apiName><shortdesc> 
+	  信用卡号码无效时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The credit card number is invalid."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  信用卡号码无效时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:noNumError:get"><apiName>noNumError</apiName><shortdesc> 
+	  cardNumber 字段为空时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"No credit card number is specified."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardNumber</codeph> 字段为空时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:noTypeError:get"><apiName>noTypeError</apiName><shortdesc> 
+	  cardType 字段为空白时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"No credit card type is specified or the type is not valid."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardType</codeph> 字段为空白时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:wrongLengthError:get"><apiName>wrongLengthError</apiName><shortdesc>
+	  cardNumber 字段包含的指定信用卡类型的位数不正确时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Your credit card number contains the wrong number of digits." 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  <codeph>cardNumber</codeph> 字段包含的指定信用卡类型的位数不正确时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:CreditCardValidator:wrongTypeError:get"><apiName>wrongTypeError</apiName><shortdesc> 
+	  cardType 字段包含无效信用卡类型时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Incorrect card type is specified."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>cardType</codeph> 字段包含无效信用卡类型时的错误消息。您应该在 <codeph>cardType</codeph> 字段中使用以下预定义的常量：<codeph>CreditCardValidatorCardType.MASTER_CARD</codeph>、<codeph>CreditCardValidatorCardType.VISA</codeph>、<codeph>CreditCardValidatorCardType.AMERICAN_EXPRESS</codeph>、<codeph>CreditCardValidatorCardType.DISCOVER</codeph> 或 <codeph>CreditCardValidatorCardType.DINERS_CLUB</codeph>。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:SocialSecurityValidator"><apiName>SocialSecurityValidator</apiName><shortdesc>
+  SocialSecurityValidator 类用于验证字符串是否为有效的美国社会保障号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SocialSecurityValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SocialSecurityValidator
+    allowedFormatChars=" -"
+    invalidCharError="You entered invalid characters in your Social Security number."
+    wrongFormatError="The Social Security number must be 9 digits or in the form NNN-NN-NNNN."
+    zeroStartError="Invalid Social Security number; the number cannot start with 000."
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.validators:Validator</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SocialSecurityValidator 类用于验证字符串是否为有效的美国社会保障号。它不检查该号是否为现有社会保障号。
+ 
+  </apiDesc><example conref="SocialSecurityValidatorExample.mxml"><swfblock conref="examples/SocialSecurityValidatorExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.validators:SocialSecurityValidator:SocialSecurityValidator"><apiName>SocialSecurityValidator</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.validators:SocialSecurityValidator:protected:doValidation"><apiName>doValidation</apiName><shortdesc>
+      覆盖基类 doValidation() 方法以验证社会保障号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。
+	  
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的对象。
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      覆盖基类 <codeph>doValidation()</codeph> 方法以验证社会保障号。
+     
+	  <p>不要直接调用此方法；Flex 会在执行验证的过程中调用它。如果创建自定义 Validator 类，则必须实现此方法。</p>
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.validators:SocialSecurityValidator:validateSocialSecurity"><apiName>validateSocialSecurity</apiName><shortdesc>
+	  用于调用验证程序的方便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ValidationResult 对象的数组，验证程序检查的每个字段都有一个 ValidationResult 对象。
+	 
+	  </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>validator</apiItemName><apiOperationClassifier>mx.validators:SocialSecurityValidator</apiOperationClassifier><apiDesc>SocialSecurityValidator 实例。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要验证的字段。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>在 <codeph>value</codeph> 参数中指定的子字段的文本表示形式。例如，如果 <codeph>value</codeph> 参数指定 value.social，则 <codeph>baseField</codeph> 值为 <codeph>social</codeph>。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  用于调用验证程序的方便方法。每个标准 Flex 验证程序都有一个类似的方便方法。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.validators.xml#ValidationResult"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="mx.validators:SocialSecurityValidator:allowedFormatChars:get"><apiName>allowedFormatChars</apiName><shortdesc>
+	  指定输入中允许的格式化字符集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"()- .+" // ?????
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  指定输入中允许的格式化字符集。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:SocialSecurityValidator:invalidCharError:get"><apiName>invalidCharError</apiName><shortdesc>
+	  值包含 allowedFormatChars 属性定义的数字和格式化字符之外的字符时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"You entered invalid characters in your Social Security number."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  值包含 <codeph>allowedFormatChars</codeph> 属性定义的数字和格式化字符之外的字符时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:SocialSecurityValidator:wrongFormatError:get"><apiName>wrongFormatError</apiName><shortdesc>
+	  值的格式设置不正确时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The Social Security number must be 9 digits or in the form NNN-NN-NNNN."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  值的格式设置不正确时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:SocialSecurityValidator:zeroStartError:get"><apiName>zeroStartError</apiName><shortdesc>
+	  值包含无效社会保障号时的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid Social Security number; the number cannot start with 000."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  值包含无效社会保障号时的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.validators:IValidatorListener"><apiName>IValidatorListener</apiName><shortdesc>
+  组件为支持 Flex 数据验证机制而实现的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  组件为支持 Flex 数据验证机制而实现的接口。UIComponent 类实现此接口。因此，UIComponent 的任何子类也都可以实现它。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.validators:IValidatorListener:mx.validators:IValidatorListener:validationResultHandler"><apiName>validationResultHandler</apiName><shortdesc>
+	  处理分配给此组件的验证程序分派的 valid 和 invalid 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:ValidationResultEvent</apiOperationClassifier><apiDesc>用于验证的事件对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  处理分配给此组件的验证程序分派的 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件。  
+	 
+	  <p>您通常通过向验证程序分配事件侦听器来处理由验证程序分派的 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件。如果您希望直接在正在验证的组件中处理验证事件，则可以覆盖此方法以处理 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件。在实现中，如果验证程序也在侦听 <codeph>valid</codeph> 和 <codeph>invalid</codeph> 事件，则您可以使用 <codeph>dispatchEvent()</codeph> 方法分派这些事件。</p>
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ValidationResultEvent"><linktext>mx.events.ValidationResultEvent</linktext></link></related-links></apiOperation><apiValue id="mx.validators:IValidatorListener:mx.validators:IValidatorListener:errorString:get"><apiName>errorString</apiName><shortdesc>
+      当验证程序监视组件并且验证失败时，组件的错误提示中将显示的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      当验证程序监视组件并且验证失败时，组件的错误提示中将显示的文本。
+     
+      <p>您可以使用 <codeph>errorString</codeph> 属性显示组件的验证错误，而无需实际使用 validator 类。当您将 String 值写入 <codeph>errorString</codeph> 属性时，Flex 将在组件周围绘制红色边框以指示验证错误，并且当您将鼠标指针移至组件上方时，该 String 将作为验证错误消息显示在工具提示中，就像验证程序检测到验证错误一样。</p>
+     
+      <p>若要清除验证错误，请为 <codeph>errorString</codeph> 属性写入一个空 String ""。</p>
+     
+      <p>请注意，为 <codeph>errorString</codeph> 属性写入值不会触发 valid 或 invalid 事件，只会更改边框颜色和显示验证错误消息。</p>
+ 	  
+ 	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.validators:IValidatorListener:mx.validators:IValidatorListener:validationSubField:get"><apiName>validationSubField</apiName><shortdesc>
+	  由验证程序使用来分配子字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  由验证程序使用来分配子字段。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

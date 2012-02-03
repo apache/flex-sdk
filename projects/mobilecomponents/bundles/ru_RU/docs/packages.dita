@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apiMap><apiItemRef href="spark.core.xml"/><apiItemRef href="spark.events.xml"/><apiItemRef href="spark.layouts.xml"/><apiItemRef href="spark.managers.xml"/><apiItemRef href="spark.components.xml"><apiItemRef href="spark.components.supportClasses.xml"/><apiItemRef href="spark.components.calendarClasses.xml"/></apiItemRef><apiItemRef href="spark.preloaders.xml"/><apiItemRef href="spark.transitions.xml"/></apiMap>

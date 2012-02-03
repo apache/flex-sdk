@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics.codec"><apiName>mx.graphics.codec</apiName><apiDetail/><apiClassifier id="mx.graphics.codec:IImageEncoder"><apiName>IImageEncoder</apiName><shortdesc>
+  L’interface IImageEncoder définit l’interface implémentée par les encodeurs d’image pour prendre les objets BitmapData ou ByteArrays contenant des pixels bruts au format ARVB comme entrée et les convertir dans des formats d’image répandus, comme PNG ou JPEG. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IImageEncoder définit l’interface implémentée par les encodeurs d’image pour prendre les objets BitmapData ou ByteArrays contenant des pixels bruts au format ARVB comme entrée et les convertir dans des formats d’image répandus, comme PNG ou JPEG. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.codec.xml#PNGEncoder"><linktext>PNGEncoder</linktext></link><link href="mx.graphics.codec.xml#JPEGEncoder"><linktext>JPEGEncoder</linktext></link></related-links><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      Convertit un objet ByteArray contenant des pixels bruts au format ARVB(alpha, rouge, vert, bleu) 32 bits en tant que nouvel objet ByteArray contenant des données d’image codées. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie un objet ByteArray contenant des données d’image codées. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Objet ByteArray en entrée contenant des pixels bruts. Cette classe ByteArray doit contenir des octets <codeph>4 width height</codeph>. Chaque pixel est représenté par 4 octets, dans l’ordre ARVB. Les quatre premiers octets représentent le pixel situé dans le coin supérieur gauche de l’image. Les quatre octets suivants représentent le pixel à sa droite, etc. Chaque ligne suit la précédente sans marge. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>Largeur de l’image en entrée, en pixels.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>Hauteur de l’image en entrée, en pixels.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Si la valeur est <codeph>false</codeph>, les données de canal alpha sont ignorées. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit un objet ByteArray contenant des pixels bruts au format ARVB (alpha, rouge, vert, bleu) 32 bits en tant que nouvel objet ByteArray contenant des données d’image codées. L’objet ByteArray original reste inchangé. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encode"><apiName>encode</apiName><shortdesc>
+      Convertit un objet BitmapData en objet ByteArray. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie un objet ByteArray contenant des données d’image codées.  
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>Objet BitmapData en entrée. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit un objet BitmapData en objet ByteArray. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Type MIME du format de l’image produit par cet cet encodeur. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Type MIME du format de l’image produit par cet cet encodeur. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+  La classe JPEGEncoder convertit des images bitmap brutes en images codées au format de compression JPEG (Joint Photographic Experts Group). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe JPEGEncoder convertit des images bitmap brutes en images codées au format de compression JPEG (Joint Photographic Experts Group). Pour plus d’informations sur l’algorithme JPEG, voir le document http://www.opennet.ru/docs/formats/jpeg.txt par Cristi Cuturicu. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:JPEGEncoder:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>quality</apiItemName><apiType value="Number"/><apiData>50.0</apiData><apiDesc>Valeur comprise entre 0.0 et 100.0. Plus la valeur <codeph>quality</codeph> est faible, plus la taille de fichier de l’image résultante est petite. La valeur n’a aucune incidence sur la vitesse de codage. Notez que, bien qu’elle soit comprise entre 0.0 et 100.0, cette valeur ne représente pas un pourcentage. La valeur par défaut est 50.0.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:JPEGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      Convertit un objet ByteArray contenant des pixels bruts au format ARVB (alpha, rouge, vert, bleu) 32 bits en nouvel objet ByteArray codé au format JPEG. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie un objet ByteArray contenant des données d’image codées au format JPEG.  
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Objet ByteArray en entrée contenant des pixels bruts. Cette classe ByteArray doit contenir des octets <codeph>4 width height</codeph>. Chaque pixel est représenté par 4 octets, dans l’ordre ARVB. Les quatre premiers octets représentent le pixel situé dans le coin supérieur gauche de l’image. Les quatre octets suivants représentent le pixel à sa droite, etc. Chaque ligne suit la précédente sans marge. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>Largeur de l’image en entrée, en pixels.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>Hauteur de l’image en entrée, en pixels.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Si la valeur est <codeph>false</codeph>, les données de canal alpha sont ignorées. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit un objet ByteArray contenant des pixels bruts au format ARVB (alpha, rouge, vert, bleu) 32 bits en nouvel objet ByteArray codé au format JPEG. L’objet ByteArray original reste inchangé. La transparence n’est pas prise en charge. Toutefois, vous devez toujours représenter chaque pixel au format ARVB quatre octets. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:JPEGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      Convertit les pixels d’un objet BitmapData en objet ByteArray codé au format JPEG. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie un objet ByteArray contenant des données d’image codées au format JPEG. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>Objet BitmapData en entrée. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit les pixels d’un objet BitmapData en objet ByteArray codé au format JPEG. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:JPEGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Type MIME de l’image codée au format JPEG. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Type MIME de l’image codée au format JPEG. La valeur est <codeph>"image/jpeg"</codeph>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+  La classe PNGEncoder convertit les images bitmap brutes en images codées à l’aide du format de compression sans pertes PNG (Portable Network Graphics). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe PNGEncoder convertit les images bitmap brutes en images codées à l’aide du format de compression sans pertes PNG (Portable Network Graphics). 
+ 
+  <p>Pour plus d’informations sur la spécification PNG, voir http://www.w3.org/TR/PNG/.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:PNGEncoder:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:PNGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      Convertit un objet ByteArray contenant des pixels bruts au format ARVB (alpha, rouge, vert, bleu) 32 bits en nouvel objet ByteArray codé au format PNG. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie un objet ByteArray contenant des données d’image codées au format PNG.  
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Objet ByteArray en entrée contenant des pixels bruts. Cette classe ByteArray doit contenir des octets <codeph>4 width height</codeph>. Chaque pixel est représenté par 4 octets, dans l’ordre ARVB. Les quatre premiers octets représentent le pixel situé dans le coin supérieur gauche de l’image. Les quatre octets suivants représentent le pixel à sa droite, etc. Chaque ligne suit la précédente sans marge. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>Largeur de l’image en entrée, en pixels.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>Hauteur de l’image en entrée, en pixels.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Si la valeur est <codeph>false</codeph>, les données de canal alpha sont ignorées, mais vous devez toujours représenter chaque pixel par quatre octets au format ARVB. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit un objet ByteArray contenant des pixels au format ARVB (alpha, rouge, vert, bleu) 32 bits en nouvel objet ByteArray codé au format PNG. L’objet ByteArray original reste inchangé. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:PNGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      Convertit les pixels d’un objet BitmapData en objet ByteArray codé au format PNG. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie un objet ByteArray contenant des données d’image codées au format PNG. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>Objet BitmapData en entrée. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit les pixels d’un objet BitmapData en objet ByteArray codé au format PNG. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:PNGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Type MIME de l’image codée au format PNG. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Type MIME de l’image codée au format PNG. La valeur est <codeph>"image/png" </codeph>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

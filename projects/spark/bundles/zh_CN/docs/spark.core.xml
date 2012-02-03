@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.core"><apiName>spark.core</apiName><apiDetail/><apiClassifier id="spark.core:DisplayObjectSharingMode"><apiName>DisplayObjectSharingMode</apiName><shortdesc>
+  DisplayObjectSharingMode 类为 IGraphicElement 类的 displayObjectSharingMode 属性定义可能的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DisplayObjectSharingMode 类为 IGraphicElement 类的 <codeph>displayObjectSharingMode</codeph> 属性定义可能的值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.core.xml#IGraphicElement/displayObjectSharingMode"><linktext>IGraphicElement.displayObjectSharingMode</linktext></link></related-links><apiValue id="spark.core:DisplayObjectSharingMode:OWNS_SHARED_OBJECT"><apiName>OWNS_SHARED_OBJECT</apiName><shortdesc>
+      IGraphicElement 拥有一个同时由父 Group 容器指定给一些其它 IGraphicElement 的 DisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>ownsSharedObject</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      IGraphicElement 拥有一个同时由父 Group 容器指定给一些其它 IGraphicElement 的 DisplayObject。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:DisplayObjectSharingMode:OWNS_UNSHARED_OBJECT"><apiName>OWNS_UNSHARED_OBJECT</apiName><shortdesc>
+      IGraphicElement 专门拥有一个 DisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>ownsUnsharedObject</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      IGraphicElement 专门拥有一个 DisplayObject。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:DisplayObjectSharingMode:USES_SHARED_OBJECT"><apiName>USES_SHARED_OBJECT</apiName><shortdesc>
+      IGraphicElement 已由其父 Group 容器指定了一个 DisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>usesSharedObject</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      IGraphicElement 已由其父 Group 容器指定了一个 DisplayObject。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.core:IGraphicElement"><apiName>IGraphicElement</apiName><shortdesc>
+  IGraphicElement 是由利用父 IGraphicElementContainer 的 DisplayObject 管理的 IVisualElement 实现的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IGraphicElement 是由利用父 <codeph>IGraphicElementContainer</codeph> 的 DisplayObject 管理的 IVisualElement 实现的。
+ 
+  <p>一个典型用例是 DisplayObject 共享。实现 <codeph>IGraphicElementContainer</codeph> 的 Group 类在共享并绘制到相同 DisplayObject 的序列中组织其 IGraphicElement 子代。DisplayObject 是由序列中的第一个元素创建的。</p>
+ 
+  <p>另一个用例是当元素不是从 DisplayObject 派生而是维护、创建和/或破坏其自己的 DisplayObject 时。<codeph>IGraphicElementContainer</codeph> 将调用该元素以创建 DisplayObject，在正确的索引处将 DisplayObject 添加为其子代，以及处理其删除。</p> 
+ 
+  <p>通常您会扩展 GraphicElement 类，而不是直接实现 IGraphciElement 接口。GraphicElement 类已提供大多数所需功能。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.core.xml#IGraphicElementContainer"><linktext>spark.core.IGraphicElementContainer</linktext></link></related-links><apiOperation id="spark.core:IGraphicElement:spark.core:IGraphicElement:canShareWithNext"><apiName>canShareWithNext</apiName><shortdesc>
+      如果此 IGraphicElement 是兼容的且可以与序列中下一个 IGraphicElement 共享显示对象，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>此元素与序列中的上一个元素兼容时返回 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>spark.core:IGraphicElement</apiOperationClassifier><apiDesc>序列中在此元素之后的元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果此 IGraphicElement 是兼容的且可以与序列中下一个 IGraphicElement 共享显示对象，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#IGraphicElement/canShareWithPrevious"><linktext>canShareWithPrevious</linktext></link><link href="spark.core.xml#IGraphicElement/setSharedDisplayObject"><linktext>setSharedDisplayObject</linktext></link></related-links></apiOperation><apiOperation id="spark.core:IGraphicElement:spark.core:IGraphicElement:canShareWithPrevious"><apiName>canShareWithPrevious</apiName><shortdesc>
+      如果此 IGraphicElement 是兼容的且可以与序列中上一个 IGraphicElement 共享显示对象，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>此元素与序列中的上一个元素兼容时返回 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>spark.core:IGraphicElement</apiOperationClassifier><apiDesc>序列中在此元素之前的元素。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果此 IGraphicElement 是兼容的且可以与序列中上一个 IGraphicElement 共享显示对象，则返回 <codeph>true</codeph>。
+     
+      <p>在某些情况下，调用 <codeph>setSharedDisplayObject()</codeph> 方法时会将该元素本身传递到 <codeph>IGraphicElementContainer</codeph>。在这些情况下，不会调用此方法。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#IGraphicElement/canShareWithNext"><linktext>canShareWithNext</linktext></link><link href="spark.core.xml#IGraphicElement/setSharedDisplayObject"><linktext>setSharedDisplayObject</linktext></link></related-links></apiOperation><apiOperation id="spark.core:IGraphicElement:spark.core:IGraphicElement:createDisplayObject"><apiName>createDisplayObject</apiName><shortdesc>
+      创建一个新 DisplayObject 以用于绘制此 IGraphicElement。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>创建的显示对象。。
+     
+      </apiDesc><apiType value="flash.display:DisplayObject"/></apiReturn></apiOperationDef><apiDesc>
+      创建一个新 DisplayObject 以用于绘制此 IGraphicElement。
+      
+      <p>随后对 <codeph>displayObject</codeph> 属性的 getter 的调用必须返回相同的显示对象。</p>
+     
+      <p>在创建 DisplayObject 之后，父 <codeph>IGraphicElementContainer</codeph> 将沿着显示对象传递到序列中剩余的元素。</p>
+     
+      <p><codeph>IGraphicElementContainer</codeph> 确保只在需要时调用此方法。</p>
+     
+      <p>如果该元素希望参与 DisplayObject 共享，则新的 DisplayObject 必须实现 IShareableDisplayObject。此接口供 <codeph>IGraphicElementContainer</codeph> 使用，用于管理图形元素序列的失效和重新绘制，开发人员通常不能直接使用该接口。</p>
+     
+      <p>若要重新评估共享序列，请在 <codeph>IGraphicElementContainer</codeph> 上调用 <codeph>invalidateGraphicElementSharing()</codeph> 方法。</p>
+     
+      <p>要强制 <codeph>IGraphicElementContainer</codeph> 从其显示列表删除元素的当前 DisplayObject，并重新计算显示对象共享，请调用 <codeph>IGraphicElementContainer</codeph> 上的 <codeph>discardDisplayObject()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#IGraphicElement/displayObject"><linktext>displayObject</linktext></link><link href="spark.core.xml#IGraphicElementContainer/invalidateGraphicElementSharing"><linktext>spark.core.IGraphicElementContainer.invalidateGraphicElementSharing</linktext></link><link href="spark.core.xml#IGraphicElementContainer/discardDisplayObject"><linktext>spark.core.IGraphicElementContainer.discardDisplayObject</linktext></link></related-links></apiOperation><apiOperation id="spark.core:IGraphicElement:spark.core:IGraphicElement:parentChanged"><apiName>parentChanged</apiName><shortdesc>
+      将 IGraphicElement 添加到主机组件或从主机组件将其删除时由 IGraphicElementContainer 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>spark.core:IGraphicElementContainer</apiOperationClassifier><apiDesc>该 <codeph>IGraphicElement</codeph> 的 <codeph>IGraphicElementContainer</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 IGraphicElement 添加到主机组件或从主机组件将其删除时由 <codeph>IGraphicElementContainer</codeph> 调用。
+      <p>您通常无需调用此方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:IGraphicElement:spark.core:IGraphicElement:setSharedDisplayObject"><apiName>setSharedDisplayObject</apiName><shortdesc>
+      确定此元素是否可以将它自己绘制到该序列的 sharedDisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>当此 IGraphicElement 可以将它自己绘制到该序列的共享 DisplayObject 时返回 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>sharedDisplayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>共享的 DisplayObject。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定此元素是否可以将它自己绘制到该序列的 <codeph>sharedDisplayObject</codeph>。
+     
+      <p>当此 IGraphicElement 可以在共享的 DisplayObject <codeph>graphics</codeph> 属性中累积地绘制时，实现程序通常返回 <codeph>true</codeph>。在此 IGraphicElement 需要在 DisplayObject 上设置属性（不会应用于序列中的剩余元素）的所有情形下，此方法必须返回 <codeph>false</codeph>。此类属性的示例有 rotation、scale、transform、mask、alpha、filters、color transform、3D 和 layer。</p>
+     
+      <p>当此方法返回 <codeph>true</codeph> 时，随后对 <codeph>displayObject</codeph> 属性的 getter 的调用必须返回相同的显示对象。</p>
+     
+      <p>在某些情况下，<codeph>sharedDisplayObject</codeph> 属性可能本身就是 <codeph>IGraphicElementContainer</codeph>。在其余情形下，DisplayObject 是由序列中的第一个元素创建的。</p> 
+      
+      <p>当此 IGraphicElement 需要重新生成其序列时，它会通过调用其 <codeph>invalidateGraphicElementSharing()</codeph> 方法通知 <codeph>IGraphicElementContainer</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#IGraphicElement/canShareWithPrevious"><linktext>canShareWithPrevious</linktext></link><link href="spark.core.xml#IGraphicElement/canShareWithNext"><linktext>canShareWithNext</linktext></link><link href="spark.core.xml#IGraphicElementContainer/invalidateGraphicElementSharing"><linktext>spark.core.IGraphicElementContainer.invalidateGraphicElementSharing</linktext></link></related-links></apiOperation><apiOperation id="spark.core:IGraphicElement:spark.core:IGraphicElement:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+      由 IGraphicElementContainer 调用以在其 displayObject 属性中重新绘制此元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      由 <codeph>IGraphicElementContainer</codeph> 调用以在其 <codeph>displayObject</codeph> 属性中重新绘制此元素。
+     
+      <p>如果该元素是序列中的第一个元素（将 <codeph>displayObjectSharingMode</codeph> 设置为 <codeph>DisplayObjectSharingMode.OWNS_SHARED_OBJECT</codeph>），则它必须清除 <codeph>displayObject</codeph> 图形并根据需要对其进行设置以绘制剩余元素。</p>
+     
+      <p>必须始终重新绘制该元素，即使该元素本身在上次调用 <codeph>validateDisplayList()</codeph> 方法之后未发生更改时也是如此。如果需要重新绘制 <codeph>IGraphicElementContainer</codeph> 中的任何元素，则它将重新绘制整个序列。</p>
+     
+      <p>要确保调用此方法，请通过调用其 <codeph>invalidateGraphicElementSize()</codeph> 方法通知 <codeph>IGraphicElementContainer</codeph>。</p>  
+     
+      <p>即使此元素未通知 <codeph>IGraphicElementContainer</codeph>，也可能会调用此方法。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#IGraphicElement/displayObject"><linktext>displayObject</linktext></link><link href="spark.core.xml#IGraphicElement/validateProperties"><linktext>validateProperties</linktext></link><link href="spark.core.xml#IGraphicElement/validateSize"><linktext>validateSize</linktext></link></related-links></apiOperation><apiOperation id="spark.core:IGraphicElement:spark.core:IGraphicElement:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+      由 IGraphicElementContainer 所调用以验证此元素的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      由 <codeph>IGraphicElementContainer</codeph> 所调用以验证此元素的属性。
+     
+      <p>要确保调用此方法，请通过调用其 <codeph>invalidateGraphicElementProperties()</codeph> 方法通知 <codeph>IGraphicElementContainer</codeph>。</p>  
+     
+      <p>即使此元素未通知 <codeph>IGraphicElementContainer</codeph>，也可能会调用此方法。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#IGraphicElement/validateSize"><linktext>validateSize</linktext></link><link href="spark.core.xml#IGraphicElement/validateDisplayList"><linktext>validateDisplayList</linktext></link></related-links></apiOperation><apiOperation id="spark.core:IGraphicElement:spark.core:IGraphicElement:validateSize"><apiName>validateSize</apiName><shortdesc>
+      由 IGraphicElementContainer 调用以验证此元素的大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      由 <codeph>IGraphicElementContainer</codeph> 调用以验证此元素的大小。
+     
+      <p>当元素大小发生变化并将影响 <codeph>IGraphicElementContainer</codeph> 布局时，实现程序负责使父代的大小和显示列表失效。</p>
+     
+      <p>要确保调用此方法，请通过调用其 <codeph>invalidateGraphicElementSize()</codeph> 方法通知 <codeph>IGraphicElementContainer</codeph>。</p>
+     
+      <p>即使此元素未通知 <codeph>IGraphicElementContainer</codeph>，也可能会调用此方法。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#IGraphicElement/validateProperties"><linktext>validateProperties</linktext></link><link href="spark.core.xml#IGraphicElement/validateDisplayList"><linktext>validateDisplayList</linktext></link></related-links></apiOperation><apiValue id="spark.core:IGraphicElement:spark.core:IGraphicElement:displayObjectSharingMode:get"><apiName>displayObjectSharingMode</apiName><shortdesc>
+      指示此 IGraphicElement 与其显示对象之间的关联。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指示此 IGraphicElement 与其显示对象之间的关联。<codeph>IGraphicElementContainer</codeph> 管理此属性，且值是 DisplayObjectSharingMode 枚举类之一。
+     
+      <ul> 
+        <li><codeph>DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT</codeph> 的值指示 IGraphicElement 专门拥有与其 <codeph>displayObject</codeph> 属性相对应的 DisplayObject。</li>
+     
+        <li><codeph>DisplayObjectSharingMode.OWNS_SHARED_OBJECT</codeph> 的值指示 IGraphicElement 拥有与其 <codeph>displayObject</codeph> 属性相对应的 DisplayObject，但其他 IGraphicElement 也正在使用/绘制到该显示对象。根据特定实现，IGraphicElement 可能会执行显示对象的某些管理。例如，基类 GraphicElement 会清除显示对象的转换，将其可见性、Alpha 等属性重置为其默认值，且还清除每个 <codeph>validateDisplayList()</codeph> 调用上的图形。</li>
+     
+        <li><codeph>DisplayObjectSharingMode.USES_SHARED_OBJECT</codeph> 的值指示 IGraphicElement 绘制到与其 <codeph>displayObject</codeph> 属性相对应的 DisplayObject。存在一个或多个绘制到相同 displayObject 的 IGraphicElement，且绘制的第一个元素将其模式设置为 <codeph>DisplayObjectMode.OWNS_SHARED_OBJECT</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IGraphicElement:spark.core:IGraphicElement:displayObject:get"><apiName>displayObject</apiName><shortdesc>
+      绘制此 IGraphicElement 所在的共享 DisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      绘制此 IGraphicElement 所在的共享 DisplayObject。
+     
+      <p>实现程序不得在此创建 DisplayObject，而应在 <codeph>createDisplayObject()</codeph> 方法中创建。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.core.xml#IGraphicElement/createDisplayObject"><linktext>createDisplayObject</linktext></link><link href="spark.core.xml#IGraphicElement/validateDisplayList"><linktext>validateDisplayList</linktext></link><link href="spark.core.xml#IGraphicElement/displayObjectSharingMode"><linktext>displayObjectSharingMode</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.core:NavigationUnit"><apiName>NavigationUnit</apiName><shortdesc>
+  NavigationUnit 类为 IViewport 类的 getVerticalScrollPositionDelta() 和 getHorizontalScrollPositionDelta() 方法定义可能的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NavigationUnit 类为 IViewport 类的 <codeph>getVerticalScrollPositionDelta()</codeph> 和 <codeph>getHorizontalScrollPositionDelta()</codeph> 方法定义可能的值。
+ 
+  <p>所有这些常量都具有与其 flash.ui.Keyboard 对等物相同的值，除了 PAGE_LEFT 和 PAGE_RIGHT 之外（对于它们，不存在键盘键等效方式）。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.ui.Keyboard.xml"><linktext>flash.ui.Keyboard</linktext></link><link href="spark.core.xml#IViewport/getVerticalScrollPositionDelta"><linktext>IViewport.getVerticalScrollPositionDelta</linktext></link><link href="spark.core.xml#IViewport/getHorizontalScrollPositionDelta"><linktext>IViewport.getHorizontalScrollPositionDelta</linktext></link></related-links><apiOperation id="spark.core:NavigationUnit:isNavigationUnit"><apiName>isNavigationUnit</apiName><shortdesc>
+      如果 keyCode 直接映射到一个 NavigationUnit 枚举值，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果 <codeph>keyCode</codeph> 直接映射到一个 NavigationUnit 枚举值，则为 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>keyCode</apiItemName><apiType value="uint"/><apiDesc>键代码值。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 <codeph>keyCode</codeph> 直接映射到一个 NavigationUnit 枚举值，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.core:NavigationUnit:DOWN"><apiName>DOWN</apiName><shortdesc>
+      向下导航一行或向下“步进”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>40.0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      向下导航一行或向下“步进”。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:NavigationUnit:END"><apiName>END</apiName><shortdesc>
+      导航到文档的末尾。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>35.0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      导航到文档的末尾。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:NavigationUnit:HOME"><apiName>HOME</apiName><shortdesc>
+      导航到文档的开头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>36.0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      导航到文档的开头。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:NavigationUnit:LEFT"><apiName>LEFT</apiName><shortdesc>
+      向左导航一行或向左“步进”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>37.0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      向左导航一行或向左“步进”。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:NavigationUnit:PAGE_DOWN"><apiName>PAGE_DOWN</apiName><shortdesc>
+      向下导航一页。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>34.0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      向下导航一页。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:NavigationUnit:PAGE_LEFT"><apiName>PAGE_LEFT</apiName><shortdesc>
+      向左导航一页。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2397</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      向左导航一页。此常量的值 0x2397 与 Unicode“previous page”字符相同。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:NavigationUnit:PAGE_RIGHT"><apiName>PAGE_RIGHT</apiName><shortdesc>
+      向右导航一页。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2398</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      向右导航一页。此常量的值 0x2398 与 Unicode“next page”字符相同。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:NavigationUnit:PAGE_UP"><apiName>PAGE_UP</apiName><shortdesc>
+      向上导航一页。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>33.0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      向上导航一页。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:NavigationUnit:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      向右导航一行或向右“步进”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>39.0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      向右导航一行或向右“步进”。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:NavigationUnit:UP"><apiName>UP</apiName><shortdesc>
+      向上导航一行或向上“步进”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>38.0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      向上导航一行或向上“步进”。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.core:IGraphicElementContainer"><apiName>IGraphicElementContainer</apiName><shortdesc>
+  IGraphicElementContainer 是支持 IGraphicElement 子代的容器类的最小收缩。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IGraphicElementContainer 是支持 <codeph>IGraphicElement</codeph> 子代的容器类的最小收缩。
+ 
+  <p>通常为了代替直接实现该接口，开发人员会子划分已经实现 IGraphicElementContainer 接口的 Group。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.core.xml#IGraphicElement"><linktext>spark.core.IGraphicElement</linktext></link></related-links><apiOperation id="spark.core:IGraphicElementContainer:spark.core:IGraphicElementContainer:invalidateGraphicElementDisplayList"><apiName>invalidateGraphicElementDisplayList</apiName><shortdesc>
+      请注意元素已更改且需要重新绘制的主机组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>spark.core:IGraphicElement</apiOperationClassifier><apiDesc>已更改的元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      请注意元素已更改且需要重新绘制的主机组件。
+     
+      <p><codeph>IGraphicElementContainer</codeph> 必须调用 IGraphicElement 上的 <codeph>validateDisplayList()</codeph> 方法，为其赋予重新绘制的机会。</p>
+     
+      <p>通常，主机将在其 <codeph>validateDisplayList()</codeph> 方法中验证元素的显示列表。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:IGraphicElementContainer:spark.core:IGraphicElementContainer:invalidateGraphicElementProperties"><apiName>invalidateGraphicElementProperties</apiName><shortdesc>
+      请注意元素已更改且需要验证属性的主机组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>spark.core:IGraphicElement</apiOperationClassifier><apiDesc>已更改的元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      请注意元素已更改且需要验证属性的主机组件。
+     
+      <p><codeph>IGraphicElementContainer</codeph> 必须调用 IGraphicElement 上的 <codeph>validateProperties()</codeph> 方法，为其赋予提交其属性的机会。</p>
+     
+      <p>通常，主机将在其 <codeph>validateProperties()</codeph> 方法中验证元素属性。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:IGraphicElementContainer:spark.core:IGraphicElementContainer:invalidateGraphicElementSharing"><apiName>invalidateGraphicElementSharing</apiName><shortdesc>
+      请注意元素图层已更改的主机组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>spark.core:IGraphicElement</apiOperationClassifier><apiDesc>已更改大小的元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      请注意元素图层已更改的主机组件。
+     
+      <p><codeph>IGraphicElementContainer</codeph> 必须使用共享的 DisplayObject 重新评估图形元素的序列，且可能需要重新分配 DisplayObject，并因此重新绘制这些序列。</p>
+     
+      <p>通常，主机将在其 <codeph>validateProperties()</codeph> 方法中执行该操作。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:IGraphicElementContainer:spark.core:IGraphicElementContainer:invalidateGraphicElementSize"><apiName>invalidateGraphicElementSize</apiName><shortdesc>
+      请注意元素大小已更改的主机组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>spark.core:IGraphicElement</apiOperationClassifier><apiDesc>已更改大小的元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      请注意元素大小已更改的主机组件。
+     
+      <p><codeph>IGraphicElementContainer</codeph> 必须调用 IGraphicElement 上的 <codeph>validateSize()</codeph> 方法，为其赋予验证其大小的机会。</p>
+     
+      <p>通常，主机将在其 <codeph>validateSize()</codeph> 方法中验证元素的大小。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.core:IEditableText"><apiName>IEditableText</apiName><shortdesc>
+  IEditableText 接口定义可编辑文本的属性和方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.core:IDisplayText</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IEditableText 接口定义可编辑文本的属性和方法。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.core:IEditableText:spark.core:IEditableText:appendText"><apiName>appendText</apiName><shortdesc>
+      将指定文本追加到文本组件的结尾，就好像您已在该结尾处单击并键入它一样。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>要追加的文本。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定文本追加到文本组件的结尾，就好像您已在该结尾处单击并键入它一样。
+           <p>随后会在新文本之后设置插入点。如有必要，文本将滚动，以确保插入点可见。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:IEditableText:spark.core:IEditableText:insertText"><apiName>insertText</apiName><shortdesc>
+      将指定的文本插入到文本组件中，就好像您已键入它一样。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>要插入的文本。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定的文本插入到文本组件中，就好像您已键入它一样。
+           <p>如果选择范围，新文本将替换所选文本。如果有插入点，将在该点插入新文本。</p>
+           <p>随后会在新文本之后设置插入点。如有必要，文本将滚动，以确保插入点可见。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:IEditableText:spark.core:IEditableText:scrollToRange"><apiName>scrollToRange</apiName><shortdesc>
+      滚动以使指定范围位于视图中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorPosition</apiItemName><apiType value="int"/><apiDesc>选择范围的锚点位置。
+      </apiDesc></apiParam><apiParam><apiItemName>activePosition</apiItemName><apiType value="int"/><apiDesc>选择范围的活动位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      滚动以使指定范围位于视图中。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:IEditableText:spark.core:IEditableText:selectAll"><apiName>selectAll</apiName><shortdesc>
+      选择所有文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      选择所有文本。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:IEditableText:spark.core:IEditableText:selectRange"><apiName>selectRange</apiName><shortdesc>
+      选择指定范围的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/><apiDesc>字符位置，用于指定扩展选区时保持固定的选区的未端。
+           </apiDesc></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/><apiDesc>字符位置，用于指定扩展选区时移动的选区的未端。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      选择指定范围的字符。
+           <p>如果任一位置为负，则它将取消选择该文本范围。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:IEditableText:spark.core:IEditableText:setFocus"><apiName>setFocus</apiName><shortdesc>
+      将焦点设置到该文本字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将焦点设置到该文本字段。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.core:IEditableText:spark.core:IEditableText:accessibilityProperties:get"><apiName>accessibilityProperties</apiName><shortdesc conref="flash.display.DisplayObject#accessibilityProperties">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.accessibility:AccessibilityProperties"/></apiValueDef><apiDesc conref="flash.display.DisplayObject#accessibilityProperties">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:displayAsPassword:get"><apiName>displayAsPassword</apiName><shortdesc conref="flash.text.TextField#displayAsPassword">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.TextField#displayAsPassword">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:editable:get"><apiName>editable</apiName><shortdesc>
+      标识文本是否可编辑的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      标识文本是否可编辑的标志。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:enabled:get"><apiName>enabled</apiName><shortdesc conref="mx.core.UIComponent#enabled">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#enabled">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:focusEnabled:get"><apiName>focusEnabled</apiName><shortdesc conref="mx.core.UIComponent#focusEnabled">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#focusEnabled">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      文本的水平滚动位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      文本的水平滚动位置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:lineBreak:get"><apiName>lineBreak</apiName><shortdesc>
+      控制文本内的自动换行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      控制文本内的自动换行。该属性对应于 lineBreak 样式。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flashx.textLayout.formats.xml#ITextLayoutFormat/lineBreak"><linktext>flashx.textLayout.formats.ITextLayoutFormat.lineBreak</linktext></link></related-links></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:maxChars:get"><apiName>maxChars</apiName><shortdesc conref="flash.text.TextField#maxChars">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="flash.text.TextField#maxChars">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:multiline:get"><apiName>multiline</apiName><shortdesc conref="flash.text.TextField#multiline">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.TextField#multiline">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:restrict:get"><apiName>restrict</apiName><shortdesc conref="flash.text.TextField#restrict">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="flash.text.TextField#restrict">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:selectable:get"><apiName>selectable</apiName><shortdesc conref="flash.text.TextField#selectable">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.TextField#selectable">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:selectionActivePosition:get"><apiName>selectionActivePosition</apiName><shortdesc>
+      选择部分的活动位置或最后单击位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      选择部分的活动位置或最后单击位置。如果实现不支持选择锚点，则这是所选内容的最后一个字符。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:selectionAnchorPosition:get"><apiName>selectionAnchorPosition</apiName><shortdesc>
+      选择部分的锚点或最先单击位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      选择部分的锚点或最先单击位置。如果实现不支持选择锚点，则这是所选内容的第一个字符。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:tabIndex:get"><apiName>tabIndex</apiName><shortdesc conref="flash.display.InteractiveObject#tabIndex">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="flash.display.InteractiveObject#tabIndex">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IEditableText:spark.core:IEditableText:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc>
+      文本的垂直滚动位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      文本的垂直滚动位置。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.core:SpriteVisualElement"><apiName>SpriteVisualElement</apiName><shortdesc>
+  SpriteVisualElement 类是 IVisualElement 接口的基于占用内存较少的 Sprite 的实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseInterface>mx.core:IFlexModule</apiBaseInterface><apiBaseClassifier>mx.core:FlexSprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SpriteVisualElement 类是 IVisualElement 接口的基于占用内存较少的 Sprite 的实现。Spark 容器可以布置和呈示 SpriteVisualElement 对象。
+  
+  <p>如果使用 ActionScript 将 FXG 组件添加到某个应用程序，则该组件应为 SpriteVisualElement 类型。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.core:SpriteVisualElement:SpriteVisualElement"><apiName>SpriteVisualElement</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.core:SpriteVisualElement:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getLayoutBoundsHeight"><apiName>getLayoutBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getLayoutBoundsWidth"><apiName>getLayoutBoundsWidth</apiName><shortdesc conref="mx.core.ILayoutElement#getLayoutBoundsWidth()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc conref="mx.core.ILayoutElement#getLayoutBoundsWidth()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getLayoutBoundsX"><apiName>getLayoutBoundsX</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getLayoutBoundsY"><apiName>getLayoutBoundsY</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getLayoutMatrix3D"><apiName>getLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Matrix3D"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getLayoutMatrix"><apiName>getLayoutMatrix</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Matrix"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getMaxBoundsHeight"><apiName>getMaxBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getMaxBoundsWidth"><apiName>getMaxBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getMinBoundsHeight"><apiName>getMinBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getMinBoundsWidth"><apiName>getMinBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getPreferredBoundsHeight"><apiName>getPreferredBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:getPreferredBoundsWidth"><apiName>getPreferredBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:initialized"><apiName>initialized</apiName><shortdesc>
+      如果 SpriteVisualElement 是使用 MXML 标签创建的，则由 MXML 编译器自动调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>包含此 SpriteVisualElement（未使用）的 MXML 文档。
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>此 SpriteVisualElement 的 MXML ID。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 SpriteVisualElement 是使用 MXML 标签创建的，则由 MXML 编译器自动调用。如果通过 ActionScript 创建 SpriteVisualElement，则必须手动设置 <codeph>ID</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:SpriteVisualElement:invalidateLayoutDirection"><apiName>invalidateLayoutDirection</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:protected:invalidateParentSizeAndDisplayList"><apiName>invalidateParentSizeAndDisplayList</apiName><shortdesc>
+      此对象影响其布局时（includeInLayout 为 true），使父代大小和显示列表失效。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      此对象影响其布局时（includeInLayout 为 true），使父代大小和显示列表失效。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:SpriteVisualElement:setLayoutBoundsPosition"><apiName>setLayoutBoundsPosition</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newBoundsX</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>newBoundsY</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:setLayoutBoundsSize"><apiName>setLayoutBoundsSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:setLayoutMatrix3D"><apiName>setLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="flash.geom:Matrix3D"/></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:setLayoutMatrix"><apiName>setLayoutMatrix</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="flash.geom:Matrix"/></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.core:SpriteVisualElement:transformAround"><apiName>transformAround</apiName><shortdesc conref="mx.core.ILayoutElement#transformAround()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>transformCenter</apiItemName><apiType value="flash.geom:Vector3D"/></apiParam><apiParam><apiItemName>scale</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>rotation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>translation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>postLayoutScale</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>postLayoutRotation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>postLayoutTranslation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc conref="mx.core.ILayoutElement#transformAround()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:SpriteVisualElement:protected:transformHeightForLayout"><apiName>transformHeightForLayout</apiName><shortdesc>
+      转换元素的大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>返回转换的高度。Transformation 是此元素的布局转换矩阵。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>目标预转换宽度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>目标预转换高度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>为 <codeph>true</codeph> 时，返回的边框位于其父空间中已转换元素的周围（首先应用元素的转换）。  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      转换元素的大小。
+     
+      <p>该方法计算图形元素的边框，好像元素的宽度/高度属性设置为传入的值。该方法返回边框的高度。</p>
+     
+      <p>通常，该方法不能由开发人员使用。但是，您应该实现或重写由 ILayoutElement 接口定义的方法。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:SpriteVisualElement:transformPointToParent"><apiName>transformPointToParent</apiName><shortdesc>
+      一种实用程序方法，用于将以该对象的本地坐标指定的点转换为在该对象父坐标中的相应位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>localPosition</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>将要转换的点，指定为对象的本地坐标。
+      </apiDesc></apiParam><apiParam><apiItemName>position</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>将保存布局前结果的 Vector3D 点。如果为 null，则忽略该参数。
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutPosition</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>将保存布局后结果的 Vector3D 点。如果为 null，则忽略该参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      一种实用程序方法，用于将以该对象的本地坐标指定的点转换为在该对象父坐标中的相应位置。如果 <codeph>position</codeph> 和 <codeph>postLayoutPosition</codeph> 参数为非 null，将对这两个参数设置布局前和布局后结果。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:SpriteVisualElement:protected:transformWidthForLayout"><apiName>transformWidthForLayout</apiName><shortdesc>
+      转换元素的大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>返回转换的宽度。Transformation 是此元素的布局转换矩阵。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>目标预转换宽度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>目标预转换高度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>为 <codeph>true</codeph> 时，返回的边框位于其父空间中已转换元素的周围（首先应用元素的转换）。  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      转换元素的大小。
+     
+      <p>该方法计算图形元素的边框，好像元素的宽度/高度属性设置为传入的值。该方法返回边框的宽度。</p>
+     
+      <p>通常，该方法不能由开发人员使用。但是，您应该实现或重写由 ILayoutElement 接口定义的方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.core:SpriteVisualElement:baselinePosition:get"><apiName>baselinePosition</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:baseline:get"><apiName>baseline</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:blendMode:get"><apiName>blendMode</apiName><shortdesc>
+      BlendMode 类中的一个值，用于指定要使用的混合模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>auto
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      BlendMode 类中的一个值，用于指定要使用的混合模式。 
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/blendMode"><linktext>flash.display.DisplayObject.blendMode</linktext></link><link href="" invalidHref="flash.display.BlendMode.xml"><linktext>flash.display.BlendMode</linktext></link></related-links></apiValue><apiValue id="spark.core:SpriteVisualElement:bottom:get"><apiName>bottom</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:depth:get"><apiName>depth</apiName><shortdesc conref="spark.primitives.supportClasses.GraphicElement#depth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.primitives.supportClasses.GraphicElement#depth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:designLayer:get"><apiName>designLayer</apiName><shortdesc conref="mx.core.IVisualElement#designLayer">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:DesignLayer"/></apiValueDef><apiDesc conref="mx.core.IVisualElement#designLayer">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:hasLayoutMatrix3D:get"><apiName>hasLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:horizontalCenter:get"><apiName>horizontalCenter</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:id:get"><apiName>id</apiName><shortdesc>
+      组件的标识。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      组件的标识。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:includeInLayout:get"><apiName>includeInLayout</apiName><shortdesc conref="mx.core.UIComponent#includeInLayout">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#includeInLayout">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:is3D:get"><apiName>is3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:layoutDirection:get"><apiName>layoutDirection</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:left:get"><apiName>left</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:luminosityClip:get"><apiName>luminosityClip</apiName><shortdesc conref="spark.primitives.supportClasses.GraphicElement#luminosityClip">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="spark.primitives.supportClasses.GraphicElement#luminosityClip">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:luminosityInvert:get"><apiName>luminosityInvert</apiName><shortdesc conref="spark.primitives.supportClasses.GraphicElement#luminosityInvert">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="spark.primitives.supportClasses.GraphicElement#luminosityInvert">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:maskType:get"><apiName>maskType</apiName><shortdesc conref="spark.components.supportClasses.GroupBase#maskType">
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="spark.components.supportClasses.GroupBase#maskType">
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:mask:get"><apiName>mask</apiName><shortdesc conref="spark.components.supportClasses.GroupBase#mask">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc conref="spark.components.supportClasses.GroupBase#mask">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:moduleFactory:get"><apiName>moduleFactory</apiName><shortdesc>
+      模块工厂用作上下文，用于为组件使用嵌入字体，和查找用于控制样式的样式管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/></apiValueDef><apiDesc>
+      模块工厂用作上下文，用于为组件使用嵌入字体，和查找用于控制样式的样式管理器。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:owner:get"><apiName>owner</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:percentHeight:get"><apiName>percentHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:percentWidth:get"><apiName>percentWidth</apiName><shortdesc conref="mx.core.UIComponent#percentWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#percentWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:postLayoutTransformOffsets:get"><apiName>postLayoutTransformOffsets</apiName><shortdesc conref="mx.core.IVisualElement#postLayoutTransformOffsets">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.geom:TransformOffsets"/></apiValueDef><apiDesc conref="mx.core.IVisualElement#postLayoutTransformOffsets">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:right:get"><apiName>right</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:rotationX:get"><apiName>rotationX</apiName><shortdesc>
+      表示 DisplayObject 实例相对于 3D 父容器距离其原始方向的 x 轴旋转（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      表示 DisplayObject 实例相对于 3D 父容器距离其原始方向的 x 轴旋转（以度为单位）。从 0 到 180 的值表示顺时针方向旋转；从 0 到 -180 的值表示逆时针方向旋转。对于此范围之外的值，可以通过加上或减去 360 获得该范围内的值。在计算过程中，Flex 的任一 2D 布局都会忽略此属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:rotationY:get"><apiName>rotationY</apiName><shortdesc>
+      表示 DisplayObject 实例相对于 3D 父容器距离其原始方向的 y 轴旋转（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      表示 DisplayObject 实例相对于 3D 父容器距离其原始方向的 y 轴旋转（以度为单位）。从 0 到 180 的值表示顺时针方向旋转；从 0 到 -180 的值表示逆时针方向旋转。对于此范围之外的值，可以通过加上或减去 360 获得该范围内的值。在计算过程中，Flex 的任一 2D 布局都会忽略此属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:top:get"><apiName>top</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:transformX:get"><apiName>transformX</apiName><shortdesc>
+      设置组件转换中心的 x 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      设置组件转换中心的 x 坐标。
+     
+      <p>当该对象为 Spark 转换效果的目标时，可以通过设置 <codeph>AnimateTransform.autoCenterTransform</codeph> 属性来覆盖该属性。如果 <codeph>autoCenterTransform</codeph> 为 <codeph>false</codeph>，则转换中心由效果目标的 <codeph>transformX</codeph>、<codeph>transformY</codeph> 和 <codeph>transformZ</codeph> 属性决定。如果 <codeph>autoCenterTransform</codeph> 为 <codeph>true</codeph>，则效果出现在目标中心 <codeph>(width/2, height/2)</codeph> 附近。</p>
+     
+      <p>在 Spark 效果类上设置该属性会覆盖目标对象上的设置。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform/autoCenterTransform"><linktext>spark.effects.AnimateTransform.autoCenterTransform</linktext></link><link href="spark.effects.xml#AnimateTransform/transformX"><linktext>spark.effects.AnimateTransform.transformX</linktext></link></related-links></apiValue><apiValue id="spark.core:SpriteVisualElement:transformY:get"><apiName>transformY</apiName><shortdesc>
+      设置组件转换中心的 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      设置组件转换中心的 y 坐标。
+     
+      <p>当该对象为 Spark 转换效果的目标时，可以通过设置 <codeph>AnimateTransform.autoCenterTransform</codeph> 属性来覆盖该属性。如果 <codeph>autoCenterTransform</codeph> 为 <codeph>false</codeph>，则转换中心由效果目标的 <codeph>transformY</codeph>、<codeph>transformY</codeph> 和 <codeph>transformZ</codeph> 属性决定。如果 <codeph>autoCenterTransform</codeph> 为 <codeph>true</codeph>，则效果出现在目标中心 <codeph>(width/2, height/2)</codeph> 附近。</p>
+     
+      <p>在 Spark 效果类上设置该属性会覆盖目标对象上的设置。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform/autoCenterTransform"><linktext>spark.effects.AnimateTransform.autoCenterTransform</linktext></link><link href="spark.effects.xml#AnimateTransform/transformY"><linktext>spark.effects.AnimateTransform.transformY</linktext></link></related-links></apiValue><apiValue id="spark.core:SpriteVisualElement:transformZ:get"><apiName>transformZ</apiName><shortdesc>
+      设置组件转换中心的 z 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      设置组件转换中心的 z 坐标。
+     
+      <p>当该对象为 Spark 转换效果的目标时，可以通过设置 <codeph>AnimateTransform.autoCenterTransform</codeph> 属性来覆盖该属性。如果 <codeph>autoCenterTransform</codeph> 为 <codeph>false</codeph>，则转换中心由效果目标的 <codeph>transformZ</codeph>、<codeph>transformY</codeph> 和 <codeph>transformZ</codeph> 属性决定。如果 <codeph>autoCenterTransform</codeph> 为 <codeph>true</codeph>，则效果出现在目标中心 <codeph>(width/2, height/2)</codeph> 附近。</p>
+     
+      <p>在 Spark 效果类上设置该属性会覆盖目标对象上的设置。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform/autoCenterTransform"><linktext>spark.effects.AnimateTransform.autoCenterTransform</linktext></link><link href="spark.effects.xml#AnimateTransform/transformZ"><linktext>spark.effects.AnimateTransform.transformZ</linktext></link></related-links></apiValue><apiValue id="spark.core:SpriteVisualElement:verticalCenter:get"><apiName>verticalCenter</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:visible:get"><apiName>visible</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.core:SpriteVisualElement:protected:viewHeight:set"><apiName>viewHeight</apiName><shortdesc conref="spark.primitives.Graphic#viewHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="write"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.primitives.Graphic#viewHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:SpriteVisualElement:protected:viewWidth:set"><apiName>viewWidth</apiName><shortdesc conref="spark.primitives.Graphic#viewWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="write"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.primitives.Graphic#viewWidth">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.core:ContentRequest"><apiName>ContentRequest</apiName><shortdesc>
+  表示从 IcontentLoader 的 load() 方法返回的 IContentLoader 内容请求实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示从 IcontentLoader 的 <codeph>load()</codeph> 方法返回的 IContentLoader 内容请求实例。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.core:ContentRequest_flash.events.SecurityErrorEvent.SECURITY_ERROR_securityError"><apiName>securityError</apiName><shortdesc>
+  发生安全性错误时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SecurityErrorEvent.SECURITY_ERROR</apiEventType><adobeApiEventClassifier>flash.events.SecurityErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  发生安全性错误时分派。
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.SecurityErrorEvent.xml"><linktext>flash.events.SecurityErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.core:ContentRequest_flash.events.ProgressEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  当加载内容时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.ProgressEvent.PROGRESS</apiEventType><adobeApiEventClassifier>flash.events.ProgressEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当加载内容时分派。
+ 
+  <p><b>注意：</b>不能保证分派 <codeph>progress</codeph> 事件。在不分派任何 <codeph>progress</codeph> 事件的情况下，也可能会接收 <codeph>complete</codeph> 事件。如果加载的内容是本地文件，就可能会出现这种情况。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.core:ContentRequest_flash.events.IOErrorEvent.IO_ERROR_ioError"><apiName>ioError</apiName><shortdesc>
+  发生输入/输出错误时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.IOErrorEvent.IO_ERROR</apiEventType><adobeApiEventClassifier>flash.events.IOErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  发生输入/输出错误时分派。
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.IOErrorEvent.xml"><linktext>flash.events.IOErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.core:ContentRequest_flash.events.HTTPStatusEvent.HTTP_STATUS_httpStatus"><apiName>httpStatus</apiName><shortdesc>
+  在通过 HTTP 发出网络请求并且 Flash Player 或 AIR 可以检测到 HTTP 状态代码时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.HTTPStatusEvent.HTTP_STATUS</apiEventType><adobeApiEventClassifier>flash.events.HTTPStatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在通过 HTTP 发出网络请求并且 Flash Player 或 AIR 可以检测到 HTTP 状态代码时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.core:ContentRequest_flash.events.Event.COMPLETE_complete"><apiName>complete</apiName><shortdesc>
+  在内容加载完成时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.COMPLETE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在内容加载完成时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.core:ContentRequest:ContentRequest"><apiName>ContentRequest</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>contentLoader</apiItemName><apiOperationClassifier>spark.core:IContentLoader</apiOperationClassifier><apiDesc>IContentLoader 对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>content</apiItemName><apiType value="any"/><apiDesc>对包含的内容的引用。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>shared</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> 指示此请求当前被之前的其它请求共享 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>complete</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> 指示有人已在缓存上调用加载，且缓存已立即返回完全加载的结果 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.core:ContentRequest:complete:get"><apiName>complete</apiName><shortdesc>
+      如果内容被视为已完全加载并且可以访问，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果内容被视为已完全加载并且可以访问，则包含 <codeph>true</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentRequest:content:get"><apiName>content</apiName><shortdesc>
+      对包含的内容的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      对包含的内容的引用。这可以是（在许多情况下）LoaderInfo 实例、BitmapData 或任何其它通用内容。在触发 complete 事件和/或 complete() 返回 true 时，内容被视为有效。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.core:IContentLoader"><apiName>IContentLoader</apiName><shortdesc>
+  为 BitmapImage 实例提供自定义图像/内容加载器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  为 BitmapImage 实例提供自定义图像/内容加载器。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.core:IContentLoader:spark.core:IContentLoader:load"><apiName>load</apiName><shortdesc>
+      为由指定的键标识的资源启动内容请求。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>表示请求的资源的 ContentRequest 实例。
+      
+      </apiDesc><apiOperationClassifier>spark.core:ContentRequest</apiOperationClassifier></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="Object"/><apiDesc>用于表示请求的内容资源的唯一键。此参数一般为 URL 或 URLRequest。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>contentLoaderGrouping</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>-（可选）已加载的资源的分组标识符。支持内容组的 ContentLoader 实例通常允许命名相同的分组中的资源作为一个整体进行处理。例如，ContentCache 的加载器队列允许通过 contentLoaderGrouping 排列请求的先后顺序。  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      为由指定的键标识的资源启动内容请求。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.core:IViewport"><apiName>IViewport</apiName><shortdesc>
+  IViewport 接口是由支持视区的组件实现的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IViewport 接口是由支持视区的组件实现的。如果组件的子代比组件大，且您希望将子代剪切至组件边界，则可以定义视区和滚动条。视区是您希望显示的组件的区域的矩形子集，而不是显示整个组件。
+ 
+  <p>在其自身上的视区是不能由应用程序用户移动的。但是，可以将视区与滚动条组合到一起，这样用户可以滚动视区以查看组件的整个内容。使用 Scroller 组件将滚动条添加到组件。</p>
+ 
+  </apiDesc><example conref="IViewportExample.mxml"><swfblock conref="examples/IViewportExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#Scroller"><linktext>spark.components.Scroller</linktext></link></related-links><apiOperation id="spark.core:IViewport:spark.core:IViewport:getHorizontalScrollPositionDelta"><apiName>getHorizontalScrollPositionDelta</apiName><shortdesc>
+      返回要添加到视域的当前 horizontalScrollPosition 的数量，以按请求的滚动单位进行滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要添加到 <codeph>horizontalScrollPosition</codeph> 的像素数目。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>要滚动的数量。该值必须是以下 spark.core.NavigationUnit 常量之一： 
+      <ul>
+       <li><codeph>LEFT</codeph></li>
+       <li><codeph>RIGHT</codeph></li>
+       <li><codeph>PAGE_LEFT</codeph></li>
+       <li><codeph>PAGE_RIGHT</codeph></li>
+       <li><codeph>HOME</codeph></li>
+       <li><codeph>END</codeph></li>
+      </ul>
+      要按单列滚动，请使用 <codeph>LEFT</codeph> 或 <codeph>RIGHT</codeph>。要滚动到第一列或最后一列，请使用 <codeph>HOME</codeph> 或 <codeph>END</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回要添加到视域的当前 <codeph>horizontalScrollPosition</codeph> 的数量，以按请求的滚动单位进行滚动。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link></related-links></apiOperation><apiOperation id="spark.core:IViewport:spark.core:IViewport:getVerticalScrollPositionDelta"><apiName>getVerticalScrollPositionDelta</apiName><shortdesc>
+      返回要添加到视域的当前 verticalScrollPosition 的数量，以按请求的滚动单位进行滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>要添加到 <codeph>verticalScrollPosition</codeph> 的像素数目。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>要滚动的数量。该单元值必须是以下 spark.core.NavigationUnit 常量之一： 
+      <ul>
+       <li><codeph>UP</codeph></li>
+       <li><codeph>DOWN</codeph></li>
+       <li><codeph>PAGE_UP</codeph></li>
+       <li><codeph>PAGE_DOWN</codeph></li>
+       <li><codeph>HOME</codeph></li>
+       <li><codeph>END</codeph></li>
+      </ul>
+      要按单行滚动，请使用 <codeph>UP</codeph> 或 <codeph>DOWN</codeph>。要滚动到第一行或最后一行，请使用 <codeph>HOME</codeph> 或 <codeph>END</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回要添加到视域的当前 <codeph>verticalScrollPosition</codeph> 的数量，以按请求的滚动单位进行滚动。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link></related-links></apiOperation><apiValue id="spark.core:IViewport:spark.core:IViewport:clipAndEnableScrolling:get"><apiName>clipAndEnableScrolling</apiName><shortdesc>
+      如果为 true，指定将子代剪切到视区的边界。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，指定将子代剪切到视区的边界。如果为 <codeph>false</codeph>，则容器子代会从容器边界扩展过去，而不管组件的大小规范。 
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateScrollRect"><linktext>spark.layouts.supportClasses.LayoutBase.updateScrollRect</linktext></link><link href="spark.core.xml#IViewport/verticalScrollPosition"><linktext>verticalScrollPosition</linktext></link><link href="spark.core.xml#IViewport/horizontalScrollPosition"><linktext>horizontalScrollPosition</linktext></link></related-links></apiValue><apiValue id="spark.core:IViewport:spark.core:IViewport:contentHeight:get"><apiName>contentHeight</apiName><shortdesc>
+      视域的内容的高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      视域的内容的高度。如果 <codeph>clipAndEnabledScrolling</codeph> 为 true，则视域的 <codeph>contentHeight</codeph> 为垂直滚动定义限制，且视域的实际高度定义可见的内容量。要在内容中垂直滚动，请在 0 和 <codeph>contentHeight - height</codeph> 之间更改 <codeph>verticalScrollPosition</codeph>。  
+     
+      <p>此属性的实现必须为 Bindable，且必须生成类型为 <codeph>propertyChange</codeph> 的事件。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IViewport:spark.core:IViewport:contentWidth:get"><apiName>contentWidth</apiName><shortdesc>
+      视域的内容的宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      视域的内容的宽度。如果 <codeph>clipAndEnabledScrolling</codeph> 为 true，则视域的 <codeph>contentWidth</codeph> 为水平滚动定义限制，且视域的实际宽度定义可见的内容量。要在内容中水平滚动，请在 0 和 <codeph>contentWidth - width</codeph> 之间更改 <codeph>horizontalScrollPosition</codeph>。  
+     
+      <p>此属性的实现必须为 Bindable，且必须生成类型为 <codeph>propertyChange</codeph> 的事件。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IViewport:spark.core:IViewport:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      组件的坐标系中视域原点（默认值为 (0,0)，与组件的左上角相对应）的 x 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      组件的坐标系中视区原点（默认值为 (0,0)，与组件的左上角相对应）的 x 坐标。如果 <codeph>clipAndEnableScrolling</codeph> 为 <codeph>true</codeph>，则设置此属性通常会导致将视区设置为：
+      <pre>
+      new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
+      </pre>
+     
+      此属性的实现必须为 Bindable，且必须生成类型为 <codeph>propertyChange</codeph> 的事件。
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.core.xml#IViewport/target"><linktext>target</linktext></link><link href="spark.core.xml#IViewport/verticalScrollPosition"><linktext>verticalScrollPosition</linktext></link></related-links></apiValue><apiValue id="spark.core:IViewport:spark.core:IViewport:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc>
+      组件的坐标系中视区的原点（默认值为 (0,0)，与组件的左上角相对应）的 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      组件的坐标系中视区的原点（默认值为 (0,0)，与组件的左上角相对应）的 y 坐标。如果 <codeph>clipAndEnableScrolling</codeph> 为 <codeph>true</codeph>，则设置此属性通常会导致将视区设置为：
+      <pre>
+      new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
+      </pre>
+     
+      此属性的实现必须为 Bindable，且必须生成类型为 <codeph>propertyChange</codeph> 的事件。
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.core.xml#IViewport/horizontalScrollPosition"><linktext>horizontalScrollPosition</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.core:IDisplayText"><apiName>IDisplayText</apiName><shortdesc>
+  IDisplayText 接口定义简单文本显示的属性和方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IDisplayText 接口定义简单文本显示的属性和方法。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="spark.core:IDisplayText:spark.core:IDisplayText:isTruncated:get"><apiName>isTruncated</apiName><shortdesc>
+      标识文本是否已截断的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      标识文本是否已截断的标志。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:IDisplayText:spark.core:IDisplayText:text:get"><apiName>text</apiName><shortdesc>
+      此文本组件所显示的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此文本组件所显示的文本。
+	       <p>此文本的格式是由 CSS 样式控制的。支持的样式取决于子类。</p>
+	 	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.core:ISharedDisplayObject"><apiName>ISharedDisplayObject</apiName><shortdesc>
+  ISharedDisplayObject 接口定义要在 IGraphicElement 对象之间共享 DisplayObject 必须实现的最低要求。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  ISharedDisplayObject 接口定义要在 <codeph>IGraphicElement</codeph> 对象之间共享 DisplayObject 必须实现的最低要求。Group 类使用 ISharedDisplayObject 接口来管理共享 DisplayObject 的 IGraphicElement 对象的序列的失效和重新绘制。
+ 
+  <p>通常在实现自定义 IGraphicElement 类时，您还会为自定义 IGraphicElement 创建的 DisplayObject 实现此接口。</p>
+  
+  </apiDesc></apiClassifierDetail><apiValue id="spark.core:ISharedDisplayObject:spark.core:ISharedDisplayObject:redrawRequested:get"><apiName>redrawRequested</apiName><shortdesc>
+      需要重新绘制共享此 DisplayObject 的任何 IGraphicElement 对象时包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      需要重新绘制共享此 DisplayObject 的任何 IGraphicElement 对象时包含 <codeph>true</codeph>。此属性仅供 Group 类内部使用，通常不使用它。Group 类会设置和回读此属性，以确定要验证哪些图形元素。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.core:ContentCache"><apiName>ContentCache</apiName><shortdesc>
+  为 BitmapImage 和 Spark Image 组件提供适合使用共享图像缓存的缓存和队列图像内容加载器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.core:IContentLoader</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  为 BitmapImage 和 Spark Image 组件提供适合使用共享图像缓存的缓存和队列图像内容加载器。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.core:ContentCache_spark.events.LoaderInvalidationEvent_invalidateLoader"><apiName>invalidateLoader</apiName><shortdesc>
+  在缓存条目无效时分派，在确定条目不受信任，同时一个或多个未处理的加载请求对于给定缓存条目处于活动状态时，通常会发生这种情况。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events.LoaderInvalidationEvent</apiEventType><adobeApiEventClassifier>spark.events.LoaderInvalidationEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在缓存条目无效时分派，在确定条目不受信任，同时一个或多个未处理的加载请求对于给定缓存条目处于活动状态时，通常会发生这种情况。由于缓存条目被视为“不能共享”，所以此机制允许重置任何未处理的内容请求。然后，每个通知的内容请求都会尝试重新请求资源。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.core:ContentCache:ContentCache"><apiName>ContentCache</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.core:ContentCache:addCacheEntry"><apiName>addCacheEntry</apiName><shortdesc>
+      将新条目添加到缓存（或替换现有条目）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="Object"/><apiDesc>要与缓存中提供的值关联的唯一键。
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要为给定键缓存的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将新条目添加到缓存（或替换现有条目）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:ContentCache:getCacheEntry"><apiName>getCacheEntry</apiName><shortdesc>
+      如果存在，则获取给定键的条目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>针对提供的键由缓存存储的值。如果未找到或此值很可能存储为 null，则返回 null。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="Object"/><apiDesc>用于表示请求的内容资源的唯一键。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果存在，则获取给定键的条目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:ContentCache:load"><apiName>load</apiName><shortdesc conref="spark.core.IContentLoader#load()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>spark.core:ContentRequest</apiOperationClassifier><apiDesc>表示请求的资源的 ContentRequest 实例。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="Object"/><apiDesc>用于表示请求的内容资源的唯一键。此参数一般为 URL 或 URLRequest。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>contentLoaderGrouping</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>-（可选）已加载的资源的分组标识符。支持内容组的 ContentLoader 实例通常允许命名相同的分组中的资源作为一个整体进行处理。例如，ContentCache 的加载器队列允许通过 contentLoaderGrouping 排列请求的先后顺序。  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="spark.core.IContentLoader#load()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:ContentCache:prioritize"><apiName>prioritize</apiName><shortdesc>
+      将内容分组提升到加载队列的开头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentLoaderGrouping</apiItemName><apiType value="String"/><apiDesc>要在加载队列中提升的内容分组的名称。所有带有匹配的 contentLoaderGroup 的排队请求都将移动到队列的开头。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将内容分组提升到加载队列的开头。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:ContentCache:removeAllCacheEntries"><apiName>removeAllCacheEntries</apiName><shortdesc>
+      将缓存内容重置为初始空状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将缓存内容重置为初始空状态。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:ContentCache:removeAllQueueEntries"><apiName>removeAllQueueEntries</apiName><shortdesc>
+      将队列重置为初始空状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将队列重置为初始空状态。取消所有请求（包括活动的请求和排队的请求）。所有与取消的请求相关联的缓存条目将无效。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.core:ContentCache:removeCacheEntry"><apiName>removeCacheEntry</apiName><shortdesc>
+      从缓存中删除特定条目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="Object"/><apiDesc>要从缓存中删除的值的唯一键。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从缓存中删除特定条目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.core:ContentCache:protected:UNTRUSTED"><apiName>UNTRUSTED</apiName><shortdesc>
+      用于标记检测到的来自不受信任的源（意味着它们将不再为可共享）的缓存 URL 的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>untrusted</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      用于标记检测到的来自不受信任的源（意味着它们将不再为可共享）的缓存 URL 的值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:protected:activeRequests"><apiName>activeRequests</apiName><shortdesc>
+      当前执行排队的 CacheEntryNode 实例的列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="mx.utils:LinkedList"/></apiValueDef><apiDesc>
+      当前执行排队的 CacheEntryNode 实例的列表。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:protected:cacheEntries"><apiName>cacheEntries</apiName><shortdesc>
+      CacheEntryNode 实例的有序 (MRU) 列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="mx.utils:LinkedList"/></apiValueDef><apiDesc>
+      CacheEntryNode 实例的有序 (MRU) 列表。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:protected:cachedData"><apiName>cachedData</apiName><shortdesc>
+      源到 CacheEntryNode 的映射。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="flash.utils:Dictionary"/></apiValueDef><apiDesc>
+      源到 CacheEntryNode 的映射。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:protected:priorityGroup"><apiName>priorityGroup</apiName><shortdesc>
+      当前按优先级排列的内容分组的标识符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>_DEFAULT_</apiData><apiType value="String"/><apiDefaultValue>"_DEFAULT_"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当前按优先级排列的内容分组的标识符。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:protected:requestQueue"><apiName>requestQueue</apiName><shortdesc>
+      排队的 CacheEntryNode 实例的列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="mx.utils:LinkedList"/></apiValueDef><apiDesc>
+      排队的 CacheEntryNode 实例的列表。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:enableCaching:get"><apiName>enableCaching</apiName><shortdesc>
+      启用缓存行为和功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      启用缓存行为和功能。仅适用于新 load() 请求。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:enableQueueing:get"><apiName>enableQueueing</apiName><shortdesc>
+      启用队列行为和功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      启用队列行为和功能。仅适用于新 load() 请求。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:maxActiveRequests:get"><apiName>maxActiveRequests</apiName><shortdesc>
+      启用队列时同时处于活动状态的请求最大数量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>2 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      启用队列时同时处于活动状态的请求最大数量。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:maxCacheEntries:get"><apiName>maxCacheEntries</apiName><shortdesc>
+      基于 MRU 的缓存的最大大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>100
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      基于 MRU 的缓存的最大大小。当 numCacheEntries 超过 maxCacheEntries 时，则修剪最近使用的条目以适应最大数量。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContentCache:numCacheEntries:get"><apiName>numCacheEntries</apiName><shortdesc>
+      活动/正在使用的缓存条目计数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      活动/正在使用的缓存条目计数。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.core:MaskType"><apiName>MaskType</apiName><shortdesc>
+  MaskType 类为 GraphicElement 类的 maskType 属性定义可能的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MaskType 类为 GraphicElement 类的 <codeph>maskType</codeph> 属性定义可能的值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.primitives.supportClasses.xml#GraphicElement/maskType"><linktext>spark.primitives.supportClasses.GraphicElement.maskType</linktext></link></related-links><apiValue id="spark.core:MaskType:ALPHA"><apiName>ALPHA</apiName><shortdesc>
+      遮罩重视不透明度，并使用遮罩的笔触和位图滤镜。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>alpha</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      遮罩重视不透明度，并使用遮罩的笔触和位图滤镜。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:MaskType:CLIP"><apiName>CLIP</apiName><shortdesc>
+      遮罩显示或不显示像素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>clip</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      遮罩显示或不显示像素。不使用笔触和位图过滤器。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:MaskType:LUMINOSITY"><apiName>LUMINOSITY</apiName><shortdesc>
+      遮罩考虑不透明度和 RGB 颜色值并使用遮罩的笔触和位图过滤器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>luminosity</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      遮罩考虑不透明度和 RGB 颜色值并使用遮罩的笔触和位图过滤器。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

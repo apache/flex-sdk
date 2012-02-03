@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.effectClasses"><apiName>mx.effects.effectClasses</apiName><apiDetail/><apiClassifier id="mx.effects.effectClasses:WipeDownInstance"><apiName>WipeDownInstance</apiName><shortdesc>
+  WipeDownInstance 类用于实现 WipeDown 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeDownInstance 类用于实现 WipeDown 效果的实例类。Flex 在播放 WipeDown 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeDown"><linktext>mx.effects.WipeDown</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeDownInstance:WipeDownInstance"><apiName>WipeDownInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:WipeLeftInstance"><apiName>WipeLeftInstance</apiName><shortdesc>
+  WipeLeftInstance 类用于实现 WipeLeft 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeLeftInstance 类用于实现 WipeLeft 效果的实例类。Flex 在播放 WipeLeft 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeLeft"><linktext>mx.effects.WipeLeft</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeLeftInstance:WipeLeftInstance"><apiName>WipeLeftInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddChildActionInstance"><apiName>AddChildActionInstance</apiName><shortdesc>
+  AddChildActionInstance 类用于实现 AddChildAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddChildActionInstance 类用于实现 AddChildAction 效果的实例类。Flex 在播放 AddChildAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AddChildAction"><linktext>mx.effects.AddChildAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AddChildActionInstance:AddChildActionInstance"><apiName>AddChildActionInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AddChildActionInstance:index"><apiName>index</apiName><shortdesc> 
+	  父项中子项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc> 
+	  父项中子项的索引。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AddChildActionInstance:position"><apiName>position</apiName><shortdesc> 
+	  子组件添加到的位置，此位置值随 relativeTo 而变化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  子组件添加到的位置，此位置值随 relativeTo 而变化。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AddChildActionInstance:relativeTo"><apiName>relativeTo</apiName><shortdesc> 
+	  子组件的添加位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc> 
+	  子组件的添加位置。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddItemActionInstance"><apiName>AddItemActionInstance</apiName><shortdesc>
+  AddItemActionInstance 类用于实现 AddItemAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddItemActionInstance 类用于实现 AddItemAction 效果的实例类。Flex 在播放 AddItemAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AddItemAction"><linktext>mx.effects.AddItemAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AddItemActionInstance:AddItemActionInstance"><apiName>AddItemActionInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:RemoveItemActionInstance"><apiName>RemoveItemActionInstance</apiName><shortdesc>
+  RemoveItemActionInstance 类用于实现 RemoveChildAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemoveItemActionInstance 类用于实现 RemoveChildAction 效果的实例类。Flex 在播放 RemoveItemAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#RemoveItemAction"><linktext>mx.effects.RemoveItemAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RemoveItemActionInstance:RemoveItemActionInstance"><apiName>RemoveItemActionInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:GlowInstance"><apiName>GlowInstance</apiName><shortdesc>
+  GlowInstance 类用于实现 Glow 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GlowInstance 类用于实现 Glow 效果的实例类。Flex 在播放 Glow 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 Glow 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个具有四个项的 Array，其中有： </p>
+  <ul>
+    <li>value[0]:uint 这是目标的 <codeph>GlowFilter.color</codeph> 属性的值。</li> 
+  
+    <li>value[1]:Number 一个介于 <codeph>Glow.alphaFrom</codeph> 和 <codeph>Glow.alphaTo</codeph> 属性的值之间的值。</li>
+  
+    <li>value[2]:Number 一个介于 <codeph>Glow.blurXFrom</codeph> 和 <codeph>Glow.blurXTo</codeph> 属性的值之间的值。</li>
+  
+    <li>value[3]:Number 一个介于 <codeph>Glow.blurYFrom</codeph> 和 <codeph>Glow.blurYTo</codeph> 属性的值之间的值。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Glow"><linktext>mx.effects.Glow</linktext></link><link href="" invalidHref="mx.events.TweenEvent.xml"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:GlowInstance:GlowInstance"><apiName>GlowInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:GlowInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  开始时的透明度级别。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  开始时的透明度级别。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  结束时的透明度级别。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  结束时的透明度级别。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  起始水平模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  起始水平模糊量。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  终止水平模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  终止水平模糊量。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  起始垂直模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  起始垂直模糊量。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  终止垂直模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  终止垂直模糊量。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:color"><apiName>color</apiName><shortdesc> 
+	  光晕颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/></apiValueDef><apiDesc> 
+	  光晕颜色。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:inner"><apiName>inner</apiName><shortdesc> 
+	  光晕的内部标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+	  光晕的内部标志。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:knockout"><apiName>knockout</apiName><shortdesc> 
+	  光晕的挖空标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+	  光晕的挖空标志。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:GlowInstance:strength"><apiName>strength</apiName><shortdesc> 
+	  光晕的强度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  光晕的强度。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SetPropertyActionInstance"><apiName>SetPropertyActionInstance</apiName><shortdesc>
+  SetPropertyActionInstance 类用于实现 SetPropertyAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetPropertyActionInstance 类用于实现 SetPropertyAction 效果的实例类。Flex 在播放 SetPropertyAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#SetPropertyAction"><linktext>mx.effects.SetPropertyAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SetPropertyActionInstance:SetPropertyActionInstance"><apiName>SetPropertyActionInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SetPropertyActionInstance:name"><apiName>name</apiName><shortdesc> 
+	  所更改的属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  所更改的属性的名称。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SetPropertyActionInstance:value:get"><apiName>value</apiName><shortdesc> 
+	  属性的新值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc> 
+	  属性的新值。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:WipeRightInstance"><apiName>WipeRightInstance</apiName><shortdesc>
+  WipeRightInstance 类用于实现 WipeRight 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeRightInstance 类用于实现 WipeRight 效果的实例类。Flex 在播放 WipeRight 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeRight"><linktext>mx.effects.WipeRight</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeRightInstance:WipeRightInstance"><apiName>WipeRightInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:RemoveChildActionInstance"><apiName>RemoveChildActionInstance</apiName><shortdesc>
+  RemoveChildActionInstance 类用于实现 RemoveChildAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemoveChildActionInstance 类用于实现 RemoveChildAction 效果的实例类。Flex 在播放 RemoveChildAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#RemoveChildAction"><linktext>mx.effects.RemoveChildAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RemoveChildActionInstance:RemoveChildActionInstance"><apiName>RemoveChildActionInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:UnconstrainItemActionInstance"><apiName>UnconstrainItemActionInstance</apiName><shortdesc>
+  UnconstrainItemActionInstance 类用于实现 UnconstrainItemAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UnconstrainItemActionInstance 类用于实现 UnconstrainItemAction 效果的实例类。Flex 在播放 UnconstrainItemAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#UnconstrainItemAction"><linktext>mx.effects.UnconstrainItemAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:UnconstrainItemActionInstance:UnconstrainItemActionInstance"><apiName>UnconstrainItemActionInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:UnconstrainItemActionInstance:effectHost"><apiName>effectHost</apiName><shortdesc>
+      效果主机组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiValueClassifier>mx.controls.listClasses:ListBase</apiValueClassifier></apiValueDef><apiDesc>
+      效果主机组件。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:WipeUpInstance"><apiName>WipeUpInstance</apiName><shortdesc>
+  WipeUpInstance 类用于实现 WipeUp 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeUpInstance 类用于实现 WipeUp 效果的实例类。Flex 在播放 WipeUp 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#WipeUp"><linktext>mx.effects.WipeUp</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:WipeUpInstance:WipeUpInstance"><apiName>WipeUpInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:ResizeInstance"><apiName>ResizeInstance</apiName><shortdesc>
+  ResizeInstance 类用于实现 Resize 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ResizeInstance 类用于实现 Resize 效果的实例类。Flex 在播放 Resize 效果时会自动创建此类的实例；您无需自己创建。
+  
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 Resize 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个具有两个项的 Array，其中： </p>
+  <ul>
+    <li>value[0]:Number 一个介于 <codeph>Resize.widthFrom</codeph> 和 <codeph>Resize.widthTo</codeph> 属性的值之间的值。</li>
+  
+    <li>value[1]:Number 一个介于 <codeph>Resize.heightFrom</codeph> 和 <codeph>Resize.heightTo</codeph> 属性的值之间的值。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Resize"><linktext>mx.effects.Resize</linktext></link><link href="" invalidHref="mx.events.TweenEvent.xml"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ResizeInstance:ResizeInstance"><apiName>ResizeInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:ResizeInstance:heightFrom"><apiName>heightFrom</apiName><shortdesc> 
+	  初始高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  初始高度。如果省略，Flex 将使用当前大小。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:hideChildrenTargets"><apiName>hideChildrenTargets</apiName><shortdesc>
+	  一个包含 Panel 的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  一个包含 Panel 的 Array。当播放 Resize 效果时，会隐藏这些 Panel 的子项。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:widthFrom"><apiName>widthFrom</apiName><shortdesc> 
+	  初始宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  初始宽度。如果省略，Flex 将使用当前大小。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:heightBy:get"><apiName>heightBy</apiName><shortdesc> 
+	  组件高度所修改的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  组件高度所修改的像素数目。值可以为负数。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:heightTo:get"><apiName>heightTo</apiName><shortdesc> 
+	  最终高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最终高度（以像素为单位）。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:widthBy:get"><apiName>widthBy</apiName><shortdesc> 
+	  组件宽度所修改的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  组件宽度所修改的像素数目。值可以为负数。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ResizeInstance:widthTo:get"><apiName>widthTo</apiName><shortdesc> 
+	  最终宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最终宽度（以像素为单位）。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

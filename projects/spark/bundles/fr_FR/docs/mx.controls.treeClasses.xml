@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.treeClasses"><apiName>mx.controls.treeClasses</apiName><apiDetail/><apiClassifier id="mx.controls.treeClasses:MXTreeItemRenderer"><apiName>MXTreeItemRenderer</apiName><shortdesc>
+  La classe MXTreeItemRenderer définit la classe de rendu d’élément Spark à utiliser avec le contrôle MX Tree. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="listData"/><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:MXTreeItemRenderer &gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:MXItemRenderer
+    <strong>Properties</strong>
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:MXItemRenderer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe MXTreeItemRenderer définit la classe de rendu d’élément Spark à utiliser avec le contrôle MX Tree. Cette classe vous permet d’utiliser l’architecture de rendu d’élément Spark avec le contrôle MX Tree.  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Tree.xml"><linktext>mx.controls.Tree</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:MXTreeItemRenderer:MXTreeItemRenderer"><apiName>MXTreeItemRenderer</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:MXTreeItemRenderer:disclosureGroup:get"><apiName>disclosureGroup</apiName><shortdesc>
+      S’il est fourni, le composant qui est utilisé comme contrôle de développement de l’arborescence. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:Group</apiValueClassifier></apiValueDef><apiDesc>
+      S’il est fourni, le composant qui est utilisé comme contrôle de développement de l’arborescence. Cliquer sur ce contrôle distribue les événements d’arborescence, tels que <codeph>itemClose</codeph> et <codeph>itemOpen</codeph>. Quant à l’événement <codeph>click</codeph>, il n’est pas propagé. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:MXTreeItemRenderer:treeListData:get"><apiName>treeListData</apiName><shortdesc>
+      Implémentation de la propriété listData, telle que définie par l’interface IDropInListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.controls.treeClasses:TreeListData"/></apiValueDef><apiDesc>
+      Implémentation de la propriété <codeph>listData</codeph>, telle que définie par l’interface IDropInListItemRenderer. Utilisez cette propriété pour accéder à des informations sur l’élément de données affiché par le rendu d’élément.      
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

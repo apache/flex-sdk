@@ -1,0 +1,1108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls"><apiName>mx.controls</apiName><apiDetail/><apiClassifier id="mx.controls:SWFLoader"><apiName>SWFLoader</apiName><shortdesc>
+  SWFLoader コントロールは、指定した SWF ファイルをロードおよび表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="style" name="chromeColor"/><effects><effect event="complete" name="completeEffect" owner="mx.controls:SWFLoader">
+<description>
+  complete イベントが送出されたときに開始されるエフェクトです。
+  
+  </description>
+<playerversion>Flash 9
+  </playerversion>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect></effects><styles><style enumeration="bottom,middle,top" inherit="no" name="verticalAlign" owner="mx.controls:SWFLoader" playerVersion="Flash9" type="String">
+<description>
+  縦横比が 1 対 1 でないときのコンテンツの垂直方向の配置です。 有効な値は、<codeph>"top"</codeph>、<codeph>"middle"</codeph> および <codeph>"bottom"</codeph> です。
+  </description>
+<default>"top"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="no" name="horizontalAlign" owner="mx.controls:SWFLoader" playerVersion="Flash9" type="String">
+<description>
+  縦横比が 1 対 1 でないときのコンテンツの水平方向の配置です。 有効な値は <codeph>"left"</codeph>、<codeph>"center"</codeph> および <codeph>"right"</codeph> です。
+  </description>
+<default>"left"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="brokenImageSkin" owner="mx.controls:SWFLoader" playerVersion="Flash9" type="Class">
+<description>
+  コントロールがコンテンツをロードできない場合に SWFLoader のスキンとして使用するクラスの名前です。デフォルト値は、Assets.swf ファイル内の "__brokenImage" シンボルです。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="brokenImageBorderSkin" owner="mx.controls:SWFLoader" playerVersion="Flash9" type="Class">
+<description>
+  コントロールがコンテンツをロードできない場合に SWFLoader の境界のスキンとして使用するクラスの名前です。
+  </description>
+<default>BrokenImageBorderSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The &lt;mx:SWFLoader&gt; tag inherits all of the tag attributes
+  of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SWFLoader
+    <strong>Properties</strong>
+    autoLoad="true|false"
+    loadForCompatibility="false|true"
+    loaderContext="null"
+    maintainAspectRatio="true|false"
+    scaleContent="true|false"
+    showBusyCursor="false|true"
+    source="<i>No default</i>"
+    trustContent="false|true"
+  
+    <strong>Styles</strong>
+    brokenImageBorderSkin="BrokenImageBorderSkin"
+    brokenImageSkin="<i>'__brokenImage' symbol in Assets.swf</i>"
+    horizontalAlign="left|center|right"
+    verticalAlign="top|middle|bottom"
+  
+    <strong>Effects</strong>
+    completeEffect="<i>No default</i>"
+    
+    <strong>Events</strong>
+    complete="<i>No default</i>"
+    httpStatus="<i>No default</i>"
+    init="<i>No default</i>"
+    ioError="<i>No default</i>"
+    open="<i>No default</i>"
+    progress="<i>No default</i>"
+    securityError="<i>No default</i>"
+    unload="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:ISWFLoader</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SWFLoader コントロールは、指定した SWF ファイルをロードおよび表示します。 一般的に、SWFLoader は Flex アプリケーションをホストの Flex アプリケーションにロードする場合に使用します。
+ 
+  <p><b>メモ：</b>SWFLoader コントロールを使用して、実行時の GIF、JPEG または PNG イメージファイルの読み込み、SWF、GIF、JPEG または PNG イメージを表す ByteArray の読み込みまたはコンパイル時の <codeph>@Embed(source='filename')</codeph> を使用したこれらのタイプのファイルの埋め込みバージョンとSVG ファイルの読み込みを行うことができます。 ただし、Image コントロールの方がこの機能に適しており、大半のイメージのロードに使用されます。 Image コントロールは、カスタムアイテムレンダラーとアイテムエディターでも使用できるように設計されています。 SVG ファイルで SWFLoader または Image を使用するときは、Embed ステートメントを使用して SVG をアプリケーションに埋め込んだ場合にのみ、SVG をロードできます。実行時にネットワークから SVG をロードすることはできません。</p>
+ 
+  <p>SWFLoader コントロールでは、そのコンテンツを拡大および縮小し、そのサイズを設定できます。また、コンテンツのサイズに合わせてコントロール自身が拡大 / 縮小することもできます。デフォルトでは、SWFLoader コントロールのサイズに合うようにコンテンツが拡大 / 縮小されます。また、プログラムを使って要求時にコンテンツをロードし、ロードの進行状況を監視できます。</p>  
+ 
+  <p>SWFLoader コントロールはフォーカスを取得できません。ただし、SWFLoader コントロールのコンテンツ自体は、フォーカスの取得やフォーカス操作が可能です。</p>
+ 
+  <p>SWFLoader コントロールには、次のデフォルトの特性があります。</p>
+     <adobetable class="innertable">
+        
+        
+        
+        
+     <tgroup cols="2"><thead><row><entry>特性</entry><entry>説明</entry></row></thead><tbody><row>
+           <entry>デフォルトサイズ</entry>
+           <entry>ロードしたコンテンツ全体を表示するのに必要な幅と高さです。</entry>
+        </row><row>
+           <entry>最小サイズ</entry>
+           <entry>0 ピクセル</entry>
+        </row><row>
+           <entry>最大サイズ</entry>
+           <entry>未定義</entry>
+        </row></tbody></tgroup></adobetable>
+ 
+  </apiDesc><example conref="local.mxml"/><example conref="SimpleLoader.mxml"><swfblock conref="examples/SimpleLoader.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Image.xml"><linktext>mx.controls.Image</linktext></link></related-links><adobeApiEvent id="mx.controls:SWFLoader_flash.events.Event.UNLOAD_unload"><apiName>unload</apiName><shortdesc>
+  ロードされたオブジェクトが削除されるたびに送出されます。または 2 番目のロードが同じ SWFLoader コントロールによって実行され、新たなロードの開始前に元のコンテンツが削除された場合に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.UNLOAD</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ロードされたオブジェクトが削除されるたびに送出されます。または 2 番目のロードが同じ SWFLoader コントロールによって実行され、新たなロードの開始前に元のコンテンツが削除された場合に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.SecurityErrorEvent.SECURITY_ERROR_securityError"><apiName>securityError</apiName><shortdesc>
+  コンテンツのロード中にセキュリティエラーが発生すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SecurityErrorEvent.SECURITY_ERROR</apiEventType><adobeApiEventClassifier>flash.events.SecurityErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンテンツのロード中にセキュリティエラーが発生すると送出されます。詳細については、SecurityErrorEvent クラスを参照してください。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.ProgressEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  コンテンツのロード中に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.ProgressEvent.PROGRESS</apiEventType><adobeApiEventClassifier>flash.events.ProgressEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンテンツのロード中に送出されます。
+ 
+  <p>このイベントは、ロードが autoload によってトリガーされたか、<codeph>load()</codeph> メソッドの明示的な呼び出しによってトリガーされたかにかかわらず、送出されます。</p>
+ 
+  <p><b>メモ：</b><codeph>progress</codeph> イベントが送出されることは保証されていません。 <codeph>complete</codeph> イベントを、<codeph>progress</codeph> イベントが 1 つも送出されないまま受け取る場合もあります。 これは、ローカルファイルをロードする場合によく発生します。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.Event.OPEN_open"><apiName>open</apiName><shortdesc>
+  ネットワーク操作が開始したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.OPEN</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ネットワーク操作が開始したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.IOErrorEvent.IO_ERROR_ioError"><apiName>ioError</apiName><shortdesc>
+  入出力エラーが発生すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.IOErrorEvent.IO_ERROR</apiEventType><adobeApiEventClassifier>flash.events.IOErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  入出力エラーが発生すると送出されます。
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.IOErrorEvent.xml"><linktext>flash.events.IOErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.Event.INIT_init"><apiName>init</apiName><shortdesc>
+  ロードされた SWF ファイルのプロパティおよびメソッドにアクセスできる場合に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.INIT</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ロードされた SWF ファイルのプロパティおよびメソッドにアクセスできる場合に送出されます。このイベントが送出されるためには、次に示す 2 つの条件に適合する必要があります。
+ 
+  <ul>
+    <li>ロードされたオブジェクトに関係したすべてのプロパティ、メソッドおよびコントロールに関係したすべてのプロパティとメソッドにアクセスできます。</li>
+    <li>すべての子オブジェクトのコンストラクターが完了済みです。</li>
+  </ul>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.HTTPStatusEvent.HTTP_STATUS_httpStatus"><apiName>httpStatus</apiName><shortdesc>
+  ネットワーク要求が HTTP 上で行われ、Flash Player または AIR が HTTP 状況コードを検出できる場合に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.HTTPStatusEvent.HTTP_STATUS</apiEventType><adobeApiEventClassifier>flash.events.HTTPStatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ネットワーク要求が HTTP 上で行われ、Flash Player または AIR が HTTP 状況コードを検出できる場合に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.Event.COMPLETE_complete"><apiName>complete</apiName><shortdesc>
+  コンテンツのロードが完了したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.COMPLETE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンテンツのロードが完了したときに送出されます。
+ 
+  <p>このイベントは、ロードが autoload によってトリガーされたか、<codeph>load()</codeph> メソッドの明示的な呼び出しによってトリガーされたかにかかわらず、送出されます。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:SWFLoader:SWFLoader"><apiName>SWFLoader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:SWFLoader:getVisibleApplicationRect"><apiName>getVisibleApplicationRect</apiName><shortdesc>
+      
+      ユーザーが画面で参照できる、ロードされたアプリケーションの境界を取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>このオブジェクトの可視部分を含む <codeph>Rectangle</codeph> です。矩形では、グローバル座標が使用されます。
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>allApplications</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>可視矩形がこのアプリケーションの表示オブジェクトにのみ基づいて計算されるか、すべての親アプリケーションにも基づいて計算されるかを決定します。多くの親アプリケーションを含めると、返される表示可能領域が減少します。<codeph>true</codeph> の場合はすべてのアプリケーションを使用して可視領域が検索され、それ以外の場合は、このアプリケーションの表示オブジェクトのみ使用されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ユーザーが画面で参照できる、ロードされたアプリケーションの境界を取得します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:SWFLoader:load"><apiName>load</apiName><shortdesc>
+      イメージまたは SWF ファイルをロードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>ロードする GIF ファイル、JPEG ファイル、PNG ファイルまたは SWF ファイルの絶対 URL または相対 URL です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      イメージまたは SWF ファイルをロードします。<codeph>url</codeph> 引数では、GIF、JPEG、PNG または SWF の各ファイルを参照できます。このメソッドは、SVG ファイルをロードするために使用することはできません。その代わりに、<codeph>source</codeph> プロパティと共に Embed ステートメントを使用してロードする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:SWFLoader:unloadAndStop"><apiName>unloadAndStop</apiName><shortdesc>
+      イメージまたは SWF ファイルをアンロードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>invokeGarbageCollector</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc> 子 SWF オブジェクトでガベージコレクターが実行されるようにヒントを提供するかどうかを指定します（<codeph>true</codeph> または <codeph>false</codeph>）。多数のオブジェクトを非同期でアンロードする場合は、<codeph>gc</codeph> パラメーターを <codeph>false</codeph> に設定するとアプリケーションのパフォーマンスが向上する可能性があります。ただし、このパラメーターを <codeph>false</codeph> に設定した場合は、子 SWF のアンロード後も子 SWF ファイルのメディアオブジェクトおよび表示オブジェクトがメモリに残ることがあります。  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      イメージまたは SWF ファイルをアンロードします。このメソッドが戻った後 <codeph>source</codeph> プロパティは null になります。これは、ホスト Flash Player がバージョン 10 以降の場合にのみサポートされます。ホスト Flash Player がバージョン 10 未満の場合、このメソッドは <codeph>source</codeph> が null に設定されている場合と同様の方法でコンテンツをアンロードします。このメソッドは、子 SWF ファイルの EventDispatcher、NetConnection、Timer、Sound または Video オブジェクトへの参照を削除することにより、SWF ファイルのアンロードを試みます。この結果、子 SWF ファイルおよび子 SWF ファイルの表示リストで以下が行われます。 
+      <ul>
+      <li>サウンドが停止されます。</li>
+      <li>Stage イベントリスナーが削除されます。</li>
+      <li><codeph>enterFrame</codeph>、<codeph>frameConstructed</codeph>、<codeph>exitFrame</codeph>、<codeph>activate</codeph>、および <codeph>deactivate</codeph> のイベントリスナーが削除されます。</li>
+      <li>タイマーが停止されます。</li>
+      <li>Camera インスタンスおよび Microphone インスタンスがデタッチされます。</li>
+      <li>ムービークリップが停止されます。</li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:SWFLoader:autoLoad:get"><apiName>autoLoad</apiName><shortdesc>
+      コンテンツのロードを自動的に開始するか、load() メソッドが呼び出されるまで待機するかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="autoLoadChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテンツのロードを自動的に開始するか、<codeph>load()</codeph> メソッドが呼び出されるまで待機するかを示すフラグです。<codeph>true</codeph> の場合、コンテンツが自動的にロードされます。 <codeph>false</codeph> の場合、<codeph>load()</codeph> メソッドを呼び出す必要があります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:bytesLoaded:get"><apiName>bytesLoaded</apiName><shortdesc>
+      既にロードされた SWF またはイメージファイルのバイト数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="progress"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      既にロードされた SWF またはイメージファイルのバイト数です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:bytesTotal:get"><apiName>bytesTotal</apiName><shortdesc>
+      SWF またはイメージファイルの合計サイズです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="complete"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      SWF またはイメージファイルの合計サイズです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:childAllowsParent:get"><apiName>childAllowsParent</apiName><shortdesc>
+     
+      子が親に、子の表示オブジェクトへのアクセスまたは子で生成されたメッセージの監視を許可するかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     
+      子が親に、子の表示オブジェクトへのアクセスまたは子で生成されたメッセージの監視を許可するかどうかをテストします。アクセスが許可されている場合は <codeph>true</codeph>、許可されていない場合は <codeph>false</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:contentHeight:get"><apiName>contentHeight</apiName><shortdesc>
+      コントロールによりロードされた、拡大 / 縮小されたコンテンツの高さをピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コントロールによりロードされた、拡大 / 縮小されたコンテンツの高さをピクセル単位で表します。 これはコントロール自体の高さではなく、ロードされたコンテンツの高さです。 高さを取得するには、コントロールの <codeph>height</codeph> プロパティを使用します。
+     
+      <p><codeph>complete</codeph> イベントがトリガーされているときは、このプロパティの値は最終値ではありません。 <codeph>updateComplete</codeph> イベントがトリガーされた後で、値を取得できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:contentWidth:get"><apiName>contentWidth</apiName><shortdesc>
+      コントロールによりロードされた、拡大 / 縮小されたコンテンツの幅をピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コントロールによりロードされた、拡大 / 縮小されたコンテンツの幅をピクセル単位で表します。 これはコントロール自体の幅ではなく、ロードされたコンテンツの幅です。 幅を取得するには、コントロールの <codeph>width</codeph> プロパティを使用します。
+     
+      <p><codeph>complete</codeph> イベントがトリガーされているときは、このプロパティの値は最終値ではありません。 <codeph>updateComplete</codeph> イベントがトリガーされた後で、値を取得できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:content:get"><apiName>content</apiName><shortdesc>
+      このプロパティには、SWFLoader コントロールにロードされたコンテンツを表すオブジェクトが設定されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><helpid>3134
+      
+      </helpid></asCustoms></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObject"/><apiTipTexts><apiTipText>SWFLoader のコンテンツを返します。
+      </apiTipText></apiTipTexts></apiValueDef><apiDesc>
+      このプロパティには、SWFLoader コントロールにロードされたコンテンツを表すオブジェクトが設定されます。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:loadForCompatibility:get"><apiName>loadForCompatibility</apiName><shortdesc>
+      Flex コンパイラーの異なるバージョンでビルドされたアプリケーションと相互運用できるようにコンテンツをロードするかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="loadForCompatibilityChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Flex コンパイラーの異なるバージョンでビルドされたアプリケーションと相互運用できるようにコンテンツをロードするかどうかを示すフラグです。他の Flex アプリケーションとの互換性は、アプリケーションを兄弟 (またはピア) ApplicationDomain にロードすることで実現されます。このフラグは、コンテンツを異なる SecurityDomain にロードする必要がある場合は無視されます。<codeph>true</codeph> の場合、コンテンツは、兄弟 ApplicationDomain にロードされます。<codeph>false</codeph> の場合、コンテンツは、子 ApplicationDomain にロードされます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:loaderContext:get"><apiName>loaderContext</apiName><shortdesc>
+      コンテンツのロードの管理に使用する LoaderContext オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="loaderContextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.system:LoaderContext"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテンツのロードの管理に使用する LoaderContext オブジェクトです。 これは高度なプロパティです。 ほとんどの場合、<codeph>trustContent</codeph> プロパティを使用できます。
+     
+      <p>デフォルト値は <codeph>null</codeph> です。つまり、コントロールは <codeph>trustContent</codeph> プロパティを使用して LoaderContext オブジェクトを作成します。ロードの開始後にこのオブジェクトを戻すことができます。</p>
+     
+      <p>カスタムの LoaderContext オブジェクトを使用するには、SecurityDomain クラスおよび ApplicationDomain クラスを理解する必要があります。 このプロパティの設定により、ロードは開始しません。このプロパティは、ロードを開始する前に設定する必要があります。 これは、<codeph>autoLoad</codeph> プロパティを <codeph>false</codeph> に設定する必要があるということではありません。実際にはロードはすぐには開始されませんが、<codeph>creationComplete</codeph> イベントで設定されるのを待っていると遅すぎるためです。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.LoaderContext.xml"><linktext>flash.system.LoaderContext</linktext></link><link href="" invalidHref="flash.system.ApplicationDomain.xml"><linktext>flash.system.ApplicationDomain</linktext></link><link href="" invalidHref="flash.system.SecurityDomain.xml"><linktext>flash.system.SecurityDomain</linktext></link></related-links></apiValue><apiValue id="mx.controls:SWFLoader:maintainAspectRatio:get"><apiName>maintainAspectRatio</apiName><shortdesc>
+      ロードしたコンテンツの縦横比を維持するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maintainAspectRatioChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ロードしたコンテンツの縦横比を維持するかどうかを示すフラグです。 <codeph>true</codeph> の場合、元のイメージと同じ縦横比を持つイメージを表示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:parentAllowsChild:get"><apiName>parentAllowsChild</apiName><shortdesc>
+     
+      親が子に、親の表示オブジェクトへのアクセスまたは親で生成されたメッセージの監視を許可するかどうかをテストします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     
+      親が子に、親の表示オブジェクトへのアクセスまたは親で生成されたメッセージの監視を許可するかどうかをテストします。アクセスが許可されている場合は <codeph>true</codeph>、許可されていない場合は <codeph>false</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:percentLoaded:get"><apiName>percentLoaded</apiName><shortdesc>
+      イメージファイルまたは SWF ファイルのロードが何パーセント完了したかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="progress"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      イメージファイルまたは SWF ファイルのロードが何パーセント完了したかを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:scaleContent:get"><apiName>scaleContent</apiName><shortdesc>
+      コントロールのサイズに合わせてコンテンツを拡大または縮小するか、コンテンツのサイズに合わせてコントロールのサイズを変更するかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="scaleContentChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コントロールのサイズに合わせてコンテンツを拡大または縮小するか、コンテンツのサイズに合わせてコントロールのサイズを変更するかを示すフラグです。 <codeph>true</codeph> の場合、SWFLoader コントロールのサイズに合わせてコンテンツが拡大 / 縮小されます。 <codeph>false</codeph> の場合、コンテンツに合わせて Loader が拡大 / 縮小されます。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+      コンテンツのロード中にビジーカーソルを表示するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテンツのロード中にビジーカーソルを表示するかどうかを示すフラグです。 <codeph>true</codeph> の場合、コンテンツのロード中にビジーカーソルを表示します。 デフォルトのビジーカーソルは、CursorManager クラスの <codeph>busyCursor</codeph> プロパティによって定義された mx.skins.halo.BusyCursor です。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.managers.xml#CursorManager"><linktext>mx.managers.CursorManager</linktext></link></related-links></apiValue><apiValue id="mx.controls:SWFLoader:smoothBitmapContent:get"><apiName>smoothBitmapContent</apiName><shortdesc>
+      拡大 / 縮小する際にコンテンツをスムージングするかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="smoothBitmapContentChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      拡大 / 縮小する際にコンテンツをスムージングするかどうかを示すフラグです。スムージングできるのは Bitmap コンテンツのみです。この値が <codeph>true</codeph> で、コンテンツが Bitmap の場合、コンテンツのスムージングプロパティは <codeph>true</codeph> に設定されます。<codeph>false</codeph> の場合、コンテンツはスムージングされません。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:source:get"><apiName>source</apiName><shortdesc>
+      コンテンツとしてロードする URL、オブジェクト、クラスまたはクラスストリング名です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sourceChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテンツとしてロードする URL、オブジェクト、クラスまたはクラスストリング名です。 <codeph>source</codeph> プロパティは次の形式をとります。
+     
+      <p><pre>
+      <codeph>source="<i>URLOrPathOrClass</i>"</codeph></pre></p>
+     
+      <p><pre>
+      <codeph>source="@Embed(source='<i>PathOrClass</i>')"</codeph></pre></p>
+     
+      <p><codeph>source</codeph> プロパティの値は、相対 URL または 絶対 URL、SWF、GIF、JPEG または PNG を表す ByteArray、IFlexDisplayObject を実装するオブジェクト、IFlexDisplayObject を実装するタイプのクラスまたはクラスを表すストリングを表すことができます。 </p> 
+     
+      <p>SWF、GIF、JPEG、PNG または SVG の各ファイルへのパスを指定すると、SWFLoader コントロールと共に使用するための正しいデータ型に自動的に変換されます。</p> 
+     
+      <p>Embed ステートメントを省略した場合、参照されたファイルは、生成済み SWF ファイルの一部としてパッケージ化されるのではなく、実行時に Flex によってロードされます。 <codeph>source</codeph> プロパティでは、実行時に GIF、JPEG、PNG の各イメージ、および SWF ファイルのロードのみがサポートされます。</p>
+     
+      <p>Flex Data Services ユーザーは、次の形式で SWFLoader コントロールを使用して Flex アプリケーションをロードできます。</p>
+     
+      <p><pre>
+      <codeph>source="<i>MXMLPath</i>.mxml.swf"</codeph></pre></p>
+     
+      <p>Flex Data Services は、MXML ファイルをコンパイルし、SWF ファイルをメインアプリケーションに返します。この手法は、主に、アプリケーションにグラフィックやアニメーションを追加する SWF ファイルを扱うものです。複雑な操作を実装した SWF ファイルには向いていません。複雑な操作を要求する SWF ファイルを読み込む場合は、カスタムコンポーネントを作成することをお勧めします。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:swfBridge:get"><apiName>swfBridge</apiName><shortdesc>
+     
+      このインターフェイスの実装者に関連付けられているアプリケーションへのブリッジです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+     
+      このインターフェイスの実装者に関連付けられているアプリケーションへのブリッジです。異なる ApplicationDomain または異なるサンドボックス内のアプリケーションにイベントを送信するために使用できる IEventDispatcher です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:trustContent:get"><apiName>trustContent</apiName><shortdesc>
+      true の場合、コンテンツはセキュリティドメインにロードされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="trustContentChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、コンテンツはセキュリティドメインにロードされます。 つまり、コンテンツが他のドメインにあり、そのドメインに自分のドメインにアクセスできる crossdomain.xml ファイルがない場合は、ロードが失敗します。 このプロパティは次のロードでのみ有効で、既にロード済みのコンテンツでは新しくロードを開始しません。
+     
+      <p>デフォルト値は <codeph>false</codeph> です。このデフォルト値では、失敗することなくどんなコンテンツもロードしますが、コンテンツにアクセスすることはできません。 最も重要なこととして、ロードされたコンテンツからはオブジェクトとコードにアクセスできません。これは最も安全なシナリオです。 ロードされたコンテンツが安全であることに確信がある場合以外、特に SWF ファイルなどのアクティブコンテンツではこのプロパティを <codeph>true</codeph> に設定しないでください。</p>
+     
+      <p>また、<codeph>loaderContext</codeph> プロパティを使用して、<codeph>trustContent</codeph> を設定してもニーズに正確に一致しない場合に、コンテンツがロードされる方法を正確に特定することもできます。 <codeph>loaderContext</codeph> プロパティを設定すると、SWFLoader は <codeph>trustContent</codeph> プロパティの値を無視します。 しかし、<codeph>loaderContext</codeph> プロパティを使用するには、SecurityDomain クラスおよび ApplicationDomain クラスについての知識が必要です。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.SecurityDomain.xml"><linktext>flash.system.SecurityDomain</linktext></link><link href="" invalidHref="flash.system.ApplicationDomain.xml"><linktext>flash.system.ApplicationDomain</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls:ToolTip"><apiName>ToolTip</apiName><shortdesc>
+  ToolTip コントロールを使用すると、役に立つ情報をユーザーに提供することができます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="mx.controls:ToolTip">
+<description>
+ このコンポーネントでは、モバイルテーマのスキンが定義されていないので、モバイルアプリケーションではこのコンポーネントを使用しないことをお勧めします。 別の方法として、独自のモバイルスキンをコンポーネントに定義できます。 詳しくは、<xref href="http://help.adobe.com/en_US/flex/mobileapps/WS19f279b149e7481c698e85712b3011fe73-8000.html">Basics of mobile skinning</xref>を参照してください。
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><styles><style format="Length" inherit="no" name="paddingTop" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  コンテナの上境界線とコンテンツ領域との間にあるピクセル数です。 デフォルト値は -1 です。この場合、最初のヘッダーの上境界線が、Accordion コンテナの上境界線と重なります。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingBottom" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  コンテナの下境界線とコンテンツ領域との間にあるピクセル数です。 デフォルト値は -1 です。この場合、最後のヘッダーの下境界線が、Accordion コンテナの下境界線と重なります。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="cornerRadius" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo, spark, mobile" type="Number">
+<description>
+  コンポーネントの角に付いている丸みの半径です。
+  
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="textIndent" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  テキストの 1 行目のコンテナ左端からのオフセット（ピクセル単位）です。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls:ToolTip" playerVersion="Flash10" type="Class">
+<description>
+  IUITextField を実装するクラスです。このクラスはテキストをレンダリングするためにこのコンポーネントで使用されます。
+ 
+  <p>mx.core.UITextField クラス（Flash Player に組み込まれている標準の TextField を使用する場合）または mx.core.UIFTETextField クラス（Text Layout Framework を使用して、双方向レイアウトなどの向上したテキストレンダリングを取得する場合）のいずれかに設定できます。</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  テキストに下線を表示するかどうかを指定します。 可能な値は、<codeph>"none"</codeph> および <codeph>"underline"</codeph> です。
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  コンテナ内のテキストの整列。 可能な値は <codeph>"left"</codeph>、<codeph>"right"</codeph>、または <codeph>"center"</codeph> です。
+ 
+  <p>ほとんどのコンポーネントのデフォルト値は <codeph>"left"</codeph> です。 FormItem コンポーネントの場合、デフォルト値は <codeph>"right"</codeph> です。 Button、LinkButton および AccordionHeader コンポーネントでは、デフォルト値は <codeph>"center"</codeph> です。このプロパティは <codeph>labelPlacement</codeph> プロパティが <codeph>"left"</codeph> または <codeph>"right"</codeph> に設定されている場合のみ認識されます。 <codeph>labelPlacement</codeph> が <codeph>"top"</codeph> または <codeph>"bottom"</codeph> に設定されている場合は、テキストおよびアイコンが中央に配置されます。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls:ToolTip" playerVersion="Flash10" type="String">
+<description>
+  このコンポーネントで表示されるテキストのロケールです。
+ 
+  <p>FTE および TLF はこのロケールを使用して Unicode 文字をフォント字形にマッピングしたり、フォールバックフォントを検索したりします。</p>
+ 
+  <p>メモ：このスタイルは、MX コンポーネントで、<codeph>textFieldClass</codeph> として UIFTETextField が指定されている場合にのみ適用されます。</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  各文字間に表示される追加のピクセル数。 正の値を指定すると文字間隔が通常より広くなり、負の値を指定すると文字間隔が通常より狭くなります。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Boolean">
+<description>
+  カーニングが有効（<codeph>true</codeph>) か無効（<codeph>false</codeph>）かを示すブール値です。カーニングでは、読みやすくするために、特定の文字ペア間の間隔を調整します。ただし、カーニングは見出しを大きなフォントにする場合など、必要な場合に限って使用してください。 カーニングは、埋め込みフォントに対してのみサポートされています。Verdana や、Courier New などの等幅フォントなど、特定のフォントではカーニングはサポートされていません。
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  テキストをボールド体にするかどうかを指定します。 有効な値は <codeph>normal</codeph> と <codeph>bold</codeph> です。 Button コントロールのデフォルト値は <codeph>bold</codeph> です。 他のすべてのコントロールのデフォルト値は <codeph>normal</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Flex コントロール内のテキストを表す内部 TextField の <codeph>thickness</codeph> プロパティを設定します。 このプロパティは字形のエッジの太さを指定します。 可能な値は -200 から 200 までの数値です。 
+  
+  <p>このプロパティが適用されるのは、埋め込みフォントを使用していて、<codeph>fontAntiAliasType</codeph> プロパティが <codeph>"advanced"</codeph> に設定されている場合のみです。</p>
+  
+  <p>このスタイルは、システムフォントには影響を与えません。</p>
+ 
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  テキストをイタリック体にするかどうかを指定します。 認識される値は <codeph>"normal"</codeph> と <codeph>"italic"</codeph> です。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  テキストの高さ（ピクセル単位）です。 Halo テーマ内では、ColorPicker コントロール以外のすべてのコントロールのデフォルト値は 10 です。Halo テーマ別 ColorPicker コントロールのデフォルトは 11 です。Spark テーマ内では、ColorPicker コントロール以外のすべてのコントロールのデフォルト値は 12 です。Spark テーマ別 ColorPicker コントロールのデフォルトは 11 です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Flex コントロール内のテキストを表す内部 TextField の <codeph>sharpness</codeph> プロパティを設定します。 このプロパティは字形のエッジのシャープネスを指定します。 可能な値は -400 から 400 までの数値です。 
+  
+  <p>このプロパティが適用されるのは、埋め込みフォントを使用していて、<codeph>fontAntiAliasType</codeph> プロパティが <codeph>"advanced"</codeph> に設定されている場合のみです。</p>
+  
+  <p>このスタイルはシステムフォントには影響しません。</p>
+ 
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  Flex コントロール内のテキストを表す内部 TextField の <codeph>gridFitType</codeph> プロパティを設定します。 可能な値は、<codeph>"none"</codeph>（<codeph>flash.text.GridFitType.NONE</codeph>）、<codeph>"pixel"</codeph>（<codeph>flash.text.GridFitType.PIXEL</codeph>）、および <codeph>"subpixel"</codeph>（<codeph>flash.text.GridFitType.SUBPIXEL</codeph>）です。 
+  
+  <p>このプロパティが適用されるのは、埋め込みフォントを使用していて、<codeph>fontAntiAliasType</codeph> プロパティが <codeph>"advanced"</codeph> に設定されている場合のみです。</p>
+  
+  <p>このスタイルはシステムフォントには影響しません。</p>
+ 
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  使用するフォントの名前です。 完全な CSS 実装と異なり、カンマ区切りリストはサポートされません。 任意のフォントファミリ名を使用できます。 汎用フォント名を指定した場合、適切なデバイスフォントに置換されます。Halo テーマのデフォルトフォントは <codeph>"Verdana"</codeph> です。Spark テーマのデフォルトフォントは <codeph>"Arial"</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  内部 TextField の <codeph>antiAliasType</codeph> プロパティを設定します。 可能な値は、<codeph>"normal"</codeph>（<codeph>flash.text.AntiAliasType.NORMAL</codeph>）および <codeph>"advanced"</codeph>（<codeph>flash.text.AntiAliasType.ADVANCED</codeph>）です。 
+  
+  <p>デフォルト値は <codeph>"advanced"</codeph> であり、フォントについて高度なアンチエイリアスが有効になります。 <codeph>"normal"</codeph> に設定すると、高度なアンチエイリアスが無効になります。</p>
+  
+  <p>このスタイルはシステムフォントには影響しません。</p>
+  
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls:ToolTip" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントが無効な場合のテキストの色です。
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls:ToolTip" playerVersion="Flash10" type="String">
+<description>
+  このコンポーネントで表示されるテキストの方向です。
+ 
+  <p>使用できる値は、ラテン文字などの左から右のテキスト用の <codeph>"ltr"</codeph> と、アラビア文字やヘブライ文字などの右から左のテキスト用の <codeph>"rtl"</codeph> です。</p>
+ 
+  <p>FTE と TLF は双方向テキストレイアウトアルゴリズムでこの値を使用し、Unicode 文字の順序を字形の順序にマッピングします。</p>
+ 
+  <p>メモ：このスタイルは、MX コンポーネントで、<codeph>textFieldClass</codeph> として UIFTETextField が指定されている場合にのみ適用されます。</p>
+ 
+  <p><codeph>direction</codeph> は、TLFTextField の境界内のテキストの整列にも影響します。ただし、コンポーネント内の TLFTextField の配置には影響しません。</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls:ToolTip" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントのラベルを含めたコンポーネント内のテキストの色です。Halo テーマのデフォルト値は <codeph>0x0B333C</codeph> です。Spark テーマのデフォルト値は <codeph>0x000000</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingRight" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  コンポーネントの右境界線からコンテンツ領域の右端までのピクセル数です。
+  <p>デフォルト値は 0 です。</p>
+  <p>Halo テーマの Button コントロールデフォルト値は 10 で、Spark テーマの場合は 6 です。</p>
+  <p>ComboBox コントロールのデフォルト値は 5 です。</p>
+  <p>Form コンテナのデフォルト値は 16 です。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  コンポーネントの左境界線からコンテンツ領域の左端までのピクセル数です。
+  <p>デフォルト値は 0 です。</p>
+  <p>Halo テーマの Button コントロールデフォルト値は 10 で、Spark テーマの場合は 6 です。</p>
+  <p>ComboBox コントロールのデフォルト値は 5 です。</p>
+  <p>Form コンテナのデフォルト値は 16 です。</p>
+  <p>Tree コントロールのデフォルト値は 2 です。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  追加の行間を表します。
+ 
+  <p>デフォルト値は 2 です。</p>
+  <p>ComboBox コントロールのデフォルト値は 0 です。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="shadowDistance" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  ドロップシャドウの幅です。このプロパティを負の値に設定すると、シャドウはコンポーネントの上に表示されます。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="no" name="shadowDirection" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  ドロップシャドウの方向です。 有効な値は <codeph>"left"</codeph>、<codeph>"center"</codeph> および <codeph>"right"</codeph> です。
+ 
+  </description>
+<default>"center"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="dropShadowColor" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  ドロップシャドウの色です。
+ 
+  </description>
+<default>0x000000
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropShadowVisible" owner="mx.controls:ToolTip" playerVersion="Flash10" theme="spark" type="Boolean">
+<description>
+  コンポーネントのドロップシャドウの表示または非表示を指定するブール型プロパティです。 デフォルト値は <codeph>false</codeph> です。
+ 
+  <p><b>メモ：</b>ドロップシャドウをコンテナに表示するには、<codeph>contentBackgroundColor</codeph> プロパティを設定します。 設定しない場合、コンテナのデフォルトの背景は透明なので、シャドウはコンテナの背後に表示されます。</p>
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropShadowEnabled" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="Boolean">
+<description>
+  コンポーネントのドロップシャドウの表示または非表示を指定するブール型プロパティです。 このスタイルは <codeph>borderStyle="solid"</codeph> と共に使用します。 デフォルト値は <codeph>false</codeph> です。
+ 
+  <p><b>メモ：</b>ドロップシャドウをコンテナに表示するには、<codeph>backgroundColor</codeph> プロパティまたは <codeph>backgroundImage</codeph> プロパティを設定します。 設定しない場合、コンテナのデフォルトの背景は透明なので、シャドウはコンテナの背後に表示されます。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderVisible" owner="mx.controls:ToolTip" playerVersion="Flash10" theme="spark" type="Boolean">
+<description>
+  境界線の可視性です。
+ 
+  </description>
+<default>true
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="borderThickness" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  境界ボックスの境界線の幅です。 <codeph>borderStyle</codeph> が <codeph>"solid"</codeph> に設定されている場合にのみ使用されます。
+ 
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="inset,outset,solid,none" inherit="no" name="borderStyle" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  境界ボックスのスタイルです。 有効な値は <codeph>"none"</codeph>、<codeph>"solid"</codeph>、<codeph>"inset"</codeph> および <codeph>"outset"</codeph> です。 デフォルト値はコンポーネントのクラスに応じて異なります。クラスでオーバーライドされない場合は、<codeph>"inset"</codeph> になります。 ほとんどの Container のデフォルト値は <codeph>"none"</codeph> です。halo テーマで使用できる値は <codeph>"inset"</codeph> と <codeph>"outset"</codeph> のみです。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderSkin" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Class">
+<description>
+  コンポーネントの境界線のスキンクラスです。 Halo テーマに独自のデフォルトを明示的に設定していないすべてのコンポーネントのデフォルト値は、Halo テーマの場合は <codeph>mx.skins.halo.HaloBorder</codeph> になり、Spark テーマの場合は <codeph>mx.skins.spark.BorderSkin</codeph> になります。Panel コンテナには、Halo テーマのデフォルト値の <codeph>mx.skins.halo.PanelSkin</codeph> と Spark テーマのデフォルト値の <codeph>mx.skins.spark.BorderSkin</codeph> があります。コンポーネントのデフォルト値を確認するには、default.css ファイルを参照してください。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderSides" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  境界ボックスの境界線のうち、どれが表示されるかを示します。表示する境界線をスペース区切りのストリングで指定します。 ストリングには、<codeph>"left"</codeph>、<codeph>"top"</codeph>、<codeph>"right"</codeph> および <codeph>"bottom"</codeph> を任意の順序で指定できます。 デフォルト値は <codeph>"left top right bottom"</codeph> です。この場合、4 辺すべてを表示します。 このスタイルは、borderStyle が <codeph>"solid"</codeph> の場合にのみ使用されます。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo, spark, mobile" type="uint">
+<description>
+  境界線の色です。 デフォルト値はコンポーネントのクラスに応じて異なります。クラスでオーバーライドされない場合、Halo テーマでは <codeph>0xB7BABC</codeph>、Spark テーマでは <codeph>0x696969</codeph> になります。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderAlpha" owner="mx.controls:ToolTip" playerVersion="Flash10" theme="spark" type="Number">
+<description>
+  境界線のアルファです。
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundSize" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  <codeph>backgroundImage</codeph> で指定されているイメージを、元のサイズとは異なるサイズに拡大および縮小します。 <codeph>"100%"</codeph> に設定すると、コンポーネント全体に収まるサイズにイメージを伸縮します。 パーセント値で指定する場合は、パーセント記号（%）付きで指定する必要があります。 Application コンテナのデフォルトは <codeph>100%</codeph> です。 他のすべてのコンテナのデフォルト値は <codeph>auto</codeph> で、イメージの元のサイズが維持されます。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="File" inherit="no" name="backgroundImage" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="Object">
+<description>
+  コンポーネントの背景イメージです。 これには、絶対 URL、相対 URL、絶対クラス、または相対クラスを指定できます。 <codeph>backgroundColor</codeph> または <codeph>backgroundImage</codeph> のいずれかを設定できます。背景色の前面に背景イメージを表示します。 デフォルト値は <codeph>undefined</codeph> で、「未定義」であることを意味します。 このスタイルと <codeph>backgroundColor</codeph> スタイルの両方が undefined である場合、コンポーネントは透明な背景を持ちます。
+ 
+  <p>ほとんどの Flex コントロールのデフォルトスキンは、部分的に透明です。 この結果、コンテナの背景イメージが、そのコンテナの中のコントロールに部分的ににじみ出るように表示されます。 コントロールの <codeph>fillAlphas</codeph> プロパティのアルファ値を 1 に設定することで、これを避けることができます。次に例を示します。
+  <pre>
+  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/>
+      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/>
+  &lt;/mx:<i>Container</i>></pre>
+  </p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="backgroundDisabledColor" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  コンポーネントが無効になっている場合のコンポーネント背景色です。 グローバルデフォルト値は <codeph>undefined</codeph> です。 List コントロールのデフォルト値は、<codeph>0xDDDDDD</codeph>（明るい灰色）です。 コンテナが無効になっている場合は、背景がグレー表示されます。このグレー表示の度合いは、<codeph>disabledOverlayAlpha</codeph> スタイルで制御します。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo, spark, mobile" type="uint">
+<description>
+  コンポーネントの背景色です。 <codeph>backgroundColor</codeph> と <codeph>backgroundImage</codeph> の両方を設定できます。 一部のコンポーネントには背景色がありません。 DataGrid コントロールでは、このスタイル設定は無視されます。 デフォルト値は <codeph>undefined</codeph> で、未定義であることを意味します。 このスタイルと <codeph>backgroundImage</codeph> スタイルの両方が <codeph>undefined</codeph> である場合、コンポーネントは透明な背景を持ちます。
+ 
+  <p>Application コンテナの場合、このスタイルはアプリケーションのロード時の背景色と、アプリケーションの実行時の背景のグラデーションを指定します。 指定された色よりもわずかに濃い色とわずかに薄い色の間でグラデーションパターンが計算されます。</p>
+ 
+  <p>ほとんどの Flex コントロールのデフォルトスキンは、部分的に透明です。 この結果、コンテナの背景色が、そのコンテナの中のコントロールに部分的ににじみ出るように表示されます。 コントロールの <codeph>fillAlphas</codeph> プロパティのアルファ値を 1 に設定することで、これを避けることができます。次に例を示します。
+  <pre>
+  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/>
+      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/>
+  &lt;/mx:<i>Container</i>></pre>
+  </p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo, spark, mobile" type="Number">
+<description>
+  <codeph>backgroundColor</codeph> プロパティで定義されている、<codeph>backgroundImage</codeph> スタイルで定義されているイメージまたは SWF ファイルの背景色のアルファレベルです。 有効な値の範囲は、0.0 ～ 1.0 です。ほとんどのコントロールではデフォルト値は 1.0 ですが、ToolTip コントロールの場合デフォルト値は 0.95 であり、Alert コントロールの場合デフォルト値は 0.9 です。
+  
+  </description>
+<default>1.0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IToolTip</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ToolTip コントロールを使用すると、役に立つ情報をユーザーに提供することができます。 ユーザーがグラフィックコンポーネントにマウスポインターを合わせると、ToolTip コントロールがポップアップ表示され、コンポーネントに関する情報を伝えるテキストが表示されます。 ToolTip はユーザーがアプリケーションを利用する際のガイドにできる他、ToolTip コントロールをカスタマイズして追加の機能を提供することもできます。
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.managers.xml#ToolTipManager"><linktext>mx.managers.ToolTipManager</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiConstructor id="mx.controls:ToolTip:ToolTip"><apiName>ToolTip</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls:ToolTip:maxWidth"><apiName>maxWidth</apiName><shortdesc>
+      新しい ToolTip コントロールの最大幅をピクセル単位で指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiData>300</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      新しい ToolTip コントロールの最大幅をピクセル単位で指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ToolTip:protected:textField"><apiName>textField</apiName><shortdesc>
+      この ToolTip のテキストを表示するための内部 UITextField です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:IUITextField</apiValueClassifier></apiValueDef><apiDesc>
+      この ToolTip のテキストを表示するための内部 UITextField です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ToolTip:text:get"><apiName>text</apiName><shortdesc>
+      ツールヒントで表示されるテキストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ツールヒントで表示されるテキストです。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:ProgressBarLabelPlacement"><apiName>ProgressBarLabelPlacement</apiName><shortdesc>
+  ProgressBarLabelPlacement クラスは、ProgressBar クラスの labelPlacement プロパティの値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ProgressBarLabelPlacement クラスは、ProgressBar クラスの <codeph>labelPlacement</codeph> プロパティの値を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ProgressBar.xml"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiValue id="mx.controls:ProgressBarLabelPlacement:BOTTOM"><apiName>BOTTOM</apiName><shortdesc>
+	  プログレスバーの下側にラベルを配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bottom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  プログレスバーの下側にラベルを配置します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarLabelPlacement:CENTER"><apiName>CENTER</apiName><shortdesc>
+	  プログレスバー内部の中央に配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>center</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  プログレスバー内部の中央に配置します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarLabelPlacement:LEFT"><apiName>LEFT</apiName><shortdesc>
+	  プログレスバーの左側にラベルを配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  プログレスバーの左側にラベルを配置します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarLabelPlacement:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+	  プログレスバーの右側にラベルを配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  プログレスバーの右側にラベルを配置します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarLabelPlacement:TOP"><apiName>TOP</apiName><shortdesc>
+	  プログレスバーの上側にラベルを配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  プログレスバーの上側にラベルを配置します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:ProgressBarMode"><apiName>ProgressBarMode</apiName><shortdesc>
+  ProgressBarMode クラスは、ProgressBar クラスの mode プロパティの値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ProgressBarMode クラスは、ProgressBar クラスの <codeph>mode</codeph> プロパティの値を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ProgressBar.xml"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiValue id="mx.controls:ProgressBarMode:EVENT"><apiName>EVENT</apiName><shortdesc>
+	  ：source プロパティで指定したコントロールから、progress イベントと completed イベントを送出する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>event</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  <codeph>source</codeph> プロパティで指定されたコントロールから、<codeph>progress</codeph> イベントと <codeph>completed</codeph> イベントを送出する必要があります。 ProgressBar はこれらのイベントを使用して、状態を更新します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarMode:MANUAL"><apiName>MANUAL</apiName><shortdesc>
+	  手動で ProgressBar 状態を更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>manual</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  手動で ProgressBar 状態を更新します。 このモードでは、<codeph>maximum</codeph> プロパティと <codeph>minimum</codeph> プロパティを指定し、<codeph>setProgress()</codeph> メソッドを使用して状態を指定します。 このモードは、<codeph>indeterminate</codeph> プロパティが <codeph>true</codeph> の場合によく使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarMode:POLLED"><apiName>POLLED</apiName><shortdesc>
+	  source プロパティで、getBytesLoaded() メソッドと getBytesTotal() メソッドを実装するオブジェクトを指定する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>polled</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  ：<codeph>source</codeph> プロパティで、<codeph>getBytesLoaded()</codeph> メソッドと <codeph>getBytesTotal()</codeph> メソッドを実装するオブジェクトを指定する必要があります。 ProgressBar コントロールは、これらのメソッドを呼び出して、状態を更新します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:IFlexContextMenu"><apiName>IFlexContextMenu</apiName><shortdesc>
+  IFlexContextMenu インターフェイスは、Flex コンテキストメニューのインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IFlexContextMenu インターフェイスは、Flex コンテキストメニューのインターフェイスを定義します。  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#UIComponent/flexContextMenu"><linktext>mx.core.UIComponent.flexContextMenu</linktext></link></related-links><apiOperation id="mx.controls:IFlexContextMenu:mx.controls:IFlexContextMenu:setContextMenu"><apiName>setContextMenu</apiName><shortdesc>
+      InteractiveObject のコンテキストメニューを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="flash.display:InteractiveObject"/><apiDesc>コンテキストメニューを設定する InteractiveObject です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      InteractiveObject のコンテキストメニューを設定します。これにより、リスナーの追加など、InteractiveObject をこの InteractiveObject のコンテキストメニューとして追加するために必要なすべての手順が実行されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:IFlexContextMenu:mx.controls:IFlexContextMenu:unsetContextMenu"><apiName>unsetContextMenu</apiName><shortdesc>
+      InteractiveObject のコンテキストメニューの設定を解除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="flash.display:InteractiveObject"/><apiDesc>InteractiveObject コンテキストメニューの設定が解除される InteractiveObject です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      InteractiveObject のコンテキストメニューの設定を解除します。これにより、リスナーの削除など、InteractiveObject をこの InteractiveObject のコンテキストメニューとして削除するために必要な手順がすべて実行されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls:ButtonLabelPlacement"><apiName>ButtonLabelPlacement</apiName><shortdesc>
+  ButtonLabelPlacement クラスは、Button、CheckBox、LinkButton または RadioButton コントロールの labelPlacement プロパティに設定できる有効な値の定数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonLabelPlacement クラスは、Button、CheckBox、LinkButton または RadioButton コントロールの <codeph>labelPlacement</codeph> プロパティに設定できる有効な値の定数を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Button.xml"><linktext>mx.controls.Button</linktext></link><link href="" invalidHref="mx.controls.CheckBox.xml"><linktext>mx.controls.CheckBox</linktext></link><link href="" invalidHref="mx.controls.LinkButton.xml"><linktext>mx.controls.LinkButton</linktext></link><link href="" invalidHref="mx.controls.RadioButton.xml"><linktext>mx.controls.RadioButton</linktext></link></related-links><apiValue id="mx.controls:ButtonLabelPlacement:BOTTOM"><apiName>BOTTOM</apiName><shortdesc>
+	  アイコンの下にラベルが表示されるように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bottom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  アイコンの下にラベルが表示されるように指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ButtonLabelPlacement:LEFT"><apiName>LEFT</apiName><shortdesc>
+	  アイコンの左にラベルが表示されるように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  アイコンの左にラベルが表示されるように指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ButtonLabelPlacement:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+	  アイコンの右にラベルが表示されるように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  アイコンの右にラベルが表示されるように指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ButtonLabelPlacement:TOP"><apiName>TOP</apiName><shortdesc>
+	  アイコンの上にラベルが表示されるように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  アイコンの上にラベルが表示されるように指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:Spacer"><apiName>Spacer</apiName><shortdesc>
+  Spacer コントロールは、親コンテナ内で子をレイアウトするために役立ちます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:Spacer&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds no new tag attributes.</p>
+  
+  <pre>
+  &lt;mx:Spacer/&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Spacer コントロールは、親コンテナ内で子をレイアウトするために役立ちます。Spacer コントロールは何も描画しませんが、親コンテナ内で自分自身にスペースを割り当てます。 
+  
+  <p>次の例では、Button コントロールを右に移動して HBox コンテナの右端に揃えるために、柔軟な Spacer コントロールを使用しています。</p>
+ 
+  <pre>
+  &lt;mx:HBox>
+      &lt;mx:Image source="Logo.jpg"/>
+      &lt;mx:Label text="Company XYZ"/>
+      &lt;mx:Spacer width="100%"/>
+      &lt;mx:Button label="Close"/>
+  &lt;/mx:HBox>
+  </pre>
+ 
+  </apiDesc><example conref="SpacerExample.mxml"><swfblock conref="examples/SpacerExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.controls:Spacer:Spacer"><apiName>Spacer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls:ProgressBarDirection"><apiName>ProgressBarDirection</apiName><shortdesc>
+  ProgressBarDirection クラスは、ProgressBar クラスの direction プロパティの値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ProgressBarDirection クラスは、ProgressBar クラスの <codeph>direction</codeph> プロパティの値を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ProgressBar.xml"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiValue id="mx.controls:ProgressBarDirection:LEFT"><apiName>LEFT</apiName><shortdesc>
+	  右から左にプログレスバーを塗りつぶします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  右から左にプログレスバーを塗りつぶします。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarDirection:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+	  左から右にプログレスバーを塗りつぶします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  左から右にプログレスバーを塗りつぶします。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:MovieClipSWFLoader"><apiName>MovieClipSWFLoader</apiName><shortdesc>
+  MovieClipSWFLoader コントロールは SWFLoader を拡張して、SWF を操作する便利なメソッドを実現します。この SWF のルートコンテンツは MovieClip です。ただし、MovieClip が Flex アプリケーションではないという条件があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:SWFLoader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MovieClipSWFLoader コントロールは SWFLoader を拡張して、SWF を操作する便利なメソッドを実現します。この SWF のルートコンテンツは MovieClip です。ただし、MovieClip が Flex アプリケーションではないという条件があります。他のすべての SWF コンテンツタイプの場合、このクラスは、movieClip の getter に対して null を返すので、関数呼び出しに対して no-op になることに注意してください。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls:MovieClipSWFLoader:MovieClipSWFLoader"><apiName>MovieClipSWFLoader</apiName><shortdesc>
+      コンストラクター 
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクター 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:MovieClipSWFLoader:gotoAndPlay"><apiName>gotoAndPlay</apiName><shortdesc>
+      指定されたフレームで SWF ファイルの再生を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>frame</apiItemName><apiType value="Object"/><apiDesc>再生ヘッドの送り先となるフレーム番号を表す数値、または再生ヘッドの送り先となるフレームのラベルを表すストリングです。数値を指定する場合は、指定するシーンに対する相対数で指定します。シーンを指定しない場合は、再生するグローバルフレーム番号が現在のシーンによって決定されます。 シーンを指定した場合、再生ヘッドは指定されたシーン内のフレーム番号にジャンプします。 
+           </apiDesc></apiParam><apiParam><apiItemName>scene</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>再生するシーンの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたフレームで SWF ファイルの再生を開始します。コンテンツが MovieClip でない場合は、no-op になります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/gotoAndPlay"><linktext>flash.display.MovieClip.gotoAndPlay</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:gotoAndStop"><apiName>gotoAndStop</apiName><shortdesc>
+      SWF の再生を停止し、指定したフレームに再生ヘッドをリセットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>frame</apiItemName><apiType value="Object"/><apiDesc>再生ヘッドの送り先となるフレーム番号を表す数値、または再生ヘッドの送り先となるフレームのラベルを表すストリングです。数値を指定する場合は、指定するシーンに対する相対数で指定します。シーンを指定しない場合は、再生するグローバルフレーム番号が現在のシーンによって決定されます。 シーンを指定した場合、再生ヘッドは指定されたシーン内のフレーム番号にジャンプします。 
+           </apiDesc></apiParam><apiParam><apiItemName>scene</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>再生するシーンの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      SWF の再生を停止し、指定したフレームに再生ヘッドをリセットします。コンテンツが MovieClip でない場合は、no-op になります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/gotoAndStop"><linktext>flash.display.MovieClip.gotoAndStop</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:gotoFirstFrameAndStop"><apiName>gotoFirstFrameAndStop</apiName><shortdesc>
+      最初のシーンの最初のフレームに再生ヘッドをリセットして、MovieClip を停止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最初のシーンの最初のフレームに再生ヘッドをリセットして、MovieClip を停止します。コンテンツが MovieClip でない場合は、no-op になります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:nextFrame"><apiName>nextFrame</apiName><shortdesc>
+      次のフレームへ移動.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      次のフレームへ移動. コンテンツが MovieClip でない場合は No-op です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/nextFrame"><linktext>flash.display.MovieClip.nextFrame</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:nextScene"><apiName>nextScene</apiName><shortdesc>
+      次のシーンへ移動.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      次のシーンへ移動. コンテンツが MovieClip でない場合は No-op です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/nextScene"><linktext>flash.display.MovieClip.nextScene</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:play"><apiName>play</apiName><shortdesc>
+      SWF コンテンツの再生を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      SWF コンテンツの再生を開始します。コンテンツが MovieClip でない場合は、no-op になります。 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/play"><linktext>flash.display.MovieClip.play</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:prevFrame"><apiName>prevFrame</apiName><shortdesc>
+      前のフレームへ移動.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      前のフレームへ移動. コンテンツが MovieClip でない場合は No-op です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/prevFrame"><linktext>flash.display.MovieClip.prevFrame</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:prevScene"><apiName>prevScene</apiName><shortdesc>
+      前のシーンへ移動.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      前のシーンへ移動. コンテンツが MovieClip でない場合は No-op です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/prevScene"><linktext>flash.display.MovieClip.prevScene</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:stop"><apiName>stop</apiName><shortdesc>
+      SWF コンテンツを停止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      SWF コンテンツを停止します。コンテンツが MovieClip でない場合は、no-op になります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/stop"><linktext>flash.display.MovieClip.stop</linktext></link></related-links></apiOperation><apiValue id="mx.controls:MovieClipSWFLoader:autoStop"><apiName>autoStop</apiName><shortdesc>
+      SWF のコンテンツが MovieClip の場合に、autoStop が true の場合は、読み込み後すぐに MovieClip が停止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      SWF のコンテンツが MovieClip の場合に、autoStop が true の場合は、読み込み後すぐに MovieClip が停止します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:MovieClipSWFLoader:movieClip:get"><apiName>movieClip</apiName><shortdesc>
+      読み込まれた SWF の基になる MovieClip へのハンドル。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:MovieClip"/></apiValueDef><apiDesc>
+      読み込まれた SWF の基になる MovieClip へのハンドル。SWF で MovieClip がルート指定されていない場合、このプロパティは null になります。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

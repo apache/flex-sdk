@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.menuClasses"><apiName>mx.controls.menuClasses</apiName><apiDetail/><apiClassifier id="mx.controls.menuClasses:IMenuBarItemRenderer"><apiName>IMenuBarItemRenderer</apiName><shortdesc>
+  IMenuBarItemRenderer インターフェイスは、MenuBar コントロールの最上位メニューバーのアイテムレンダラーが実装する必要があるインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IMenuBarItemRenderer インターフェイスは、MenuBar コントロールの最上位メニューバーのアイテムレンダラーが実装する必要があるインターフェイスを定義します。 アイテムレンダラーは、最上位メニューバーの個々のボタンの外観を定義します。 このインターフェイスを実装するには、<codeph>menuBar</codeph> プロパティ、<codeph>menuBarItemIndex</codeph> プロパティおよび <codeph>menuBarItemState</codeph> プロパティを実装する setter および getter メソッドを定義する必要があります。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.menuClasses.xml#MenuBarItem"><linktext>mx.controls.menuClasses.MenuBarItem</linktext></link></related-links><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBarItemIndex:get"><apiName>menuBarItemIndex</apiName><shortdesc>
+      MenuBar コントロール内の他のアイテムレンダラーを基準とする、このアイテムレンダラーのインデックスが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      MenuBar コントロール内の他のアイテムレンダラーを基準とする、このアイテムレンダラーのインデックスが含まれます。 一番左のレンダラーである、最初のアイテムレンダラーのインデックスは 0 で、MenuBar コントロール内で右に移動するに従って 1 ずつ増加します。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBarItemState:get"><apiName>menuBarItemState</apiName><shortdesc>
+      このアイテムレンダラーの現在の状態を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このアイテムレンダラーの現在の状態を示します。 有効な値は、<codeph>"itemUpSkin"</codeph>、<codeph>"itemDownSkin"</codeph> および <codeph>"itemOverSkin"</codeph> です。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuBarItemRenderer:mx.controls.menuClasses:IMenuBarItemRenderer:menuBar:get"><apiName>menuBar</apiName><shortdesc>
+      アイテムレンダラーの MenuBar コントロールへの参照が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:MenuBar</apiValueClassifier></apiValueDef><apiDesc>
+      アイテムレンダラーの MenuBar コントロールへの参照が含まれます。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuBarItem"><apiName>MenuBarItem</apiName><shortdesc>
+  MenuBarItem クラスは、MenuBar コントロールの最上位メニューバーのデフォルトアイテムレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="yes" name="textIndent" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  テキストの 1 行目のコンテナ左端からのオフセット（ピクセル単位）です。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="Class">
+<description>
+  IUITextField を実装するクラスです。このクラスはテキストをレンダリングするためにこのコンポーネントで使用されます。
+ 
+  <p>mx.core.UITextField クラス（Flash Player に組み込まれている標準の TextField を使用する場合）または mx.core.UIFTETextField クラス（Text Layout Framework を使用して、双方向レイアウトなどの向上したテキストレンダリングを取得する場合）のいずれかに設定できます。</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  テキストに下線を表示するかどうかを指定します。 可能な値は、<codeph>"none"</codeph> および <codeph>"underline"</codeph> です。
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  コンテナ内のテキストの整列。 可能な値は <codeph>"left"</codeph>、<codeph>"right"</codeph>、または <codeph>"center"</codeph> です。
+ 
+  <p>ほとんどのコンポーネントのデフォルト値は <codeph>"left"</codeph> です。 FormItem コンポーネントの場合、デフォルト値は <codeph>"right"</codeph> です。 Button、LinkButton および AccordionHeader コンポーネントでは、デフォルト値は <codeph>"center"</codeph> です。このプロパティは <codeph>labelPlacement</codeph> プロパティが <codeph>"left"</codeph> または <codeph>"right"</codeph> に設定されている場合のみ認識されます。 <codeph>labelPlacement</codeph> が <codeph>"top"</codeph> または <codeph>"bottom"</codeph> に設定されている場合は、テキストおよびアイコンが中央に配置されます。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="String">
+<description>
+  このコンポーネントで表示されるテキストのロケールです。
+ 
+  <p>FTE および TLF はこのロケールを使用して Unicode 文字をフォント字形にマッピングしたり、フォールバックフォントを検索したりします。</p>
+ 
+  <p>メモ：このスタイルは、MX コンポーネントで、<codeph>textFieldClass</codeph> として UIFTETextField が指定されている場合にのみ適用されます。</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  各文字間に表示される追加のピクセル数。 正の値を指定すると文字間隔が通常より広くなり、負の値を指定すると文字間隔が通常より狭くなります。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Boolean">
+<description>
+  カーニングが有効（<codeph>true</codeph>) か無効（<codeph>false</codeph>）かを示すブール値です。カーニングでは、読みやすくするために、特定の文字ペア間の間隔を調整します。ただし、カーニングは見出しを大きなフォントにする場合など、必要な場合に限って使用してください。 カーニングは、埋め込みフォントに対してのみサポートされています。Verdana や、Courier New などの等幅フォントなど、特定のフォントではカーニングはサポートされていません。
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  テキストをボールド体にするかどうかを指定します。 有効な値は <codeph>normal</codeph> と <codeph>bold</codeph> です。 Button コントロールのデフォルト値は <codeph>bold</codeph> です。 他のすべてのコントロールのデフォルト値は <codeph>normal</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Flex コントロール内のテキストを表す内部 TextField の <codeph>thickness</codeph> プロパティを設定します。 このプロパティは字形のエッジの太さを指定します。 可能な値は -200 から 200 までの数値です。 
+  
+  <p>このプロパティが適用されるのは、埋め込みフォントを使用していて、<codeph>fontAntiAliasType</codeph> プロパティが <codeph>"advanced"</codeph> に設定されている場合のみです。</p>
+  
+  <p>このスタイルは、システムフォントには影響を与えません。</p>
+ 
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  テキストをイタリック体にするかどうかを指定します。 認識される値は <codeph>"normal"</codeph> と <codeph>"italic"</codeph> です。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  テキストの高さ（ピクセル単位）です。 Halo テーマ内では、ColorPicker コントロール以外のすべてのコントロールのデフォルト値は 10 です。Halo テーマ別 ColorPicker コントロールのデフォルトは 11 です。Spark テーマ内では、ColorPicker コントロール以外のすべてのコントロールのデフォルト値は 12 です。Spark テーマ別 ColorPicker コントロールのデフォルトは 11 です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  Flex コントロール内のテキストを表す内部 TextField の <codeph>sharpness</codeph> プロパティを設定します。 このプロパティは字形のエッジのシャープネスを指定します。 可能な値は -400 から 400 までの数値です。 
+  
+  <p>このプロパティが適用されるのは、埋め込みフォントを使用していて、<codeph>fontAntiAliasType</codeph> プロパティが <codeph>"advanced"</codeph> に設定されている場合のみです。</p>
+  
+  <p>このスタイルはシステムフォントには影響しません。</p>
+ 
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  Flex コントロール内のテキストを表す内部 TextField の <codeph>gridFitType</codeph> プロパティを設定します。 可能な値は、<codeph>"none"</codeph>（<codeph>flash.text.GridFitType.NONE</codeph>）、<codeph>"pixel"</codeph>（<codeph>flash.text.GridFitType.PIXEL</codeph>）、および <codeph>"subpixel"</codeph>（<codeph>flash.text.GridFitType.SUBPIXEL</codeph>）です。 
+  
+  <p>このプロパティが適用されるのは、埋め込みフォントを使用していて、<codeph>fontAntiAliasType</codeph> プロパティが <codeph>"advanced"</codeph> に設定されている場合のみです。</p>
+  
+  <p>このスタイルはシステムフォントには影響しません。</p>
+ 
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  使用するフォントの名前です。 完全な CSS 実装と異なり、カンマ区切りリストはサポートされません。 任意のフォントファミリ名を使用できます。 汎用フォント名を指定した場合、適切なデバイスフォントに置換されます。Halo テーマのデフォルトフォントは <codeph>"Verdana"</codeph> です。Spark テーマのデフォルトフォントは <codeph>"Arial"</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="String">
+<description>
+  内部 TextField の <codeph>antiAliasType</codeph> プロパティを設定します。 可能な値は、<codeph>"normal"</codeph>（<codeph>flash.text.AntiAliasType.NORMAL</codeph>）および <codeph>"advanced"</codeph>（<codeph>flash.text.AntiAliasType.ADVANCED</codeph>）です。 
+  
+  <p>デフォルト値は <codeph>"advanced"</codeph> であり、フォントについて高度なアンチエイリアスが有効になります。 <codeph>"normal"</codeph> に設定すると、高度なアンチエイリアスが無効になります。</p>
+  
+  <p>このスタイルはシステムフォントには影響しません。</p>
+  
+  <p>このスタイルは TextField サブコントロール内のすべてのテキストに適用されます。一部の文字だけに適用することはできません。</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントが無効な場合のテキストの色です。
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash10" type="String">
+<description>
+  このコンポーネントで表示されるテキストの方向です。
+ 
+  <p>使用できる値は、ラテン文字などの左から右のテキスト用の <codeph>"ltr"</codeph> と、アラビア文字やヘブライ文字などの右から左のテキスト用の <codeph>"rtl"</codeph> です。</p>
+ 
+  <p>FTE と TLF は双方向テキストレイアウトアルゴリズムでこの値を使用し、Unicode 文字の順序を字形の順序にマッピングします。</p>
+ 
+  <p>メモ：このスタイルは、MX コンポーネントで、<codeph>textFieldClass</codeph> として UIFTETextField が指定されている場合にのみ適用されます。</p>
+ 
+  <p><codeph>direction</codeph> は、TLFTextField の境界内のテキストの整列にも影響します。ただし、コンポーネント内の TLFTextField の配置には影響しません。</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="uint">
+<description>
+  コンポーネントのラベルを含めたコンポーネント内のテキストの色です。Halo テーマのデフォルト値は <codeph>0x0B333C</codeph> です。Spark テーマのデフォルト値は <codeph>0x000000</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="mx.controls.menuClasses:MenuBarItem" playerVersion="Flash9" type="Number">
+<description>
+  追加の行間を表します。
+ 
+  <p>デフォルト値は 2 です。</p>
+  <p>ComboBox コントロールのデフォルト値は 0 です。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.menuClasses:IMenuBarItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuBarItem クラスは、MenuBar コントロールの最上位メニューバーのデフォルトアイテムレンダラーを定義します。 デフォルトでは、アイテムレンダラーは最上位メニューバー内の各アイテムに関連付けられているテキストと、オプションのアイコンを描画します。 
+ 
+  <p>MenuBarItem インスタンスは、MenuBar がメニューを適切に表示および非表示できるように、マウスとキーボードの操作を MenuBar に渡します。 </p>
+ 
+  <p>IMenuBarItemRenderer インターフェイスを実装するカスタムアイテムレンダラーを作成することにより、デフォルトの MenuBar アイテムレンダラーをオーバーライドできます。</p>
+ 
+  <p>また、MenuBar コントロールのポップアップサブメニューのアイテムレンダラーも定義できます。 各ポップアップサブメニューは Menu コントロールのインスタンスであるため、MenuItemRenderer クラスを使用して、ポップアップサブメニューのアイテムレンダラーを定義します。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer</linktext></link><link href="mx.controls.menuClasses.xml#MenuItemRenderer"><linktext>mx.controls.menuClasses.MenuItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.menuClasses:MenuBarItem:MenuBarItem"><apiName>MenuBarItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuBarItem:protected:icon"><apiName>icon</apiName><shortdesc>
+      この MenuBarItem にアイコンを表示する IFlexDisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      この MenuBarItem にアイコンを表示する IFlexDisplayObject です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:protected:label"><apiName>label</apiName><shortdesc>
+      この MenuBarItem にテキストを表示する UITextField です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      この MenuBarItem にテキストを表示する UITextField です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+	  MenuBarItem の選択時にポップアップ表示されるメニューに使用するデータを提供するオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>"undefined"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  MenuBarItem の選択時にポップアップ表示されるメニューに使用するデータを提供するオブジェクトです。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:data:get"><apiName>data</apiName><shortdesc>
+      IDataRenderer インターフェイスによって定義された data プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      IDataRenderer インターフェイスによって定義された <codeph>data</codeph> プロパティの実装です。 すべての itemRenderer には、IDataRenderer インターフェイスを実装する必要があります。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBarItemIndex:get"><apiName>menuBarItemIndex</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex">
+      IMenuBarItemRenderer インターフェイスによって定義された menuBarItemIndex プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex">
+      IMenuBarItemRenderer インターフェイスによって定義された <codeph>menuBarItemIndex</codeph> プロパティの実装です。  
+      
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBarItemIndex"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBarItemIndex</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBarItemState:get"><apiName>menuBarItemState</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState">
+      IMenuBarItemRenderer インターフェイスによって定義された menuBarItemState プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState">
+      IMenuBarItemRenderer インターフェイスによって定義された <codeph>menuBarItemState</codeph> プロパティの実装です。  
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBarItemState"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBarItemState</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuBarItem:menuBar:get"><apiName>menuBar</apiName><shortdesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBar">
+      IMenuBarItemRenderer インターフェイスによって定義された menuBar プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:MenuBar</apiValueClassifier></apiValueDef><apiDesc conref="mx.controls.menuClasses.IMenuBarItemRenderer#menuBar">
+      IMenuBarItemRenderer インターフェイスによって定義された <codeph>menuBar</codeph> プロパティの実装です。 
+      
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.menuClasses.xml#IMenuBarItemRenderer/menuBar"><linktext>mx.controls.menuClasses.IMenuBarItemRenderer.menuBar</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuItemRenderer"><apiName>MenuItemRenderer</apiName><shortdesc>
+  MenuItemRenderer クラスは、任意のメニューコントロールのメニューアイテムに適用するデフォルトアイテムレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.menuClasses:MenuItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  メニューアイテムが無効である場合のカラーです。
+  
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.menuClasses:MenuItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  メニューアイテムのラベルのテキストカラーです。Halo テーマのデフォルト値は <codeph>0x0B333C</codeph> です。Spark テーマのデフォルト値は <codeph>0x000000</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.menuClasses:IMenuItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuItemRenderer クラスは、任意のメニューコントロールのメニューアイテムに適用するデフォルトアイテムレンダラーを定義します。 デフォルトでは、このアイテムレンダラーは、各メニューアイテムに関連付けられたテキスト、区切り文字、およびアイコンを描画します。
+ 
+  <p>カスタムアイテムレンダラーを作成することにより、デフォルトのアイテムレンダラーをオーバーライドできます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.menuClasses:MenuItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  data プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>data</codeph> プロパティが変更されたときに送出されます。
+ 
+  <p>コンポーネントをアイテムレンダラーとして使う場合、<codeph>data</codeph> プロパティは表示するデータを保持します。 このイベントを受け取って、<codeph>data</codeph> プロパティが変更されたときにコンポーネントを更新することができます。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.menuClasses:MenuItemRenderer:MenuItemRenderer"><apiName>MenuItemRenderer</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:branchIcon"><apiName>branchIcon</apiName><shortdesc>
+	  このレンダラーにブランチアイコンを表示する内部 IFlexDisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  このレンダラーにブランチアイコンを表示する内部 IFlexDisplayObject です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:label"><apiName>label</apiName><shortdesc>
+	  このレンダラーにテキストを表示する内部 UITextField です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  このレンダラーにテキストを表示する内部 UITextField です。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:separatorIcon"><apiName>separatorIcon</apiName><shortdesc>
+	  このレンダラーにセパレーターを表示する内部 IFlexDisplayObject です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  このレンダラーにセパレーターを表示する内部 IFlexDisplayObject です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:typeIcon"><apiName>typeIcon</apiName><shortdesc>
+	  このレンダラーにチェックボタンとラジオボタンのタイプアイコンを表示する内部 IFlexDisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  このレンダラーにチェックボタンとラジオボタンのタイプアイコンを表示する内部 IFlexDisplayObject です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  IDataRenderer インターフェイスによって定義された data プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  IDataRenderer インターフェイスによって定義された <codeph>data</codeph> プロパティの実装です。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:protected:icon:get"><apiName>icon</apiName><shortdesc>
+	  このレンダラーにアイコンを表示する内部 IFlexDisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexDisplayObject"/><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  このレンダラーにアイコンを表示する内部 IFlexDisplayObject です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+	  IDropInListItemRenderer インターフェイスによって定義された listData プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+	  IDropInListItemRenderer インターフェイスによって定義された <codeph>listData</codeph> プロパティの実装です。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredBranchIconWidth:get"><apiName>measuredBranchIconWidth</apiName><shortdesc>
+      ブランチアイコンの幅です。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ブランチアイコンの幅です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredIconWidth:get"><apiName>measuredIconWidth</apiName><shortdesc>
+      アイコンの幅です。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      アイコンの幅です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:measuredTypeIconWidth:get"><apiName>measuredTypeIconWidth</apiName><shortdesc>
+      タイプアイコン（ラジオ / チェック）の幅です。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      タイプアイコン（ラジオ / チェック）の幅です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuItemRenderer:menu:get"><apiName>menu</apiName><shortdesc>
+	  関連付けられている Menu コントロールへの参照を格納します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:Menu</apiValueClassifier><apiDefaultValue>null 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  関連付けられている Menu コントロールへの参照を格納します。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:IMenuItemRenderer"><apiName>IMenuItemRenderer</apiName><shortdesc>
+  IMenuItemRenderer インターフェイスは、Menu コントロールのメニューアイテムレンダラーが実装する必要があるインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IMenuItemRenderer インターフェイスは、Menu コントロールのメニューアイテムレンダラーが実装する必要があるインターフェイスを定義します。
+ 
+  <p>多くの場合、メニューアイテムレンダラーはリサイクルされます。 メニューアイテムレンダラーは、一度作成すると、その後は新しいデータを指定するだけで使用できます。 したがって、個々の実装では、コンポーネントの開発者は、コンポーネントのプロパティに特定の初期値またはデフォルト値が含まれていることを前提にしないようにする必要があります。 </p>
+ 
+  <p>このインターフェイスを実装するには、コンポーネントの開発者は、<codeph>menu</codeph> プロパティを実装する setter メソッドと getter メソッドを定義する必要があります。 通常は、次の例に示すように、setter メソッドはデータプロパティの値を内部変数に書き込み、getter メソッドは内部変数の現在の値を返します。</p>
+  <pre>
+     // Internal variable for the property value.
+     private var _menu:Menu;
+ 
+     // Define the getter method.
+     public function get menu():Menu
+     {
+         return _menu;
+     }
+ 
+     // Define the setter method.
+     public function set menu(value:Menu):void
+     {
+         _menu = value;
+     }
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredBranchIconWidth:get"><apiName>measuredBranchIconWidth</apiName><shortdesc>
+      ブランチアイコンの幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ブランチアイコンの幅です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredIconWidth:get"><apiName>measuredIconWidth</apiName><shortdesc>
+      アイコンの幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      アイコンの幅です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:measuredTypeIconWidth:get"><apiName>measuredTypeIconWidth</apiName><shortdesc>
+      タイプアイコン (ラジオアイコンまたはチェックアイコン) の幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      タイプアイコン (ラジオアイコンまたはチェックアイコン) の幅です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:IMenuItemRenderer:mx.controls.menuClasses:IMenuItemRenderer:menu:get"><apiName>menu</apiName><shortdesc>
+      このメニューアイテムレンダラーの Menu コントロールへの参照です（含まれている場合）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:Menu</apiValueClassifier></apiValueDef><apiDesc>
+      このメニューアイテムレンダラーの Menu コントロールへの参照です（含まれている場合）。 これは、このメニューアイテムレンダラーがブランチノードであり、サブメニューをポップアップできることを示します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.menuClasses:MenuListData"><apiName>MenuListData</apiName><shortdesc>
+  MenuListData クラスは、Menu コントロールと MenuBar コントロールのドロップインアイテムレンダラーまたはドロップインアイテムエディターによって実装される listData プロパティのデータ型を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:ListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuListData クラスは、Menu コントロールと MenuBar コントロールのドロップインアイテムレンダラーまたはドロップインアイテムエディターによって実装される <codeph>listData</codeph> プロパティのデータ型を定義します。 すべてのドロップインアイテムレンダラーおよびドロップインアイテムエディターは、<codeph>listData</codeph> プロパティを定義する IDropInListItemRenderer インターフェイスを実装する必要があります。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.menuClasses:MenuListData:MenuListData"><apiName>MenuListData</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>アイテムデータのテキスト表現です。
+	 
+	 	</apiDesc></apiParam><apiParam><apiItemName>icon</apiItemName><apiType value="Class"/><apiDesc>List コントロール内のアイテムのアイコンを表す Class オブジェクトまたは String オブジェクトです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>labelField</apiItemName><apiType value="String"/><apiDesc>List コンポーネントのラベルデータを含むデータプロバイダーのフィールドの名前です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>アイテムの一意の識別子です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>Menu コントロールへの参照です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Menu コントロールに対するデータプロバイダー内のアイテムのインデックスです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>現在表示されているコントロールの列内の列インデックスです。
+	 
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredBranchIconWidth"><apiName>maxMeasuredBranchIconWidth</apiName><shortdesc>
+	  すべての MenuItemListRenderers のブランチアイコンの最大幅です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  すべての MenuItemListRenderers のブランチアイコンの最大幅です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredIconWidth"><apiName>maxMeasuredIconWidth</apiName><shortdesc>
+	  すべての MenuItemListRenderers のアイコンの最大幅です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  すべての MenuItemListRenderers のアイコンの最大幅です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:maxMeasuredTypeIconWidth"><apiName>maxMeasuredTypeIconWidth</apiName><shortdesc>
+	  すべての MenuItemListRenderers のタイプアイコンの最大幅です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  すべての MenuItemListRenderers のタイプアイコンの最大幅です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.menuClasses:MenuListData:useTwoColumns"><apiName>useTwoColumns</apiName><shortdesc>
+	  左側のアイコンを 2 つの異なる列（チェックアイコンとラジオアイコンなど、アイコンの列とタイプアイコンの列）にレイアウトするかどうかを指定します。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  左側のアイコンを 2 つの異なる列（チェックアイコンとラジオアイコンなど、アイコンの列とタイプアイコンの列）にレイアウトするかどうかを指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.supportClasses"><apiName>spark.components.supportClasses</apiName><apiDetail/><apiClassifier id="spark.components.supportClasses:StyleableTextField"><apiName>StyleableTextField</apiName><shortdesc>
+  StyleableTextField 类是 ActionScript 外观和项呈示器中使用的文本基本类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><styles><style format="Length" inherit="yes" name="textIndent" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  文本第一行偏离容器左侧的距离（以像素为单位）。与手机主题一起使用时，该属性不能为负数。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  确定文本是否加下划线。可能值有：<codeph>"none"</codeph> 和 <codeph>"underline"</codeph>。
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  容器内文本的对齐方式。可能值有：<codeph>"left"</codeph>、<codeph>"right"</codeph> 或 <codeph>"center"</codeph>。
+ 
+  <p>大多数组件的默认值为 <codeph>"left"</codeph>。对于 FormItem 组件，默认值为 <codeph>"right"</codeph>。对于 Button、LinkButton 和 AccordionHeader 组件，默认值为 <codeph>"center"</codeph>，且仅当将 <codeph>labelPlacement</codeph> 属性设置为 <codeph>"left"</codeph> 或 <codeph>"right"</codeph> 时，才能识别此属性。如果将 <codeph>labelPlacement</codeph> 设置为 <codeph>"top"</codeph> 或 <codeph>"bottom"</codeph>，将居中文本及所有图标。</p>
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  各字符之间显示的附加像素数。如果为正值，则会在正常间距的基础上增加字符间距；如果为负值，则减小此间距。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  文本行之间附加的垂直空间。
+   <p>默认值为 0。</p>
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  确定文本是否使用粗体。可识别的值为 <codeph>normal</codeph> 和 <codeph>bold</codeph>。Button 控件的默认值为 <codeph>bold</codeph>。所有其它控件的默认值为 <codeph>normal</codeph>。
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  确定文本是否使用斜体。可识别的值为 <codeph>"normal"</codeph> 和 <codeph>"italic"</codeph>。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="Number">
+<description>
+  文本的高度，以像素为单位。在 Halo 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 10。对于 Halo 主题的 ColorPicker 控件，默认值为 11。在 Spark 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 12。对于 Spark 主题的 ColorPicker 控件，默认值为 11。Mobile 主题的默认值为 24。
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontFamily" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="String">
+<description>
+  使用的字体的名称。与在完全 CSS 实现中不同，这里不支持逗号分隔的列表。您可以使用任何字体系列名称。如果您指定通用字体名称，它将转换为相应的设备字体。Halo 主题的默认字体为 <codeph>"Verdana"</codeph>。Spark 主题的默认字体为 <codeph>"Arial"</codeph>。Mobile 主题的默认字体为 <codeph>"_sans"</codeph>。
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="spark.components.supportClasses:StyleableTextField" playerVersion="AIR2.5" type="uint">
+<description>
+  组件中文本（包括组件标签）的颜色。Halo 主题的默认值为 <codeph>0x0B333C</codeph>。Spark 主题的默认值为 <codeph>0x000000</codeph>。Mobile 主题的默认值为 <codeph>0xFFFFFF</codeph>。
+  
+  </description>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.core:IEditableText</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseClassifier>mx.core:FlexTextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StyleableTextField 类是 ActionScript 外观和项呈示器中使用的文本基本类型。无法在 MXML 标记中使用该类，与效果不兼容。
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.components.supportClasses:StyleableTextField:StyleableTextField"><apiName>StyleableTextField</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:StyleableTextField:appendText"><apiName>appendText</apiName><shortdesc>
+      将指定文本追加到文本组件的结尾，就好像您已在该结尾处单击并键入它一样。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>要追加的文本。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定文本追加到文本组件的结尾，就好像您已在该结尾处单击并键入它一样。
+           <p>随后会在新文本之后设置插入点。如有必要，文本将滚动，以确保插入点可见。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:commitStyles"><apiName>commitStyles</apiName><shortdesc>
+      将样式提交到 TextField 中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将样式提交到 TextField 中。显示文本之前和更改样式之时必须调用该方法。如果样式已经提交，则该方法将不起作用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:insertText"><apiName>insertText</apiName><shortdesc>
+      将指定的文本插入到文本组件中，就好像您已键入它一样。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>
+     
+      </apiDesc><apiItemName>Error</apiItemName><apiOperationClassifier>Error</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>要插入的文本。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定的文本插入到文本组件中，就好像您已键入它一样。
+           <p>如果选择范围，新文本将替换所选文本。如果有插入点，将在该点插入新文本。</p>
+           <p>随后会在新文本之后设置插入点。如有必要，文本将滚动，以确保插入点可见。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:scrollToRange"><apiName>scrollToRange</apiName><shortdesc>
+      滚动以使指定范围位于视图中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorPosition</apiItemName><apiType value="int"/><apiDesc>选择范围的锚点位置。
+      </apiDesc></apiParam><apiParam><apiItemName>activePosition</apiItemName><apiType value="int"/><apiDesc>选择范围的活动位置。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      滚动以使指定范围位于视图中。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:selectAll"><apiName>selectAll</apiName><shortdesc>
+      选择所有文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      选择所有文本。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:selectRange"><apiName>selectRange</apiName><shortdesc>
+      选择指定范围的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/><apiDesc>字符位置，用于指定扩展选区时保持固定的选区的未端。
+           </apiDesc></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/><apiDesc>字符位置，用于指定扩展选区时移动的选区的未端。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      选择指定范围的字符。
+           <p>如果任一位置为负，则它将取消选择该文本范围。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:setFocus"><apiName>setFocus</apiName><shortdesc>
+      将焦点设置到该文本字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将焦点设置到该文本字段。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.core.UIComponent#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+           </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>样式的新值。
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:styleChanged"><apiName>styleChanged</apiName><shortdesc conref="mx.core.UIComponent#styleChanged()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>更改的样式属性。
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#styleChanged()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableTextField:truncateToFit"><apiName>truncateToFit</apiName><shortdesc>
+      截断文本使其在水平方向适合为控件定义的区域，并向文本追加省略号 (...)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果此文本需要截断，则返回 <codeph>true</codeph>。
+           </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>truncationIndicator</apiItemName><apiType value="String"/><apiData>...</apiData><apiDesc>截断后追加的文本。如果传递 <codeph>null</codeph>，将使用可本地化的字符串，如 <codeph>"..."</codeph>。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      截断文本使其在水平方向适合为控件定义的区域，并向文本追加省略号 (...)。该函数仅适用于单个文本行。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.supportClasses:StyleableTextField:minHeight"><apiName>minHeight</apiName><shortdesc conref="mx.core.UIComponent#minHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:minWidth"><apiName>minWidth</apiName><shortdesc conref="mx.core.UIComponent#minWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:editable:get"><apiName>editable</apiName><shortdesc>
+      指定文本是否可编辑，如果可编辑，为 true，如果不可编辑，则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true if type is TextFieldType.INPUT, otherwise false.
+           </apiDefaultValue></apiValueDef><apiDesc>
+      指定文本是否可编辑，如果可编辑，为 <codeph>true</codeph>，如果不可编辑，则为 <codeph>false</codeph>。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:enabled:get"><apiName>enabled</apiName><shortdesc>
+      组件是否可以接受用户交互。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      组件是否可以接受用户交互。将 <codeph>enabled</codeph> 属性设置为 <codeph>false</codeph> 后，某些组件仍会响应鼠标交互，如 <codeph>mouseOver</codeph>。因此，要完全禁用该组件，您应该将 <codeph>mouseEnabled</codeph> 属性的值也设置为 <codeph>false</codeph>。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:focusEnabled:get"><apiName>focusEnabled</apiName><shortdesc>
+      指示切换到此组件时，是否可以获得焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      指示切换到此组件时，是否可以获得焦点。当一个组件用作另一组件的子组件时，可以将 <codeph>focusEnabled</codeph> 设置为 <codeph>false</codeph>，以便外部组件成为可获得焦点的实体。如果此属性是 <codeph>false</codeph>，则焦点将转换到已将 <codeph>focusEnable</codeph> 设置为 <codeph>true</codeph> 的第一个父项。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      文本的水平滚动位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      文本的水平滚动位置。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:isTruncated:get"><apiName>isTruncated</apiName><shortdesc>
+      指示文本是否已经截断，如果已截断，为 true，没有截断则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指明文本是否已经截断，如果已截断，为 <codeph>true</codeph>，没有截断则为 <codeph>false</codeph>。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:lineBreak:get"><apiName>lineBreak</apiName><shortdesc>
+      控制文本内的自动换行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      控制文本内的自动换行。该属性与 <codeph>lineBreak</codeph> 样式相对应。
+           <p>可以将文本设置为适合容器的宽度 (<codeph>LineBreak.TO_FIT</codeph>)，也可以设置为只在显式回车或换行符处断开 (<codeph>LineBreak.EXPLICIT</codeph>)。</p>
+           <p>合法值为 <codeph>flashx.textLayout.formats.LineBreak.EXPLICIT</codeph>、<codeph>flashx.textLayout.formats.LineBreak.TO_FIT</codeph> 和 <codeph>flashx.textLayout.formats.FormatValue.INHERIT</codeph>。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:selectionActivePosition:get"><apiName>selectionActivePosition</apiName><shortdesc>
+      选择部分的活动位置或最后单击位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      选择部分的活动位置或最后单击位置。如果实现不支持选择锚点，则这是所选内容的最后一个字符。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:selectionAnchorPosition:get"><apiName>selectionAnchorPosition</apiName><shortdesc>
+      选择部分的锚点或最先单击位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      选择部分的锚点或最先单击位置。如果实现不支持选择锚点，则这是所选内容的第一个字符。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      存储此对象的内嵌继承样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.styles:CSSStyleDeclaration"/></apiValueDef><apiDesc>
+      存储此对象的内嵌继承样式。第一次调用该组件的 <codeph>setStyle()</codeph> 方法来设置继承样式时，将创建此 CSSStyleDeclaration。开发人员通常不需要直接访问此属性。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:styleName:get"><apiName>styleName</apiName><shortdesc>
+      此组件使用的类样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      此组件使用的类样式。这应为 IStyleClient。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:text:get"><apiName>text</apiName><shortdesc>
+      此文本组件所显示的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+           </apiDefaultValue></apiValueDef><apiDesc>
+      此文本组件所显示的文本。
+           <p>此文本的格式是由 CSS 样式控制的。支持的样式取决于子类。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableTextField:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc>
+      文本的垂直滚动位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      文本的垂直滚动位置。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewReturnObject"><apiName>ViewReturnObject</apiName><shortdesc>
+  视图从导航堆栈弹出时，ViewReturnObject 类会封装该视图的返回值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  视图从导航堆栈弹出时，ViewReturnObject 类会封装该视图的返回值。ViewReturnObject 对象包含对返回对象以及创建弹出视图时所在的上下文的引用。上下文是传递到 <codeph>ViewNavigator.pushView()</codeph> 方法的任意对象。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#View"><linktext>spark.components.View</linktext></link><link href="spark.components.xml#ViewNavigator/pushView()"><linktext>spark.components.ViewNavigator.pushView()</linktext></link></related-links><apiConstructor id="spark.components.supportClasses:ViewReturnObject:ViewReturnObject"><apiName>ViewReturnObject</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>返回的对象.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>context</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>创建所有者时所在的上下文。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.supportClasses:ViewReturnObject:context"><apiName>context</apiName><shortdesc>
+      弹出视图被推入到导航堆栈上时，传递给它的上下文标识符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      弹出视图被推入到导航堆栈上时，传递给它的上下文标识符。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#ViewNavigator/pushView()"><linktext>spark.components.ViewNavigator.pushView()</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:ViewReturnObject:object"><apiName>object</apiName><shortdesc>
+      正被删除的视图所生成的返回对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+      正被删除的视图所生成的返回对象。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewNavigatorApplicationBase"><apiName>ViewNavigatorApplicationBase</apiName><shortdesc>
+  ViewNavigatorApplicationBase 类是用于所有基于视图的应用程序类型的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><Exclude kind="style" name="backgroundAlpha"/><Exclude kind="property" name="preloaderChromeColor"/><Exclude kind="property" name="layout"/><Exclude kind="property" name="controlBarVisible"/><Exclude kind="property" name="controlBarLayout"/><Exclude kind="property" name="controlBarGroup"/><Exclude kind="property" name="controlBarContent"/><DefaultProperty name="mxmlContentFactory"/><skinParts><SkinPart name="viewMenu" owner="spark.components.supportClasses:ViewNavigatorApplicationBase" required="false" var_type="mx.core:IFactory">
+<description>
+      动态外观部件，用于定义按菜单按钮时用来显示视图菜单的 ViewMenu。默认外观使用生成 ViewMenu 实例的工厂。 
+     </description>
+	<shortdesc>
+      Dynamic skin part that defines the ViewMenu used to display the
+      view menu when the menu button is pressed.</shortdesc></SkinPart></skinParts></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:ViewNavigatorApplicationBase&gt;</code> tag inherits 
+  all of the tag attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:ViewNavigatorApplicationBase
+    <strong>Properties</strong>
+    persistNavigatorState="false"
+    viewMenuOpen="false"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Application</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewNavigatorApplicationBase 类是用于所有基于视图的应用程序类型的基类。该类提供基础结构，以便能够访问设备应用程序菜单、硬件键、方向状态以及应用程序会话持久。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#ViewNavigatorApplication"><linktext>spark.components.ViewNavigatorApplication</linktext></link><link href="spark.components.xml#TabbedViewNavigatorApplication"><linktext>spark.components.TabbedViewNavigatorApplication</linktext></link></related-links><adobeApiEvent id="spark.components.supportClasses:ViewNavigatorApplicationBase_mx.events.FlexEvent.NAVIGATOR_STATE_SAVING_navigatorStateSaving"><apiName>navigatorStateSaving</apiName><shortdesc>
+  应用程序暂停或退出时试图保存其状态之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.NAVIGATOR_STATE_SAVING</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  应用程序暂停或退出时试图保存其状态之前分派。针对该事件调用 <codeph>preventDefault</codeph> 将防止保存该应用程序状态。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:ViewNavigatorApplicationBase_mx.events.FlexEvent.NAVIGATOR_STATE_LOADING_navigatorStateLoading"><apiName>navigatorStateLoading</apiName><shortdesc>
+  启动应用程序时试图恢复以前保存的状态之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.NAVIGATOR_STATE_LOADING</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  启动应用程序时试图恢复以前保存的状态之前分派。针对该事件调用 <codeph>preventDefault</codeph> 将防止恢复该应用程序状态。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.supportClasses:ViewNavigatorApplicationBase:ViewNavigatorApplicationBase"><apiName>ViewNavigatorApplicationBase</apiName><shortdesc>
+      构造函数
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:backKeyUpHandler"><apiName>backKeyUpHandler</apiName><shortdesc>
+      用户按应用程序的硬件返回键时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:KeyboardEvent"/><apiDesc>由按键生成的事件对象。
+       
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用户按应用程序的硬件返回键时调用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:createPersistenceManager"><apiName>createPersistenceManager</apiName><shortdesc>
+      创建应用程序的持久管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>IPersistenceManager 管理器对象。
+      
+      </apiDesc><apiOperationClassifier>spark.managers:IPersistenceManager</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      创建应用程序的持久管理器。第一次访问持久管理器或者针对应用程序将 <codeph>persistNavigatorState</codeph> 属性设置为 <codeph>true</codeph> 时，将自动调用该方法。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:deactivateHandler"><apiName>deactivateHandler</apiName><shortdesc>
+      退出应用程序或操作系统将应用程序发送到后台时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>NAVIGATOR_STATE_SAVING 事件的事件对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      退出应用程序或操作系统将应用程序发送到后台时调用。如果 <codeph>persistNavigatorState</codeph> 为 <codeph>true</codeph>，则应用程序将开始状态保存过程。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:invokeHandler"><apiName>invokeHandler</apiName><shortdesc>
+      当操作系统调用应用程序以响应 InvokeEvent.INVOKEevent 事件时，调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:InvokeEvent"/><apiDesc>InvokeEvent 对象.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当操作系统调用应用程序以响应 <codeph>InvokeEvent.INVOKEevent</codeph> 事件时，调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:loadNavigatorState"><apiName>loadNavigatorState</apiName><shortdesc>
+      用来在 persistNavigatorState 属性设置为 true 时恢复应用程序的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      用来在 <codeph>persistNavigatorState</codeph> 属性设置为 <codeph>true</codeph> 时恢复应用程序的状态。
+     
+      <p>仅当未取消 <codeph>FlexEvent.NAVIGATOR_STATE_LOADING</codeph> 事件时调用此方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:menuKeyUpHandler"><apiName>menuKeyUpHandler</apiName><shortdesc>
+      按菜单键时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:KeyboardEvent"/><apiDesc>与要按下的菜单键相关联的 KeyboardEvent 对象。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      按菜单键时调用。默认情况下，此方法会打开或关闭 ViewMenu 对象。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.components.xml#ViewMenu"><linktext>spark.components.ViewMenu</linktext></link></related-links></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorApplicationBase:protected:saveNavigatorState"><apiName>saveNavigatorState</apiName><shortdesc>
+      用来将应用程序状态保存到持久管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      用来将应用程序状态保存到持久管理器。<codeph>persistNavigatorState</codeph> 设置为 <codeph>true</codeph> 时将自动调用该方法。默认情况下，此方法将应用程序版本保存到 PersistenceManager 对象的 <codeph>versionNumber</codeph> 键中。
+     
+      <p>仅当未取消 <codeph>FlexEvent.NAVIGATOR_STATE_SAVING</codeph> 事件时调用此方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.supportClasses:ViewNavigatorApplicationBase:persistNavigatorState:get"><apiName>persistNavigatorState</apiName><shortdesc>
+      切换应用程序的应用程序会话缓存功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      切换应用程序的应用程序会话缓存功能。启用时，应用程序会自动将当前视图导航器的视图堆栈和导航历史记录保存到持久管理器。重新启动该应用程序时，会自动从持久存储读取该数据并将其应用到应用程序的导航器中。
+     
+      <p>启用时，应用程序版本将添加到持久对象中。您可以使用持久管理器的 <codeph>getProperty()</codeph> 方法并请求 <codeph>versionNumber</codeph> 键来访问此信息。</p>
+     
+      <p>创建持久对象时，应用程序会在过程开始时分派可取消的 <codeph>FlexEvent.NAVIGATOR_STATE_SAVING</codeph> 事件。如果您取消 <codeph>NAVIGATOR_STATE_SAVING</codeph> 事件，则不会创建持久对象。同样，将此信息恢复到应用程序中时，会分派可取消的 <codeph>FlexEvent.NAVIGATOR_STATE_LOADING</codeph> 事件。取消 <codeph>NAVIGATOR_STATE_LOADING</codeph> 事件将阻止恢复导航数据。</p>
+     
+      <p>应用程序为自动恢复导航器的状态而进行初始化之前，必须将 <codeph>persistNavigatorState</codeph> 标志设置为 <codeph>true</codeph>。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorApplicationBase:persistenceManager:get"><apiName>persistenceManager</apiName><shortdesc>
+      应用程序的 PersistenceManager 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.managers:IPersistenceManager</apiValueClassifier></apiValueDef><apiDesc>
+      应用程序的 PersistenceManager 对象。第一次进行访问时，会根据需要自动创建持久管理器。覆盖 <codeph>createPersistenceManager()</codeph> 方法以更改创建的持久管理器的类型。
+     
+      <p>如果将 <codeph>persistNavigatorState</codeph> 标志设置为 <codeph>true</codeph>，持久管理器会自动保存和恢复当前视图导航器的视图堆栈。应用程序暂停或退出时，存储在持久管理器中的数据会自动保存到磁盘中。</p>
+      
+      <p>持久管理器的默认实现使用共享对象作为后备数据存储。保存到该对象的所有信息都必须遵循对象解码的 flash AMF 规则。这意味着必须使用 <codeph>flash.net.registerClassAlias</codeph> 注册自定义类。</p>
+     
+      <p>默认值为 spark.core.managers.PersistenceManager 的实例。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.managers.xml#PersistenceManager"><linktext>spark.managers.PersistenceManager</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorApplicationBase:viewMenuOpen:get"><apiName>viewMenuOpen</apiName><shortdesc>
+      如果设置为 true，则打开视图菜单，如果设置为 false，则关闭视图菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果设置为 <codeph>true</codeph>，则打开视图菜单，如果设置为 <codeph>false</codeph>，则关闭视图菜单。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:TextInputOperation"><apiName>TextInputOperation</apiName><shortdesc>
+  TextInputOperation 类表示文本输入操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flashx.textLayout.operations:FlowOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TextInputOperation 类表示文本输入操作。仅当发送 CHANGING 事件时，StyleableTextField 才使用该类。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.components.supportClasses:TextInputOperation:TextInputOperation"><apiName>TextInputOperation</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.supportClasses:TextInputOperation:text"><apiName>text</apiName><shortdesc>
+      输入的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      输入的文本。如果未取消 CHANGING 事件，该文本将添加到 TextFeld。如果取消此事件，则不会添加该文本。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:StyleableStageText"><apiName>StyleableStageText</apiName><shortdesc>
+  StyleableStageText 类是一个在 ActionScript 外观中使用的基本文本，用于向用户提供一个本机文本输入字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion><Exclude kind="property" name="verticalScrollPosition"/><Exclude kind="property" name="selectable"/><Exclude kind="property" name="lineBreak"/><Exclude kind="property" name="isTruncated"/><Exclude kind="property" name="horizontalScrollPosition"/><Exclude kind="property" name="alpha"/><styles><style enumeration="start,end,left,right,center" inherit="yes" name="textAlign" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  容器内文本的对齐方式。可能的值有<codeph>“start”</codeph>、<codeph>“end”</codeph>、<codeph>“left”</codeph>、<codeph>“right”</codeph>或<codeph>“center”</codeph>。
+ 
+  </description>
+<default>"start"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description conref="spark.components.supportClasses.SkinnableTextBase#style:locale">
+  </description>
+
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  确定文本是否使用粗体。可识别的值为 <codeph>"normal"</codeph> 和 <codeph>"bold"</codeph>。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  确定文本是否使用斜体。可识别的值为 <codeph>"normal"</codeph> 和 <codeph>"italic"</codeph>。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="Number">
+<description>
+  文本的高度，以像素为单位。
+ 
+  </description>
+<default>24
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontFamily" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="String">
+<description>
+  使用的字体的名称。与在完全 CSS 实现中不同，这里不支持逗号分隔的列表。您可以使用任何字体系列名称。如果您指定通用字体名称，它将转换为相应的设备字体。
+ 
+  </description>
+<default>"_sans"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="spark.components.supportClasses:StyleableStageText" playerVersion="AIR3.0" type="uint">
+<description>
+  组件中文本（包括组件标签）的颜色。
+   </description>
+<default>0x000000
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.6
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.core:IEditableText</apiBaseInterface><apiBaseInterface>spark.core:ISoftKeyboardHintClient</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StyleableStageText 类是一个在 ActionScript 外观中使用的基本文本，用于向用户提供一个本机文本输入字段。它不能用在 MXML 标记中，不能与效果同时使用，也不能与旋转、缩放和倾斜等变换同时使用。
+ 
+  <p>StageText 可使用本机文本字段在移动设备上实现更好的文本输入和操作体验。本机字段提供正确的视觉效果、文本间距和回流、选择行为以及文本输入帮助。此类也可以用于桌面平台，此时它的行为就像一个围绕 TextField 的包装器。
+  </p>
+ 
+  围绕本机文本控件的填充可能与围绕 TextField 控件的填充不同。
+ 
+  <p>与其他本机应用程序相似，当您点击本机文本字段以外的区域时，文本字段会放弃焦点并且软键盘消失。然而，当您点击一个 TextField 以外的区域时，焦点仍停留在 TextField 中并且软键盘仍然可见。</p>
+ 
+  <p><b>基于 StageText 的控件的限制：</b>
+  <ul>
+  <li>本机文本输入字段不能被其他 Flex 内容裁剪，并呈现在舞台上方的一个层中。由于此限制，<b>使用基于 StageText 的外观类的组件将始终显示在其他 Flex 组件之上</b>。Flex 弹出窗口和下拉列表也将被任何可见的本机文本字段遮蔽。最后，本机文本字段的相对 Z 顺序不能由应用程序控制。</li>
+ 
+  <li>本机控件不支持嵌入字体。</li>
+ 
+  <li>不支持链接和 html 标记。</li>
+ 
+  <li><codeph>文本</codeph>始终是可选择的。</li>
+ 
+  <li>不支持分数形式的 alpha 值。</li>
+ 
+  <li>对大多数键不调度键盘事件。这意味着 Tab 键不会调度 keyDown 或 keyUp 事件，因此无法使用 Tab 键将焦点从基于 StageText 的控件移除。</li>
+ 
+  <li>StageText 当前不能度量文本。</li>
+ 
+  <li>当前 StageText 不支持以编程方式控制滚动位置。 </li>
+ 
+  <li>当前 StageText 不支持允许包含本机文本字段的窗体的基于触摸的滚动所必需的事件模型。</li>
+  </ul>
+  </p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.text.StageText.xml"><linktext>flash.text.StageText</linktext></link><link href="spark.components.supportClasses.xml#StyleableTextField"><linktext>spark.components.supportClasses.StyleableTextField</linktext></link></related-links><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE_softKeyboardDeactivate"><apiName>softKeyboardDeactivate</apiName><shortdesc>
+  当软键盘位置过低或隐藏软键盘时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE</apiEventType><adobeApiEventClassifier>flash.events.SoftKeyboardEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当软键盘位置过低或隐藏软键盘时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING_softKeyboardActivating"><apiName>softKeyboardActivating</apiName><shortdesc>
+  在显示软键盘之前立即分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING</apiEventType><adobeApiEventClassifier>flash.events.SoftKeyboardEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在显示软键盘之前立即分派。如果通过调用 <codeph>preventDefault</codeph> 来取消，将不打开软键盘。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE_softKeyboardActivate"><apiName>softKeyboardActivate</apiName><shortdesc>
+  当显示软键盘时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE</apiEventType><adobeApiEventClassifier>flash.events.SoftKeyboardEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当显示软键盘时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.FocusEvent.FOCUS_OUT_focusOut"><apiName>focusOut</apiName><shortdesc>
+  在本机文本控件失去焦点后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.FocusEvent.FOCUS_OUT</apiEventType><adobeApiEventClassifier>flash.events.FocusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在本机文本控件失去焦点后分派。当用户使用指针设备、键盘导航或触控手势来加亮除文本字段之外的其它对象时，将发生此情况。
+ 
+  <p>注意：由于 <codeph>flash.text.StageText</codeph> 不是 <codeph>InteractiveObject</codeph>，因此不能使用 <codeph>Stage.focus</codeph> 属性来确定本机文本字段是否具有焦点。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.FocusEvent.FOCUS_IN_focusIn"><apiName>focusIn</apiName><shortdesc>
+  在本机文本控件获得焦点后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.FocusEvent.FOCUS_IN</apiEventType><adobeApiEventClassifier>flash.events.FocusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在本机文本控件获得焦点后分派。当用户使用指针设备、键盘导航或触控手势来加亮文本字段时，将发生此情况。
+ 
+  <p>注意：由于 <codeph>flash.text.StageText</codeph> 不是 <codeph>InteractiveObject</codeph>，因此不能使用 <codeph>Stage.focus</codeph> 属性来确定本机文本字段是否具有焦点。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_mx.events.FlexEvent.ENTER_enter"><apiName>enter</apiName><shortdesc>
+  如果 StageText 不是多行的，当用户按下 Enter 键时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.ENTER</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  如果 StageText 不是多行的，当用户按下 Enter 键时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.supportClasses:StyleableStageText_flash.events.Event.CHANGE_change"><apiName>change</apiName><shortdesc>
+  在用户编辑操作完成后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在用户编辑操作完成后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.supportClasses:StyleableStageText:StyleableStageText"><apiName>StyleableStageText</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiDefaultValue>false
+     
+      </apiDefaultValue><apiParam><apiItemName>multiline</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>设置为 <codeph>true</codeph> 以允许输入一行以上的文本。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      <p><codeph>multiline</codeph> 确定按下 Enter 键时会发生什么。如果它为 <codeph>true</codeph>，则按 Enter 键将开始一个新行。如果为 <codeph>false</codeph>，则导致分派 <codeph>FlexEvent.ENTER</codeph> 事件。</p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:StyleableStageText:appendText"><apiName>appendText</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.components.supportClasses:StyleableStageText:insertText"><apiName>insertText</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>text</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.components.supportClasses:StyleableStageText:selectAll"><apiName>selectAll</apiName><shortdesc>
+      选择所有文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      选择所有文本。
+     
+      <p>在 iOS 上，对于非多行 StyleableStageText 对象，不支持此函数且不执行任何操作。</p>
+     
+      <p>对于某些设备或操作系统，仅当 StageText 对象具有焦点时选区才可见.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:StyleableStageText:selectRange"><apiName>selectRange</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.components.supportClasses:StyleableStageText:autoCapitalize:get"><apiName>autoCapitalize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"none"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="" invalidHref="flash.text.AutoCapitalize.xml"><linktext>flash.text.AutoCapitalize</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:autoCorrect:get"><apiName>autoCorrect</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:displayAsPassword:get"><apiName>displayAsPassword</apiName><shortdesc>
+      指定文本字段是否是密码文本字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定文本字段是否是密码文本字段。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:editable:get"><apiName>editable</apiName><shortdesc>
+      指示字段中的文本是否可编辑的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示字段中的文本是否可编辑的标志。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:maxChars:get"><apiName>maxChars</apiName><shortdesc conref="flash.text.StageText#maxChars">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.text.StageText#maxChars">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:multiline:get"><apiName>multiline</apiName><shortdesc conref="flash.text.StageText#multiline">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="flash.text.StageText#multiline">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:restrict:get"><apiName>restrict</apiName><shortdesc conref="flash.text.StageText#restrict">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.text.StageText#restrict">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:returnKeyLabel:get"><apiName>returnKeyLabel</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"default"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="" invalidHref="flash.text.ReturnKeyLabel.xml"><linktext>flash.text.ReturnKeyLabel</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:selectionActivePosition:get"><apiName>selectionActivePosition</apiName><shortdesc>
+      选择部分的活动位置或最后单击位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      选择部分的活动位置或最后单击位置。如果实现不支持选择锚点，则这是所选内容的最后一个字符。
+     
+      <p>此值不能用作数据绑定的源。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:selectionAnchorPosition:get"><apiName>selectionAnchorPosition</apiName><shortdesc>
+      选择部分的锚点或最先单击位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      选择部分的锚点或最先单击位置。如果实现不支持选择锚点，则这是所选内容的第一个字符。
+      
+      <p>此值不能用作数据绑定的源。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:softKeyboardType:get"><apiName>softKeyboardType</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"default"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="" invalidHref="flash.text.SoftKeyboardType.xml"><linktext>flash.text.SoftKeyboardType</linktext></link></related-links></apiValue><apiValue id="spark.components.supportClasses:StyleableStageText:text:get"><apiName>text</apiName><shortdesc>
+      作为文本字段中当前文本的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3.0"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      作为文本字段中当前文本的字符串。各行之间用回车符（'\r'，即 ASCII 13）分隔。此属性包含文本字段中的无格式文本，不带任何格式标签。
+           <p>如果有原先的选择，它会被保留。如果旧文本的长度小于新文本的长度，则所选内容会进行调整，使 <codeph>selectionAnchorPosition</codeph> 或 <codeph>selectionActivePosition</codeph> 都不大于新文本的长度。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewNavigatorBase"><apiName>ViewNavigatorBase</apiName><shortdesc>
+  ViewNavigatorBase 类定义视图导航器所使用的基类逻辑和接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContentFactory"/></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:ViewNavigatorBase&gt;</code> tag inherits 
+  all of the tag attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:ViewNavigatorBase
+    <strong>Properties</strong>
+    icon="null"
+    label="null"
+    transitionsEnabled="true"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:SkinnableContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewNavigatorBase 类定义视图导航器所使用的基类逻辑和接口。该类包含视图管理相关的方法和属性，以及与 ViewNavigatorApplicationBase 应用程序类的集成点。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#ViewNavigator"><linktext>spark.components.ViewNavigator</linktext></link><link href="spark.components.xml#ViewNavigatorApplication"><linktext>spark.components.ViewNavigatorApplication</linktext></link></related-links><apiConstructor id="spark.components.supportClasses:ViewNavigatorBase:ViewNavigatorBase"><apiName>ViewNavigatorBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.supportClasses:ViewNavigatorBase:loadViewData"><apiName>loadViewData</apiName><shortdesc>
+      根据 value 参数，恢复导航器的视图状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>用于恢复导航器状态的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      根据 <codeph>value</codeph> 参数，恢复导航器的视图状态。做为 <codeph>value</codeph> 参数传递的对象是在调用 <codeph>saveViewData()</codeph> 方法时创建的。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorBase:saveViewData"><apiName>saveViewData</apiName><shortdesc>
+      将导航器子项相关的所有数据序列化成持久管理器可以保存的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>表示导航器状态的对象
+     
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      将导航器子项相关的所有数据序列化成持久管理器可以保存的对象。当重新实例化导航器时将返回的对象传递到 <codeph>restoreViewData()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.supportClasses:ViewNavigatorBase:updateControlsForView"><apiName>updateControlsForView</apiName><shortdesc>
+      添加和激活新视图时，更新导航器的各种属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>view</apiItemName><apiOperationClassifier>spark.components:View</apiOperationClassifier><apiDesc>已添加的视图。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      添加和激活新视图时，更新导航器的各种属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.supportClasses:ViewNavigatorBase:activeView:get"><apiName>activeView</apiName><shortdesc>
+      导航器的当前活动视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      导航器的当前活动视图。一次仅一个视图可处于活动状态。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:icon:get"><apiName>icon</apiName><shortdesc>
+      要在由可视组件表示此导航器时使用的图标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要在由可视组件表示此导航器时使用的图标。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:isActive:get"><apiName>isActive</apiName><shortdesc>
+      当此导航器处于活动状态时设置为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当此导航器处于活动状态时设置为 <codeph>true</codeph>。父导航器会自动设置此标志以表示其状态发生改变。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:label:get"><apiName>label</apiName><shortdesc>
+      要在由可见组件表示此导航器时使用的标签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要在由可见组件表示此导航器时使用的标签。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:parentNavigator:get"><apiName>parentNavigator</apiName><shortdesc>
+      该导航器的父导航器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components.supportClasses:ViewNavigatorBase</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      该导航器的父导航器。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorBase:transitionsEnabled:get"><apiName>transitionsEnabled</apiName><shortdesc>
+      设置为 true 启用更改视图或更改 ActionBar 或 TabBar 控件时的视图转换。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      设置为 <codeph>true</codeph> 启用更改视图或更改 ActionBar 或 TabBar 控件时的视图转换。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.supportClasses:ViewNavigatorAction"><apiName>ViewNavigatorAction</apiName><shortdesc>
+      ViewNavigatorAction 类为 ViewNavigatorEvent 类的 action 属性定义常量值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      ViewNavigatorAction 类为 ViewNavigatorEvent 类的 <codeph>action</codeph> 属性定义常量值。
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.events.xml#ViewNavigatorEvent"><linktext>spark.events.ViewNavigatorEvent</linktext></link></related-links><apiValue id="spark.components.supportClasses:ViewNavigatorAction:NONE"><apiName>NONE</apiName><shortdesc>
+          指示导航器未执行操作的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          指示导航器未执行操作的常量。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:POP_ALL"><apiName>POP_ALL</apiName><shortdesc>
+          描述从导航器删除所有视图的导航操作的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>popAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          描述从导航器删除所有视图的导航操作的常量。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:POP_TO_FIRST"><apiName>POP_TO_FIRST</apiName><shortdesc> 
+          描述从导航器删除所有试图（第一个视图除外）的导航操作的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>popToFirst</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+          描述从导航器删除所有试图（第一个视图除外）的导航操作的常量。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:POP"><apiName>POP</apiName><shortdesc>
+          描述从导航器删除最上面的视图的导航操作的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>pop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          描述从导航器删除最上面的视图的导航操作的常量。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:PUSH"><apiName>PUSH</apiName><shortdesc>
+          描述向导航器添加新视图的导航操作的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>push</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          描述向导航器添加新视图的导航操作的常量。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.supportClasses:ViewNavigatorAction:REPLACE"><apiName>REPLACE</apiName><shortdesc>
+          描述活动视图替换成其它视图的导航操作的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>replace</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          描述活动视图替换成其它视图的导航操作的常量。
+          
+          </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

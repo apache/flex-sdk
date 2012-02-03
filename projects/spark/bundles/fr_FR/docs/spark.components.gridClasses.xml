@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.gridClasses"><apiName>spark.components.gridClasses</apiName><apiDetail/><apiClassifier id="spark.components.gridClasses:GridColumn"><apiName>GridColumn</apiName><shortdesc>
+  La classe GridColumn définit une colonne d’un contrôle de grille Spark, tel que le contrôle Spark DataGrid ou Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:GridColumn&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:GridColumn
+    <strong>Properties</strong>
+    dataField="null"
+    dataTipField="null"
+    dataTipFormatter="null"
+    dataTipFunction="null"
+    editable="true"
+    formatter="null"
+    headerRenderer="null"
+    headerText="<i>value of dataField</i>"
+    imeMode="null"
+    itemEditor="null"
+    itemRenderer="null"
+    itemRendererFunction="null"
+    labelFunction="null"
+    maxWidth="NaN"
+    minWidth="20"
+    rendererIsEditable="false"
+    resizeable="true"
+    showDataTips="undefined"
+    sortable="true"
+    sortCompareFunction="null"
+    sortDescending="false"
+    visible="true"
+    width="NaN"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GridColumn définit une colonne d’un contrôle de grille Spark, tel que le contrôle Spark DataGrid ou Grid. Chaque élément de fournisseur de données pour le contrôle correspond à une rangée de la grille. La classe GridColumn spécifie le champ de l’élément de fournisseur de données dont la valeur doit être affichée dans la colonne. Elle indique également le rendu d’élément utilisé pour afficher cette valeur, l’éditeur d’élément utilisé pour modifier la valeur, et d’autres propriétés de la colonne.
+   </apiDesc><example conref="GridColumnExample.mxml"><swfblock conref="examples/GridColumnExample.swf"/></example><example conref="GridColumnVisibilityExample.mxml"><swfblock conref="examples/GridColumnVisibilityExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridColumn:GridColumn"><apiName>GridColumn</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Valeur initiale des propriétés <codeph>dataField</codeph> et <codeph>headerText</codeph>. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridColumn:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      Convertissez l'élément de fournisseur de données spécifié en chaîne datatip spécifique à une colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Chaîne spécifique à une colonne pour l’élément de fournisseur de données spécifié ou <codeph>ERROR_TEXT</codeph>.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>La valeur de <codeph>grid.dataProvider.getItemAt(rowIndex)</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertissez l'élément de fournisseur de données spécifié en chaîne datatip spécifique à une colonne. 
+     
+      <p>Cette méthode utilise les valeurs <codeph>dataTipField</codeph> et <codeph>dataTipFunction</codeph>. Si ces propriétés ont la valeur null, elle utilise les propriétés correspondantes à partir du contrôle de grille associé. Si les propriétés <codeph>dataTipField</codeph> ont également la valeur null dans le contrôle de grille, utilisez la propriété <codeph>dataField</codeph>.</p>
+     
+      <p>Si <codeph>dataTipFunction</codeph> et <codeph>dataTipFormatter</codeph> sont null, cette méthode sa valeur est identique à : <codeph>élément[dataTipField].toString()</codeph>. Si <codeph>dataTipFormatter</codeph> est spécifié, cette méthode sa valeur est identique à : <codeph>dataTipFormatter.format(élément[dataTipField])</codeph> si la résolution des l'élément <codeph>dataField</codeph> entraîne le renvoi d'une erreur, <codeph>ERROR_TEXT</codeph> est renvoyé.</p>
+     
+      <p>Si <codeph>item</codeph> et <codeph>dataTipFunction</codeph> n’ont pas la valeur null, cette méthode renvoie <codeph>dataTipFunction(item,this)</codeph>, où le second argument est cette classe GridColumn.</p> 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridColumn:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      Convertissez l’élément de fournisseur de données spécifié en chaîne spécifique à une colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Une chaîne spécifique à une colonne pour l'élément dataProvider spécifié ou ERROR_TEXT.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>La valeur de <codeph>grid.dataProvider.getItemAt(rowIndex)</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertissez l’élément de fournisseur de données spécifié en chaîne spécifique à une colonne. Cette méthode est utilisée pour initialiser la propriété <codeph>label</codeph> des rendus d’élément.
+     
+      <p>Si <codeph>labelFunction</codeph> a la valeur null et que la propriété <codeph>dataField</codeph> est une chaîne qui ne contient pas de caractères "." Nom du champ caractères de séparation et formateur est null, cette méthode équivaut à la suivante :</p>
+           <pre>item[dataField].toString()</pre>   
+     
+      <p>Si l'outil de formatage a été spécifiée, cette méthode sa valeur est :</p>
+     
+      <pre>formatter.format(item[dataField])</pre>
+           <p>Si la propriété <codeph>dataField</codeph> est un chemin "." séparé, cette méthode recherche chaque élément de chemin successif. Par exemple, si <codeph>="foo.bar.baz"</codeph>, cette méthode renvoie une chaîne basée sur la valeur de <codeph>item.foo.bar.baz</codeph>. Si la résolution de la propriété <codeph>dataField</codeph> de l’élément génère une erreur, ERROR_TEXT est renvoyé.</p>
+     
+      <p>Si <codeph>item</codeph> et <codeph>labelFunction</codeph> n’ont pas la valeur null, cette méthode renvoie <codeph>labelFunction(item, this)</codeph>, où le second argument est cette classe GridColumn.</p> 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridColumn:itemToRenderer"><apiName>itemToRenderer</apiName><shortdesc>
+      Convertissez l’élément de fournisseur de données spécifié en fabrique de rendu d’élément spécifique à une colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Une fabrique d'option de rendu d'élément spécifique à une colonne pour l'élément dataProvider spécifié.
+     
+      </apiDesc><apiType value="mx.core:IFactory"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>La valeur de <codeph>grid.dataProvider.getItemAt(rowIndex)</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertissez l'élément de fournisseur de données spécifié en fabrique de rendu d'élément spécifique à une colonne. Par défaut, cette méthode appelle <codeph>itemRendererFunction</codeph> si cette fonction n’est pas null, et dans le cas contraire elle renvoie simplement la valeur de la propriété <codeph>itemRenderer</codeph> de la colonne.
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridColumn:ERROR_TEXT"><apiName>ERROR_TEXT</apiName><shortdesc>
+      La valeur de retour de la méthode itemToLabel() ou itemToDataTip() en cas d’échec de la résolution du nom (chemin) de la propriété correspondante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La valeur de retour de la méthode <codeph>itemToLabel()</codeph> ou <codeph>itemToDataTip()</codeph> en cas d’échec de la résolution du nom (chemin) de la propriété correspondante. La valeur de cette constante est une chaîne composée d’un espace unique : <codeph>" "</codeph>.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      La position de cette colonne dans la liste des colonnes de la grille, ou -1 si la grille de cette colonne est null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      La position de cette colonne dans la liste des colonnes de la grille, ou -1 si la grille de cette colonne est null.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataField:get"><apiName>dataField</apiName><shortdesc>
+      Nom du champ ou de la propriété de l’élément de fournisseur de données associé à la colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nom du champ ou de la propriété de l’élément de fournisseur de données associé à la colonne. Chaque GridColumn nécessite que cette propriété ou la propriété <codeph>labelFunction</codeph> soit définie afin de calculer le texte affichable pour le rendu d’élément. Si les propriétés <codeph>dataField</codeph> et <codeph>labelFunction</codeph> sont définies, les données s’affichent à l’aide de la propriété <codeph>labelFunction</codeph> et sont triées à l’aide de la propriété <codeph>dataField</codeph>.  
+           <p>La valeur de cette propriété n’est pas nécessairement la chaîne qui est affichée dans l’en-tête de colonne. Cette propriété est utilisée uniquement pour accéder aux données dans le fournisseur de données. Pour plus d’informations, voir la propriété <codeph>headerText</codeph>.</p>
+     
+      <p>Si la colonne ou sa grille spécifie une propriété <codeph>labelFunction</codeph>, la propriété dataField n’est pas utilisée.</p>
+          
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/labelFunction"><linktext>labelFunction</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      Nom du champ dans le fournisseur de données à afficher comme astuce sur les données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nom du champ dans le fournisseur de données à afficher comme astuce sur les données. Par défaut, si <codeph>showDataTips</codeph> a la valeur <codeph>true</codeph>, le contrôle de grille associé recherche une propriété appelée <codeph>label</codeph> sur chaque élément de fournisseur de données et l’affiche. Toutefois, si le fournisseur de données ne contient pas de propriété <codeph>label</codeph>, vous pouvez définir la propriété <codeph>dataTipField</codeph> pour qu’elle spécifie un autre nom de propriété. Par exemple, vous pouvez définir la valeur sur « FullName » lorsqu’un utilisateur affiche un ensemble de noms de personnes incluses dans une base de données.
+           <p><codeph>GridColumn.dataTipField</codeph> est prioritaire par rapport à cette propriété.</p>
+     
+      <p>Si cette colonne ou sa grille spécifie une valeur pour la propriété <codeph>dataTipFunction</codeph>, la propriété <codeph>dataTipField</codeph> est ignorée.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/dataTipFunction"><linktext>dataTipFunction</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipFormatter:get"><apiName>dataTipFormatter</apiName><shortdesc>
+      Spécifie l’outil de formatage utilisé par la méthode itemToDataTip() de la colonne pour convertir les éléments de fournisseur de données en chaînes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFormatterChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.formatters:IFormatter"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie l’outil de formatage utilisé par la méthode <codeph>itemToDataTip()</codeph> de la colonne pour convertir les éléments de fournisseur de données en chaînes.
+     
+      <p>Si l'élément <codeph>styleParent</codeph> de l'outil de formatage n'a pas été spécifié, il est défini sur la grille de la colonne, de sorte que l'outil de formatage hérite du style <codeph>locale</codeph> de la grille.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/formatter"><linktext>outil de formatage</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      Indique une fonction de rappel à exécuter sur chaque élément du fournisseur de données afin d’en déterminer les astuces sur les données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique une fonction de rappel à exécuter sur chaque élément du fournisseur de données afin d’en déterminer les astuces sur les données. Cette propriété est utilisée par la méthode <codeph>itemToDataTip</codeph>.
+     
+      <p>Par défaut, si <codeph>showDataTips</codeph> a la valeur <codeph>true</codeph>, la colonne recherche une propriété nommée <codeph>label</codeph> sur chaque élément de fournisseur de données et l’affiche comme son astuce de données. Toutefois, certains fournisseurs de données n’ont pas de propriété <codeph>label</codeph> ni aucune autre propriété que vous pouvez utiliser pour afficher les données dans les rangées.</p>
+           <p>Par exemple, vous disposez d’un fournisseur de données contenant les champs lastName et firstName, mais vous souhaitez afficher les noms complets en tant qu’astuce de données. Vous pouvez spécifier une fonction pour la propriété <codeph>dataTipFunction</codeph> qui renvoie une seule chaîne contenant la valeur des deux champs. Vous pouvez également utiliser la propriété <codeph>dataTipFunction</codeph> pour gérer la mise en forme et la localisation.</p>
+     
+      <p>La signature de la fonction <codeph>dataTipFunction</codeph> doit correspondre à la suivante :
+     
+      <pre>dataTipFunction(item:Object, column:GridColumn):String</pre>
+           Le paramètre <codeph>item</codeph> est l’élément de fournisseur de données d’une rangée entière. Le second paramètre est cet objet de colonne.</p>
+           <p>Une fonction standard peut concaténer les propriétés firstName et lastName d’un élément ou personnaliser la mise en forme d’une propriété de valeur de date.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataTipField"><linktext>dataTipField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:editable:get"><apiName>editable</apiName><shortdesc>
+      Indique si les éléments de la colonne peuvent être modifiés. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="editableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si les éléments de la colonne peuvent être modifiés. Si la valeur est <codeph>true</codeph> et si la propriété <codeph>editable</codeph> de la grille associée a également la valeur <codeph>true</codeph>, les éléments d’une colonne sont modifiables et peuvent être modifiés individuellement en cliquant sur un élément sélectionné ou en naviguant jusqu’à lui et en appuyant sur la touche F2.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:formatter:get"><apiName>formatter</apiName><shortdesc>
+      Spécifie l’outil de formatage utilisé par la méthode itemToLabel() de la colonne pour convertir les éléments de fournisseur de données en chaînes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="formatterChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.formatters:IFormatter"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie l’outil de formatage utilisé par la méthode <codeph>itemToLabel()</codeph> de la colonne pour convertir les éléments de fournisseur de données en chaînes.
+     
+      <p>Si l'élément <codeph>styleParent</codeph> de l'outil de formatage n'a pas été spécifié, il est défini sur la grille de la colonne, de sorte que l'outil de formatage hérite du style <codeph>locale</codeph> de la grille.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataTipFormatter"><linktext>Datatipformatter</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:grid:get"><apiName>grid</apiName><shortdesc>
+      L’objet Grid associé à cette colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="gridChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      L’objet Grid associé à cette colonne.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:headerRenderer:get"><apiName>headerRenderer</apiName><shortdesc>
+      Fabrique de classe de la classe IGridItemRenderer utilisée comme en-tête de cette colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Fabrique de classe de la classe IGridItemRenderer utilisée comme en-tête de cette colonne. Si elle n’est pas spécifiée, la partie d’habillage <codeph>columnHeaderGroup</codeph> du contrôle DataGrid définit le rendu d’en-tête par défaut.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/headerText"><linktext>headerText</linktext></link><link href="spark.components.gridClasses.xml#IGridItemRenderer"><linktext>IGridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:headerText:get"><apiName>headerText</apiName><shortdesc>
+      Texte de l’en-tête de cette colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerTextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Texte de l’en-tête de cette colonne. Par défaut, le contrôle de grille associé utilise la valeur de la propriété <codeph>dataField</codeph> en tant que texte d’en-tête.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:imeMode:get"><apiName>imeMode</apiName><shortdesc conref="spark.components.gridClasses.GridItemEditor#imeMode">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.components.gridClasses.GridItemEditor#imeMode">
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemEditor:get"><apiName>itemEditor</apiName><shortdesc>
+      Fabrique de classe pour la classe IGridItemEditor utilisée pour modifier les cellules de grille individuelles dans cette colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemEditorChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Fabrique de classe pour la classe IGridItemEditor utilisée pour modifier les cellules de grille individuelles dans cette colonne. Si la valeur de cette propriété est null et que le propriétaire de la grille de colonne est un contrôle DataGrid, la valeur de la propriété <codeph>itemEditor</codeph> du contrôle DataGrid est utilisée. Si aucun éditeur d’élément n’est spécifié par le contrôle DataGrid, utilisez la classe DefaultGridItemEditor.
+     
+      <p>L’éditeur d’élément par défaut est la classe DefaultGridItemEditor, qui vous permet de modifier un champ de texte simple. Vous pouvez créer des rendus d’élément personnalisés en créant une sous-classe de la classe GridItemEditor. Votre éditeur d’élément personnalisé peut écrire des données dans la rangée entière de la grille pour définir un éditeur plus complexe. </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#DefaultGridItemEditor"><linktext>spark.components.gridClasses.DefaultGridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridItemEditor"><linktext>spark.components.gridClasses.GridItemEditor</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemRendererFunction:get"><apiName>itemRendererFunction</apiName><shortdesc>
+      Si elle est spécifiée, la valeur de cette propriété doit être une fonction idempotent qui renvoie un rendu d’élément IFactory en fonction de ses paramètres de colonne et d’élément de fournisseur de données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si elle est spécifiée, la valeur de cette propriété doit être une fonction idempotent qui renvoie un rendu d’élément IFactory en fonction de ses paramètres de colonne et d’élément de fournisseur de données. La spécification d’une valeur pour la propriété <codeph>itemRendererFunction</codeph> permet d’utiliser plusieurs rendus d’élément dans cette colonne.
+     
+      <p>La fonction spécifiée pour la propriété <codeph>itemRendererFunction</codeph> doit présenter la signature suivante :</p>
+           <pre>itemRendererFunction(item:Object, column:GridColumn):IFactory</pre>
+           <p>Le paramètre <codeph>item</codeph> est l’élément de fournisseur de données d’une rangée entière. Le second paramètre est cet objet de colonne.</p> 
+     
+      <p>Vous trouverez ci-dessous un exemple de fonction de rendu d’élément :</p>
+      <pre>
+      function myItemRendererFunction(item:Object, column:GridColumn):IFactory
+      {
+          return (item is Array) ? myArrayItemRenderer : myItemRenderer;
+      }
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      Fabrique de classe de la classe IGridItemRenderer utilisée pour effectuer le rendu des cellules de grille individuelles.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Fabrique de classe de la classe IGridItemRenderer utilisée pour effectuer le rendu des cellules de grille individuelles. Si elle n’est pas spécifiée, utilisez la valeur de la propriété <codeph>itemRenderer</codeph> issue du contrôle de grille associé.
+     
+      <p>Le rendu d’élément par défaut est la classe AdvancedDataGridItemRenderer, qui affiche l’élément de données sous forme de texte. Vous pouvez créer des rendus d’élément personnalisés en créant une sous-classe de la classe GridItemRenderer. Votre rendu d’élément personnalisé peut accéder aux données de la rangée entière de la grille pour définir une représentation visuelle plus complexe de la cellule. </p>
+     
+      <p>La valeur par défaut est la valeur de la propriété <codeph>itemRenderer</codeph> issue du contrôle de grille associé, ou null.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/dataField"><linktext>dataField</linktext></link><link href="spark.skins.spark.xml#DefaultGridItemRenderer"><linktext>spark.skins.spark.DefaultGridItemRenderer</linktext></link><link href="spark.components.gridClasses.xml#GridItemRenderer"><linktext>spark.components.gridClasses.GridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      Fonction idempotent qui convertit un élément de fournisseur de données en chaîne spécifique à une colonne qui permet d’initialiser la propriété label du rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Fonction idempotent qui convertit un élément de fournisseur de données en chaîne spécifique à une colonne qui permet d’initialiser la propriété <codeph>label</codeph> du rendu d’élément.
+     
+      <p>Vous pouvez utiliser une fonction d’étiquette pour combiner les valeurs de plusieurs éléments fournisseurs de données en une chaîne unique. Si elle est spécifiée, cette propriété est utilisée par la méthode <codeph>itemToLabel()</codeph>, qui calcule la valeur de la propriété <codeph>label</codeph> de chaque rendu d’élément dans cette colonne.</p>
+           <p>La fonction spécifiée pour la propriété <codeph>labelFunction</codeph> doit présenter la signature suivante :</p>
+           <pre>labelFunction(item:Object, column:GridColumn):String</pre>
+           <p>Le paramètre <codeph>item</codeph> est l’élément de fournisseur de données d’une rangée entière. Le second paramètre est cet objet de colonne.</p>
+           <p>Une fonction standard peut concaténer les propriétés firstName et lastName de l’élément de fournisseur de données ou personnaliser la mise en forme d’une propriété de valeur de date.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataField"><linktext>dataField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      La largeur maximale de cette colonne en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      La largeur maximale de cette colonne en pixels. Si elle est spécifiée, la présentation de la grille spécifie comme largeur de la présentation de la colonne la plus petite valeur entre <codeph>typicalItem</codeph> et <codeph>maxWidth</codeph>. Si cette colonne est redimensionnable, cette propriété limite la largeur que l’utilisateur peut donner à la colonne. La définition de cette propriété ne change pas les propriétés <codeph>width</codeph> ni <codeph>minWidth</codeph>.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      La largeur minimale de cette colonne en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>20
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      La largeur minimale de cette colonne en pixels. Si elle est spécifiée, la présentation de la grille spécifie comme largeur de la présentation de la colonne la plus grande valeur entre <codeph>typicalItem</codeph> et <codeph>minWidth</codeph>. Si cette colonne est redimensionnable, cette propriété limite la grandeur que l’utilisateur peut donner à la colonne. La définition de cette propriété ne change pas les propriétés <codeph>width</codeph> ni <codeph>maxWidth</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:rendererIsEditable:get"><apiName>rendererIsEditable</apiName><shortdesc>
+      Détermine si des contrôles du rendu d’élément sont modifiables.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="rendererIsEditableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Détermine si des contrôles du rendu d’élément sont modifiables. Si la colonne est modifiable, les contrôles pouvant recevoir le focus dans le rendu d’élément reçoivent le focus clavier lorsque l’utilisateur commence à modifier le rendu d’élément.
+           <p>Lorsque vous définissez cette propriété sur <codeph>true</codeph>, la cellule devient modifiable quand l’utilisateur clique à l’intérieur de cette dernière. Etant donné que la cellule est modifiable, le composant DataGrid affiche la partie d’habillage<codeph>editorIndicator</codeph> en haut de la partie d’habillage<codeph>selectionIndicator</codeph>. Par conséquent, l’utilisateur ne voit pas l’indicateur de sélection de la cellule jusqu’à ce que la session de modification soit terminée. Vous pouvez créer un habillage personnalisé pour supprimer ou modifier la partie d’habillage <codeph>editorIndicator</codeph>, de sorte que la partie d’habillage <codeph>selectionIndicator</codeph> s’affiche. Par exemple, vous pouvez définir la propriété <codeph>alpha</codeph> de<codeph>editorIndicator</codeph> de sorte que <codeph>selectionIndicator</codeph> transparaisse, ou modifier la taille de editorIndicator pour qu’il soit plus petit que la cellule.</p>
+     
+      <p>En définissant cette propriété sur <codeph>true</codeph>, vous assumez la responsabilité de la validation et de l’enregistrement de l’entrée recueillie par le rendu d’élément. Si le rendu d’élément contient un remplacement de la méthode <codeph>IGridItemRenderer.prepare()</codeph>, vous devez vous assurer que les modifications du champ d’entrée non enregistrées ne sont pas remplacées. Par exemple, <codeph>rendererIsEditable</codeph> a la valeur <codeph>true</codeph> et le rendu contient un élément TextInput unique qui affiche la valeur de <codeph>data.myDataField</codeph>. Si la méthode <codeph>prepare()</codeph> du rendu définit la propriété <codeph>text</codeph> du contrôle TextInput, la méthode <codeph>prepare()</codeph> ne doit pas définir la propriété <codeph>text</codeph> lorsqu’il existe des modifications en attente.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:resizable:get"><apiName>resizable</apiName><shortdesc>
+      Indique si l’utilisateur est autorisé à redimensionner la largeur de la colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resizableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si l’utilisateur est autorisé à redimensionner la largeur de la colonne. Si la valeur est <codeph>true</codeph> et que la propriété <codeph>resizableColumns</codeph> de la grille associée a également la valeur <codeph>true</codeph>, l’utilisateur peut faire glisser les rangées de la grille entre les en-têtes des colonnes pour redimensionner la colonne. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      Indique si les astuces sur les données sont affichées dans la colonne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showDataTipsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si les astuces sur les données sont affichées dans la colonne. Si la valeur est <codeph>true</codeph>, les astuces sur les données s’affichent pour le texte des rangées. Les astuces sur les données sont des infos-bulles conçues pour afficher le texte qui est trop long pour la rangée.   
+     
+      <p>Si la valeur de cette propriété n’est pas définie (configuration par défaut), la propriété <codeph>showDataTips</codeph> de la grille associée détermine si les astuces sur les données sont affichées. Si cette propriété est définie, la propriété <codeph>showDataTips</codeph> de la grille est ignorée.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/getShowDataTips"><linktext>getShowDataTips</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortCompareFunction:get"><apiName>sortCompareFunction</apiName><shortdesc>
+      La fonction qui compare deux éléments lors d’un tri sur les éléments de données de cette colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortCompareFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      La fonction qui compare deux éléments lors d’un tri sur les éléments de données de cette colonne. Si vous spécifiez une valeur pour la propriété <codeph>labelFunction</codeph>, en règle générale, vous fournissez également une propriété <codeph>sortCompareFunction</codeph>.
+           <p>La signature de la propriété sortCompareFunction doit correspondre aux éléments suivants :</p>
+           <pre>sortCompareFunction(obj1:Object, obj2:Object, column:GridColumn):int</pre>
+     
+      <p>La fonction doit renvoyer une valeur basée sur la comparaison des objets : </p>
+      <ul>
+        <li>-1 si obj1 doit apparaître avant obj2 par ordre croissant. </li>
+        <li>0 si obj1 = obj2. </li>
+        <li>1 si obj1 doit apparaître après obj2 par ordre croissant.</li>
+      </ul>
+      
+      <p>La fonction peut utiliser le paramètre de colonne pour écrire des fonctions de comparaison génériques.</p>
+     
+      <p><b>Remarque :</b> les paramètres <codeph>obj1</codeph> et <codeph>obj2</codeph> sont des éléments entiers du fournisseur de données et pas uniquement les données de l’élément.</p>
+     
+      <p>Si l’objet dataProvider n’est pas un objet ICollectionView, cette propriété n’a aucun effet.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortDescending:get"><apiName>sortDescending</apiName><shortdesc>
+      Si la valeur est true, cette colonne est triée dans l’ordre décroissant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortDescendingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, cette colonne est triée dans l’ordre décroissant. Par exemple, si la propriété <codeph>dataField</codeph> de la colonne contient une valeur numérique, la première rangée serait celle dotée de la plus grande valeur pour cette colonne. 
+           <p>La définition de cette propriété ne permet pas de lancer un tri, mais seulement de définir le sens du tri. Lorsque la méthode <codeph>dataProvider.refresh()</codeph> est appelée, le tri est réalisé.</p>
+     
+      <p>Si le fournisseur de données n’est pas un objet ICollectionView, cette propriété n’a aucun effet.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortField:get"><apiName>sortField</apiName><shortdesc>
+      Renvoie un objet SortField qui peut être utilisé pour trier une collection par la propriété dataField de cette colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.collections:SortField</apiValueClassifier></apiValueDef><apiDesc>
+      Renvoie un objet SortField qui peut être utilisé pour trier une collection par la propriété <codeph>dataField</codeph> de cette colonne.
+      
+      <p>Si la propriété <codeph>sortCompareFunction</codeph> est définie, alors la propriété <codeph>compareFunction</codeph> de SortField est automatiquement définie.</p>
+     
+      <p>Si la propriété <codeph>propriété sortCompareFunction</codeph> n’est pas définie et que la propriété <codeph>dataField</codeph> est complexe, la fonction de comparaison SortField est affectée à une fermeture autour d’une fonction de comparaison par défaut qui gère la propriété <codeph>dataField</codeph> complexe.</p>
+           <p>Si les propriétés <codeph>sortCompareFunction</codeph> et <codeph>dataField</codeph> ne sont pas définies, mais que la propriété <codeph>labelFunction</codeph> est définie, elle affecte <codeph>compareFunction</codeph> à une fermeture qui effectue une comparaison de chaîne de base sur la propriété <codeph>labelFunction</codeph> appliquée aux objets de données.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.collections.xml#SortField"><linktext>spark.collections.SortField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortable:get"><apiName>sortable</apiName><shortdesc>
+      Si la valeur est true et si le fournisseur de données de la grille est un objet ICollectionView, et si la propriété sortableColumns de la grille associée a la valeur true, cette colonne prend en charge le tri interactif.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph> et si le fournisseur de données de la grille est un objet ICollectionView, et si la propriété <codeph>sortableColumns</codeph> de la grille associée a la valeur <codeph>true</codeph>, cette colonne prend en charge le tri interactif. En règle générale, l’en-tête de la colonne gère les clics de souris en définissant la propriété <codeph>sort</codeph> du fournisseur de données sur un objet Sort dont l’objet SortField est la propriété <codeph>dataField</codeph> de cette colonne.
+      
+      <p>Si le fournisseur de données n’est pas un objet ICollectionView, cette propriété n’a aucun effet.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:visible:get"><apiName>visible</apiName><shortdesc>
+      Si la valeur est true, il convient d’afficher cette colonne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="visibleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, affichez cette colonne. Si la valeur est <codeph>false</codeph>, aucun espace ne sera alloué pour cette colonne. Elle ne sera pas incluse dans la présentation.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:width:get"><apiName>width</apiName><shortdesc>
+      La largeur de cette colonne en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      La largeur de cette colonne en pixels. Si elle est spécifiée, la présentation de la grille ignore sa propriété <codeph>typicalItem</codeph> et les propriétés <codeph>minWidth</codeph> et <codeph>maxWidth</codeph> de cette colonne.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridVisualElement"><apiName>IGridVisualElement</apiName><shortdesc>
+  Cette interface fournit une méthode que les éléments visuels créés de façon dynamique peuvent utiliser pour se configurer eux-mêmes avant d’être affichés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Cette interface fournit une méthode que les éléments visuels créés de façon dynamique peuvent utiliser pour se configurer eux-mêmes avant d’être affichés. Elle est appelée en fonction des besoins, lorsqu’un élément visuel généré par fabrique est créé ou réutilisé. Cette méthode n’est pas destinée à être appelée directement.
+ 
+  <p>Il s’agit d’une interface optionnelle pour l’ensemble des éléments visuels générés par fabrique, à l’exception des éléments de rendus itemRenderers : <codeph>caretIndicator</codeph>, <codeph>hoverIndicator</codeph>, <codeph>editorIndicator</codeph>, <codeph>selectionIndicator</codeph>, <codeph>columnSeparator</codeph>, <codeph>rowSeparator</codeph>, <codeph>alternatingRowColorsBackground</codeph> (voir la section DataGrid), <codeph>sortIndicator</codeph> (voir la section GridColumnHeaderGroup). Elle permet généralement de configurer les éléments visuels générés avec les valeurs de style de DataGrid. Par exemple, pour utiliser la valeur du style « symbolColor » de DataGrid pour la couleur de remplissage du signe d’insertion, il est possible de définir la méthode <codeph>prepareGridVisualElement()</codeph> comme suit :</p> 
+ 
+  <p>
+  <pre>
+  public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+  {
+      caretStroke.color = grid.dataGrid.getStyle("caretColor");
+  }
+  </pre>
+  </p>        
+ 
+  <p>Les paramètres <codeph>rowIndex</codeph> et <codeph>columnIndex</codeph> indiquent la cellule que l’élément visuel va occuper. Si <codeph>columnIndex</codeph> = -1, alors l’élément visuel occupe une rangée de grille. Si <codeph>rowIndex</codeph> = -1 alors l’élément visuel occupe une colonne de grille.</p>
+ 
+  <p>DataGridSkin.mxml comporte de nombreux autres exemples de ce type. Notez que les éléments visuels d’habillage DataGrid personnalisés peuvent choisir de ne pas implémenter cette interface si la flexibilité qu’elle apporte n’est pas nécessaire.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.components.gridClasses:IGridVisualElement:spark.components.gridClasses:IGridVisualElement:prepareGridVisualElement"><apiName>prepareGridVisualElement</apiName><shortdesc> 
+      Cette méthode est appelée avant le rendu d’un élément visuel de la grille afin que l’élément puisse se configurer lui-même.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>grid</apiItemName><apiOperationClassifier>spark.components:Grid</apiOperationClassifier><apiDesc>La grille associée à cet élément visuel.
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>La coordonnée de ligne de la cellule que l’élément visuel va occuper, ou -1
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>La coordonnée de colonne de la cellule que l’élément visuel va occuper, ou -1
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Cette méthode est appelée avant le rendu d’un élément visuel de la grille afin que l’élément puisse se configurer lui-même. Les paramètres de la méthode indiquent la cellule, la ligne (si columnIndex = -1) ou la colonne (si rowIndex = -1) que l’élément visuel va occuper.
+     
+      <p>Si l’élément visuel est généré par une partie d’habillage DataGrid de type fabrique, comme selectionIndicator ou hoverIndicator, <codeph>grille.dataGrid</codeph> représente l’objet DataGrid pour lequel la grille est une partie d’habillage.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.components.gridClasses:CellPosition"><apiName>CellPosition</apiName><shortdesc>
+  La classe CellPosition définit une structure de données utilisée par les classes de grille de données Spark pour représenter des cellules sélectionnées dans le contrôle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe CellPosition définit une structure de données utilisée par les classes de grille de données Spark pour représenter des cellules sélectionnées dans le contrôle. Chaque cellule sélectionnée est représentée par une occurrence de cette classe.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid/selectedCell"><linktext>spark.components.DataGrid.selectedCell</linktext></link><link href="spark.components.xml#DataGrid/selectedCells"><linktext>spark.components.DataGrid.selectedCells</linktext></link><link href="spark.components.xml#Grid/selectedCell"><linktext>spark.components.Grid.selectedCell</linktext></link><link href="spark.components.xml#Grid/selectedCells"><linktext>spark.components.Grid.selectedCells</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:CellPosition:CellPosition"><apiName>CellPosition</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>L'indice de ligne à base 0 de la cellule. La valeur -1 indique que la valeur n’est pas définie.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>L'index de colonne de base 0 de la cellule. La valeur -1 indique que la valeur n’est pas définie.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:CellPosition:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      L'indice de colonne à base 0 de la cellule.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      L'index de colonne de base 0 de la cellule. La valeur -1 indique que la valeur n’est pas définie.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellPosition:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      L'index de ligne en base 0 de la cellule.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      L'indice de ligne à base 0 de la cellule. La valeur -1 indique que la valeur n’est pas définie.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IDataGridElement"><apiName>IDataGridElement</apiName><shortdesc>
+  Les éléments visuels du contrôle Spark DataGrid qui doivent rester synchronisés avec la présentation et la position de défilement de la grille doivent implémenter cette interface.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Les éléments visuels du contrôle Spark DataGrid qui doivent rester synchronisés avec la présentation et la position de défilement de la grille doivent implémenter cette interface. Lorsque la partie d’habillage <codeph>grid</codeph> du contrôle DataGrid est ajoutée, elle définit la propriété <codeph>IDataGridElement.dataGrid</codeph>. L’objet IDataGridElements peut répondre en ajoutant des écouteurs d’événement pour les modifications de la position de défilement. Lorsque le contrôle DataGrid est modifié d’une manière qui affecte sa disposition de rangées ou de colonnes, tous les objets IDataGridElement sont invalidés.
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="spark.components.gridClasses:IDataGridElement:spark.components.gridClasses:IDataGridElement:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      Contrôle DataGrid associé à cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      Contrôle DataGrid associé à cet élément.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:DefaultGridItemEditor"><apiName>DefaultGridItemEditor</apiName><shortdesc>La classe DefaultGridItemEditor définit le rendu d’élément par défaut utilisé par les contrôles de grille Spark, tels que DataGrid et Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.gridClasses:GridItemEditor</apiBaseClassifier></apiClassifierDef><apiDesc>La classe DefaultGridItemEditor définit le rendu d’élément par défaut utilisé par les contrôles de grille Spark, tels que DataGrid et Grid. La classe DefaultGridItemEditor affiche un contrôle de zone de texte. Entrez la nouvelle valeur de la cellule dans l’éditeur de texte.
+      
+      <p>Au lieu d’utiliser la classe DefaultGridItemEditor, vous pouvez créer un éditeur d’élément personnalisé. L’éditeur d’élément doit implémenter l’interface spark.components.gridClasses.IGridItemEditor. En règle générale, vous créez un éditeur d’élément en tant que sous-classe de la classe spark.components.gridClasses.GridItemEditor.</p>
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#IGridItemEditor"><linktext>spark.components.gridClasses.IGridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridItemEditor"><linktext>spark.components.gridClasses.GridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:DefaultGridItemEditor:DefaultGridItemEditor"><apiName>DefaultGridItemEditor</apiName><shortdesc>Constructeur.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>Constructeur.</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:DefaultGridItemEditor:textArea"><apiName>textArea</apiName><shortdesc>Le composant TextArea de l’éditeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="Bindable"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:TextArea</apiValueClassifier></apiValueDef><apiDesc>Le composant TextArea de l’éditeur. 
+    
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridSelectionMode"><apiName>GridSelectionMode</apiName><shortdesc>
+  La classe GridSelectionMode définit les valeurs constantes valides de la propriété selectionMode des contrôles Spark DataGrid et Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GridSelectionMode définit les valeurs constantes valides de la propriété <codeph>selectionMode</codeph> des contrôles Spark DataGrid et Grid.
+  
+  <p>Utilisez les constantes dans ActionsScript, comme l’illustre l’exemple suivant : </p>
+  <pre>
+    myDG.selectionMode = GridSelectionMode.MULTIPLE_CELLS;
+  </pre>
+ 
+  <p>Dans MXML, utilisez la valeur de chaîne des constantes, comme l’illustre l’exemple suivant :</p>
+  <pre>
+    &lt;s:DataGrid id="myGrid" width="350" height="150"
+        selectionMode="multipleCells"> 
+        ...
+    &lt;/s:DataGrid> 
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid/selectionMode"><linktext>spark.components.DataGrid.selectionMode</linktext></link><link href="spark.components.xml#Grid/selectionMode"><linktext>spark.components.Grid.selectionMode</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridSelectionMode:GridSelectionMode"><apiName>GridSelectionMode</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:GridSelectionMode:MULTIPLE_CELLS"><apiName>MULTIPLE_CELLS</apiName><shortdesc>
+      Spécifie qu'une ou plusieurs cellules peuvent être sélectionnées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multipleCells</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie qu'une ou plusieurs cellules peuvent être sélectionnées.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:MULTIPLE_ROWS"><apiName>MULTIPLE_ROWS</apiName><shortdesc>
+      Spécifie qu'une ou plusieurs lignes peuvent être sélectionnées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multipleRows</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie qu'une ou plusieurs lignes peuvent être sélectionnées.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:NONE"><apiName>NONE</apiName><shortdesc>
+      Spécifie qu’aucune sélection n’est autorisée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie qu’aucune sélection n’est autorisée.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:SINGLE_CELL"><apiName>SINGLE_CELL</apiName><shortdesc>
+      Spécifie qu'une cellule peut être sélectionnée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>singleCell</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie qu'une cellule peut être sélectionnée.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:SINGLE_ROW"><apiName>SINGLE_ROW</apiName><shortdesc>
+      Spécifie qu'une ligne peut être sélectionnée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>singleRow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie qu'une ligne peut être sélectionnée.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:CellRegion"><apiName>CellRegion</apiName><shortdesc>
+  La classe CellRegion définit une structure de données utilisée par les classes de grille de données Spark pour représenter une région rectangulaire de cellules dans le contrôle</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe CellRegion définit une structure de données utilisée par les classes de grille de données Spark pour représenter une région rectangulaire de cellules dans le contrôle L’origine de la région est spécifiée par les propriétés <codeph>rowIndex</codeph> et <codeph>columnIndex</codeph>. L’étendue de la région est spécifiée par les propriétés <codeph>rowCount</codeph> et <codeph>columnCount</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:CellRegion:CellRegion"><apiName>CellRegion</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>L'indice de ligne à base 0 de la cellule d'origine. La valeur -1 indique que la valeur n’est pas définie.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>L'index de rangée de base 0 de la cellule d'origine. La valeur -1 indique que la valeur n’est pas définie.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowCount</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Le nombre de lignes de la région de cellules.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnCount</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Le nombre de colonnes dans la région de cellules.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:CellRegion:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      Le nombre de colonnes dans la région de cellules.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le nombre de colonnes dans la région de cellules.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      L'index de colonne à base 0 de l'origine de la région de cellules.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      L'index de colonne à base 0 de l'origine de la région de cellules. La valeur -1 indique que la valeur n’est pas définie.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      Le nombre de lignes de la région de cellules.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le nombre de lignes de la région de cellules.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      L'index de ligne à base 0 de l'origine de la région de cellules.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      L'index de ligne à base 0 de l'origine de la région de cellules. La valeur -1 indique que la valeur n’est pas définie.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridLayer"><apiName>GridLayer</apiName><shortdesc>
+  La classe GridLayer définit un conteneur utilisé pour les calques des éléments visuels du contrôle Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GridLayer définit un conteneur utilisé pour les calques des éléments visuels du contrôle Grid. Le contrôle Grid crée et ajoute des éléments visuels à ses calques selon les besoins et il est responsable de leur présentation.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridLayer:GridLayer"><apiName>GridLayer</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.components.gridClasses:GridItemRenderer"><apiName>GridItemRenderer</apiName><shortdesc>
+  La classe GridItemRenderer définit la classe de base des rendus d’élément personnalisés pour les contrôles de grille Spark, tels que DataGrid et Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><Exclude kind="property" name="transitions"/><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.components.gridClasses:IGridItemRenderer</apiBaseInterface><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GridItemRenderer définit la classe de base des rendus d’élément personnalisés pour les contrôles de grille Spark, tels que DataGrid et Grid. Les rendus d’élément sont requis uniquement pour afficher des aspects spécifiques aux colonnes de leurs données. Ils ne sont pas chargés d’afficher les indicateurs de sélection ou de survol, la couleur d’arrière-plan changeante (le cas échéant) ni les séparateurs de rangées ou de colonnes.
+ 
+  <p>Les rendus d’élément sont associés à chaque colonne d’une grille. Définissez le rendu d’élément d’une colonne à l’aide de la <codeph>propriété GridColumn.itemRenderer</codeph>.</p> 
+ 
+  <p>Par défaut, un rendu d'élément ne s'écrête pas aux limites de la cellule. Si votre rendu s'étend au-delà des limites de la cellule, vous pouvez définir la valeur <codeph>clipAndEnableScrolling</codeph> sur <codeph>true</codeph> pour écrêter le rendu aux limites de la cellule.</p>
+ 
+  <p>Les transitions dans les rendus d’éléments DataGrid ne sont pas prises en charge. La classe GridItemRenderer ayant désactivé sa propriété <codeph>transitions</codeph>, le fait de la définir n’aura aucun effet.</p>
+ 
+  <p><b>Considérations d’efficacité</b></p>
+  
+  <p>Les performances de défilement et de démarrage des composants DataGrid sont directement liées à la complexité du rendu d’élément et au nombre de rendus d’élément visibles au sein du défilement DataGrid. Les occurrences GridItemRenderer personnalisées sont utilisées et réutilisées à plusieurs reprises. Il est donc important de les définir de la manière la plus simple et la plus efficace possible.</p>
+  
+  <p>Si la responsabilité d’un rendu d’élément est limitée à l’affichage d’une ou plusieurs lignes de texte, les développeurs doivent envisager d’utiliser la classe DefaultItemRenderer, très économique pour cette opération (pour une application à déployer uniquement sur Windows, vous pouvez obtenir des performances supplémentaires en utilisant plutôt la classe UITextFieldGridItemRenderer). La manière la plus efficace d’utiliser GridItemRenderer pour afficher l’élément dataField du composant GridColumn sous forme de texte consiste à identifier l’élément d’affichage de texte du composant GridItemRenderer avec <codeph>id="labelDisplay"</codeph>. Le composant labelDisplay doit être une sous-classe de <codeph>TextBase</codeph> comme <codeph>Label</codeph> ou <codeph>RichText</codeph>. Vous pouvez suivre cette approche, au lieu d’utiliser simplement DefaultGridItemRenderer, si votre rendu d’élément comprend certains éléments supplémentaires qui ne dépendent pas des données du rendu d’élément, tels que les bordures ou d’autres éléments graphiques.</p>
+  
+  <p>Un rendu d’élément contenant plusieurs éléments visuels dont les propriétés dépendent des données du rendu d’élément peut utiliser la liaison de données pour définir les valeurs de ces propriétés. Cette approche fournit du code MXML simple à lire et à entretenir et ses performances peuvent être suffisantes si le nombre de rendus d’élément visibles est limité (voir les propriétés <codeph>requestedRowCount</codeph> et <codeph>requestedColumnCount</codeph> du composant DataGrid). Le moyen le plus efficace pour configurer ce type de rendu d’élément consiste à remplacer sa méthode <codeph>prepare()</codeph> et à effectuer le travail à cet endroit. La méthode <codeph>prepare()</codeph> du rendu est appelée à chaque fois que le rendu est réaffiché et doit par conséquent être codée efficacement. Si votre rendu d’élément est avec état, par exemple s’il met en cache les valeurs internes, vous pouvez effacer son état dans sa méthode <codeph>discard()</codeph>. La méthode <codeph>discard()</codeph> est appelée à chaque fois que le rendu est déplacé vers la liste libre interne du composant DataGrid, où il reste disponible pour la réutilisation.</p>
+  
+  <p>Les rendus GridItemRenderer doivent être aussi simples que possible. Pour obtenir les meilleures performances possibles, réduisez le nombre de composants et la profondeur de la hiérarchie. Si cela s’avère pratique, utilisez des positions et des tailles explicites plutôt que des contraintes pour définir la présentation. Les éléments DataGrid avec <codeph>variableRowHeight="false"</codeph> (par défaut) tendent à donner de meilleurs résultats, tout comme pour <codeph>showDataTips="false"</codeph> (par défaut) et <codeph>clipAndEnableScrolling="false"</codeph> (par défaut).</p>
+  
+  <p>Des exemples concernant les différentes configurations GridItemRenderer décrites ici sont disponibles dans la section des exemples.</p>
+ 
+  </apiDesc><example conref="GridItemRendererExample.mxml"><swfblock conref="examples/GridItemRendererExample.swf"/></example><example conref="GridItemRendererCustomBindingExample.mxml"><swfblock conref="examples/GridItemRendererCustomBindingExample.swf"/></example><example conref="GridItemRendererCustomPrepareExample.mxml"><swfblock conref="examples/GridItemRendererCustomPrepareExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemRenderer"><linktext>spark.components.gridClasses.GridColumn.itemRenderer</linktext></link><link href="spark.skins.spark.xml#DefaultGridItemRenderer"><linktext>spark.skins.spark.DefaultGridItemRenderer</linktext></link></related-links><adobeApiEvent id="spark.components.gridClasses:GridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Distribué lorsque la propriété data change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la propriété <codeph>data</codeph> change.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.gridClasses:GridItemRenderer:GridItemRenderer"><apiName>GridItemRenderer</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridItemRenderer:discard"><apiName>discard</apiName><shortdesc>
+      
+      Appelé à partir de la méthode updateDisplayList() du parent du rendu d’élément une fois qu’il a été déterminé que ce rendu ne sera plus visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>willBeRecycled</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph> si ce rendu est destiné à être ajouté à la liste libre interne du propriétaire en vue d’être réutilisé.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Appelé à partir de la méthode <codeph>updateDisplayList()</codeph> du parent du rendu d’élément une fois qu’il a été déterminé que ce rendu ne sera plus visible. Si le paramètre <codeph>willBeRecycled</codeph> a la valeur <codeph>true</codeph>, le propriétaire ajoute ce rendu à sa liste libre interne en vue de le réutiliser. Les implémentations peuvent utiliser cette méthode pour effacer toute propriété de rendu qui n’est plus nécessaire.
+     
+      <p>Cette méthode n’est pas destinée à être appelée directement. Elle est appelée par l'implémentation DataGrid.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemRenderer:protected:getCurrentRendererState"><apiName>getCurrentRendererState</apiName><shortdesc>
+      Renvoie le nom de l’état à appliquer au rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Chaîne spécifiant le nom de l’état à appliquer au rendu. 
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie le nom de l’état à appliquer au rendu. Par exemple, un rendu d’élément élémentaire renvoie la chaîne "normal", "hovered" ou "selected" pour spécifier l’état du rendu. Dans le cas d’interactions tactiles (ou d’interactions de souris dans lesquelles la sélection est ignorée), les états "down" et "downAndSelected" peuvent également être renvoyés.
+     
+      <p>Une sous-classe de GridItemRenderer doit remplacer cette méthode pour renvoyer une valeur si le comportement souhaité est différent du comportement par défaut. </p>
+     
+      <p>Dans Flex 4.0, les 3 états principaux étaient "normal", "hovered" et "selected". Dans Flex 4.5, "down" et "downAndSelected" ont été ajoutés.</p>
+      
+      <p>L’ensemble complet des états pris en charge (par ordre de priorité) est le suivant : 
+        <ul>
+          <li>dragging</li>
+          <li>downAndSelected</li>
+          <li>selectedAndShowsCaret</li>
+          <li>hoveredAndShowsCaret</li>
+          <li>normalAndShowsCaret</li>
+          <li>down</li>
+          <li>selected</li>
+          <li>hovered</li>
+          <li>normal</li>
+        </ul>
+      </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemRenderer:prepare"><apiName>prepare</apiName><shortdesc>
+      
+      Appelé à partir de la méthode updateDisplayList() du parent du rendu d’élément une fois que toutes les propriétés du rendu ont été définies.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>hasBeenRecycled</apiItemName><apiType value="Boolean"/><apiDesc> <codeph>true</codeph> si ce rendu est réutilisé.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Appelé à partir de la méthode <codeph>updateDisplayList()</codeph> du parent du rendu d’élément une fois que toutes les propriétés du rendu ont été définies. Le paramètre <codeph>hasBeenRecycled</codeph> a la valeur <codeph>false</codeph> si ce rendu n’a pas été utilisé avant, ce qui signifie qu’il n’a pas été recyclé. Cette méthode est appelée lorsqu’un rendu est sur le point de devenir visible et chaque fois qu’il est réaffiché en raison d’une modification d’une propriété du rendu ou du fait qu’un réaffichage a été explicitement demandé. 
+     
+      <p>Cette méthode peut être utilisée pour configurer tous les éléments visuels et les propriétés d’un rendu. L'utilisation de cette méthode peut être plus efficace que la liaison des propriétés <codeph>data</codeph> des propriétés aux propriétés d'élément visuel. Remarque : puisque la méthode <codeph>prepare()</codeph> est appelée fréquemment, assurez-vous qu’elle est codée de manière efficace.</p>
+     
+      <p>La méthode <codeph>prepare()</codeph> peut être appelée à de nombreuses reprises avant que la méthode <codeph>discard()</codeph> soit appelée.</p>
+     
+      <p>Cette méthode n’est pas destinée à être appelée directement. Elle est appelée par l'implémentation DataGrid.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridItemRenderer:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      
+      L’index de colonne de la cellule de ce rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      L’index de colonne de la cellule de ce rendu d’élément. Il s’agit de la même valeur que <codeph>column.columnIndex</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:column:get"><apiName>column</apiName><shortdesc>
+      
+      L’objet GridColumn représentant la colonne associée à ce rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Objet GridColumn représentant la colonne associée à ce rendu d’élément.  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      La valeur de l’élément de fournisseur de données pour la rangée de la grille correspondant au rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      La valeur de l’élément de fournisseur de données pour la rangée de la grille correspondant au rendu d’élément. Cette valeur correspond à l’objet renvoyé par un appel à la méthode <codeph>dataProvider.getItemAt(rowIndex)</codeph>.
+     
+      <p>Les rendus d’élément peuvent remplacer cette définition de propriété pour accéder aux données de la rangée entière de la grille. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:down:get"><apiName>down</apiName><shortdesc>
+      
+      Cette propriété est définie sur true lorsque l’un de deux gestes d’entrée se produit dans une cellule de la grille : soit le bouton de la souris, soit l’écran tactile est activé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Cette propriété est définie sur <codeph>true</codeph> lorsque l'un de deux gestes d'entrée se produit dans une cellule de la grille : soit le bouton de la souris, soit l'écran tactile est activé. La propriété <codeph>down</codeph> est réinitialisée sur <codeph>false</codeph> lorsque le bouton de la souris est relâché, l’utilisateur libère l’écran tactile ou le curseur/toucher est déplacé hors de la cellule de la grille.   
+     
+      <p>Contrairement à un rendu d'élément de liste, les rendus d'élément de grille ne possèdent pas la responsabilité exclusive de l'affichage de l'indicateur vers le bas. La grille elle-même effectue le rendu de l'indicateur vers le bas pour la ligne ou la cellule sélectionnée. Le rendu d’élément peut également modifier ses propriétés visuelles pour mettre en évidence qu’il est actuellement sélectionné.</p>   
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:dragging:get"><apiName>dragging</apiName><shortdesc>
+      
+      Contient la valeur true si le rendu d'élément est en cours de glissement, généralement dans le cadre d'une opération glisser-déposer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="draggingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      Contient la valeur <codeph>true</codeph> si le rendu d'élément est en cours de glissement, généralement dans le cadre d'une opération glisser-déposer. Actuellement, le glisser-déposer n’est pas pris en charge par le contrôle Spark DataGrid.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:grid:get"><apiName>grid</apiName><shortdesc>
+      Renvoie le contrôle Grid associé à ce rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      Renvoie le contrôle Grid associé à ce rendu d’élément. Il s’agit de la même valeur que <codeph>column.grid</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:hovered:get"><apiName>hovered</apiName><shortdesc>
+      
+      Contient true si le rendu d’élément se trouve sous la souris et que le mode selectionMode de la grille est GridSelectionMode.SINGLE_CELL ou GridSelectionMode.MULTIPLE_CELLS, ou si le pointeur de la souris se trouve dans la rangée à laquelle appartient le rendu d’élément et que le mode selectionMode de la grille est GridSelectionMode.SINGLE_ROW ou GridSelectionMode.MULTIPLE_ROWS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Contient <codeph>true</codeph> si le rendu d’élément se trouve sous la souris et que le mode selectionMode de la grille est <codeph>GridSelectionMode.SINGLE_CELL</codeph> ou <codeph>GridSelectionMode.MULTIPLE_CELLS</codeph>, ou si le pointeur de la souris se trouve dans la rangée à laquelle appartient le rendu d’élément et que le mode selectionMode de la grille est <codeph>GridSelectionMode.SINGLE_ROW</codeph> ou <codeph>GridSelectionMode.MULTIPLE_ROWS</codeph>.
+     
+      <p>Contrairement à un rendu d'élément de liste, les rendus d'élément de grille n'ont pas la responsabilité exclusive d'afficher un élément indiquant que le rendu ou sa ligne sont situés sous la souris. La grille elle-même affiche automatiquement la partie d'habillage hoverIndicator pour la ligne ou la cellule survolée. Les rendus d'élément de grille peuvent également modifier leurs propriétés pour mettre en évidence qu'ils sont survolés.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:labelDisplay:get"><apiName>labelDisplay</apiName><shortdesc>
+      Composant visuel facultatif dans le rendu d’élément pour l’affichage de la propriété label.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelDisplayChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:TextBase</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Composant visuel facultatif dans le rendu d’élément pour l’affichage de la propriété <codeph>label</codeph>. Si vous utilisez cette propriété pour spécifier un composant visuel, la propriété <codeph>text</codeph> du composant est maintenue synchronisée avec la propriété <codeph>label</codeph> du rendu d’élément.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:label:get"><apiName>label</apiName><shortdesc conref="IGridItemRenderer#label">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="IGridItemRenderer#label">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      
+      L’index à base zéro de la ligne de la cellule faisant l’objet du rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="rowIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      L’index de base zéro de la rangée de la cellule faisant l’objet du rendu.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:selected:get"><apiName>selected</apiName><shortdesc>
+      
+      Contient la valeur true si la cellule du rendu d'élément fait partie de la sélection en cours.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="selectedChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Contient la valeur <codeph>true</codeph> si la cellule du rendu d'élément fait partie de la sélection en cours. 
+     
+      <p> Contrairement à un rendu d'élément de liste, les rendus d'élément de grille n'ont pas la responsabilité exclusive d'afficher un élément indiquant qu'ils font partie de la sélection. La grille elle-même affiche automatiquement la partie d'habillage selectionIndicator pour les lignes ou les cellules sélectionnées. Le rendu d'élément peut également modifier ses propriétés visuelles pour souligner qu'elle fait partie de la sélection.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:showsCaret:get"><apiName>showsCaret</apiName><shortdesc>
+      
+      Contient la valeur true si la cellule du rendu d’élément est indiquée par le caret.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showsCaretChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Contient la valeur <codeph>true</codeph> si la cellule du rendu d’élément est indiquée par le caret.
+     
+      <p> Contrairement à un rendu d'élément de liste, les rendus d'élément de grille n'ont pas la responsabilité exclusive d'afficher un élément indiquant que leur cellule ou ligne a le signe d'insertion. La grille elle-même affiche automatiquement la partie d'habillage caretIndicator pour la ligne ou la cellule du signe d'insertion. Le rendu d'élément peut également modifier ses propriétés visuelles pour mettre en évidence qu'il a le signe d'insertion.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridItemEditor"><apiName>IGridItemEditor</apiName><shortdesc>
+  L’interface IGridItemEditor définit l’interface que les éditeurs d’élément pour les contrôles Spark DataGrid et Spark Grid doivent implémenter.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerComponent</apiBaseInterface><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IGridItemEditor définit l’interface que les éditeurs d’élément pour les contrôles Spark DataGrid et Spark Grid doivent implémenter. Les contrôles DataGrid et Grid sont appelés propriétaire du rendu d’élément ou composant hôte de l’éditeur d’élément.
+ 
+  <p>Toutes les propriétés de l’éditeur d’élément sont définies par le propriétaire au début de la session de l’éditeur. La propriété <codeph>data</codeph> est la dernière propriété définie. Lorsque la propriété <codeph>data</codeph> est définie, un éditeur d’élément doit définir la valeur des contrôles de l’éditeur. Ensuite, la méthode <codeph>prepare()</codeph> de l’éditeur est appelée. Les implémentations de l’interface IGridItemEditor doivent remplacer la méthode <codeph>prepare()</codeph> pour effectuer d’éventuels ajustements finaux de ses propriétés ou de tout aspect de ses éléments visuels. Lors de la fermeture de l’éditeur, la méthode <codeph>discard()</codeph> est appelée.</p>
+  
+  <p>Lorsque l’éditeur est fermé, la valeur d’entrée peut être enregistrée ou annulée. En cas d’enregistrement, la fonction <codeph>save()</codeph> est appelée par l’éditeur pour écrire les nouvelles valeurs dans l’élément de fournisseur de données correspondant à la rangée de la cellule modifiée. </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:discard"><apiName>discard</apiName><shortdesc>
+      Appelée juste avant que l’éditeur soit fermé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée juste avant que l’éditeur soit fermé. Utilisez cette méthode pour effectuer tout nettoyage final, tel que le nettoyage de tout ce qui a été défini dans la méthode <codeph>prepare()</codeph>.
+      
+      <p>N’appelez pas cette méthode directement. Elle doit être appelée uniquement par le contrôle qui héberge l’éditeur d’élément.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:prepare"><apiName>prepare</apiName><shortdesc>
+      Appelée une fois que l’éditeur a été créé et dimensionné mais avant que l’éditeur soit visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelée une fois que l’éditeur a été créé et dimensionné mais avant que l’éditeur soit visible. Utilisez cette méthode pour ajuster l’aspect de l’éditeur, ajouter des écouteurs d’événement ou effectuer toute autre initialisation avant qu’il ne devienne visible.
+      
+      <p>N’appelez pas cette méthode directement. Elle doit être appelée uniquement par le contrôle qui héberge l’éditeur d’élément.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:save"><apiName>save</apiName><shortdesc>
+      Enregistre la valeur dans l’éditeur vers le fournisseur de données du propriétaire du rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’opération d’enregistrement a réussi et <codeph>false</codeph> dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Enregistre la valeur dans l’éditeur vers le fournisseur de données du propriétaire du rendu d’élément. Cette méthode met à jour l’élément de fournisseur de données correspondant à la rangée de la cellule modifiée. Cette fonction appelle <codeph>GridItemEditor.validate()</codeph> pour vérifier que les données peuvent être enregistrées. Si les données ne sont pas valides, les données ne sont pas enregistrées et l’éditeur n’est pas fermé.
+     
+      <p>N’appelez pas cette méthode directement. Elle doit être appelée uniquement par le contrôle qui héberge l’éditeur d’élément. Pour enregistrer et fermer l’éditeur, appelez la méthode <codeph>endItemEditorSession()</codeph> du propriétaire du rendu d’élément.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link></related-links></apiOperation><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:columnIndex:get"><apiName>columnIndex</apiName><shortdesc> 
+      L’index de base zéro de la colonne en cours de modification.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+      L’index de base zéro de la colonne en cours de modification.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:column:get"><apiName>column</apiName><shortdesc>
+      La colonne de la cellule en cours de modification.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      La colonne de la cellule en cours de modification.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      Le contrôle qui est propriétaire de cet éditeur d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      Le contrôle qui est propriétaire de cet éditeur d’élément.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:rowIndex:get"><apiName>rowIndex</apiName><shortdesc> 
+      L’index de base zéro de la rangée de la cellule en cours de modification.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc> 
+      L’index de base zéro de la rangée de la cellule en cours de modification.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridItemEditor"><apiName>GridItemEditor</apiName><shortdesc>
+  La classe GridItemEditor définit la classe de base des éditeurs d’élément personnalisés pour les contrôles de grille Spark, tels que DataGrid et Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:GridItemEditor&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:GridItemEditor
+    <strong>Properties</strong>
+    column="null"
+    data="null"
+    imeMode="null"
+    itemRenderer="null"
+    rowIndex="0"
+    value="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.components.gridClasses:IGridItemEditor</apiBaseInterface><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GridItemEditor définit la classe de base des éditeurs d’élément personnalisés pour les contrôles de grille Spark, tels que DataGrid et Grid. Les éditeurs d’élément vous permettent de modifier la valeur de la cellule de la grille, puis d’enregistrer cette valeur dans le fournisseur de données du contrôle.
+   <p>Les éditeurs d’élément sont associés à chaque colonne d’une grille. Définissez l’éditeur d’élément d’une colonne à l’aide de la <codeph>propriété GridColumn.itemEditor</codeph>.</p> 
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemEditor"><linktext>spark.components.gridClasses.GridColumn.itemEditor</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridItemEditor:GridItemEditor"><apiName>GridItemEditor</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridItemEditor:discard"><apiName>discard</apiName><shortdesc>
+      
+      Appelée juste avant que l’éditeur soit fermé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Appelée juste avant que l’éditeur soit fermé. Utilisez cette méthode pour effectuer tout nettoyage final, tel que le nettoyage de tout ce qui a été défini dans la méthode <codeph>prepare()</codeph>.
+      
+      <p>N’appelez pas cette méthode directement. Elle doit être appelée uniquement par le contrôle qui héberge l’éditeur d’élément.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:prepare"><apiName>prepare</apiName><shortdesc>
+      
+      Appelée une fois que l’éditeur a été créé et dimensionné mais avant que l’éditeur soit visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Appelée une fois que l’éditeur a été créé et dimensionné mais avant que l’éditeur soit visible. Utilisez cette méthode pour ajuster l’aspect de l’éditeur, ajouter des écouteurs d’événement ou effectuer toute autre initialisation avant qu’il ne devienne visible.
+      
+      <p>N’appelez pas cette méthode directement. Elle doit être appelée uniquement par le contrôle qui héberge l’éditeur d’élément.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:save"><apiName>save</apiName><shortdesc>
+      
+      Enregistre la valeur dans l’éditeur vers le fournisseur de données du propriétaire du rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’opération d’enregistrement a réussi et <codeph>false</codeph> dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Enregistre la valeur dans l’éditeur vers le fournisseur de données du propriétaire du rendu d’élément. Cette méthode met à jour l’élément de fournisseur de données correspondant à la rangée de la cellule modifiée. Cette fonction appelle <codeph>GridItemEditor.validate()</codeph> pour vérifier que les données peuvent être enregistrées. Si les données ne sont pas valides, les données ne sont pas enregistrées et l’éditeur n’est pas fermé.
+     
+      <p>N’appelez pas cette méthode directement. Elle doit être appelée uniquement par le contrôle qui héberge l’éditeur d’élément. Pour enregistrer et fermer l’éditeur, appelez la méthode <codeph>endItemEditorSession()</codeph> du propriétaire du rendu d’élément.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:protected:validate"><apiName>validate</apiName><shortdesc>
+      Vérifie si la valeur dans l’éditeur est valide et peut être enregistrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph> si la valeur dans l’éditeur est valide. Dans le cas contraire, renvoyez <codeph>false</codeph>.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Vérifie si la valeur dans l’éditeur est valide et peut être enregistrée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridItemEditor:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+       
+      L’index de base zéro de la colonne en cours de modification.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+       
+      L’index de base zéro de la colonne en cours de modification.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:column:get"><apiName>column</apiName><shortdesc>
+      
+      La colonne de la cellule en cours de modification.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      La colonne de la cellule en cours de modification.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      
+      Le contrôle qui est propriétaire de cet éditeur d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      
+      Le contrôle qui est propriétaire de cet éditeur d’élément.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:data:get"><apiName>data</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      Indicateur qui signale si l’IME doit être activé lorsque le composant reçoit le focus. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indicateur qui signale si l’IME doit être activé lorsque le composant reçoit le focus. 
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      Spécifie le mode IME (éditeur de méthode d’entrée).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie le mode IME (éditeur de méthode d’entrée). L’éditeur IME permet aux utilisateurs d’entrer du texte en chinois, japonais et coréen. Flex définit le mode IME spécifié lorsque le contrôle est mis en focus et rétablit la valeur précédente lorsque le contrôle est désactivé.
+          <p>La classe flash.system.IMEConversionMode définit des constantes pour les valeurs possibles de cette propriété. Vous pouvez également spécifier <codeph>null</codeph> si vous ne souhaitez pas spécifier d’éditeur IME.</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      Le rendu d’élément associé à la cellule modifiée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:IGridItemRenderer</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le rendu d’élément associé à la cellule modifiée.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+       
+      L’index de base zéro de la rangée de la cellule en cours de modification.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+       
+      L’index de base zéro de la rangée de la cellule en cours de modification.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:value:get"><apiName>value</apiName><shortdesc> 
+      Par défaut, cette propriété est initialisée par la méthode Set de la propriété data.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Par défaut, cette propriété est initialisée par la méthode Set de la propriété <codeph>data</codeph>. La valeur par défaut de cette propriété correspond aux données de cellule issues du fournisseur de données du contrôle de grille. L’éditeur d’élément peut utiliser cette propriété pour initialiser tout élément visuel dans l’éditeur d’élément.
+           <p>Par défaut, la méthode <codeph>save()</codeph> écrit la valeur de cette propriété dans le fournisseur de données du contrôle de grille lorsque l’éditeur se ferme avec un enregistrement. </p>
+     
+      <p>Un grand nombre de rendus d’élément personnalisés remplacent les méthodes Get et Set de cette propriété. Remplacez la méthode Set pour initialiser l’éditeur en fonction de la valeur de la cellule. Remplacez la méthode Get pour renvoyer une nouvelle valeur de cellule à la méthode <codeph>save()</codeph>. </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridItemRenderer"><apiName>IGridItemRenderer</apiName><shortdesc>
+  L’interface IGridItemRenderer doit être implémentée par des rendus d’élément DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L'interface IGridItemRenderer doit être implémentée par des rendus d'élément DataGrid. Le composant DataGrid utilise cette API pour fournir le rendu d’élément avec les informations requises pour rendre une <i>cellule</i> de grille ou d’en-tête.  
+ 
+  <p>Toutes les propriétés du rendu sont définies au cours de l’exécution de la méthode <codeph>updateDisplayList()</codeph> de son parent. Après la définition des propriétés , la méthode <codeph>prepare()</codeph> du rendu d’élément est appelée. Une implémentation de l’interface IGridItemRenderer doit remplacer la méthode <codeph>prepare()</codeph> pour effectuer d’éventuels ajustements finaux de ses propriétés ou de tout aspect de ses éléments visuels. En règle générale, la fonction <codeph>prepare()</codeph> permet de configurer les éléments visuels du rendu en fonction de la propriété <codeph>data</codeph> .</p>
+ 
+  <p>Lorsqu’un rendu d’élément n’est plus nécessaire, soit parce qu’il sera ajouté à la liste « libre » interne de rendus réutilisables, soit parce qu’il n’a plus d’utilité, la méthode <codeph>discard()</codeph> du composant IGridItemRenderer est appelée.</p> 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiOperation id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:discard"><apiName>discard</apiName><shortdesc>
+      Appelé à partir de la méthode updateDisplayList() du parent du rendu d’élément une fois qu’il a été déterminé que ce rendu ne sera plus visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>willBeRecycled</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph> si ce rendu est destiné à être ajouté à la liste libre interne du propriétaire en vue d’être réutilisé.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé à partir de la méthode <codeph>updateDisplayList()</codeph> du parent du rendu d’élément une fois qu’il a été déterminé que ce rendu ne sera plus visible. Si le paramètre <codeph>willBeRecycled</codeph> a la valeur <codeph>true</codeph>, le propriétaire ajoute ce rendu à sa liste libre interne en vue de le réutiliser. Les implémentations peuvent utiliser cette méthode pour effacer toute propriété de rendu qui n’est plus nécessaire.
+     
+      <p>Cette méthode n’est pas destinée à être appelée directement. Elle est appelée par l'implémentation DataGrid.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:prepare"><apiName>prepare</apiName><shortdesc>
+      Appelé à partir de la méthode updateDisplayList() du parent du rendu d’élément une fois que toutes les propriétés du rendu ont été définies.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>hasBeenRecycled</apiItemName><apiType value="Boolean"/><apiDesc> <codeph>true</codeph> si ce rendu est réutilisé.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé à partir de la méthode <codeph>updateDisplayList()</codeph> du parent du rendu d’élément une fois que toutes les propriétés du rendu ont été définies. Le paramètre <codeph>hasBeenRecycled</codeph> a la valeur <codeph>false</codeph> si ce rendu n’a pas été utilisé avant, ce qui signifie qu’il n’a pas été recyclé. Cette méthode est appelée lorsqu’un rendu est sur le point de devenir visible et chaque fois qu’il est réaffiché en raison d’une modification d’une propriété du rendu ou du fait qu’un réaffichage a été explicitement demandé. 
+     
+      <p>Cette méthode peut être utilisée pour configurer tous les éléments visuels et les propriétés d’un rendu. L'utilisation de cette méthode peut être plus efficace que la liaison des propriétés <codeph>data</codeph> des propriétés aux propriétés d'élément visuel. Remarque : puisque la méthode <codeph>prepare()</codeph> est appelée fréquemment, assurez-vous qu’elle est codée de manière efficace.</p>
+     
+      <p>La méthode <codeph>prepare()</codeph> peut être appelée à de nombreuses reprises avant que la méthode <codeph>discard()</codeph> soit appelée.</p>
+     
+      <p>Cette méthode n’est pas destinée à être appelée directement. Elle est appelée par l'implémentation DataGrid.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      L’index de colonne de la cellule de ce rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      L’index de colonne de la cellule de ce rendu d’élément. Il s’agit de la même valeur que <codeph>column.columnIndex</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:column:get"><apiName>column</apiName><shortdesc>
+      L’objet GridColumn représentant la colonne associée à ce rendu d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      Objet GridColumn représentant la colonne associée à ce rendu d’élément.  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:down:get"><apiName>down</apiName><shortdesc>
+      Cette propriété est définie sur true lorsque l’un de deux gestes d’entrée se produit dans une cellule de la grille : soit le bouton de la souris, soit l’écran tactile est activé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Cette propriété est définie sur <codeph>true</codeph> lorsque l'un de deux gestes d'entrée se produit dans une cellule de la grille : soit le bouton de la souris, soit l'écran tactile est activé. La propriété <codeph>down</codeph> est réinitialisée sur <codeph>false</codeph> lorsque le bouton de la souris est relâché, l’utilisateur libère l’écran tactile ou le curseur/toucher est déplacé hors de la cellule de la grille.   
+     
+      <p>Contrairement à un rendu d'élément de liste, les rendus d'élément de grille ne possèdent pas la responsabilité exclusive de l'affichage de l'indicateur vers le bas. La grille elle-même effectue le rendu de l'indicateur vers le bas pour la ligne ou la cellule sélectionnée. Le rendu d’élément peut également modifier ses propriétés visuelles pour mettre en évidence qu’il est actuellement sélectionné.</p>   
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:dragging:get"><apiName>dragging</apiName><shortdesc>
+      Contient la valeur true si le rendu d'élément est en cours de glissement, généralement dans le cadre d'une opération glisser-déposer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Contient la valeur <codeph>true</codeph> si le rendu d'élément est en cours de glissement, généralement dans le cadre d'une opération glisser-déposer. Actuellement, le glisser-déposer n’est pas pris en charge par le contrôle Spark DataGrid.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:grid:get"><apiName>grid</apiName><shortdesc>
+      Le contrôle Grid associé à ce rendu d’élément, en règle générale, simplement la valeur de column.grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      Le contrôle Grid associé à ce rendu d’élément, en règle générale, simplement la valeur de <codeph>column.grid</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:hovered:get"><apiName>hovered</apiName><shortdesc>
+      Contient true si le rendu d’élément se trouve sous la souris et que le mode selectionMode de la grille est GridSelectionMode.SINGLE_CELL ou GridSelectionMode.MULTIPLE_CELLS, ou si le pointeur de la souris se trouve dans la rangée à laquelle appartient le rendu d’élément et que le mode selectionMode de la grille est GridSelectionMode.SINGLE_ROW ou GridSelectionMode.MULTIPLE_ROWS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Contient <codeph>true</codeph> si le rendu d’élément se trouve sous la souris et que le mode selectionMode de la grille est <codeph>GridSelectionMode.SINGLE_CELL</codeph> ou <codeph>GridSelectionMode.MULTIPLE_CELLS</codeph>, ou si le pointeur de la souris se trouve dans la rangée à laquelle appartient le rendu d’élément et que le mode selectionMode de la grille est <codeph>GridSelectionMode.SINGLE_ROW</codeph> ou <codeph>GridSelectionMode.MULTIPLE_ROWS</codeph>.
+     
+      <p>Contrairement à un rendu d'élément de liste, les rendus d'élément de grille n'ont pas la responsabilité exclusive d'afficher un élément indiquant que le rendu ou sa ligne sont situés sous la souris. La grille elle-même affiche automatiquement la partie d'habillage hoverIndicator pour la ligne ou la cellule survolée. Les rendus d'élément de grille peuvent également modifier leurs propriétés pour mettre en évidence qu'ils sont survolés.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:label:get"><apiName>label</apiName><shortdesc>
+      Chaîne à afficher dans le rendu d'élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      La chaîne à afficher dans l'option de rendu d'élément.  
+     
+      <p>La classe GridItemRenderer copie automatiquement la valeur de cette propriété vers la propriété <codeph>text</codeph> de son élément <codeph>labelDisplay</codeph>, si cet élément a été spécifié. Le contrôle Grid définit la propriété <codeph>label</codeph> sur la valeur renvoyée par la méthode <codeph>itemToLabel()</codeph> de la colonne.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridItemRenderer"><linktext>spark.components.gridClasses.GridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      L’index à base zéro de la ligne de la cellule faisant l’objet du rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      L’index de base zéro de la rangée de la cellule faisant l’objet du rendu.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:selected:get"><apiName>selected</apiName><shortdesc>
+      Contient la valeur true si la cellule du rendu d'élément fait partie de la sélection en cours.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Contient la valeur <codeph>true</codeph> si la cellule du rendu d'élément fait partie de la sélection en cours. 
+     
+      <p> Contrairement à un rendu d'élément de liste, les rendus d'élément de grille n'ont pas la responsabilité exclusive d'afficher un élément indiquant qu'ils font partie de la sélection. La grille elle-même affiche automatiquement la partie d'habillage selectionIndicator pour les lignes ou les cellules sélectionnées. Le rendu d'élément peut également modifier ses propriétés visuelles pour souligner qu'elle fait partie de la sélection.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:showsCaret:get"><apiName>showsCaret</apiName><shortdesc>
+      Contient la valeur true si la cellule du rendu d’élément est indiquée par le caret.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Contient la valeur <codeph>true</codeph> si la cellule du rendu d’élément est indiquée par le caret.
+     
+      <p> Contrairement à un rendu d'élément de liste, les rendus d'élément de grille n'ont pas la responsabilité exclusive d'afficher un élément indiquant que leur cellule ou ligne a le signe d'insertion. La grille elle-même affiche automatiquement la partie d'habillage caretIndicator pour la ligne ou la cellule du signe d'insertion. Le rendu d'élément peut également modifier ses propriétés visuelles pour mettre en évidence qu'il a le signe d'insertion.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:ComboBoxGridItemEditor"><apiName>ComboBoxGridItemEditor</apiName><shortdesc>La classe ComboBoxGridItemEditor définit un rendu d’élément à utiliser avec les contrôles de grille Spark, tels que DataGrid et Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.binding:IBindingClient</apiBaseInterface><apiBaseClassifier>spark.components.gridClasses:GridItemEditor</apiBaseClassifier></apiClassifierDef><apiDesc>La classe ComboBoxGridItemEditor définit un rendu d’élément à utiliser avec les contrôles de grille Spark, tels que DataGrid et Grid. La classe ComboBoxGridItemEditor affiche une liste déroulante de valeurs de cellules. Sélectionnez une valeur pour définir la nouvelle valeur de la cellule.
+      
+      <p>L’exemple suivant illustre un objet GridColumn qui utilise la classe ComboBoxGridItemEditor comme éditeur d’élément :</p>
+      
+      <pre>
+        &lt;s:GridColumn dataField="quant" 
+            headerText="Qty">
+                &lt;s:itemEditor>
+                    &lt;fx:Component>
+                        &lt;s:ComboBoxGridItemEditor>
+                            &lt;s:dataProvider>
+                                &lt;s:ArrayList>
+                                    &lt;fx:int>0&lt;/fx:int>
+                                    &lt;fx:int>1&lt;/fx:int>
+                                    &lt;fx:int>2&lt;/fx:int>
+                                    &lt;fx:int>3&lt;/fx:int>
+                                &lt;/s:ArrayList>
+                            &lt;/s:dataProvider>
+                        &lt;/s:ComboBoxGridItemEditor>
+                    &lt;/fx:Component>
+                &lt;/s:itemEditor>
+        &lt;/s:GridColumn>
+      </pre>
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:ComboBoxGridItemEditor:ComboBoxGridItemEditor"><apiName>ComboBoxGridItemEditor</apiName><shortdesc>Constructeur.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>Constructeur.</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:ComboBoxGridItemEditor:comboBox"><apiName>comboBox</apiName><shortdesc>Le contrôle ComboBox de l’éditeur d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="Bindable"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:ComboBox</apiValueClassifier></apiValueDef><apiDesc>Le contrôle ComboBox de l’éditeur d’élément. 
+        
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:ComboBoxGridItemEditor:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+              Le fournisseur de données de la liste déroulante dans l’éditeur d’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="comboBoxGridItemEditorDataProviderChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:IList"/></apiValueDef><apiDesc>
+              Le fournisseur de données de la liste déroulante dans l’éditeur d’élément.
+                           </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

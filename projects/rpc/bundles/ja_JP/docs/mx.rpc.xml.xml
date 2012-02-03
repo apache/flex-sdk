@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.xml"><apiName>mx.rpc.xml</apiName><apiDetail/><apiClassifier id="mx.rpc.xml:IXMLEncoder"><apiName>IXMLEncoder</apiName><shortdesc>
+ ActionScript オブジェクトグラフを XML スキーマに基づいた XML にエンコードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ ActionScript オブジェクトグラフを XML スキーマに基づいた XML にエンコードします。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:encode"><apiName>encode</apiName><shortdesc>
+     ActionScript の値を XML としてエンコードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定された ActionScript 値の XML エンコーディングを返します。
+      
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>XML としてエンコードする ActionScript の値です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>値のエンコード方法と、タイプパラメーターも指定されるときにエンコードされた値に使用される名前を記述する XML Schema の <codeph>element</codeph> の QName です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>値のエンコード方法を記述する XML Schema の <codeph>simpleType</codeph> または <codeph>complexType</codeph> の QName です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>この値のエンコード方法を記述するスキーマに最上位エレメントもタイプも存在しない場合は、カスタムのエレメント定義を提供できます。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     ActionScript の値を XML としてエンコードします。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:reset"><apiName>reset</apiName><shortdesc>
+     エンコーダーを初期状態にリセットし、Schema のスコープがあれば最上位レベルにリセットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     エンコーダーを初期状態にリセットし、Schema のスコープがあれば最上位レベルにリセットします。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:strictNillability:get"><apiName>strictNillability</apiName><shortdesc>
+     strictNillability が true に設定されている場合、null 値は、XML スキーマルールに従ってエンコードされます（nillable=true を定義の中に設定する必要があります）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     strictNillability が <codeph>true</codeph> に設定されている場合、null 値は、XML スキーマルールに従ってエンコードされます（nillable=true を定義の中に設定する必要があります）。strictNillability が <codeph>false</codeph> に設定されている場合、null 値は、常に <codeph>xsi:nil="true"</codeph> 属性を使用してエンコードされます。デフォルト値は <codeph>false</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+     任意の単純内容のエンコード前に XML 特殊文字のエスケープに使用される関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+     任意の単純内容のエンコード前に XML 特殊文字のエスケープに使用される関数です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:QualifiedResourceManager"><apiName>QualifiedResourceManager</apiName><shortdesc>
+ QualifiedResourceManager は、単純に、リソースが追加された順序を維持し、ターゲットの名前空間を 1 つ以上のリソースへマッピングするヘルパークラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ QualifiedResourceManager は、単純に、リソースが追加された順序を維持し、ターゲットの名前空間を 1 つ以上のリソースへマッピングするヘルパークラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.xml:QualifiedResourceManager:QualifiedResourceManager"><apiName>QualifiedResourceManager</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.xml:QualifiedResourceManager:addResource"><apiName>addResource</apiName><shortdesc>
+     指定された名前空間について、リソースをその潜在的な配列に追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>ns</apiItemName><apiType value="Namespace"/><apiDesc>リソースの配列の名前空間です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>resource</apiItemName><apiType value="Object"/><apiDesc>追加するリソースです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された名前空間について、リソースをその潜在的な配列に追加します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResourcesForNamespace"><apiName>getResourcesForNamespace</apiName><shortdesc>
+     指定されたターゲット名前空間のリソースの配列を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>リソースの配列です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>ns</apiItemName><apiType value="Namespace"/><apiDesc>リソースの配列の名前空間です。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定されたターゲット名前空間のリソースの配列を返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResourcesForURI"><apiName>getResourcesForURI</apiName><shortdesc>
+     指定されたターゲット URI のリソースの配列を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>リソースの配列です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>リソースの配列の URI です。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定されたターゲット URI のリソースの配列を返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResources"><apiName>getResources</apiName><shortdesc>
+     すべてのリソースの配列を取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>リソースの配列です。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+     すべてのリソースの配列を取得します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:QualifiedResourceManager:protected:resourcesMap"><apiName>resourcesMap</apiName><shortdesc>
+     Namespace.uri をリソースの配列にマッピングします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     <codeph>Namespace.uri</codeph> をリソースの<codeph>配列</codeph>にマッピングします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:QualifiedResourceManager:protected:resources"><apiName>resources</apiName><shortdesc>
+     この配列は、リソースが追加された順序を維持し、それにより検索される順序をサポートするために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     この配列は、リソースが追加された順序を維持し、それにより検索される順序をサポートするために使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:SimpleXMLEncoder"><apiName>SimpleXMLEncoder</apiName><shortdesc>
+ SimpleXMLEncoder クラスは、ActionScript オブジェクトを受け取り、デフォルトの直列化を使用して XML にエンコードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ SimpleXMLEncoder クラスは、ActionScript オブジェクトを受け取り、デフォルトの直列化を使用して XML にエンコードします。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.xml:SimpleXMLEncoder:SimpleXMLEncoder"><apiName>SimpleXMLEncoder</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>myXML</apiItemName><apiType value="flash.xml:XMLDocument"/><apiDesc>XML オブジェクトです。
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.xml:SimpleXMLEncoder:encodeValue"><apiName>encodeValue</apiName><shortdesc>
+      デフォルトの直列化を使用して ActionScript オブジェクトを XML にエンコードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>XMLNode オブジェクトです。 
+     </apiDesc><apiType value="flash.xml:XMLNode"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>エンコードする ActionScript オブジェクトです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>子ノードの修飾名です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>parentNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>エンコードした値を配置する XMLNode です。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      デフォルトの直列化を使用して ActionScript オブジェクトを XML にエンコードします。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:SimpleXMLDecoder"><apiName>SimpleXMLDecoder</apiName><shortdesc>
+  SimpleXMLDecoder クラスは、XML を非直列化して、ActionScript オブジェクトのグラフを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SimpleXMLDecoder クラスは、XML を非直列化して、ActionScript オブジェクトのグラフを作成します。 このクラスは、スキーマ情報が利用できないときに使用します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:SimpleXMLDecoder:decodeXML"><apiName>decodeXML</apiName><shortdesc>
+      XMLNodes のツリーを ActionScript オブジェクトのツリーに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ActionScript Objects のツリーです。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>オブジェクトのツリーに変換する XMLNode です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      XMLNodes のツリーを ActionScript オブジェクトのツリーに変換します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SimpleXMLDecoder:getLocalName"><apiName>getLocalName</apiName><shortdesc>
+     XMLNode のローカル名を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>XMLNode のローカル名です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>xmlNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>XMLNode です。 
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     XMLNode のローカル名を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:IXMLSchemaInstance"><apiName>IXMLSchemaInstance</apiName><shortdesc>
+ ActionScript 型は、XML スキーマベースのエンコーダー（WebService SOAP クライアントなど）を指定する必要がある場合にこのインターフェイスを実装する必要があります。エンコーダーは、型のインスタンスをエンコードするときに使用する具体的な型定義です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ ActionScript 型は、XML スキーマベースのエンコーダー（WebService SOAP クライアントなど）を指定する必要がある場合にこのインターフェイスを実装する必要があります。エンコーダーは、型のインスタンスをエンコードするときに使用する具体的な型定義です。
+ 
+ <p>匿名 ActionScript オブジェクトでは、mx.utils.ObjectProxy のインスタンスにオブジェクトをラップし、適切な QName を使用して <codeph>object_proxy::type</codeph> プロパティを設定することで、修飾された型を指定することもできます。</p>
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.utils.ObjectProxy.xml"><linktext>mx.utils.ObjectProxy</linktext></link></related-links><apiValue id="mx.rpc.xml:IXMLSchemaInstance:mx.rpc.xml:IXMLSchemaInstance:xsiType:get"><apiName>xsiType</apiName><shortdesc>
+     ActionScript インスタンスを XML としてエンコードする際、関連する XML スキーマの complexType が抽象の場合は、エンコーダーが具体的な実装の型定義を必要とする場合があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="QName"/></apiValueDef><apiDesc>
+     ActionScript インスタンスを XML としてエンコードする際、関連する XML スキーマの complexType が抽象の場合は、エンコーダーが具体的な実装の型定義を必要とする場合があります。 このプロパティでは、型指定されたインスタンスを使用して、具体的な実装を <codeph>xsi:type</codeph> を表す QName として指定できます。
+     
+     <p>
+     <codeph>[Transient]</codeph> メタデータは、このプロパティの実装に適用して、オブジェクトの直列化で除外できます。
+     </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:SchemaTypeRegistry"><apiName>SchemaTypeRegistry</apiName><shortdesc>
+ XMLDecoder は、このクラスを使用して XML スキーマタイプを QName ごとに ActionScript クラスにマッピングし、コンテンツをデコードするときに厳密に型指定されたオブジェクトを作成できるようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ XMLDecoder は、このクラスを使用して XML スキーマタイプを QName ごとに ActionScript クラスにマッピングし、コンテンツをデコードするときに厳密に型指定されたオブジェクトを作成できるようにします。 型が無修飾の場合、QName の uri は、null のままにされるか、空のストリングに設定されます。
+ <p>
+ 目的のクラスは、SWF にリンクし、XMLDecoder によって新しい型のインスタンスが作成されるようにデフォルトコンストラクターを所有する必要があります。そうでない場合、匿名オブジェクトを使用して、デコードされたプロパティが保持されます。
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getClass"><apiName>getClass</apiName><shortdesc>
+     指定された型の登録済みクラスを検索します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定された型のクラスを返します。型が登録されていない場合は null を返します。
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>型名を表す QName または String です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された型の登録済みクラスを検索します。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getCollectionClass"><apiName>getCollectionClass</apiName><shortdesc>
+     指定された Qname または String によって表されるコレクション型のクラスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定された Qname または String によって表されるコレクション型のクラスを返します。
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>コレクション型名を表す QName または String です。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された Qname または String によって表されるコレクション型のクラスを返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getInstance"><apiName>getInstance</apiName><shortdesc>
+     このシングルトンクラスの唯一のインスタンスを返します。インスタンスが存在しない場合は、作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>このシングルトンクラスの唯一のインスタンスを返します。インスタンスが存在しない場合は、作成します。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.xml:SchemaTypeRegistry</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+     このシングルトンクラスの唯一のインスタンスを返します。インスタンスが存在しない場合は、作成します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:registerClass"><apiName>registerClass</apiName><shortdesc>
+     型 QName をクラス定義にマッピングします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>型名の QName または String 表現です。
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="Object"/><apiDesc>クラス自体、またはクラス名を表すストリングです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     型 QName をクラス定義にマッピングします。定義には、完全修飾クラス名のストリング表現か、クラス自体のインスタンスのどちらかを指定できます。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:registerCollectionClass"><apiName>registerCollectionClass</apiName><shortdesc>
+     型名をコレクションクラスにマッピングします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>型名の QName または String 表現です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="Object"/><apiDesc>クラス自体、またはクラス名を表すストリングです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     型名をコレクションクラスにマッピングします。 コレクションは、最上位の配列型か、<codeph>mx.collections.IList</codeph> の実装のどちらかです。 定義には、完全修飾クラス名のストリング表現か、クラス自体のインスタンスのどちらかを指定できます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:unregisterClass"><apiName>unregisterClass</apiName><shortdesc>
+     指定された型のクラスをレジストリから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>型名の QName または String 表現です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された型のクラスをレジストリから削除します。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:unregisterCollectionClass"><apiName>unregisterCollectionClass</apiName><shortdesc>
+     指定された型のコレクションクラスをレジストリから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>コレクション型名の QName または String 表現です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された型のコレクションクラスをレジストリから削除します。
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:IXMLDecoder"><apiName>IXMLDecoder</apiName><shortdesc>
+ XML ドキュメントを XML Schema 定義に基づく ActionScript オブジェクトグラフにデコードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ XML ドキュメントを XML Schema 定義に基づく ActionScript オブジェクトグラフにデコードします。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:decode"><apiName>decode</apiName><shortdesc>
+     XML ドキュメントを ActionScript オブジェクトにデコードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定された XML ドキュメントからデコードされた ActionScript オブジェクトを返します。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="any"/><apiDesc>ActionScript オブジェクトにデコードする XML インスタンスです。 これは、XML インスタンス、長さ 1 の XMLList、有効な XML である String のいずれかです。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>値のデコード方法と、タイプパラメーターも指定するときにデコードされた値に使用される名前を記述する XML Schema の<codeph>element</codeph> の QName です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>値のデコード方法を記述する XML Schema の <codeph>simpleType</codeph> または <codeph>complexType</codeph> の QName です。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>この値のデコード方法を記述するスキーマに最上位エレメントもタイプも存在しない場合は、カスタムのエレメント定義を提供できます。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     XML ドキュメントを ActionScript オブジェクトにデコードします。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:reset"><apiName>reset</apiName><shortdesc>
+     Schema スコープの最上位レベルへのリセットも含めてデコーダを初期状態にリセットし、現在の XML ドキュメントを null に設定することによって解放します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Schema スコープの最上位レベルへのリセットも含めてデコーダを初期状態にリセットし、現在の XML ドキュメントを null に設定することによって解放します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     makeObjectsBindable を true に設定すると、匿名の Object および Array はラップされてバインド可能になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     makeObjectsBindable を <codeph>true</codeph> に設定すると、匿名の Object および Array はラップされてバインド可能になります。 Object は <codeph>mx.utils.ObjectProxy</codeph> でラップされ、Array は <codeph>mx.collections.ArrayCollection</codeph> でラップされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:recordXSIType:get"><apiName>recordXSIType</apiName><shortdesc>
+     recordXSIType を true に設定すると、エンコードされた complexType が xsi:type 属性を持つ場合は、それが厳密に型指定されていて mx.rpc.xml.IXMLSchemaInstance を実装しているか匿名の mx.utils.ObjectProxy であれば、デコードされたインスタンス上に型情報が記録されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     recordXSIType を <codeph>true</codeph> に設定すると、エンコードされた complexType が <codeph>xsi:type</codeph> 属性を持つ場合は、それが厳密に型指定されていて <codeph>mx.rpc.xml.IXMLSchemaInstance</codeph> を実装しているか匿名の <codeph>mx.utils.ObjectProxy</codeph> であれば、デコードされたインスタンス上に型情報が記録されます。 この型情報は、デコードされたオブジェクトの後処理と、場合によっては抽象的な型のどの具体的実装が使用されていたかの識別に使用できます。 デフォルト値は false です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:typeRegistry:get"><apiName>typeRegistry</apiName><shortdesc>
+     コンテンツのデコード時に厳密に型指定されたオブジェクトを作成するために、QName による XML Schema の型を ActionScript の Class にマッピングします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc.xml:SchemaTypeRegistry</apiValueClassifier></apiValueDef><apiDesc>
+     コンテンツのデコード時に厳密に型指定されたオブジェクトを作成するために、QName による XML Schema の型を ActionScript の Class にマッピングします。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

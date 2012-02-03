@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.renderers"><apiName>mx.charts.renderers</apiName><apiDetail/><apiClassifier id="mx.charts.renderers:LineRenderer"><apiName>LineRenderer</apiName><shortdesc>
+  Простая реализация средства визуализации линейного сегмента, использующегося объектами LineSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Простая реализация средства визуализации линейного сегмента, использующегося объектами LineSeries. Этот класс визуализирует линии соответствующим образом на экране с помощью штриха и формы, определяемых стилями <codeph>lineStroke</codeph> и <codeph>form</codeph> серии-владельца.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:LineRenderer:LineRenderer"><apiName>LineRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:LineRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Элемент диаграммы, представляемый этим средством визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Элемент диаграммы, представляемый этим средством визуализации. Для средств визуализации LineRenderers ожидается, что это значение является экземпляром LineSeriesItem. Это значение назначено серией-владельцем.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:AreaRenderer"><apiName>AreaRenderer</apiName><shortdesc>
+  Класс по умолчанию, используемый для отображения области под dataPoints объекта AreaSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс по умолчанию, используемый для отображения области под dataPoints объекта AreaSeries. Этот класс соответствующим образом визуализирует область с помощью заливки, обводки и типа линий, как указано стилями объекта AreaSeries <codeph>areaFill</codeph>, <codeph>areaStroke</codeph> и <codeph>form</codeph>.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:AreaRenderer:AreaRenderer"><apiName>AreaRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:AreaRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Данные, визуализация которых выполняется средством визуализации AreaRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Данные, визуализация которых выполняется средством визуализации AreaRenderer. Средство визуализации AreaRenderer ожидает, что это свойство будет назначено образцом mx.charts.series.renderData.AreaRenderData.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:ShadowBoxItemRenderer"><apiName>ShadowBoxItemRenderer</apiName><shortdesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей область прямоугольника и окружаемой тенью.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей область прямоугольника и окружаемой тенью. Этот класс может использоваться как средство визуализации itemRenderer для объектов ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries и BubbleSeries. Он выполняет визуализацию области на экране с помощью стилей<codeph>fill</codeph> и <codeph>stroke</codeph> в соответствующих сериях.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:ShadowBoxItemRenderer:ShadowBoxItemRenderer"><apiName>ShadowBoxItemRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:ShadowBoxItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Элемент chartItem, отображаемый средством itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Элемент chartItem, отображаемый средством itemRenderer. Значение назначено серией-владельцем
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:DiamondItemRenderer"><apiName>DiamondItemRenderer</apiName><shortdesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей ромб в его назначенной области.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей ромб в его назначенной области. Этот класс может использоваться как средство визуализации itemRenderer для объектов ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries и BubbleSeries. Он выполняет визуализацию области на экране с помощью стилей<codeph>fill</codeph> и <codeph>stroke</codeph> в соответствующих сериях.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:DiamondItemRenderer:DiamondItemRenderer"><apiName>DiamondItemRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:DiamondItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Элемент chartItem, отображаемый средством itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Элемент chartItem, отображаемый средством itemRenderer. Значение назначено серией-владельцем
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CrossItemRenderer"><apiName>CrossItemRenderer</apiName><shortdesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей область креста в назначенной области.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей область креста в назначенной области. Этот класс может использоваться как средство визуализации itemRenderer для объектов ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries и BubbleSeries. Он выполняет визуализацию области на экране с помощью стилей<codeph>fill</codeph> и <codeph>stroke</codeph> в соответствующих сериях.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CrossItemRenderer:CrossItemRenderer"><apiName>CrossItemRenderer</apiName><shortdesc>
+	  Конструктор
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CrossItemRenderer:thickness"><apiName>thickness</apiName><shortdesc>
+	  Толщина отображаемого креста в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>3</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  Толщина отображаемого креста в пикселях. Для создания средств визуализации креста другой ширины разработчикам необходимо расширить этот класс и изменить это значение в конструкторе производного класса.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.renderers:CrossItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Элемент chartItem, отображаемый средством itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Элемент chartItem, отображаемый средством itemRenderer. Значение назначено серией-владельцем
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:ShadowLineRenderer"><apiName>ShadowLineRenderer</apiName><shortdesc>
+  Реализация средства визуализации линейного сегмента, используемого объектами LineSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Реализация средства визуализации линейного сегмента, используемого объектами LineSeries. Этот класс соответствующим образом выполняет визуализацию на экране с падающей тенью с помощью штриха и формы, определяемых стилями <codeph>lineStroke</codeph> и <codeph>form</codeph> серии-владельца.
+  <p>ShadowLineRenderer по умолчанию является средством lineSegmentRenderer для класса LineSeries.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:ShadowLineRenderer:ShadowLineRenderer"><apiName>ShadowLineRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:ShadowLineRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Элемент диаграммы, представляемый этим средством визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Элемент диаграммы, представляемый этим средством визуализации. Класс ShadowLineRenderers предполагает, что это значение является экземпляром LineSeriesItem. Это значение назначено серией-владельцем.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:WedgeItemRenderer"><apiName>WedgeItemRenderer</apiName><shortdesc>
+  Средство itemRenderer по умолчанию для объекта PieSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Средство itemRenderer по умолчанию для объекта PieSeries. Этот класс выполняет визуализацию сектора с помощью стилей <codeph>stroke</codeph> и<codeph>radialStroke</codeph> серии-владельца для отображения внутренних и внешних границ сектора соответственно. Выполнена заливка сектора с помощью значения свойства <codeph>fill</codeph> соответствующего элемента диаграммы.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:WedgeItemRenderer:WedgeItemRenderer"><apiName>WedgeItemRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:WedgeItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Элемент диаграммы, представляемый этим средством визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Элемент диаграммы, представляемый этим средством визуализации. Класс WedgeItemRenderers предполагает, что это значение является экземпляром PieSeriesItem. Это значение назначено серией-владельцем.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:TriangleItemRenderer"><apiName>TriangleItemRenderer</apiName><shortdesc>
+  Простая реализация диаграммы itemRenderer, которая заполняет вертикальный треугольник в назначенной области.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Простая реализация диаграммы itemRenderer, которая заполняет вертикальный треугольник в назначенной области. Этот класс может использоваться как средство визуализации itemRenderer для объектов ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries и BubbleSeries. Он выполняет визуализацию области на экране с помощью стилей<codeph>fill</codeph> и <codeph>stroke</codeph> в соответствующих сериях.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:TriangleItemRenderer:TriangleItemRenderer"><apiName>TriangleItemRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:TriangleItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Элемент chartItem, отображаемый средством itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Элемент chartItem, отображаемый средством itemRenderer. Значение назначено серией-владельцем
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:HLOCItemRenderer"><apiName>HLOCItemRenderer</apiName><shortdesc>
+  Средство визуализации элементов по умолчанию для объекта HLOCSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Средство визуализации элементов по умолчанию для объекта HLOCSeries. Этот класс отображает вертикальную линию от верхних до нижних значений и отметками в закрывающих и закрывающих точках элемента диаграммы.
+  
+  <p>Визуализация вертикальной линии выполняется при использовании значения стиля <codeph>stroke</codeph> серии-владельца. Визуализацияметок для открывающего и закрывающего значения выполняется соответствующим образом с помощью стилей <codeph>openTickStroke</codeph> и <codeph>closeTickStroke</codeph> серии-владельца. Длины меток открывающих и закрывающих значений определены стилями <codeph>openTickLength</codeph> и <codeph>closeTickLength</codeph> серией-владельца соответственно.</p>
+ 
+  <p>Метка открытого значения, как и метка закрытого значения, являются необязательными; HLOCItemRenderer визуализирует метки, только если открытые и закрытые значения не являются значениями <codeph>NaN</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.series.xml#HLOCSeries"><linktext>mx.charts.series.HLOCSeries</linktext></link><link href="" invalidHref="mx.charts.series.HLOCSeriesItem.xml"><linktext>mx.charts.series.HLOCSeriesItem</linktext></link></related-links><apiConstructor id="mx.charts.renderers:HLOCItemRenderer:HLOCItemRenderer"><apiName>HLOCItemRenderer</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:HLOCItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Элемент диаграммы, представляемый этим средством визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Элемент диаграммы, представляемый этим средством визуализации. Класс HLOCItemRenderers предполагает, что это значение является экземпляром HLOCSeriesItem. Это значение назначено серией-владельцем.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CandlestickItemRenderer"><apiName>CandlestickItemRenderer</apiName><shortdesc>
+  Средство itemRenderer по умолчанию для объекта CandlestickSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Средство itemRenderer по умолчанию для объекта CandlestickSeries. Этот класс отображает стандартный элемент CandlestickChart с помощью стилей <codeph>stroke</codeph>, <codeph>boxStroke</codeph>, <codeph>fill</codeph> и <codeph>declineFill</codeph> связанных с ним серий.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CandlestickItemRenderer:CandlestickItemRenderer"><apiName>CandlestickItemRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CandlestickItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Элемент диаграммы, представляемый этим средством визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Элемент диаграммы, представляемый этим средством визуализации. Класс CandlestickItemRenderers предполагает, что это значение является экземпляром HLOCSeriesItem. Это значение назначено серией-владельцем.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:BoxItemRenderer"><apiName>BoxItemRenderer</apiName><shortdesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей область прямоугольника.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей область прямоугольника. Этот класс является средством визуализации itemRenderer по умолчанию для объектов ColumnSeries и BarSeries. Он может использоваться как itemRenderer для объектов ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries и BubbleSeries. Этот класс отображает область, которую он занимает на экране с помощью стилей <codeph>fill</codeph> и <codeph>stroke</codeph> связанных с ним серий.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:BoxItemRenderer:BoxItemRenderer"><apiName>BoxItemRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:BoxItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Элемент chartItem, отображаемый средством itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Элемент chartItem, отображаемый средством itemRenderer. Значение назначено серией-владельцем
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CircleItemRenderer"><apiName>CircleItemRenderer</apiName><shortdesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей область эллипса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Простая реализация средства визуализации itemRenderer диаграммы, заполняющей область эллипса. Этот класс может использоваться как средство визуализации itemRenderer для объектов ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries и BubbleSeries. Он выполняет визуализацию области на экране с помощью стилей<codeph>fill</codeph> и <codeph>stroke</codeph> в соответствующих сериях.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CircleItemRenderer:CircleItemRenderer"><apiName>CircleItemRenderer</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CircleItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Свойство chartItem, отображающее средство визуализации itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Свойство chartItem, отображающее средство визуализации itemRenderer. Это значение назначено серией-владельцем.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

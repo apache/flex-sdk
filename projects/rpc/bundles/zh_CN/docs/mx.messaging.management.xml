@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.management"><apiName>mx.messaging.management</apiName><apiDetail/><apiClassifier id="mx.messaging.management:ObjectInstance"><apiName>ObjectInstance</apiName><shortdesc>
+ 服务器端管理控件的对象名称实例在客户端的表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 服务器端管理控件的对象名称实例在客户端的表示形式。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:ObjectInstance:ObjectInstance"><apiName>ObjectInstance</apiName><shortdesc>
+      创建空 ObjectInstance 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      创建空 ObjectInstance 的新实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:ObjectInstance:toString"><apiName>toString</apiName><shortdesc>
+      返回对象名称实例的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>对象名称实例的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回对象名称实例的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:ObjectInstance:className"><apiName>className</apiName><shortdesc>
+     类名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     类名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectInstance:objectName"><apiName>objectName</apiName><shortdesc>
+     对象名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.management:ObjectName</apiValueClassifier></apiValueDef><apiDesc>
+     对象名称。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanConstructorInfo"><apiName>MBeanConstructorInfo</apiName><shortdesc>
+ MBean 构造函数的元数据在客户端的表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 构造函数的元数据在客户端的表示形式。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanConstructorInfo:MBeanConstructorInfo"><apiName>MBeanConstructorInfo</apiName><shortdesc>
+      创建空 MBeanConstructorInfo 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      创建空 MBeanConstructorInfo 的新实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanConstructorInfo:signature"><apiName>signature</apiName><shortdesc>
+	 组成构造函数签名的参数数据类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 组成构造函数签名的参数数据类型。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanAttributeInfo"><apiName>MBeanAttributeInfo</apiName><shortdesc>
+ MBean 属性的元数据在客户端的表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 属性的元数据在客户端的表示形式。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanAttributeInfo:MBeanAttributeInfo"><apiName>MBeanAttributeInfo</apiName><shortdesc>
+      创建空 MBeanAttributeInfo 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      创建空 MBeanAttributeInfo 的新实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanAttributeInfo:isIs"><apiName>isIs</apiName><shortdesc>
+	 指示属性的服务器端 getter 是否具有“is”前缀。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 指示属性的服务器端 getter 是否具有“is”前缀。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanAttributeInfo:readable"><apiName>readable</apiName><shortdesc>
+	 指示属性是否可读。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 指示属性是否可读。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanAttributeInfo:type"><apiName>type</apiName><shortdesc>
+	 属性的数据类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 属性的数据类型。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanAttributeInfo:writable"><apiName>writable</apiName><shortdesc>
+	 指示属性是否可写。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 指示属性是否可写。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:Attribute"><apiName>Attribute</apiName><shortdesc>
+ MBean 属性在客户端的表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 属性在客户端的表示形式。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:Attribute:Attribute"><apiName>Attribute</apiName><shortdesc>
+      创建空 Attribute 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      创建空 Attribute 的新实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:Attribute:toString"><apiName>toString</apiName><shortdesc>
+      返回属性的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>属性的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回属性的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:Attribute:name"><apiName>name</apiName><shortdesc>
+     属性名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     属性名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:Attribute:value"><apiName>value</apiName><shortdesc>
+     属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     属性值。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanParameterInfo"><apiName>MBeanParameterInfo</apiName><shortdesc>
+ MBean 操作参数的元数据在客户端的表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 操作参数的元数据在客户端的表示形式。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanParameterInfo:MBeanParameterInfo"><apiName>MBeanParameterInfo</apiName><shortdesc>
+      创建空 MBeanParameterInfo 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      创建空 MBeanParameterInfo 的新实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanParameterInfo:type"><apiName>type</apiName><shortdesc>
+	 操作参数的数据类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 操作参数的数据类型。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanInfo"><apiName>MBeanInfo</apiName><shortdesc>
+ MBean 的元数据在客户端的表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 的元数据在客户端的表示形式。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanInfo:MBeanInfo"><apiName>MBeanInfo</apiName><shortdesc>
+      创建空 MBeanInfo 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      创建空 MBeanInfo 的新实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:MBeanInfo:toString"><apiName>toString</apiName><shortdesc>
+      返回 MBean 信息的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>MBean 信息的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回 MBean 信息的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:MBeanInfo:attributes"><apiName>attributes</apiName><shortdesc>
+	 MBean 所公开的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 MBean 所公开的属性。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:className"><apiName>className</apiName><shortdesc>
+	 MBean 的类名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 MBean 的类名称。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:constructors"><apiName>constructors</apiName><shortdesc>
+	 MBean 所公开的构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 MBean 所公开的构造函数。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:description"><apiName>description</apiName><shortdesc>
+	 MBean 的描述。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 MBean 的描述。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanInfo:operations"><apiName>operations</apiName><shortdesc>
+	 MBean 所提供的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 MBean 所提供的操作。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanFeatureInfo"><apiName>MBeanFeatureInfo</apiName><shortdesc>
+ MBean 功能的元数据在客户端的表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 功能的元数据在客户端的表示形式。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanFeatureInfo:MBeanFeatureInfo"><apiName>MBeanFeatureInfo</apiName><shortdesc>
+      创建空 MBeanFeatureInfo 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      创建空 MBeanFeatureInfo 的新实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:MBeanFeatureInfo:toString"><apiName>toString</apiName><shortdesc>
+      返回功能信息的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>功能信息的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回功能信息的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:MBeanFeatureInfo:description"><apiName>description</apiName><shortdesc>
+	 MBean 功能的描述。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 MBean 功能的描述。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanFeatureInfo:name"><apiName>name</apiName><shortdesc>
+	 MBean 功能的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 MBean 功能的名称。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:MBeanOperationInfo"><apiName>MBeanOperationInfo</apiName><shortdesc>
+ MBean 操作的元数据在客户端的表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.management:MBeanFeatureInfo</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MBean 操作的元数据在客户端的表示形式。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:MBeanOperationInfo:MBeanOperationInfo"><apiName>MBeanOperationInfo</apiName><shortdesc>
+      创建空 MBeanOperationInfo 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      创建空 MBeanOperationInfo 的新实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.management:MBeanOperationInfo:ACTION_INFO"><apiName>ACTION_INFO</apiName><shortdesc>
+	 此操作同时类似于读取和写入，更新控件并返回信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 此操作同时类似于读取和写入，更新控件并返回信息。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:ACTION"><apiName>ACTION</apiName><shortdesc>
+	 此操作类似于写入，以某种方式更新控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 此操作类似于写入，以某种方式更新控件。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:INFO"><apiName>INFO</apiName><shortdesc>
+	 此操作完全出于说明用途，无任何副作用，且为只读。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 此操作完全出于说明用途，无任何副作用，且为只读。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:UNKNOWN"><apiName>UNKNOWN</apiName><shortdesc>
+	 操作的副作用未知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiDynamic/><apiData>3</apiData><apiType value="int"/></apiValueDef><apiDesc>
+	 操作的副作用未知。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:impact"><apiName>impact</apiName><shortdesc>
+	 操作的影响。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	 操作的影响。四个可能值中的一个，被定义为此类的常量。
+	 
+	 </apiDesc></apiValueDetail><related-links><link href="mx.messaging.management.xml#MBeanOperationInfo/INFO"><linktext>INFO</linktext></link><link href="mx.messaging.management.xml#MBeanOperationInfo/ACTION"><linktext>ACTION</linktext></link><link href="mx.messaging.management.xml#MBeanOperationInfo/ACTION_INFO"><linktext>ACTION_INFO</linktext></link><link href="mx.messaging.management.xml#MBeanOperationInfo/UNKNOWN"><linktext>UNKNOWN</linktext></link></related-links></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:returnType"><apiName>returnType</apiName><shortdesc>
+	 操作的返回数据类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 操作的返回数据类型。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:MBeanOperationInfo:signature"><apiName>signature</apiName><shortdesc>
+	 组成操作签名的参数数据类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	 组成操作签名的参数数据类型。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.management:ObjectName"><apiName>ObjectName</apiName><shortdesc>
+ 服务器端管理控件的名称在客户端的表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 服务器端管理控件的名称在客户端的表示形式。
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.management:ObjectName:ObjectName"><apiName>ObjectName</apiName><shortdesc>
+      创建空 ObjectName 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      创建空 ObjectName 的新实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.management:ObjectName:getKeyProperty"><apiName>getKeyProperty</apiName><shortdesc>
+	 返回与指定的属性键关联的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiDesc>属性键。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	 返回与指定的属性键关联的值。
+	 
+	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.management:ObjectName:toString"><apiName>toString</apiName><shortdesc>
+      此方法将返回对象名称的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>对象名称的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      此方法将返回对象名称的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.management:ObjectName:canonicalKeyPropertyListString"><apiName>canonicalKeyPropertyListString</apiName><shortdesc>
+	 键属性列表的字符串表示形式，其中键属性按字典顺序排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 键属性列表的字符串表示形式，其中键属性按字典顺序排序。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:canonicalName"><apiName>canonicalName</apiName><shortdesc>
+	 名称的规范形式；以字符串形式表示，其中属性按字典顺序排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 名称的规范形式；以字符串形式表示，其中属性按字典顺序排序。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:domainPattern"><apiName>domainPattern</apiName><shortdesc>
+	 指示对象名称是否为域部分的某种模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 指示对象名称是否为域部分的某种模式。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:domain"><apiName>domain</apiName><shortdesc>
+	 域部分。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 域部分。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:keyPropertyListString"><apiName>keyPropertyListString</apiName><shortdesc>
+	 键属性列表的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	 键属性列表的字符串表示形式。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:keyPropertyList"><apiName>keyPropertyList</apiName><shortdesc>
+	 Object 形式的键属性，按属性名称建键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	 Object 形式的键属性，按属性名称建键。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:pattern"><apiName>pattern</apiName><shortdesc>
+	 指示对象名称是否为某种模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 指示对象名称是否为某种模式。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.management:ObjectName:propertyPattern"><apiName>propertyPattern</apiName><shortdesc>
+	 指示对象名称是否为键属性的某种模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	 指示对象名称是否为键属性的某种模式。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

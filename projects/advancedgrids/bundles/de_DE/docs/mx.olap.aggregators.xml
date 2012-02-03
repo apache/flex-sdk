@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.olap.aggregators"><apiName>mx.olap.aggregators</apiName><apiDetail/><apiClassifier id="mx.olap.aggregators:MinAggregator"><apiName>MinAggregator</apiName><shortdesc>
+  Die MinAggregator-Klasse implementiert den Minimumaggregator.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die MinAggregator-Klasse implementiert den Minimumaggregator. Der Minimumaggregator gibt den Minimalwert aller Measures zurück. Flex benutzt diesen Aggregator, wenn Sie die <codeph>OLAPMeasure.aggregator</codeph>-Eigenschaft auf <codeph>"MIN"</codeph> setzen.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure.</linktext></link></related-links><apiOperation id="mx.olap.aggregators:MinAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeLoop()</codeph> und <codeph>computeEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das beim Aufruf der <codeph>computeLoop()</codeph>-Methode zurückgegebene Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeLoop()</codeph>-Methode berechnet wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches die zu analysierenden rows-Daten darstellt. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt, um Informationen bereit zu halten, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeObjectLoop()</codeph> und <codeph>computeObjectEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten. Die Berechnung des Durchschnittswerts einer Gruppe von Durchschnittswerten ist ein Beispiel für die Aggregation von aggregierten Werten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode zurückgegeben wurde, welche benutzt wird, um aggregierte Daten zu speichern. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode berechnet wurde. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:AverageAggregator"><apiName>AverageAggregator</apiName><shortdesc>
+  Die AverageAggregator-Klasse implementiert den Durchschnittsaggregator.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die AverageAggregator-Klasse implementiert den Durchschnittsaggregator. Der Durchschnittsaggregator gibt den Durchschnittswert der Measures zurück. Flex benutzt diesen Aggregator, wenn Sie die <codeph>OLAPMeasure.aggregator</codeph>-Eigenschaft auf <codeph>"AVG"</codeph> setzen.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:AverageAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeLoop()</codeph> und <codeph>computeEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das beim Aufruf der <codeph>computeLoop()</codeph>-Methode zurückgegebene Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeLoop()</codeph>-Methode berechnet wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches die zu analysierenden rows-Daten darstellt. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt, um Informationen bereit zu halten, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeObjectLoop()</codeph> und <codeph>computeObjectEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten. Die Berechnung des Durchschnittswerts einer Gruppe von Durchschnittswerten ist ein Beispiel für die Aggregation von aggregierten Werten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode zurückgegeben wurde, welche benutzt wird, um aggregierte Daten zu speichern. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode berechnet wurde. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:MaxAggregator"><apiName>MaxAggregator</apiName><shortdesc>
+  Die MaxAggregator-Klasse implementiert den Maximumaggregator.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die MaxAggregator-Klasse implementiert den Maximumaggregator. Der Maximumaggregator gibt den Maximalwert aller Measures zurück. Flex benutzt diesen Aggregator, wenn Sie die <codeph>OLAPMeasure.aggregator</codeph>-Eigenschaft auf <codeph>"MAX"</codeph> setzen.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:MaxAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeLoop()</codeph> und <codeph>computeEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das beim Aufruf der <codeph>computeLoop()</codeph>-Methode zurückgegebene Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeLoop()</codeph>-Methode berechnet wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches die zu analysierenden rows-Daten darstellt. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt, um Informationen bereit zu halten, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeObjectLoop()</codeph> und <codeph>computeObjectEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten. Die Berechnung des Durchschnittswerts einer Gruppe von Durchschnittswerten ist ein Beispiel für die Aggregation von aggregierten Werten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode zurückgegeben wurde, welche benutzt wird, um aggregierte Daten zu speichern. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode berechnet wurde. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:SumAggregator"><apiName>SumAggregator</apiName><shortdesc>
+  Die SumAggregator-Klasse implementiert den Summenaggregator.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SumAggregator-Klasse implementiert den Summenaggregator. Der Summenaggregator gibt die Summe aller Measures zurück. Flex benutzt diesen Aggregator, wenn Sie die <codeph>OLAPMeasure.aggregator</codeph>-Eigenschaft auf <codeph>"SUM"</codeph> setzen.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:SumAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeLoop()</codeph> und <codeph>computeEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das beim Aufruf der <codeph>computeLoop()</codeph>-Methode zurückgegebene Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeLoop()</codeph>-Methode berechnet wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches die zu analysierenden rows-Daten darstellt. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt, um Informationen bereit zu halten, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeObjectLoop()</codeph> und <codeph>computeObjectEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten. Die Berechnung des Durchschnittswerts einer Gruppe von Durchschnittswerten ist ein Beispiel für die Aggregation von aggregierten Werten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode zurückgegeben wurde, welche benutzt wird, um aggregierte Daten zu speichern. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode berechnet wurde. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:CountAggregator"><apiName>CountAggregator</apiName><shortdesc>
+  Die CountAggregator-Klasse implementiert den Zählaggregator.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die CountAggregator-Klasse implementiert den Zählaggregator. Der Zählaggregator gibt die Anzahl der Measures zurück. Flex benutzt diesen Aggregator, wenn Sie die <codeph>OLAPMeasure.aggregator</codeph>-Eigenschaft auf <codeph>"COUNT"</codeph> setzen.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:CountAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeLoop()</codeph> und <codeph>computeEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu starten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das beim Aufruf der <codeph>computeLoop()</codeph>-Methode zurückgegebene Objekt. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung eines Aggregationswertes zu beenden. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeLoop()</codeph>-Methode berechnet wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches die zu analysierenden rows-Daten darstellt. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein für die Aggregation initialisiertes Objekt. Verwenden Sie dieses Objekt, um Informationen bereit zu halten, die zur Ausführung der Aggregation notwendig sind. Dieses Objekt wird an nachfolgende Aufrufe der <codeph>computeObjectLoop()</codeph> und <codeph>computeObjectEnd()</codeph>-Methode übergeben.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. Verwenden Sie dieses Objekt für Informationen, die zur Ausführung der Aggregation notwendig sind.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Aggregation der aggregierten Werte zu starten. Die Berechnung des Durchschnittswerts einer Gruppe von Durchschnittswerten ist ein Beispiel für die Aggregation von aggregierten Werten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aggregierte Wert.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode zurückgegeben wurde, welche benutzt wird, um aggregierte Daten zu speichern. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Der Name der <codeph>OLAPMeasure.dataField</codeph>-Eigenschaft für das Measure, welches aggregiert werden soll.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, um die Berechnung zu beenden. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch einen Aufruf der <codeph>computeObjectBegin()</codeph>-Methode zurückgegeben wurde oder welches durch einen vorangegangenen Aufruf der <codeph>computeObjectLoop()</codeph>-Methode berechnet wurde. Diese Methode modifiziert das Objekt, gibt jedoch keinen Wert zurück.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches durch den Aufruf der <codeph>computeEnd()</codeph>-Methode für eine vorangegangene Aggregation zurückgegeben wurde. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex ruft diese Methode auf, wenn ein neuer aggregierter Wert zur Aggregation hinzugefügt werden muss.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

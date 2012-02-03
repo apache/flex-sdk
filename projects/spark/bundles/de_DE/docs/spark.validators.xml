@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.validators"><apiName>spark.validators</apiName><apiDetail/><apiClassifier id="spark.validators:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+  Die CurrencyValidator-Klasse stellt sicher, dass ein String gemäß den Konventionen eines Gebietsschemas einen gültigen Währungsbetrag darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:CurrencyValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+ <pre>
+  &lt;s:CurrencyValidator
+    <strong>Properties</strong>
+    currencyISOCode="<i>locale specified string or customized by user</i>."
+    currencyStringError="Currency name is repeated or not correct."
+    currencySymbol="<i>locale specified string or customized by user</i>."
+    negativeCurrencyFormat="<i>locale specified string or customized by user</i>."
+    negativeCurrencyFormatError="The negative format of the input currency is incorrect."
+    positiveCurrencyFormat="<i>locale specified string or customized by user</i>."
+    positiveCurrencyFormatError="The positive format of the input currency is incorrect."
+  /&gt;
+  </pre>
+ 
+    
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:NumberValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die <codeph>CurrencyValidator</codeph>-Klasse stellt sicher, dass ein String gemäß den Konventionen eines Gebietsschemas einen gültigen Währungsbetrag darstellt. Diese Klasse verwendet den <codeph>locale</codeph>-Stil zum Festlegen der Gebietsschema-ID.
+ 
+  <p>Der Validator kann sicherstellen, dass ein Währungsstring innerhalb eines bestimmten (durch die <codeph>minValue</codeph>- und <codeph>maxValue</codeph>-Eigenschaften festgelegten) Bereichs fällt, eine Ganzzahl ist (festgelegt durch die <codeph>domain</codeph>-Eigenschaft), einen nicht negativen Wert hat (festgelegt durch die <codeph>allowNegative</codeph>-Eigenschaft), negative und positive Zahlen korrekt angibt, den korrekten ISO-Währungscode oder das korrekte Währungssymbol aufweist und nicht die festgelegte Anzahl von <codeph>fractionalDigits</codeph> überschreitet. Der Validator legt Standardeigenschaftswerte unter Verwendung der <codeph>flash.globalization.CurrencyFormatter</codeph>-Klasse fest; daher werden die gebietsschemaspezifischen Werte vom Betriebssystem bereitgestellt.</p>
+ 
+  <p>Die <codeph>flash.globalization.CurrencyFormatter</codeph>-Klasse verwendet das zugrundeliegende Betriebssystem zum Bereitstellen der gebietschemaspezifischen Daten. Falls das Betriebssystem keine Währungsformatierung bereitstellt, stellt diese Klasse Ersatzfunktionen bereit.</p>
+ 
+  </apiDesc><example conref="CurrencyValidatorExample1.mxml"><swfblock conref="examples/CurrencyValidatorExample1.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link></related-links><apiConstructor id="spark.validators:CurrencyValidator:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+      Erstellt ein neues CurrencyValidator-Objekt, um Zahlen, die Währungsbeträge darstellen, entsprechend den Konventionen eines gegebenen Gebietsschemas zu überprüfen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Erstellt ein neues <codeph>CurrencyValidator</codeph>-Objekt, um Zahlen, die Währungsbeträge darstellen, entsprechend den Konventionen eines gegebenen Gebietsschemas zu überprüfen.
+      <p>
+      Das Gebietsschema für diese Klasse wird von der <codeph>locale</codeph>-Stileigenschaft bereitgestellt. Der <codeph>Gebietsschema</codeph>-Stil kann auf verschiedene Arten festgelegt werden:
+      </p>
+      <ul>
+      <li>
+      Übernehmen des Stils aus einer <codeph>UIComponent</codeph>, indem die <codeph>addStyleClient</codeph>-Methode der <codeph>UIComponent</codeph> aufgerufen wird
+      </li>
+      <li>
+      Durch Verwenden der Klasse in einer MXML-Deklaration und Übernehmen des Gebietsschemas aus dem Dokument, das die Deklaration enthält.
+      </li>
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:CurrencyValidator id="cv" />
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      Durch Verwenden einer MXML-Deklaration und Festlegen des Gebietsschemawerts in der Liste mit Zuweisungen.
+      </li>
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:CurrencyValidator id="cv_turkish" locale="tr-TR" />
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      Aufrufen der setStyle-Methode, z. B. <codeph>cv.setStyle("locale", "tr-TR")</codeph>
+      </li>
+      </ul>
+      <p>
+      Wenn der <codeph>locale</codeph>-Stil nicht durch eine der oben beschriebenen Methoden festgelegt wird, wird die Instanz dieser Klasse als <codeph>StyleClient</codeph> der <codeph>topLevelApplication</codeph> hinzugefügt und übernimmt daher den <codeph>locale</codeph>-Stil aus dem <codeph>topLevelApplication</codeph>-Objekt, wenn die <codeph>locale</codeph>-abhängige Get-Funktion oder <codeph>locale</codeph>-abhängige Methode aufgerufen wird.
+      </p>         
+      <p>Die Eigenschaften, die sich auf das Währungsstringformat beziehen, werden auf Standardwerte festgelegt, die auf dem Gebietsschema basieren.</p>
+     
+      <p><b>Hinweis:</b> Wenn ein Ersatzgebietsschema verwendet wird, werden die Währungseigenschaften auf die Standardwerte des Gebietsschemas „en_US“ festgelegt; sie stimmen deshalb möglicherweise nicht mit der Währung überein, für die die Überprüfung vorgesehen ist. Deshalb empfiehlt es sich, vor dem Überprüfen eines Währungsbetrags die Werte der <codeph>currencySymbol</codeph>- und <codeph>currencyISOCode</codeph>-Eigenschaften zu untersuchen.
+      </p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.xml#CurrencyFormatter/actualLocaleIDName"><linktext>flash.globalization.CurrencyFormatter.actualLocaleIDName</linktext></link></related-links></apiConstructor><apiOperation id="spark.validators:CurrencyValidator:validateCurrency"><apiName>validateCurrency</apiName><shortdesc>
+      Vereinfachungsmethode zum Aufrufen eines Validators aus einer benutzerdefinierten Überprüfungsfunktion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Array von <codeph>ValidationResult</codeph>-Objekten mit einem <codeph>ValidationResult</codeph>-Objekt für jedes vom Validator geprüfte Feld.
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Ein zu überprüfender Währungszahlenstring. Der Zahlenstring kann neben ASCII-Minussymbolen Unicode-Minussymbole 0x2212, 0xFE63, 0xFF0D verwenden.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>Textdarstellung des im <codeph>value</codeph>-Parameter angegebenen Unterfelds. Wenn zum Beispiel im <codeph>value</codeph>-Parameter value.number angegeben ist, ist der <codeph>baseField</codeph>-Wert „number“.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vereinfachungsmethode zum Aufrufen eines Validators aus einer benutzerdefinierten Überprüfungsfunktion. Für jeden Standard-Flex-Validator gibt es eine ähnliche Vereinfachungsmethode. Aufrufer muss den Überprüfungsstatus der <codeph>ValidationResult</codeph>-Objekte im zurückgegebenen Array prüfen.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link></related-links></apiOperation><apiValue id="spark.validators:CurrencyValidator:currencyISOCode:get"><apiName>currencyISOCode</apiName><shortdesc>
+      Der dreistellige ISO-4217-Währungscode für das aktuell verwendete Gebietsschema.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der dreistellige ISO-4217-Währungscode für das aktuell verwendete Gebietsschema.
+     
+      <p>Diese Eigenschaft wird verwendet, um den Währungsstring oder das Währungssymbol in den eingegebenen Währungsbeträgen mit der <codeph>validate()</codeph>-Methode zu überprüfen.
+      </p>
+     
+      <p>Diese Eigenschaft wird vom Konstruktor initialisiert, basierend auf dem tatsächlich verwendeten Gebietsschema. Wenn ein Ersatzgebietsschema verwendet wird, gibt diese Eigenschaft den bevorzugten Standardwährungscode für das Ersatzgebietsschema an.</p>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und <codeph>Betriebssystem</codeph> ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/validate()"><linktext>validate()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:currencyStringError:get"><apiName>currencyStringError</apiName><shortdesc>
+      Fehlermeldung, wenn das Währungssymbol oder der ISO-Währungscode wiederholt wird oder sich an der falschen Position befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Currency name is repeated or not correct."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Fehlermeldung, wenn das Währungssymbol oder der ISO-Währungscode wiederholt wird oder sich an der falschen Position befindet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      Das Währungssymbol oder der String für das aktuell verwendete Gebietsschema.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Das Währungssymbol oder der String für das aktuell verwendete Gebietsschema.
+     
+      <p>Diese Eigenschaft wird als Währungssymbol verwendet, wenn Währungsbeträge mit der <codeph>validate()</codeph>-Methode überprüft werden. Das Währungssymbol oder der Währungsname im Überprüfungsstring muss entweder mit dem Wert der <codeph>currencySymbol</codeph>-Eigenschaft oder dem Wert der <codeph>currencyISOCode</codeph>-Eigenschaft übereinstimmen. </p>
+     
+      <p>Diese Eigenschaft wird vom Konstruktor initialisiert, basierend auf dem tatsächlich verwendeten Gebietsschema. Wenn ein Ersatzgebietsschema verwendet wird, gibt diese Eigenschaft das bevorzugte Standardwährungssymbol für das Ersatzgebietsschema an.</p>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und <codeph>Betriebssystem</codeph> ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link><link href="spark.validators.xml#CurrencyValidator/setCurrency()"><linktext>setCurrency()</linktext></link><link href="spark.validators.xml#CurrencyValidator/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencyISOCode"><linktext>currencyISOCode</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:negativeCurrencyFormatError:get"><apiName>negativeCurrencyFormatError</apiName><shortdesc>
+      Fehlermeldung, wenn das Format für negative Zahlen des Eingabewährungsstrings falsch ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative format of the input currency is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Fehlermeldung, wenn das Format für negative Zahlen des Eingabewährungsstrings falsch ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:negativeCurrencyFormat:get"><apiName>negativeCurrencyFormat</apiName><shortdesc>
+       Ein numerischer Wert, der ein Überprüfungsmuster für negative Währungsbeträge angibt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>wenn der zugewiesene Wert nicht zwischen 0 und 15 liegt.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+       Ein numerischer Wert, der ein Überprüfungsmuster für negative Währungsbeträge angibt. Diese Eigenschaft definiert die Position des Währungssymbols und des Negativsymbols oder der Klammern in Relation zum numerischen Teil des Währungsbetrags. Mit dieser Eigenschaft wird überprüft, ob der Eingabewährungsstring diesem Muster für negative Beträge folgt.
+     
+       <p>Der Wert dieser Eigenschaft muss eine der in der folgenden Tabelle definierten Konstanten sein.
+      </p>
+     
+      <ul>
+       <li>Das Symbol „¤“ stellt die Position des currencyISOCode oder des currencySymbol im Währungsstring dar.
+       </li>
+       <li>Das Zeichen „-“ stellt die Position des negativeNumberSymbol dar.</li>
+       <li>Das Zeichen „n“ stellt den Währungsbetrag dar.</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>Formattyp für negative Währungsbeträge</entry>
+                <entry>Formatierungsmuster</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(¤n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-¤n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤-n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>¤n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>(n¤)</entry>
+            </row><row>
+                <entry>5</entry>
+                <entry>-n¤</entry>
+            </row><row>
+                <entry>6</entry>
+                <entry>n-¤</entry>
+            </row><row>
+                <entry>7</entry>
+                <entry>n¤-</entry>
+            </row><row>
+                <entry>8</entry>
+                <entry>-n ¤</entry>
+            </row><row>
+                <entry>9</entry>
+                <entry>-¤ n</entry>
+            </row><row>
+                <entry>10</entry>
+                <entry>n ¤-</entry>
+            </row><row>
+                <entry>11</entry>
+                <entry>¤ n-</entry>
+            </row><row>
+                <entry>12</entry>
+                <entry>¤ -n</entry>
+            </row><row>
+                <entry>13</entry>
+                <entry>n- ¤</entry>
+            </row><row>
+                <entry>14</entry>
+                <entry>(¤ n)</entry>
+            </row><row>
+                <entry>15</entry>
+                <entry>(n ¤)</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.validators.xml#CurrencyValidator/negativeSymbol"><linktext>negativeSymbol</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:positiveCurrencyFormatError:get"><apiName>positiveCurrencyFormatError</apiName><shortdesc>
+      Fehlermeldung, wenn das Format für positive Währungszahlen falsch ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The positive format of the input currency is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Fehlermeldung, wenn das Format für positive Währungszahlen falsch ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:positiveCurrencyFormat:get"><apiName>positiveCurrencyFormat</apiName><shortdesc>
+        Ein numerischer Wert, der ein Überprüfungsmuster für positive Währungsbeträge angibt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>wenn der zugewiesene Wert nicht zwischen 0 und 3 liegt.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+        Ein numerischer Wert, der ein Überprüfungsmuster für positive Währungsbeträge angibt. Diese Eigenschaft definiert die Position des Währungssymbols in Relation zum numerischen Teil des Währungsbetrags. Mit dieser Eigenschaft wird überprüft, ob der Eingabewährungsstring diesem Muster für positive Beträge folgt.
+     
+       <p>Der Wert dieser Eigenschaft muss eine der in der folgenden Tabelle definierten Konstanten sein.
+      </p>
+     
+      <ul>
+       <li>Das Symbol „¤“ stellt die Position des <codeph>currencyISOCode</codeph> oder des <codeph>currencySymbol</codeph> im Währungsstring dar.</li>
+       <li>Das Zeichen „n“ stellt die Position des <codeph>currencyISOCode</codeph> oder des <codeph>currencySymbol</codeph> im Währungsstring dar.</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>Formattyp für positive Währungsbeträge</entry>
+                <entry>Formatierungsmuster</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>¤n</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>n¤</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤ n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n ¤</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.validators:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+  Die NumberValidator-Klasse stellt sicher, dass ein String gemäß den Konventionen eines Gebietsschemas eine gültige Zahl darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;spark:NumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberValidator
+    <strong>Properties</strong>
+    negativeNumberFormat="<i>locale specified string or customized by user</i>."
+    negativeNumberFormatError="The negative format of the input number is incorrect."
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:NumberValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die NumberValidator-Klasse stellt sicher, dass ein String gemäß den Konventionen eines Gebietsschemas eine gültige Zahl darstellt. Sie kann Strings überprüfen, die <codeph>int</codeph>-, <codeph>uint</codeph>- und <codeph>Number</codeph>-Objekte darstellen.
+ 
+  <p>Diese Klasse verwendet den <codeph>locale</codeph>-Stil zum Festlegen der angeforderten Gebietsschema-ID.</p>
+ 
+  <p>Der Validator kann sicherstellen, dass die Eingabe innerhalb eines bestimmten (durch die <codeph>minValue</codeph>- und <codeph>maxValue</codeph>-Eigenschaften festgelegten) Bereichs fällt, eine Ganzzahl ist (festgelegt durch die <codeph>domain</codeph>-Eigenschaft), einen nicht negativen Wert hat (festgelegt durch die <codeph>allowNegative</codeph>-Eigenschaft), negative und positive Zahlen korrekt angibt und nicht die festgelegte Anzahl von <codeph>fractionalDigits</codeph> überschreitet. Der Validator legt Standardeigenschaftswerte unter Verwendung von <codeph>flash.globalization.NumberFormatter</codeph> fest; daher werden die gebietsschemaspezifischen Werte vom Betriebssystem bereitgestellt.</p>
+ 
+  <p>Die <codeph>NumberValidator</codeph>-Klasse kann in MXML-Deklarationen oder in ActionScript-Code verwendet werden. Diese Klasse verwendet den Gebietsschemastil zur Angabe der von der <codeph>flash.globalization.NumberFormatter</codeph>-Klasse angeforderten Gebietsschema-ID und hat Methoden und Eigenschaften, die bindbar sind.</p>
+  
+  </apiDesc><example conref="NumberValidatorExample1.mxml"><swfblock conref="examples/NumberValidatorExample1.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.xml"><linktext>flash.globalization.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.validators:NumberValidator:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+      Erstellt ein neues NumberValidator-Objekt, um Zahlen entsprechend den Konventionen eines gegebenen Gebietsschemas zu überprüfen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Erstellt ein neues NumberValidator-Objekt, um Zahlen entsprechend den Konventionen eines gegebenen Gebietsschemas zu überprüfen.
+      <p>
+      Das Gebietsschema für diese Klasse wird vom <codeph>Gebietsschema</codeph>-Stil bereitgestellt. Der <codeph>Gebietsschema</codeph>-Stil kann auf verschiedene Arten festgelegt werden:
+      </p>
+      <ul>
+      <li>         
+      Übernehmen des Stils aus einer <codeph>UIComponent</codeph>, indem die <codeph>addStyleClient</codeph>-Methode der <codeph>UIComponent</codeph> aufgerufen wird
+      </li>
+      <li>
+      Durch Verwenden der Klasse in einer MXML-Deklaration und Übernehmen des Gebietsschemas aus dem Dokument, das die Deklaration enthält.
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:NumberValidator id="nv" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+      <li>
+      Durch Verwenden einer MXML-Deklaration und Festlegen des Gebietsschemawerts in der Liste mit Zuweisungen.
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:NumberValidator id="nv_French_France" locale="fr_FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+      <li>
+      Aufrufen der <codeph>setStyle</codeph>-Methode. Beispiel: <codeph>nv.setStyle("locale", "fr-FR")</codeph>
+      </li>
+      </ul>
+      <p>
+      Wenn der <codeph>locale</codeph>-Stil nicht durch eine der oben beschriebenen Methoden festgelegt wird, wird die Instanz dieser Klasse als <codeph>StyleClient</codeph> der <codeph>topLevelApplication</codeph> hinzugefügt und übernimmt daher den <codeph>locale</codeph>-Stil aus dem <codeph>topLevelApplication</codeph>-Objekt, wenn die <codeph>locale</codeph>-abhängige Get-Funktion oder <codeph>locale</codeph>-abhängige Methode aufgerufen wird.
+      </p>   
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.validators:NumberValidator:validateNumber"><apiName>validateNumber</apiName><shortdesc>
+      Vereinfachungsmethode zum Aufrufen eines Validators aus einer benutzerdefinierten Überprüfungsfunktion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein <codeph>Array</codeph> von <codeph>ValidationResult</codeph>-Objekten mit einem <codeph>validationResult</codeph>-Objekt für jedes vom Validator geprüfte Feld.
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Ein zu überprüfender Zahlenstring.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc>Textdarstellung des im <codeph>value</codeph>-Objekt angegebenen Unterfelds. Wenn zum Beispiel im <codeph>value</codeph>-Parameter value.number angegeben ist, ist der <codeph>baseField</codeph>-Wert „number“.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vereinfachungsmethode zum Aufrufen eines Validators aus einer benutzerdefinierten Überprüfungsfunktion. Für jeden Standard-Flex-Validator gibt es eine ähnliche Vereinfachungsmethode. Aufrufer muss den Überprüfungsstatus der <codeph>ValidationResult</codeph>-Objekte im zurückgegebenen Array prüfen.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="spark.validators:NumberValidator:negativeNumberFormatError:get"><apiName>negativeNumberFormatError</apiName><shortdesc>
+      Fehlermeldung, wenn das Format für negative Zahlen der Eingabezahl nicht dem von der negativeNumberFormat-Eigenschaft festgelegten Muster folgt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative format of the input number is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Fehlermeldung, wenn das Format für negative Zahlen der Eingabezahl nicht dem von der negativeNumberFormat-Eigenschaft festgelegten Muster folgt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:NumberValidator:negativeNumberFormat:get"><apiName>negativeNumberFormat</apiName><shortdesc>
+      Ein numerischer Wert, der ein Überprüfungsmuster für negative Zahlen angibt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>wenn der zugewiesene Wert keine Zahl zwischen 0 und 4 ist.
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Ein numerischer Wert, der ein Überprüfungsmuster für negative Zahlen angibt. Dieses Muster definiert die Position des Negativsymbols oder der Klammern in Relation zum numerischen Teil der zu überprüfenden Zahl.
+     
+      <p>In der folgenden Tabelle sind die möglichen Formate für negative Zahlen aufgeführt. Wenn eine negative Zahl überprüft wird, stellt das Minuszeichen den Wert der <codeph>negativeSymbol</codeph>-Eigenschaft und das Zeichen „n“ den numerischen Wert dar.</p>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>Formattyp für negative Zahlen</entry>
+                <entry>Format</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>- n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>n -</entry>
+            </row></tbody></tgroup></adobetable>
+     
+     
+      Der Standardwert hängt vom <codeph>Gebietsschema</codeph> und <codeph>Betriebssystem</codeph> ab.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#NumberValidator/negativeSymbol"><linktext>negativeSymbol</linktext></link><link href="spark.validators.xml#NumberValidator/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

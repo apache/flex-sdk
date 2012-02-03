@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.styles"><apiName>mx.charts.styles</apiName><apiDetail/><apiClassifier id="mx.charts.styles:HaloDefaults"><apiName>HaloDefaults</apiName><shortdesc>
+  Initialisiert die zugrunde liegenden Standardstile für die Diagrammklassen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Initialisiert die zugrunde liegenden Standardstile für die Diagrammklassen. Alle Diagramme und Elemente initialisieren die eigenen Stilwerte, sind jedoch von allgemeinen, durch die HaloDefaults-Klasse berechneten Werten abhängig.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.charts.styles:HaloDefaults:createSelector"><apiName>createSelector</apiName><shortdesc>
+	  Erstellt ein CSSStyleDeclaration-Objekt oder gibt ein vorhandenes zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Das CSSStyleDeclaration-Objekt, das dem angegebenen Selektornamen entspricht. Wenn kein CSSStyleDeclaration-Objekt diesem Namen entspricht, erstellt diese Methode ein neues Objekt und gibt es zurück.
+	  
+	  </apiDesc><apiType value="mx.styles:CSSStyleDeclaration"/></apiReturn><apiParam><apiItemName>selectorName</apiItemName><apiType value="String"/><apiDesc>Der Name des zurückzugebenden Selektors. Wenn kein vorhandenes CSSStyleDeclaration-Objekt diesem Namen entspricht, erstellt diese Methode ein neues Objekt und gibt es zurück.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>styleManager</apiItemName><apiType value="mx.styles:IStyleManager2"/><apiDesc>Die für das Abrufen und Festlegen von Stildeklarationen zu verwendende styleManager-Instanz.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Erstellt ein CSSStyleDeclaration-Objekt oder gibt ein vorhandenes zurück.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.charts.styles:HaloDefaults:init"><apiName>init</apiName><shortdesc>
+	  Initialisiert die allgemeinen Werte, die von den Standardstilen des Diagramms und den Elementklassen verwendet werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleManager</apiItemName><apiType value="mx.styles:IStyleManager2"/><apiDesc>Die für das Abrufen und Festlegen von Stildeklarationen zu verwendende styleManager-Instanz.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Initialisiert die allgemeinen Werte, die von den Standardstilen des Diagramms und den Elementklassen verwendet werden.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

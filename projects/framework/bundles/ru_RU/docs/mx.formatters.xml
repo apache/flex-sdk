@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.formatters"><apiName>mx.formatters</apiName><apiDetail/><apiClassifier id="mx.formatters:NumberBaseRoundType"><apiName>NumberBaseRoundType</apiName><shortdesc>
+  Класс NumberBaseRoundType определяет значения констант для свойств средства форматирования, которые указывают тип округления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс NumberBaseRoundType определяет значения констант для свойств средства форматирования, которые указывают тип округления. Так, с помощью этих констант можно установить значение свойства <codeph>NumberFormatter.rounding</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberFormatter"><linktext>mx.formatters.NumberFormatter</linktext></link><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link></related-links><apiValue id="mx.formatters:NumberBaseRoundType:DOWN"><apiName>DOWN</apiName><shortdesc>
+	  Округляет значение в меньшую сторону до целого числа, максимально близкого и одновременно меньшего или равного входному числу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Округляет значение в меньшую сторону до целого числа, максимально близкого и одновременно меньшего или равного входному числу.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:NEAREST"><apiName>NEAREST</apiName><shortdesc>
+	  Округляет число в большую или меньшую сторону до ближайшего целого числа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>nearest</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Округляет число в большую или меньшую сторону до ближайшего целого числа.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:NONE"><apiName>NONE</apiName><shortdesc>
+	  Округление не выполняется.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Округление не выполняется.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:UP"><apiName>UP</apiName><shortdesc>
+	  Округляет значение в большую сторону до целого числа, максимально близкого и одновременно большего или равного входному числу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Округляет значение в большую сторону до целого числа, максимально близкого и одновременно большего или равного входному числу.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+  Класс CurrencyFormatter форматирует допустимое число в качестве значения валюты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:CurrencyFormatter" replacement="spark.formatters.CurrencyFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:CurrencyFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:CurrencyFormatter
+    alignSymbol="left|right" 
+    currencySymbol="$"
+    decimalSeparatorFrom="."
+    decimalSeparatorTo="."
+    precision="-1"
+    rounding="none|up|down|nearest"
+    thousandsSeparatorFrom=","
+    thousandsSeparatorTo=","
+    useNegativeSign="true|false"
+    useThousandsSeparator="true|false"
+ />  
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс CurrencyFormatter форматирует допустимое число в качестве значения валюты. Он регулирует округление десятичных чисел и его точность, тысячный разделитель и знак минуса для отрицательных чисел; кроме того, он добавляет символ валюты. Символ валюты размещается слева или справа от значения с помощью свойства <codeph>alignSymbol</codeph>. Символ валюты может включать несколько символов, в том числе пробелы.
+  
+  <p>В случае ошибки возвращается пустая строка, а строка с описанием ошибки сохраняется в свойстве <codeph>error</codeph>. Свойство <codeph>error</codeph> может иметь одно из следующих значений:</p>
+ 
+  <ul>
+    <li><codeph>Invalid value</codeph> означает, что методу <codeph>format()</codeph> было передано недопустимое числовое значение. Значение должно являться допустимым числом в виде номера или строки.</li>
+    <li><codeph>Invalid format</codeph> означает, что один из параметров содержит недопустимое значение.</li>
+  </ul>
+  
+  </apiDesc><example conref="CurrencyFormatterExample.mxml"><swfblock conref="examples/CurrencyFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:CurrencyFormatter:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:CurrencyFormatter:format"><apiName>format</apiName><shortdesc>
+      Форматирует значение value в качестве валюты.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Отформатированная строка. В случае ошибки эта строка будет пустой.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Значение для форматирования.
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Форматирует значение <codeph>value</codeph> в качестве валюты. Если отформатировать значение <codeph>value</codeph> невозможно, возвращает пустую строку и записывает описание ошибки в свойство <codeph>error</codeph>.
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:CurrencyFormatter:alignSymbol:get"><apiName>alignSymbol</apiName><shortdesc>
+      Помещает символ валюты слева или справа от отформатированного значения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Помещает символ валюты слева или справа от отформатированного значения. Допустимыми являются значения <codeph>left</codeph> и <codeph>right</codeph>.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      Символ, который будет использоваться в качестве символа валюты для отформатированного числа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"$"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Символ, который будет использоваться в качестве символа валюты для отформатированного числа. В качестве символа валюты можно использовать один или несколько символов, например «$» или «YEN». Можно также использовать пробелы между символом валюты и отформатированным числом. Если число является отрицательным, символ валюты отображается между этим числом и знаком «минус» или между круглыми скобками.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:decimalSeparatorFrom:get"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      Символ десятичного разделителя, который будет использоваться при анализе входной строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Символ десятичного разделителя, который будет использоваться при анализе входной строки.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:decimalSeparatorTo:get"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      Символ десятичного разделителя, который будет использоваться при выводе отформатированных десятичных чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Символ десятичного разделителя, который будет использоваться при выводе отформатированных десятичных чисел.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:precision:get"><apiName>precision</apiName><shortdesc>
+      Количество десятичных разрядов для включения в выводимую строку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Количество десятичных разрядов для включения в выводимую строку. Корректировку точности можно деактивировать путем установки значения <codeph>-1</codeph>. Если установлено значение <codeph>-1</codeph>, точность не изменяется. Так, при вводе значения 1,453 и установке значения для <codeph>rounding</codeph> на <codeph>NumberBaseRoundType.NONE</codeph>, программа возвращает значение 1,453. Если для свойства <codeph>precision</codeph> установлено значение -1 и указан определенный тип округления, программа возвращает значение, исходя из этого типа округления.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:rounding:get"><apiName>rounding</apiName><shortdesc>
+      Способ округления числа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>NumberBaseRoundType.NONE
+ 	 
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Способ округления числа. В ActionScript возможными значениями являются <codeph>NumberBaseRoundType.NONE</codeph>, <codeph>NumberBaseRoundType.UP</codeph>, <codeph>NumberBaseRoundType.DOWN</codeph> или <codeph>NumberBaseRoundType.NEAREST</codeph>. В MXML возможными значениями являются <codeph>none</codeph>, <codeph>up</codeph>, <codeph>down</codeph> или <codeph>nearest</codeph>.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiValue><apiValue id="mx.formatters:CurrencyFormatter:thousandsSeparatorFrom:get"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      Символ для использования в качестве тысячного разделителя во входной строке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Символ для использования в качестве тысячного разделителя во входной строке.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:thousandsSeparatorTo:get"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      Символ для использования в качестве тысячного разделителя в выводимой строке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Символ для использования в качестве тысячного разделителя в выводимой строке.
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:useNegativeSign:get"><apiName>useNegativeSign</apiName><shortdesc>
+      Если значение true, отрицательное число форматируется путем прибавления перед ним знака минуса «-».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если значение <codeph>true</codeph>, отрицательное число форматируется путем добавления перед ним знака минуса «-». Если значение <codeph>false</codeph>, число форматируется путем заключения в круглые скобки, например (400).
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:useThousandsSeparator:get"><apiName>useThousandsSeparator</apiName><shortdesc>
+      Если значение true, число разбивается на тысячи с помощью символа разделителя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если значение <codeph>true</codeph>, число разбивается на тысячи с помощью символа разделителя.
+	 
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:SwitchSymbolFormatter"><apiName>SwitchSymbolFormatter</apiName><shortdesc>
+  Класс SwitchSymbolFormatter является служебным классом и используется при создании пользовательских средств форматирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><access>private
+  
+  </access></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SwitchSymbolFormatter является служебным классом и используется при создании пользовательских средств форматирования. Этот класс выполняет подстановку путем замены символов заполнителей в одной строке числами из второй строки.
+  
+  <p>Например, для класса SwitchSymbolFormatter была указана следующая информация:</p>
+ 
+  <p>Строка формата: «Номер SocialSecurity: ###-##-####»</p>
+  <p>Входная строка: «123456789»</p>
+  
+  <p>Класс SwitchSymbolFormatter анализирует строку формата и заменяет каждый символ заполнителя (по умолчанию символ номера (#)) цифрой из входной строки в порядке их указания во входной строке. Можно определить другой символ заполнителя путем его передачи конструктору при создании объекта SwitchSymbolFormatter.</p>
+  
+  <p>На основе этих двух строк классом SwitchSymbolFormatter создается следующая выходная строка:</p>
+ 
+  <p>«Номер SocialSecurity: 123-45-6789»</p>
+  
+  <p>Образец может содержать любые символы, если они являются постоянными для всех значений числовой части строки. При этом значение для форматирования должно быть числовым.</p>
+  
+  <p>Количество цифр в исходном значении должно соответствовать количеству цифр, определенному в строке образца. Это условие должно выполняться сценарием, вызывающим объект SwitchSymbolFormatter.</p>
+  
+  </apiDesc><example conref="SwitchSymbolFormatterExample.mxml"><swfblock conref="examples/SwitchSymbolFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#PhoneFormatter"><linktext>mx.formatters.PhoneFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:SwitchSymbolFormatter:SwitchSymbolFormatter"><apiName>SwitchSymbolFormatter</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>numberSymbol</apiItemName><apiType value="String"/><apiData>#</apiData><apiDesc>Символ для использования в качестве символа образца.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:SwitchSymbolFormatter:formatValue"><apiName>formatValue</apiName><shortdesc>
+      Создает новую строку путем форматирования исходной строки с помощью образца формата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированная строка. 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>format</apiItemName><apiType value="String"/><apiDesc>Строка, определяющая запрашиваемый пользователем образец.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>source</apiItemName><apiType value="Object"/><apiDesc>Допустимая числовая последовательность (при необходимости разрешено использование буквенных символов).
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Создает новую строку путем форматирования исходной строки с помощью образца формата.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.formatters:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+  Класс NumberFormatter форматирует допустимое число путем корректировки значений округления и точности десятичных чисел, а также с использованием тысячного разделителя и знака минуса для отрицательных чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:NumberFormatter" replacement="spark.formatters.NumberFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:NumberFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:NumberFormatter
+    decimalSeparatorFrom="."
+    decimalSeparatorTo="."
+    precision="-1"
+    rounding="none|up|down|nearest"
+    thousandsSeparatorFrom=","
+    thousandsSeparatorTo=","
+    useNegativeSign="true|false"
+    useThousandsSeparator="true|false"/>  
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс NumberFormatter форматирует допустимое число путем корректировки значений округления и точности десятичных чисел, а также с использованием тысячного разделителя и знака минуса для отрицательных чисел.
+ 
+  <p>При совместном использовании свойств <codeph>rounding</codeph> и <codeph>precision</codeph> сначала применяется округление, а затем устанавливается длина десятичного числа с использованием указанного значения свойства <codeph>precision</codeph>. Это позволяет выполнить округление и получить конечное десятичное число; например, 303,99 = 304,00.</p>
+ 
+  <p>В случае ошибки возвращается пустая строка, а строка с описанием ошибки сохраняется в свойстве <codeph>error</codeph>. Свойство <codeph>error</codeph> может иметь одно из следующих значений:</p>
+ 
+  <ul>
+    <li><codeph>Invalid value</codeph> означает, что методу <codeph>format()</codeph> было передано недопустимое числовое значение. Значение должно являться допустимым числом в виде номера или строки.</li>
+    <li><codeph>Invalid format</codeph> означает, что один из параметров содержит недопустимое значение.</li>
+  </ul>
+  
+  </apiDesc><example conref="NumberFormatterExample.mxml"><swfblock conref="examples/NumberFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:NumberFormatter:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:NumberFormatter:format"><apiName>format</apiName><shortdesc>
+      Форматирует число в виде строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Отформатированная строка. В случае ошибки эта строка будет пустой.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Значение для форматирования.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Форматирует число в виде строки. Если отформатировать значение <codeph>value</codeph> невозможно, возвращает пустую строку и записывает описание ошибки в свойство <codeph>error</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:NumberFormatter:decimalSeparatorFrom:get"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      Символ десятичного разделителя для использования при анализе входной строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Символ десятичного разделителя для использования при анализе входной строки.
+     
+      <p>При установке значения для этого свойства необходимо убедиться, что оно отличается от значения свойства <codeph>thousandsSeparatorFrom</codeph>. В противном случае при форматировании значения возникает ошибка.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:decimalSeparatorTo:get"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      Символ десятичного разделителя, который будет использоваться при выводе отформатированных десятичных чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Символ десятичного разделителя, который будет использоваться при выводе отформатированных десятичных чисел.
+     
+      <p>При установке значения для этого свойства необходимо проверить, что оно отличается от значения свойства <codeph>thousandsSeparatorTo</codeph>. В противном случае при форматировании значения возникает ошибка.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:precision:get"><apiName>precision</apiName><shortdesc>
+      Количество десятичных разрядов для включения в выводимую строку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Количество десятичных разрядов для включения в выводимую строку. Корректировку точности можно деактивировать путем установки значения <codeph>-1</codeph>. Если установлено значение <codeph>-1</codeph>, точность не изменяется. Например, при вводе значения 1,453 и определении для свойства <codeph>rounding</codeph> значения <codeph>NumberBaseRoundType.NONE</codeph>, возвращается значение 1,453. Если для свойства <codeph>precision</codeph> установлено значение <codeph>-1</codeph>, а также определен тип округления, то возвращается значение на основе соответствующего типа округления.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberFormatter:rounding:get"><apiName>rounding</apiName><shortdesc>
+      Указывает способ округления числа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>NumberBaseRoundType.NONE
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает способ округления числа.
+     
+      <p>В ActionScript для установки значения этого свойства можно использовать следующие константы: <codeph>NumberBaseRoundType.NONE</codeph>, <codeph>NumberBaseRoundType.UP</codeph>, <codeph>NumberBaseRoundType.DOWN</codeph> или <codeph>NumberBaseRoundType.NEAREST</codeph>. Допустимыми MXML-значениями являются значения down, nearest, up и none.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:thousandsSeparatorFrom:get"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      Символ для использования в качестве тысячного разделителя во входной строке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Символ для использования в качестве тысячного разделителя во входной строке.
+     
+      <p>При установке значения данного свойства убедитесь, что оно отличается от значения свойства <codeph>decimalSeparatorFrom</codeph>. В противном случае при форматировании значения возникает ошибка.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:thousandsSeparatorTo:get"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      Символ для использования в качестве тысячного разделителя в выводимой строке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Символ для использования в качестве тысячного разделителя в выводимой строке.
+     
+      <p>При установке значения для этого свойства убедитесь, что оно отличается от значения свойства <codeph>decimalSeparatorTo</codeph>. В противном случае при форматировании значения возникает ошибка.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:useNegativeSign:get"><apiName>useNegativeSign</apiName><shortdesc>
+      Если значение true, отрицательное число форматируется путем прибавления перед ним знака минуса «-».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если значение <codeph>true</codeph>, отрицательное число форматируется путем добавления перед ним знака минуса «-». Если значение <codeph>false</codeph>, число форматируется путем заключения в круглые скобки, например (400).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberFormatter:useThousandsSeparator:get"><apiName>useThousandsSeparator</apiName><shortdesc>
+      Если значение true, число разбивается на тысячи с помощью символа разделителя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если значение <codeph>true</codeph>, число разбивается на тысячи с помощью символа разделителя.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:DateBase"><apiName>DateBase</apiName><shortdesc>
+  Класс DateBase содержит информацию локализованной строки для использования классом mx.formatters.DateFormatter и функцией синтаксического анализа, которая выполняет рендеринг образца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DateBase содержит информацию локализованной строки для использования классом mx.formatters.DateFormatter и функцией синтаксического анализа, которая выполняет визуализацию образца. Этот класс – вспомогательный для класса DateFormatter, и, как правило, не используется независимо.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#DateFormatter"><linktext>mx.formatters.DateFormatter</linktext></link></related-links><apiValue id="mx.formatters:DateBase:dayNamesLong:get"><apiName>dayNamesLong</apiName><shortdesc>
+      Удлиненный формат названий дней недели.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Sunday", "Monday", "Tuesday", "Wednesday",
+      "Thursday", "Friday", "Saturday"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Удлиненный формат названий дней недели.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:dayNamesShort:get"><apiName>dayNamesShort</apiName><shortdesc>
+      Укороченный формат названий дней недели.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Укороченный формат названий дней недели.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:monthNamesLong:get"><apiName>monthNamesLong</apiName><shortdesc>
+      Удлиненный формат названий месяцев.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["January", "February", "March", "April", "May", "June", 
+      "July", "August", "September", "October", "November", "December"].
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Удлиненный формат названий месяцев.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:monthNamesShort:get"><apiName>monthNamesShort</apiName><shortdesc>
+      Укороченный формат названий месяцев.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct","Nov", "Dec"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Укороченный формат названий месяцев.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:timeOfDay:get"><apiName>timeOfDay</apiName><shortdesc>
+      Названия времени суток.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["AM", "PM"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Названия времени суток.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:DateFormatter"><apiName>DateFormatter</apiName><shortdesc>
+  Класс DateFormatter использует строку формата для возврата отформатированной строки даты и времени из входной строки или объекта Date.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:DateFormatter" replacement="spark.formatters.DateTimeFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>You use the <code>&lt;mx:DateFormatter&gt;</code> tag
+  to render date and time Strings from a Date object.</p>
+ 
+  <p>The <code>&lt;mx:DateFormatter&gt;</code> tag
+  inherits all of the tag attributes  of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:DateFormatter
+    formatString="Y|M|D|A|E|H|J|K|L|N|S|Q"
+   /> 
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс DateFormatter использует строку формата для возврата отформатированной строки даты и времени из входной строки или объекта Date. Можно создать большое количество вариантов, в том числе международные форматы.
+ 
+  <p>В случае ошибки возвращается пустая строка, а строка с описанием ошибки сохраняется в свойстве <codeph>error</codeph>. Свойство <codeph>error</codeph> может иметь одно из следующих значений:</p>
+ 
+  <ul>
+    <li><codeph>Invalid value</codeph> означает, что методу <codeph>format()</codeph> передано значение, которое не является объектом Date или распознаваемым представлением строки даты. (Допускается пустой аргумент.)</li>
+    <li> <codeph>Invalid format</codeph> означает, что для свойства <codeph>formatString</codeph> установлено пустое значение («») либо в свойстве <codeph>formatString</codeph> содержится менее одной буквы образца.</li>
+  </ul>
+ 
+  <p>Метод <codeph>parseDateString()</codeph> использует класс mx.formatters.DateBase для определения информации локализованной строки, необходимой для преобразования отформатированной в качестве строки даты в объект Date.</p>
+  
+  </apiDesc><example conref="DateFormatterExample.mxml"><swfblock conref="examples/DateFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#DateBase"><linktext>mx.formatters.DateBase</linktext></link></related-links><apiConstructor id="mx.formatters:DateFormatter:DateFormatter"><apiName>DateFormatter</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:DateFormatter:format"><apiName>format</apiName><shortdesc>
+      Генерирует отформатированную в качестве даты строку из отформатированной в качестве даты строки или из объекта Date.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Отформатированная строка. В случае ошибки эта строка будет пустой. Описание состояния ошибки записывается в свойство <codeph>error</codeph>.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Дата для форматирования. Может быть объектом Date или отформатированной в виде даты строкой, например Thursday, April 22, 2004.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Генерирует отформатированную в качестве даты строку из отформатированной в качестве даты строки или из объекта Date. Формат выходной строки определяется свойством <codeph>formatString</codeph>. Если отформатировать значение <codeph>value</codeph> невозможно, возвращает пустую строку и записывает описание ошибки в свойство <codeph>error</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:DateFormatter:parseDateString"><apiName>parseDateString</apiName><shortdesc>
+      Преобразует отформатированную в качестве строки дату в объект Date.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Объект Date.
+      
+      </apiDesc><apiType value="Date"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Дата, отформатированная в виде строки. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразует отформатированную в качестве строки дату в объект Date. Названия месяцев и дней недели должны соответствовать названиям в классе mx.formatters.DateBase. Значение часа в строке должно находиться между 0 и 23 включительно. Значение минут и секунд должно находиться между 0 и 59 включительно. Этот метод используется в следующем примере для создания объекта Date:
+     
+      <pre>
+      var myDate:Date = DateFormatter.parseDateString("2009-12-02 23:45:30"); </pre>
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#DateBase"><linktext>mx.formatters.DateBase</linktext></link></related-links></apiOperation><apiValue id="mx.formatters:DateFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+      Образец маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"MM/DD/YYYY"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Образец маски.
+      
+      <p>Строка образца составляется из букв в верхнем регистре, например: YYYY/MM.</p>
+     
+      <p>Строка образца DateFormatter может помимо букв образца содержать и другой текст. Для создания допустимой строки образца требуется хотя бы одна буква образца.</p>
+          
+      <p>В таблице представлены допустимые буквы образца:</p>
+     
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      <tgroup cols="2"><thead><row><entry>Буква образца</entry><entry>Описание</entry></row></thead><tbody><row>
+          <entry>Y</entry>
+          <entry> Год. Если в образце используются две буквы, обозначение года сокращается до двух цифр; в противном случае год обозначается четырьмя цифрами. Год может обозначаться с добавлением нуля, как показано в третьем примере: 
+            <ul>
+              <li>YY = 05</li>
+              <li>YYYY = 2005</li>
+              <li>YYYYY = 02005</li>
+            </ul></entry>
+        </row><row>
+          <entry>M</entry>
+          <entry> Месяц года. Формат зависит от критериев, перечисленных ниже.
+            <ul>
+              <li>Если в образце используется одна буква, формат интерпретируется как числовой, состоящий из одной или двух цифр. </li>
+              <li>Если в образце используются две буквы, формат интерпретируется как числовой, состоящий из двух цифр.</li>
+              <li>Если в образце используются три буквы, формат интерпретируется как краткий текстовый формат.</li>
+              <li>Если в образце используются четыре буквы, формат интерпретируется как полный текстовый формат. </li>
+            </ul>
+              Примеры:
+            <ul>
+              <li>M = 7</li>
+              <li>MM= 07</li>
+              <li>MMM=Jul</li>
+              <li>MMMM= July</li>
+            </ul></entry>
+        </row><row>
+          <entry>D</entry>
+          <entry>Число месяца. Несмотря на то что для обозначения числа месяца можно использовать одну букву образца, как правило, используется две буквы.
+     
+            <p>Примеры:</p>
+            <ul>
+              <li>D=4</li>
+              <li>DD=04</li>
+              <li>DD=10</li>
+            </ul></entry>
+        </row><row>
+          <entry>E</entry>
+          <entry>День недели. Формат зависит от критериев, перечисленных ниже.
+            <ul>
+              <li>Если в образце используется одна буква, формат интерпретируется как числовой, состоящий из одной или двух цифр.</li>
+              <li>Если в образце используются две буквы, формат интерпретируется как числовой, состоящий из двух цифр.</li>
+              <li>Если в образце используются три буквы, формат интерпретируется как краткий текстовый формат. </li>
+              <li>Если в образце используются четыре буквы, формат интерпретируется как полный текстовый формат. </li>
+            </ul>
+              Примеры:
+            <ul>
+              <li>E = 1</li>
+              <li>EE = 01</li>
+              <li>EEE = Mon</li>
+              <li>EEEE = Monday</li>
+            </ul></entry>
+        </row><row>
+          <entry>A</entry>
+          <entry> Индикатор am/pm (до и после полудня).</entry>
+        </row><row>
+          <entry>J</entry>
+          <entry>Час суток (0-23).</entry>
+        </row><row>
+          <entry>H</entry>
+          <entry>Час суток (1-24).</entry>
+        </row><row>
+          <entry>K</entry>
+          <entry>Час в формате am/pm (0-11).</entry>
+        </row><row>
+          <entry>L</entry>
+          <entry>Час в формате am/pm (1-12).</entry>
+        </row><row>
+          <entry>N</entry>
+          <entry>Минута часа.
+     
+            <p>Примеры:</p>
+            <ul>
+              <li>N = 3</li>
+              <li>NN = 03</li>
+            </ul></entry>
+        </row><row>
+          <entry>S</entry>
+          <entry>Секунда минуты. 
+     
+            <p>Пример:</p>
+            <ul>
+              <li>SS = 30</li>
+            </ul></entry>
+        </row><row>
+          <entry>Q</entry>
+          <entry>Миллисекунда секунды
+     
+            <p>Пример:</p>
+            <ul>
+              <li>QQ = 78</li>
+              <li>QQQ = 078</li>
+            </ul></entry>
+        </row><row>
+          <entry>Другой текст</entry>
+          <entry>В строку образца можно добавить другой текст для дополнительного форматирования строки. Можно использовать пунктуацию, числа и все буквы в нижнем регистре. Необходимо избегать букв в верхнем регистре, поскольку они могут интерпретироваться как буквы образца.
+     
+            <p>Пример:</p>
+            <ul>
+              <li>EEEE, MMM. D, YYYY at L:NN:QQQ A = Tuesday, Sept. 8, 2005 at 1:26:012 PM</li>
+            </ul></entry>
+        </row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:PhoneFormatter"><apiName>PhoneFormatter</apiName><shortdesc>
+  Класс PhoneFormatter преобразует допустимый номер в формат телефонного номера, включая международные конфигурации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:PhoneFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:PhoneFormatter
+    areaCode="-1"
+    areaCodeFormat="(###)"
+    formatString="(###) ###-####"
+    validPatternChars="+()#-. "
+  />
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс PhoneFormatter преобразует допустимый номер в формат телефонного номера, включая международные конфигурации.
+ 
+  <p>Для семизначного формата, принятого в США, предусмотрена функция быстрого доступа. При установленном значении для свойства <codeph>areaCode</codeph> и использовании семизначной строки формата (###-####), к возвращаемой строке с семизначным значением автоматически добавляется код зоны. Форматом кода зоны по умолчанию является (###). Для изменения этого формата используется свойство <codeph>areaCodeFormat</codeph>. Код зоны можно отформатировать любым способом, но он обязательно должен содержать три числовых заполнителя.</p>
+ 
+  <p>В случае ошибки возвращается пустая строка, а строка с описанием ошибки сохраняется в свойстве <codeph>error</codeph>. Свойство <codeph>error</codeph> может иметь одно из следующих значений:</p>
+ 
+  <ul>
+    <li><codeph>Invalid value</codeph> означает, что методу <codeph>format()</codeph> было передано недопустимое числовое значение. Значение должно являться допустимым числом в виде номера или строки; при использовании в значении количества цифр, отличного от указанного в строке формата, значение считается недопустимым.</li>
+    <li> <codeph>Invalid format</codeph> означает, что какой-либо из символов в свойстве <codeph>formatString</codeph> не является допустимым символом, указанным в свойстве <codeph>validPatternChars</codeph>, либо свойство <codeph>areaCodeFormat</codeph> указано, но не содержит трех числовых заполнителей.</li>
+  </ul>
+  
+  </apiDesc><example conref="PhoneFormatterExample.mxml"><swfblock conref="examples/PhoneFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#SwitchSymbolFormatter"><linktext>mx.formatters.SwitchSymbolFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:PhoneFormatter:PhoneFormatter"><apiName>PhoneFormatter</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:PhoneFormatter:format"><apiName>format</apiName><shortdesc>
+      Форматирует строку в виде телефонного номера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Отформатированная строка. В случае ошибки эта строка будет пустой. Описание состояния ошибки записывается в свойство <codeph>error</codeph>.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Значение для форматирования.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Форматирует строку в виде телефонного номера. Если отформатировать значение невозможно, возвращается пустая строка, и описание ошибки записывается в свойство <codeph>error</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:PhoneFormatter:areaCodeFormat:get"><apiName>areaCodeFormat</apiName><shortdesc>
+      Формат кода зоны по умолчанию, если визуализация свойства areacode выполняется с использованием семизначного формата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"(###) "
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Формат кода зоны по умолчанию, если визуализация свойства <codeph>areacode</codeph> выполняется с использованием семизначного формата.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:areaCode:get"><apiName>areaCode</apiName><shortdesc>
+      Номер кода зоны, добавляемый к семизначному телефонному номеру в формате, принятом в США, для создания десятизначного телефонного номера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1  
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Номер кода зоны, добавляемый к семизначному телефонному номеру в формате, принятом в США, для создания десятизначного телефонного номера. Значение <codeph>-1</codeph> указывает, что код зоны не добавляется.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+      Строка, которая содержит символы маски, представляющие указанный формат телефонного номера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"(###) ###-####"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка, которая содержит символы маски, представляющие указанный формат телефонного номера.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:validPatternChars:get"><apiName>validPatternChars</apiName><shortdesc>
+      Список допустимых символов для использования в свойстве formatString.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"+()#- ."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Список допустимых символов для использования в свойстве <codeph>formatString</codeph>. Это свойство используется при проверке свойства <codeph>formatString</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:IFormatter"><apiName>IFormatter</apiName><shortdesc>
+  Этот интерфейс определяет метод, который должен реализовать объект средства форматирования, чтобы использовать его в качестве свойства средства форматирования для элементов управления пользовательского интерфейса, таких как AdvancedDataGridColumn.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Этот интерфейс определяет метод, который должен реализовать объект средства форматирования, чтобы использовать его в качестве свойства средства форматирования для элементов управления пользовательского интерфейса, таких как <codeph>AdvancedDataGridColumn</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.xml#advancedDataGridClasses/formatter"><linktext>mx.controls.advancedDataGridClasses.formatter</linktext></link></related-links><apiOperation id="mx.formatters:IFormatter:mx.formatters:IFormatter:format"><apiName>format</apiName><shortdesc>
+      Форматирует значение и возвращает String с новым отформатированным значением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированная строка.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Значение для форматирования.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Форматирует значение и возвращает <codeph>String</codeph> с новым отформатированным значением.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.formatters:ZipCodeFormatter"><apiName>ZipCodeFormatter</apiName><shortdesc>
+  Класс ZipCodeFormatter форматирует допустимое число в соответствии с одним из следующих форматов на основе предоставляемого пользователем свойства formatString.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:ZipCodeFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:ZipCodeFormatter
+    formatString="#####|#####-####|### ###"
+  />
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ZipCodeFormatter форматирует допустимое число в соответствии с одним из следующих форматов на основе предоставляемого пользователем свойства <codeph>formatString</codeph>.
+  
+  <ul>
+    <li>#####-####</li>
+    <li>##### ####</li>
+    <li>#####</li>
+    <li>### ### (Канада)</li>
+  </ul>
+  
+  <p>Для шестизначной маски должен вводиться шестизначный номер. При использовании пятизначной или девятизначной маски для форматирования допускается пятизначный или девятизначный номер.</p>
+ 
+  <p>В случае ошибки возвращается пустая строка, а строка с описанием ошибки сохраняется в свойстве <codeph>error</codeph>. Свойство <codeph>error</codeph> может иметь одно из следующих значений:</p>
+ 
+  <ul>
+    <li><codeph>Invalid value</codeph> означает, что методу <codeph>format()</codeph> было передано недопустимое числовое значение. Значение должно являться допустимым числом в виде номера или строки, за исключением почтового индекса для Канады, в котором допускаются буквенно-цифровые значения. При несоответствии количества цифр допустимому количеству из свойства <codeph>formatString</codeph> значение считается недопустимым.</li>
+    <li> <codeph>Invalid format</codeph> означает, что какой-либо символ в свойстве <codeph>formatString</codeph> не соответствует допустимым символам, указанным в свойстве <codeph>validFormatChars</codeph>, либо количество числовых заполнителей не равно 9, 5 или 6.</li>
+  </ul>
+  
+  </apiDesc><example conref="ZipCodeFormatterExample.mxml"><swfblock conref="examples/ZipCodeFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#SwitchSymbolFormatter"><linktext>mx.formatters.SwitchSymbolFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:ZipCodeFormatter:ZipCodeFormatter"><apiName>ZipCodeFormatter</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:ZipCodeFormatter:format"><apiName>format</apiName><shortdesc>
+	  Форматирует строку с использованием указанного формата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Отформатированная строка. В случае ошибки эта строка будет пустой. Описание состояния ошибки записывается в свойство <codeph>error</codeph>.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Значение для форматирования.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Форматирует строку с использованием указанного формата. Если отформатировать значение невозможно, возвращается пустая строка, и описание ошибки записывается в свойство <codeph>error</codeph>.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:ZipCodeFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+	  Образец маски.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"#####"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Образец маски. Возможными значениями являются <codeph>#####-####</codeph>, <codeph>##### ####</codeph>, <codeph>#####</codeph>, <codeph>###-###</codeph> и <codeph>### ###</codeph>.
+	  	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:Formatter"><apiName>Formatter</apiName><shortdesc>
+  Класс Formatter является базовым классом для всех средств форматирования данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The Formatter class defines the following tag attributes,
+  which all of its subclasses inherit:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <b>Properties</b>
+    error=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Formatter является базовым классом для всех средств форматирования данных. Любой подкласс Formatter должен отменять метод <codeph>format()</codeph>.
+ 
+  </apiDesc><example conref="SimpleFormatterExample.mxml"><swfblock conref="examples/SimpleFormatterExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.formatters:Formatter:Formatter"><apiName>Formatter</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:Formatter:format"><apiName>format</apiName><shortdesc>
+	  Форматирует значение и возвращает строку с новым отформатированным значением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированная строка.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Значение для форматирования.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Форматирует значение и возвращает строку с новым отформатированным значением. Все подклассы должны отменять этот метод для реализации средства форматирования.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:Formatter:protected:resourcesChanged"><apiName>resourcesChanged</apiName><shortdesc>
+	  Этот метод вызывается при создании класса Formatter и далее при каждой передаче события change для указания какого-либо изменения локализованных ресурсов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Этот метод вызывается при создании класса Formatter и далее при каждой передаче события <codeph>change</codeph> для указания на какое-либо изменение локализованных ресурсов.
+	 
+	  <p>Это событие передается при установке значения для свойства ResourceManager <codeph>localeChain</codeph> после завершения загрузки модуля ресурсов и при вызове метода ResourceManager <codeph>update()</codeph>.</p>
+	 
+	  <p>Подклассы должны отменять этот метод и после вызова <codeph>super.resourcesChanged()</codeph> выполнять соответствующую операцию в ответ на получение новых значений ресурсов.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:Formatter:error"><apiName>error</apiName><shortdesc>
+	  Описание, сохраняемое средством форматирования при появлении ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  Описание, сохраняемое средством форматирования при появлении ошибки. Для получения возможных значений этого свойства см. описание каждого средства форматирования.
+	  <p>Подклассы должны устанавливать это значение в методе <codeph>format()</codeph>.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:defaultInvalidFormatError:get"><apiName>defaultInvalidFormatError</apiName><shortdesc>
+	  Сообщение об ошибке в случае недопустимой строки формата, указанной для средства форматирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid format"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Сообщение об ошибке в случае недопустимой строки формата, указанной для средства форматирования.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:defaultInvalidValueError:get"><apiName>defaultInvalidValueError</apiName><shortdesc>
+	  Сообщения об ошибках в случае недопустимого значения, указанного для средства форматирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid value"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Сообщения об ошибках в случае недопустимого значения, указанного для средства форматирования.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc conref="mx.core.UIComponent#resourceManager">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="unused"/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.resources:IResourceManager</apiValueClassifier></apiValueDef><apiDesc conref="mx.core.UIComponent#resourceManager">
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:NumberBase"><apiName>NumberBase</apiName><shortdesc>
+  Класс NumberBase является служебным классом, который включает общие возможности форматирования номеров, в том числе округление, точность, форматирование тысяч и номеров со знаком «минус».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс NumberBase является служебным классом, который включает общие возможности форматирования номеров, в том числе округление, точность, форматирование тысяч и номеров со знаком «минус». Этот класс используется при реализации классов средства форматирования.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberFormatter"><linktext>mx.formatters.NumberFormatter</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:NumberBase:NumberBase"><apiName>NumberBase</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>decimalSeparatorFrom</apiItemName><apiType value="String"/><apiData>.</apiData><apiDesc>Десятичный разделитель для использования при анализе входной строки.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>thousandsSeparatorFrom</apiItemName><apiType value="String"/><apiData>,</apiData><apiDesc>Символ для использования в качестве тысячного разделителя во входной строке.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>decimalSeparatorTo</apiItemName><apiType value="String"/><apiData>.</apiData><apiDesc>Символ десятичного разделителя, который будет использоваться при выводе отформатированных десятичных чисел.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>thousandsSeparatorTo</apiItemName><apiType value="String"/><apiData>,</apiData><apiDesc>Символ для использования в качестве тысячного разделителя в выводимой строке.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:NumberBase:expandExponents"><apiName>expandExponents</apiName><shortdesc>
+      Преобразует число с показателем степени в десятичное число.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированный номер.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Строка для обработки в нотации показателя степени.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразует число с показателем степени в десятичное число.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatDecimal"><apiName>formatDecimal</apiName><shortdesc>
+	  Форматирует число путем замены десятичного разделителя по умолчанию («.») на десятичный разделитель, указанный в decimalSeparatorTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Представление входной строки, где разделитель «.» заменяется десятичным символом форматирования. 
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Строковое значение числа (формат, принятый в США, ####. ##).
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Форматирует число путем замены десятичного разделителя по умолчанию («.») на десятичный разделитель, указанный в <codeph>decimalSeparatorTo</codeph>. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatNegative"><apiName>formatNegative</apiName><shortdesc>
+	  Форматирует отрицательный номер с использованием знака «минус» (-) или круглых скобок ().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированный номер.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Значение для форматирования.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>useSign</apiItemName><apiType value="Boolean"/><apiDesc>Если значение <codeph>true</codeph>, используется знак «минус» (-). Если значение <codeph>false</codeph>, используются круглые скобки ().
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Форматирует отрицательный номер с использованием знака «минус» (-) или круглых скобок ().
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatPrecision"><apiName>formatPrecision</apiName><shortdesc>
+	  Форматирует число путем указания его десятичной точности с помощью свойства decimalSeparatorTo в качестве десятичного разделителя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированный номер.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Значение для форматирования.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>precision</apiItemName><apiType value="int"/><apiDesc>Количество десятичных разрядов, которое требуется использовать.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Форматирует число путем указания его десятичной точности с помощью свойства <codeph>decimalSeparatorTo</codeph> в качестве десятичного разделителя.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatRoundingWithPrecision"><apiName>formatRoundingWithPrecision</apiName><shortdesc>
+	  Форматирует номер путем его округления и указания десятичной точности.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированный номер.
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Значение для округления.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>roundType</apiItemName><apiType value="String"/><apiDesc>Возможные типы округления: NumberBaseRoundType.NONE, NumberBaseRoundType.UP, NumberBaseRoundType.DOWN или NumberBaseRoundType.NEAREST.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>precision</apiItemName><apiType value="int"/><apiDesc>Количество десятичных разрядов, которое требуется использовать.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Форматирует номер путем его округления и указания десятичной точности. Возможные типы округления определяются посредством mx.formatters.NumberBaseRoundType.
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiOperation><apiOperation id="mx.formatters:NumberBase:formatRounding"><apiName>formatRounding</apiName><shortdesc>
+	  Форматирует номер путем его округления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированный номер.
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Значение для округления.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>roundType</apiItemName><apiType value="String"/><apiDesc>Возможные типы округления: NumberBaseRoundType.NONE, NumberBaseRoundType.UP, NumberBaseRoundType.DOWN или NumberBaseRoundType.NEAREST.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Форматирует номер путем его округления. Возможные типы округления определяются посредством mx.formatters.NumberBaseRoundType.
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiOperation><apiOperation id="mx.formatters:NumberBase:formatThousands"><apiName>formatThousands</apiName><shortdesc>
+	  Форматирует число с использованием свойства thousandsSeparatorTo в качестве тысячного разделителя и свойства decimalSeparatorTo в качестве десятичного разделителя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Отформатированный номер.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Значение для форматирования.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Форматирует число с использованием свойства <codeph>thousandsSeparatorTo</codeph> в качестве тысячного разделителя и свойства <codeph>decimalSeparatorTo</codeph> в качестве десятичного разделителя.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:parseNumberString"><apiName>parseNumberString</apiName><shortdesc>
+	  Извлекает номер из отформатированной строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение, которое может являться десятичным числом.
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Строка для анализа числового значения.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Извлекает номер из отформатированной строки. Анализирует строку слева направо и возвращает первую найденную числовую последовательность. Игнорирует тысячные разделители. Десятичные числа и цифры, следующие за десятичным разделителем, включаются в возвращаемую последовательность.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:NumberBase:decimalSeparatorFrom"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      Символ десятичного разделителя для использования при анализе входной строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Символ десятичного разделителя для использования при анализе входной строки.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:decimalSeparatorTo"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      Символ десятичного разделителя, который будет использоваться при выводе отформатированных десятичных чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Символ десятичного разделителя, который будет использоваться при выводе отформатированных десятичных чисел.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:isValid"><apiName>isValid</apiName><shortdesc>
+	  Если значение равно true, форматирование завершено успешно, в противном случае – значение равно false.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Если значение равно <codeph>true</codeph>, форматирование завершено успешно, в противном случае – значение равно <codeph>false</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:thousandsSeparatorFrom"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      Символ для использования в качестве тысячного разделителя во входной строке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>","
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Символ для использования в качестве тысячного разделителя во входной строке.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:thousandsSeparatorTo"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      Символ для использования в качестве тысячного разделителя в выводимой строке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>","
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Символ для использования в качестве тысячного разделителя в выводимой строке.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

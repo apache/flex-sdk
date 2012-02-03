@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.managers"><apiName>spark.managers</apiName><apiDetail/><apiClassifier id="spark.managers:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+  Класс PersistenceManager представляет собой основной диспетчер сохраняемости, поддерживаемый локальным общедоступным объектом с именем FxAppCache.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.managers:IPersistenceManager</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс PersistenceManager представляет собой основной диспетчер сохраняемости, поддерживаемый локальным общедоступным объектом с именем FxAppCache. При инициализации он загружает локальный общедоступный объект, соответствующий его идентификатору. Если локальный общедоступный объект не найден, то он будет создан.
+ 
+  <p>При сохранении значений в этом диспетчере важно записать их должным образом в общедоступный объект. Для обеспечения корректной работы сложных объектов, содержащих классы или нестандартные примитивы Flash, требуется реализовать flash.net.IExternalizable. Сохранение несовместимых объектов не приведет к возникновению ошибки времени выполнения, но вызовет неопределенное поведение при считывании данных.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.utils.IExternalizable.xml"><linktext>flash.utils.IExternalizable</linktext></link></related-links><apiConstructor id="spark.managers:PersistenceManager:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.managers:PersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      
+      Удаляет все данные, содержащиеся в диспетчере сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Удаляет все данные, содержащиеся в диспетчере сохраняемости.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      
+      Возвращает значение свойства, сохраняемое в диспетчере сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение свойства, сохраняемое в диспетчере сохраняемости.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>Ключ свойства.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Возвращает значение свойства, сохраняемое в диспетчере сохраняемости. Свойства сохраняются в виде пар ключ-значение.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:load"><apiName>load</apiName><shortdesc>
+      
+      Инициализирует диспетчер сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если операция выполнена успешно.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Инициализирует диспетчер сохраняемости.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:save"><apiName>save</apiName><shortdesc>
+      
+      Перемещает данные, которыми управляет диспетчер сохраняемости, на диск или в другой внешний файл хранилища.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если операция выполнена успешно.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Перемещает данные, которыми управляет диспетчер сохраняемости, на диск или в другой внешний файл хранилища.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      
+      Сохраняет значение в диспетчере сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>Ключ для хранения значения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Сохраняемый объект значения.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Сохраняет значение в диспетчере сохраняемости. Свойства сохраняются в виде пар ключ-значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.managers:IPersistenceManager"><apiName>IPersistenceManager</apiName><shortdesc>
+  IPersistenceManager определяет интерфейс, который должны реализовать все диспетчеры сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IPersistenceManager определяет интерфейс, который должны реализовать все диспетчеры сохраняемости. Эти объекты отвечают за хранение данных между сеансами приложения.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.managers.xml#PersistenceManager"><linktext>spark.managers.PersistenceManager</linktext></link></related-links><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      Удаляет все данные, содержащиеся в диспетчере сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Удаляет все данные, содержащиеся в диспетчере сохраняемости.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      Возвращает значение свойства, сохраняемое в диспетчере сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение свойства, сохраняемое в диспетчере сохраняемости.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>Ключ свойства.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение свойства, сохраняемое в диспетчере сохраняемости. Свойства сохраняются в виде пар ключ-значение.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:load"><apiName>load</apiName><shortdesc>
+      Инициализирует диспетчер сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если операция выполнена успешно.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Инициализирует диспетчер сохраняемости.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:save"><apiName>save</apiName><shortdesc>
+      Перемещает данные, которыми управляет диспетчер сохраняемости, на диск или в другой внешний файл хранилища.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если операция выполнена успешно.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Перемещает данные, которыми управляет диспетчер сохраняемости, на диск или в другой внешний файл хранилища.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      Сохраняет значение в диспетчере сохраняемости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>Ключ для хранения значения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Сохраняемый объект значения.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Сохраняет значение в диспетчере сохраняемости. Свойства сохраняются в виде пар ключ-значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

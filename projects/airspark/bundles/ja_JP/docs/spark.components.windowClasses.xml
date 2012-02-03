@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.windowClasses"><apiName>spark.components.windowClasses</apiName><apiDetail/><apiClassifier id="spark.components.windowClasses:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+  TitleBar クラスは、WindowedApplication または Window コンテナのデフォルトのタイトルバーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusBlendMode"/><skinStates><SkinState name="disabledAndMaximized" owner="spark.components.windowClasses:TitleBar" playerVersion="Flash10">
+<description>
+  タイトルバーは無効になり、アプリケーションは最大化されます。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndMaximized" owner="spark.components.windowClasses:TitleBar" playerVersion="Flash10">
+<description>
+  タイトルバーは有効になり、アプリケーションは最大化されます。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><skinParts><SkinPart name="closeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="true" var_type="spark.components:Button">
+<description>
+      閉じるボタンに対応する Button コントロールを定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      The skin part that defines the Button control that corresponds to the close button.</shortdesc></SkinPart><SkinPart name="maximizeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components:Button">
+<description>
+      最大化ボタンに対応する Button コントロールを定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      The skin part that defines the Button control that corresponds to the maximize button.</shortdesc></SkinPart><SkinPart name="minimizeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components:Button">
+<description>
+      最小化ボタンに対応する Button コントロールを定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      The skin part that defines the Button control that corresponds to the minimize button.</shortdesc></SkinPart><SkinPart name="titleIconImage" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.primitives:BitmapImage">
+<description>
+      TitleBar 内のタイトルアイコンです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      The title icon in the TitleBar.</shortdesc></SkinPart><SkinPart name="titleText" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      アプリケーションのタイトルテキストを表示する UITextField コントロールを定義するスキンパーツです。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      The skin part that defines the UITextField control that displays the application title text.</shortdesc></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.supportClasses:SkinnableComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TitleBar クラスは、WindowedApplication または Window コンテナのデフォルトのタイトルバーを定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Window.xml"><linktext>mx.core.Window</linktext></link><link href="" invalidHref="mx.core.WindowedApplication.xml"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="spark.components.windowClasses:TitleBar:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.windowClasses:TitleBar:protected:doubleClickHandler"><apiName>doubleClickHandler</apiName><shortdesc>
+      プラットフォームに適切な方法で doubleClick イベントを処理するメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      プラットフォームに適した方法で <codeph>doubleClick</codeph> イベントを処理するメソッドです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.windowClasses:TitleBar:protected:getCurrentSkinState"><apiName>getCurrentSkinState</apiName><shortdesc>
+      スキンに適用される状態の名前を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>スキンに適用する状態の名前を指定する文字列です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      スキンに適用される状態の名前を返します。例えば、Button コンポーネントは、状態を指定するために「up」、「down」、「over」、または「disabled」というストリングを返すことができます。
+     
+      <p>SkinnableComponent のサブクラスは、このメソッドをオーバーライドして値を返す必要があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.windowClasses:TitleBar:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      タイトルバーに表示されるアイコンです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      タイトルバーに表示されるアイコンです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.windowClasses:TitleBar:title:get"><apiName>title</apiName><shortdesc>
+      ウィンドウのタイトルバーと、ドッキングバーまたはタスクバーに表示されるタイトルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ウィンドウのタイトルバーと、ドッキングバーまたはタスクバーに表示されるタイトルです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

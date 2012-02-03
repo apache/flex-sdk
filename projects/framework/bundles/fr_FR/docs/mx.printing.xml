@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.printing"><apiName>mx.printing</apiName><apiDetail/><apiClassifier id="mx.printing:FlexPrintJobScaleType"><apiName>FlexPrintJobScaleType</apiName><shortdesc>
+  Valeurs de la propriété scaleType du paramètre de la méthode FlexPrintJob.addObject().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Valeurs de la propriété <codeph>scaleType</codeph> du paramètre de la méthode FlexPrintJob.addObject().
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.printing.xml#FlexPrintJob/addObject()"><linktext>FlexPrintJob.addObject()</linktext></link></related-links><apiValue id="mx.printing:FlexPrintJobScaleType:FILL_PAGE"><apiName>FILL_PAGE</apiName><shortdesc>
+	  Effectue une mise à l’échelle de l’objet afin de remplir au moins une page complètement, c’est-à-dire, sélectionne le plus élevé des types d’échelle MATCH_WIDTH ou MATCH_HEIGHT. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fillPage</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Effectue une mise à l’échelle de l’objet afin de remplir au moins une page complètement, c’est-à-dire, sélectionne le plus élevé des types d’échelle MATCH_WIDTH ou MATCH_HEIGHT. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_HEIGHT"><apiName>MATCH_HEIGHT</apiName><shortdesc>
+	  Effectue une mise à l’échelle de l’objet afin de remplir la hauteur de page disponible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchHeight</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Effectue une mise à l’échelle de l’objet afin de remplir la hauteur de page disponible. Si la largeur d’objet obtenue dépasse la largeur de la page, la sortie s’étend sur plusieurs pages. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_WIDTH"><apiName>MATCH_WIDTH</apiName><shortdesc>
+	  Effectue une mise à l’échelle de l’objet afin de remplir la largeur de page disponible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchWidth</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Effectue une mise à l’échelle de l’objet afin de remplir la largeur de page disponible. Si la hauteur d’objet obtenue excède la hauteur de la page, la sortie s’étend sur plusieurs pages. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:NONE"><apiName>NONE</apiName><shortdesc>
+	  N’effectue pas la mise à l’échelle de la sortie. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  N’effectue pas la mise à l’échelle de la sortie. La page imprimée possède des dimensions identiques à celles de l’objet à l’écran. Si la hauteur, la largeur ou les deux dimensions de l’objet dépassent la largeur ou la hauteur de la page, la sortie s’étend sur plusieurs pages. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:SHOW_ALL"><apiName>SHOW_ALL</apiName><shortdesc>
+	  Effectue la mise à l’échelle de l’objet pour qu’il tienne sur une seule page, en remplissant une seule dimension, c’est-à-dire, sélectionne le plus petit des types d’échelle MATCH_WIDTH ou MATCH_HEIGHT. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>showAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Effectue la mise à l’échelle de l’objet pour qu’il tienne sur une seule page, en remplissant une seule dimension, c’est-à-dire, sélectionne le plus petit des types d’échelle MATCH_WIDTH ou MATCH_HEIGHT. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.printing:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+  La classe FlexPrintJob est une enveloppe pour la classe flash.printing.PrintJob. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe FlexPrintJob est une enveloppe pour la classe flash.printing.PrintJob. Il prend en charge automatiquement le découpage et la pagination de la sortie sur plusieurs pages, ainsi que la mise à l’échelle du contenu de la grille en fonction du format de page de l’imprimante. 
+ 
+  </apiDesc><example conref="FormPrintHeader.mxml"/><example conref="FormPrintFooter.mxml"/><example conref="FormPrintView.mxml"/><example conref="PrintDataGridExample.mxml"><swfblock conref="examples/PrintDataGridExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.printing:FlexPrintJob:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.printing:FlexPrintJob:addObject"><apiName>addObject</apiName><shortdesc>
+      Ajoute un objet UIComponent à la liste des objets à imprimer. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>Objet à imprimer.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleType</apiItemName><apiType value="String"/><apiData>matchWidth</apiData><apiDesc>Technique de mise à l’échelle à utiliser pour contrôler la manière dont l’objet s’ajuste sur une ou plusieurs pages imprimées. Doit être l’une des valeurs constantes définies dans la classe FlexPrintJobScaleType. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un objet UIComponent à la liste des objets à imprimer. Appelez cette méthode une fois la méthode <codeph>start()</codeph> renvoyée. Chaque appel à cette méthode démarre une nouvelle page. Vous devez donc formater les objets en blocs de la taille d’une page. Vous pouvez utiliser la classe PrintDataGrid pour étendre une grille de données sur plusieurs pages. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.printing.PrintDataGrid.xml"><linktext>PrintDataGrid</linktext></link><link href="mx.printing.xml#FlexPrintJobScaleType"><linktext>FlexPrintJobScaleType</linktext></link></related-links></apiOperation><apiOperation id="mx.printing:FlexPrintJob:send"><apiName>send</apiName><shortdesc>
+      Envoie les objets ajoutés à l’imprimante pour démarrer l’impression. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Envoie les objets ajoutés à l’imprimante pour démarrer l’impression. Appelez cette méthode après avoir utilisé la méthode <codeph>addObject()</codeph>pour ajouter des pages à imprimer. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.printing:FlexPrintJob:start"><apiName>start</apiName><shortdesc>
+      Initialise l’objet PrintJob. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si l’utilisateur clique sur OK lorsque la boîte de dialogue d’impression s’affiche ou <codeph>false</codeph> s’il clique sur Annuler ou si une erreur se produit.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Initialise l’objet PrintJob. Affiche la boîte de dialogue d’impression du système d’exploitation. Flex définit les propriétés <codeph>pageWidth</codeph> et <codeph>pageHeight</codeph> une fois cet appel renvoyé.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.printing:FlexPrintJob:pageHeight:get"><apiName>pageHeight</apiName><shortdesc>
+      Hauteur de la zone imprimable sur la page d’impression ; n’inclut aucune marge définie par l’utilisateur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Hauteur de la zone imprimable sur la page d’impression ; n’inclut aucune marge définie par l’utilisateur. Elle est définie après le renvoi de la méthode start(). 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:pageWidth:get"><apiName>pageWidth</apiName><shortdesc>
+      Largeur de la zone imprimable sur la page d’impression ; n’inclut aucune marge définie par l’utilisateur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Largeur de la zone imprimable sur la page d’impression ; n’inclut aucune marge définie par l’utilisateur. Cette propriété est définie une fois la méthode <codeph>start()</codeph> renvoyée. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:printAsBitmap:get"><apiName>printAsBitmap</apiName><shortdesc>
+      Indique si vous souhaitez imprimer le contenu du travail sous forme d’image bitmap (true) ou au format vectoriel (false). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si vous souhaitez imprimer le contenu du travail sous forme d’image bitmap (<codeph>true</codeph>) ou au format vectoriel (<codeph>false</codeph>). L’impression sous forme d’image bitmap prend en charge une sortie qui comprend une image bitmap avec transparence alpha ou effets de couleur. Si le contenu ne comporte pas d’images bitmap, omettez ce paramètre pour imprimer le contenu au format vectoriel qui est de qualité supérieure en définissant la propriété <codeph>printAsBitmap</codeph> sur <codeph>false</codeph>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

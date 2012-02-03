@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.filters"><apiName>mx.filters</apiName><apiDetail/><apiClassifier id="mx.filters:BaseDimensionFilter"><apiName>BaseDimensionFilter</apiName><shortdesc>
+  一些 Spark 过滤器的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  一些 Spark 过滤器的基类。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.filters:BaseDimensionFilter:BaseDimensionFilter"><apiName>BaseDimensionFilter</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.filters:BaseDimensionFilter:blurX:get"><apiName>blurX</apiName><shortdesc>
+      水平模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      水平模糊量。有效值为 0 到 255。如果模糊量小于或等于 1，则表明原始图像是按原样复制的。默认值为 4。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈现速度比其他值更快。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:blurY:get"><apiName>blurY</apiName><shortdesc>
+      垂直模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      垂直模糊量。有效值为 0 到 255。如果模糊量小于或等于 1，则表明原始图像是按原样复制的。默认值为 4。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈现速度比其他值更快。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:knockout:get"><apiName>knockout</apiName><shortdesc>
+      指定对象是否具有挖空效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定对象是否具有挖空效果。应用挖空效果将使对象的填充变为透明，并显示文档的背景颜色。值为 true 将指定应用挖空效果；默认值为 false，即不应用挖空效果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:quality:get"><apiName>quality</apiName><shortdesc>
+      应用滤镜的次数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      应用滤镜的次数。默认值为 BitmapFilterQuality.LOW，与应用一次滤镜等效。值 BitmapFilterQuality.MEDIUM 两次应用滤镜；值 BitmapFilterQuality.HIGH 三次应用滤镜。滤镜的值越小，呈示速度越快。对于大多数应用，quality 的值为低、中或高就足够了。您可以使用其他数值（最高为 15）来达到不同的效果，但是值越高，呈示速度越慢。除了增加 quality 的值外，仅增加 blurX 和 blurY 属性的值通常也可以获得类似的效果，而且呈示速度更快。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:strength:get"><apiName>strength</apiName><shortdesc>
+      印记或跨页的强度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      印记或跨页的强度。该值越高，压印的颜色越深，而且发光与背景之间的对比度也越强。有效值为 0 到 255。值为 0 表示未应用滤镜。 默认值为 1。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.filters:IBitmapFilter"><apiName>IBitmapFilter</apiName><shortdesc>
+     一些 Spark 过滤器使用的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+     一些 Spark 过滤器使用的接口。
+    
+     </apiDesc></apiClassifierDetail><apiOperation id="mx.filters:IBitmapFilter:mx.filters:IBitmapFilter:clone"><apiName>clone</apiName><shortdesc>
+         返回过滤器的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与原始 BitmapFilter 实例具有完全相同的属性的新 BitmapFilter 实例。
+        
+         </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+         返回过滤器的副本。
+        
+         </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.filters:BaseFilter"><apiName>BaseFilter</apiName><shortdesc>
+     一些 Spark 过滤器的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+     一些 Spark 过滤器的基类。
+    
+     </apiDesc></apiClassifierDetail><apiConstructor id="mx.filters:BaseFilter:BaseFilter"><apiName>BaseFilter</apiName><shortdesc>
+         构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiData>null</apiData><apiDesc>过滤器的应用目标。
+        
+         </apiDesc></apiParam></apiConstructorDef><apiDesc>
+         构造函数。
+        
+         </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.filters:BaseFilter:notifyFilterChanged"><apiName>notifyFilterChanged</apiName><shortdesc>
+         过滤器更改后传播更改事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+         过滤器更改后传播更改事件。
+        
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.filters:BaseFilter:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+         字符串 "change"。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         字符串 <codeph>"change"</codeph>。过滤器更改后由事件所使用。
+        
+         </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

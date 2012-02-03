@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.soap.mxml"><apiName>mx.rpc.soap.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.soap.mxml:Operation"><apiName>Operation</apiName><shortdesc>
+Opération utilisée spécialement par les classes WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseClassifier>mx.rpc.soap:Operation</apiBaseClassifier></apiClassifierDef><apiDesc>
+Opération utilisée spécialement par les classes WebService. Une opération est une méthode individuelle sur un service. Une opération peut être appelée en invoquant la fonction du même nom sur le service ou en accédant à l’opération en tant que propriété sur le service et en appelant la méthode <codeph>send()</codeph>.
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap.mxml:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+      Crée une nouvelle opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>webService</apiItemName><apiOperationClassifier>mx.rpc.soap:WebService</apiOperationClassifier><apiData>null</apiData><apiDesc>Service Web à l’issue duquel cette opération est invoquée.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom de cette opération.
+       
+       </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Crée une nouvelle opération. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap.mxml:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+     
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Classe AsyncToken associée à l’appel qui est annulé ou null si aucun appel n’a été annulé.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID messageId de l’invocation à annuler. Facultatif. Si omis, la dernière invocation de service est annulée.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+     
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié. Même s’il se peut que l’opération de réseau se poursuive, aucun événement de résultat ou d’erreur n’est distribué.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap.mxml:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     Utilisation simultanée pour cette opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Utilisation simultanée pour cette opération. Si ceci n’a pas été défini explicitement, le paramètre de la classe WebService est utilisé.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     Indique si cette opération doit afficher le curseur occupé pendant qu’elle s’exécute.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Indique si cette opération doit afficher le curseur occupé pendant qu’elle s’exécute. Si ceci n’a pas été défini explicitement, le paramètre de la classe WebService est utilisé.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap.mxml:WebService"><apiName>WebService</apiName><shortdesc>
+ La balise &amp;lt;mx:WebService&amp;gt; permet d’accéder aux opérations des services Web SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>
+ The &lt;mx:WebService&gt; tag accepts the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:WebService
+   <b>Properties</b>
+   concurrency="multiple|single|last"
+   destination="<i>No default.</i>"
+   id="<i>No default.</i>"
+   serviceName="<i>No default.</i>"
+   showBusyCursor="false|true"
+   makeObjectsBindable="false|true"
+   useProxy="false|true"
+   wsdl="<i>No default.</i>"
+ 
+   <b>Events</b>
+   fault="<i>No default.</i>"
+   result="<i>No default.</i>"
+ /&gt;
+ </pre>
+ </p>
+ <p>
+ An &lt;mx:WebService&gt; tag can have multiple &lt;mx:operation&gt; tags, which have the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:operation
+   <b>Properties</b>
+   concurrency="multiple|single|last"
+   name=<i>No default, required.</i>
+   resultFormat="object|xml|e4x"
+   makeObjectsBindable="false|true"
+ 
+   
+   <b>Events</b>
+   fault=<i>No default.</i>
+   result=<i>No default.</i>
+ /&gt;
+ </pre>
+ 
+ An &lt;mx:Operation&gt; tag contains an &lt;mx:request&gt; tag. 
+ To specify an XML structure in an &lt;mx:request&gt; tag, you must set the value of the tag's
+ <code>format</code> attribute to <code>"xml"</code>. Otherwise, the body is converted into Objects.
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.soap:WebService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La balise &lt;mx:WebService> permet d’accéder aux opérations des services Web SOAP.
+ </apiDesc><example conref="WebServiceExample.mxml"/></apiClassifierDetail><apiConstructor id="mx.rpc.soap.mxml:WebService:WebService"><apiName>WebService</apiName><shortdesc>
+     Crée un nouveau composant WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>La destination de la classe WebService doit correspondre à un nom de destination dans le fichier services-config.xml. Si la destination n’est pas spécifiée, le composant WebService utilise la destination DefaultHTTP.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée un nouveau composant WebService.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap.mxml:WebService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     Renvoie une opération du nom donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Opération qui s’exécute pour ce nom.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Nom affichable de l’opération.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Renvoie une opération du nom donné. Si l’opération n’a pas été créée auparavant, une nouvelle opération <codeph>mx.rpc.soap.mxml.Operation</codeph> est créée lors de cet appel. Pour accéder aux opérations, il suffit en général simplement de les nommer après la variable de service (<codeph>myService.someOperation</codeph>), mais si le nom de votre opération correspond à une méthode définie sur le service (par exemple, <codeph>setCredentials</codeph>), vous pouvez utiliser cette méthode pour obtenir l’opération à la place.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap.mxml:WebService:initialized"><apiName>initialized</apiName><shortdesc>
+     Appelé automatiquement par le compilateur MXML lorsque la classe WebService est configurée à l’aide d’une balise.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Document MXML dans lequel cette classe WebService réside.
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>ID de cette classe WebService au sein de ce document.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Appelé automatiquement par le compilateur MXML lorsque la classe WebService est configurée à l’aide d’une balise. Si vous créez la classe WebService via ActionScript, vous pouvez appeler cette méthode vous-même car elle est utile pour valider des arguments.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap.mxml:WebService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     Valeur indiquant comment traiter plusieurs appels au même service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Valeur indiquant comment traiter plusieurs appels au même service. La valeur par défaut est multiple. Les valeurs suivantes sont autorisées :
+     <ul>
+     <li>multiple - Les demandes existantes ne sont pas annulées et il incombe au développeur de vérifier la cohérence des données renvoyées en gérant avec soin le flux d’événements. Il s’agit de la valeur par défaut.</li>
+     <li>single - N’effectuer qu’une demande à la fois est autorisé sur la méthode ; les demandes supplémentaires effectuées alors qu’une demande est en attente génèrent immédiatement une erreur sur le client et ne sont pas envoyées au serveur.</li>
+     <li>last - Si une demande est effectuée, le client ignore un résultat ou une erreur pour une demande en attente actuelle. Seul le résultat ou seule l’erreur pour la demande la plus récente sera distribuée au client. Cela peut simplifier la gestion des événements dans l’application client, mais prenez soin de n’utiliser ce mode que si les résultats ou erreurs des demandes peuvent être ignorés sans risque.</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:serviceName:get"><apiName>serviceName</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDeprecated replacement="destination"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    Si true, un curseur occupé s’affiche lors de l’exécution d’un service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    Si <codeph>true</codeph>, un curseur occupé s’affiche lors de l’exécution d’un service. La valeur par défaut est <codeph>false</codeph>.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:protocol:set"><apiName>protocol</apiName><shortdesc>
+     Déconseillé. Utilisez à la place la destination appropriée ou, si vous utilisez une URL, utilisez DefaultHTTP ou DefaultHTTPS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="String"/><apiDeprecated replacement="channelSet"/></apiValueDef><apiDesc>
+     Déconseillé. Utilisez à la place la destination appropriée ou, si vous utilisez une URL, utilisez<codeph>DefaultHTTP</codeph> ou <codeph>DefaultHTTPS</codeph>. Le comportement déconseillé met simplement à jour la destination si la valeur par défaut est utilisée.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

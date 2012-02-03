@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.printing"><apiName>mx.printing</apiName><apiDetail/><apiClassifier id="mx.printing:FlexPrintJobScaleType"><apiName>FlexPrintJobScaleType</apiName><shortdesc>
+  Werte für die scaleType-Eigenschaft der FlexPrintJob.addObject()-Methodenparameter.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Werte für die <codeph>scaleType</codeph>-Eigenschaft der FlexPrintJob.addObject()-Methodenparameter.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.printing.xml#FlexPrintJob/addObject()"><linktext>FlexPrintJob.addObject()</linktext></link></related-links><apiValue id="mx.printing:FlexPrintJobScaleType:FILL_PAGE"><apiName>FILL_PAGE</apiName><shortdesc>
+	  Skaliert das Objekt so, dass es mindestens eine Seite vollständig ausfüllt. Das bedeutet, dass entweder MATCH_WIDTH oder MATCH_HEIGHT ausgewählt wird, je nachdem, welcher Skalierungstyp größer ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fillPage</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Skaliert das Objekt so, dass es mindestens eine Seite vollständig ausfüllt. Das bedeutet, dass entweder MATCH_WIDTH oder MATCH_HEIGHT ausgewählt wird, je nachdem, welcher Skalierungstyp größer ist.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_HEIGHT"><apiName>MATCH_HEIGHT</apiName><shortdesc>
+	  Skaliert das Objekt so, dass es die verfügbare Seitenhöhe ausfüllt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchHeight</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Skaliert das Objekt so, dass es die verfügbare Seitenhöhe ausfüllt. Wenn das Ergebnisobjekt breiter als die Seite ist, wird es auf mehreren Seiten ausgegeben.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_WIDTH"><apiName>MATCH_WIDTH</apiName><shortdesc>
+	  Skaliert das Objekt so, dass es die verfügbare Seitenbreite ausfüllt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchWidth</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Skaliert das Objekt so, dass es die verfügbare Seitenbreite ausfüllt. Wenn das Ergebnisobjekt höher als die Seite ist, wird es auf mehreren Seiten ausgegeben.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:NONE"><apiName>NONE</apiName><shortdesc>
+	  Die Ausgabe wird nicht skaliert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Die Ausgabe wird nicht skaliert. Das Objekt auf der gedruckten Seite weist die gleichen Abmessungen wie das Objekt auf dem Bildschirm auf. Wenn das Objekt höher und/oder breiter als die Seite ist, wird es auf mehreren Seiten ausgegeben.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:SHOW_ALL"><apiName>SHOW_ALL</apiName><shortdesc>
+	  Skaliert das Objekt so, dass es auf eine Seite passt und entweder die gesamte Breite oder Höhe der Seite ausfüllt. Das bedeutet, dass entweder MATCH_WIDTH oder MATCH_HEIGHT ausgewählt wird, je nachdem, welcher Skalierungstyp kleiner ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>showAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Skaliert das Objekt so, dass es auf eine Seite passt und entweder die gesamte Breite oder Höhe der Seite ausfüllt. Das bedeutet, dass entweder MATCH_WIDTH oder MATCH_HEIGHT ausgewählt wird, je nachdem, welcher Skalierungstyp kleiner ist.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.printing:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+  Die FlexPrintJob-Klasse ist ein Wrapper für die flash.printing.PrintJob-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die FlexPrintJob-Klasse ist ein Wrapper für die flash.printing.PrintJob-Klasse. Sie unterstützt das automatische Zuschneiden und Umbrechen der Ausgabe auf mehreren Seiten sowie die Skalierung von Rasterinhalten zur Anpassung an die Seitengröße des Druckers.
+ 
+  </apiDesc><example conref="FormPrintHeader.mxml"/><example conref="FormPrintFooter.mxml"/><example conref="FormPrintView.mxml"/><example conref="PrintDataGridExample.mxml"><swfblock conref="examples/PrintDataGridExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.printing:FlexPrintJob:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.printing:FlexPrintJob:addObject"><apiName>addObject</apiName><shortdesc>
+      Fügt ein UIComponent-Objekt der Liste zu druckender Objekte hinzu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>Das zu druckende Objekt.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleType</apiItemName><apiType value="String"/><apiData>matchWidth</apiData><apiDesc>Die Skalierungstechnik, die den Ausdruck des Objekts auf einer oder mehreren Seiten steuert. Muss einem der in der FlexPrintJobScaleType-Klasse definierten Konstantenwerte entsprechen.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Fügt ein UIComponent-Objekt der Liste zu druckender Objekte hinzu. Rufen Sie diese Methode nach der Rückgabe der <codeph>start()</codeph>-Methode auf. Jeder Aufruf dieser Methode führt zu einem Seitenumbruch. Sie sollten also die Objekte in Blöcke unterteilen, die der Seitengröße entsprechen. Die PrintDataGrid-Klasse können Sie für mehrseitige Datenraster verwenden.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.printing.PrintDataGrid.xml"><linktext>PrintDataGrid</linktext></link><link href="mx.printing.xml#FlexPrintJobScaleType"><linktext>FlexPrintJobScaleType</linktext></link></related-links></apiOperation><apiOperation id="mx.printing:FlexPrintJob:send"><apiName>send</apiName><shortdesc>
+      Sendet die hinzugefügten Objekte zum Ausdrucken an den Drucker.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Sendet die hinzugefügten Objekte zum Ausdrucken an den Drucker. Rufen Sie diese Methode auf, nachdem Sie die Druckseiten mit der <codeph>addObject()</codeph>-Methode hinzugefügt haben.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.printing:FlexPrintJob:start"><apiName>start</apiName><shortdesc>
+      Initialisiert das PrintJob-Objekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn der Benutzer im Druckdialogfeld auf „OK“ klickt, und <codeph>false</codeph>, wenn der Benutzer auf „Abbrechen“ klickt oder ein Fehler auftritt.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Initialisiert das PrintJob-Objekt. Zeigt dem Benutzer das Druckdialogfeld des Betriebssystems an. Flex stellt die <codeph>pageWidth</codeph>- und <codeph>pageHeight</codeph>-Eigenschaften nach Rückgabe dieses Aufrufs ein.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.printing:FlexPrintJob:pageHeight:get"><apiName>pageHeight</apiName><shortdesc>
+      Höhe des druckbaren Seitenbereichs; benutzerdefinierte Ränder sind nicht enthalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Höhe des druckbaren Seitenbereichs; benutzerdefinierte Ränder sind nicht enthalten. Dies wird nach der Rückgabe der start()-Methode eingestellt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:pageWidth:get"><apiName>pageWidth</apiName><shortdesc>
+      Breite des druckbaren Seitenbereichs; benutzerdefinierte Ränder sind nicht enthalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Breite des druckbaren Seitenbereichs; benutzerdefinierte Ränder sind nicht enthalten. Diese Eigenschaft wird nach Rückgabe der <codeph>start()</codeph>-Methode eingestellt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:printAsBitmap:get"><apiName>printAsBitmap</apiName><shortdesc>
+      Gibt an, ob der Auftragsinhalt als Bitmap (true) oder im Vektorformat (false) gedruckt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt an, ob der Inhalt des Druckauftrags als Bitmap (<codeph>true</codeph>) oder im Vektorformat (<codeph>false</codeph>) gedruckt wird. Das Drucken als Bitmap unterstützt die Ausgabe von Bitmapbildern mit Alphatransparenz oder Farbeffekten. Sind keine Bitmapbilder mit Alphatransparenz oder Farbeffekten vorhanden, können Sie durch Drucken im Vektorformat eine höhere Qualität erzielen, indem Sie die <codeph>printAsBitmap</codeph>-Eigenschaft auf <codeph>false</codeph> setzen.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

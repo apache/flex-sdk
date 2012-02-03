@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.listClasses"><apiName>mx.controls.listClasses</apiName><apiDetail/><apiClassifier id="mx.controls.listClasses:IDropInListItemRenderer"><apiName>IDropInListItemRenderer</apiName><shortdesc>
+  「ドロップイン」アイテムレンダラーのインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  「ドロップイン」アイテムレンダラーのインターフェイスです。 ほとんどの IListItemRenderer は「ドロップイン」ではありません。 これらのアイテムレンダラーは、データプロバイダーアイテムの特定のフィールドを使用することを想定しています。 例えば、これらのレンダラーは、アイテムの "lastName" プロパティを Label の <codeph>text</codeph> プロパティに割り当てることがあります。 この場合、データバインディングを使用すると容易に記述できますが、DataGrid の別の列や異なるフィールドを持つ別の List でレンダラーを再使用できなくなります。 IDropInListItemRenderer を使用すると、レンダラーを再使用できます。 リストクラスからレンダラーに渡される情報が増加するので、実行時に使用するフィールドをレンダラーが判断できるようになります。
+ 
+  <p>ドロップインアイテムレンダラーまたはドロップインアイテムエディターとして使用するコンポーネントは、IDropInListItemRenderer インターフェイスを実装する必要があります。 多くの Flex コンポーネントはこのインターフェイスを実装しているので、あらゆる列やリストでドロップインアイテムレンダラーおよびドロップインアイテムエディターとして使用できます。</p>
+ 
+  <p>ドロップインアイテムレンダラーまたはドロップインアイテムエディターは、<codeph>data</codeph> プロパティを定義するために IDataRenderer インターフェイスも実装する必要があります。</p> 
+ 
+  <p>ドロップインアイテムレンダラーまたはドロップインアイテムエディターとして使用すると、このコンポーネントの <codeph>listData</codeph> プロパティが、リストコントロールからの該当するデータで初期化されます。 その後、コンポーネントでこの <codeph>listData</codeph> プロパティを使用して、ドロップインアイテムレンダラーまたはドロップインアイテムエディターの <codeph>data</codeph> プロパティを初期化できます。</p>
+ 
+  <p><codeph>listData</codeph> プロパティのタイプは BaseListData です。BaseListData クラスには、DataGridListData、ListData、TreeListData および MenuListData の 4 つのサブクラスがあります。 <codeph>listData</codeph> プロパティの値の実際のデータ型は、ドロップインアイテムレンダラーまたはドロップインアイテムエディターを使用するコントロールによって異なります。 値の型は、DataGrid コントロールでは DataGridListData、List コントロールでは ListData、Tree コントロールでは TreeListData、Menu コントロールでは MenuListData です。</p>
+ 
+  <p>次の例は、NumericStepper コントロールの <codeph>data</codeph> プロパティの setter メソッドを示しています。このメソッドは、NumericStepper の <codeph>value</codeph> プロパティを初期化します。<codeph>listData</codeph> プロパティの値に基づいています。</p>
+ 
+  <pre>
+    public function set data(value:Object):void
+    {
+      _data = value;
+    
+      this.value = _listData ? parseFloat(_listData.label) : Number(_data);
+    
+      dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+    }
+  </pre>
+ 
+  <p>上記の例では、NumericStepper コントロールは NumericStepper の <codeph>data</codeph> プロパティを無視し（<codeph>value</codeph> プロパティの設定時）、代わりに <codeph>listData</codeph> プロパティを使用します。</p>
+ 
+  <p>IDropInListItemRenderer インターフェイスを実装するには、<codeph>listData</codeph> プロパティを実装する setter メソッドと getter メソッドを定義します。 通常、setter メソッドは <codeph>listData</codeph> プロパティの値を内部変数に書き込みます。 リストクラスでは、常にこのプロパティを割り当ててから、<codeph>data</codeph> プロパティでデータプロバイダーアイテムを設定します。</p>
+ 
+  <p><codeph>listData</codeph> プロパティの setter メソッドは、イベントを送出しません。 これは、リストクラスでは、常に <codeph>listData</codeph> を設定してから <codeph>data</codeph> プロパティを設定するためです。 <codeph>data</codeph> プロパティを設定すると、<codeph>dataChange</codeph> イベントも送出されます。 <codeph>listData</codeph> を単独で設定することはないので、独自のイベントを送出する必要はありません。 </p>
+ 
+  <p>コントロールがそれ自体を更新するために必要な何らかの操作を実行した場合、<codeph>data</codeph> の setter メソッドは <codeph>invalidateProperties()</codeph> メソッドを呼び出すことができます。 その後コンポーネントの開発者は、<codeph>commitProperties()</codeph> メソッドを作成して <codeph>listData</codeph> が変更されていることを判別し、適切に処理します。 </p>
+ 
+  <p>次の例に示すように、getter メソッドは内部変数の現在の値を返します。</p>
+  
+  <pre>
+    // Internal variable for the property value.
+    private var _listData:BaseListData;
+    
+    // Make the listData property bindable.
+    [Bindable("dataChange")]
+    
+    // Define the getter method.
+    public function get listData():BaseListData
+    {
+      return _listData;
+    }
+    
+    // Define the setter method,
+    public function set listData(value:BaseListData):void
+    {
+      _listData = value;
+    }
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#BaseListData"><linktext>mx.controls.listClasses.BaseListData</linktext></link><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link></related-links><apiValue id="mx.controls.listClasses:IDropInListItemRenderer:mx.controls.listClasses:IDropInListItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      setter メソッドと getter メソッドを使用して、listData プロパティを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.listClasses:BaseListData</apiValueClassifier></apiValueDef><apiDesc>
+      setter メソッドと getter メソッドを使用して、<codeph>listData</codeph> プロパティを実装します。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.listClasses:BaseListData"><apiName>BaseListData</apiName><shortdesc>
+  BaseListData クラスは、ドロップインアイテムレンダラーまたはドロップインアイテムエディターによって実装される listData プロパティのデータ型を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BaseListData クラスは、ドロップインアイテムレンダラーまたはドロップインアイテムエディターによって実装される <codeph>listData</codeph> プロパティのデータ型を定義します。 すべてのドロップインアイテムレンダラーおよびドロップインアイテムエディターは、<codeph>listData</codeph> プロパティを定義する IDropInListItemRenderer インターフェイスを実装する必要があります。
+ 
+  <p><codeph>listData</codeph> プロパティのタイプは BaseListData です。BaseListData クラスには、DataGridListData、ListData および TreeListData の 3 つのサブクラスがあります。 <codeph>listData</codeph> プロパティの値の実際のデータ型は、ドロップインアイテムレンダラーまたはドロップインアイテムエディターを使用するコントロールによって異なります。 DataGrid コントロールの場合、値の型は DataGridListData であり、List コントロールの場合は ListData です。また、Tree コントロールの場合は TreeListData です。</p>
+ 
+  <p>ドロップインアイテムレンダラーまたはドロップインアイテムエディターとして使用する場合、<codeph>listData</codeph> プロパティは BaseListData から派生したクラスに設定されます。この派生クラスには、アイテムのデータを含むデータプロバイダー内のアイテムに関する計算済みの情報が格納されます。</p>
+ 
+  <p>このクラスのプロパティは書き込み可能ですが、読み取り専用と見なす必要があります。 これらはリストクラスによって初期化され、アイテムレンダラーまたはアイテムエディターによって読み取られます。 これらの値を変更すると、予期しない結果が生じる可能性があります。</p>
+ 
+  <p>プロパティはバインド可能にマークされていますが、これらのプロパティでは、実際には変更検出や変更イベントの送信は行われません。プロパティは、<codeph>listData</codeph> プロパティに新しい値を設定することにより、全体として変更されます。<codeph>listData</codeph> プロパティが変更された場合の <codeph>change</codeph> イベントは、すべてのバインディングを更新します。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.listClasses:BaseListData:BaseListData"><apiName>BaseListData</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiDesc>アイテムデータのテキスト表現です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>一意の識別子です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>リストコントロールへの参照です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>コントロールの現在表示されている行の行インデックスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>現在表示されているコントロールの列内の列インデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.listClasses:BaseListData:columnIndex"><apiName>columnIndex</apiName><shortdesc>
+      リストベースのコントロールの現在表示されている列を基準とした列インデックスです。1 列目のインデックス位置は 1 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      リストベースのコントロールの現在表示されている列を基準とした列インデックスです。1 列目のインデックス位置は 1 です。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:label"><apiName>label</apiName><shortdesc>
+      リストクラスの itemToLabel() メソッドに基づいたアイテムデータのテキスト表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      リストクラスの <codeph>itemToLabel()</codeph> メソッドに基づいたアイテムデータのテキスト表現です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:owner"><apiName>owner</apiName><shortdesc>
+      このアイテムを所有するリストオブジェクトへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.core:IUIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      このアイテムを所有するリストオブジェクトへの参照です。 これは、ListBase から派生したクラスである必要があります。 このプロパティは IUIComponent として型指定されているため、Label や TextInput などのドロップインは、List とそのすべての依存関係に対して依存関係を持つ必要はありません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:rowIndex"><apiName>rowIndex</apiName><shortdesc>
+      DataGrid、List または Tree の各コントロールの現在表示されている行を基準とした行インデックスです。1 行目のインデックス位置は 1 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      DataGrid、List または Tree の各コントロールの現在表示されている行を基準とした行インデックスです。1 行目のインデックス位置は 1 です。例えば、コントロール内のアイテムをクリックし、<codeph>rowIndex</codeph> が 3 に設定されたとします。 次に、コントロールをスクロールして、コントロールの表示されている行の中でクリックした行の位置を変更し、先ほどと同じ行をクリックします。 <codeph>rowIndex</codeph> には、現在表示されている行の中でのその行の新しいインデックスに対応する別の値が含まれるようになります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:uid:get"><apiName>uid</apiName><shortdesc>
+      このアイテムの一意の識別子です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このアイテムの一意の識別子です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.listClasses:IListItemRenderer"><apiName>IListItemRenderer</apiName><shortdesc>
+  リストコンポーネントのアイテムレンダラーとアイテムエディターは、IListItemRenderer インターフェイスを実装する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  リストコンポーネントのアイテムレンダラーとアイテムエディターは、IListItemRenderer インターフェイスを実装する必要があります。 IListItemRenderer インターフェイスは、他の複数のインターフェイスからなるセットです。 新しいクラスメソッドやプロパティを定義するものではありません。 
+ 
+  <p>このインターフェイスのセットには、IDataRenderer、IFlexDisplayObject、ILayoutManagerClient、ISimpleStyleClient、および IUIComponent が含まれます。 UIComponent クラスは、IDataRenderer インターフェイスを除き、これらのインターフェイスをすべて実装しています。 したがって、カスタムのアイテムレンダラーまたはアイテムエディターを UIComponent クラスのサブクラスとして作成する場合、必要な作業は IDataRenderer インターフェイスを実装することだけです。これにより、そのクラスで IDataRenderer と IListItemRenderer を実装することをクラス定義に追加できます。</p>
+ 
+ <p>通常、IListItemRenderer はデータプロバイダーアイテムの特定のフィールドを表示するためのものなので、DataGrid の他の列や、異なるフィールドを持つ他のリストでは再使用できません。 再使用可能なレンダラーを作成する場合は、IDropInListItemRenderer も実装します。これにより、リストからレンダラーに渡されるデータが増加し、様々なデータフィールドでそのレンダラーを再使用できるようになります。</p>
+ 
+  <p>アイテムレンダラーとアイテムエディターには、IDataRenderer インターフェイスを使用してリストクラスのデータプロバイダーからデータが渡されます。 IDropInListItemRenderer インターフェイスを実装するレンダラーとエディターは、リストクラスからその他の情報を取得します。 アイテムレンダラーまたはアイテムエディターは、一方または両方の情報を使用してデータを表示します。</p>
+ 
+  <p>多くの場合、レンダラーとエディターはリサイクルされます。 これらを一度作成すると、新しいデータとオプションの <codeph>listData</codeph> プロパティを指定するだけで再使用できます。 したがって、実装では、コンポーネントの各プロパティに初期値（デフォルト値）が含まれているという想定ではないことを確認する必要があります。</p>
+  
+  </apiDesc></apiClassifierDetail></apiClassifier></apiPackage>

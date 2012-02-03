@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.textClasses"><apiName>mx.controls.textClasses</apiName><apiDetail/><apiClassifier id="mx.controls.textClasses:TextRange"><apiName>TextRange</apiName><shortdesc>
+  La classe TextRange fournit des propriétés qui sélectionnent et mettent en forme une plage de texte dans les contrôles Label, Text, TextArea, TextEditor et RichTextEditor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe TextRange fournit des propriétés qui sélectionnent et mettent en forme une plage de texte dans les contrôles Label, Text, TextArea, TextEditor et RichTextEditor.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Label"><linktext>mx.controls.Label</linktext></link><link href="mx.controls.xml#RichTextEditor"><linktext>mx.controls.RichTextEditor</linktext></link><link href="mx.controls.xml#Text"><linktext>mx.controls.Text</linktext></link><link href="mx.controls.xml#TextArea"><linktext>mx.controls.TextArea</linktext></link><link href="mx.controls.xml#TextInput"><linktext>mx.controls.TextInput</linktext></link><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links><apiConstructor id="mx.controls.textClasses:TextRange:TextRange"><apiName>TextRange</apiName><shortdesc>
+	  Créez un nouvel objet TextRange représentant un sous-ensemble du contenu d’un contrôle Text, y compris les informations de mise en forme.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Contrôle contenant le texte. Le contrôle doit posséder une propriété <codeph>textField</codeph> ou, comme cela est le cas du contrôle RichTextEditor, une propriété <codeph>textArea</codeph>.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>modifiesSelection</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique si le texte de la plage doit être sélectionné ou non. Si vous définissez ce paramètre sur <codeph>true</codeph> et ne spécifiez pas un index de début ou de fin correspondant au texte du contrôle, Flex utilise l’index de début ou de fin de la sélection de texte en cours. Si ce paramètre est défini sur <codeph>true</codeph>, vous omettez les paramètres <codeph>beginIndex</codeph> et <codeph>endIndex</codeph> et aucune sélection n’est présente. L’objet TextRange est vide.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Index de base zéro du premier caractère de la plage. Si le paramètre <codeph>modifiesSelection</codeph> est défini sur <codeph>false</codeph> et que vous omettez ce paramètre ou spécifiez une valeur négative, la plage commence par le premier caractère textuel.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Index de base zéro de la position <i>suivant</i> le dernier caractère de la plage. Si le paramètre <codeph>modifiesSelection</codeph> est défini sur <codeph>false</codeph> et que vous omettez ce paramètre, spécifiez une valeur négative ou spécifiez une valeur postérieure à la fin du texte, la plage se termine par le dernier caractère textuel.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Créez un nouvel objet TextRange représentant un sous-ensemble du contenu d’un contrôle Text, y compris les informations de mise en forme.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.textClasses:TextRange:beginIndex:get"><apiName>beginIndex</apiName><shortdesc>
+	  Index de base zéro, dans le champ de texte du contrôle, du premier caractère de la plage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  Index de base zéro, dans le champ de texte du contrôle, du premier caractère de la plage. Si le cinquième caractère du texte est le premier caractère de la plage, cette propriété a la valeur 4.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:bullet:get"><apiName>bullet</apiName><shortdesc>
+	  Indique si le texte de la plage se trouve dans une liste à puces.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Indique si le texte de la plage se trouve dans une liste à puces. Si seulement une partie de la plage se trouve dans une liste à puces, cette valeur est définie sur <codeph>false</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:color:get"><apiName>color</apiName><shortdesc>
+	  Couleur du texte de la plage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Couleur du texte de la plage. Vous pouvez définir cette valeur à l’aide d’un identifiant de couleur valide. Cette propriété renvoie la valeur sous forme numérique. Si la plage comporte plusieurs couleurs, cette valeur est <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:endIndex:get"><apiName>endIndex</apiName><shortdesc>
+	  Index de base zéro, dans le champ de texte du contrôle, du point suivant immédiatement le dernier caractère de la plage. Equivaut à l’index de base un du dernier caractère.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  Index de base zéro, dans le champ de texte du contrôle, du point suivant immédiatement le dernier caractère de la plage. Equivaut à l’index de base un du dernier caractère. Si le cinquième caractère du texte est le dernier caractère de la plage, cette propriété a la valeur 5.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontFamily:get"><apiName>fontFamily</apiName><shortdesc>
+	  Nom de police du texte de la plage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Nom de police du texte de la plage. Si la plage comporte plusieurs polices, cette valeur est <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontSize:get"><apiName>fontSize</apiName><shortdesc>
+	  Taille de point du texte de la plage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  Taille de point du texte de la plage. Si la plage comporte plusieurs tailles, cette valeur est 0.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontStyle:get"><apiName>fontStyle</apiName><shortdesc>
+	  Style de police de la plage, comme « Italique » ou « Normal ».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Style de police de la plage, comme « Italique » ou « Normal ». La définition de cette propriété sur n’importe quelle autre chaîne génère un style normal. Si la plage comporte plusieurs styles, cette valeur est <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontWeight:get"><apiName>fontWeight</apiName><shortdesc>
+	  Epaisseur de police de la plage, comme « Gras » ou « Normal ».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Epaisseur de police de la plage, comme « Gras » ou « Normal ». La définition de cette propriété sur n’importe quelle autre chaîne génère une épaisseur normale. Si la plage comporte plusieurs épaisseurs, cette valeur est <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:htmlText:get"><apiName>htmlText</apiName><shortdesc>
+	  Contenu de la plage sous forme de texte HTML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Contenu de la plage sous forme de texte HTML. Cette propriété renvoie tous les marqueurs HTML de la plage, y compris le marqueur de mise en forme qui est appliqué par Flex, et pas seulement le format HTML que vous spécifiez à l’aide de la propriété <codeph>htmlText</codeph>. Cette propriété est par conséquent une représentation entièrement HTML du texte, tel qu’il apparaît dans le contrôle.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:kerning:get"><apiName>kerning</apiName><shortdesc>
+	  Valeur booléenne indiquant si le crénage est activé (true) ou désactivé (false).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Valeur booléenne indiquant si le crénage est activé (<codeph>true</codeph>) ou désactivé (<codeph>false</codeph>). Le crénage modifie le nombre de pixels séparant chaque paire de caractères pour améliorer la lisibilité et ne doit être employé que si nécessaire, dans les titres en grande police, par exemple. Le crénage est supporté uniquement pour les polices incorporées. Certaines polices, telles que Verdana, et les polices à espacement fixe, telles que Courier New, ne prennent pas en charge le crénage.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:letterSpacing:get"><apiName>letterSpacing</apiName><shortdesc>
+	  Nombre de pixels supplémentaires qui apparaissent entre chaque caractère.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Nombre de pixels supplémentaires devant apparaître entre chaque caractère. Une valeur positive augmente l’espacement des caractères par rapport à l’espacement normal, alors qu’une valeur négative le réduit.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:modifiesSelection:get"><apiName>modifiesSelection</apiName><shortdesc>
+	  Indique si TextRange modifie le texte actuellement sélectionné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Indique si TextRange modifie le texte actuellement sélectionné. Défini par le constructeur.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:owner:get"><apiName>owner</apiName><shortdesc>
+	  Contrôle contenant le texte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+	  Contrôle contenant le texte. Le contrôle du propriétaire doit posséder une propriété <codeph>textField</codeph> ou, comme cela est le cas du contrôle RichTextEditor, une propriété <codeph>textArea</codeph>. Le propriétaire du texte dans un contrôle RichTextEditor est le contrôle RichTextEditor, et non son sous-contrôle TextArea. Défini à l’origine par le constructeur.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:textAlign:get"><apiName>textAlign</apiName><shortdesc>
+	  Alignement du texte de la plage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Alignement du texte de la plage. Les constantes flash.text.TextFormatAlign indiquent les valeurs possibles. La définition de cette propriété sur une autre valeur n’a aucun effet. Si la plage comporte plusieurs alignements, cette valeur est <codeph>null</codeph>.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links></apiValue><apiValue id="mx.controls.textClasses:TextRange:textDecoration:get"><apiName>textDecoration</apiName><shortdesc>
+	  Décoration de police de la plage, comme « Souligné » ou « Normal ».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Décoration de police de la plage, comme « Souligné » ou « Normal ». La définition de cette propriété sur n’importe quelle autre chaîne génère un texte normal. Si la plage comporte plusieurs paramètres de décoration, cette valeur est <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:text:get"><apiName>text</apiName><shortdesc>
+	  Contenu en texte standard de la plage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Contenu en texte standard de la plage.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:url:get"><apiName>url</apiName><shortdesc>
+	  URL du lien hypertexte de la plage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  URL du lien hypertexte de la plage. Si la plage n’inclut pas de lien, la valeur est une chaîne vide. Si la plage inclut plusieurs liens, cette valeur est <codeph>null</codeph>.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

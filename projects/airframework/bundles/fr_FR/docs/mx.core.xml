@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core"><apiName>mx.core</apiName><apiDetail/><apiClassifier id="mx.core:FlexHTMLLoader"><apiName>FlexHTMLLoader</apiName><shortdesc>
+  FlexHTMLLoader est une sous-classe de la classe HTMLLoader du lecteur utilisée par la commande HTML de Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.managers:IFocusManagerComplexComponent</apiBaseInterface><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier>flash.html:HTMLLoader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlexHTMLLoader est une sous-classe de la classe HTMLLoader du lecteur utilisée par la commande HTML de Flex. Elle remplace la méthode <codeph>toString()</codeph> pour renvoyer une chaîne indiquant l’emplacement de l’objet dans la hiérarchie des objets DisplayObject de l’application.
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.core:FlexHTMLLoader:FlexHTMLLoader"><apiName>FlexHTMLLoader</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      <p>Définit la propriété <codeph>name</codeph> sur une chaîne renvoyée par la méthode <codeph>createUniqueName()</codeph> de la classe mx.utils.NameUtils.</p>
+     
+      <p>Cette chaîne correspond au nom de la classe de l’objet, concaténé avec un entier unique au sein de l’application, tel que <codeph>"FlexLoader13"</codeph>.</p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/name"><linktext>flash.display.DisplayObject.name</linktext></link><link href="" invalidHref="mx.utils.xml#NameUtils/createUniqueName()"><linktext>mx.utils.NameUtils.createUniqueName()</linktext></link></related-links></apiConstructor><apiOperation id="mx.core:FlexHTMLLoader:assignFocus"><apiName>assignFocus</apiName><shortdesc>
+      Appelé par le FocusManager lorsque le composant reçoit le focus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>direction</apiItemName><apiType value="String"/><apiDesc>du type flash.display.FocusDirection
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé par le FocusManager lorsque le composant reçoit le focus. Le composant peut à son tour attribuer le focus à un composant interne. La méthode <codeph>setFocus()</codeph> des composants est tout de même appelée lorsque la souris leur transmet le focus, mais cette méthode est utilisée lorsque le focus change par le biais du clavier.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FlexHTMLLoader:drawFocus"><apiName>drawFocus</apiName><shortdesc>
+      Appelé par le FocusManager lorsque le composant reçoit le focus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>isFocused</apiItemName><apiType value="Boolean"/><apiDesc>Si la valeur est <codeph>true</codeph>, l’indicateur de focus est tracé, sinon il est masqué.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé par le FocusManager lorsque le composant reçoit le focus. Le composant doit dessiner ou masquer un graphique qui indique qu’il a le focus.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FlexHTMLLoader:setFocus"><apiName>setFocus</apiName><shortdesc>
+      Appelé par le FocusManager lorsque le composant reçoit le focus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelé par le FocusManager lorsque le composant reçoit le focus. Le composant peut à son tour attribuer le focus à un composant interne.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:FlexHTMLLoader:toString"><apiName>toString</apiName><shortdesc>
+      Renvoie une chaîne indiquant l’emplacement de l’objet dans la hiérarchie des objets DisplayObject de l’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Chaîne indiquant l’emplacement de cet objet dans la hiérarchie de la classe DisplayObject.
+     
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une chaîne indiquant l’emplacement de l’objet dans la hiérarchie des objets DisplayObject de l’application. Cette chaîne, par exemple <codeph>"MyApp0.HBox5.FlexLoader13"</codeph>, est générée par la méthode <codeph>displayObjectToString()</codeph> de la classe mx.utils.NameUtils à partir de la propriété <codeph>name</codeph> et des ancêtres de l’objet.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/name"><linktext>flash.display.DisplayObject.name</linktext></link><link href="" invalidHref="mx.utils.xml#NameUtils/displayObjectToString()"><linktext>mx.utils.NameUtils.displayObjectToString()</linktext></link></related-links></apiOperation><apiValue id="mx.core:FlexHTMLLoader:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      Indicateur qui signale si l’IME doit être activé lorsque le composant reçoit le focus. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indicateur qui signale si l’IME doit être activé lorsque le composant reçoit le focus.  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:focusEnabled:get"><apiName>focusEnabled</apiName><shortdesc>
+      Indicateur qui signale si le composant peut recevoir le focus lorsqu’il est sélectionné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indicateur qui signale si le composant peut recevoir le focus lorsqu’il est sélectionné.
+     
+      <p>Pour optimiser votre application, si un composant enfant de votre composant implémente l’interface IFocusManagerComponent et que vous ne souhaitez jamais qu’il reçoive le focus, définissez <codeph>focusEnabled</codeph> sur <codeph>false</codeph> avant d’appeler la méthode <codeph>addChild()</codeph> sur le composant enfant.</p>
+     
+      <p>Ainsi, la classe FocusManager ignorera ce composant et n’y surveillera pas le changement des propriétés <codeph>tabFocusEnabled</codeph>, <codeph>tabChildren</codeph> et <codeph>mouseFocusEnabled</codeph>. Cela implique également que vous ne pouvez pas changer cette valeur après l’appel de <codeph>addChild()</codeph> et espérer que le FocusManager s’en aperçoive.</p>
+     
+      <p>Remarque : cela ne signifie pas que vous ne pouvez pas attribuer le focus à cet objet par programme dans votre méthode <codeph>setFocus()</codeph>, mais simplement que le FocusManager ignore ce composant IFocusManagerComponent dans ses recherches d’actions de souris et de tabulation.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:hasFocusableChildren:get"><apiName>hasFocusableChildren</apiName><shortdesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="hasFocusableChildrenChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.core.UIComponent#hasFocusableChildren">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      Il s’agit seulement d’un stub pour prendre en charge l’interface. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Il s’agit seulement d’un stub pour prendre en charge l’interface. Le contrôle mx.controls.HTML parent contient la propriété conversionMode et l’applique. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:mouseFocusEnabled:get"><apiName>mouseFocusEnabled</apiName><shortdesc>
+      Indique si le composant peut recevoir le focus à l’aide de la souris.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si le composant peut recevoir le focus à l’aide de la souris. Si la valeur est <codeph>false</codeph>, le focus est transféré au premier parent ayant une propriété <codeph>mouseFocusEnabled</codeph> définie sur <codeph>true</codeph>. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:FlexHTMLLoader:tabFocusEnabled:get"><apiName>tabFocusEnabled</apiName><shortdesc>
+      Indicateur qui signale si les objets enfant peuvent recevoir le focus. Cette fonction est similaire à la propriété tabEnabled de Flash Player. Sa valeur est généralement true pour les composants qui gèrent l’entrée au clavier, mais certains composants des barres de contrôle les définissent sur false, car il est conseillé de ne pas voler le focus d’un autre composant (un éditeur, par exemple).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="tabFocusEnabledChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indicateur qui signale si les objets enfant peuvent recevoir le focus 
+     
+      <p>Cette fonction est similaire à la propriété <codeph>tabEnabled</codeph> de Flash Player. </p>
+     
+      <p>Cette valeur est généralement <codeph>true</codeph> pour les composants qui traitent les entrée au clavier, mais certains composants des barres de contrôle la définissent sur <codeph>false</codeph>, car il est conseillé de ne pas voler le focus d’un autre composant (un éditeur, par exemple). 
+      </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:Window"><apiName>Window</apiName><shortdesc>
+  Window est un conteneur de niveau supérieur contenant d’autres fenêtres d’une application de bureau AIR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="effect" name="moveEffect"/><Alternative owner="mx.core:Window" replacement="spark.components.Window" since="4.0">
+	</Alternative><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="mx.core:Window">
+<description>
+  Lu lorsque le composant est agrandi.
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="mx.core:Window">
+<description>
+  Lu lorsque le composant est réduit.
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="mx.core:Window">
+<description>
+  Lue lorsque la fenêtre est fermée.  
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect></effects><styles><style inherit="yes" name="titleTextStyleName" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  Nom du style pour le texte du titre. 
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="titleBarColors" owner="mx.core:Window" playerVersion="AIR1.1" type="Array">
+<description>
+  Tableau contenant deux couleurs utilisées pour tracer l’en-tête. La première couleur est la couleur du haut. La deuxième couleur est la couleur du bas. Les valeurs par défaut sont <codeph>undefined</codeph>. Dans ce cas, l’arrière-plan de l’en-tête est identique à celui du panneau.
+ 
+  </description>
+<default>[ 0x000000, 0x000000 ]
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="true" name="titleBarButtonPadding" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  Distance entre le bouton de barre de titre le plus éloigné et le bord de la barre de titre.
+ 
+  </description>
+<default>5
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="titleBarBackgroundSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage de l’arrière-plan du titre.
+ 
+  </description>
+<default>mx.skins.halo.ApplicationTitleBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,auto" inherit="yes" name="titleAlignment" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  Position du titre dans la barre de titre. Valeurs possibles : <codeph>"left"</codeph>, <codeph>"center"</codeph> et <codeph>"auto"</codeph>
+ 
+  <p>La valeur <codeph>"left"</codeph> signifie que le titre est aligné sur la gauche de la barre de titre. La valeur <codeph>"center"</codeph> signifie que le titre est aligné au centre de la barre de titre. La valeur <codeph>"auto"</codeph> signifie que le titre est aligné sur la gauche sous Windows et au centre sous Mac OS X.</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusTextStyleName" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  Déclaration de style pour le texte d’état.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusBarBackgroundSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage d’arrière-plan de la barre d’état.
+ 
+  </description>
+<default>mx.skins.halo.StatusBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="statusBarBackgroundColor" owner="mx.core:Window" playerVersion="AIR1.1" type="uint">
+<description>
+  Couleurs utilisées pour tracer la barre d’état.
+ 
+  </description>
+<default>0xC0C0C0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showFlexChrome" owner="mx.core:Window" playerVersion="AIR1.1" type="Boolean">
+<description>
+  Détermine si la fenêtre trace son propre chrome Flex ou confie cette opération au développeur. La modification de ce style n’a aucun effet lorsque la fenêtre est ouverte.
+ 
+  </description>
+<default>true
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="restoreButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage du bouton restaurer lorsque vous utilisez le chrome Flex. Ce style est ignoré pour Mac OS X.
+ 
+  </description>
+<default>mx.skins.halo.WindowRestoreButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="minimizeButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage du bouton réduire lorsque vous utilisez le chrome Flex.
+ 
+  </description>
+<default>mx.skins.halo.WindowMinimizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="maximizeButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage du bouton agrandir lorsque vous utilisez le chrome Flex.
+ 
+  </description>
+<default>mx.skins.halo.WindowMaximizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="headerHeight" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  Hauteur explicite de l’en-tête. Si ce style n’est pas défini, la hauteur d’en-tête est calculée à partir de la valeur la plus grande parmi la hauteur du texte, celles des boutons et celle des icônes. 
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="gripperStyleName" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  Déclaration de style pour l’habillage de la pince.
+ 
+  </description>
+<default>"gripperStyle"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="gripperPadding" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  Espace supplémentaire autour de la pince. La surface totale de la pince et de la marge autour des contours est la zone active de la pince de redimensionnement.
+ 
+  </description>
+<default>3
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="closeButtonSkin" owner="mx.core:Window" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage pour le bouton Fermer lorsque vous utilisez Flex chrome. 
+ 
+  </description>
+<default>mx.skins.halo.WindowCloseButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="buttonPadding" owner="mx.core:Window" playerVersion="AIR1.1" type="Number">
+<description>
+  Définit la distance entre les boutons du composant titleBar. 
+ 
+  </description>
+<default>2
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,right,auto" inherit="yes" name="buttonAlignment" owner="mx.core:Window" playerVersion="AIR1.1" type="String">
+<description>
+  Position des boutons dans la barre de titre. Valeurs possibles : <codeph>"left"</codeph>, <codeph>"right"</codeph> et <codeph>"auto"</codeph>.
+ 
+  <p>La valeur <codeph>"left"</codeph> signifie que les boutons sont alignés sur la gauche de la barre de titre. La valeur <codeph>"right"</codeph> signifie que les boutons sont alignés sur la droite de la barre de titre. La valeur <codeph>"auto"</codeph> signifie que les boutons sont alignés sur la gauche de la barre de titre sous Mac OS X et sur la droite sous Windows.</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Window&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Window
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    height="100"
+    maxHeight="2880 less the height of the system chrome"
+    maximizable="true"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minimizable="true"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    resizable="true"
+    showGripper="true"
+    showStatusBar="true"
+    showTitleBar="true"
+    status=""
+    statusBarFactory="mx.core.ClassFactory"
+    systemChrome="standard"
+    title=""
+    titleBarFactory="mx.core.ClassFactory"
+    titleIcon="<i>null</i>"
+    transparent="false"
+    type="normal"
+    visible="true"
+    width="100"
+ 
+    <strong>Styles</strong>
+    buttonAlignment="auto"
+    buttonPadding="2"
+    closeButtonSkin="mx.skins.halo.windowCloseButtonSkin"
+    gripperPadding="3"
+    gripperStyleName="gripperStyle"
+    headerHeight="<i>undefined</i>"
+    maximizeButtonSkin="mx.skins.halo.WindowMaximizeButtonSkin"
+    minimizeButtonSkin="mx.skins.halo.WindowMinimizeButtonSkin"
+    restoreButtonSkin="mx.skins.halo.WindowRestoreButtonSkin"
+    showFlexChrome="true"
+    statusBarBackgroundColor="0xC0C0C0"
+    statusBarBackgroundSkin="mx.skins.halo.StatusBarBackgroundSkin"
+    statusTextStyleName="<i>undefined</i>"
+    titleAlignment="auto"
+    titleBarBackgroundSkin="mx.skins.halo.ApplicationTitleBarBackgroundSkin"
+    titleBarButtonPadding="5"
+    titleBarColors="[ 0x000000, 0x000000 ]"
+    titleTextStyleName="<i>undefined</i>"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>mx.core:LayoutContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Window est un conteneur de niveau supérieur contenant d’autres fenêtres d’une application de bureau AIR.
+ 
+  <p>Le conteneur Window est un type de conteneur spécial dans la mesure qu’il ne peut pas être utilisé dans d’autres conteneurs de présentations. Un composant mx:Window doit être le composant de plus haut niveau dans son document MXML.</p>
+ 
+  <p>La méthode la plus simple pour utiliser un composant Window afin de définir une fenêtre native consiste à créer un document MXML avec une balise <codeph>&lt;mx:Window></codeph> comme balise de plus haut niveau du document. Vous pouvez utiliser le composant Window comme tout autre conteneur, y compris pour spécifier le type de la présentation, définir les commandes enfant et ainsi de suite. Comme avec n’importe quel composant MXML personnalisé, lorsque l’application est compilée, le document MXML est compilé sous forme de classe personnalisée définie comme sous-classe du composant Window.</p>
+ 
+  <p>Pour faire en sorte qu’une occurrence de la sous-classe Window s’affiche à l’écran, vous devez commencer par créer une occurrence de la classe dans le code de l’application (en définissant une variable, puis en appelant le constructeur <codeph>new MyWindowClass()</codeph>). Vous devez ensuite définir les propriétés à spécifier pour la nouvelle fenêtre. Enfin, vous pouvez appeler la méthode <codeph>open()</codeph> du composant Window afin d’ouvrir la fenêtre à l’écran.</p>
+ 
+  <p>Sachez que certaines propriétés de la classe Window peuvent uniquement être définies <b>avant</b> d’appeler la méthode <codeph>open()</codeph> pour ouvrir la fenêtre. Une fois que l’objet NativeWindow sous-jacent a été créé, ces propriétés d’initialisation peuvent être lues, mais elles ne peuvent pas être modifiées. Cette restriction s’applique aux propriétés suivantes :</p>
+ 
+  <ul>
+    <li><codeph>maximizable</codeph></li>
+    <li><codeph>minimizable</codeph></li>
+    <li><codeph>resizable</codeph></li>
+    <li><codeph>systemChrome</codeph></li>
+    <li><codeph>transparent</codeph></li>
+    <li><codeph>type</codeph></li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><adobeApiEvent id="mx.core:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  Distribué suite au redimensionnement de l’objet NativeWindow sous-jacent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué suite au redimensionnement de l’objet NativeWindow sous-jacent.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  Distribué suite au déplacement de la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué suite au déplacement de la fenêtre.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  Distribué lorsque la présentation initiale du composant Window est terminée et que le composant ouvre l’objet NativeWindow sous-jacent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la présentation initiale du composant Window est terminée et que le composant ouvre l’objet NativeWindow sous-jacent.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  Distribué avant le redimensionnement du composant NativeWindow sous-jacent, ou lors du déplacement des limites de l’objet Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué avant le redimensionnement du composant NativeWindow sous-jacent, ou lors du déplacement des limites de l’objet Window.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  Distribué lorsque l’ordinateur se connecte au réseau ou s’en déconnecte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque l’ordinateur se connecte au réseau ou se déconnecte.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  Distribué avant le déplacement de la fenêtre et pendant qu’elle est en cours de déplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué avant le déplacement de la fenêtre et pendant qu’elle est en cours de déplacement. 
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  Distribué avant que l’état d’affichage devienne minimize, maximize ou restore.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué avant que l’état d’affichage devienne minimize, maximize ou restore.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  Distribué après que l’état d’affichage soit devenu minimize, maximize ou restore.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après que l’état d’affichage soit devenu minimize, maximize ou restore.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  Distribué avant la fermeture de la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué avant la fermeture de la fenêtre. Cet événement peut être annulé.
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:Window_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  Distribué après la fermeture de la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après la fermeture de la fenêtre.
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  Distribué après la désactivation de la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après la désactivation de la fenêtre.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  Distribué après l’activation de la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après l’activation de la fenêtre.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  Distribué lorsque cette application est désactivée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque cette application est désactivée.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:Window_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  Distribué lorsque cette application est activée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque cette application est activée.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:Window:Window"><apiName>Window</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:Window:activate"><apiName>activate</apiName><shortdesc>
+      Active l’objet NativeWindow sous-jacent, même si l’application de ce composant Window n’est pas active actuellement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Active l’objet NativeWindow sous-jacent, même si l’application de ce composant Window n’est pas active actuellement.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:close"><apiName>close</apiName><shortdesc>
+      Ferme la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Ferme la fenêtre. Cette action peut être annulée.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:getWindow"><apiName>getWindow</apiName><shortdesc>
+      Renvoie la fenêtre à laquelle un composant est apparenté.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Fenêtre à laquelle un composant est apparenté.
+      
+      </apiDesc><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>composant dont vous souhaitez trouver la fenêtre.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la fenêtre à laquelle un composant est apparenté.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:maximize"><apiName>maximize</apiName><shortdesc>
+      Agrandit la fenêtre. Sans effet si elle est déjà agrandie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Agrandit la fenêtre. Sans effet si elle est déjà agrandie.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:minimize"><apiName>minimize</apiName><shortdesc>
+      Réduit la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Réduit la fenêtre.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:open"><apiName>open</apiName><shortdesc>
+      Crée et ouvre l’objet NativeWindow sous-jacent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>openWindowActive</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Spécifie si le composant Window doit avoir le focus lorsqu’il s’ouvre. La valeur par défaut est <codeph>true</codeph>.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Crée et ouvre l’objet NativeWindow sous-jacent. Après sa fermeture, l’objet Window demeure une référence valide, mais l’accès à la plupart des propriétés et des méthodes sera impossible. Les fenêtres fermées ne peuvent pas être rouvertes.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      Place la fenêtre juste derrière une autre fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si cette fenêtre a été déplacée vers l’arrière ; <codeph>false</codeph> si cette fenêtre est invisible ou réduite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>Interface IWindow (Window ou WindowedApplication) derrière laquelle classer cette fenêtre.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Place la fenêtre juste derrière une autre fenêtre. Pour placer une fenêtre derrière un objet NativeWindow qui n’implémente pas l’interface IWindow, utilisez la méthode <codeph>orderInBackOf()</codeph> de l’objet NativeWindow de cette fenêtre.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      Place la fenêtre juste devant une autre fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si cette fenêtre a été déplacée vers l’avant ; <codeph>false</codeph> si cette fenêtre est invisible ou réduite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>Interface IWindow (Window ou WindowedApplication) devant laquelle classer cette fenêtre.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Place la fenêtre juste devant une autre fenêtre. Pour placer une fenêtre devant un objet NativeWindow qui n’implémente pas l’interface IWindow, utilisez la méthode <codeph>orderInFrontOf()</codeph> de l’objet NativeWindow de cette fenêtre.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+      Place la fenêtre derrière toutes les autres fenêtres de la même application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si cette fenêtre a été déplacée à l’arrière ; <codeph>false</codeph> si cette fenêtre est invisible ou réduite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Place la fenêtre derrière toutes les autres fenêtres de cette application.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+      Classe la fenêtre devant toutes les autres de la même application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si cette fenêtre a été déplacée à l’avant ; <codeph>false</codeph> si cette fenêtre est invisible ou réduite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Place la fenêtre devant toutes les autres de la même application.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:Window:restore"><apiName>restore</apiName><shortdesc>
+      Restaure la fenêtre (annule l’agrandissement si elle est agrandie, ou la réduction si elle est réduite). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Restaure la fenêtre (annule l’agrandissement si elle est agrandie, ou la réduction si elle est réduite). 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:Window:controlBar"><apiName>controlBar</apiName><shortdesc>
+      Composant ApplicationControlBar pour cette fenêtre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUIComponent"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Composant ApplicationControlBar pour cette fenêtre. 
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.containers.ApplicationControlBar.xml"><linktext>mx.containers.ApplicationControlBar</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      Détermine si l’objet NativeWindow sous-jacent est toujours devant les autres fenêtres, y compris devant les fenêtres des autres applications.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Détermine si l’objet NativeWindow sous-jacent est toujours devant les autres fenêtres, y compris devant les fenêtres des autres applications. Le fait de définir cette propriété définit automatiquement la propriété <codeph>alwaysInFront</codeph> de l’objet NativeWindow sous-jacent. Pour plus d’informations sur la manière dont cette propriété influe sur l’ordre d’empilement des fenêtres, voir la description de la propriété <codeph>NativeWindow.alwaysInFront</codeph>.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/alwaysInFront"><linktext>flash.display.NativeWindow.alwaysInFront</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:closed:get"><apiName>closed</apiName><shortdesc>
+      Indicateur signalant si la fenêtre a été fermée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indicateur signalant si la fenêtre a été fermée.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      Spécifie si la fenêtre peut être agrandie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre peut être agrandie. La valeur de cette propriété est en lecture seule si la fenêtre a été ouverte.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      Spécifie si la fenêtre peut être réduite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre peut être réduite. Cette propriété est en lecture seule après l’ouverture de la fenêtre.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      Objet NativeWindow sous-jacent utilisé par ce composant Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      Objet NativeWindow sous-jacent utilisé par ce composant Window.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:resizable:get"><apiName>resizable</apiName><shortdesc>
+      Spécifie si la fenêtre peut être redimensionnée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre peut être redimensionnée. Cette propriété est en lecture seule après l’ouverture de la fenêtre.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:showGripper:get"><apiName>showGripper</apiName><shortdesc>
+      Si la valeur est true, le gripper est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, la pince est visible.
+     
+      <p>Sous Mac OS X une fenêtre avec la propriété <codeph>systemChrome</codeph> définie sur <codeph>"standard"</codeph> a toujours une pince de système d’exploitation. Dans ce cas, ce paramètre est donc ignoré.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      Si la valeur est true, la barre d’état est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, la barre d’état est visible.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:showTitleBar:get"><apiName>showTitleBar</apiName><shortdesc>
+      Si la valeur est true, la barre de titre de la fenêtre est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, la barre de titre de la fenêtre est visible.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:statusBarFactory:get"><apiName>statusBarFactory</apiName><shortdesc>
+      Objet IFactory qui crée une occurrence à utiliser comme barre d’état.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Objet IFactory qui crée une occurrence à utiliser comme barre d’état. La valeur par défaut est un objet IFactory pour le composant StatusBar.
+     
+      <p>Si vous écrivez une classe personnalisée de barre d’état, elle doit présenter une propriété publique appelée <codeph>status</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:protected:statusBarStyleFilters:get"><apiName>statusBarStyleFilters</apiName><shortdesc>
+      Jeu de styles à transmettre de la fenêtre à la barre d’état.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Jeu de styles à transmettre de la fenêtre à la barre d’état.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:statusBar:get"><apiName>statusBar</apiName><shortdesc>
+      Classe UIComponent qui affiche la barre d’état.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      Classe UIComponent qui affiche la barre d’état.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:status:get"><apiName>status</apiName><shortdesc>
+      Chaîne qui s’affiche dans la barre d’état, si elle est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Chaîne qui s’affiche dans la barre d’état, si elle est visible.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      Spécifie le type de chrome système (le cas échéant) de la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie le type de chrome système (le cas échéant) de la fenêtre. L’ensemble des valeurs possibles est défini par les constantes de la classe NativeWindowSystemChrome.
+     
+      <p>Cette propriété est en lecture seule après l’ouverture de la fenêtre.</p>
+     
+      <p>La valeur par défaut est <codeph>NativeWindowSystemChrome.STANDARD</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowSystemChrome.xml"><linktext>flash.display.NativeWindowSystemChrome</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/systemChrome"><linktext>flash.display.NativeWindowInitOptions.systemChrome</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:titleBarFactory:get"><apiName>titleBarFactory</apiName><shortdesc>
+      Objet IFactory qui crée une occurrence à utiliser comme barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Objet IFactory qui crée une occurrence à utiliser comme barre de titre. La valeur par défaut est un objet IFactory pour le composant TitleBar.
+     
+      <p>Si vous écrivez une classe personnalisée de barre de titre, elle doit présenter des propriétés publiques appelées <codeph>titleIcon</codeph> et <codeph>title</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:protected:titleBarStyleFilters:get"><apiName>titleBarStyleFilters</apiName><shortdesc>
+      Jeu de styles à transmettre de la fenêtre au composant titleBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Jeu de styles à transmettre de la fenêtre au composant titleBar.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:titleBar:get"><apiName>titleBar</apiName><shortdesc>
+      Classe UIComponent qui affiche la barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      Classe UIComponent qui affiche la barre de titre.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Classe (généralement une image) utilisée pour dessiner l’icône de barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleIconChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Classe (généralement une image) utilisée pour tracer l’icône de barre de titre.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:title:get"><apiName>title</apiName><shortdesc>
+      Texte de titre qui s’affiche dans la barre de titre de la fenêtre et dans la barre des tâches.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Texte du titre qui s’affiche dans la barre de titre de la fenêtre et dans la barre des tâches.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:transparent:get"><apiName>transparent</apiName><shortdesc>
+      Spécifie si la fenêtre est transparente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre est transparente. Il est impossible de définir cette propriété sur <codeph>true</codeph> pour une fenêtre utilisant le chrome système.
+     
+      <p>Cette propriété est en lecture seule après l’ouverture de la fenêtre.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:Window:type:get"><apiName>type</apiName><shortdesc>
+      Spécifie le type d’occurrence NativeWindow représentée par ce composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie le type d’objet NativeWindow représenté par ce composant. Les valeurs possibles sont définies par les constantes de la classe NativeWindowType.
+     
+      <p>Cette propriété est en lecture seule après l’ouverture de la fenêtre.</p>
+     
+      <p>La valeur par défaut est <codeph>NativeWindowType.NORMAL</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/type"><linktext>flash.display.NativeWindowInitOptions.type</linktext></link></related-links></apiValue><apiValue id="mx.core:Window:menu:set"><apiName>menu</apiName><shortdesc>
+      Menu de fenêtre de cette fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      Menu de fenêtre de cette fenêtre. Certains systèmes d’exploitation ne prennent pas en charge les menus de fenêtre, auquel cas cette propriété est ignorée.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:IWindow"><apiName>IWindow</apiName><shortdesc>
+  L’interface IWindow définit l’API pour les composants qui servent de conteneur de plus haut niveau dans les applications AIR basées sur Flex (conteneurs qui représentent les fenêtres de système d’exploitation).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IWindow définit l’API pour les composants qui servent de conteneur de plus haut niveau dans les applications AIR basées sur Flex (conteneurs qui représentent les fenêtres de système d’exploitation).
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.core:IWindow:mx.core:IWindow:close"><apiName>close</apiName><shortdesc>
+      Ferme la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Ferme la fenêtre.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:IWindow:mx.core:IWindow:maximize"><apiName>maximize</apiName><shortdesc>
+      Agrandit la fenêtre. Sans effet si elle est déjà agrandie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Agrandit la fenêtre. Sans effet si elle est déjà agrandie.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:IWindow:mx.core:IWindow:minimize"><apiName>minimize</apiName><shortdesc>
+      Réduit la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Réduit la fenêtre.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:IWindow:mx.core:IWindow:restore"><apiName>restore</apiName><shortdesc>
+      Restaure la fenêtre (annule l’agrandissement si elle est agrandie, ou la réduction si elle est réduite). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Restaure la fenêtre (annule l’agrandissement si elle est agrandie, ou la réduction si elle est réduite). 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:IWindow:mx.core:IWindow:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      Spécifie si la fenêtre peut être agrandie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre peut être agrandie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      Spécifie si la fenêtre peut être réduite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre peut être réduite.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      Occurrence NativeWindow sous-jacente utilisée par ce composant de fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      Occurrence NativeWindow sous-jacente utilisée par ce composant de fenêtre.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:resizable:get"><apiName>resizable</apiName><shortdesc>
+      Spécifie si la fenêtre peut être redimensionnée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre peut être redimensionnée.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:status:get"><apiName>status</apiName><shortdesc>
+      Chaîne qui s’affiche dans la barre d’état, si elle est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Chaîne qui s’affiche dans la barre d’état, si elle est visible.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      Spécifie le type de chrome système (le cas échéant) de la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie le type de chrome système (le cas échéant) de la fenêtre. L’ensemble des valeurs possibles est défini par les constantes de la classe NativeWindowSystemChrome.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowSystemChrome.xml"><linktext>flash.display.NativeWindowSystemChrome</linktext></link></related-links></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Classe (généralement une image) utilisée pour dessiner l’icône de barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/></apiValueDef><apiDesc>
+      Classe (généralement une image) utilisée pour tracer l’icône de barre de titre.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:title:get"><apiName>title</apiName><shortdesc>
+      Texte de titre qui s’affiche dans la barre de titre de la fenêtre et dans la barre des tâches.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Texte du titre qui s’affiche dans la barre de titre de la fenêtre et dans la barre des tâches.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:transparent:get"><apiName>transparent</apiName><shortdesc>
+      Spécifie si la fenêtre est transparente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre est transparente.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:type:get"><apiName>type</apiName><shortdesc>
+      Spécifie le type d’occurrence NativeWindow représentée par ce composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie le type d’objet NativeWindow représenté par ce composant. Les valeurs possibles sont définies par les constantes de la classe NativeWindowType.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link></related-links></apiValue><apiValue id="mx.core:IWindow:mx.core:IWindow:visible:get"><apiName>visible</apiName><shortdesc>
+      Contrôle la visibilité de la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Contrôle la visibilité de la fenêtre.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+  Un objet WindowedApplication définit le conteneur Application à utiliser pour créer des applications Flex pour des applications AIR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="scriptTimeLimit"/><Exclude kind="effect" name="moveEffect"/><Alternative owner="mx.core:WindowedApplication" replacement="spark.components.WindowedApplication" since="4.0">
+	</Alternative><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="mx.core:WindowedApplication">
+<description>
+  Lu lorsque le composant est agrandi.
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="mx.core:WindowedApplication">
+<description>
+  Lu lorsque le composant est réduit.
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="mx.core:WindowedApplication">
+<description>
+  Lue lorsque la fenêtre est fermée. 
+  
+  </description>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect></effects><styles><style inherit="yes" name="titleTextStyleName" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  Nom du style pour le texte du titre. 
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="yes" name="titleBarColors" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Array">
+<description>
+  Tableau contenant deux couleurs utilisées pour tracer l’en-tête. La première couleur est la couleur du haut. La deuxième couleur est la couleur du bas. Les valeurs par défaut sont <codeph>undefined</codeph>. Dans ce cas, l’arrière-plan de l’en-tête est identique à celui du panneau.
+ 
+  </description>
+<default>[ 0x000000, 0x000000 ]
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="true" name="titleBarButtonPadding" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  Distance entre le bouton de barre de titre le plus éloigné et le bord de la barre de titre.
+ 
+  </description>
+<default>5
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="titleBarBackgroundSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage de l’arrière-plan du titre.
+ 
+  </description>
+<default>mx.skins.halo.ApplicationTitleBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,auto" inherit="yes" name="titleAlignment" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  Position du titre dans la barre de titre. Valeurs possibles : <codeph>"left"</codeph>, <codeph>"center"</codeph> et <codeph>"auto"</codeph>
+ 
+  <p>La valeur <codeph>"left"</codeph> signifie que le titre est aligné sur la gauche de la barre de titre. La valeur <codeph>"center"</codeph> signifie que le titre est aligné au centre de la barre de titre. La valeur <codeph>"auto"</codeph> signifie que le titre est aligné sur la gauche sous Windows et au centre sous Mac OS X.</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusTextStyleName" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  Déclaration de style pour le texte d’état.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="statusBarBackgroundColor" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="uint">
+<description>
+  Couleurs utilisées pour tracer la barre d’état.
+ 
+  </description>
+<default>0xC0C0C0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="statusBarBackgroundSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage d’arrière-plan de la barre d’état.
+ 
+  </description>
+<default>mx.skins.halo.StatusBarBackgroundSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showFlexChrome" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Boolean">
+<description>
+  Détermine si la fenêtre trace son propre chrome Flex ou confie cette opération au développeur. La modification de ce style n’a aucun effet lorsque la fenêtre est ouverte.
+ 
+  </description>
+<default>true
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="restoreButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage du bouton restaurer lorsque vous utilisez le chrome Flex. Ce style est ignoré pour Mac OS X.
+ 
+  </description>
+<default>mx.skins.halo.WindowRestoreButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="minimizeButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage du bouton réduire lorsque vous utilisez le chrome Flex.
+ 
+  </description>
+<default>mx.skins.halo.WindowMinimizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="maximizeButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage du bouton agrandir lorsque vous utilisez le chrome Flex.
+ 
+  </description>
+<default>mx.skins.halo.WindowMaximizeButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="headerHeight" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  Hauteur explicite de l’en-tête. Si ce style n’est pas défini, la hauteur d’en-tête est calculée à partir de la valeur la plus grande parmi la hauteur du texte, celles des boutons et celle des icônes. 
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="gripperStyleName" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  Déclaration de style pour l’habillage de la pince.
+ 
+  </description>
+<default>"gripperStyle"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="gripperPadding" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  Espace supplémentaire autour de la pince. La surface totale de la pince et de la marge autour des contours est la zone active de la pince de redimensionnement.
+ 
+  </description>
+<default>3
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="closeButtonSkin" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Class">
+<description>
+  Habillage pour le bouton Fermer lorsque vous utilisez Flex chrome. 
+ 
+  </description>
+<default>mx.skins.halo.WindowCloseButtonSkin
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="buttonPadding" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="Number">
+<description>
+  Définit la distance entre les boutons du composant titleBar. 
+ 
+  </description>
+<default>2
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,right,auto" inherit="yes" name="buttonAlignment" owner="mx.core:WindowedApplication" playerVersion="AIR1.1" type="String">
+<description>
+  Position des boutons dans la barre de titre. Valeurs possibles : <codeph>"left"</codeph>, <codeph>"right"</codeph> et <codeph>"auto"</codeph>.
+ 
+  <p>La valeur <codeph>"left"</codeph> signifie que les boutons sont alignés sur la gauche de la barre de titre. La valeur <codeph>"right"</codeph> signifie que les boutons sont alignés sur la droite de la barre de titre. La valeur <codeph>"auto"</codeph> signifie que les boutons sont alignés sur la gauche de la barre de titre sous Mac OS X et sur la droite sous Windows.</p>
+ 
+  </description>
+<default>"auto"
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WindowedApplication&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:WindowedApplication
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    autoExit="true"
+    backgroundFrameRate="-1"
+    dockIconMenu="<i>null</i>"
+    maxHeight="2880 less the height of the system chrome"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    showGripper="true"
+    showStatusBar="true"
+    showTitleBar="true"
+    status=""
+    statusBarFactory="mx.core.ClassFactory"
+    systemTrayIconMenu="<i>null</i>"
+    title=""
+    titleBarFactory="mx.core.ClassFactory"
+    titleIcon="<i>null</i>"
+    useNativeDragManager="true"
+ 
+    <strong>Styles</strong>
+    buttonAlignment="auto"
+    buttonPadding="2"
+    closeButtonSkin="mx.skins.halo.windowCloseButtonSkin"
+    gripperPadding="3"
+    gripperStyleName="gripperStyle"
+    headerHeight="<i>undefined</i>"
+    maximizeButtonSkin="mx.skins.halo.WindowMaximizeButtonSkin"
+    minimizeButtonSkin="mx.skins.halo.WindowMinimizeButtonSkin"
+    restoreButtonSkin="mx.skins.halo.WindowRestoreButtonSkin"
+    showFlexChrome="true"
+    statusBarBackgroundColor="0xC0C0C0"
+    statusBarBackgroundSkin="mx.skins.halo.StatusBarBackgroundSkin"
+    statusTextStyleName="<i>undefined</i>"
+    titleAlignment="auto"
+    titleBarBackgroundSkin="mx.skins.halo.ApplicationTitleBarBackgroundSkin"
+    titleBarButtonPadding="5"
+    titleBarColors="[ 0x000000, 0x000000 ]"
+    titleTextStyleName="<i>undefined</i>"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    invoke="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>mx.core:Application</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Un objet WindowedApplication définit le conteneur Application à utiliser afin de créer des applications Flex pour des applications AIR.
+ 
+  <p>L’objet WindowedApplication remplit deux rôles. Il remplace la balise &lt;mx:Application> et fonctionne comme point d’entrée pour une application AIR basée sur Flex. En outre, en tant que conteneur, WindowedApplication définit la présentation de la fenêtre initiale d’une application AIR de Flex. Toute commande visuelle définie dans l’objet WindowedApplication devient le contenu de la fenêtre initiale chargée par l’application AIR. </p>
+ 
+  <p>Un objet WindowedApplication correspond à l’application de plus haut niveau d’une application AIR basée sur Flex. Elle n’est pas conçue pour être chargé par d’autres applications Flex. Si un objet WindowedApplication doit charger d’autres applications, utilisez la classe Application en tant que conteneur pour ces applications. Si d’autres fenêtres sont nécessaires, utilisez la classe Window en tant que conteneur pour ces fenêtres.</p>
+  
+  <p>Notez que, puisque l’objet WindowedApplication ne représente que le contenu visuel d’une seule fenêtre, et non toutes les fenêtres d’une application à plusieurs fenêtres, une occurrence de la classe WindowedApplication distribue uniquement les événements liés à l’affichage (événements que la classe WindowedApplication hérite des classes de base des objets d’affichage, tels que InteractiveObject ou UIComponent) pour sa scène et sa fenêtre propre, et non pour les événements qui se produisent sur d’autres fenêtres de l’application. Ceci diffère d’une application de navigateur, où un conteneur Application distribue les événements pour toutes les fenêtres de l’application (puisque techniquement, ces fenêtres sont toutes des objets d’affichage rendus sur une même scène d’application).</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.core:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  Distribué suite au redimensionnement de l’objet NativeWindow sous-jacent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué suite au redimensionnement de l’objet NativeWindow sous-jacent.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  Distribué après le déplacement de l’objet WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après le déplacement de l’objet WindowedApplication.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  Distribué lorsque l’objet WindowedApplication termine sa présentation initiale.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué une fois que la présentation initiale de l’objet WindowedApplication est terminée. Par défaut, l’objet WindowedApplication est alors visible.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  Distribué avant le redimensionnement de l’objet WindowedApplication ou pendant le déplacement de ses limites.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué avant le redimensionnement de l’objet WindowedApplication ou pendant le déplacement de ses limites.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  Distribué lorsque l’ordinateur se connecte au réseau ou s’en déconnecte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque l’ordinateur se connecte au réseau ou se déconnecte.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  Distribué avant le déplacement de l’objet WindowedApplication, ou lors du déplacement de l’objet WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué avant le déplacement de l’objet WindowedApplication ou lors de son déplacement.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.InvokeEvent_invoke"><apiName>invoke</apiName><shortdesc>
+  Distribué lorsqu’une application est invoquée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>flash.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une application est invoquée.
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  Distribué avant que l’état d’affichage devienne minimize, maximize ou restore.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué avant que l’état d’affichage devienne minimize, maximize ou restore.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  Distribué après que l’état d’affichage soit devenu minimize, maximize ou restore.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après que l’état d’affichage soit devenu minimize, maximize ou restore.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  Distribué avant la fermeture de la fenêtre WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué avant la fermeture de la fenêtre WindowedApplication. Annulation possible.
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  Distribué après la fermeture de cette fenêtre d’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après la fermeture de cette fenêtre d’application.
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  Distribué après la désactivation de cette fenêtre d’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après la désactivation de cette fenêtre d’application.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  Distribué après l’activation de cette fenêtre d’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après l’activation de cette fenêtre d’application.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  Distribué lors de la désactivation de cette application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lors de la désactivation de cette application.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.core:WindowedApplication_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  Distribué lorsque cette application est activée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque cette application est activée.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.core:WindowedApplication:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core:WindowedApplication:activate"><apiName>activate</apiName><shortdesc>
+      Active le composant NativeWindow sous-jacent (même si cette application n’est pas active).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Active le composant NativeWindow sous-jacent (même si cette application n’est pas active).
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:close"><apiName>close</apiName><shortdesc>
+      Ferme le composant NativeWindow de l’application (fenêtre native initiale ouverte par l’application). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Ferme le composant NativeWindow de l’application (fenêtre native initiale ouverte par l’application). Cette action peut être annulée.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:exit"><apiName>exit</apiName><shortdesc>
+      Ferme la fenêtre et quitte l’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Ferme la fenêtre et quitte l’application.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:maximize"><apiName>maximize</apiName><shortdesc>
+      Agrandit la fenêtre. Sans effet si elle est déjà agrandie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Agrandit la fenêtre. Sans effet si elle est déjà agrandie.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:minimize"><apiName>minimize</apiName><shortdesc>
+      Réduit la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Réduit la fenêtre.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      Place la fenêtre juste derrière une autre fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si cette fenêtre a été déplacée vers l’arrière ; <codeph>false</codeph> si cette fenêtre est invisible ou réduite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>Interface IWindow (Window ou WindowedApplication) derrière laquelle classer cette fenêtre.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Place la fenêtre juste derrière une autre fenêtre. Pour classer la fenêtre derrière un composant NativeWindow qui n’implémente pas IWindow, utilisez la méthode <codeph>orderInBackOf()</codeph> du composant NativeWindow de cette fenêtre.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      Place la fenêtre juste devant une autre fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si cette fenêtre a été déplacée vers l’avant ; <codeph>false</codeph> si cette fenêtre est invisible ou réduite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>Interface IWindow (Window ou WindowedApplication) devant laquelle classer cette fenêtre.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Place la fenêtre juste devant une autre fenêtre. Pour classer la fenêtre devant un composant NativeWindow qui n’implémente pas IWindow, utilisez la méthode <codeph>orderInFrontOf()</codeph> du composant NativeWindow de cette fenêtre.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+       Place la fenêtre derrière toutes les autres fenêtres de la même application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si cette fenêtre a été déplacée à l’arrière ; <codeph>false</codeph> si cette fenêtre est invisible ou réduite.
+       
+       </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+       Place la fenêtre derrière toutes les autres fenêtres de cette application.
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+   Classe la fenêtre devant toutes les autres de la même application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si cette fenêtre a été déplacée à l’avant ; <codeph>false</codeph> si cette fenêtre est invisible ou réduite.
+   
+   </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+   Place la fenêtre devant toutes les autres de la même application.
+  
+   </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core:WindowedApplication:restore"><apiName>restore</apiName><shortdesc>
+      Restaure la fenêtre (annule l’agrandissement si elle est agrandie, ou la réduction si elle est réduite). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Restaure la fenêtre (annule l’agrandissement si elle est agrandie, ou la réduction si elle est réduite). 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core:WindowedApplication:useNativeDragManager"><apiName>useNativeDragManager</apiName><shortdesc>
+      Si la valeur est true, DragManager doit utiliser la classe d’implémentation NativeDragManagerImpl. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, DragManager doit utiliser la classe d’implémentation NativeDragManagerImpl. Si la valeur est <codeph>false</codeph>, la classe DragManagerImpl est utilisée.  
+       
+      <p>Remarque : cette propriété ne peut pas être définie par le code ActionScript. Elle doit être définie dans le code MXML. Cela signifie que vous ne pouvez pas modifier sa valeur à l’exécution. </p>
+     
+      <p>Par défaut, DragManager pour les applications AIR intégrées dans Flex utilise la classe NativeDragManagerImpl en tant que classe d’implémentation. Les applications Flash Player intégrées dans Flex utilisent la classe DragManagerImpl.  </p>
+     
+      <p>La classe NativeDragManagerImpl fait office de pont entre l’API NativeDragManager d’AIR et l’API DragManager de Flex. La classe NativeDragManager d’AIR utilise les API de glisser-déposer du système d’exploitation. Elle prend en charge le déplacement entre les fenêtres AIR et entre le système d’exploitation et AIR. Etant donné que le système d’exploitation contrôle l’opération de glisser-déposer, il n’est pas possible de personnaliser les curseurs pendant une opération de glissement. Par ailleurs, vous ne pouvez pas contrôler l’animation du dépôt. Le comportement, qui dépend du système d’exploitation, présente des incohérences selon les plates-formes. </p>
+     
+      <p>La classe DragManagerImpl n’utilise pas le système d’exploitation pour les opérations de glisser-déposer. En revanche, elle contrôle la totalité du glisser-déposer. Elle prend en charge la personnalisation des curseurs et fournit une animation de dépôt. Toutefois, elle ne permet pas le déplacement entre les fenêtres AIR et entre le système d’exploitation et les fenêtres d’AIR. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      Détermine si l’objet NativeWindow sous-jacent est toujours devant les autres fenêtres.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Détermine si l’objet NativeWindow sous-jacent est toujours devant les autres fenêtres.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:applicationID:get"><apiName>applicationID</apiName><shortdesc>
+      Identifiant utilisé par AIR pour identifier l’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Identifiant utilisé par AIR pour identifier l’application.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:autoExit:get"><apiName>autoExit</apiName><shortdesc>
+      Spécifie si l’application AIR se ferme lors de la fermeture de la dernière fenêtre ou continue l’exécution en arrière-plan.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie si l’application AIR se ferme lors de la fermeture de la dernière fenêtre ou continue l’exécution en arrière-plan.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:backgroundFrameRate:get"><apiName>backgroundFrameRate</apiName><shortdesc>
+      Spécifie la cadence d’images à utiliser lorsque l’application est désactivée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie la cadence d’images à utiliser lorsque l’application est désactivée. Lorsque définie sur -1, aucun étranglement de cadence d’arrière-plan ne se produit. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:closed:get"><apiName>closed</apiName><shortdesc>
+      Renvoie true lorsque la fenêtre sous-jacente a été fermée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Renvoie true lorsque la fenêtre sous-jacente a été fermée.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:dockIconMenu:get"><apiName>dockIconMenu</apiName><shortdesc>
+      Menu de l’icône du dock.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      Menu de l’icône du dock. Certains systèmes d’exploitation ne prennent pas en charge les menus d’icônes du dock.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      Spécifie si la fenêtre peut être agrandie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre peut être agrandie.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:menu:get"><apiName>menu</apiName><shortdesc>
+      Menu d’application, dans le cas des systèmes d’exploitation qui prennent en charge un menu d’application, ou menu de fenêtre de la fenêtre initiale de l’application, dans le cas des systèmes d’exploitation qui prennent en charge des menus de fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      Menu d’application, dans le cas des systèmes d’exploitation qui prennent en charge un menu d’application, ou menu de fenêtre de la fenêtre initiale de l’application, dans le cas des systèmes d’exploitation qui prennent en charge des menus de fenêtre.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      Spécifie si la fenêtre peut être réduite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre peut être réduite.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:nativeApplication:get"><apiName>nativeApplication</apiName><shortdesc>
+      Objet NativeApplication représentant l’application AIR. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.desktop:NativeApplication"/></apiValueDef><apiDesc>
+      Objet NativeApplication représentant l’application AIR. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      Composant NativeWindow utilisé par ce composant WindowedApplication (fenêtre native initiale de l’application).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      Composant NativeWindow utilisé par ce composant WindowedApplication (fenêtre native initiale de l’application).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:resizable:get"><apiName>resizable</apiName><shortdesc>
+      Spécifie si la fenêtre peut être redimensionnée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre peut être redimensionnée.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:showGripper:get"><apiName>showGripper</apiName><shortdesc>
+      Si la valeur est true, le gripper est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, la pince est visible.
+     
+      <p>Sous Mac OS X une fenêtre avec la propriété <codeph>systemChrome</codeph> définie sur <codeph>"standard"</codeph> a toujours une pince de système d’exploitation. Dans ce cas, ce paramètre est donc ignoré.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      Si la valeur est true, la barre d’état est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, la barre d’état est visible.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:showTitleBar:get"><apiName>showTitleBar</apiName><shortdesc>
+      Si la valeur est true, la barre de titre de la fenêtre est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, la barre de titre de la fenêtre est visible.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:statusBarFactory:get"><apiName>statusBarFactory</apiName><shortdesc>
+      Objet IFactory qui crée une occurrence à utiliser comme barre d’état.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Objet IFactory qui crée une occurrence à utiliser comme barre d’état. La valeur par défaut est un objet IFactory pour le composant StatusBar.
+     
+      <p>Si vous écrivez une classe personnalisée de barre d’état, elle doit présenter une propriété publique appelée <codeph>status</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:protected:statusBarStyleFilters:get"><apiName>statusBarStyleFilters</apiName><shortdesc>
+      Jeu de styles à transmettre de l’application WindowedApplication à la barre d’état.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Jeu de styles à transmettre de l’application WindowedApplication à la barre d’état.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:WindowedApplication:statusBar:get"><apiName>statusBar</apiName><shortdesc>
+      Classe UIComponent qui affiche la barre d’état.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      Classe UIComponent qui affiche la barre d’état.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:status:get"><apiName>status</apiName><shortdesc>
+      Chaîne qui s’affiche dans la barre d’état, si elle est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="statusChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Chaîne qui s’affiche dans la barre d’état, si elle est visible.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      Spécifie le type de chrome système (le cas échéant) de la fenêtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie le type de chrome système (le cas échéant) de la fenêtre. L’ensemble des valeurs possibles est défini par les constantes de la classe NativeWindowSystemChrome.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/systemChrome"><linktext>flash.display.NativeWindow.systemChrome</linktext></link></related-links></apiValue><apiValue id="mx.core:WindowedApplication:systemTrayIconMenu:get"><apiName>systemTrayIconMenu</apiName><shortdesc>
+      Menu de l’icône de barre d’état système.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      Menu de l’icône de barre d’état système. Certains systèmes d’exploitation ne prennent pas en charge les menus d’icône de barre d’état système.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:titleBarFactory:get"><apiName>titleBarFactory</apiName><shortdesc>
+      Objet IFactory qui crée une occurrence à utiliser comme barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleBarFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Objet IFactory qui crée une occurrence à utiliser comme barre de titre. La valeur par défaut est un objet IFactory pour le composant TitleBar.
+     
+      <p>Si vous écrivez une classe personnalisée de barre de titre, elle doit présenter des propriétés publiques appelées <codeph>titleIcon</codeph> et <codeph>title</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:protected:titleBarStyleFilters:get"><apiName>titleBarStyleFilters</apiName><shortdesc>
+      Jeu de styles à transmettre de l’application WindowedApplication à l’objet titleBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Jeu de styles à transmettre de l’application WindowedApplication à l’objet titleBar.
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.core:WindowedApplication:titleBar:get"><apiName>titleBar</apiName><shortdesc>
+      Classe UIComponent qui affiche la barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.core:UIComponent"/></apiValueDef><apiDesc>
+      Classe UIComponent qui affiche la barre de titre.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Classe (généralement une image) utilisée pour dessiner l’icône de barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleIconChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Classe (généralement une image) utilisée pour tracer l’icône de barre de titre.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:title:get"><apiName>title</apiName><shortdesc>
+      Titre qui s’affiche dans la barre de titre de la fenêtre et dans la barre des tâches.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="titleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Titre qui s’affiche dans la barre de titre de la fenêtre et dans la barre des tâches. Si vous utilisez le chrome système et définissez cette propriété sur une valeur différente de la balise &lt;title> dans le fichier application.xml, le titre du fichier XML peut s’afficher brièvement en premier.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:transparent:get"><apiName>transparent</apiName><shortdesc>
+      Spécifie si la fenêtre est transparente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Spécifie si la fenêtre est transparente.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core:WindowedApplication:type:get"><apiName>type</apiName><shortdesc>
+      Spécifie le type d’occurrence NativeWindow représentée par ce composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie le type d’objet NativeWindow représenté par ce composant. Les valeurs possibles sont définies par les constantes de la classe NativeWindowType.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

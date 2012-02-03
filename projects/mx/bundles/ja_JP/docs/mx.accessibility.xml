@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.accessibility"><apiName>mx.accessibility</apiName><apiDetail/><apiClassifier id="mx.accessibility:ButtonAccImpl"><apiName>ButtonAccImpl</apiName><shortdesc>
+  ButtonAccImpl は、Button クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonAccImpl は、Button クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ButtonAccImpl:ButtonAccImpl"><apiName>ButtonAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Button クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Button クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、Button のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DateChooserAccImpl"><apiName>DateChooserAccImpl</apiName><shortdesc>
+  DateChooserAccImpl は、DateChooser クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateChooserAccImpl は、DateChooser クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DateChooserAccImpl:DateChooserAccImpl"><apiName>DateChooserAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DateChooserAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  DateChooser クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  DateChooser クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、DateChooser のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+  TabBarAccImpl は、TabBar クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TabBarAccImpl は、TabBar クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TabBarAccImpl:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TabBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  TabBar クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  TabBar クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、TabBar のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:LabelAccImpl"><apiName>LabelAccImpl</apiName><shortdesc>
+  LabelAccImpl は、Label クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LabelAccImpl は、Label クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:LabelAccImpl:LabelAccImpl"><apiName>LabelAccImpl</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:LabelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Label クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Label クラスでアクセシビリティを有効にします。
+     
+      <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、Label のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+  ListBaseAccImpl は、ListBase クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListBaseAccImpl は、ListBase クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ListBaseAccImpl:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ListBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  ListBase クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  ListBase クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、ListBase のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ComboBaseAccImpl"><apiName>ComboBaseAccImpl</apiName><shortdesc>
+  ComboBaseAccImpl は、ComboBase クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBaseAccImpl は、ComboBase クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ComboBaseAccImpl:ComboBaseAccImpl"><apiName>ComboBaseAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ComboBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  ComboBase クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  ComboBase クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、ComboBase のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:MenuBarAccImpl"><apiName>MenuBarAccImpl</apiName><shortdesc>
+  MenuBarAccImpl は、MenuBar クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuBarAccImpl は、MenuBar クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:MenuBarAccImpl:MenuBarAccImpl"><apiName>MenuBarAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:MenuBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  MenuBar クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  MenuBar クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、MenuBar のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:MenuBarAccImpl:get_accRole"><apiName>get_accRole</apiName><shortdesc>
+	  コンポーネントのロールを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/><apiDesc>uint
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  コンポーネントのロールを取得します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:LinkButtonAccImpl"><apiName>LinkButtonAccImpl</apiName><shortdesc>
+  LinkButtonAccImpl は、LinkButton クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ButtonAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LinkButtonAccImpl は、LinkButton クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:LinkButtonAccImpl:LinkButtonAccImpl"><apiName>LinkButtonAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:LinkButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  LinkButton クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  LinkButton クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、LinkButton のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+  TitleWindowAccImpl は、TitleWindow クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:PanelAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TitleWindowAccImpl は、TitleWindow クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TitleWindowAccImpl:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TitleWindowAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  TitleWindow クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  TitleWindow クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、TitleWindow のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:AlertAccImpl"><apiName>AlertAccImpl</apiName><shortdesc>
+  AlertAccImpl は、Alert クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:TitleWindowAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AlertAccImpl は、Alert クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AlertAccImpl:AlertAccImpl"><apiName>AlertAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AlertAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Alert クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Alert クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、Alert のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:SliderAccImpl"><apiName>SliderAccImpl</apiName><shortdesc>
+  SliderAccImpl は、Slider クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderAccImpl は、Slider クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:SliderAccImpl:SliderAccImpl"><apiName>SliderAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:SliderAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Slider クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Slider クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、Slider のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:SliderAccImpl:protected:getState"><apiName>getState</apiName><shortdesc>
+	  アクセス可能なコンポーネントの状態を判別するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+	  アクセス可能なコンポーネントの状態を判別するためのユーティリティメソッドです。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+  ComboBoxAccImpl は、ComboBox クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ComboBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBoxAccImpl は、ComboBox クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ComboBoxAccImpl:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ComboBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  ComboBox クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  ComboBox クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、ComboBox のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:AccordionHeaderAccImpl"><apiName>AccordionHeaderAccImpl</apiName><shortdesc>
+  AccordionHeaderAccImpl は、AccordionHeader クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AccordionHeaderAccImpl は、AccordionHeader クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AccordionHeaderAccImpl:AccordionHeaderAccImpl"><apiName>AccordionHeaderAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AccordionHeaderAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  AccordionHeader クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  AccordionHeader クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、AccordionHeader のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+  RadioButtonAccImpl は、RadioButton クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:CheckBoxAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadioButtonAccImpl は、RadioButton クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:RadioButtonAccImpl:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:RadioButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  RadioButton クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  RadioButton クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、RadioButton のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+  ListAccImpl は、List クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListAccImpl は、List クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ListAccImpl:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ListAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  List クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  List クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、List のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ColorPickerAccImpl"><apiName>ColorPickerAccImpl</apiName><shortdesc>
+  ColorPickerAccImpl は、ColorPicker クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ComboBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorPickerAccImpl は、ColorPicker クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ColorPickerAccImpl:ColorPickerAccImpl"><apiName>ColorPickerAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ColorPickerAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  ColorPicker クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  ColorPicker クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、ColorPicker のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+  DataGridAccImpl は、DataGrid クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridAccImpl は、DataGrid クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DataGridAccImpl:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DataGridAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  DataGrid クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  DataGrid クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、DataGrid のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+  CheckBoxAccImpl は、CheckBox クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ButtonAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CheckBoxAccImpl は、CheckBox クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:CheckBoxAccImpl:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:CheckBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  CheckBox クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  CheckBox クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、CheckBox のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DateFieldAccImpl"><apiName>DateFieldAccImpl</apiName><shortdesc>
+  DateFieldAccImpl は、DateField クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateFieldAccImpl は、DateField クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DateFieldAccImpl:DateFieldAccImpl"><apiName>DateFieldAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DateFieldAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  DateField クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  DateField クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、DateField のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TreeAccImpl"><apiName>TreeAccImpl</apiName><shortdesc>
+  TreeAccImpl は、Tree クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TreeAccImpl は、Tree クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TreeAccImpl:TreeAccImpl"><apiName>TreeAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TreeAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Tree クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Tree クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、Tree のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+  PanelAccImpl は、Panel クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PanelAccImpl は、Panel クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:PanelAccImpl:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:PanelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Panel クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Panel クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、Panel のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:MenuAccImpl"><apiName>MenuAccImpl</apiName><shortdesc>
+  MenuAccImpl は、Menu クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuAccImpl は、Menu クラスのアクセシビリティを実装する AccessibilityImplementation のサブクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:MenuAccImpl:MenuAccImpl"><apiName>MenuAccImpl</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:MenuAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Menu クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Menu クラスでアクセシビリティを有効にします。
+	 
+	  <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、Menu のインスタンスが初期化されると、<codeph>accessibilityImplementation</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

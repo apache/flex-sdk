@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.preloaders"><apiName>spark.preloaders</apiName><apiDetail/><apiClassifier id="spark.preloaders:SplashScreenImage"><apiName>SplashScreenImage</apiName><shortdesc>
+  В классе SplashScreenImage можно указать различные изображения заставок экрана на основе характеристик мобильного устройства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[ 
+  <p>The <code>&lt;s:SplashScreenImage&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no new tag attributes:</p>
+  
+  <pre>
+  &lt;s:SplashScreenImage xmlns:fx="http://ns.adobe.com/mxml/2009" 
+      xmlns:s="library://ns.adobe.com/flex/spark"&gt;
+  
+      &lt;!-- Define one or more SplashScreenImageSource. --&gt;
+      &lt;s:SplashScreenImageSource 
+          source="&#64;Embed('assets/logoDefault.jpg')"/&gt;
+          
+      &lt;s:SplashScreenImageSource 
+          source="&#64;Embed('assets/logo240Portrait.jpg')"
+          dpi="240" 
+          aspectRatio="portrait"/&gt;
+   
+  &lt;/s:SplashScreenImage&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  В классе SplashScreenImage можно указать различные изображения заставок экрана на основе характеристик мобильного устройства. Например, в зависимости от DPI, ориентации или разрешения экрана устройства можно выбрать различные изображения для заставок экрана.
+ 
+  <p>Класс SplashScreenImage обычно определяется в файле MXML. В классе SplashScreenImageSource можно указать различные изображения для выбора и соответствующие характеристики устройств. Затем для свойства <codeph>splashScreenImage</codeph> приложения указывается имя MXML-компонента <codeph>SplashScreenImage</codeph>.</p> 
+ 
+  <p>Ниже представлены действия по поиску наиболее точного соответствия между определением SplashScreenImageSource и мобильным устройством.</p>
+  
+  <ol>
+    <li>Укажите все определения SplashScreenImageSource, которые соответствуют параметрам мобильного устройства. Соответствие определяется в следующих случаях: 
+        <ul>
+          <li>Этот параметр не указан явно в определении SplashScreenImageSource. Например, ни один параметр свойства <codeph>dpi</codeph> не соответствует DPI любого устройства.</li>
+          <li>Свойства <codeph>dpi</codeph> или <codeph>aspectRatio</codeph> должны точно соответствовать параметрам мобильного устройства. </li>
+          <li>Свойство <codeph>minResolution</codeph> соответствует параметру устройства, если наиболее высокое из значений свойств <codeph>Stage.stageWidth</codeph> и <codeph>Stage.stageHeight</codeph> больше или равно <codeph>minResolution</codeph>.</li>
+        </ul>
+    </li>
+    <li>Если устройству соответствует более одного определения SplashScreenImageSource: 
+          <ul>
+            <li>Выберите определение с наибольшим количеством явных параметров. Например, определение SplashScreenImageSource, указывающее свойства <codeph>dpi</codeph> и <codeph>aspectRatio</codeph>, является более точным соответствием, чем определение, указывающее только свойство <codeph>dpi</codeph>.</li>
+            <li>При наличии нескольких совпадений выберите определение с наиболее высоким значением <codeph>minResolution</codeph>.</li>
+            <li>При наличии нескольких совпадений выберите то, которое указано первым в компоненте.</li>
+          </ul>
+    </li>
+  </ol>
+   <p><b>Примечание.</b> Этот класс невозможно встроить в MXML приложения. Его необходимо определить в отдельном файле MXML и создать на него ссылку с помощью свойства <codeph>splashScreenImage</codeph> приложения.</p>
+   </apiDesc><example conref="DynamicSplashScreenExample1.mxml"/><example conref="DynamicSplashScreenExample1HomeView.mxml"/><example conref="SplashScreenImage1.mxml"/></apiClassifierDetail><related-links><link href="spark.preloaders.xml#SplashScreenImageSource"><linktext>spark.preloaders.SplashScreenImageSource</linktext></link><link href="" invalidHref="spark.components.xml#Application/splashScreenImage"><linktext>spark.components.Application.splashScreenImage</linktext></link></related-links><apiConstructor id="spark.preloaders:SplashScreenImage:SplashScreenImage"><apiName>SplashScreenImage</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.preloaders:SplashScreenImage:getImageClass"><apiName>getImageClass</apiName><shortdesc>
+      Возвращает Class в SplashScreenImageSource, который наиболее точно соответствует указанным параметрам устройства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Класс изображения, используемого в качестве заставки.
+           </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>aspectRatio</apiItemName><apiType value="String"/><apiDesc>Свойство с наиболее высоким значением: <codeph>flash.display.StageAspectRatio.PORTRAIT</codeph> или <codeph>flash.display.StageAspectRatio.LANDSCAPE</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dpi</apiItemName><apiType value="Number"/><apiDesc>DPI мобильного устройства.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resolution</apiItemName><apiType value="Number"/><apiDesc>Разрешение экрана мобильного устройства с большей размерностью, в пикселах.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает Class в SplashScreenImageSource, который наиболее точно соответствует указанным параметрам устройства.
+     
+      <p>Этот метод вызывается не напрямую, а внутри Flex.</p>
+     
+      <p>Если необходимо изменить стандартную логику Flex по поиску наиболее точного соответствия для экземпляра SplashScreenImageSource, этот метод можно переопределить в компоненте SplashScreenImage.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.StageAspectRatio.xml"><linktext>flash.display.StageAspectRatio</linktext></link></related-links></apiOperation><apiOperation id="spark.preloaders:SplashScreenImage:initialized"><apiName>initialized</apiName><shortdesc>
+      Вызывается после создания объекта реализации и инициализации всех свойств компонентов, указанных в теге MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Документ MXML, создавший этот объект.
+           </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Идентификатор, используемый <codeph>document</codeph> в качестве ссылки на этот объект. Если объект представляет собой глубокое свойство <codeph>document</codeph>, идентификатор <codeph>id</codeph> равен null.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается после создания объекта реализации и инициализации всех свойств компонентов, указанных в теге MXML.
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.preloaders:SplashScreenImage:mxmlContent:get"><apiName>mxmlContent</apiName><shortdesc>
+      Источники SplashScreenImageSource для этого SplashScreenImage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Источники SplashScreenImageSource для этого <codeph>SplashScreenImage</codeph>. Этот метод обычно не вызывается напрямую. Вместо этого определения SplashScreenImageSource встраиваются в файл MXML компонента SplashScreenImage.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.preloaders:SplashScreenImageSource"><apiName>SplashScreenImageSource</apiName><shortdesc>
+  Класс SplashScreenImageSource определяет Class (как правило, встроенное изображение), которое будет использоваться в качестве заставки экрана при определенной конфигурации устройства, например DPI, ориентации и разрешении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[ 
+  <p>The <code>&lt;s:SplashScreenImageSource&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:SplashScreenImageSource
+   <strong>Properties</strong>
+    aspectRatio="null"
+    dpi="NaN"
+    minResolution="NaN"
+    source="null"
+  &gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SplashScreenImageSource определяет Class (как правило, встроенное изображение), которое будет использоваться в качестве заставки экрана при определенной конфигурации устройства, например DPI, ориентации и разрешении.
+   <p>Для определения класса SplashScreenImage в MXML и установки свойства <codeph>splashScreenImage</codeph> для этого класса обычно используется один или несколько объектов SplashScreenImageSource.</p>
+   <p>Ниже показан компонент SplashScreenImage с тремя различными определениями для SplashScreenImageSource:</p>
+   <pre>
+    &lt;?xml version="1.0" encoding="utf-8"?> 
+    &lt;s:SplashScreenImage xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"> 
+     
+        &lt;!-- Default splashscreen image. --> 
+        &lt;s:SplashScreenImageSource 
+            source="@Embed('assets/logoDefault.jpg')"/> 
+        
+        &lt;s:SplashScreenImageSource 
+            source="@Embed('assets/logo240Portrait.jpg')" 
+            dpi="240" 
+            aspectRatio="portrait"/> 
+        
+        &lt;s:SplashScreenImageSource 
+            source="@Embed('assets/logo240Landscape.jpg')" 
+            dpi="240" 
+            aspectRatio="landscape"/> 
+        
+    &lt;/s:SplashScreenImage>      
+  </pre>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.preloaders.xml#SplashScreenImage"><linktext>spark.preloaders.SplashScreenImage</linktext></link><link href="" invalidHref="spark.components.xml#Application/splashScreenImage"><linktext>spark.components.Application.splashScreenImage</linktext></link></related-links><apiConstructor id="spark.preloaders:SplashScreenImageSource:SplashScreenImageSource"><apiName>SplashScreenImageSource</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.preloaders:SplashScreenImageSource:aspectRatio"><apiName>aspectRatio</apiName><shortdesc>
+      Требуемое соотношение сторон экрана мобильного устройства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Требуемое соотношение сторон экрана мобильного устройства. Этим свойством может быть <codeph>flash.display.StageAspectRatio.PORTRAIT</codeph> или <codeph>flash.display.StageAspectRatio.LANDSCAPE</codeph>.
+     
+      <p>Если значение не указано, <codeph>SplashScreenImage</codeph> игнорирует это свойство.</p> 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.StageAspectRatio.xml"><linktext>flash.display.StageAspectRatio</linktext></link></related-links></apiValue><apiValue id="spark.preloaders:SplashScreenImageSource:dpi"><apiName>dpi</apiName><shortdesc>
+      DPI устройства, необходимый для вывода связанного изображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>NaN</apiData><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      DPI устройства, необходимый для вывода связанного изображения.
+      
+      <p>Значение NaN указывает, что SplashScreenImage игнорирует это свойство.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.preloaders:SplashScreenImageSource:minResolution"><apiName>minResolution</apiName><shortdesc>  
+      Минимальное разрешение экрана мобильного устройства, необходимое для вывода изображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>NaN</apiData><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>  
+      Минимальное разрешение экрана мобильного устройства, необходимое для вывода изображения. Разрешение устройства - это выраженная в пикселах максимальная ширина и высота рабочей области. Значение свойства <codeph>minResolution</codeph> сопоставляется с наиболее высоким значением свойств <codeph>Stage.stageWidth</codeph> и <codeph>Stage.stageHeight</codeph>. Наиболее высокое из этих двух значений должно быть равно или выше значения свойства <codeph>minResolution</codeph>.
+     
+      <p>С помощью этого свойства можно выводить на экран различные изображения, для которых указано разрешение устройства в пикселах.</p>
+           <p>Значение NaN указывает, что SplashScreenImage игнорирует это свойство.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.preloaders:SplashScreenImageSource:source"><apiName>source</apiName><shortdesc>
+      Класс изображения для заставки, который будет использоваться для определенной конфигурации устройства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Класс изображения для заставки, который будет использоваться для определенной конфигурации устройства. Как правило, значением этого свойства является вложенный ресурс. 
+     
+      <p>Например:</p>
+           <pre>
+            &lt;s:SplashScreenImageSource 
+                source="@Embed('assets/logo240Portrait.jpg')" 
+                dpi="240" 
+                aspectRatio="portrait"/> 
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.preloaders.xml#SplashScreenImage"><linktext>spark.preloaders.SplashScreenImage</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.preloaders:SplashScreen"><apiName>SplashScreen</apiName><shortdesc>
+  Класс SplashScreen - это средство предварительной загрузки по умолчанию для приложений Mobile Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SplashScreen - это средство предварительной загрузки по умолчанию для приложений Mobile Flex. Разработчики могут указать класс изображения и режим изменения размеров с помощью таких свойств Application, как <codeph>splashScreenImage</codeph>, <codeph>splashScreenScaleMode</codeph> и <codeph>splashScreenMinimumDisplayTime</codeph>. SplashScreen отслеживает ориентацию устройства и обновляет изображение таким образом, чтобы оно появлялось на экране так, как если бы для ориентации было указано StageOrientation.DEFAULT.
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Application/splashScreenImage"><linktext>spark.components.Application.splashScreenImage</linktext></link><link href="" invalidHref="spark.components.xml#Application/splashScreenScaleMode"><linktext>spark.components.Application.splashScreenScaleMode</linktext></link><link href="" invalidHref="spark.components.xml#Application/splashScreenMinimumDisplayTime"><linktext>spark.components.Application.splashScreenMinimumDisplayTime</linktext></link></related-links><apiConstructor id="spark.preloaders:SplashScreen:SplashScreen"><apiName>SplashScreen</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.preloaders:SplashScreen:initialize"><apiName>initialize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.preloaders:SplashScreen:stageHeight:get"><apiName>stageHeight</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.preloaders:SplashScreen:stageWidth:get"><apiName>stageWidth</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.preloaders:SplashScreen:preloader:set"><apiName>preloader</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

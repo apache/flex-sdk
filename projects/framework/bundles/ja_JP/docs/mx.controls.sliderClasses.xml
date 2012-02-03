@@ -1,0 +1,668 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.sliderClasses"><apiName>mx.controls.sliderClasses</apiName><apiDetail/><apiClassifier id="mx.controls.sliderClasses:Slider"><apiName>Slider</apiName><shortdesc>
+  Slider クラスは、Flex のスライダーコントロールの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="trackSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  スライダートラックのスキンです。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackHighlightSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  スライダートラックが選択されたときのスキンです。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDisabledSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  無効状態のスライダーサム用のスキンです。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  ダウン状態のスライダーサム用のスキンです。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  オーバー状態のスライダーサム用のスキンです。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  アップ状態のスライダーサム用のスキンです。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  スライダーサムのデフォルトのスキンです。
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipPrecision" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="int">
+<description>
+  データヒントテキストで使用する小数点以下の桁数です。 0 の場合、すべての値が整数に四捨五入されます。
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="dataTipOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  サムに対するデータヒントのオフセット（ピクセル単位）です。 HSlider コントロールおよび VSlider コントロールの <codeph>dataTipPlacement</codeph> スタイルプロパティと組み合わせて使用します。
+ 
+  </description>
+<default>16
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  データヒントで使用するスタイル宣言の名前です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="trackMargin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  トラックマージンのサイズ（ピクセル単位）です。 <codeph>undefined</codeph> の場合は、最初のラベルと最後のラベルの長さによってトラックマージンが決まります。 値を指定すると、使用できるスペース内にラベルが配置されます。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showTrackHighlight" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  サムの間のトラックをハイライト表示できるようにするかどうかを指定します。サムが 1 つの場合は、サムとトラックの始点との間をハイライト表示できるようにするかどうかを指定します。
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  2 色の配列としてトラックの色を指定します。 単色のトラックの場合は同じ色を 2 回使用できます。
+ 
+  <p>このプロパティは、<codeph>fillAlphas</codeph> プロパティと共に使用します。 通常、<codeph>fillAlphas</codeph> を [ 1.0, 1.0 ] に設定します（<codeph>trackColors</codeph> を設定する場合）。</p>
+ 
+  </description>
+<default>[ 0xE7E7E7, 0xE7E7E7 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickThickness" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  ピクセルで表した目盛りの太さです。 水平方向の目盛りの場合は、目盛りの幅を調整します。 垂直方向の目盛りの場合は、目盛りの高さを調整します。
+ 
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  トラックに対する目盛りの y 方向オフセット（水平方向の目盛りの場合）、または x 方向オフセット（垂直方向の目盛りの場合）です。
+ 
+  </description>
+<default>-6
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickLength" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  ピクセルで表した目盛りの長さです。 <codeph>direction</codeph> が <codeph>Direction.HORIZONTAL</codeph> の場合は、目盛りの高さを調整します。 <codeph>direction</codeph> が <codeph>Direction.VERTICAL</codeph> の場合は、目盛りの幅を調整します。
+ 
+  </description>
+<default>3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="tickColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="uint">
+<description>
+  目盛りの色です。 既知の色を、16 進数のカラー値またはストリングで表した名前で指定できます。
+ 
+  </description>
+<default>0x6F7777.
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="thumbOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  トラックに対するサムの y 方向オフセット（水平方向サムの場合）、または x 方向オフセット（垂直方向サムの場合）です。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="slideEasingFunction" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Function">
+<description>
+  トラックをクリックしてサムを動かしたときに表示されるサムのスライドアニメーションで使用されるトゥイーン関数です。
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Time" inherit="no" name="slideDuration" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  トラックをクリックしてサムを動かしたときに表示されるサムのスライドアニメーションの時間（ミリ秒）です。
+ 
+  </description>
+<default>300
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="labelStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  スライダーのラベルに使用するスタイルの名前です。  
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="labelOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  トラックに対するラベルの y 方向オフセット（水平方向ラベルの場合）、または x 方向オフセット（垂直方向ラベルの場合）です。
+ 
+   </description>
+<default>-10
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="invertThumbDirection" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  サムの方向を反転します。 <codeph>true</codeph> の場合、サムは反転されます。
+  
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="focusColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  コンポーネントにフォーカスがある場合のフォーカスリングのカラーです。
+   
+  </description>
+<default>0x70B2EE
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="accentColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  トラックハイライトのカラーです。
+ 
+  </description>
+<default>#0099FF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  境界線の黒い区画のカラーです。 
+  
+  </description>
+<default>0x919999
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  コンポーネントの背景の塗りの着色で使用するカラーを指定します。 これは、RGB カラーを指定する 2 つまたは 4 つの uint 値から成る配列に設定する必要があります。 エレメント 0 および 1 は、カラーグラデーションの開始値と終了値を指定します。 エレメント 2 および 3 が存在する場合は、コンポーネントがマウスの置かれた状態にあるときに、エレメント 0 および 1 の代わりに使用されます。 均一な外観のコントロールでは、エレメント 0 と 1、およびエレメント 2 と 3 で同じカラーを設定します。デフォルト値は <codeph>[ 0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE ]</codeph> です。
+  <p>ApplicationControlBar コンテナなど、一部のコンポーネントは異なる値を持ちます。 ApplicationControlBar コンテナのデフォルト値は <codeph>[ 0xFFFFFF, 0xFFFFFF ]</codeph> です。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  コンポーネントの背景の塗りで使用されるアルファ透明度値を指定します。 これは、2 つまたは 4 つの数値から成る配列に設定する必要があります。 エレメント 0 および 1 は、アルファグラデーションの開始値と終了値を指定します。 エレメント 2 および 3 が存在する場合は、コンポーネントがマウスの置かれた状態にあるときに、エレメント 0 および 1 の代わりに使用されます。 グローバルなデフォルト値は <codeph>[ 0.60, 0.40, 0.75, 0.65 ]</codeph> です。 ApplicationControlBar コンテナなど、一部のコンポーネントは異なる値を持ちます。 ApplicationControlBar コンテナのデフォルト値は <codeph>[ 0.0, 0.0 ]</codeph> です。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The Slider class cannot be used as an MXML tag. Use the <code>&lt;mx:HSlider&gt;</code> 
+  and <code>&lt;mx:VSlider&gt;</code> tags instead. However, the Slider class does define tag 
+  attributes used by the <code>&lt;mx:HSlider&gt;</code> and <code>&lt;mx:VSlider&gt;</code> tags. </p>
+ 
+  <p>The Slider class inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <strong>Properties</strong>
+    allowThumbOverlap="false|true"
+    allowTrackClick="true|false"
+    dataTipFormatFunction="undefined"
+    direction="horizontal|vertical"
+    labels="undefined"
+    liveDragging="false|true"
+    maximum="10"
+    minimum="0"
+    showDataTip="true|false"
+    sliderDataTipClass="sliderDataTip"
+    sliderThumbClass="SliderThumb"
+    snapInterval="0"
+    thumbCount="1"
+    tickInterval="0"
+    tickValues="undefined"
+    value="<i>The value of the minimum property.</i>"
+ 
+    <strong>Styles</strong>
+    borderColor="0x919999"
+    dataTipOffset="16"
+    dataTipPrecision="2"
+    dataTipStyleName="undefined"
+    fillAlphas="[0.6, 0.4, 0.75, 0.65]"
+    fillColors="[0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE;]"
+    labelOffset="-10"
+    labelStyleName="undefined"
+    showTrackHighlight="false"
+    slideDuration="300"
+    slideEasingFunction="undefined"
+    thumbDisabledSkin="SliderThumbSkin"
+    thumbDownSkin="SliderThumbSkin"
+    thumbOffset="0"
+    thumbOverSkin="SliderThumbSkin"
+    thumbUpSkin="SliderThumbSkin"
+    tickColor="0x6F7777"
+    tickLength="3"
+    tickOffset="-6"
+    tickThickness="1"
+    trackColors="[ 0xEEEEEE, 0xFFFFFF ]"
+    tracHighlightSkin="SliderHighlightSkin"
+    trackMargin="undefined"
+    trackSkin="SliderTrackSkin"
+  
+    <strong>Events</strong>
+    change="<i>No default</i>"
+    thumbDrag="<i>No default</i>"
+    thumbPress="<i>No default</i>"
+    thumbRelease="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Slider クラスは、Flex のスライダーコントロールの基本クラスです。 スライダーコントロールを使用すると、スライダートラックの両端の間でスライダーサムを移動することで値を選択できます。 スライダーの現在の値は、スライダーの両終点の間におけるサムの相対位置によって決定されます。スライダーの両終点は、スライダーの最小値と最大値に対応します。 Slider クラスは、HSlider と VSlider によってサブクラス化されます。
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_RELEASE_thumbRelease"><apiName>thumbRelease</apiName><shortdesc>
+  スライダーのサムが離されたとき、つまり thumbPress イベントの後ユーザーがマウスボタンを離したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_RELEASE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  スライダーのサムが離されたとき、つまり <codeph>thumbPress</codeph> イベントの後ユーザーがマウスボタンを離したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_PRESS_thumbPress"><apiName>thumbPress</apiName><shortdesc>
+  スライダーサムが押されたとき、つまりユーザーがサムの上でマウスボタンを押したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_PRESS</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  スライダーサムが押されたとき、つまりユーザーがサムの上でマウスボタンを押したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_DRAG_thumbDrag"><apiName>thumbDrag</apiName><shortdesc>
+  スライダーのサムが押され、マウスによって移動されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_DRAG</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  スライダーのサムが押され、マウスによって移動されたときに送出されます。 このイベントには、常に <codeph>thumbPress</codeph> イベントが先行します。
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.CHANGE_change"><apiName>change</apiName><shortdesc>
+  マウスまたはキーボードの操作によってスライダーの値が変化した場合に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.CHANGE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  マウスまたはキーボードの操作によってスライダーの値が変化した場合に送出されます。
+ 
+  <p><codeph>liveDragging</codeph> プロパティが <codeph>true</codeph> の場合、ユーザーがサムをドラッグしている間は、イベントが継続的に送出されます。<codeph>liveDragging</codeph> プロパティが <codeph>false</codeph> の場合、ユーザーがスライダーサムを離したときに、イベントが送出されます。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.sliderClasses:Slider:Slider"><apiName>Slider</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.sliderClasses:Slider:getThumbAt"><apiName>getThumbAt</apiName><shortdesc>
+      指定のインデックス位置にあるサムオブジェクトを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>SliderThumb オブジェクトへの参照です。
+      
+      </apiDesc><apiOperationClassifier>mx.controls.sliderClasses:SliderThumb</apiOperationClassifier></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>0 から始まる、サムのインデックス番号です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定のインデックス位置にあるサムオブジェクトを返します。 スライダーコントロールの個々のサムにスタイルを設定してカスタマイズするには、このメソッドを使用します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:measure"><apiName>measure</apiName><shortdesc>
+      コンポーネントが占有する領域を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      コンポーネントが占有する領域を計算します。 水平スライダーコントロールの高さは、トラックに対するラベル、目盛りおよびサムの位置から計算します。 このコントロールの高さは、最上位のエレメントの上部の位置と、最下位のエレメントの下部の位置との差に等しくなります。 水平スライダーコントロールの幅は、デフォルトで 250 ピクセルになっています。 垂直スライダーコントロールについては、上記の説明における幅と高さを入れ替えます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:setThumbValueAt"><apiName>setThumbValueAt</apiName><shortdesc>
+      このメソッドは、スライダーサムの値を設定して表示を更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>値を設定するサムの 0 から始まるインデックス番号です。インデックス 0 は最初のサムを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Number"/><apiDesc>サムに設定する値です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このメソッドは、スライダーサムの値を設定して表示を更新します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      コントロールのエレメントを配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleX</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位によりコンポーネントの幅を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleY</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位でコンポーネントの高さを指定します。   
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コントロールのエレメントを配置します。 このメソッドによって、トラック、サム、ラベルおよび目盛りの位置とサイズがすべて決まります。 トラックのサイズは、ラベルの長さとトラックマージンに基づいて設定されます。 <codeph>trackMargin</codeph> を指定すると、トラックのサイズは、使用可能な幅から <codeph>trackMargin</codeph> を 2 倍した値を引いた数値になります。
+     
+      <p>目盛りは、トラックの始点からトラックに沿って等間隔に配置されます。 トラックの終点に目盛りがない場合（目盛りの間隔が最大値の約数でない場合）、終点にも目盛りが配置されます。 目盛りの y 方向の位置は、<codeph>tickOffset</codeph> に基づきます。 オフセットに 0 を指定すると、目盛りの下部がトラックの上部に配置されます。 オフセットに負の数を指定すると目盛りはトラックを上方向に移動し、正の数を指定すると下方向に移動します。</p>
+     
+      <p>ラベルは、トラックに沿って等間隔に配置されます。 <codeph>trackMargin</codeph> の値が小さすぎない限り、ラベルは、必ずその配置間隔の上に水平方向で中心に配置されます。 <codeph>trackMargin</codeph> を指定すると、最初のラベルはコントロールの左境界線、最後のラベルは右境界線に配置されます。 ラベルが重なっていても、トリミングやサイズ変更されることはないため、トラックに収まるよう十分な領域を確保しておく必要があります。 y 方向の位置は、<codeph>labelOffset</codeph> プロパティに基づきます。 オフセットに 0 を指定すると、ラベルの下部がトラックの上部に配置されます。 目盛りの場合と異なり、ラベルをトラックに重なるように配置することはできません。 オフセットに正の数を指定すると、ラベルの上部がトラックの下部より下に配置されます。</p>
+     
+      <p>サムは、トラックと重なるように配置されます。 サムの x 方向の位置は、その値で決まります。 y 方向の位置は <codeph>thumbOffset</codeph> プロパティで制御します。 オフセットに 0 を指定すると、サムの中心とトラックの中心が一致するように配置されます。 負の数のオフセットを指定するとサムは上方向に移動し、正の数を指定すると下方向に移動します。</p>
+     
+      <p>目盛り、ラベル、およびサムの位置は、それぞれ個別に設定します。 これらが重なり合った場合でも、位置は再調整されません。</p>
+     
+      <p>垂直スライダーコントロールに関しても同様です。 垂直スライダーコントロールの場合は、上記の説明における幅を高さに、高さを幅に、左を上方向または上部に、右を下方向または下部に、x 方向の位置を y 方向の位置に、y 方向の位置を x 方向の位置に置き換えます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.sliderClasses:Slider:allowThumbOverlap"><apiName>allowThumbOverlap</apiName><shortdesc>
+      false に設定した場合、各サムは隣接するサムの端にのみ移動できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>false</codeph> に設定した場合、各サムは隣接するサムの端にのみ移動できます。 <codeph>true</codeph> に設定した場合、各サムはトラック上の任意の位置に移動できます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:allowTrackClick"><apiName>allowTrackClick</apiName><shortdesc>
+      トラックをクリックすることでスライダーサムを移動させることができるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      トラックをクリックすることでスライダーサムを移動させることができるかどうかを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:liveDragging"><apiName>liveDragging</apiName><shortdesc>
+      スライダーのライブドラッグを有効にするかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スライダーのライブドラッグを有効にするかどうかを指定します。 <codeph>false</codeph> の場合は、<codeph>value</codeph> プロパティと <codeph>values</codeph> プロパティが設定され、ユーザーがスライダーサムのドラッグを停止したときに <codeph>change</codeph> イベントが送出されます。 <codeph>true</codeph> の場合は、<codeph>value</codeph> プロパティと <codeph>values</codeph> プロパティが設定され、ユーザーがサムを移動しているときに <codeph>change</codeph> イベントが継続的に送出されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:showDataTip"><apiName>showDataTip</apiName><shortdesc>
+      true に設定されている場合、ユーザーが操作している間、スライダーの現在の値を含むデータヒントを表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> に設定されている場合、ユーザーが操作している間、スライダーの現在の値を含むデータヒントを表示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:dataTipFormatFunction:get"><apiName>dataTipFormatFunction</apiName><shortdesc>
+      データヒントテキストの形式を設定するコールバック関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>undefined   
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データヒントテキストの形式を設定するコールバック関数です。 この関数は、単一の数値を引数として受け取り、形式を設定したストリングを返します。
+     
+      <p>この関数のシグネチャは次のとおりです。</p>
+      <pre>
+      funcName(value:Number):String
+      </pre>
+     
+      <p>次の例では、データヒントテキストにドル記号の接頭辞を付け、'slide' という名前の Slider コントロールの <codeph>dataTipPrecision</codeph> を使用してテキストをフォーマットしています。 </p>
+     
+      <pre>
+      import mx.formatters.NumberBase;
+      function myDataTipFormatter(value:Number):String { 
+          var dataFormatter:NumberBase = new NumberBase(".", ",", ".", ""); 
+          return   "$ " + dataFormatter.formatPrecision(String(value), slide.getStyle("dataTipPrecision")); 
+      }
+      </pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:direction:get"><apiName>direction</apiName><shortdesc>
+      スライダーコントロールの方向です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SliderDirection.HORIZONTAL
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スライダーコントロールの方向です。 MXML での有効な値は <codeph>"horizontal"</codeph> または <codeph>"vertical"</codeph> です。
+     
+      <p>ActionScript では、定数 <codeph>SliderDirection.VERTICAL</codeph> および <codeph>SliderDirection.HORIZONTAL</codeph> を使用してこのプロパティを設定します。</p>
+     
+      このプロパティは、HSlider コントロールおよび VSlider コントロールにより自動的に設定されます。これらのコントロールを使用する場合は、プロパティを手動で設定しないでください。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.sliderClasses.xml#SliderDirection"><linktext>mx.controls.sliderClasses.SliderDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:labels:get"><apiName>labels</apiName><shortdesc>
+      スライダーのラベルに使用するストリングの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スライダーのラベルに使用するストリングの配列です。 まずラベルがトラックの始点に配置され、次に各ラベルがトラックの始点と終点の間を等間隔に配置されます。
+     
+      <p>例えば、この配列に 3 つの項目がある場合、最初の項目がトラックの始点、2 番目の項目がトラックの中間点、3 番目の項目がトラックの終点にそれぞれ配置されます。</p>
+     
+      <p>指定されているラベルが 1 つのみの場合、ラベルはトラックの始点に配置されます。 デフォルトでは、ラベルの位置は、目盛りがある場合はその上、またはトラックの上になります。 ラベルの位置を目盛りに揃える場合は、ラベルの数と目盛りの数が一致していることを確認してください。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:maximum:get"><apiName>maximum</apiName><shortdesc>
+      スライダーの最大値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>10
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スライダーの最大値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:minimum:get"><apiName>minimum</apiName><shortdesc>
+      スライダーコントロールの最小値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スライダーコントロールの最小値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderDataTipClass:get"><apiName>sliderDataTipClass</apiName><shortdesc>
+      データヒントで使用するクラスへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderDataTip
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      データヒントで使用するクラスへの参照です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderThumbClass:get"><apiName>sliderThumbClass</apiName><shortdesc>
+      各サムに使用するクラスへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderThumb
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      各サムに使用するクラスへの参照です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:snapInterval:get"><apiName>snapInterval</apiName><shortdesc>
+      ユーザーがスライダーサムを移動したときの増分値を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ユーザーがスライダーサムを移動したときの増分値を指定します。 たとえば、<codeph>snapInterval</codeph> の値を 2、<codeph>minimum</codeph> の値を 0、<codeph>maximum</codeph> の値を 10 に設定した場合、ユーザーがサムを移動すると、サムは 0、2、4、6、8、10 の値に吸着されます。 値 0 では、スライダーは、<codeph>minimum</codeph> 値と <codeph>maximum</codeph> 値の間を継続的に移動します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:thumbCount:get"><apiName>thumbCount</apiName><shortdesc>
+      スライダー上に配置できるサムの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スライダー上に配置できるサムの数です。 有効な値は 1 または 2 です。 1 に設定した場合、スライダーの現在の値が <codeph>value</codeph> プロパティに格納されます。 2 に設定した場合、各サムの値で構成される配列が <codeph>values</codeph> プロパティに格納されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      Slider からサムに渡すスタイルのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Slider からサムに渡すスタイルのセットです。
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickInterval:get"><apiName>tickInterval</apiName><shortdesc>
+      コントロールの maximum 値を基準にした、目盛りの間隔を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コントロールの <codeph>maximum</codeph> 値を基準にした、目盛りの間隔を表します。 <codeph>tickInterval</codeph> プロパティを 0 以外の値に設定すると、目盛りが表示されます。
+     
+      <p>たとえば、<codeph>tickInterval</codeph> が 1 で、<codeph>maximum</codeph> が 10 の場合、目盛りには 1/10 間隔で目盛りが表示されます。 値 0 では、目盛りは表示されません。 <codeph>tickValues</codeph> プロパティが空ではない配列に設定されている場合、このプロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickValues:get"><apiName>tickValues</apiName><shortdesc>
+      スライダー上の目盛り位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スライダー上の目盛り位置です。 この位置はスライダー上の値に対応しているため、<codeph>minimum</codeph> 値と <codeph>maximum</codeph> 値との間にあります。 たとえば、<codeph>tickValues</codeph> プロパティが [0, 2.5, 7.5, 10] で、<codeph>maximum</codeph> が 10 の場合、目盛りはスライダーに沿って、スライダーの先頭、左から 1/4 の位置、左から 3/4 の位置、およびスライダーの終点に置かれます。 
+      
+      <p>このプロパティが空ではない配列に設定されている場合、<codeph>tickInterval</codeph> プロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:value:get"><apiName>value</apiName><shortdesc>
+      サムの位置を格納します。これは、minimum プロパティと maximum プロパティの間の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      サムの位置を格納します。これは、<codeph>minimum</codeph> プロパティと <codeph>maximum</codeph> プロパティの間の値です。 <codeph>value</codeph> プロパティを使用します（<codeph>thumbCount</codeph> が 1 の場合）。 <codeph>thumbCount</codeph> が 1 より大きいときは、代わりに <codeph>values</codeph> プロパティを使用します。 デフォルト値は、minimum プロパティと等しい値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:values:get"><apiName>values</apiName><shortdesc>
+      thumbCount が 1 より大きい場合に、各サムの値を格納する配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      <codeph>thumbCount</codeph> が 1 より大きい場合に、各サムの値を格納する配列です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDirection"><apiName>SliderDirection</apiName><shortdesc>
+  SliderDirection クラスは、Slider クラスの direction プロパティの定数値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderDirection クラスは、Slider クラスの <codeph>direction</codeph> プロパティの定数値を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link></related-links><apiValue id="mx.controls.sliderClasses:SliderDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  水平スライダーを表示することを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  水平スライダーを表示することを指定します。 HSlider コントロールはこの定数を使用します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:SliderDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  垂直スライダーを表示することを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  垂直スライダーを表示することを指定します。 VSlider コントロールはこの定数を使用します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+  SliderDataTip クラスは、mx.controls.Slider コントロールで使用するツールヒントを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:ToolTip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderDataTip クラスは、mx.controls.Slider コントロールで使用するツールヒントを定義します。 このクラスは、mx.controls.ToolTip に新たに機能を追加するものではありません。これは、タイプセレクタースタイルを適用するためにのみ使用します。
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderDataTip:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+  SliderLabel クラスは、mx.controls.Slider コンポーネントで使用されるラベルを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Label</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderLabel クラスは、mx.controls.Slider コンポーネントで使用されるラベルを定義します。 このクラスは、mx.controls.Label に新たに機能を追加するものではありません。これは、タイプセレクタースタイルを適用するために使用します。
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderLabel:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+  SliderThumb クラスは、Slider コントロールのサムを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderThumb クラスは、Slider コントロールのサムを表します。 SliderThumb クラスは、Slider コントロールのコンテキスト内でのみ使用できます。 Slider コントロールの <codeph>sliderThumbClass</codeph> プロパティにサブクラスを設定することにより、SliderThumb クラスのサブクラスを作成し、Slider コントロールと共に使用できます。 
+  		
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderThumb:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.sliderClasses:SliderThumb:xPosition:get"><apiName>xPosition</apiName><shortdesc>
+	  x 軸上におけるサムの中心の位置を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  x 軸上におけるサムの中心の位置を指定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

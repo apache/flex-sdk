@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core.windowClasses"><apiName>mx.core.windowClasses</apiName><apiDetail/><apiClassifier id="mx.core.windowClasses:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+  WindowedApplication 或 Window 的默认标题栏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedApplication 或 Window 的默认标题栏。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:TitleBar:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeButtons"><apiName>placeButtons</apiName><shortdesc>
+      确定按钮在标题栏中的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>align</apiItemName><apiType value="String"/><apiDesc>按钮对齐方式
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>标题栏的宽度
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>标题栏的高度
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>允许在左侧为角及其他对象留出的空间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>允许在右侧为角及其他对象留出的空间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cornerOffset</apiItemName><apiType value="Number"/><apiDesc>将角半径考虑在内时各项的缩进距离
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定按钮在标题栏中的位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeTitle"><apiName>placeTitle</apiName><shortdesc>
+      确定标题在标题栏中的对齐方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>titleAlign</apiItemName><apiType value="String"/><apiDesc>如何对齐标题。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>允许在左侧为角及其他对象留出的空间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>允许在右侧为角及其他对象留出的空间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>buttonAlign</apiItemName><apiType value="String"/><apiDesc>按钮的对齐方式
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定标题在标题栏中的对齐方式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      当样式更改时由 StyleManager 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>所更改的样式的名称。在某些情况下，通常是在更改全局样式或更改 styleName 时，它可以为 null。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当样式更改时由 StyleManager 调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core.windowClasses:TitleBar:closeButton"><apiName>closeButton</apiName><shortdesc>
+      用于定义关闭按钮的 Button 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      用于定义关闭按钮的 Button 对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:maximizeButton"><apiName>maximizeButton</apiName><shortdesc>
+      用于定义最大化按钮的 Button 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      用于定义最大化按钮的 Button 对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:minimizeButton"><apiName>minimizeButton</apiName><shortdesc>
+      用于定义最小化按钮的 Button 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      用于定义最小化按钮的 Button 对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleTextField"><apiName>titleTextField</apiName><shortdesc>
+      标题栏中的 UITextField，用于显示应用程序的标题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      标题栏中的 UITextField，用于显示应用程序的标题。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      标题栏中显示的图标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      标题栏中显示的图标。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:title:get"><apiName>title</apiName><shortdesc>
+      显示在窗口标题栏和停靠处或任务栏中的标题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      显示在窗口标题栏和停靠处或任务栏中的标题。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core.windowClasses:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+  WindowedApplication 或 Window 的默认状态栏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedApplication 或 Window 的默认状态栏。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:StatusBar:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.core.windowClasses:StatusBar:statusTextField"><apiName>statusTextField</apiName><shortdesc>
+      对用于显示状态栏文本的 UITextField 的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      对用于显示状态栏文本的 UITextField 的引用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:StatusBar:status:get"><apiName>status</apiName><shortdesc>
+      如果可见，为显示在状态栏中的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果可见，为显示在状态栏中的字符串。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.soap.mxml"><apiName>mx.rpc.soap.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.soap.mxml:Operation"><apiName>Operation</apiName><shortdesc>
+Операция, специально используемая WebServices.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseClassifier>mx.rpc.soap:Operation</apiBaseClassifier></apiClassifierDef><apiDesc>
+Операция, специально используемая WebServices. Операция представляет собой отдельный метод в службе. Операцию можно вызвать путем вызова функции с тем же именем в службе или путем получения доступа к операции в качестве свойства в службе и вызова метода <codeph>send()</codeph>.
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.soap.mxml:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+      Создает новую операцию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>webService</apiItemName><apiOperationClassifier>mx.rpc.soap:WebService</apiOperationClassifier><apiData>null</apiData><apiDesc>Web-служба, для которой вызывается эта операция.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Имя этой операции.
+       
+       </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает новую операцию. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap.mxml:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+     
+      Отменяет последний вызов службы или вызов с указанным идентификатором.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>AsyncToken, связанный с вызовом, который был отменен или является нулевым (если отмена вызовов не выполнялась).
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Значение messageId для вызова, который требуется отменить. Дополнительно. Если этот параметр не используется, последний вызов службы будет отменен.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+     
+      Отменяет последний вызов службы или вызов с указанным идентификатором. Даже в том случае, если возможность выполнения сетевой операции сохраняется, события результата или ошибки не передаются.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap.mxml:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     Параллельная обработка для этой операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Параллельная обработка для этой операции. Если это значение не было явно установлено, используется настройка из WebService.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     Требуется ли отображать курсор в состоянии занятости при выполнении операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Требуется ли отображать курсор в состоянии занятости при выполнении операции. Если это значение не было явно установлено, используется настройка из WebService.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.soap.mxml:WebService"><apiName>WebService</apiName><shortdesc>
+ Тег &amp;lt;mx:WebService&amp;gt; предоставляет доступ к операциям web-служб, совместимых с SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>
+ The &lt;mx:WebService&gt; tag accepts the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:WebService
+   <b>Properties</b>
+   concurrency="multiple|single|last"
+   destination="<i>No default.</i>"
+   id="<i>No default.</i>"
+   serviceName="<i>No default.</i>"
+   showBusyCursor="false|true"
+   makeObjectsBindable="false|true"
+   useProxy="false|true"
+   wsdl="<i>No default.</i>"
+ 
+   <b>Events</b>
+   fault="<i>No default.</i>"
+   result="<i>No default.</i>"
+ /&gt;
+ </pre>
+ </p>
+ <p>
+ An &lt;mx:WebService&gt; tag can have multiple &lt;mx:operation&gt; tags, which have the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:operation
+   <b>Properties</b>
+   concurrency="multiple|single|last"
+   name=<i>No default, required.</i>
+   resultFormat="object|xml|e4x"
+   makeObjectsBindable="false|true"
+ 
+   
+   <b>Events</b>
+   fault=<i>No default.</i>
+   result=<i>No default.</i>
+ /&gt;
+ </pre>
+ 
+ An &lt;mx:Operation&gt; tag contains an &lt;mx:request&gt; tag. 
+ To specify an XML structure in an &lt;mx:request&gt; tag, you must set the value of the tag's
+ <code>format</code> attribute to <code>"xml"</code>. Otherwise, the body is converted into Objects.
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.soap:WebService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Тег &lt;mx:WebService> предоставляет доступ к операциям web-служб, совместимых с SOAP.
+ </apiDesc><example conref="WebServiceExample.mxml"/></apiClassifierDetail><apiConstructor id="mx.rpc.soap.mxml:WebService:WebService"><apiName>WebService</apiName><shortdesc>
+     Создает новый компонент WebService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Адрес назначения WebService, который должен соответствовать имени адреса назначения в файле services-config.xml. Если значение не указано, компонент WebService использует адрес назначения DefaultHTTP.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Создает новый компонент WebService.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.soap.mxml:WebService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     Возвращает операцию для данного имени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Операция, которая выполняется для этого имени.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Имя операции.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Возвращает операцию для данного имени. Если операция не была создана заранее, в течение этого вызова создается новая операция <codeph>mx.rpc.soap.mxml.Operation</codeph>. Как правило, доступ к операции можно получить путем простого указания ее имени после переменной службы (<codeph>myService.someOperation</codeph>), но если имя операции совпадает с определенным методом в службе (например, <codeph>setCredentials</codeph>), то для обращения к операции можно использовать этот метод.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.soap.mxml:WebService:initialized"><apiName>initialized</apiName><shortdesc>
+     Вызывается автоматически компилятором MXML, если настройка WebService выполнена с использованием тега.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>MXML-документ, в котором находится WebService.
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>идентификатор WebService в документе.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Вызывается автоматически компилятором MXML, если настройка WebService выполнена с использованием тега. При создании WebService через ActionScript может потребоваться вызвать этот метод самостоятельно, поскольку его использование рекомендуется для выполнения проверки правильности любых аргументов.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.soap.mxml:WebService:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     Значение, которое указывает способ обработки нескольких вызовов одной службы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Значение, которое указывает способ обработки нескольких вызовов одной службы. Значением по умолчанию является multiple. Допустимыми являются следующие значения:
+     <ul>
+     <li>multiple – Существующие запросы не отменяются, и разработчик несет ответственность за обеспечение непротиворечивости возвращенных данных путем тщательного управления потоком событий. Это значение по умолчанию.</li>
+     <li>single – Для метода создается только один запрос в конкретный момент времени; для дополнительных запросов, созданных во время ожидания обработки этим запросом, незамедлительно генерируется ошибка, и на сервер они не передаются.</li>
+     <li>last – При создании запроса клиент игнорирует событие результата или ошибки для любого текущего запроса в очереди. В систему клиента передаются только результат или ошибка для последнего запроса. Это позволяет упростить обработку событий в клиентском приложении, однако необходимо использовать такой режим только при возможности безопасного игнорирования результатов и ошибок для запросов.</li>
+     </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:serviceName:get"><apiName>serviceName</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDeprecated replacement="destination"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    Если значение true, во время выполнения службы отображается курсор в состоянии занятости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    Если значение <codeph>true</codeph>, во время выполнения службы отображается курсор в состоянии занятости. Значение по умолчанию <codeph>false</codeph>.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.soap.mxml:WebService:protocol:set"><apiName>protocol</apiName><shortdesc>
+     Устарело, используйте вместо этого соответствующий адрес назначения, либо DefaultHTTP или DefaultHTTPS (при использовании URL-адреса).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="String"/><apiDeprecated replacement="channelSet"/></apiValueDef><apiDesc>
+     Устарело, используйте вместо этого соответствующий адрес назначения, либо <codeph>DefaultHTTP</codeph> или <codeph>DefaultHTTPS</codeph> (при использовании URL-адреса). При устаревшем поведении адрес назначения обновляется, если используется значение по умолчанию.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

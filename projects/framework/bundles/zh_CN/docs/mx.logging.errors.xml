@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging.errors"><apiName>mx.logging.errors</apiName><apiDetail/><apiClassifier id="mx.logging.errors:InvalidCategoryError"><apiName>InvalidCategoryError</apiName><shortdesc>
+  如果为记录器指定的类别包含无效字符或格式不正确时，则会引发此错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  如果为记录器指定的类别包含无效字符或格式不正确时，则会引发此错误。此错误由以下方法引发：
+  <ul>
+    <li>如果指定的类别格式不正确，则由 <codeph>Log.getLogger()</codeph> 引发。</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.errors:InvalidCategoryError:InvalidCategoryError"><apiName>InvalidCategoryError</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>描述此错误的消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.errors:InvalidCategoryError:toString"><apiName>toString</apiName><shortdesc>
+	  以 String 格式返回消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>消息。
+	  
+	  
+	  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+	  以 String 格式返回消息。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.logging.errors:InvalidFilterError"><apiName>InvalidFilterError</apiName><shortdesc>
+  如果为目标指定的滤镜包含无效字符或格式不正确时，则会引发此错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  如果为目标指定的滤镜包含无效字符或格式不正确时，则会引发此错误。此错误由下列方法/属性引发：
+  <ul>
+    <li>如果此列表中的滤镜表达式的格式不正确，则为 <codeph>ILoggerTarget.filters</codeph>。</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.errors:InvalidFilterError:InvalidFilterError"><apiName>InvalidFilterError</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>描述此错误的消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.errors:InvalidFilterError:toString"><apiName>toString</apiName><shortdesc>
+	  以 String 格式返回消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>消息。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+	  以 String 格式返回消息。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

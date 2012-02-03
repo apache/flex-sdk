@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.animation"><apiName>spark.effects.animation</apiName><apiDetail/><apiClassifier id="spark.effects.animation:Keyframe"><apiName>Keyframe</apiName><shortdesc>
+  Keyframe クラスは、エフェクト実行期間の特定の時間におけるプロパティの値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Keyframe&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Keyframe 
+    id="ID"
+    easier="Linear"
+    time="val"
+    value="val"
+    valueBy="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Keyframe クラスは、エフェクト実行期間の特定の時間におけるプロパティの値を定義します。例えば、エフェクトの最初、エフェクトの中間およびエフェクトの最後におけるプロパティの値を定義する、3 つのキーフレームを作成できます。エフェクトは、エフェクトの継続時間にわたってキーフレームからキーフレームへと、ターゲットに対するプロパティの変更をアニメーション化します。
+ 
+  <p>エフェクトのキーフレームのコレクションは、エフェクトのモーションパスと呼ばれます。モーションパスでは、任意の数のキーフレームを定義できます。その後、エフェクトは、2 つのキーフレームで指定された値の間を補間することによってプロパティの値を計算します。 </p>
+ 
+  <p>MotionPath クラスを使用して、エフェクトのモーションパスを表す Keyframe オブジェクトのコレクションを保持します。MotionPath クラスは、ターゲットのプロパティの名前を指定し、Keyframe オブジェクトのコレクションは、エフェクト実行期間の異なる時間におけるプロパティの値を指定します。</p>
+  
+  </apiDesc><example conref="KeyFrameEffectExample.mxml"><swfblock conref="examples/KeyFrameEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>MotionPath</linktext></link></related-links><apiConstructor id="spark.effects.animation:Keyframe:Keyframe"><apiName>Keyframe</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>time</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>このキーフレームのエフェクトターゲットが、<codeph>value</codeph> パラメーターによって指定された値を保持する必要がある時間です（ミリ秒単位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>指定された <codeph>time</codeph> においてエフェクトターゲットが保持する必要がある値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueBy</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>指定された場合に、MotionPath オブジェクト内の一連のキーフレームにおいて <codeph>valueBy</codeph> を前のキーフレームの <codeph>value</codeph> に追加することによって <codeph>value</codeph> が動的に計算されるようにする、オプションのパラメーターです。これがシーケンスに含まれる最初の Keyframe である場合、この値は無視されます。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:Keyframe:clone"><apiName>clone</apiName><shortdesc>
+      この Keyframe オブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>この Keyframe オブジェクトのコピーです。
+     
+      </apiDesc><apiOperationClassifier>spark.effects.animation:Keyframe</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      この Keyframe オブジェクトのコピーを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:Keyframe:easer"><apiName>easer</apiName><shortdesc>
+      モーションパスにある前の Keyframe オブジェクトとこの Keyframe オブジェクトの間のモーションに適用されるイージングビヘイビアーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>Linear
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      モーションパスにある前の Keyframe オブジェクトとこの Keyframe オブジェクトの間のモーションに適用されるイージングビヘイビアーです。デフォルトでは、イージングは線形です。つまり、イージングはまったく行われません。 
+     
+      <p>親エフェクトによりアニメーション全体にわたって既にイージングが適用されている可能性があることに注意してください。したがって、代わりにキーフレーム間隔ごとのイージングを行う場合、エフェクトイーザー全体を線形イージング（spark.effects.easing.Linear）に設定した後、必要に応じて、各 Keyframe で <codeph>easer</codeph> を設定することが必要になります。</p>
+     
+      <p>このプロパティは、シーケンスにある前の Keyframe オブジェクトとこの Keyframe オブジェクトの間の間隔に対して作用するため、シーケンスにある最初の Keyframe オブジェクトでは <codeph>easer</codeph> プロパティは無視されます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:time"><apiName>time</apiName><shortdesc>
+      このキーフレームのエフェクトターゲットが、value プロパティによって指定された値を保持する必要がある時間です（ミリ秒単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このキーフレームのエフェクトターゲットが、<codeph>value</codeph> プロパティによって指定された値を保持する必要がある時間です（ミリ秒単位）。この時間は、このキーフレームと共に定義されたエフェクトの開始時間を基準とします。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:valueBy"><apiName>valueBy</apiName><shortdesc>
+      指定された場合に、このキーフレームまたは前のキーフレームで value を計算するために使用される、オプションのパラメーターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      指定された場合に、このキーフレームまたは前のキーフレームで <codeph>value</codeph> を計算するために使用される、オプションのパラメーターです。前のキーフレームで <codeph>value</codeph> が設定されていない場合にこのキーフレームで <codeph>value</codeph> と <codeph>valueBy</codeph> の両方が定義されていると、前のキーフレームの <codeph>value</codeph> が、このキーフレームの <codeph>value</codeph> からこのキーフレームの <codeph>valueBy</codeph> を減算した値として計算されます。
+     
+      <p>同様に、このキーフレームの <codeph>value</codeph> が定義されていない場合にこのキーフレームの <codeph>valueBy</codeph> と前のキーフレームの <codeph>value</codeph> の両方が設定されていると、このキーフレームの <codeph>value</codeph> が、前のキーフレームの <codeph>value</codeph> にこのキーフレームの <codeph>valueBy</codeph> を加算した値として計算されます。</p>
+      
+      <p>シーケンスにある最初のキーフレームでは <codeph>valueBy</codeph> は無視されます。これは、このプロパティが、キーフレームに先行する間隔のみに適用され、この先行する間隔が最初のキーフレームにはないためです。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:value"><apiName>value</apiName><shortdesc>
+      time プロパティによって指定された時間においてエフェクトターゲットのプロパティが保持する必要がある値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      <codeph>time</codeph> プロパティによって指定された時間においてエフェクトターゲットのプロパティが保持する必要がある値です。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:IAnimationTarget"><apiName>IAnimationTarget</apiName><shortdesc>
+  IAnimationTarget インターフェイスは、Animation インスタンスのイベントをサポートするクラスによって実装されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IAnimationTarget インターフェイスは、Animation インスタンスのイベントをサポートするクラスによって実装されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Animation"><linktext>spark.effects.animation.Animation</linktext></link></related-links><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationEnd"><apiName>animationEnd</apiName><shortdesc>
+      Animation インスタンスが終了するときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Animation インスタンスが終了するときに呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationRepeat"><apiName>animationRepeat</apiName><shortdesc>
+      Animation インスタンスが繰り返されるときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Animation インスタンスが繰り返されるときに呼び出されます。Animation インスタンスには、0（無限に繰り返す）、または 1 よりも大きい値に等しい、<codeph>repeatCount</codeph> が設定されている必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationStart"><apiName>animationStart</apiName><shortdesc>
+      Animation インスタンスが開始されるときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Animation インスタンスが開始されるときに呼び出されます。Animation に <codeph>startDelay</codeph> がある場合、その遅延の後にこの関数が呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationStop"><apiName>animationStop</apiName><shortdesc>
+      Animation インスタンスが停止するときに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Animation インスタンスが停止するときに呼び出されます。これは <codeph>animationEnd()</codeph> メソッドとは異なります。animationEnd() メソッドはアニメーションが終了するときに呼び出されて、ターゲットの終了値を自動的に設定します。<codeph>animationStop()</codeph> メソッドは、アニメーションがその位置で停止されるときに呼び出されます。このイベントを処理すると、アニメーションが中止されるときに必要なクリーンアップを行うことができます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationUpdate"><apiName>animationUpdate</apiName><shortdesc>
+      Animation インスタンスのすべての更新時に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Animation オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Animation インスタンスのすべての更新時に呼び出されます。指定された時間において Animation の値が計算された後で何らかの処理を実行できるように、実装クラスが Animation を明示的にリッスンしている場合、この関数でそれらの値を使用する必要があります。このインターフェイスの残りのメソッドは、より多くの情報を提供します。これらのメソッドは、アニメーションの開始、停止、または繰り返しをリスナーに通知します。このメソッドは、値が計算されてそれらの値で何らかの処理を行えるようになったときに呼び出されます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.animation:MotionPath"><apiName>MotionPath</apiName><shortdesc>
+  MotionPath クラスは、エフェクト用の Keyframe オブジェクトのコレクションと、アニメーション化するターゲットのプロパティの名前を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="keyframes"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:MotionPath&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:MotionPath 
+    id="ID"
+    interpolator="NumberInterpolator"
+    keyframes="val"
+    property="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MotionPath クラスは、エフェクト用の Keyframe オブジェクトのコレクションと、アニメーション化するターゲットのプロパティの名前を定義します。各 Keyframe オブジェクトは、エフェクト実行期間の特定の時間におけるプロパティの値を定義します。その後、エフェクトは、2 つのキーフレームで指定された値の間を補間することによってターゲットプロパティの値を計算します。
+  
+  </apiDesc><example conref="KeyFrameEffectExample.mxml"><swfblock conref="examples/KeyFrameEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Keyframe"><linktext>Keyframe</linktext></link><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link></related-links><apiConstructor id="spark.effects.animation:MotionPath:MotionPath"><apiName>MotionPath</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>アニメーション化するターゲットのプロパティの名前を表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:MotionPath:clone"><apiName>clone</apiName><shortdesc>
+      各キーフレームのコピーを含む、この MotionPath オブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>各キーフレームのコピーを含む、この MotionPath オブジェクトのコピーです。
+      
+      </apiDesc><apiOperationClassifier>spark.effects.animation:MotionPath</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      各キーフレームのコピーを含む、この MotionPath オブジェクトのコピーを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:MotionPath:getValue"><apiName>getValue</apiName><shortdesc>
+      経過時間の割合が指定されると、補間された値を計算して返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>補間された値です。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間全体のうちの割合です（0.0 ～ 1.0 の値で示されます）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      経過時間の割合が指定されると、補間された値を計算して返します。この関数は、その割合が収まるキーフレーム間隔を特定してから、その間隔上にある境界キーフレームの値の間を対象にその間隔内を補間します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:MotionPath:interpolator"><apiName>interpolator</apiName><shortdesc>
+      インターポレーターは、アニメーション内にある中間の値を計算する方法を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+      インターポレーターは、アニメーション内にある中間の値を計算する方法を決定します。デフォルトでは、MotionPath クラスは値が Number 型であると見なし、中間の Number 値を自動的に計算できます。MotionPath クラスに Number ではない値のキーフレームが指定される場合、または目的のビヘイビアーにおいて異なる補間方法（チャンネルごとのカラー補間など）を使用する必要がある場合、インターポレーターを提供する必要があります。
+     
+      <p>Flex では、spark.effects.interpolation パッケージに定義済みのインターポレーターが用意されています。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:MotionPath:keyframes"><apiName>keyframes</apiName><shortdesc>
+      アニメーション実行期間にプロパティが受け取る、時間と値のペアを表す Keyframe オブジェクトのシーケンスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Vector$spark.effects.animation:Keyframe"/></apiValueDef><apiDesc>
+      アニメーション実行期間にプロパティが受け取る、時間と値のペアを表す Keyframe オブジェクトのシーケンスです。連続するキーフレームの各ペアは、それらの間の時間間隔にわたってアニメーションを制御します。後のキーフレームに関する、オプションの <codeph>easer</codeph> プロパティと <codeph>valueBy</codeph> プロパティは、その間隔にわたるビヘイビアーを決定するために使用されます。キーフレームのシーケンスは、時間の値が増加する順にソートする必要があります。
+     
+      <p>アニメーションは常に時間 = 0 から開始し、最終キーフレームの <codeph>time</codeph> 値に等しい継続時間にわたって実行されます。時間 = 0 においてキーフレームが定義されていない場合、そのキーフレームは暗黙的になり、アニメーション開始時のターゲットプロパティの値を使用します。 </p>
+     
+      <p>キーフレームはアニメーションに含まれる時間を明示的に定義するため、キーフレームを使用するエフェクトの継続時間は、エフェクトにある全 MotionPath の最終キーフレームの最大時間に従って設定されます。例えば、エフェクトでキーフレームが 0、500、1000、2000 の各時間に存在する場合、エフェクト自体にどのような <codeph>duration</codeph> プロパティが設定されているかにかかわらず、そのエフェクトでは 2000 ミリ秒が実際の継続時間になります。継続時間は最終キーフレームによって決まるため、どの MotionPath にも必ず最終キーフレームが存在する必要があります。つまり、最終キーフレームの時間が暗黙的に MotionPath の継続時間になります。</p>
+     
+      <p>キーフレームでは、その <codeph>value</codeph> を未定義の状態で残すことができます（値を設定しないか、<codeph>null</codeph> に設定するか、<codeph>NaN</codeph> に設定することができます）。その場合は、アニメーションの開始時に値が動的に決定されます。未定義の値は次のように決定されます。 </p>
+      <ol>
+        <li>未定義の値が最初のキーフレームにある場合、次のキーフレームに <codeph>value</codeph> と <codeph>valueBy</codeph> の両方のプロパティが設定されていれば、そのキーフレームから、これらの値の差として値が計算されます。それ以外の場合は、ターゲットからプロパティの現在の値が取得されます。</li>
+        <li>未定義の値が最終キーフレームにあり、アニメーションがトランジションで実行中である場合、トランジションのターゲットビューステートにある値が使用されます。</li>
+        <li>それ以外の場合は、現在のキーフレームで <codeph>valueBy</codeph> が設定されていれば、前のキーフレームの <codeph>value</codeph> を使用してそれに現在のキーフレームの <codeph>valueBy</codeph> を追加することによって、その <codeph>value</codeph> が計算されます。</li>
+      </ol>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#Keyframe"><linktext>Keyframe</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:MotionPath:property"><apiName>property</apiName><shortdesc>
+      アニメーション化するエフェクトターゲットのプロパティの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      アニメーション化するエフェクトターゲットのプロパティの名前です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:RepeatBehavior"><apiName>RepeatBehavior</apiName><shortdesc>
+  RepeatBehavior クラスは、Animate クラスと Animation クラスの repeatBehavior プロパティと共に使用する定数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RepeatBehavior クラスは、Animate クラスと Animation クラスの <codeph>repeatBehavior</codeph> プロパティと共に使用する定数を定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Animate/repeatBehavior"><linktext>spark.effects.Animate.repeatBehavior</linktext></link><link href="spark.effects.animation.xml#Animation/repeatBehavior"><linktext>Animation.repeatBehavior</linktext></link></related-links><apiValue id="spark.effects.animation:RepeatBehavior:LOOP"><apiName>LOOP</apiName><shortdesc>
+     繰り返すアニメーションが、すべての繰り返しで順方向に進むように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>loop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     繰り返すアニメーションが、すべての繰り返しで順方向に進むように指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:RepeatBehavior:REVERSE"><apiName>REVERSE</apiName><shortdesc>
+     繰り返すアニメーションが、すべての繰り返しで逆方向になるように指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>reverse</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     繰り返すアニメーションが、すべての繰り返しで逆方向になるように指定します。例えば、反転するアニメーションは、偶数番目の繰り返しでは順方向に再生し、奇数番目の繰り返しでは逆方向に再生します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:SimpleMotionPath"><apiName>SimpleMotionPath</apiName><shortdesc>
+  SimpleMotionPath クラスは、Animate エフェクトのインスタンスについて、プロパティの名前と、そのプロパティが時間の経過と共に受け取る値を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="keyframes"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.animation:MotionPath</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SimpleMotionPath クラスは、Animate エフェクトのインスタンスについて、プロパティの名前と、そのプロパティが時間の経過と共に受け取る値を指定します。 
+ 
+  <p>このクラスは、<codeph>valueFrom</codeph>、<codeph>valueTo</codeph>、<codeph>valueBy</codeph> の各プロパティを保持する 2 つのキーフレームを定義する、MotionPath の単純なサブクラスです。MotionPath クラス自体は、任意の数のキーフレームを定義できます。</p>
+ 
+  </apiDesc><example conref="SimpleMotionPathEffectExample.mxml"><swfblock conref="examples/SimpleMotionPathEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>MotionPath</linktext></link></related-links><apiConstructor id="spark.effects.animation:SimpleMotionPath:SimpleMotionPath"><apiName>SimpleMotionPath</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>アニメーション化されるプロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFrom</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>プロパティの初期値です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>valueTo</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>プロパティの終了値です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>valueBy</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>from または to の値を計算するためのデルタを指定する、オプションのパラメーターです。一方の値が省略されている場合に使用します。 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。<codeph>valueFrom</codeph> と <codeph>valueTo</codeph> の両方のパラメーターを指定するか、あるいは <codeph>valueBy</codeph> パラメーターと、<codeph>valueFrom</codeph> または <codeph>valueTo</codeph> のいずれかのパラメーターを指定することができます。これらのパラメーターを省略すると、Flex によってエフェクトターゲットからこれらの値が計算されます。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.animation:SimpleMotionPath:valueBy:get"><apiName>valueBy</apiName><shortdesc>
+      valueFrom または valueTo の値を計算するために使用されるデルタを指定するオプションプロパティです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      <codeph>valueFrom</codeph> または <codeph>valueTo</codeph> の値を計算するために使用されるデルタを指定するオプションプロパティです。このオプションプロパティを提供すると、必要な from または to の値の一方が提供されていないかアニメーションの開始時に動的に決定される予定である場合に、その値をエフェクトが計算できるようになります。
+     
+      <p><codeph>valueBy</codeph> の値が使用される方法は、他にどちらの値が設定されるかによって異なります。どちらの値も設定されなかった場合、<codeph>valueFrom</codeph> の値はターゲットの現在のプロパティ値から決定され、<codeph>valueTo</codeph> の値は <codeph>valueFrom + valueBy</codeph> になります。どちらか一方の値のみが設定された場合、未設定の値は他方の値によって計算されます（<codeph>valueTo = valueFrom + valueBy</codeph> または <codeph>valueFrom = valueTo - valueBy</codeph>）。両方の値が設定された場合、<codeph>valueBy</codeph> プロパティは無視されます。</p>
+     
+      <p><codeph>valueBy</codeph> は Object 型であるため、エフェクトがそれを使用して他の値を直接計算できないことに注意してください。エフェクトはエフェクトのインターポレーターを使用して、インターポレーターの <codeph>increment()</codeph> メソッドと <codeph>decrement()</codeph> メソッドを呼び出すことによって値を計算します。インターポレーターが設定されていない場合、デフォルトで NumberInterpolator が使用されます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:SimpleMotionPath:valueFrom:get"><apiName>valueFrom</apiName><shortdesc>
+      アニメーション実行期間におけるプロパティの開始値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      アニメーション実行期間におけるプロパティの開始値です。
+     
+      <p>Null または NaN（Number の場合）の値は、実行時に動的に値を決定する必要があることを示します。この場合、値をターゲットプロパティから直接取得するか、または、他方の値が有効であり、かつ有効な <codeph>valueBy</codeph> の値も提供されている場合は値を計算します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:SimpleMotionPath:valueTo:get"><apiName>valueTo</apiName><shortdesc>
+      名前付きプロパティをアニメーション化するときの終了値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      名前付きプロパティをアニメーション化するときの終了値です。
+     
+      <p>Null または NaN（Number の場合）エレメントの値は、実行時に動的に値を決定する必要があることを示します。この場合、値をターゲットプロパティから直接取得するか、または、他方の値が有効であり、かつ有効な <codeph>valueBy</codeph> の値も提供されている場合は値を計算します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:Animation"><apiName>Animation</apiName><shortdesc>
+  Animation クラスは、指定された期間にわたってプロパティの開始値と終了値の間で実行される、アニメーションを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Animation クラスは、指定された期間にわたってプロパティの開始値と終了値の間で実行される、アニメーションを定義します。アニメーションに該当するのは、（Move エフェクトなどで実行される）位置の変化、（Resize エフェクトなどで実行される）サイズの変化、（Fade エフェクトなどで実行される）可視性の変化、または（エフェクトによって使用されるか Animation クラスで直接実行される）他のタイプのアニメーションです。
+ 
+  <p>このクラスは、アニメーションのタイミングと値の部分を定義します。エフェクトまたはアプリケーションコードにある他のコードは、アニメーションをターゲットオブジェクトとプロパティに関連付けます。その際、Animation クラスによって作成されたアニメーション値がその後ターゲットオブジェクトとプロパティに適用されることで、実際にこれらのオブジェクトがアニメーション化されます。</p>
+ 
+  <p>アニメーションエフェクトを定義する場合は、通常、Animate クラスのインスタンス、または Animate のサブクラスのインスタンスを作成します。これにより、Animation インスタンスが <codeph>play()</codeph> メソッドに作成されます。Animation インスタンスは、開始値と終了値、継続時間、およびオプションパラメーター（イーザーオブジェクト、インターポレーターオブジェクトなど）を受け取ります。</p>
+ 
+  <p>Animation オブジェクトは、アニメーションの開始時と終了時、アニメーションの繰り返し時、およびアニメーション実行期間における一定間隔の更新時に、イベントリスナーを呼び出します。これらの呼び出しでは、Animation インスタンスが開始値と終了値およびイーザーオブジェクトとインターポレーターオブジェクトから計算した値が渡されます。その後、これらの値はターゲットオブジェクトのプロパティ値を設定するために使用されます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Animate"><linktext>spark.effects.Animate</linktext></link><link href="spark.effects.supportClasses.xml#AnimateInstance"><linktext>spark.effects.supportClasses.AnimateInstance</linktext></link></related-links><apiConstructor id="spark.effects.animation:Animation:Animation"><apiName>Animation</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>duration</apiItemName><apiType value="Number"/><apiData>500</apiData><apiDesc>アニメーションの長さです（ミリ秒単位）。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>アニメーション化するプロパティです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>プロパティの初期値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>プロパティの終了値です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。オプションの <codeph>property</codeph> パラメーター、<codeph>startValue</codeph> パラメーター、および <codeph>endValue</codeph> パラメーターは、2 つの Keyframe がある単一の MotionPath オブジェクトを使用して、単純なアニメーションを定義します。いずれかの値が null でない場合、<codeph>startValue</codeph> は最初のキーフレームの <codeph>value</codeph>（時間 = 0）になり、<codeph>endValue</codeph> は 2 番目のキーフレームの <codeph>value</codeph>（アニメーションの最後）になります。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:Animation:end"><apiName>end</apiName><shortdesc>
+      アニメーションを中止して、すぐにアニメーションの最後のジャンプし、animationTarget で animationEnd() 関数を呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      アニメーションを中止して、すぐにアニメーションの最後のジャンプし、<codeph>animationTarget</codeph> で animationEnd() 関数を呼び出します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:pause"><apiName>pause</apiName><shortdesc>
+      resume() メソッドが呼び出されるまでエフェクトを一時停止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>resume()</codeph> メソッドが呼び出されるまでエフェクトを一時停止します。<codeph>stop()</codeph> が <codeph>resume()</codeph> の前に呼び出されると、アニメーションを再開できません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:play"><apiName>play</apiName><shortdesc>
+      アニメーションを開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      アニメーションを開始します。アニメーションが既に再生されている場合は、最初に停止し、その後再生されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:resume"><apiName>resume</apiName><shortdesc>
+      pause() メソッドを呼び出し、エフェクトを一時停止した後、再開させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>pause()</codeph> メソッドを呼び出してエフェクトを一時停止した後、再開させます。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:stop"><apiName>stop</apiName><shortdesc>
+      アニメーションを停止し、end() メソッドを呼び出さないで終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      アニメーションを停止し、<codeph>end()</codeph> メソッドを呼び出さないで終了します。<codeph>animationTarget</codeph> で animationStop() 関数が呼び出されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:Animation:currentValue"><apiName>currentValue</apiName><shortdesc>
+      Animation の現在のフレームまでについて計算された値を含む Object です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Animation の現在のフレームまでについて計算された値を含む Object です。キーとしてプロパティ名を使用し、マップ値として値が格納されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:duration"><apiName>duration</apiName><shortdesc>
+      repeatCount プロパティによって定義された繰り返しをカウントしない、アニメーションの時間の長さです（ミリ秒単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>500</apiData><apiType value="Number"/><apiDefaultValue>500
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>repeatCount</codeph> プロパティによって定義された繰り返しをカウントしない、アニメーションの時間の長さです（ミリ秒単位）。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:interpolator"><apiName>interpolator</apiName><shortdesc>
+      プロパティの開始値と終了値の間の値を計算するために Animation インスタンスによって使用されるインターポレーターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+      プロパティの開始値と終了値の間の値を計算するために Animation インスタンスによって使用されるインターポレーターです。デフォルトでは、このクラスは NumberInterpolator クラスを使用します。または、開始値と終了値が配列または Vector である場合は、MultiValueInterpolator クラスを使用します。他のデータ型の補間、または異なる方法で補間する必要がある Number（カラーチャンネル情報を保持する <codeph>uint</codeph> 値など）の補間は、異なるインターポレーターを提供することによって処理できます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link><link href="spark.effects.interpolation.xml#MultiValueInterpolator"><linktext>spark.effects.interpolation.MultiValueInterpolator</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:motionPaths"><apiName>motionPaths</apiName><shortdesc>
+      Animation で時間の経過と共にアニメーション化するプロパティと値を定義する、MotionPath オブジェクトのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Vector$spark.effects.animation:MotionPath"/></apiValueDef><apiDesc>
+      Animation で時間の経過と共にアニメーション化するプロパティと値を定義する、MotionPath オブジェクトのセットです。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>spark.effects.animation.MotionPath</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:animationTarget:get"><apiName>animationTarget</apiName><shortdesc>
+      このアニメーションにおいて、開始、終了、繰り返し、更新のすべてのイベントで通知される、IAnimationTarget オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.animation:IAnimationTarget</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このアニメーションにおいて、開始、終了、繰り返し、更新のすべてのイベントで通知される、IAnimationTarget オブジェクトです。値が <codeph>null</codeph> の場合、通知するターゲットがないことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:cycleFraction:get"><apiName>cycleFraction</apiName><shortdesc>
+      イージングが適用された後で経過したアニメーションの現在の割合です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      イージングが適用された後で経過したアニメーションの現在の割合です。この値の範囲は 0 ～ 1 です。アニメーションの「サイクル」は、アニメーションの 1 回の繰り返しと定義され、<codeph>repeatCount</codeph> プロパティは再生されるサイクルの数を定義します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:cycleTime:get"><apiName>cycleTime</apiName><shortdesc>
+      現在のサイクルのアニメーションでの、現在のミリ秒位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      現在のサイクルのアニメーションでの、現在のミリ秒位置です。この値の範囲は 0 ～ <codeph>duration</codeph> です。アニメーションの「サイクル」は、アニメーションの 1 回の繰り返しと定義され、<codeph>repeatCount</codeph> プロパティは再生されるサイクルの数を定義します。アニメーションの位置を変更するには、<codeph>seek()</codeph> メソッドを使用します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:easer:get"><apiName>easer</apiName><shortdesc>
+      このエフェクトのイージングビヘイビアーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>Sine(.5)
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このエフェクトのイージングビヘイビアーです。この IEaser オブジェクトは、アニメーションの経過割合をイージング割合に変換するために使用され、これが後でその経過イージング割合で値を計算するために使用されます。 
+     
+      <p>値が <codeph>null</codeph> の場合は、イージングが使用されないことを意味し、これは Linear イージングを使用すること、つまり <codeph>animation.easer = Linear.getInstance();</codeph> と同じです。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:isPlaying:get"><apiName>isPlaying</apiName><shortdesc>
+      true の場合、アニメーションは現在再生中です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、アニメーションは現在再生中です。アニメーションが再生されており、まだ（プログラムによって、または自動的に）停止されておらず、かつ一時停止もされていない場合を除き、この値は <codeph>false</codeph> です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:playReversed:get"><apiName>playReversed</apiName><shortdesc>
+      true の場合、逆順でアニメーションを再生します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、逆順でアニメーションを再生します。現在アニメーションが <codeph>playReversed</codeph> で指定されている値とは逆の方向に再生している場合、アニメーションは動的に方向を変更します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+      開始遅延と繰り返しを含む、アニメーションの合計経過時間です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      開始遅延と繰り返しを含む、アニメーションの合計経過時間です。その最初のサイクルを再生しているアニメーションの場合、この値は <codeph>cycleTime</codeph> の値と等しくなります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:repeatBehavior:get"><apiName>repeatBehavior</apiName><shortdesc>
+      繰り返すアニメーションのビヘイビアーを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RepeatBehavior.LOOP
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      繰り返すアニメーションのビヘイビアーを設定します。繰り返すアニメーションの <codeph>repeatCount</codeph> プロパティは、0 に設定されるか、または 1 よりも大きい値に設定されます。この値は、<codeph>RepeatBehavior.LOOP</codeph>（毎回同じ順番でアニメーションを繰り返す）または <codeph>RepeatBehavior.REVERSE</codeph>（繰り返しのたびにアニメーションの方向を逆にする）である必要があります。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#RepeatBehavior"><linktext>spark.effects.animation.RepeatBehavior</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:repeatCount:set"><apiName>repeatCount</apiName><shortdesc>
+      このアニメーションを繰り返す回数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このアニメーションを繰り返す回数です。値が 0 の場合、無限に繰り返されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:repeatDelay:set"><apiName>repeatDelay</apiName><shortdesc>
+      各繰り返しサイクルを開始する前の遅延時間です（ミリ秒単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      各繰り返しサイクルを開始する前の遅延時間です（ミリ秒単位）。この値をゼロ以外の数値に設定すると、その終了値で正確に前のアニメーションサイクルが終了します。ただし、遅延のない繰り返しの場合、あるサイクルの終わりに近づいてから次のサイクルの始まりを経過するまでアニメーションがスムーズに移行されるため、その値を完全に飛び超える可能性があります。このプロパティは、0 以上の値である必要があります。
+     
+      <p>このプロパティは、最初のアニメーションサイクルの後、最初の繰り返しで使用されます。アニメーションの最初のサイクルを遅延させるには、<codeph>startDelay</codeph> プロパティを使用します。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#Animation/startDelay"><linktext>startDelay</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:startDelay:set"><apiName>startDelay</apiName><shortdesc>
+      アニメーションを開始する前に待機する時間です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アニメーションを開始する前に待機する時間です。このプロパティは、0 以上の値である必要があります。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

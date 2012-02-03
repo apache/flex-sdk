@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.http.mxml"><apiName>mx.rpc.http.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.http.mxml:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+ Verwenden Sie das &amp;lt;mx:HTTPService&amp;gt;-Tag, um ein HTTPService-Objekt in einer MXML-Datei darzustellen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>
+ The &lt;mx:HTTPService&gt; tag accepts the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:HTTPService
+ <b>Properties</b>
+ concurrency="multiple|single|last"
+ contentType="application/x-www-form-urlencoded|application/xml"
+ destination="<i>DefaultHTTP</i>"
+ id="<i>No default.</i>"
+ method="GET|POST|HEAD|OPTIONS|PUT|TRACE|DELETE"
+ resultFormat="object|array|xml|e4x|flashvars|text"
+ showBusyCursor="false|true"
+ makeObjectsBindable="false|true"
+ url="<i>No default.</i>"
+ useProxy="false|true"
+ xmlEncode="<i>No default.</i>"
+ xmlDecode="<i>No default.</i>"
+ 
+ <b>Events</b>
+ fault="<i>No default.</i>"
+ result="<i>No default.</i>"
+ /&gt;
+ </pre>
+ 
+ The <code>&lt;mx:HTTPService&gt;</code> tag can have a single &lt;mx:request&gt; tag under which the parameters can be specified.
+ </p>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.http:HTTPService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Verwenden Sie das <codeph>&lt;mx:HTTPService></codeph>-Tag, um ein HTTPService-Objekt in einer MXML-Datei darzustellen. Wenn Sie die <codeph>send()</codeph>-Methode des HTTPService-Objekts aufrufen, sendet diese eine HTTP-Anforderung an die angegebene URL, worauf eine HTTP-Antwort zurückgegeben wird. Optional können Sie der angegebenen URL auch Parameter übergeben. Wenn Sie nicht den serverbasierten Proxy-Dienst verwenden, stehen Ihnen nur HTTP GET- oder HTTP POST-Methoden zur Verfügung. Wenn Sie jedoch die useProxy-Eigenschaft auf „true“ setzen, und den serverbasierten Proxy-Dienst verwenden, können Sie auch die HTTP HEAD-, -OPTIONS-, -TRACE- und -DELETE-Methoden verwenden.
+ 
+ <p><b>Hinweis:</b> Aufgrund einer Softwarelimitierung generiert der HTTPService bei Verwendung von GET keine benutzerfreundlichen Fehlermeldungen.
+ </p>
+ 
+ </apiDesc><example conref="HTTPServiceExample.mxml"/></apiClassifierDetail><related-links><link href="mx.rpc.http.xml#HTTPService"><linktext>mx.rpc.http.HTTPService</linktext></link><link href="" invalidHref="mx.validators.Validator.xml"><linktext>mx.validators.Validator</linktext></link><link href="" invalidHref="mx.managers.CursorManager.xml"><linktext>mx.managers.CursorManager</linktext></link></related-links><apiConstructor id="mx.rpc.http.mxml:HTTPService:HTTPService"><apiName>HTTPService</apiName><shortdesc>
+     Erstellt einen neuen HTTPService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Die URL, die der HTTPService bei der Berechnung relativer URLs verwenden soll.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein HTTPService-Zielname in der service-config.xml-Datei.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Erstellt einen neuen HTTPService. Dieser Konstruktor wird normalerweise vom generierten Code eines XML-Dokuments aufgerufen. Die mx.rpc.http.HTTPService-Klasse wird normalerweise zur Erstellung eines HTTPService in ActionScript verwendet.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http.mxml:HTTPService:initialized"><apiName>initialized</apiName><shortdesc>
+     Wird aufgerufen, nachdem das Implementierungsobjekt erstellt und sämtliche im MXML-Tag angegebenen Komponenteneigenschaften initialisiert wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Das MXML-Dokument, das dieses Objekt erstellt hat.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Der von <codeph>document</codeph> für den Verweis auf dieses Objekt verwendete Bezeichner. Ist das Objekt eine verschachtelte Eigenschaft des Dokuments, nimmt<codeph>id</codeph> den Wert Null an. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Wird aufgerufen, nachdem das Implementierungsobjekt erstellt und sämtliche im MXML-Tag angegebenen Komponenteneigenschaften initialisiert wurden. Wenn Sie diese Klasse in ActionScript erstellen und sie mit der Überprüfung funktionieren soll, müssen Sie diese Methode aufrufen und das MXML-Dokument und die <codeph>id</codeph> des HTTPService übergeben.
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.http.mxml:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+ Verwenden Sie das &amp;lt;mx:HTTPMultiService&amp;gt;-Tag, um ein HTTPMultiService-Objekt in einer MXML-Datei darzustellen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="operationList"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.http:HTTPMultiService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Verwenden Sie das <codeph>&lt;mx:HTTPMultiService></codeph>-Tag, um ein HTTPMultiService-Objekt in einer MXML-Datei darzustellen. Der HTTPMultiService gleicht dem HTTPService, unterstützt jedoch mehr als eine Methode je Tag.
+ 
+ <p><b>Hinweis:</b> Aufgrund einer Softwarelimitierung generiert der HTTPService bei Verwendung von GET keine benutzerfreundlichen Fehlermeldungen.
+ </p>
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.http.xml#HTTPMultiService"><linktext>mx.rpc.http.HTTPMultiService</linktext></link></related-links><apiConstructor id="mx.rpc.http.mxml:HTTPMultiService:HTTPMultiService"><apiName>HTTPMultiService</apiName><shortdesc>
+     Erstellt einen neuen HTTPMultiService.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Die URL, die der HTTPService bei der Berechnung relativer URLs verwenden soll.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein HTTPService-Zielname in der service-config.xml-Datei.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Erstellt einen neuen HTTPMultiService. Dieser Konstruktor wird normalerweise vom generierten Code eines XML-Dokuments aufgerufen. Die mx.rpc.http.HTTPService-Klasse wird normalerweise zur Erstellung eines HTTPService in ActionScript verwendet.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.http.mxml:HTTPMultiService:initialized"><apiName>initialized</apiName><shortdesc>
+     Wird aufgerufen, nachdem das Implementierungsobjekt erstellt und sämtliche im MXML-Tag angegebenen Komponenteneigenschaften initialisiert wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Das MXML-Dokument, das dieses Objekt erstellt hat.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Der von <codeph>document</codeph> für den Verweis auf dieses Objekt verwendete Bezeichner. Ist das Objekt eine verschachtelte Eigenschaft des Dokuments, nimmt<codeph>id</codeph> den Wert Null an. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Wird aufgerufen, nachdem das Implementierungsobjekt erstellt und sämtliche im MXML-Tag angegebenen Komponenteneigenschaften initialisiert wurden. Wenn Sie diese Klasse in ActionScript erstellen und sie mit der Überprüfung funktionieren soll, müssen Sie diese Methode aufrufen und das MXML-Dokument und die <codeph>id</codeph> des HTTPService übergeben.
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

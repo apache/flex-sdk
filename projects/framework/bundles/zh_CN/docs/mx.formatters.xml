@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.formatters"><apiName>mx.formatters</apiName><apiDetail/><apiClassifier id="mx.formatters:NumberBaseRoundType"><apiName>NumberBaseRoundType</apiName><shortdesc>
+  NumberBaseRoundType 类可为用于指定舍入类型的 formatter 属性定义常数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberBaseRoundType 类可为用于指定舍入类型的 formatter 属性定义常量值。例如，您可以使用这些常量设置 <codeph>NumberFormatter.rounding</codeph> 属性。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberFormatter"><linktext>mx.formatters.NumberFormatter</linktext></link><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link></related-links><apiValue id="mx.formatters:NumberBaseRoundType:DOWN"><apiName>DOWN</apiName><shortdesc>
+	  将数字向下舍入到最接近且小于或等于输入数字的整数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将数字向下舍入到最接近且小于或等于输入数字的整数。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:NEAREST"><apiName>NEAREST</apiName><shortdesc>
+	  将数字向上或向下舍入到最接近的整数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>nearest</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将数字向上或向下舍入到最接近的整数。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:NONE"><apiName>NONE</apiName><shortdesc>
+	  不进行舍入。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  不进行舍入。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBaseRoundType:UP"><apiName>UP</apiName><shortdesc>
+	  将数字向上舍入到最接近且大于或等于输入数字的整数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将数字向上舍入到最接近且大于或等于输入数字的整数值。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+  CurrencyFormatter 类将对一个有效数字设置格式，以作为货币值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:CurrencyFormatter" replacement="spark.formatters.CurrencyFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:CurrencyFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:CurrencyFormatter
+    alignSymbol="left|right" 
+    currencySymbol="$"
+    decimalSeparatorFrom="."
+    decimalSeparatorTo="."
+    precision="-1"
+    rounding="none|up|down|nearest"
+    thousandsSeparatorFrom=","
+    thousandsSeparatorTo=","
+    useNegativeSign="true|false"
+    useThousandsSeparator="true|false"
+ />  
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CurrencyFormatter 类将对一个有效数字设置格式，以作为货币值。此类可调整小数的舍入和精度、千分位分隔符以及负号；它还会添加货币符号。您可以使用 <codeph>alignSymbol</codeph> 属性将货币符号置于值的左侧或右侧。货币符号可以包含多个字符，包括空格。
+  
+  <p>如果出现错误，则会返回一个空 String，以及一个说明已将此错误保存到 <codeph>error</codeph> 属性的 String。<codeph>error</codeph> 属性可以是下列值之一：</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> 表示传递给 <codeph>format()</codeph> 方法的数值无效。该值应该是一个 Number 或 String 形式的有效值。</li>
+    <li><codeph>"Invalid format"</codeph> 表示其中某个参数包含不可用的设置。</li>
+  </ul>
+  
+  </apiDesc><example conref="CurrencyFormatterExample.mxml"><swfblock conref="examples/CurrencyFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:CurrencyFormatter:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:CurrencyFormatter:format"><apiName>format</apiName><shortdesc>
+      将值设置为货币格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>格式化的字符串。如果发生错误，则为空字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要设置格式的值。
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 <codeph>value</codeph> 设置为货币格式。如果无法设置 <codeph>value</codeph> 的格式，则会返回一个空 String，并将对错误的描述写入 <codeph>error</codeph> 属性。
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:CurrencyFormatter:alignSymbol:get"><apiName>alignSymbol</apiName><shortdesc>
+      将货币符号与格式化数字的左侧或右侧对齐。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      将货币符号与格式化数字的左侧或右侧对齐。允许值为 <codeph>"left"</codeph> 和 <codeph>"right"</codeph>。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      要用作格式化数字的货币符号的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"$"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要用作格式化数字的货币符号的字符。您可以使用一个或多个字符表示货币符号，例如“$”或“YEN”。您还可以使用空格在货币字符和格式化的数字之间添加一定空间。当该数字为负值时，货币符号将出现在数字与减号或括号之间。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:decimalSeparatorFrom:get"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      分析输入字符串时使用的小数分隔符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      分析输入字符串时使用的小数分隔符。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:decimalSeparatorTo:get"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      输出格式化的十进制数字时使用的小数分隔符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      输出格式化的十进制数字时使用的小数分隔符。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:precision:get"><apiName>precision</apiName><shortdesc>
+      输出 String 中包含的小数位数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      输出 String 中包含的小数位数。您可以通过将精度设置为 <codeph>-1</codeph> 来禁用精度。值 <codeph>-1</codeph> 表示不更改精度。例如，如果输入值为 1.453，并已将 <codeph>rounding</codeph> 设置为 <codeph>NumberBaseRoundType.NONE</codeph>，则会返回 1.453；如果 <codeph>precision</codeph> 为 -1，并已设置了某种形式的舍入，则会根据该舍入类型返回一个值。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:rounding:get"><apiName>rounding</apiName><shortdesc>
+      数字的舍入方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>NumberBaseRoundType.NONE
+ 	 
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      数字的舍入方式。在 ActionScript 中，此值可以是 <codeph>NumberBaseRoundType.NONE</codeph>、<codeph>NumberBaseRoundType.UP</codeph>、<codeph>NumberBaseRoundType.DOWN</codeph> 或 <codeph>NumberBaseRoundType.NEAREST</codeph>。在 MXML 中，此值可以是 <codeph>"none"</codeph>、<codeph>"up"</codeph>、<codeph>"down"</codeph> 或 <codeph>"nearest"</codeph>。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiValue><apiValue id="mx.formatters:CurrencyFormatter:thousandsSeparatorFrom:get"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      在输入 String 中用作千分位分隔符的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在输入 String 中用作千分位分隔符的字符。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:thousandsSeparatorTo:get"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      在输出 String 中用作千分位分隔符的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在输出 String 中用作千分位分隔符的字符。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:useNegativeSign:get"><apiName>useNegativeSign</apiName><shortdesc>
+      如果为 true，则通过在数字前面添加减号 (-) 来设置负数的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则通过在数字前面添加减号 (-) 来设置负数的格式。如果为 <codeph>false</codeph>，则将数字设置为用括号括起的格式，例如 (400)。
+	 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:CurrencyFormatter:useThousandsSeparator:get"><apiName>useThousandsSeparator</apiName><shortdesc>
+      如果为 true，则会使用分隔符按千位递增将数字拆分。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则会使用分隔符按千位递增将数字拆分。
+	 
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:SwitchSymbolFormatter"><apiName>SwitchSymbolFormatter</apiName><shortdesc>
+  SwitchSymbolFormatter 类是一个实用程序类，您可以在创建自定义格式程序时使用此类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><access>private
+  
+  </access></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SwitchSymbolFormatter 类是一个实用程序类，您可以在创建自定义格式程序时使用此类。此类可使用一个 String 中的数字替换另一个 String 中的占位符，从而执行替代。
+  
+  <p>例如，您可以为 SwitchSymbolFormatter 类指定以下信息：</p>
+ 
+  <p>格式 String：“The SocialSecurity number is: ###-##-####”</p>
+  <p>输入 String：“123456789”</p>
+  
+  <p>SwitchSymbolFormatter 类会分析格式 String，并使用输入 String 中的数字按照在输入 String 中指定的顺序替换每个占位符（默认情况下即数字字符 (#)）。您可以定义不同的占位符元件，在实例化 SwitchSymbolFormatter 对象时将该元件传递给构造函数即可。</p>
+  
+  <p>SwitchSymbolFormatter 类将使用这两个字符串创建如下输出 String：</p>
+ 
+  <p>“The SocialSecurity number is: 123-45-6789”</p>
+  
+  <p>此模式中可以包含任何字符，只要它们在 String 数值部分的所有值中保持一致即可。但是，要格式化的值必须是数字。</p>
+  
+  <p>源值中提供的位数必须符合模式 String 中定义的位数。这可通过调用 SwitchSymbolFormatter 对象的脚本实现。</p>
+  
+  </apiDesc><example conref="SwitchSymbolFormatterExample.mxml"><swfblock conref="examples/SwitchSymbolFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#PhoneFormatter"><linktext>mx.formatters.PhoneFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:SwitchSymbolFormatter:SwitchSymbolFormatter"><apiName>SwitchSymbolFormatter</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>numberSymbol</apiItemName><apiType value="String"/><apiData>#</apiData><apiDesc>要用作模式字符的字符。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:SwitchSymbolFormatter:formatValue"><apiName>formatValue</apiName><shortdesc>
+      通过使用格式模式设置源 String 的格式可创建新的 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>格式化的 String。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>format</apiItemName><apiType value="String"/><apiDesc>定义包括用户请求的模式的字符串。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>source</apiItemName><apiType value="Object"/><apiDesc>有效数字顺序（若有必要，允许使用 Alpha 字符）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过使用格式模式设置源 String 的格式可创建新的 String。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.formatters:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+  NumberFormatter 类可通过调整小数的舍入和精度、千分位分隔符以及负号来设置有效值的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:NumberFormatter" replacement="spark.formatters.NumberFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:NumberFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:NumberFormatter
+    decimalSeparatorFrom="."
+    decimalSeparatorTo="."
+    precision="-1"
+    rounding="none|up|down|nearest"
+    thousandsSeparatorFrom=","
+    thousandsSeparatorTo=","
+    useNegativeSign="true|false"
+    useThousandsSeparator="true|false"/>  
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberFormatter 类可通过调整小数的舍入和精度、千分位分隔符以及负号来设置有效值的格式。
+ 
+  <p>如果同时使用 <codeph>rounding</codeph> 和 <codeph>precision</codeph> 属性，则首先进行舍入，然后使用指定的 <codeph>precision</codeph> 值设置小数位数。这样，即可在舍入数字后仍然带有尾随小数；例如，303.99 = 304.00。</p>
+ 
+  <p>如果出现错误，则会返回一个空 String，以及一个说明已将该错误保存到 <codeph>error</codeph> 属性的 String。<codeph>error</codeph> 属性可以是下列值之一：</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> 表示传递给 <codeph>format()</codeph> 方法的数值无效。该值应该是一个 Number 或 String 形式的有效值。</li>
+    <li><codeph>"Invalid format"</codeph> 表示其中某个参数包含不可用的设置。</li>
+  </ul>
+  
+  </apiDesc><example conref="NumberFormatterExample.mxml"><swfblock conref="examples/NumberFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberBase"><linktext>mx.formatters.NumberBase</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:NumberFormatter:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:NumberFormatter:format"><apiName>format</apiName><shortdesc>
+      将数字设置为 String 格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>格式化的 String。如果发生错误，则为空字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要设置格式的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将数字设置为 String 格式。如果无法设置 <codeph>value</codeph> 的格式，则会返回一个空 String，并将对错误的描述写入 <codeph>error</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:NumberFormatter:decimalSeparatorFrom:get"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      分析输入 String 时使用的小数分隔符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      分析输入 String 时使用的小数分隔符。
+     
+      <p>设置此属性时，请确保 <codeph>thousandsSeparatorFrom</codeph> 属性值不等于此属性值。否则，为此值设置格式时将发生错误。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:decimalSeparatorTo:get"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      输出格式化的十进制数字时使用的小数分隔符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      输出格式化的十进制数字时使用的小数分隔符。
+     
+      <p>设置此属性时，请确保 <codeph>thousandsSeparatorTo</codeph> 属性值不等于此属性值。否则，为此值设置格式时将发生错误。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:precision:get"><apiName>precision</apiName><shortdesc>
+      输出 String 中包含的小数位数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      输出 String 中包含的小数位数。您可以通过将精度设置为 <codeph>-1</codeph> 来禁用精度。值 <codeph>-1</codeph> 表示不更改精度。例如，如果输入值为 1.453，并已将 <codeph>rounding</codeph> 设置为 <codeph>NumberBaseRoundType.NONE</codeph>，则会返回值 1.453；如果 <codeph>precision</codeph> 为 <codeph>-1</codeph>，并已设置了某种形式的舍入，则会根据该舍入类型返回一个值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberFormatter:rounding:get"><apiName>rounding</apiName><shortdesc>
+      指定数字的舍入方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>NumberBaseRoundType.NONE
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定数字的舍入方式。
+     
+      <p>在 ActionScript 中，您可以使用下列常量来设置此属性：<codeph>NumberBaseRoundType.NONE</codeph>、<codeph>NumberBaseRoundType.UP</codeph>、<codeph>NumberBaseRoundType.DOWN</codeph> 或 <codeph>NumberBaseRoundType.NEAREST</codeph>。MXML 的有效值为“down”、“nearest”、“up”和“none”。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:thousandsSeparatorFrom:get"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      在输入 String 中用作千分位分隔符的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在输入 String 中用作千分位分隔符的字符。
+     
+      <p>设置此属性时，请确保 <codeph>decimalSeparatorFrom</codeph> 属性值不等于此属性值。否则，为此值设置格式时将发生错误。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:thousandsSeparatorTo:get"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      在输出 String 中用作千分位分隔符的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>","
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在输出 String 中用作千分位分隔符的字符。
+     
+      <p>设置此属性时，请确保 <codeph>decimalSeparatorTo</codeph> 属性值不等于此属性值。否则，为此值设置格式时将发生错误。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="mx.formatters:NumberFormatter:useNegativeSign:get"><apiName>useNegativeSign</apiName><shortdesc>
+      如果为 true，则通过在数字前面添加减号 (-) 来设置负数的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则通过在数字前面添加减号 (-) 来设置负数的格式。如果为 <codeph>false</codeph>，则将数字设置为用括号括起的格式，例如 (400)。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberFormatter:useThousandsSeparator:get"><apiName>useThousandsSeparator</apiName><shortdesc>
+      如果为 true，则会使用分隔符按千位递增将数字拆分。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则会使用分隔符按千位递增将数字拆分。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:DateBase"><apiName>DateBase</apiName><shortdesc>
+  DateBase 类包含供 mx.formatters.DateFormatter 类使用的本地化字符串信息，还包含用于呈示模式的分析函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateBase 类包含供 mx.formatters.DateFormatter 类使用的本地化字符串信息，还包含用于呈示模式的分析函数。此类是 DateFormatter 类的帮助器类，该类通常不会单独使用。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#DateFormatter"><linktext>mx.formatters.DateFormatter</linktext></link></related-links><apiValue id="mx.formatters:DateBase:dayNamesLong:get"><apiName>dayNamesLong</apiName><shortdesc>
+      长格式的日期名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Sunday", "Monday", "Tuesday", "Wednesday",
+      "Thursday", "Friday", "Saturday"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      长格式的日期名称。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:dayNamesShort:get"><apiName>dayNamesShort</apiName><shortdesc>
+      短格式的日期名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      短格式的日期名称。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:monthNamesLong:get"><apiName>monthNamesLong</apiName><shortdesc>
+      长格式的月份名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["January", "February", "March", "April", "May", "June", 
+      "July", "August", "September", "October", "November", "December"].
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      长格式的月份名称。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:monthNamesShort:get"><apiName>monthNamesShort</apiName><shortdesc>
+      短格式的月份名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct","Nov", "Dec"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      短格式的月份名称。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:DateBase:timeOfDay:get"><apiName>timeOfDay</apiName><shortdesc>
+      时间名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>["AM", "PM"]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      时间名称。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:DateFormatter"><apiName>DateFormatter</apiName><shortdesc>
+  DateFormatter 类基于输入的 String 或 Date 对象使用格式 String 返回格式化的日期和时间 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.formatters:DateFormatter" replacement="spark.formatters.DateTimeFormatter" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>You use the <code>&lt;mx:DateFormatter&gt;</code> tag
+  to render date and time Strings from a Date object.</p>
+ 
+  <p>The <code>&lt;mx:DateFormatter&gt;</code> tag
+  inherits all of the tag attributes  of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:DateFormatter
+    formatString="Y|M|D|A|E|H|J|K|L|N|S|Q"
+   /> 
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateFormatter 类基于输入的 String 或 Date 对象使用格式 String 返回格式化的日期和时间 String。您可以轻松创建多种不同的格式，包括国际格式。
+ 
+  <p>如果出现错误，则会返回一个空 String，以及一个说明已将该错误保存到 <codeph>error</codeph> 属性的 String。<codeph>error</codeph> 属性可以是下列值之一：</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> 表示传递给 <codeph>format()</codeph> 方法的值既不是 Date 对象，也不是可识别的日期字符串表示形式。（允许参数为空。）</li>
+    <li> <codeph>"Invalid format"</codeph> 表示 <codeph>formatString</codeph> 属性设置为空 ("")，或者 <codeph>formatString</codeph> 属性中的模式字母少于一个。</li>
+  </ul>
+ 
+  <p><codeph>parseDateString()</codeph> 方法使用 mx.formatters.DateBase 类定义本地化字符串信息，利用此信息可以将设置为 String 格式的日期转换为 Date 对象。</p>
+  
+  </apiDesc><example conref="DateFormatterExample.mxml"><swfblock conref="examples/DateFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#DateBase"><linktext>mx.formatters.DateBase</linktext></link></related-links><apiConstructor id="mx.formatters:DateFormatter:DateFormatter"><apiName>DateFormatter</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:DateFormatter:format"><apiName>format</apiName><shortdesc>
+      根据用于设置日期格式的 String 或 Date 对象生成日期格式化的 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>格式化的 String。如果发生错误，则为空字符串。将有关错误条件的描述写入 <codeph>error</codeph> 属性。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要格式化的日期。此值可以是 Date 对象，也可以是已设置日期格式的 String，如“Thursday, April 22, 2004”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      根据用于设置日期格式的 String 或 Date 对象生成日期格式化的 String。<codeph>formatString</codeph> 属性用于确定输出 String 的格式。如果无法设置 <codeph>value</codeph> 的格式，则会返回一个空 String，并将对错误的描述写入 <codeph>error</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:DateFormatter:parseDateString"><apiName>parseDateString</apiName><shortdesc>
+      将已设置为 String 格式的日期转换为 Date 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Date 对象。
+      
+      </apiDesc><apiType value="Date"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>已设置为 String 格式的日期。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将已设置为 String 格式的日期转换为 Date 对象。月份名称和日期名称必须符合 mx.formatters.DateBase 中的名称。String 的小时值必须介于 0 和 23（含）之间。分钟和秒的值必须介于 0 和 59（含）之间。以下示例使用此方法创建 Date 对象：
+     
+      <pre>
+      var myDate:Date = DateFormatter.parseDateString("2009-12-02 23:45:30"); </pre>
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#DateBase"><linktext>mx.formatters.DateBase</linktext></link></related-links></apiOperation><apiValue id="mx.formatters:DateFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+      掩码模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"MM/DD/YYYY"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      掩码模式。
+      
+      <p>使用特定的大写字母组成模式 String，如 YYYY/MM。</p>
+     
+      <p>DateFormatter 模式 String 既可以包含模式字母，也可以包含其他文本。要形成有效的模式 String，只需要一个模式字母。</p>
+          
+      <p>下表描述了有效的模式字母：</p>
+     
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      <tgroup cols="2"><thead><row><entry>模式字母</entry><entry>说明</entry></row></thead><tbody><row>
+          <entry>Y</entry>
+          <entry> 年份。如果有两个模式字母，则年份将截断为两位数字；否则，年份将以四位数字形式出现。年份可以用零补齐，如下面一组示例中第三个示例所示： 
+            <ul>
+              <li>YY = 05</li>
+              <li>YYYY = 2005</li>
+              <li>YYYYY = 02005</li>
+            </ul></entry>
+        </row><row>
+          <entry>M</entry>
+          <entry> 一年中的月份。其格式取决于下列条件：
+            <ul>
+              <li>如果有一个模式字母，则格式将设置为一位或两位数值。 </li>
+              <li>如果有两个模式字母，则格式将设置为两位数值。</li>
+              <li>如果有三个模式字母，则格式将设置为短文本。</li>
+              <li>如果有四个模式字母，则格式将设置为完整文本。 </li>
+            </ul>
+              示例：
+            <ul>
+              <li>M = 7</li>
+              <li>MM= 07</li>
+              <li>MMM=Jul</li>
+              <li>MMMM= July</li>
+            </ul></entry>
+        </row><row>
+          <entry>D</entry>
+          <entry>一月中的日期。尽管对于日期而言使用单个字母模式的字符串就有效，但通常使用两个字母模式的字符串。
+     
+            <p>示例：</p>
+            <ul>
+              <li>D=4</li>
+              <li>DD=04</li>
+              <li>DD=10</li>
+            </ul></entry>
+        </row><row>
+          <entry>E</entry>
+          <entry>星期中的天。其格式取决于下列条件：
+            <ul>
+              <li>如果有一个模式字母，则格式将设置为一位或两位数值。</li>
+              <li>如果有两个模式字母，则格式将设置为两位数值。</li>
+              <li>如果有三个模式字母，则格式将设置为短文本。 </li>
+              <li>如果有四个模式字母，则格式将设置为完整文本。 </li>
+            </ul>
+              示例：
+            <ul>
+              <li>E = 1</li>
+              <li>EE = 01</li>
+              <li>EEE = Mon</li>
+              <li>EEEE = Monday</li>
+            </ul></entry>
+        </row><row>
+          <entry>A</entry>
+          <entry> am/pm 标记。</entry>
+        </row><row>
+          <entry>J</entry>
+          <entry>一天中的小时数 (0-23)。</entry>
+        </row><row>
+          <entry>H</entry>
+          <entry>一天中的小时数 (1-24)。</entry>
+        </row><row>
+          <entry>K</entry>
+          <entry>am/pm 中的小时数 (0-11)。</entry>
+        </row><row>
+          <entry>L</entry>
+          <entry>am/pm 中的小时数 (1-12)。</entry>
+        </row><row>
+          <entry>N</entry>
+          <entry>小时中的分钟数。
+     
+            <p>示例：</p>
+            <ul>
+              <li>N = 3</li>
+              <li>NN = 03</li>
+            </ul></entry>
+        </row><row>
+          <entry>S</entry>
+          <entry>分钟中的秒数。 
+     
+            <p>示例：</p>
+            <ul>
+              <li>SS = 30</li>
+            </ul></entry>
+        </row><row>
+          <entry>Q</entry>
+          <entry>秒中的毫秒数
+     
+            <p>示例：</p>
+            <ul>
+              <li>QQ = 78</li>
+              <li>QQQ = 078</li>
+            </ul></entry>
+        </row><row>
+          <entry>其他文本。</entry>
+          <entry>可以在模式字符串中添加其他文本，以进一步设置字符串格式。可以使用标点、数字和所有小写字母。应该避免使用大写字母，因为大写字母可能被解读为模式字母。
+     
+            <p>示例：</p>
+            <ul>
+              <li>EEEE, MMM. D, YYYY at L:NN:QQQ A = Tuesday, Sept. 8, 2005 at 1:26:012 PM</li>
+            </ul></entry>
+        </row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:PhoneFormatter"><apiName>PhoneFormatter</apiName><shortdesc>
+  PhoneFormatter 类将有效数字设置为电话号码格式，包括国际电话号码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:PhoneFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:PhoneFormatter
+    areaCode="-1"
+    areaCodeFormat="(###)"
+    formatString="(###) ###-####"
+    validPatternChars="+()#-. "
+  />
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PhoneFormatter 类将有效数字设置为电话号码格式，包括国际电话号码。
+ 
+  <p>为美国的七位数字格式提供快捷方式。如果 <codeph>areaCode</codeph> 属性包含一个值，并且您使用七位数字格式字符串 (###-####)，则要格式化的七位数值将自动在返回的 String 中添加地区代码。地区代码的默认格式为 (###)。您可以使用 <codeph>areaCodeFormat</codeph> 属性更改此格式。您可以根据需要随意设置地区代码格式，只要其中包含三个数字占位符即可。</p>
+ 
+  <p>如果出现错误，则会返回一个空 String，以及一个说明已将此错误保存到 <codeph>error</codeph> 属性的 String。<codeph>error</codeph> 属性可以是下列值之一：</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> 表示传递给 <codeph>format()</codeph> 方法的数值无效。此值应该是 Number 或 String 形式的有效数字，也可能其中包含的位数与格式 String 中指定的位数不同。</li>
+    <li> <codeph>"Invalid format"</codeph> 表示 <codeph>formatString</codeph> 属性中的字符总数与 <codeph>validPatternChars</codeph> 属性中指定的允许字符数不匹配，或者尽管已指定 <codeph>areaCodeFormat</codeph> 属性，但其中包含的数字占位符不是三个。</li>
+  </ul>
+  
+  </apiDesc><example conref="PhoneFormatterExample.mxml"><swfblock conref="examples/PhoneFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#SwitchSymbolFormatter"><linktext>mx.formatters.SwitchSymbolFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:PhoneFormatter:PhoneFormatter"><apiName>PhoneFormatter</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:PhoneFormatter:format"><apiName>format</apiName><shortdesc>
+      将 String 设置为电话号码格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>格式化的 String。如果发生错误，则为空字符串。将有关错误条件的描述写入 <codeph>error</codeph> 属性。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要设置格式的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 String 设置为电话号码格式。如果无法设置值的格式，则会返回一个空 String，并将对错误的描述写入 <codeph>error</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:PhoneFormatter:areaCodeFormat:get"><apiName>areaCodeFormat</apiName><shortdesc>
+      当 areacode 属性显示为七位数字格式时，此值是默认的地区代码格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"(###) "
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当 <codeph>areacode</codeph> 属性显示为七位数字格式时，此值是默认的地区代码格式。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:areaCode:get"><apiName>areaCode</apiName><shortdesc>
+      添加到美国格式的七位电话号码中的地区代码数字，从而形成一个十位数字的电话号码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>-1  
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      添加到美国格式的七位电话号码中的地区代码数字，从而形成一个十位数字的电话号码。值 <codeph>-1</codeph> 表示不在电话号码前添加地区代码。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+      一个字符串，其中包含代表指定电话号码格式的掩码字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"(###) ###-####"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个字符串，其中包含代表指定电话号码格式的掩码字符。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:PhoneFormatter:validPatternChars:get"><apiName>validPatternChars</apiName><shortdesc>
+      适用于 formatString 属性的有效字符列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"+()#- ."
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      适用于 <codeph>formatString</codeph> 属性的有效字符列表。在验证 <codeph>formatString</codeph> 属性期间会用到此属性。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:IFormatter"><apiName>IFormatter</apiName><shortdesc>
+  该接口对方法进行了指定，formatter 对象只有实现它才能被用作 UI 控件（例如 AdvancedDataGridColumn）的 formatter 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  该接口对方法进行了指定，formatter 对象只有实现它才能被用作 UI 控件（例如 <codeph>AdvancedDataGridColumn</codeph>）的 formatter 属性。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.xml#advancedDataGridClasses/formatter"><linktext>mx.controls.advancedDataGridClasses.formatter</linktext></link></related-links><apiOperation id="mx.formatters:IFormatter:mx.formatters:IFormatter:format"><apiName>format</apiName><shortdesc>
+      设置值的格式，并返回一个包含已格式化的新值的 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>格式化的字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要格式化的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置值的格式，并返回一个包含已格式化的新值的 <codeph>String</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.formatters:ZipCodeFormatter"><apiName>ZipCodeFormatter</apiName><shortdesc>
+  ZipCodeFormatter 类可根据用户提供的 formatString 属性将有效数字设置为下列格式之一。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:ZipCodeFormatter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:ZipCodeFormatter
+    formatString="#####|#####-####|### ###"
+  />
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.formatters:Formatter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZipCodeFormatter 类可根据用户提供的 <codeph>formatString</codeph> 属性将有效数字设置为下列格式之一。
+  
+  <ul>
+    <li>#####-####</li>
+    <li>##### ####</li>
+    <li>#####</li>
+    <li>### ###（加拿大）</li>
+  </ul>
+  
+  <p>必须为六位数字的号码提供一个六位数字的掩码。如果您使用五位数字或九位数字的掩码，则可以设置五位数字或九位数字号码的格式。</p>
+ 
+  <p>如果出现错误，则会返回一个空 String，以及一个说明已将此错误保存到 <codeph>error</codeph> 属性的 String。<codeph>error</codeph> 属性可以是下列值之一：</p>
+ 
+  <ul>
+    <li><codeph>"Invalid value"</codeph> 表示传递给 <codeph>format()</codeph> 方法的数值无效。此值应该是 Number 或 String 形式的有效数字（适用于字母数字值，加拿大邮政编码除外），或者数字位数不符合 <codeph>formatString</codeph> 属性中允许的位数。</li>
+    <li> <codeph>"Invalid format"</codeph> 表示 <codeph>formatString</codeph> 属性中的字符总数不符合 <codeph>validFormatChars</codeph> 属性中指定的允许字符数，或者数字占位符数目不等于 9、5 或 6。</li>
+  </ul>
+  
+  </apiDesc><example conref="ZipCodeFormatterExample.mxml"><swfblock conref="examples/ZipCodeFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.formatters.xml#SwitchSymbolFormatter"><linktext>mx.formatters.SwitchSymbolFormatter</linktext></link></related-links><apiConstructor id="mx.formatters:ZipCodeFormatter:ZipCodeFormatter"><apiName>ZipCodeFormatter</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:ZipCodeFormatter:format"><apiName>format</apiName><shortdesc>
+	  使用指定的格式设置 String 的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>格式化的 String。如果发生错误，则为空字符串。将有关错误条件的描述写入 <codeph>error</codeph> 属性。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要设置格式的值。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  使用指定的格式设置 String 的格式。如果无法设置值的格式，则会返回一个空 String，并将对错误的描述写入 <codeph>error</codeph> 属性。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:ZipCodeFormatter:formatString:get"><apiName>formatString</apiName><shortdesc>
+	  掩码模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"#####"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  掩码模式。可能的值为 <codeph>"#####-####"</codeph>、<codeph>"##### ####"</codeph>、<codeph>"#####"</codeph>、<codeph>"###-###"</codeph> 和 <codeph>"### ###"</codeph>。
+	  	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:Formatter"><apiName>Formatter</apiName><shortdesc>
+  Formatter 类是所有数据格式程序的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The Formatter class defines the following tag attributes,
+  which all of its subclasses inherit:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <b>Properties</b>
+    error=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Formatter 类是所有数据格式程序的基类。Formatter 的所有子类都必须覆盖 <codeph>format()</codeph> 方法。
+ 
+  </apiDesc><example conref="SimpleFormatterExample.mxml"><swfblock conref="examples/SimpleFormatterExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.formatters:Formatter:Formatter"><apiName>Formatter</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:Formatter:format"><apiName>format</apiName><shortdesc>
+	  设置值的格式，并返回一个包含已格式化的新值的 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>格式化的字符串。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要格式化的值。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  设置值的格式，并返回一个包含已格式化的新值的 String。所有子类都必须覆盖此方法，以实现 formatter。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:Formatter:protected:resourcesChanged"><apiName>resourcesChanged</apiName><shortdesc>
+	  构建 Formatter 时将调用此方法，并且每当 ResourceManager 分派“change”事件来指示本地化资源已经过某种更改时，都会再次调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  构建 Formatter 时将调用此方法，并且每当 ResourceManager 分派 <codeph>"change"</codeph> 事件来指示本地化资源已经过某种更改时，都会再次调用此方法。
+	 
+	  <p>在下列情形中分派此事件：设置 ResourceManager 的 <codeph>localeChain</codeph> 属性时，资源模块完成加载时，以及调用 ResourceManager 的 <codeph>update()</codeph> 方法时。</p>
+	 
+	  <p>子类应覆盖此方法，并在调用 <codeph>super.resourcesChanged()</codeph> 后，执行任何适当的操作以响应新资源值。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:Formatter:error"><apiName>error</apiName><shortdesc>
+	  发生错误时由 formatter 保存的说明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  发生错误时由 formatter 保存的说明。有关此属性的可能值，请参阅每个 formatter 的说明。
+	  <p>子类必须在 <codeph>format()</codeph> 方法中设置此值。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:defaultInvalidFormatError:get"><apiName>defaultInvalidFormatError</apiName><shortdesc>
+	  为 formatter 指定的格式字符串无效时出现的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid format"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  为 formatter 指定的格式字符串无效时出现的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:defaultInvalidValueError:get"><apiName>defaultInvalidValueError</apiName><shortdesc>
+	  为 formatter 指定的值无效时出现的错误消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Invalid value"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  为 formatter 指定的值无效时出现的错误消息。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:Formatter:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc conref="mx.core.UIComponent#resourceManager">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="unused"/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.resources:IResourceManager</apiValueClassifier></apiValueDef><apiDesc conref="mx.core.UIComponent#resourceManager">
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.formatters:NumberBase"><apiName>NumberBase</apiName><shortdesc>
+  NumberBase 是包含常规数字格式化功能的实用程序类，这些功能包括舍入、精度、千分位格式化以及负号格式化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberBase 是包含常规数字格式化功能的实用程序类，这些功能包括舍入、精度、千分位格式化以及负号格式化。实现 formatter 类将用到此类。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.formatters.xml#NumberFormatter"><linktext>mx.formatters.NumberFormatter</linktext></link><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links><apiConstructor id="mx.formatters:NumberBase:NumberBase"><apiName>NumberBase</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>decimalSeparatorFrom</apiItemName><apiType value="String"/><apiData>.</apiData><apiDesc>分析输入 String 时使用的小数分隔符。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>thousandsSeparatorFrom</apiItemName><apiType value="String"/><apiData>,</apiData><apiDesc>在输入 String 中用作千分位分隔符的字符。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>decimalSeparatorTo</apiItemName><apiType value="String"/><apiData>.</apiData><apiDesc>输出格式化的十进制数字时使用的小数分隔符。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>thousandsSeparatorTo</apiItemName><apiType value="String"/><apiData>,</apiData><apiDesc>在输出 String 中用作千分位分隔符的字符。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.formatters:NumberBase:expandExponents"><apiName>expandExponents</apiName><shortdesc>
+      将以指数形式表示的数字格式设置为以小数形式表示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>格式化的数字。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>要以指数形式进行处理的字符串。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将以指数形式表示的数字格式设置为以小数形式表示。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatDecimal"><apiName>formatDecimal</apiName><shortdesc>
+	  通过使用由 decimalSeparatorTo 指定的小数分隔符替换默认的小数点“.”来设置数字的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>输入内容的字符串表示形式，其中“.”已由小数格式化字符替代。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Number 的 String 值（格式设置采用美国样式 ####。##）。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  通过使用由 <codeph>decimalSeparatorTo</codeph> 指定的小数分隔符替换默认的小数点“.”来设置数字的格式。 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatNegative"><apiName>formatNegative</apiName><shortdesc>
+	  使用减号 (-) 或括号 () 设置负数的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>格式化的数字。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>要格式化的值。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>useSign</apiItemName><apiType value="Boolean"/><apiDesc>如果为 <codeph>true</codeph>，则使用减号 (-)。如果为 <codeph>false</codeph>，则使用括号 ()。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  使用减号 (-) 或括号 () 设置负数的格式。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatPrecision"><apiName>formatPrecision</apiName><shortdesc>
+	  使用 decimalSeparatorTo 属性作为小数分隔符来设置小数精度，从而设置数字的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>格式化的数字。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>要格式化的值。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>precision</apiItemName><apiType value="int"/><apiDesc>要使用的小数点数。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  使用 <codeph>decimalSeparatorTo</codeph> 属性作为小数分隔符来设置小数精度，从而设置数字的格式。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:formatRoundingWithPrecision"><apiName>formatRoundingWithPrecision</apiName><shortdesc>
+	  通过舍入并设置小数精度来设置数字格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>格式化的数字。
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>要舍入的值。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>roundType</apiItemName><apiType value="String"/><apiDesc>可执行的舍入类型：NumberBaseRoundType.NONE、NumberBaseRoundType.UP、NumberBaseRoundType.DOWN 或 NumberBaseRoundType.NEAREST。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>precision</apiItemName><apiType value="int"/><apiDesc>int，要使用的小数位数。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  通过舍入并设置小数精度来设置数字格式。可能的舍入类型由 mx.formatters.NumberBaseRoundType 定义。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiOperation><apiOperation id="mx.formatters:NumberBase:formatRounding"><apiName>formatRounding</apiName><shortdesc>
+	  通过舍入设置数字格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>格式化的数字。
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>要舍入的值。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>roundType</apiItemName><apiType value="String"/><apiDesc>可执行的舍入类型：NumberBaseRoundType.NONE、NumberBaseRoundType.UP、NumberBaseRoundType.DOWN 或 NumberBaseRoundType.NEAREST。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  通过舍入设置数字格式。可能的舍入类型由 mx.formatters.NumberBaseRoundType 定义。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.formatters.xml#NumberBaseRoundType"><linktext>mx.formatters.NumberBaseRoundType</linktext></link></related-links></apiOperation><apiOperation id="mx.formatters:NumberBase:formatThousands"><apiName>formatThousands</apiName><shortdesc>
+	  使用 thousandsSeparatorTo 属性和 decimalSeparatorTo 属性分别作为千位分隔符和小数分隔符来设置数字的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>格式化的数字。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>要格式化的值。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  使用 <codeph>thousandsSeparatorTo</codeph> 属性和 <codeph>decimalSeparatorTo</codeph> 属性分别作为千位分隔符和小数分隔符来设置数字的格式。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.formatters:NumberBase:parseNumberString"><apiName>parseNumberString</apiName><shortdesc>
+	  从格式化的 String 中提取一个数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>一个值，可能为小数。
+	  
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>要对其进行分析以提取数值的 String。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  从格式化的 String 中提取一个数字。从左向右检查 String，并返回第一个数字序列。忽略千分位分隔符，并包括小数及其尾随数字。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.formatters:NumberBase:decimalSeparatorFrom"><apiName>decimalSeparatorFrom</apiName><shortdesc>
+      分析输入 String 时使用的小数分隔符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      分析输入 String 时使用的小数分隔符。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:decimalSeparatorTo"><apiName>decimalSeparatorTo</apiName><shortdesc>
+      输出格式化的十进制数字时使用的小数分隔符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"."
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      输出格式化的十进制数字时使用的小数分隔符。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:isValid"><apiName>isValid</apiName><shortdesc>
+	  如果为 true，则表示格式设置成功；否则，将为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  如果为 <codeph>true</codeph>，则表示格式设置成功；否则，将为 <codeph>false</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:thousandsSeparatorFrom"><apiName>thousandsSeparatorFrom</apiName><shortdesc>
+      在输入 String 中用作千分位分隔符的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>","
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      在输入 String 中用作千分位分隔符的字符。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.formatters:NumberBase:thousandsSeparatorTo"><apiName>thousandsSeparatorTo</apiName><shortdesc>
+      在输出 String 中用作千分位分隔符的字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>","
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      在输出 String 中用作千分位分隔符的字符。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

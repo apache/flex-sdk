@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.listClasses"><apiName>mx.controls.listClasses</apiName><apiDetail/><apiClassifier id="mx.controls.listClasses:IDropInListItemRenderer"><apiName>IDropInListItemRenderer</apiName><shortdesc>
+  “嵌入式”项呈示器的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  “嵌入式”项呈示器的接口。多数 IListItemRenderers 都不是“嵌入式”项呈示器。它们将使用数据提供程序项目的特定字段。例如，它们可能会将项目的“lastName”属性分配给标签的 <codeph>text</codeph> 属性。使用数据绑定，可以很容易地进行写入操作，但是这会产生负面效果，即无法再在 DataGrid 的另一列或带有不同字段的另一个 List 中使用该呈示器。IDropInListItemRenderer 允许重复使用呈示器。列表类将向呈示器传递更多的信息，以便它能够确定在运行时使用哪一字段。
+ 
+  <p>希望用作嵌入式项呈示器或嵌入式项目编辑器的组件必须实现 IDropInListItemRenderer 接口。许多 Flex 组件可实现此接口，因此可在任一列或列表中将其用作嵌入式项呈示器和嵌入式项目编辑器。</p>
+ 
+  <p>嵌入式项呈示器或嵌入式项目编辑器也必须实现 IDataRenderer 接口以定义 <codeph>data</codeph> 属性。</p> 
+ 
+  <p>使用组件作为嵌入式项呈示器或嵌入式项目编辑器时，Flex 将使用 list 控件中的相应数据初始化该组件的 <codeph>listData</codeph> 属性。然后，组件可使用 <codeph>listData</codeph> 属性初始化嵌入式项呈示器或嵌入式项目编辑器的 <codeph>data</codeph> 属性。</p>
+ 
+  <p><codeph>listData</codeph> 属性的类型为 BaseListData，其中 BaseListData 类包含四个子类：DataGridListData、ListData、TreeListData 和 MenuListData。<codeph>listData</codeph> 属性值的实际数据类型取决于使用嵌入式项呈示器或嵌入式项目编辑器的控件。对于 DataGrid 控件，值的类型为 DataGridListData；对于 List 控件，值的类型为 ListData；对于 Tree 控件，值的类型为 TreeListData；对于 Menu 控件，值的类型为 MenuListData。</p>
+ 
+  <p>下例显示了 setter 方法，该方法适用于 NumericStepper 控件（可根据 <codeph>listData</codeph> 属性的值初始化 NumericStepper 的 <codeph>value</codeph> 属性）的 <codeph>data</codeph> 属性：</p>
+ 
+  <pre>
+    public function set data(value:Object):void
+    {
+      _data = value;
+    
+      this.value = _listData ? parseFloat(_listData.label) : Number(_data);
+    
+      dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+    }
+  </pre>
+ 
+  <p>在上例中，NumericStepper 控件在设置 NumericStepper 的 <codeph>value</codeph> 属性时将忽略 <codeph>data</codeph> 属性，并改为使用 <codeph>listData</codeph> 属性。</p>
+ 
+  <p>若要实现 IDropInListItemRenderer 接口，需定义 setter 和 getter 方法来实现 <codeph>listData</codeph> 属性。通常，setter 方法为内部变量写入 <codeph>listData</codeph> 属性的值。列表类始终分配此属性，然后设置 <codeph>data</codeph> 属性中的数据提供程序项目。</p>
+ 
+  <p>请注意，<codeph>listData</codeph> 属性的 setter 方法不会分派事件。这是因为列表类始终先设置 <codeph>listData</codeph>，然后设置 <codeph>data</codeph> 属性。设置 <codeph>data</codeph> 属性也会分派 <codeph>dataChange</codeph> 事件。您从不需要对 <codeph>listData</codeph> 进行单独设置，因此它不需要分派自己的事件。 </p>
+ 
+  <p>如果 <codeph>data</codeph> setter 方法执行了一些需要控件进行自行更新的操作，则它可能会调用 <codeph>invalidateProperties()</codeph> 方法。然后，组件开发人员应写入 <codeph>commitProperties()</codeph> 方法以确定 <codeph>listData</codeph> 已修改并采取相应措施。 </p>
+ 
+  <p>getter 方法返回内部变量的当前值，如下例所示：</p>
+  
+  <pre>
+    // Internal variable for the property value.
+    private var _listData:BaseListData;
+    
+    // Make the listData property bindable.
+    [Bindable("dataChange")]
+    
+    // Define the getter method.
+    public function get listData():BaseListData
+    {
+      return _listData;
+    }
+    
+    // Define the setter method,
+    public function set listData(value:BaseListData):void
+    {
+      _listData = value;
+    }
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#BaseListData"><linktext>mx.controls.listClasses.BaseListData</linktext></link><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link></related-links><apiValue id="mx.controls.listClasses:IDropInListItemRenderer:mx.controls.listClasses:IDropInListItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      使用 setter 和 getter 方法实现 listData 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.listClasses:BaseListData</apiValueClassifier></apiValueDef><apiDesc>
+      使用 setter 和 getter 方法实现 <codeph>listData</codeph> 属性。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.listClasses:BaseListData"><apiName>BaseListData</apiName><shortdesc>
+  BaseListData 类定义 listData 属性的数据类型，此属性由嵌入式项呈示器或嵌入式项目编辑器实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BaseListData 类定义 <codeph>listData</codeph> 属性的数据类型，此属性由嵌入式项呈示器或嵌入式项目编辑器实现。所有嵌入式项呈示器和嵌入式项目编辑器必须实现 IDropInListItemRenderer 接口，此接口定义了 <codeph>listData</codeph> 属性。
+ 
+  <p><codeph>listData</codeph> 属性为 BaseListData 类型，其中 BaseListData 类包含三个子类：DataGridListData、ListData 和 TreeListData。<codeph>listData</codeph> 属性值的实际数据类型取决于使用嵌入式项呈示器或嵌入式项目编辑器的控件。对于 DataGrid 控件，此值为 DataGridListData 类型；对于 List 控件，此值为 ListData 类型；对于 Tree 控件，此值为 TreeListData 类型。</p>
+ 
+  <p>用作嵌入式项呈示器或嵌入式项目编辑器时，Flex 会将 <codeph>listData</codeph> 属性设置为 BaseListData-derived 类，其中包含与数据提供程序（包含项目数据）中的项目相关的计算信息。</p>
+ 
+  <p>尽管此类的属性是可写的，但应将其视为只读。这些属性由 List 类进行初始化，并由项呈示器或项目编辑器读取。更改这些值可能导致意外结果。</p>
+ 
+  <p>这些属性被标记为可绑定，但是这些属性不会实际执行任何 change 检测或发送 change 事件。通过为 <codeph>listData</codeph> 属性设置新值，这些属性会作为一个整体发生改变。用于修改 <codeph>listData</codeph> 属性的 <codeph>change</codeph> 事件将更新所有绑定。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.listClasses:BaseListData:BaseListData"><apiName>BaseListData</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiDesc>项目数据的文本表示形式。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>唯一标识符。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>对 List 控件的引用。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>行在控件中当前可见行中的索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>该列在控件当前可见列中的索引。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.listClasses:BaseListData:columnIndex"><apiName>columnIndex</apiName><shortdesc>
+      基于 List 控件的列的索引与该控件的当前可见列相关，其中第一列的索引为 1。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      基于 List 控件的列的索引与该控件的当前可见列相关，其中第一列的索引为 1。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:label"><apiName>label</apiName><shortdesc>
+      项目数据的文本表示形式，基于 List 类的 itemToLabel() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      项目数据的文本表示形式，基于 List 类的 <codeph>itemToLabel()</codeph> 方法。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:owner"><apiName>owner</apiName><shortdesc>
+      对拥有此项目的列表对象的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.core:IUIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      对拥有此项目的列表对象的引用。这应该是 ListBase-derived 类。此属性为 IUIComponent 类型。因此，嵌入式组件（如标签和 TextInput）就无需依赖 List 及其所有依赖项。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:rowIndex"><apiName>rowIndex</apiName><shortdesc>
+      DataGrid、List 或 Tree 控件的行的索引与该控件的当前可见行相关，其中第一行的索引为 1。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      DataGrid、List 或 Tree 控件的行的索引与该控件的当前可见行相关，其中第一行的索引为 1。例如，单击控件中的某个项目并将 <codeph>rowIndex</codeph> 设置为 3。接着，在控件中滚动以更改此行在控件可见行中的位置，然后像之前一样单击同一行。现在，<codeph>rowIndex</codeph> 中包含一个不同的值，与当前可见行中的新索引对应。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:uid:get"><apiName>uid</apiName><shortdesc>
+      此项目的唯一标识符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      此项目的唯一标识符。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.listClasses:IListItemRenderer"><apiName>IListItemRenderer</apiName><shortdesc>
+  列表组件的项呈示器和项目编辑器必须实现 IListItemRenderer 接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  列表组件的项呈示器和项目编辑器必须实现 IListItemRenderer 接口。IListItemRenderer 接口包含有多个其它接口。它不定义任何新类方法或属性。 
+ 
+  <p>这组接口中包含：IDataRenderer、IFlexDisplayObject、ILayoutManagerClient、ISimpleStyleClient 和 IUIComponent。UIComponent 类可实现除 IDataRenderer 接口之外的上述所有接口。因此，如果要创建自定义项呈示器或项目编辑器作为 UIComponent 类的子类，只需实现 IDataRenderer 接口，然后将其添加到其类实现 IDataRenderer 和 IListItemRenderer 的类定义中。</p>
+ 
+ <p>通常，IListItemRenderers 专门用于显示数据提供程序项目中的特定字段，无法在其它 DataGrid 列或其它列表中重新用于其它字段。如果希望创建可以重用的呈示器，也可以实现 IDropInListItemRenderer，该列表会向此呈示器传递更多数据，从而允许其重新用于其它数据字段。</p>
+ 
+  <p>项呈示器和项目编辑器均使用 IDataRenderer 接口从列表类的数据提供程序中传递数据。实现 IDropInListItemRenderer 接口的呈示器和编辑器从列表类中获取其它信息。项呈示器或项目编辑器使用一条或两条信息来显示数据。</p>
+ 
+  <p>呈示器和编辑器经常循环使用。创建之后，只需对其赋予新数据和选择 <codeph>listData</codeph> 属性即可再次使用它们。因此，在实现过程中，您必须确保并未假定组件属性包含其初始值或默认值。</p>
+  
+  </apiDesc></apiClassifierDetail></apiClassifier></apiPackage>

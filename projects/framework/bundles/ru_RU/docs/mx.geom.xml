@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.geom"><apiName>mx.geom</apiName><apiDetail/><apiClassifier id="mx.geom:TransformOffsets"><apiName>TransformOffsets</apiName><shortdesc>
+	  CompoundTransform представляет преобразование двух или трехмерной матрицы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  CompoundTransform представляет преобразование двух или трехмерной матрицы. Он может использоваться в свойстве postLayoutTransformOffsets в элементах UIComponent или GraphicElement.
+	  
+	  </apiDesc></apiClassifierDetail><apiConstructor id="mx.geom:TransformOffsets:TransformOffsets"><apiName>TransformOffsets</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.geom:TransformOffsets:rotationX:set"><apiName>rotationX</apiName><shortdesc>
+	 значение rotationX в градусах, добавленное к преобразованию
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 значение rotationX в градусах, добавленное к преобразованию
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:rotationY:set"><apiName>rotationY</apiName><shortdesc>
+	 значение rotationY в градусах, добавленное к преобразованию
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 значение rotationY в градусах, добавленное к преобразованию
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:rotationZ:set"><apiName>rotationZ</apiName><shortdesc>
+	 свойство rotationZ в градусах, добавленное к преобразованию
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 свойство rotationZ в градусах, добавленное к преобразованию
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:scaleX:set"><apiName>scaleX</apiName><shortdesc>
+	 множитель, применяемый к свойству преобразования scaleX.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 множитель, применяемый к свойству преобразования scaleX.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:scaleY:set"><apiName>scaleY</apiName><shortdesc>
+	 множитель, применяемый к свойству преобразования scaleY.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 множитель, применяемый к свойству преобразования scaleY.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:scaleZ:set"><apiName>scaleZ</apiName><shortdesc>
+	 множитель, применяемый к свойству преобразования scaleZ.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 множитель, применяемый к свойству преобразования scaleZ.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:x:set"><apiName>x</apiName><shortdesc>
+	 значение x, добавленное к преобразованию
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 значение x, добавленное к преобразованию
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:y:set"><apiName>y</apiName><shortdesc>
+	 значение y, добавленное к преобразованию
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 значение y, добавленное к преобразованию
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:z:set"><apiName>z</apiName><shortdesc>
+	 значение z, добавленное к преобразованию
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 значение z, добавленное к преобразованию
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.geom:Transform"><apiName>Transform</apiName><shortdesc>
+  Определяет поддержку синхронизации в дополнение к классу flash.geom.Transform.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.geom:Transform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Определяет поддержку синхронизации в дополнение к классу flash.geom.Transform. Свойство <codeph>target</codeph> класса является IVisualElement, которому назначен Transform. Реализации IVisualElement обычно назначают целевой объект себе, если Transform связан с их свойством <codeph>transform</codeph>. 
+ 
+  <p>Изменения свойств преобразования автоматически помещаются в целевой объект. Считывание свойств преобразования выполняется непосредственно из преобразования целевого объекта.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.geom.Transform.xml"><linktext>flash.geom.Transform</linktext></link></related-links><apiConstructor id="mx.geom:Transform:Transform"><apiName>Transform</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>src</apiItemName><apiType value="flash.display:DisplayObject"/><apiData>null</apiData><apiDesc>Целевой объект преобразования.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.geom:Transform:getRelativeMatrix3D"><apiName>getRelativeMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="flash.geom:Matrix3D"/></apiReturn><apiParam><apiItemName>relativeTo</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.geom:Transform:matrix3D:set"><apiName>matrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix3D"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.geom:Transform:target:set"><apiName>target</apiName><shortdesc>
+      IVisualElement, с которым синхронизируется объект Transform.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IVisualElement</apiValueClassifier></apiValueDef><apiDesc>
+      IVisualElement, с которым синхронизируется объект Transform. Реализации IVisualElement, как правило, определяют целевой объект для себя, если объект Transform присвоен их свойству transform.  
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.geom:RoundedRectangle"><apiName>RoundedRectangle</apiName><shortdesc>
+  RoundedRectangle представляет собой Rectangle с углами, образованными кривыми линиями.
+  
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.geom:Rectangle</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RoundedRectangle представляет собой Rectangle с углами, образованными кривыми линиями.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.geom:RoundedRectangle:RoundedRectangle"><apiName>RoundedRectangle</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Координата x левого верхнего угла прямоугольника.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Координата y левого верхнего угла прямоугольника.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Ширина прямоугольника в пикселях.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Высота прямоугольника в пикселях.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>cornerRadius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Радиус каждого угла в пикселях.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.geom:RoundedRectangle:cornerRadius"><apiName>cornerRadius</apiName><shortdesc>
+	  Радиус каждого угла (в пикселях).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Радиус каждого угла (в пикселях).
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.geom:CompoundTransform"><apiName>CompoundTransform</apiName><shortdesc>
+      CompoundTransform представляет преобразование двух или трехмерной матрицы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      CompoundTransform представляет преобразование двух или трехмерной матрицы. Сложное преобразование представляет матрицу, к которой можно осуществлять запросы или которая может быть задана в виде двухмерной либо трехмерной матрицы, или индивидуальные свойства преобразования, такие как x, y, scaleX, rotationZ и т. д. 
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="mx.geom:CompoundTransform:CompoundTransform"><apiName>CompoundTransform</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.geom:CompoundTransform:translateBy"><apiName>translateBy</apiName><shortdesc> 
+      Обеспечивает применение значения дельты к компоненту перемещения преобразования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Значение x для преобразования.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Значение y для преобразования.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>z</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Значение z для преобразования.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Обеспечивает применение значения дельты к компоненту перемещения преобразования. В отличие от непосредственной установки свойств x, y или z, этот метод можно безопасно вызывать без изменения принципа преобразования «исходного элемента точных значений».
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.geom:CompoundTransform:matrix3D:get"><apiName>matrix3D</apiName><shortdesc>
+      Трехмерная матрица устанавливается непосредственно пользователем или составляется путем объединения параметров центра преобразования, масштаба, свойств вращения и перемещения в указанном порядке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix3D"/></apiValueDef><apiDesc>
+      Трехмерная матрица устанавливается непосредственно пользователем или составляется путем объединения параметров центра преобразования, масштаба, свойств вращения и перемещения в указанном порядке. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:matrix:get"><apiName>matrix</apiName><shortdesc>
+      Двухмерная матрица устанавливается непосредственно пользователем или составляется путем объединения параметров центра преобразования, масштаба, свойств вращения и перемещения в указанном порядке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/></apiValueDef><apiDesc>
+      Двухмерная матрица устанавливается непосредственно пользователем или составляется путем объединения параметров центра преобразования, масштаба, свойств вращения и перемещения в указанном порядке.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:rotationX:set"><apiName>rotationX</apiName><shortdesc>
+      Свойство rotationX в градусах для преобразования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Свойство rotationX в градусах для преобразования.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:rotationY:set"><apiName>rotationY</apiName><shortdesc>
+      Свойство rotationY в градусах для преобразования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Свойство rotationY в градусах для преобразования.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:rotationZ:set"><apiName>rotationZ</apiName><shortdesc>
+      Свойство rotationZ в градусах для преобразования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Свойство rotationZ в градусах для преобразования.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:scaleX:set"><apiName>scaleX</apiName><shortdesc>
+      Значение свойства преобразования scaleX.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение свойства преобразования scaleX.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:scaleY:set"><apiName>scaleY</apiName><shortdesc>
+      Значение свойства преобразования scaleY.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение свойства преобразования scaleY.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:scaleZ:set"><apiName>scaleZ</apiName><shortdesc>
+      Значение свойства преобразования scaleZ.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение свойства преобразования scaleZ.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:transformX:set"><apiName>transformX</apiName><shortdesc>
+      Значение центра преобразования по оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение центра преобразования по оси x. При применении вращения и масштабирования центр преобразования фиксируется. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:transformY:set"><apiName>transformY</apiName><shortdesc>
+      Координата центра преобразования по оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Координата центра преобразования по оси y. При применении вращения и масштабирования центр преобразования фиксируется. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:transformZ:set"><apiName>transformZ</apiName><shortdesc>
+      Координата центра преобразования по оси z.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Координата центра преобразования по оси z. При применении вращения и масштабирования центр преобразования фиксируется. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:x:set"><apiName>x</apiName><shortdesc>
+      Значение x для преобразования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение x для преобразования.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:y:set"><apiName>y</apiName><shortdesc>
+      Значение y для преобразования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение y для преобразования.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:z:set"><apiName>z</apiName><shortdesc>
+      Значение z для преобразования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение z для преобразования.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

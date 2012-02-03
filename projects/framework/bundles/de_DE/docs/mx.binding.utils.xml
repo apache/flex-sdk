@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.binding.utils"><apiName>mx.binding.utils</apiName><apiDetail/><apiClassifier id="mx.binding.utils:ChangeWatcher"><apiName>ChangeWatcher</apiName><shortdesc>
+  Die ChangeWatcher-Klasse definiert Dienstmethoden, die Sie mit bindbaren Flex-Eigenschaften verwenden können.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ChangeWatcher-Klasse definiert Dienstmethoden, die Sie mit bindbaren Flex-Eigenschaften verwenden können. Mit diesen Methoden können Sie eine Ereignisprozedur definieren, die ausgeführt wird, sobald eine bindbare Eigenschaft aktualisiert wird.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.binding.utils:ChangeWatcher:ChangeWatcher"><apiName>ChangeWatcher</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>access</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>next</apiItemName><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier><apiData>null</apiData></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor. Nicht für die öffentliche Verwendung. Diese Methode wird nur von der <codeph>watch()</codeph>-Methode aufgerufen. Siehe <codeph>watch()</codeph>-Methode für Parametergebrauch.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.binding.utils:ChangeWatcher:canWatch"><apiName>canWatch</apiName><shortdesc>
+      Ermöglicht es zu bestimmen, ob der Host ein datenbindendes Ereignis für die Eigenschaft bereitstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph>, wenn der <codeph>host</codeph> Change-Ereignisse für <codeph>name</codeph>bereitstellt.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Der Host der Eigenschaft. Weitere Informationen finden Sie unter der <codeph>watch()</codeph>-Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Der Name der Eigenschaft. Weitere Informationen finden Sie unter der <codeph>watch()</codeph>-Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Auf <codeph>true</codeph> setzen, wenn die Prozedur nur bei Committing-Change-Ereignissen übernommen werden soll. Weitere Informationen finden Sie unter der <codeph>watch()</codeph>-Methode.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ermöglicht es zu bestimmen, ob der Host ein datenbindendes Ereignis für die Eigenschaft bereitstellt. 
+     
+      <p>Hinweis: Eigenschaftenketten werden nicht von der <codeph>canWatch()</codeph>-Methode unterstützt. Sie werden von der <codeph>watch()</codeph>-Methode unterstützt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:getEvents"><apiName>getEvents</apiName><shortdesc>
+      Gibt alle Bindungsereignisse für eine bindbare Eigenschaft des Hostobjekts zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Objekt mit der Form <codeph>{ eventName: isCommitting, ... }</codeph>, welches alle Change-Ereignisse für diese Eigenschaft enthält.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Der Host der Eigenschaft. Weitere Informationen finden Sie unter der <codeph>watch()</codeph>-Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Name der Eigenschaft oder der Eigenschaftenkette. Weitere Informationen finden Sie unter der <codeph>watch()</codeph>-Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Steuert das Einschließen von Non-Commiting-Change-Ereignissen im zurückgegebenen Wert.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt alle Bindungsereignisse für eine bindbare Eigenschaft des Hostobjekts zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:getValue"><apiName>getValue</apiName><shortdesc>
+      Ruft den aktuellen Wert der überwachten Eigenschaft oder Eigenschaftenkette ab, oder „null“, wenn das Hostobjekt „null“ ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der aktuelle Wert der überwachten Eigenschaft oder Eigenschaftenkette.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Ruft den aktuellen Wert der überwachten Eigenschaft oder Eigenschaftenkette ab, oder „null“, wenn das Hostobjekt „null“ ist. Beispiel:
+      <pre>
+      watch(obj, ["a","b","c"], ...).getValue() === obj.a.b.c
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:isWatching"><apiName>isWatching</apiName><shortdesc>
+      Gibt „true“ zurück, wenn jeder Watcher in der Kette wenigstens einem Change-Ereignis zugeordnet ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn jeder Watcher in der Kette wenigstens einem Change-Ereignis zugeordnet ist.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt <codeph>true</codeph> zurück, wenn jeder Watcher in der Kette wenigstens einem Change-Ereignis zugeordnet ist. Beachten Sie, dass die<codeph>isWatching()</codeph>-Methode mit dem Host variiert, da verschiedene Hosts verschiedene Change-Ereignisse für die vom Watcher gewählte Eigenschaft bereitstellen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:reset"><apiName>reset</apiName><shortdesc>
+      Setzt die ChangeWatcher-Instanz zurück, um ein neues Hostobjekt zu verwenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newHost</apiItemName><apiType value="Object"/><apiDesc>Der neue Host der Eigenschaft. Weitere Informationen finden Sie unter der <codeph>watch()</codeph>-Methode.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Setzt die ChangeWatcher-Instanz zurück, um ein neues Hostobjekt zu verwenden. Sie können diese Methode aufrufen, um eine Watcher-Instanz für einen anderen Host wiederzuverwenden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:setHandler"><apiName>setHandler</apiName><shortdesc>
+      Legt die Prozedurfunktion fest.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/><apiDesc>Die Prozedurfunktion. Dieses Argument darf nicht „null“ sein.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Legt die Prozedurfunktion fest.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:unwatch"><apiName>unwatch</apiName><shortdesc>
+      Löst die ChangeWatcher-Instanz und ihre Prozedurfunktion vom aktuellen Host.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Löst die ChangeWatcher-Instanz und ihre Prozedurfunktion vom aktuellen Host. Sie können die <codeph>reset()</codeph>-Methode verwenden, um die ChangeWatcher-Instanz erneut zuzuordnen oder dieselbe Eigenschaft oder Kette für ein anderes Hostobjekt zu überwachen.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:watch"><apiName>watch</apiName><shortdesc>
+      Erzeugt und startet eine ChangeWatcher-Instanz.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die ChangeWatcher-Instanz, wenn mindestens ein Eigenschaftsname für das <codeph>chain</codeph>-Argument festgelegt wurde oder „null“, wenn nicht. Beachten Sie, dass der zurückgegebene Watcher nicht notwendigerweise Change-Ereignisse entdeckt und sich ihnen zugeordnet hat, denn eventuell wurden vom Host für die betreffende Eigenschaft oder Kette keine Change-Ereignisse bereitgestellt. Sie können die <codeph>isWatching()</codeph>-Methode verwenden, um den Status des Watchers zu bestimmen.
+     
+      </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches die Eigenschaft oder Eigenschaftenkette hostet, die überwacht werden soll. Sie können die<codeph>reset()</codeph>-Methode verwenden, um den Wert des <codeph>host</codeph>-Arguments zu ändern, nachdem Sie die ChangeWatcher-Instanz erzeugt haben.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>Ein Wert, der die zu überwachende Eigenschaft oder Kette festlegt. Gültige Werte sind:
+      <ul>
+        <li>Ein String, der den Namen einer öffentlichen, bindbaren Eigenschaft des Hostobjekts enthält.</li>
+     
+        <li>Ein Objekt der Form: <codeph>{ name: <i>Eigenschaftsname </i>, getter: function(host) { return host[name] } }</codeph>. Das Objekt enthält den Namen einer öffentlichen, bindbaren Eigenschaft und einer Get-Funktion für diese Eigenschaft.</li>
+     
+        <li>Ein nicht leeres Array, welches eine beliebige Kombination der beiden ersten Optionen enthält. Dies stellt eine Kette bestehend aus bindbaren Eigenschaften dar, auf welche über den Host zugegriffen werden kann. Beispiel: Um die Eigenschaft <codeph>host.a.b.c</codeph> zu überwachen, rufen Sie die Methode als <codeph>watch(host, ["a","b","c"], ...)</codeph> auf.</li>
+      </ul>
+     
+      <p>Hinweis: Die Eigenschaft oder Eigenschaften, die im <codeph>chain</codeph>-Argument benannt werden, müssen öffentlich sein, da die <codeph>describeType()</codeph>-Methode alle Informationen über nichtöffentliche Eigenschaften unterdrückt, einschließlich der Bindbarkeitsmetadaten, welche der ChangeWatcher scannt, um die Change-Ereignisse zu finden, welche für eine gegebene Eigenschaft bereitgestellt wurden. Jedoch kann mit der Get-Funktion, die bei Verwendung der oben beschriebenen <codeph>{ name, getter }</codeph>-Argumentform bereitgestellt wird, ein willkürlicher berechneter Wert mit der benannten (öffentlichen) Eigenschaft verknüpft werden.</p>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/><apiDesc>Eine Ereignisprozedurfunktion, die aufgerufen wird, wenn der Wert der überwachten Eigenschaft (oder jeder beliebigen Eigenschaft in einer überwachten Kette) modifiziert wird. Die Modifikation wird signalisiert, sobald ein beliebiges Hostobjekt in der Watcherkette ein Ereignis auslöst, welches im <codeph>[Bindable]</codeph>-Metadatentag für die entsprechend überwachte Eigenschaft festgelegt wurde. Der voreingestellte Ereignisname ist <codeph>propertyChange</codeph>.
+     
+      <p>Das von der bindbaren Eigenschaft ausgelöste Ereignisobjekt wird ohne Modifikation an diese Prozedurfunktion übergeben. Standardmäßig löst Flex ein Ereignisobjekt des Typs PropertyChangeEvent aus. Sie können jedoch Ihren eigenen Ereignistyp definieren, indem Sie das <codeph>[Bindable]</codeph>-Metadatentag verwenden, um eine bindbare Eigenschaft zu definieren.</p>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, wenn die Prozedur nur für Committing-Change-Ereignisse aufgerufen werden soll; <codeph>false</codeph>, wenn die Prozedur sowohl für Committing- als auch für Non-Committing-Change-Ereignisse aufgerufen werden soll. Hinweis: Das Vorhandensein von Non-Committing-Change-Ereignissen für eine Eigenschaft wird durch das <codeph>[NonCommittingChangeEvent(&lt;Ereignisname>)]</codeph>-Metadatentag angezeigt. Normalerweise werden diese Tags verwendet, um abgestimmte Wertänderungen anzuzeigen z. B. Modifikationen in einem Textfeld vor der Bestätigung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>(Standard = „false“) Bestimmt, ob der Verweis auf den Host stark oder schwach ist. Ein starker Verweis (Standard) verhindert, dass der Host von einem Garbagekollektor entfernt wird. Ein schwacher Verweis hingegen nicht.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Erzeugt und startet eine ChangeWatcher-Instanz. Eine einzelne ChangeWatcher-Instanz kann eine Eigenschaft oder Eigenschaftenkette überwachen. Eine Eigenschaftenkette ist eine Abfolge von Eigenschaften, auf die von einem Hostobjekt zugegriffen werden kann. Beispiel: Der Ausdruck <codeph>obj.a.b.c</codeph> enthält die Eigenschaftenkette (a, b, c).
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#PropertyChangeEvent"><linktext>mx.events.PropertyChangeEvent</linktext></link></related-links></apiOperation><apiValue id="mx.binding.utils:ChangeWatcher:useWeakReference"><apiName>useWeakReference</apiName><shortdesc>
+      (Standard = „false“) Bestimmt, ob der Verweis auf den Host stark oder schwach ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      (Standard = „false“) Bestimmt, ob der Verweis auf den Host stark oder schwach ist. Ein starker Verweis (Standard) verhindert, dass der Host von einem Garbagekollektor entfernt wird. Ein schwacher Verweis hingegen nicht.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.binding.utils:BindingUtils"><apiName>BindingUtils</apiName><shortdesc>
+  Die BindingUtils-Klasse definiert Dienstmethoden, die Datenbindung aus ActionScript durchführen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die BindingUtils-Klasse definiert Dienstmethoden, die Datenbindung aus ActionScript durchführen. Sie können die in dieser Klasse definierten Methoden verwenden, um Datenbindungen zu konfigurieren.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.binding.utils:BindingUtils:bindProperty"><apiName>bindProperty</apiName><shortdesc>
+      Bindet die öffentliche Eigenschaft „prop“ des Siteobjekts an eine bindbare Eigenschaft oder Eigenschaftenkette.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Eine ChangeWatcher-Instanz, wenn mindestens ein Eigenschaftsname für das <codeph>chain</codeph>-Argument festgelegt wurde oder „null“, wenn nicht. 
+      
+      </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>site</apiItemName><apiType value="Object"/><apiDesc>Das an <codeph>chain</codeph> zu bindende Objekt, welches die Eigenschaft definiert.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prop</apiItemName><apiType value="String"/><apiDesc>Der Name der öffentlichen Eigenschaft, welcher im zu bindenden <codeph>site</codeph>-Objekt definiert wird. Die Eigenschaft erhält den aktuellen <codeph>chain</codeph>-Wert, sobald sich der <codeph>chain</codeph>-Wert ändert. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, welches die Eigenschaft oder Eigenschaftenkette hostet, die überwacht werden soll. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>Ein Wert, der die zu überwachende Eigenschaft oder Kette festlegt. Gültige Werte sind:
+      <ul>
+        <li>Ein String, der den Namen einer öffentlichen, bindbaren Eigenschaft des Hostobjekts enthält.</li>
+     
+        <li>Ein Objekt der Form: <codeph>{ name: <i>Eigenschaftsname </i>, getter: function(host) { return host[<i>property name</i>] } }</codeph>. Dieses Objekt muss sowohl den Namen als auch die Get-Funktion für eine öffentliche, bindbare Eigenschaft des Hostobjekts enthalten.</li>
+     
+        <li>Ein nicht leeres Array, welches eine Kombination der ersten beiden Optionen enthält, die eine Kette von bindbaren Eigenschaften darstellt, auf welche vom Host zugegriffen werden kann. Beispiel: Um die Eigenschaft <codeph>host.a.b.c</codeph> zu binden, rufen Sie die Methode als <codeph>bindProperty(site, prop, host, ["a","b","c"])</codeph> auf.</li>
+      </ul>
+     
+      <p>Hinweis: Die Eigenschaft oder Eigenschaften, die im <codeph>chain</codeph>-Argument benannt werden, müssen öffentlich sein, da die <codeph>describeType()</codeph>-Methode alle Informationen über nichtöffentliche Eigenschaften unterdrückt, einschließlich der Bindbarkeitsmetadaten, welche der ChangeWatcher scannt, um die Change-Ereignisse zu finden, welche für eine gegebene Eigenschaft bereitgestellt wurden. Jedoch kann mit der Get-Funktion, die bei Verwendung der oben beschriebenen <codeph>{ name, getter }</codeph>-Argumentform bereitgestellt wird, ein willkürlicher berechneter Wert mit der benannten (öffentlichen) Eigenschaft verknüpft werden.</p>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, wenn die Prozedur nur für Committing-Change-Ereignisse aufgerufen werden soll; <codeph>false</codeph>, wenn die Prozedur sowohl für Committing- als auch für Non-Committing-Change-Ereignisse aufgerufen werden soll. Hinweis: Das Vorhandensein von Non-Committing-Change-Ereignissen für eine Eigenschaft wird durch das <codeph>[NonCommittingChangeEvent(&lt;Ereignisname>)]</codeph>-Metadatentag angezeigt. Normalerweise werden diese Tags verwendet, um abgestimmte Wertänderungen anzuzeigen, z. B. Modifikationen in einem Textfeld vor der Bestätigung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Bestimmt, ob der Verweis auf den Host stark oder schwach ist. Ein starker Verweis (Standard) verhindert, dass der Host von einem Garbage Collector entfernt wird. Ein schwacher Verweis hingegen nicht. Hinzugefügt für Flex 4.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bindet die öffentliche Eigenschaft, <codeph>prop</codeph> des <codeph>site</codeph>-Objekts an eine bindbare Eigenschaft oder Eigenschaftenkette. Wenn eine ChangeWatcher-Instanz erzeugt wurde, wird <codeph>prop</codeph> mit dem aktuellen <codeph>chain</codeph>-Wert initialisiert.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:BindingUtils:bindSetter"><apiName>bindSetter</apiName><shortdesc>
+      Bindet eine Set-Funktion (Setter) an eine bindbare Eigenschaft oder Eigenschaftenkette.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Eine ChangeWatcher-Instanz, wenn mindestens ein Eigenschaftsname für das <codeph>chain</codeph>-Argument festgelegt wurde oder „null“, wenn nicht. 
+      
+      </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>setter</apiItemName><apiType value="Function"/><apiDesc>Setmethode, welche mit einem Argument des aktuellen <codeph>chain</codeph>-Wertes aufgerufen wird, wenn dieser Wert sich ändert.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Der Host der Eigenschaft. Weitere Informationen finden Sie unter der <codeph>bindProperty()</codeph>-Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>Name der Eigenschaft oder der Eigenschaftenkette. Weitere Informationen finden Sie unter der <codeph>bindProperty()</codeph>-Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Auf <codeph>true</codeph> setzen, wenn die Prozedur nur für das Übernehmen von Change-Ereignissen aufgerufen werden soll. Weitere Informationen finden Sie unter der <codeph>bindProperty()</codeph>-Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Bestimmt, ob der Verweis auf den Host stark oder schwach ist. Ein starker Verweis (Standard) verhindert, dass der Host von einem Garbage Collector entfernt wird. Ein schwacher Verweis hingegen nicht. Hinzugefügt für Flex 4.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bindet eine Set-Funktion (<codeph>Setter</codeph>) an eine bindbare Eigenschaft oder Eigenschaftenkette. Wenn eine ChangeWatcher-Instanz erfolgreich erstellt wurde, wird die Set-Funktion aufgerufen. Die Set-Funktion muss folgende Funktionssignatur aufweisen:
+     
+      <pre>
+      function mySetterFunction(object:Object):void {
+          //Do whatever you want with the value of the bound property.
+      }</pre> 
+     
+      <p>Dabei enthält <codeph>object</codeph> den aktuellen Wert von <codeph>chain</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

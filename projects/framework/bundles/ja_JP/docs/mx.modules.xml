@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.modules"><apiName>mx.modules</apiName><apiDetail/><apiClassifier id="mx.modules:ModuleManager"><apiName>ModuleManager</apiName><shortdesc>
+  ModuleManager クラスは、動的にロードされるモジュールを集中管理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ModuleManager クラスは、動的にロードされるモジュールを集中管理します。 このクラスは URL からモジュールへのマッピングを保持します。 各モジュールは、既にロードされて使用可能な状態にあるか、またはまだロードされていない状態にあります。 ModuleManager クラスにより、モジュールの状態を示すイベントが送出されます。 クライアントはイベントハンドラーを登録してから、<codeph>load()</codeph> メソッドを呼び出すことができます。このメソッドでは、ファクトリの準備ができたときにイベントが送出されます。ファクトリが既にロードされている場合は即座にイベントが送出されます。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.modules:ModuleManager:getAssociatedFactory"><apiName>getAssociatedFactory</apiName><shortdesc>
+      参照されたオブジェクトが既知の IFlexModuleFactory の実装と関連付けられているかどうか（または、既知の IFlexModuleFactory の実装の管理された ApplicationDomain 内にあるかどうか）を確認します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>IFlexModuleFactory の実装を返します。ファクトリからそのオブジェクト型を作成できない場合は <codeph>null</codeph> を返します。
+      
+      </apiDesc><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>ModuleManager が作成を試行するオブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      参照されたオブジェクトが既知の IFlexModuleFactory の実装と関連付けられているかどうか（または、既知の IFlexModuleFactory の実装の管理された ApplicationDomain 内にあるかどうか）を確認します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.modules:ModuleManager:getModule"><apiName>getModule</apiName><shortdesc>
+      特定の URL に関連付けられた IModuleInfo インターフェイスを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>特定の URL に関連付けられた IModuleInfo インターフェイスです。
+      
+      </apiDesc><apiOperationClassifier>mx.modules:IModuleInfo</apiOperationClassifier></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>モジュールの場所を表す URL です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      特定の URL に関連付けられた IModuleInfo インターフェイスを取得します。 この URL が正常にロードされるための要件はありませんが、ModuleManager は、固有の URL ごとに一意の IModuleInfo ハンドラーを返します。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.modules:IModule"><apiName>IModule</apiName><shortdesc>
+      クラスをモジュールとしてマークするインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+      クラスをモジュールとしてマークするインターフェイスです。
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.Module.xml"><linktext>mx.modules.Module</linktext></link></related-links></apiClassifier><apiClassifier id="mx.modules:ModuleBase"><apiName>ModuleBase</apiName><shortdesc>
+  動的ロードが可能な ActionScript ベースのモジュールの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.modules:IModule</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  動的ロードが可能な ActionScript ベースのモジュールの基本クラスです。 ActionScript 専用のモジュールを作成する場合は、このクラスを拡張する必要があります。 MXML ファイルで <codeph>&lt;mx:Module></codeph> タグを使用して MXML ベースのモジュールを記述する場合は、代わりに Module クラスを拡張します。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.Module.xml"><linktext>mx.modules.Module</linktext></link></related-links></apiClassifier><apiClassifier id="mx.modules:IModuleInfo"><apiName>IModuleInfo</apiName><shortdesc>
+  特定のモジュール用ハンドラーとして機能するインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  特定のモジュール用ハンドラーとして機能するインターフェイスです。 このインターフェイスから、モジュールの状態の照会、モジュールの内部ファクトリの取得、およびモジュールのロードまたはアンロードが可能になります。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.UNLOAD_unload"><apiName>unload</apiName><shortdesc>
+  モジュールデータがアンロードされたときに、関連する ModuleInfo によって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.UNLOAD</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  モジュールデータがアンロードされたときに、関連する ModuleInfo によって送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.SETUP_setup"><apiName>setup</apiName><shortdesc>
+  モジュールが十分にロードされ、IModuleInfo.factory() メソッドと IFlexModuleFactory.info() メソッドを呼び出せるようになったときに、関連する ModuleInfo によって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.SETUP</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  モジュールが十分にロードされ、<codeph>IModuleInfo.factory()</codeph> メソッドと <codeph>IFlexModuleFactory.info()</codeph> メソッドを呼び出せるようになったときに、関連する ModuleInfo によって送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.READY_ready"><apiName>ready</apiName><shortdesc>
+  モジュールが十分にロードされ、IModuleInfo.factory() メソッドと IFlexModuleFactory.create() メソッドを呼び出せるようになったときに、関連する ModuleInfo によって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.READY</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  モジュールが十分にロードされ、<codeph>IModuleInfo.factory()</codeph> メソッドと <codeph>IFlexModuleFactory.create()</codeph> メソッドを呼び出せるようになったときに、関連する ModuleInfo によって送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  モジュールのロード中に、関連する ModuleInfo によって一定の間隔で送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.PROGRESS</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  モジュールのロード中に、関連する ModuleInfo によって一定の間隔で送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:IModuleInfo_mx.events.ModuleEvent.ERROR_error"><apiName>error</apiName><shortdesc>
+  モジュールのロード中にエラーが発生した場合に、関連する ModuleInfo によって送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.ERROR</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  モジュールのロード中にエラーが発生した場合に、関連する ModuleInfo によって送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:load"><apiName>load</apiName><shortdesc>
+      モジュールのロードを要求します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>コードが実行されている現在のアプリケーションドメインです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>現在のセキュリティサンドボックスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bytes</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>ByteArray オブジェクトです。ByteArray には、コンパイルされた Module の SWF ファイルのバイトが含まれていることが予期されます。ByteArray オブジェクトは URLLoader クラスを使用して取得できます。このパラメーターが指定されている場合は、モジュールが ByteArray からロードされます。 このパラメーターが null の場合は、url プロパティに指定された url からモジュールがロードされます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>moduleFactory</apiItemName><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier><apiData>null</apiData><apiDesc>呼び出し元の moduleFactory です。moduleFactory の用途の 1 つは、ロードされたモジュールの親スタイルマネージャーを特定することです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      モジュールのロードを要求します。 モジュールが既にロードされている場合は、このメソッドを呼び出しても何も実行されません。 それ以外の場合は、モジュールのロードが開始され、ロードの進行時に <codeph>progress</codeph> イベントが送出されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:publish"><apiName>publish</apiName><shortdesc>
+      ModuleManager へのインターフェイスをパブリッシュします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>factory</apiItemName><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier><apiDesc>モジュールの IFlexModuleFactory インターフェイスを実装するクラスです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ModuleManager へのインターフェイスをパブリッシュします。 これにより、ストリングハンドルを使用してファクトリへの遅延（または分離）サブスクリプションを行えるようになります。 この方法でパブリッシュされたファクトリを参照するには、<codeph>publish://</codeph> で始まる URL を使用します。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.modules.xml#ModuleManager"><linktext>mx.modules.ModuleManager</linktext></link></related-links></apiOperation><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:release"><apiName>release</apiName><shortdesc>
+      モジュールへの現在の参照を解放します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      モジュールへの現在の参照を解放します。 このメソッドではモジュールはアンロードされません。ただし、そのモジュールに対して開かれた参照が他になく、ロードされるモジュールを限られた数に制限するように ModuleManager を設定している場合はアンロードが行われます。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.modules.xml#ModuleManager"><linktext>mx.modules.ModuleManager</linktext></link></related-links></apiOperation><apiOperation id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:unload"><apiName>unload</apiName><shortdesc>
+      モジュールをアンロードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      モジュールをアンロードします。 モジュール内の定義に対する未処理の参照が存在する場合、Flash Player および AIR ではこのモジュールを完全にアンロードしてガベージコレクションで回収することはありません。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:data:get"><apiName>data</apiName><shortdesc>
+      対象の URL のシングルトン IModuleInfo と関連付けることができるユーザーデータです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      対象の URL のシングルトン IModuleInfo と関連付けることができるユーザーデータです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:error:get"><apiName>error</apiName><shortdesc>
+      モジュールのロード中にエラーが発生した場合に true となるフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      モジュールのロード中にエラーが発生した場合に <codeph>true</codeph> となるフラグです。
+      
+      <p>このフラグは <codeph>true</codeph> となります。これは、ModuleManager によって <codeph>ModuleEvent.ERROR</codeph> イベントが送出される場合です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:factory:get"><apiName>factory</apiName><shortdesc>
+      モジュール内で定義されている IFlexModuleFactory の実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.core:IFlexModuleFactory</apiValueClassifier></apiValueDef><apiDesc>
+      モジュール内で定義されている IFlexModuleFactory の実装です。 これが <codeph>null</codeph> 以外になるのは、<codeph>ModuleEvent.SETUP</codeph> イベントが送出されたか、<codeph>IModuleInfo.setup()</codeph> メソッドによって <codeph>true</codeph> が返された後だけです。 この時点で、<codeph>IFlexModuleFactory.info()</codeph> メソッドを呼び出すことができます。 <codeph>ModuleEvent.READY</codeph> イベントが送出されるか、<codeph>IModuleInfo.ready()</codeph> メソッドによって <codeph>true</codeph> が返されると、<codeph>IFlexModuleFactory.create()</codeph> メソッドを呼び出せるようになります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:loaded:get"><apiName>loaded</apiName><shortdesc>
+      load() メソッドがこのモジュールで呼び出された場合に true となるフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      <codeph>true</codeph> となるフラグです。<codeph>load()</codeph> メソッドがこのモジュールで呼び出された場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:ready:get"><apiName>ready</apiName><shortdesc>
+      モジュールが十分にロードされ、関連付けられた IFlexModuleFactory の実装へのハンドルを取得して create() メソッドを呼び出すことが可能になった場合に true となるフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      モジュールが十分にロードされ、関連付けられた IFlexModuleFactory の実装へのハンドルを取得した場合、<codeph>true</codeph> となるフラグです。このフラグは、<codeph>create()</codeph> メソッドを呼び出します。
+      
+      <p>このフラグは <codeph>true</codeph> となります。これは、ModuleManager によって <codeph>ModuleEvent.READY</codeph> イベントが送出される場合です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:setup:get"><apiName>setup</apiName><shortdesc>
+      モジュールが十分にロードされ、関連付けられた IFlexModuleFactory の実装へのハンドルを取得して info() メソッドを呼び出すことが可能になった場合に true となるフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      モジュールが十分にロードされ、関連付けられた IFlexModuleFactory の実装へのハンドルを取得した場合、<codeph>true</codeph> となるフラグです。このフラグは、<codeph>info()</codeph> メソッドを呼び出します。
+      
+      <p>このフラグは <codeph>true</codeph> となります。これは、ModuleManager によって <codeph>ModuleEvent.SETUP</codeph> イベントが送出される場合です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:IModuleInfo:mx.modules:IModuleInfo:url:get"><apiName>url</apiName><shortdesc>
+      このモジュールと関連付けられた URL です（例えば、"MyImageModule.swf" や "http://somedomain.com/modules/MyImageModule.swf"）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このモジュールと関連付けられた URL です（例えば、"MyImageModule.swf" や "http://somedomain.com/modules/MyImageModule.swf"）。 URL にはローカルまたはリモートの場所を指定できます。ただしリモートの場合は、モジュールのドメインとそのモジュールをロードするアプリケーションとの間に、信頼関係を確立する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

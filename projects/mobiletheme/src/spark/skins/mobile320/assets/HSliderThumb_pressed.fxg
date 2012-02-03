@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<Graphic version="2.0" viewHeight="60" viewWidth="60" xmlns="http://ns.adobe.com/fxg/2008" >
+	<!-- outer ellipse -->
+      <Ellipse x="0.5" y="0.5" width="58" height="58">
+        <fill>
+          <LinearGradient x="28.9995" y="0" scaleX="58.0005" rotation="90">
+            <GradientEntry ratio="0" alpha="0.05"/>
+            <GradientEntry ratio="1" alpha="0.15"/>
+          </LinearGradient>
+        </fill>
+      </Ellipse>
+	<!-- outer border -->
+      <Ellipse x="1.5" y="1.5" width="56" height="56">
+        <stroke>
+          <SolidColorStroke weight="2" caps="none" alpha="0.7"/>
+        </stroke>
+      </Ellipse>
+	<!-- inner ellipse -->
+      <Ellipse x="1.5" y="1.5" width="56" height="56">
+        <fill>
+          <LinearGradient x="28.9995" y="4" scaleX="53.9995" rotation="90">
+            <GradientEntry ratio="0" alpha="0.25"/>
+            <GradientEntry ratio="1" alpha="0.6"/>
+          </LinearGradient>
+        </fill>
+      </Ellipse>
+	<!-- inner border -->
+      <Path x="1" y="1" data="M2.19238 28.75C2.19238 13.27 13.1533 2.21191 28.5 2.21191 43.8457 2.21191 54.8066 13.27 54.8066 28.75 54.8066 44.2324 43.8457 55.29 28.5 55.29 13.1533 55.29 2.19238 44.2324 2.19238 28.75ZM0 28.75C0 44.2324 13.1533 57.5 28.5 57.5 43.8457 57.5 57 44.2324 57 28.75 57 13.27 43.8457 0 28.5 0 13.1533 0 0 13.27 0 28.75Z">
+        <fill>
+          <LinearGradient x="28.4995" y="4.10693" scaleX="53.3924" rotation="90">
+            <GradientEntry ratio="0" alpha="0.25"/>
+            <GradientEntry ratio="1" alpha="0.1"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+</Graphic>

@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.preloaders"><apiName>mx.preloaders</apiName><apiDetail/><apiClassifier id="mx.preloaders:IPreloaderDisplay"><apiName>IPreloaderDisplay</apiName><shortdesc>
+  Definiert die Schnittstelle, welche eine Klasse implementieren muss, um als Downloadfortschrittsleiste benutzt werden zu können.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Definiert die Schnittstelle, welche eine Klasse implementieren muss, um als Downloadfortschrittsleiste benutzt werden zu können. IPreloaderDisplay empfängt Ereignisse von der Preloader-Klasse und zeigt dem Benutzer diese Informationen.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.preloaders.xml#DownloadProgressBar"><linktext>mx.preloaders.DownloadProgressBar</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiOperation id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:initialize"><apiName>initialize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundAlpha">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundAlpha">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundColor">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundColor">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundImage">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundImage">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundSize">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundSize">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:stageHeight:get"><apiName>stageHeight</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:stageWidth:get"><apiName>stageWidth</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:preloader:set"><apiName>preloader</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.preloaders:Preloader"><apiName>Preloader</apiName><shortdesc>
+  Die Preloader-Klasse wird vom SystemManager benutzt, um den Download und den Initialisierungsstatus von Flex-Anwendungen zu überwachen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Preloader-Klasse wird vom SystemManager benutzt, um den Download und den Initialisierungsstatus von Flex-Anwendungen zu überwachen. Sie ist ebenfalls für den Download der Runtime Shared Library (RSL) verantwortlich.
+ 
+  <p>Die Preloader-Klasse instanziiert eine Downloadfortschrittsleiste, welche die IPreloaderDisplay-Schnittstelle implementieren muss und übergibt Download und Initialisierungsereignisse an die Downloadfortschrittsleiste.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.preloaders.xml#DownloadProgressBar"><linktext>mx.preloaders.DownloadProgressBar</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:Preloader:Preloader"><apiName>Preloader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:Preloader:initialize"><apiName>initialize</apiName><shortdesc>  
+      Wird vom SystemManager aufgerufen, um ein Preloader-Objekt zu initialisieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>showDisplay</apiItemName><apiType value="Boolean"/><apiDesc>Bestimmt, ob die Displayklasse angezeigt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayClassName</apiItemName><apiType value="Class"/><apiDesc>Die IPreloaderDisplay-Klasse, welche zur Anzeige des Preloaderstatus zu verwenden ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundColor</apiItemName><apiType value="uint"/><apiDesc>Hintergrundfarbe der Anwendung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundAlpha</apiItemName><apiType value="Number"/><apiDesc>Hintergrund Alphawert der Anwendung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundImage</apiItemName><apiType value="Object"/><apiDesc>Hintergrundbild der Anwendung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundSize</apiItemName><apiType value="String"/><apiDesc>Hintergrundgröße der Anwendung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayWidth</apiItemName><apiType value="Number"/><apiDesc>Breite der Anwendung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayHeight</apiItemName><apiType value="Number"/><apiDesc>Höhe der Anwendung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>libs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Array von String-URLs für die Runtime Shared Library (RSL).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>sizes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Array von uint-Werten, welche die Bytegröße jeder URL im libs-Argument enthalten.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rslList</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Array von Objekten des Typs RSLItem und CdRLSItem. Dieses Array beschreibt alle zu ladenden RSLs. Die libs- und Größenparameter werden ignoriert und müssen auf „null“ gesetzt werden.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceModuleURLs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Array von Strings, welche die URLs festlegen, von welchen die Ressourcenmodule vorausgeladen werden.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>Die Anwendungsdomäne, in welcher Ihr Code ausgeführt wird.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>  
+      Wird vom SystemManager aufgerufen, um ein Preloader-Objekt zu initialisieren.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:Preloader:registerApplication"><apiName>registerApplication</apiName><shortdesc>
+      Wird vom SystemManager aufgerufen, nachdem es die Instanziierung einer Instanz der Anwendungsklasse beendet hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>app</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiDesc>Das Anwendungsobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wird vom SystemManager aufgerufen, nachdem es die Instanziierung einer Instanz der Applicationklasse beendet hat. Flex ruft diese Methode auf, Sie können dies nicht selbst tun.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.preloaders:DownloadProgressBar"><apiName>DownloadProgressBar</apiName><shortdesc>
+  Die DownloadProgressBar-Klasse zeigt den Downloadfortschritt an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DownloadProgressBar-Klasse zeigt den Downloadfortschritt an. Es wird vom Preloader-Steuerelement benutzt, um Benutzerfeedback während des Downloads und des Ladens bereitzustellen. 
+ 
+  <p>Die Downloadfortschrittsleiste zeigt Informationen zu zwei unterschiedlichen Phasen der Anwendung an: die Downloadphase und die Initialisierungsphase. </p>
+ 
+  <p>Verwenden Sie im Application-Container die <codeph>preloader</codeph>-Eigenschaft, um den Namen der Unterklasse festzulegen.</p>
+ 
+  <p>Sie können eine benutzerdefinierte Downloadfortschrittsleiste implementieren, indem Sie eine Unterklasse der DownloadProgressBar-Klasse erzeugen. Implementieren Sie keine Downloadfortschrittsleiste als MXML-Komponente, da diese zu langsam lädt.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.preloaders.xml#IPreloaderDisplay"><linktext>mx.preloaders.IPreloaderDisplay</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:DownloadProgressBar:DownloadProgressBar"><apiName>DownloadProgressBar</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:DownloadProgressBar:protected:center"><apiName>center</apiName><shortdesc>
+      Zentriert die Downloadfortschrittsleiste anhand der übergebenen Abmessungen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Die Breite der Fläche, innerhalb welcher die Downloadfortschrittsleiste zu zentrieren ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Die Höhe der Fläche, innerhalb welcher die Downloadfortschrittsleiste zu zentrieren ist.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Zentriert die Downloadfortschrittsleiste anhand der übergebenen Abmessungen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:completeHandler"><apiName>completeHandler</apiName><shortdesc>
+      Ereignis-Listener für das Event.COMPLETE-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>Event.COMPLETE</codeph>-Ereignis. Die Standardimplementierung hat keine Auswirkung.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      Erzeugt die Subkomponenten der Anzeige.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Erzeugt die Subkomponenten der Anzeige.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:getPercentLoaded"><apiName>getPercentLoaded</apiName><shortdesc>
+      Gibt den Prozentwert der geladenen Anwendung zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Der Prozentwert der geladenen Anwendung.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>loaded</apiItemName><apiType value="Number"/><apiDesc>Anzahl der Byte der SWF-Anwendungsdatei, die heruntergeladen wurden.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>Größe der SWF-Anwendungsdatei in Byte.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt den Prozentwert der geladenen Anwendung zurück. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:initCompleteHandler"><apiName>initCompleteHandler</apiName><shortdesc>
+      Ereignis-Listener für das FlexEvent.INIT_COMPLETE-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>FlexEvent.INIT_COMPLETE</codeph>-Ereignis.  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:initProgressHandler"><apiName>initProgressHandler</apiName><shortdesc>
+      Ereignis-Listener für das FlexEvent.INIT_PROGRESS-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>FlexEvent.INIT_PROGRESS</codeph>-Ereignis. Die Implementierung aktualisiert die Fortschrittsleiste jedes Mal, wenn das Ereignis ausgelöst wird und ändert den Text der Beschriftung. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:initialize"><apiName>initialize</apiName><shortdesc>
+      Wird vom Preloader aufgerufen, nachdem die Downloadfortschrittsleiste dem Preloader als untergeordnetes Element hinzugefügt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wird vom Preloader aufgerufen, nachdem die Downloadfortschrittsleiste dem Preloader als untergeordnetes Element hinzugefügt wurde. Dies sollte der Ausgangspunkt für die Konfiguration Ihrer Downloadfortschrittsleiste sein. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:progressHandler"><apiName>progressHandler</apiName><shortdesc>
+      Ereignis-Listener für das ProgressEvent.PROGRESS-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>ProgressEvent.PROGRESS</codeph>-Ereignis. Die Implementierung aktualisiert die Fortschrittsleiste mit dem Prozentwert der heruntergeladenen Bytes.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslCompleteHandler"><apiName>rslCompleteHandler</apiName><shortdesc>
+      Ereignis-Listener für das RSLEvent.RSL_COMPLETE-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>RSLEvent.RSL_COMPLETE</codeph>-Ereignis. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslErrorHandler"><apiName>rslErrorHandler</apiName><shortdesc>
+      Ereignis-Listener für das RSLEvent.RSL_ERROR-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>RSLEvent.RSL_ERROR</codeph>-Ereignis. Dieser Ereignis-Listener verarbeitet Fehler, die beim Download der Laufzeitbibliothek (RSL) gefunden wurden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslProgressHandler"><apiName>rslProgressHandler</apiName><shortdesc>
+      Ereignis-Listener für das RSLEvent.RSL_PROGRESS-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>RSLEvent.RSL_PROGRESS</codeph>-Ereignis. Die Standardimplementierung hat keine Auswirkung.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:setProgress"><apiName>setProgress</apiName><shortdesc>
+      Aktualisiert die Anzeige der Downloadfortschrittsleiste mit den aktuellen Downloadinformationen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>Anzahl der Byte der SWF-Anwendungsdatei, die heruntergeladen wurden.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>Größe der SWF-Anwendungsdatei in Byte.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Aktualisiert die Anzeige der Downloadfortschrittsleiste mit den aktuellen Downloadinformationen. Eine typische Implementierung teilt den geladenen Wert durch den Gesamtwert und zeigt eine Prozentangabe an. Wenn Sie diese Methode nicht implementieren, sollten Sie eine Fortschrittsleiste mit einer Animation erstellen, die dem Benutzer anzeigt, dass ein Download stattfindet.
+     
+      <p>Die <codeph>setProgress()</codeph>-Methode wird nur aufgerufen, wenn die Anwendung von einem Remoteserver heruntergeladen wird und die Anwendung nicht im Browsercache vorliegt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:showDisplayForDownloading"><apiName>showDisplayForDownloading</apiName><shortdesc>
+      Definiert den Algorithmus zur Bestimmung, ob die Downloadfortschrittsleiste während der Downloadphase angezeigt werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Wenn der zurückgegebene Wert <codeph>true</codeph> ist, ist die Downloadfortschrittsleiste anzuzeigen. Standardmäßig wird die Downloadfortschrittsleiste angezeigt, wenn: mehr als 700 Millisekunden vergangen sind und Flex weniger als die Hälfte der Byte einer SWF-Datei heruntergeladen hat.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>Anzahl der Millisekunden, die seit dem Start der Downloadphase vergangen sind.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>Das ProgressEvent-Objekt, welches die <codeph>bytesLoaded</codeph>- und die <codeph>bytesTotal</codeph>-Eigenschaft enthält.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Definiert den Algorithmus zur Bestimmung, ob die Downloadfortschrittsleiste während der Downloadphase angezeigt werden soll.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:showDisplayForInit"><apiName>showDisplayForInit</apiName><shortdesc>
+      Definiert den Algorithmus zur Bestimmung, ob die Downloadfortschrittsleiste während der Initialisierungsphase angezeigt werden soll. Es wird davon ausgegangen, dass die Anzeige zum aktuellen Zeitpunkt nicht sichtbar ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Wenn <codeph>true</codeph>, dann zeige die Downloadfortschrittsleiste an.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>Anzahl der Millisekunden, die seit dem Start der Downloadphase vergangen sind.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiDesc>Anzahl der aus der Anwendung stammenden Eingänge des <codeph>initProgress</codeph>-Ereignisses.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Definiert den Algorithmus zur Bestimmung, ob die Downloadfortschrittsleiste während der Initialisierungsphase angezeigt werden soll. Es wird davon ausgegangen, dass die Anzeige zum aktuellen Zeitpunkt nicht sichtbar ist.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:DownloadProgressBar:protected:DOWNLOAD_PERCENTAGE"><apiName>DOWNLOAD_PERCENTAGE</apiName><shortdesc>
+      Prozentwert der Fortschrittsleiste, welchen die Downloadphase füllt, wenn die SWF-Datei vollständig heruntergeladen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>60</apiData><apiType value="uint"/><apiDefaultValue>60
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Prozentwert der Fortschrittsleiste, welchen die Downloadphase füllt, wenn die SWF-Datei vollständig heruntergeladen ist. Der verbleibende Teil der Fortschrittsleiste wird während der Initialisierungsphase gefüllt. Dies sollte ein Wert zwischen 0 und 100 sein. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:MINIMUM_DISPLAY_TIME"><apiName>MINIMUM_DISPLAY_TIME</apiName><shortdesc>
+      Die minimale Anzahl von Millisekunden, für welche die Anzeige dargestellt werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="uint"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die minimale Anzahl von Millisekunden, für welche die Anzeige dargestellt werden soll. Wenn der Download und die Initialisierung der Anwendung weniger Zeit in Anspruch nehmen, als dieser Wert vorschreibt, dann wartet Flex diese Zeit ab, bevor es das <codeph>complete</codeph>-Ereignis auslöst.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:initProgressTotal"><apiName>initProgressTotal</apiName><shortdesc>
+      Gesamtzahl der Überprüfungsereignisse, die Sie während der Initialisierung abrufen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>6</apiData><apiType value="uint"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gesamtzahl der Überprüfungsereignisse, die Sie während der Initialisierung abrufen. Dies sollte eine Ganzzahl sein, die größer oder gleich 4 ist (bei einem Wert über 4 ist der Initialisierungscode ineffizient).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc>
+      Die Alphaebene der SWF-Datei oder des Bilds, wie von der backgroundImage-Eigenschaft festgelegt, oder die Farbe, wie von der backgroundColor-Eigenschaft festgelegt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Alphaebene der SWF-Datei oder des Bilds, wie von der <codeph>backgroundImage</codeph>-Eigenschaft festgelegt, oder die Farbe, wie von der <codeph>backgroundColor-Eigenschaft</codeph> festgelegt. Der gültige Wertebereich ist: 0 bis 1.0.    
+     
+      <p>Sie können entweder <codeph>backgroundColor</codeph> oder <codeph>backgroundImage</codeph> festlegen, jedoch nicht beide.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc>
+      Hintergrundfarbe einer Fortschrittsleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Hintergrundfarbe einer Fortschrittsleiste. Sie können entweder <codeph>backgroundColor</codeph> oder <codeph>backgroundImage</codeph> festlegen, jedoch nicht beide.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc>
+      Das Hintergrundbild der Anwendung, welches vom Preloader übergeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Das Hintergrundbild der Anwendung, welches vom Preloader übergeben wird. Sie können entweder <codeph>backgroundColor</codeph> oder <codeph>backgroundImage</codeph> festlegen, jedoch nicht beide.
+     
+      <p>Der Wert „null“ bedeutet: nicht festgelegt. Wenn dieser Stil und der <codeph>backgroundColor</codeph>-Stil nicht definiert sind, hat die Komponente einen transparenten Hintergrund.</p>
+     
+      <p>Der Preloader zeigt keine eingebetteten Bilder an. Sie können nur Bilder verwenden, die während der Laufzeit geladen wurden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc>
+      Skaliert das von backgroundImage festgelegte Bild auf verschiedene prozentuale Größen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Skaliert das von <codeph>backgroundImage</codeph> festgelegte Bild auf verschiedene prozentuale Größen. Ein Wert von <codeph>"100%"</codeph> streckt das Bild über die gesamte Komponente. Um einen Prozentwert festzulegen, müssen Sie das Prozentzeichen (%) angeben. Der Wert <codeph>"auto"</codeph> erhält die Originalgröße des Bilds bei.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:barFrameRect:get"><apiName>barFrameRect</apiName><shortdesc>
+      Die Abmessungen des Fortschrittsleistenrahmens.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      Die Abmessungen des Fortschrittsleistenrahmens. Dies ist die Eigenschaft „schreibgeschützt“, welche Sie außer Kraft setzen müssen, um sie zu ändern.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:barRect:get"><apiName>barRect</apiName><shortdesc>
+      Die Abmessungen der Fortschrittsleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      Die Abmessungen der Fortschrittsleiste. Dies ist die Eigenschaft „schreibgeschützt“, welche Sie außer Kraft setzen müssen, um sie zu ändern.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:borderRect:get"><apiName>borderRect</apiName><shortdesc>
+      Die Abmessungen des Rahmens der Anzeige.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      Die Abmessungen des Rahmens der Anzeige. Dies ist die Eigenschaft „schreibgeschützt“, welche Sie außer Kraft setzen müssen, um sie zu ändern.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:downloadingLabel:get"><apiName>downloadingLabel</apiName><shortdesc>
+      Der während der Downloadphase als Beschriftung anzuzeigende String.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Loading"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der während der Downloadphase als Beschriftung anzuzeigende String.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:initializingLabel:get"><apiName>initializingLabel</apiName><shortdesc>
+      Der während der Initialisierungsphase als Beschriftung anzuzeigende String.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Initializing"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der während der Initialisierungsphase als Beschriftung anzuzeigende String.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:labelFormat:get"><apiName>labelFormat</apiName><shortdesc>
+      Das TextFormat-Objekt der TextField-Komponente der Beschriftung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextFormat"/></apiValueDef><apiDesc>
+      Das TextFormat-Objekt der TextField-Komponente der Beschriftung. Dies ist die Eigenschaft „schreibgeschützt“, welche Sie außer Kraft setzen müssen, um sie zu ändern.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:labelRect:get"><apiName>labelRect</apiName><shortdesc>
+      Die Abmessungen der TextField-Komponente für diese Beschriftung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      Die Abmessungen der TextField-Komponente für diese Beschriftung. Dies ist die Eigenschaft „schreibgeschützt“, welche Sie außer Kraft setzen müssen, um sie zu ändern.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:label:get"><apiName>label</apiName><shortdesc>
+      Der Text, der anzuzeigen ist, während die Fortschrittsleiste aktiv ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der Text, der anzuzeigen ist, während die Fortschrittsleiste aktiv ist. Die Preloader-Klasse legt diesen Wert fest, bevor die Fortschrittsleiste angezeigt wird. Die Implementierung dieser Eigenschaft in einer Unterklasse ist optional.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:percentFormat:get"><apiName>percentFormat</apiName><shortdesc>
+      Das TextFormat der TextField-Komponente für die Darstellung des Prozentwerts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextFormat"/></apiValueDef><apiDesc>
+      Das TextFormat der TextField-Komponente für die Darstellung des Prozentwerts. Dies ist die Eigenschaft „schreibgeschützt“, welche Sie außer Kraft setzen müssen, um sie zu ändern.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:percentRect:get"><apiName>percentRect</apiName><shortdesc>
+      Die Abmessungen der TextField-Komponente für die Anzeige des Prozentwertes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      Die Abmessungen der TextField-Komponente für die Anzeige des Prozentwertes. Dies ist die Eigenschaft „schreibgeschützt“, welche Sie außer Kraft setzen müssen, um sie zu ändern.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:showLabel:get"><apiName>showLabel</apiName><shortdesc>
+      Steuert die Anzeige der Beschriftung: „true“, wenn angezeigt, oder „false“, wenn nicht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Steuert die Anzeige der Beschriftung: <codeph>true</codeph>, wenn angezeigt, oder <codeph>false</codeph>, wenn nicht.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:showPercentage:get"><apiName>showPercentage</apiName><shortdesc>
+      Steuert die Anzeige des Prozentwertes „true“, wenn angezeigt, oder „false“, wenn nicht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Steuert die Anzeige des Prozentwertes <codeph>true</codeph>, wenn angezeigt, oder <codeph>false</codeph>, wenn nicht.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:stageHeight:get"><apiName>stageHeight</apiName><shortdesc>
+      Höhe der Bühne, welche von der Preloader-Klasse übergeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Höhe der Bühne, welche von der Preloader-Klasse übergeben wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:stageWidth:get"><apiName>stageWidth</apiName><shortdesc>
+      Breite der Bühne, die von der Preloader-Klasse übergeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Breite der Bühne, die von der Preloader-Klasse übergeben wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:visible:get"><apiName>visible</apiName><shortdesc>
+      Legt fest, ob die Downloadfortschrittsleiste angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Legt fest, ob die Downloadfortschrittsleiste angezeigt wird.
+     
+      <p>Wenn das Preloader-Steuerelement bestimmt, dass die Fortschrittsleiste angezeigt werden soll, setzt es diesen Wert auf <codeph>true</codeph>. Wenn das Preloader-Steuerelement bestimmt, dass die Fortschrittsleiste nicht angezeigt werden soll, setzt es diesen Wert auf <codeph>false</codeph>.</p>
+     
+      <p>Eine Unterklasse der DownloadProgressBar-Klasse sollte diese Eigenschaft nie verändern. Stattdessen können Sie die Set-Methode außer Kraft setzen, um zu erkennen, wann die Preloader-Klasse diese verändert und die nötigen Maßnahmen ergreifen. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:preloader:set"><apiName>preloader</apiName><shortdesc>
+      Die Preloader-Klasse übergibt einen Verweis auf sich selbst an die Displayklasse, sodass sie auf Ereignisse vom Preloader warten kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Die Preloader-Klasse übergibt einen Verweis auf sich selbst an die Displayklasse, sodass sie auf Ereignisse vom Preloader warten kann.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.preloaders:SparkDownloadProgressBar"><apiName>SparkDownloadProgressBar</apiName><shortdesc>
+  Die SparkDownloadProgressBar-Klasse zeigt den Downloadfortschritt an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SparkDownloadProgressBar-Klasse zeigt den Downloadfortschritt an. Es wird vom Preloader-Steuerelement benutzt, um Benutzerfeedback während des Downloads und des Ladens bereitzustellen. 
+ 
+  <p>Die Downloadfortschrittsleiste zeigt Informationen zu zwei unterschiedlichen Phasen der Anwendung an: die Downloadphase und die Initialisierungsphase. </p>
+ 
+  <p>Verwenden Sie im Application-Container die <codeph>preloader</codeph>-Eigenschaft, um den Namen der Unterklasse festzulegen.</p>
+ 
+  <p>Sie können eine benutzerdefinierte Downloadfortschrittsleiste implementieren, indem Sie eine Unterklasse der SparkDownloadProgressBar-Klasse erzeugen. Implementieren Sie keine Downloadfortschrittsleiste als MXML-Komponente, da diese zu langsam lädt.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.preloaders.xml#IPreloaderDisplay"><linktext>mx.preloaders.IPreloaderDisplay</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:SparkDownloadProgressBar:SparkDownloadProgressBar"><apiName>SparkDownloadProgressBar</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:completeHandler"><apiName>completeHandler</apiName><shortdesc>
+      Ereignis-Listener für das Event.COMPLETE-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>Event.COMPLETE</codeph>-Ereignis. Die Standardimplementierung hat keine Auswirkung.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      Erzeugt die Subkomponenten der Anzeige.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Erzeugt die Subkomponenten der Anzeige.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:initCompleteHandler"><apiName>initCompleteHandler</apiName><shortdesc>
+      Ereignis-Listener für das FlexEvent.INIT_COMPLETE-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das Ereignisobjekt
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>FlexEvent.INIT_COMPLETE</codeph>-Ereignis. Diese Implementierung löst ein <codeph>Event.COMPLETE</codeph>-Ereignis aus.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:initProgressHandler"><apiName>initProgressHandler</apiName><shortdesc>
+      Ereignis-Listener für das FlexEvent.INIT_PROGRESS-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>FlexEvent.INIT_PROGRESS</codeph>-Ereignis. Diese Implementierung aktualisiert die Fortschrittsleiste nach jedem Auslösen des Ereignisses. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:initialize"><apiName>initialize</apiName><shortdesc>
+      Wird vom Preloader aufgerufen, nachdem die Downloadfortschrittsleiste dem Preloader als untergeordnetes Element hinzugefügt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wird vom Preloader aufgerufen, nachdem die Downloadfortschrittsleiste dem Preloader als untergeordnetes Element hinzugefügt wurde. Dies sollte der Ausgangspunkt für die Konfiguration Ihrer Downloadfortschrittsleiste sein. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:progressHandler"><apiName>progressHandler</apiName><shortdesc>
+      Ereignis-Listener für das ProgressEvent.PROGRESS-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>ProgressEvent.PROGRESS</codeph>-Ereignis. Die Implementierung aktualisiert die Fortschrittsleiste mit dem Prozentwert der heruntergeladenen Bytes.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslCompleteHandler"><apiName>rslCompleteHandler</apiName><shortdesc>
+      Ereignis-Listener für das RSLEvent.RSL_COMPLETE-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>RSLEvent.RSL_COMPLETE</codeph>-Ereignis. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslErrorHandler"><apiName>rslErrorHandler</apiName><shortdesc>
+      Ereignis-Listener für das RSLEvent.RSL_ERROR-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>RSLEvent.RSL_ERROR</codeph>-Ereignis. Dieser Ereignis-Listener verarbeitet Fehler, die beim Download der Laufzeitbibliothek (RSL) gefunden wurden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslProgressHandler"><apiName>rslProgressHandler</apiName><shortdesc>
+      Ereignis-Listener für das RSLEvent.RSL_PROGRESS-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ereignis-Listener für das <codeph>RSLEvent.RSL_PROGRESS</codeph>-Ereignis. Die Standardimplementierung hat keine Auswirkung.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:setDownloadProgress"><apiName>setDownloadProgress</apiName><shortdesc> 
+      Aktualisiert den äußeren Teil der Downloadfortschrittsleiste, um den Downloadfortschritt anzuzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>Anzahl der Byte der SWF-Anwendungsdatei, die heruntergeladen wurden.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>Größe der SWF-Anwendungsdatei in Byte.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Aktualisiert den äußeren Teil der Downloadfortschrittsleiste, um den Downloadfortschritt anzuzeigen.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:setInitProgress"><apiName>setInitProgress</apiName><shortdesc> 
+      Aktualisiert den inneren Teil der Downloadfortschrittsleiste, um den Initialisierungsfortschritt anzuzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>Anzahl der abgeschlossenen Initialisierungsschritte.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>Gesamtzahl der Initialisierungsschritte.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Aktualisiert den inneren Teil der Downloadfortschrittsleiste, um den Initialisierungsfortschritt anzuzeigen.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:showDisplayForDownloading"><apiName>showDisplayForDownloading</apiName><shortdesc>
+      Definiert den Algorithmus zur Bestimmung, ob die Downloadfortschrittsleiste während der Downloadphase angezeigt werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Wenn der zurückgegebene Wert <codeph>true</codeph> ist, ist die Downloadfortschrittsleiste anzuzeigen. Standardmäßig wird die Downloadfortschrittsleiste angezeigt, wenn: mehr als 700 Millisekunden vergangen sind und Flex weniger als die Hälfte der Byte einer SWF-Datei heruntergeladen hat.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>Anzahl der Millisekunden, die seit dem Start der Downloadphase vergangen sind.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>Das ProgressEvent-Objekt, welches die <codeph>bytesLoaded</codeph>- und die <codeph>bytesTotal</codeph>-Eigenschaft enthält.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Definiert den Algorithmus zur Bestimmung, ob die Downloadfortschrittsleiste während der Downloadphase angezeigt werden soll.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:showDisplayForInit"><apiName>showDisplayForInit</apiName><shortdesc>
+      Definiert den Algorithmus zur Bestimmung, ob die Downloadfortschrittsleiste während der Initialisierungsphase angezeigt werden soll. Es wird davon ausgegangen, dass die Anzeige zum aktuellen Zeitpunkt nicht sichtbar ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Wenn <codeph>true</codeph>, dann zeige die Downloadfortschrittsleiste an.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>Anzahl der Millisekunden, die seit dem Start der Downloadphase vergangen sind.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiDesc>Anzahl der aus der Anwendung stammenden Eingänge des <codeph>initProgress</codeph>-Ereignisses.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Definiert den Algorithmus zur Bestimmung, ob die Downloadfortschrittsleiste während der Initialisierungsphase angezeigt werden soll. Es wird davon ausgegangen, dass die Anzeige zum aktuellen Zeitpunkt nicht sichtbar ist.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:SparkDownloadProgressBar:protected:initProgressTotal"><apiName>initProgressTotal</apiName><shortdesc>
+      Gesamtzahl der Überprüfungsereignisse, die Sie während der Initialisierung abrufen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>6</apiData><apiType value="uint"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gesamtzahl der Überprüfungsereignisse, die Sie während der Initialisierung abrufen. Dies sollte eine Ganzzahl sein, die größer oder gleich 4 ist (bei einem Wert über 4 ist der Initialisierungscode ineffizient).
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc>
+      Die Alphaebene der SWF-Datei oder des Bilds, wie von der backgroundImage-Eigenschaft festgelegt, oder die Farbe, wie von der backgroundColor-Eigenschaft festgelegt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Alphaebene der SWF-Datei oder des Bilds, wie von der <codeph>backgroundImage</codeph>-Eigenschaft festgelegt, oder die Farbe, wie von der <codeph>backgroundColor-Eigenschaft</codeph> festgelegt. Der gültige Wertebereich ist: 0 bis 1.0. Überschreiben Sie diese Eigenschaft, um einen eigenen Wert in einer benutzerdefinierten Klasse festzulegen.
+     
+      <p>Sie können entweder <codeph>backgroundColor</codeph> oder <codeph>backgroundImage</codeph> festlegen, jedoch nicht beide.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc>
+      Hintergrundfarbe einer Fortschrittsleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Hintergrundfarbe einer Fortschrittsleiste. Überschreiben Sie diese Eigenschaft, um einen eigenen Wert in einer benutzerdefinierten Klasse festzulegen.
+     
+      <p>Sie können entweder <codeph>backgroundColor</codeph> oder <codeph>backgroundImage</codeph> festlegen, jedoch nicht beide.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc>
+      Das Hintergrundbild der Anwendung, welches vom Preloader übergeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Das Hintergrundbild der Anwendung, welches vom Preloader übergeben wird. Überschreiben Sie diese Eigenschaft, um einen eigenen Wert in einer benutzerdefinierten Klasse festzulegen.
+     
+      <p>Sie können entweder <codeph>backgroundColor</codeph> oder <codeph>backgroundImage</codeph> festlegen, jedoch nicht beide.</p>
+     
+      <p>Der Wert „null“ bedeutet: nicht festgelegt. Wenn dieser Stil und der <codeph>backgroundColor</codeph>-Stil nicht definiert sind, hat die Komponente einen transparenten Hintergrund.</p>
+     
+      <p>Der Preloader zeigt keine eingebetteten Bilder an. Sie können nur Bilder verwenden, die während der Laufzeit geladen wurden.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc>
+      Skaliert das von backgroundImage festgelegte Bild auf verschiedene prozentuale Größen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Skaliert das von <codeph>backgroundImage</codeph> festgelegte Bild auf verschiedene prozentuale Größen. Ein Wert von <codeph>"100%"</codeph> streckt das Bild über die gesamte Komponente. Um einen Prozentwert festzulegen, müssen Sie das Prozentzeichen (%) angeben. Der Wert <codeph>"auto"</codeph> erhält die Originalgröße des Bilds bei.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:stageHeight:get"><apiName>stageHeight</apiName><shortdesc>
+      Höhe der Bühne, welche von der Preloader-Klasse übergeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Höhe der Bühne, welche von der Preloader-Klasse übergeben wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:stageWidth:get"><apiName>stageWidth</apiName><shortdesc>
+      Breite der Bühne, die von der Preloader-Klasse übergeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Breite der Bühne, die von der Preloader-Klasse übergeben wird.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:visible:get"><apiName>visible</apiName><shortdesc>
+      Legt fest, ob die Downloadfortschrittsleiste angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Legt fest, ob die Downloadfortschrittsleiste angezeigt wird.
+     
+      <p>Wenn das Preloader-Steuerelement bestimmt, dass die Fortschrittsleiste angezeigt werden soll, setzt es diesen Wert auf <codeph>true</codeph>. Wenn das Preloader-Steuerelement bestimmt, dass die Fortschrittsleiste nicht angezeigt werden soll, setzt es diesen Wert auf <codeph>false</codeph>.</p>
+     
+      <p>Eine Unterklasse der SparkDownloadProgressBar-Klasse sollte diese Eigenschaft nie verändern. Stattdessen können Sie die Set-Methode außer Kraft setzen, um zu erkennen, wann die Preloader-Klasse diese verändert und die nötigen Maßnahmen ergreifen. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:preloader:set"><apiName>preloader</apiName><shortdesc>
+      Die Preloader-Klasse übergibt einen Verweis auf sich selbst an die Displayklasse, sodass sie auf Ereignisse vom Preloader warten kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Die Preloader-Klasse übergibt einen Verweis auf sich selbst an die Displayklasse, sodass sie auf Ereignisse vom Preloader warten kann.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

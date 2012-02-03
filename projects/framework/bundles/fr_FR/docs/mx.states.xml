@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.states"><apiName>mx.states</apiName><apiDetail/><apiClassifier id="mx.states:RemoveChild"><apiName>RemoveChild</apiName><shortdesc>
+ 
+  La classe RemoveChild supprime un objet d’affichage enfant, tel qu’un composant, d’un conteneur en tant qu’état d’affichage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RemoveChild&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:RemoveChild
+  <b>Properties</b>
+  target="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+  La classe RemoveChild supprime un objet d’affichage enfant, tel qu’un composant, d’un conteneur en tant qu’état d’affichage. L’enfant est uniquement retirée de la liste d’affichage, mais pas supprimé. Utilisez cette classe dans la propriété <codeph>overrides</codeph> de la classe State.
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#AddChild"><linktext>mx.states.AddChild</linktext></link><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link><link href="" invalidHref="mx.effects.RemoveChildAction.xml"><linktext>mx.effects.RemoveChildAction</linktext></link></related-links><apiConstructor id="mx.states:RemoveChild:RemoveChild"><apiName>RemoveChild</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:DisplayObject"/><apiData>null</apiData><apiDesc>Enfant à retirer de la vue. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:RemoveChild:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  Applique le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Applique le remplacement. Flex conserve la valeur d’origine, afin de pouvoir la restaurer ultérieurement dans la méthode <codeph>remove()</codeph>. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:RemoveChild:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  Supprime le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Supprime le remplacement. La valeur mémorisées dans la méthode <codeph>apply()</codeph> est restaurée. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:RemoveChild:target"><apiName>target</apiName><shortdesc>
+      Enfant à retirer de la vue. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Enfant à retirer de la vue. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:SetEventHandler"><apiName>SetEventHandler</apiName><shortdesc>
+  La classe SetEventHandler indique un gestionnaire d’événements actif uniquement pendant un état d’affichage particulier. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetEventHanlder&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:SetEventHandler
+  <b>Properties</b>
+  name="null"
+  handlerFunction="null"
+  target="null"
+  
+  <b>Events</b>
+  handler=<i>No default</i>
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SetEventHandler indique un gestionnaire d’événements actif uniquement pendant un état d’affichage particulier. Par exemple, vous pouvez définir un contrôle Button qui utilise un gestionnaire d’événements dans l’état d’affichage de base, mais utilise une autre gestionnaire d’événement lorsque vous modifiez l’état d’affichage. 
+ 
+  <p> Utilisez cette classe dans la propriété <codeph>overrides</codeph> de la classe State.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#SetProperty"><linktext>mx.states.SetProperty</linktext></link><link href="mx.states.xml#SetStyle"><linktext>mx.states.SetStyle</linktext></link></related-links><adobeApiEvent id="mx.states:SetEventHandler_Object_handler"><apiName>handler</apiName><shortdesc>
+  Fonction du gestionnaire d’événements à exécuter en réponse à l’événement qui est spécifié par la propriété name. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>Object</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Fonction du gestionnaire d’événements à exécuter en réponse à l’événement qui est spécifié par la propriété <codeph>name</codeph>. 
+ 
+  <p>Ne spécifiez pas les propriétés <codeph>handler</codeph> et <codeph>handlerFunction</codeph> dans une balise <codeph>&lt;mx:SetEventHandler></codeph> unique.</p>
+ 
+  <p>Flex ne distribue <i>pas</i> d’événement <codeph>handler</codeph>. Utilisez le mot-clé <codeph>handler</codeph> uniquement en tant qu’attribut MXML. Lorsque vous utilisez l’attribut de gestionnaire <codeph>handler</codeph>, vous pouvez spécifier une méthode acceptant plusieurs paramètres et pas seulement l’objet Event. Vous pouvez également spécifier le code de gestionnaire en ligne dans la balise MXML. </p>
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.states:SetEventHandler:SetEventHandler"><apiName>SetEventHandler</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.events:EventDispatcher"/><apiData>null</apiData><apiDesc>Objet qui distribue l’événement à traiter. Par défaut, Flex utilise le parent immédiat de l’objet State. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Type d’événement pour lequel pour définir le gestionnaire. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:SetEventHandler:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  Applique le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Applique le remplacement. Flex conserve la valeur d’origine, afin de pouvoir la restaurer ultérieurement dans la méthode <codeph>remove()</codeph>. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:SetEventHandler:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  Supprime le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Supprime le remplacement. La valeur mémorisées dans la méthode <codeph>apply()</codeph> est restaurée. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:SetEventHandler:handlerFunction"><apiName>handlerFunction</apiName><shortdesc>
+      Fonction de gestionnaire pour l’événement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Fonction de gestionnaire pour l’événement. Cette propriété est conçue pour les développeurs qui utilisent du code ActionScript pour créer et accéder à des états d’affichage. Dans MXML, vous pouvez utiliser l’attribut d’événement <codeph>handler</codeph> équivalent. N’utilisez pas les deux dans une seule balise MXML. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetEventHandler:name"><apiName>name</apiName><shortdesc>
+      Nom de l’événement dont le gestionnaire est en cours de définition. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom de l’événement dont le gestionnaire est en cours de définition. Vous devez définir cette propriété dans le constructeur SetEventHandler ou en définissant directement la valeur de la propriété. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetEventHandler:originalHandlerFunction"><apiName>originalHandlerFunction</apiName><shortdesc>
+      La fonction du gestionnaire à supprimer avant d’appliquer notre remplacement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      La fonction du gestionnaire à supprimer avant d’appliquer notre remplacement.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetEventHandler:target"><apiName>target</apiName><shortdesc>
+      Composant qui distribue l’événement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Composant qui distribue l’événement. Si la valeur de la propriété est <codeph>null</codeph>, Flex utilise le parent immédiat de la balise <codeph>&lt;mx:states></codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:OverrideBase"><apiName>OverrideBase</apiName><shortdesc>
+  La classe OverrideBase est la classe de base de remplacement des classes utilisées par les états d’affichage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.states:IOverride</apiBaseInterface><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe OverrideBase est la classe de base de remplacement des classes utilisées par les états d’affichage.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.states:OverrideBase:OverrideBase"><apiName>OverrideBase</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:OverrideBase:apply"><apiName>apply</apiName><shortdesc>
+      
+	  Applique le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Applique le remplacement. Flex conserve la valeur d’origine, afin de pouvoir la restaurer ultérieurement dans la méthode <codeph>remove()</codeph>. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:OverrideBase:initialize"><apiName>initialize</apiName><shortdesc conref="IOverride#initialize()">
+      Méthode d’interface IOverride ; cette classe l’implémente en tant que méthode vide. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="IOverride#initialize()">
+      Méthode d’interface IOverride ; cette classe l’implémente en tant que méthode vide. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:OverrideBase:remove"><apiName>remove</apiName><shortdesc>
+      
+	  Supprime le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Supprime le remplacement. La valeur mémorisées dans la méthode <codeph>apply()</codeph> est restaurée. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.states:State"><apiName>State</apiName><shortdesc>
+  La classe State définit un état d’affichage, une vue particulière d’un composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="overrides"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;mx:State&gt;</code> tag has the following attributes:</p>
+ 
+  <pre>
+  &lt;mx:State
+  <b>Properties</b>
+  basedOn="null"
+  name="null"
+  overrides="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe State définit un état d’affichage, une vue particulière d’un composant. Une vignette de produit peut, par exemple, avoir deux états d’affichage : un état de base avec des informations minimales et un état riche avec des informations supplémentaires. La propriété <codeph>overrides</codeph> spécifie un jeu de classes enfant à ajouter ou supprimer de l’état d’affichage de base et des propriétés, des styles et des gestionnaires d’événements à définir lorsque l’état d’affichage est en vigueur. 
+ 
+  <p>Utilisez la classe State dans la propriété <codeph>states</codeph> des composants Flex. Vous pouvez spécifier uniquement une propriété <codeph>states</codeph> à la racine d’une application ou d’un contrôle personnalisé et non sur des contrôles enfant. </p>
+ 
+  <p>Vous activez un état d’affichage en définissant la propriété <codeph>currentState</codeph> d’un composant. </p>
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#AddChild"><linktext>mx.states.AddChild</linktext></link><link href="mx.states.xml#RemoveChild"><linktext>mx.states.RemoveChild</linktext></link><link href="mx.states.xml#SetEventHandler"><linktext>mx.states.SetEventHandler</linktext></link><link href="mx.states.xml#SetProperty"><linktext>mx.states.SetProperty</linktext></link><link href="mx.states.xml#SetStyle"><linktext>mx.states.SetStyle</linktext></link><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link></related-links><adobeApiEvent id="mx.states:State_mx.events.FlexEvent.EXIT_STATE_exitState"><apiName>exitState</apiName><shortdesc>
+  Distribué juste avant la désactivation d’un état d’affichage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.EXIT_STATE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué juste avant la désactivation d’un état d’affichage. Cet événement est distribué avant la suppression des modifications apportées à l’état d’affichage par défaut. 
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.states:State_mx.events.FlexEvent.ENTER_STATE_enterState"><apiName>enterState</apiName><shortdesc>
+  Distribué après le passage à un état d’affichage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.ENTER_STATE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après le passage à un état d’affichage. 
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.states:State:State"><apiName>State</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>properties</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet contenant les paramètres de la propriété de cet état.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.states:State:basedOn"><apiName>basedOn</apiName><shortdesc>
+      Nom de l’état d’affichage sur lequel cet état d’affichage est basé ou null si cet état d’affichage n’est pas basé sur un état d’affichage nommé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nom de l’état d’affichage sur lequel cet état d’affichage est basé ou <codeph>null</codeph> si cet état d’affichage n’est pas basé sur un état d’affichage nommé. Si cette valeur est <codeph>null</codeph>, l’état d’affichage est basé sur un état racine composé des propriétés, styles, gestionnaires d’événements et enfants que vous définissez pour un composant sans utiliser de classe State. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:State:name"><apiName>name</apiName><shortdesc>
+      Nom de l’état d’affichage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom de l’état d’affichage. Les noms d’états doivent être uniques pour un composant donné. Cette propriété doit être définie. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:State:overrides"><apiName>overrides</apiName><shortdesc>
+      Remplacements de cet état d’affichage, sous la forme d’un tableau d’objets qui implémentent l’interface IOverride. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      Remplacements de cet état d’affichage, sous la forme d’un tableau d’objets qui implémentent l’interface IOverride. Ces remplacements sont appliqués dans l’ordre dans lequel l’état est saisi et supprimés dans l’ordre inverse lorsque l’état est désactivé. 
+     
+      <p>Les classes Flex suivantes implémentent l’interface et vous permettent de définir les caractéristiques de l’état d’affichage : </p>
+      <ul>
+          <li>AddChild</li>
+          <li>RemoveChild</li>
+          <li>SetEventHandler</li>
+          <li>SetProperty</li>
+          <li>SetStyle</li>
+      </ul>
+     
+      <p>La propriété <codeph>overrides</codeph> est la propriété par défaut de la classe State. Vous pouvez omettre la balise <codeph>&lt;mx:overrides></codeph> et sa balise enfant <codeph>&lt;mx:Array></codeph> si vous utilisez la syntaxe de balise MXML pour définir les remplacements.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:State:stateGroups"><apiName>stateGroups</apiName><shortdesc>
+      Groupes d’états auxquels appartient cet état d’affichage sous la forme d’un tableau de chaîne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      Groupes d’états auxquels appartient cet état d’affichage sous la forme d’un tableau de chaîne. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:InterruptionBehavior"><apiName>InterruptionBehavior</apiName><shortdesc>
+      La classe InterruptionBehavior définit des constantes à utiliser avec la propriété interruptionBehavior de la classe mx.states.Transition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      La classe InterruptionBehavior définit des constantes à utiliser avec la propriété <codeph>interruptionBehavior</codeph> de la classe mx.states.Transition.
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#Transition/interruptionBehavior"><linktext>Transition.interruptionBehavior</linktext></link></related-links><apiValue id="mx.states:InterruptionBehavior:END"><apiName>END</apiName><shortdesc>
+          Spécifie qu’une transition qui interrompt une autre transition en cours d’exécution met un terme à cette transition avant de commencer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>end</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          Spécifie qu’une transition qui interrompt une autre transition en cours d’exécution met un terme à cette transition avant de commencer. La transition se termine en appelant la méthode <codeph>end()</codeph> sur tous les effets dans la transition. La méthode <codeph>end()</codeph> oblige tous les effets à s’aligner sur leur état final.
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:InterruptionBehavior:STOP"><apiName>STOP</apiName><shortdesc>
+          Spécifie qu’une transition qui interrompt une autre transition en cours d’exécution arrête cette transition à sa place avant de commencer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>stop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          Spécifie qu’une transition qui interrompt une autre transition en cours d’exécution arrête cette transition à sa place avant de commencer. La transition s’arrête en appelant la méthode <codeph>stop()</codeph> sur tous les effets dans la transition.
+         
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:AddItems"><apiName>AddItems</apiName><shortdesc>
+  Aucune documentation n’est actuellement disponible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="itemsFactory"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Aucune documentation n’est actuellement disponible. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.states:AddItems:AddItems"><apiName>AddItems</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:AddItems:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  Applique le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Applique le remplacement. Flex conserve la valeur d’origine, afin de pouvoir la restaurer ultérieurement dans la méthode <codeph>remove()</codeph>. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddItems:createInstance"><apiName>createInstance</apiName><shortdesc>
+      Crée l’occurrence d’éléments à partir de la fabrique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Crée l’occurrence d’éléments à partir de la fabrique. Vous devez utiliser cette méthode uniquement si vous spécifiez une propriété <codeph>targetItems</codeph> et une valeur <codeph>creationPolicy</codeph> égale à <codeph>"none"</codeph>. Flex appelle automatiquement cette méthode si la valeur de la propriété <codeph>creationPolicy</codeph> est définie sur <codeph>"auto"</codeph> ou <codeph>"all"</codeph>. Si vous appelez cette méthode plusieurs fois, l’occurrence d’éléments est créée uniquement au premier appel. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddItems:initialize"><apiName>initialize</apiName><shortdesc>
+      
+      Méthode d’interface IOverride ; cette classe l’implémente en tant que méthode vide. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Méthode d’interface IOverride ; cette classe l’implémente en tant que méthode vide. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddItems:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  Supprime le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Supprime le remplacement. La valeur mémorisées dans la méthode <codeph>apply()</codeph> est restaurée. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:AddItems:AFTER"><apiName>AFTER</apiName><shortdesc>
+      Aucune documentation n’est actuellement disponible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>after</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Aucune documentation n’est actuellement disponible. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:BEFORE"><apiName>BEFORE</apiName><shortdesc>
+      Aucune documentation n’est actuellement disponible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>before</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Aucune documentation n’est actuellement disponible. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:FIRST"><apiName>FIRST</apiName><shortdesc>
+      Aucune documentation n’est actuellement disponible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>first</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Aucune documentation n’est actuellement disponible. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:LAST"><apiName>LAST</apiName><shortdesc>
+      Aucune documentation n’est actuellement disponible. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Aucune documentation n’est actuellement disponible. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:destination"><apiName>destination</apiName><shortdesc>
+      Objet par rapport auquel l’enfant est ajouté. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet par rapport auquel l’enfant est ajouté. Cette propriété s’utilise en combinaison avec la propriété <codeph>position</codeph>. Cette propriété est facultative. Si vous l’omettez, Flex utilise le parent immédiat de l’objet <codeph>State</codeph>, c’est-à-dire, le composant possédant la propriété <codeph>states</codeph> ou la balise <codeph>&lt;mx:states></codeph> qui spécifie l’objet State.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:isArray"><apiName>isArray</apiName><shortdesc>
+      Indique si l’ensemble représenté par la propriété target doit être traité comme une occurrence de tableau unique ou comme un ensemble d’éléments (par défaut). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si l’ensemble représenté par la propriété target doit être traité comme une occurrence de tableau unique ou comme un ensemble d’éléments (par défaut). 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:isStyle"><apiName>isStyle</apiName><shortdesc>
+      Indique ou non si l’ensemble représenté par la propriété target est un style. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique ou non si l’ensemble représenté par la propriété target est un style. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:position"><apiName>position</apiName><shortdesc>
+      Position de l’enfant dans la liste d’affichage, par rapport à l’objet spécifié par la propriété relativeTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>last</apiData><apiType value="String"/><apiDefaultValue>AddItems.LAST
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Position de l’enfant dans la liste d’affichage, par rapport à l’objet spécifié par la propriété <codeph>relativeTo</codeph>. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:propertyName"><apiName>propertyName</apiName><shortdesc>
+      Nom de la propriété Array en cours de modification. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom de la propriété Array en cours de modification. Si la propriété <codeph>destination</codeph> est un groupe ou un conteneur, cette propriété est facultative. Si elle n’est pas définie, les éléments seront ajoutées en tant qu’enfants du groupe/conteneur. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:relativeTo"><apiName>relativeTo</apiName><shortdesc>
+      Objet par rapport auquel l’enfant est ajouté. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet par rapport auquel l’enfant est ajouté. Cette propriété est utilisée uniquement lorsque la propriété <codeph>position</codeph> est <codeph>AddItems.BEFORE</codeph> ou <codeph>AddItems.AFTER</codeph>. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:vectorClass"><apiName>vectorClass</apiName><shortdesc>
+      Lorsque la collection représentée par la propriété cible est un vecteur, vectorClass est le type de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+      Lorsque la collection représentée par la propriété cible est un vecteur, vectorClass est le type de la cible. Elle est utilisée pour initialiser la propriété cible.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:creationPolicy:get"><apiName>creationPolicy</apiName><shortdesc>
+      Stratégie de création des éléments. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Stratégie de création des éléments. Cette propriété détermine à quel moment la classe <codeph>targetFactory</codeph> crée l’occurrence des éléments. Flex utilise cette propriété uniquement si vous spécifiez une propriété <codeph>itemsFactory</codeph>. Les valeurs suivantes sont possibles :
+     
+      <p/>
+     <adobetable class="innertable">
+         
+         
+         
+         
+     <tgroup cols="2"><thead><row><entry>Valeur</entry><entry>Signification</entry></row></thead><tbody><row><entry><codeph>auto</codeph></entry><entry>(Par défaut)Crée l’occurrence la première fois qu’elle est requise. </entry></row><row><entry><codeph>all</codeph></entry><entry>Crée l’occurrence au démarrage de l’application. </entry></row><row><entry><codeph>aucun</codeph></entry><entry>Ne crée pas automatiquement l’occurrence. Vous devez appeler la méthode <codeph>createInstance()</codeph>pour créer l’occurrence. </entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:destructionPolicy:get"><apiName>destructionPolicy</apiName><shortdesc>
+      Stratégie de destruction des éléments. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"never"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Stratégie de destruction des éléments. Cette propriété détermine à quel moment la propriété <codeph>itemsFactory</codeph> détruit les occurrences différées qu’elle gère. Par défaut, une fois qu’elles sont instanciées, toutes les occurrences sont mises en cache (stratégie de destruction politique « never »). Flex utilise cette propriété uniquement si vous spécifiez une propriété <codeph>itemsFactory</codeph>. Les valeurs suivantes sont possibles :
+     
+      <p/>
+     <adobetable class="innertable">
+         
+         
+         
+     <tgroup cols="2"><thead><row><entry>Valeur</entry><entry>Signification</entry></row></thead><tbody><row><entry><codeph>never</codeph></entry><entry>(Par défaut)Une fois l’occurrence créée, ne la détruisez jamais. </entry></row><row><entry><codeph>auto</codeph></entry><entry>Supprime l’occurrence lorsque le remplacement ne s’applique plus. </entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:itemsFactory:get"><apiName>itemsFactory</apiName><shortdesc>
+     
+     Fabrique qui crée les éléments. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:ITransientDeferredInstance</apiValueClassifier></apiValueDef><apiDesc>
+     
+     Fabrique qui crée les éléments.  
+     
+      <p>Si vous définissez cette propriété, les éléments sont instanciés au moment déterminé par la propriété <codeph>creationPolicy</codeph>. </p>
+      
+      <p>Ne définissez pas cette propriété si vous définissez la propriété <codeph>items</codeph>. Cette propriété est celle par défaut de la classe <codeph>AddItems</codeph>. La définition de cette propriété sur la valeur « all » de la stratégie <codeph>creationPolicy</codeph> est équivalente à la définition d’une propriété <codeph>items</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:items:get"><apiName>items</apiName><shortdesc>
+     
+      Eléments à ajouter. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc>
+     
+      Eléments à ajouter. Si vous définissez cette propriété, les éléments sont créés au démarrage de l’application. La définition de cette propriété est équivalente à celle d’une propriété <codeph>itemsFactory</codeph> avec une valeur <codeph>creationPolicy</codeph> égale à <codeph>"all"</codeph>.
+     
+      <p>Ne définissez pas cette propriété si vous définissez la propriété <codeph>itemsFactory</codeph>. </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:SetProperty"><apiName>SetProperty</apiName><shortdesc>
+  La classe SetProperty spécifie une valeur de propriété en vigueur uniquement lors de l’état d’affichage parent. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetProperty&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:SetProperty
+   <b>Properties</b>
+   name="null"
+   target="null"
+   value="undefined"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SetProperty spécifie une valeur de propriété en vigueur uniquement lors de l’état d’affichage parent. Utilisez cette classe dans la propriété <codeph>overrides</codeph> de la classe State.
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#SetEventHandler"><linktext>mx.states.SetEventHandler</linktext></link><link href="mx.states.xml#SetStyle"><linktext>mx.states.SetStyle</linktext></link><link href="" invalidHref="mx.effects.SetPropertyAction.xml"><linktext>mx.effects.SetPropertyAction</linktext></link></related-links><apiConstructor id="mx.states:SetProperty:SetProperty"><apiName>SetProperty</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet dont la propriété est en cours de définition. Par défaut, Flex utilise le parent immédiat de l’objet State. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Propriété à définir.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiData>unknown</apiData><apiDesc>Valeur de la propriété dans l’état d’affichage. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFactory</apiItemName><apiOperationClassifier>mx.core:IDeferredInstance</apiOperationClassifier><apiData>null</apiData><apiDesc>Propriété facultative en écriture seule à partir de laquelle obtenir une valeur partagée. Cela est essentiellement utilisé lorsque la valeur de ce remplacement est partagée par plusieurs états ou groupes d’états. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:SetProperty:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  Applique le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Applique le remplacement. Flex conserve la valeur d’origine, afin de pouvoir la restaurer ultérieurement dans la méthode <codeph>remove()</codeph>. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:SetProperty:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  Supprime le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Supprime le remplacement. La valeur mémorisées dans la méthode <codeph>apply()</codeph> est restaurée. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:SetProperty:name"><apiName>name</apiName><shortdesc>
+      Nom de la propriété à modifier.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Nom de la propriété à modifier. Vous devez définir cette propriété, dans le constructeur SetProperty ou en définissant directement la valeur de la propriété. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetProperty:target"><apiName>target</apiName><shortdesc>
+      Objet contenant la propriété à modifier. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Objet contenant la propriété à modifier. Si la valeur de la propriété est <codeph>null</codeph>, Flex utilise le parent immédiat de l’objet State. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetProperty:value:get"><apiName>value</apiName><shortdesc>
+      Nouvelle valeur de la propriété.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nouvelle valeur de la propriété.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetProperty:valueFactory:set"><apiName>valueFactory</apiName><shortdesc>
+      Propriété facultative en écriture seule à partir de laquelle obtenir une valeur partagée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiValueClassifier>mx.core:IDeferredInstance</apiValueClassifier><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Propriété facultative en écriture seule à partir de laquelle obtenir une valeur partagée. Cela est essentiellement utilisé lorsque la valeur de ce remplacement est partagée par plusieurs états ou groupes d’états.  
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:AddChild"><apiName>AddChild</apiName><shortdesc>
+  La classe AddChild ajoute un objet d’affichage enfant, tel qu’un composant, à un conteneur en tant qu’état d’affichage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="targetFactory"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AddChild&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:AddChild
+  <b>Properties</b>
+  target="null"
+  targetFactory="null"
+  creationPolicy="auto"
+  position="lastChild"
+  relativeTo="<i>parent of the State object</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe AddChild ajoute un objet d’affichage enfant, tel qu’un composant, à un conteneur en tant qu’état d’affichage. Utilisez cette classe dans la propriété <codeph>overrides</codeph> de la classe State. Utilisez la propriété <codeph>creationPolicy</codeph> à indiquer pour créer l’enfant au démarrage de l’application ou lors de la modification d’un état d’affichage.  
+  
+  <p>L’enfant ne distribue pas l’événement <codeph>creationComplete</codeph> tant qu’il n’a pas été ajouté à un conteneur. Par exemple, le code suivant ajoute un contrôle Button dans le cadre d’une modification d’état d’affichage : </p>
+ 
+  <pre>
+  &lt;mx:AddChild relativeTo="{v1}">
+      &lt;mx:Button id="b0" label="New Button"/>
+  &lt;/mx:AddChild> </pre>
+ 
+  <p>Dans l’exemple précédent, le contrôle Button ne distribue pas l’événement <codeph>creationComplete</codeph> tant que vous n’avez pas modifié l’état et que le contrôle Button n’a pas été ajouté à un conteneur. Si la classe AddChild définit à la fois le contrôle Button et un conteneur tel que Canvas, le contrôle Button distribue l’événement creationComplete lors de sa création. Par exemple, si la propriété <codeph>creationPolicy</codeph> est définie sur <codeph>all</codeph>, le contrôle Button distribue l’événement au démarrage de l’application. Si la propriété <codeph>creationPolicy</codeph> est définie sur <codeph>auto</codeph>, le contrôle Button distribue l’événement lorsque vous modifiez l’état d’affichage.  </p>
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#RemoveChild"><linktext>mx.states.RemoveChild</linktext></link><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link><link href="" invalidHref="mx.effects.AddChildAction.xml"><linktext>mx.effects.AddChildAction</linktext></link></related-links><apiConstructor id="mx.states:AddChild:AddChild"><apiName>AddChild</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>relativeTo</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiData>null</apiData><apiDesc>Composant par rapport auquel l’enfant est ajouté. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:DisplayObject"/><apiData>null</apiData><apiDesc> Objet enfant. Tous les composants Flex sont des sous-classes de la classe DisplayObject. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>position</apiItemName><apiType value="String"/><apiData>lastChild</apiData><apiDesc>Emplacement dans la liste d’affichage de l’objet <codeph>target</codeph> par rapport au composant <codeph>relativeTo</codeph>. Il doit s’agir de l’une des valeurs suivantes : « firstChild », « lastChild », « before » ou « after ».
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:AddChild:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  Applique le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Applique le remplacement. Flex conserve la valeur d’origine, afin de pouvoir la restaurer ultérieurement dans la méthode <codeph>remove()</codeph>. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddChild:createInstance"><apiName>createInstance</apiName><shortdesc>
+      Crée l’occurrence enfant à partir de la fabrique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Crée l’occurrence enfant à partir de la fabrique. Vous devez utiliser cette méthode uniquement si vous spécifiez une propriété <codeph>targetFactory</codeph> et une valeur <codeph>creationPolicy</codeph> égale à <codeph>"none"</codeph>. Flex appelle automatiquement cette méthode si la valeur de la propriété <codeph>creationPolicy</codeph> est définie sur <codeph>"auto"</codeph> ou <codeph>"all"</codeph>. Si vous appelez cette méthode plusieurs fois, l’occurrence enfant est créée uniquement au premier appel. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddChild:initialize"><apiName>initialize</apiName><shortdesc>
+      
+      Méthode d’interface IOverride ; cette classe l’implémente en tant que méthode vide. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Méthode d’interface IOverride ; cette classe l’implémente en tant que méthode vide. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddChild:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  Supprime le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Supprime le remplacement. La valeur mémorisées dans la méthode <codeph>apply()</codeph> est restaurée. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:AddChild:position"><apiName>position</apiName><shortdesc>
+      Position de l’enfant dans la liste d’affichage, par rapport à l’objet spécifié par la propriété relativeTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"lastChild"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Position de l’enfant dans la liste d’affichage, par rapport à l’objet spécifié par la propriété <codeph>relativeTo</codeph>. Les valeurs possibles sont <codeph>"before"</codeph>, <codeph>"after"</codeph>, <codeph>"firstChild"</codeph> et <codeph>"lastChild"</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:relativeTo"><apiName>relativeTo</apiName><shortdesc>
+      Objet par rapport auquel l’enfant est ajouté. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Objet par rapport auquel l’enfant est ajouté. Cette propriété s’utilise en combinaison avec la propriété <codeph>position</codeph>. Cette propriété est facultative. Si vous l’omettez, Flex utilise le parent immédiat de l’objet <codeph>State</codeph>, c’est-à-dire, le composant possédant la propriété <codeph>states</codeph> ou la balise <codeph>&lt;mx:states></codeph> qui spécifie l’objet State.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:creationPolicy:get"><apiName>creationPolicy</apiName><shortdesc>
+      Stratégie de création pour cet enfant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Stratégie de création pour cet enfant. Cette propriété détermine quand la classe <codeph>targetFactory</codeph> crée l’occurrence de l’enfant. Flex utilise cette propriété uniquement si vous spécifiez une propriété <codeph>targetFactory</codeph>. Les valeurs suivantes sont possibles :
+     
+      <p/>
+     <adobetable class="innertable">
+         
+         
+         
+         
+     <tgroup cols="2"><thead><row><entry>Valeur</entry><entry>Signification</entry></row></thead><tbody><row><entry><codeph>auto</codeph></entry><entry>(Par défaut)Crée l’occurrence la première fois qu’elle est requise. </entry></row><row><entry><codeph>all</codeph></entry><entry>Crée l’occurrence au démarrage de l’application. </entry></row><row><entry><codeph>aucun</codeph></entry><entry>Ne crée pas automatiquement l’occurrence. Vous devez appeler la méthode <codeph>createInstance()</codeph>pour créer l’occurrence. </entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:targetFactory:get"><apiName>targetFactory</apiName><shortdesc>
+     
+     Fabrique qui crée l’enfant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IDeferredInstance</apiValueClassifier></apiValueDef><apiDesc>
+     
+     Fabrique qui crée l’enfant. Vous pouvez spécifier l’un des éléments suivants : 
+      <ul>
+          <li>Une classe usine qui implémente l’interface IDeferredInstance et crée la ou les occurrences enfant. 
+          </li>
+          <li>Un composant Flex (c’est-à-dire, toute classe qui est une sous-classe de la classe UIComponent), tels que le contrôle Button. Si vous utilisez un composant Flex, le compilateur Flex imbrique automatiquement le composant dans une classe usine. 
+          </li>
+      </ul>
+     
+      <p>Si vous définissez cette propriété, l’enfant est instanciée au moment déterminé par la propriété <codeph>creationPolicy</codeph>. </p>
+      
+      <p>Ne définissez pas cette propriété si vous définissez la propriété <codeph>target</codeph>. Il s’agit de la propriété par défaut de la classe <codeph>AddChild</codeph>. La définition de cette propriété sur la valeur « all » de la stratégie <codeph>creationPolicy</codeph> est équivalente à la définition d’une propriété <codeph>target</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:target:get"><apiName>target</apiName><shortdesc>
+     
+      Enfant à ajouter</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+     
+      Enfant à ajouter Si vous définissez cette propriété, l’occurrence enfant est créée au démarrage de l’application. La définition de cette propriété est équivalente à celle d’une propriété <codeph>targetFactory</codeph> avec une valeur <codeph>creationPolicy</codeph> égle à <codeph>"all"</codeph>.
+     
+      <p>Ne définissez pas cette propriété si vous définissez la propriété <codeph>targetFactory</codeph>. </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:SetStyle"><apiName>SetStyle</apiName><shortdesc>
+  La classe SetStyle spécifie un style en vigueur uniquement lors de l’état d’affichage parent. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetStyle&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:SetStyle
+   <b>Properties</b>
+   name="null"
+   target="null"
+   value"null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SetStyle spécifie un style en vigueur uniquement lors de l’état d’affichage parent. Utilisez cette classe dans la propriété <codeph>overrides</codeph> de la classe State.
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#SetEventHandler"><linktext>mx.states.SetEventHandler</linktext></link><link href="mx.states.xml#SetProperty"><linktext>mx.states.SetProperty</linktext></link><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.states:SetStyle:SetStyle"><apiName>SetStyle</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.styles:IStyleClient</apiOperationClassifier><apiData>null</apiData><apiDesc>Objet dont le style est défini. Par défaut, Flex utilise le parent immédiat de l’objet State. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Style à définir. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Valeur du style dans l’état d’affichage. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFactory</apiItemName><apiOperationClassifier>mx.core:IDeferredInstance</apiOperationClassifier><apiData>null</apiData><apiDesc>Propriété facultative en écriture seule à partir de laquelle obtenir une valeur partagée. Cela est essentiellement utilisé lorsque la valeur de ce remplacement est partagée par plusieurs états ou groupes d’états. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:SetStyle:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  Applique le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Applique le remplacement. Flex conserve la valeur d’origine, afin de pouvoir la restaurer ultérieurement dans la méthode <codeph>remove()</codeph>. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:SetStyle:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  Supprime le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Supprime le remplacement. La valeur mémorisées dans la méthode <codeph>apply()</codeph> est restaurée. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:SetStyle:name"><apiName>name</apiName><shortdesc>
+     
+      Nom du style à modifier.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     
+      Nom du style à modifier. Vous devez définir cette propriété, dans le constructeur SetStyle ou en définissant directement la valeur de la propriété. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetStyle:target"><apiName>target</apiName><shortdesc>
+     
+      Objet dont le style est modifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     
+      Objet dont le style est modifié. Si la valeur de la propriété est <codeph>null</codeph>, Flex utilise le parent immédiat de l’objet State. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetStyle:value:get"><apiName>value</apiName><shortdesc>
+      Nouvelle valeur du style.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nouvelle valeur du style.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetStyle:valueFactory:set"><apiName>valueFactory</apiName><shortdesc>
+      Propriété facultative en écriture seule à partir de laquelle obtenir une valeur partagée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiValueClassifier>mx.core:IDeferredInstance</apiValueClassifier><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Propriété facultative en écriture seule à partir de laquelle obtenir une valeur partagée. Cela est essentiellement utilisé lorsque la valeur de ce remplacement est partagée par plusieurs états ou groupes d’états.  
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:IOverride"><apiName>IOverride</apiName><shortdesc>
+  L’interface IOverride est utilisée pour les remplacements d’état d’affichage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IOverride est utilisée pour les remplacements d’état d’affichage. Toutes les entrées du tableau de propriété <codeph>overrides</codeph> de la classe State doivent implémenter cette interface. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link></related-links><apiOperation id="mx.states:IOverride:mx.states:IOverride:apply"><apiName>apply</apiName><shortdesc>
+	  Applique le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Applique le remplacement. Flex conserve la valeur d’origine, afin de pouvoir la restaurer ultérieurement dans la méthode <codeph>remove()</codeph>. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:IOverride:mx.states:IOverride:initialize"><apiName>initialize</apiName><shortdesc>
+	  Initialise le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Initialise le remplacement. Flex appelle cette méthode avant le premier appel à la méthode <codeph>apply()</codeph>. Vous devez donc placer un code d’initialisation unique pour le remplacement dans cette méthode. 
+ 	 
+	  <p>Flex appelle cette méthode automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:IOverride:mx.states:IOverride:remove"><apiName>remove</apiName><shortdesc>
+	  Supprime le remplacement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>Parent de l’objet d’état contenant ce remplacement. Le remplacement doit l’utiliser si aucune cible explicite n’a été spécifiée. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Supprime le remplacement. La valeur mémorisées dans la méthode <codeph>apply()</codeph> est restaurée. 
+	 
+	  <p>Cette méthode est appelée automatiquement lors de la saisie de l’état. Elle ne doit pas être appelée directement. </p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.states:Transition"><apiName>Transition</apiName><shortdesc>
+  La classe Transition définit un jeu d’effets appliqués en réponse à une modification de l’état d’affichage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="effect"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Transition&gt;</code> tag
+  defines the following attributes:</p>
+  
+  <pre>
+  &lt;mx:Transition
+    <b>Properties</b>
+    id="ID"
+    effect=""
+    fromState="&#42;"
+    toState="&#42;"
+    autoReverse="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Transition définit un jeu d’effets appliqués en réponse à une modification de l’état d’affichage. Tandis qu’une définition d’état d’affichage spécifie les modifications apportées aux états, une transition définit l’ordre dans lequel les modifications visuelles se produisent lors de la modification de l’état. 
+ 
+  <p>Pour définir une transition, définissez la propriété <codeph>transitions</codeph> d’une application sur un tableau d’objets Transition.  </p>
+ 
+  <p>Les propriétés <codeph>toState</codeph> et <codeph>fromState</codeph> de la classe Transition permettent de spécifier les modifications d’état qui déclenchent la transition. Par défaut, les propriétés <codeph>fromState</codeph> et <codeph>toState</codeph> sont définies sur la valeur « * », qui permet d’appliquer la transition à toutes les modifications apportées à l’état d’affichage.</p>
+ 
+  <p>Vous pouvez utiliser la propriété <codeph>fromState</codeph> pour spécifier explicitement l’état d’affichage que vous remplacez et la propriété <codeph>toState</codeph> pour spécifier explicitement un état d’affichage auquel vous passez. Si une modification de l’état correspond à deux transitions, la propriété<codeph>toState</codeph> est prioritaire par rapport à la propriété <codeph>fromState</codeph>. Si plusieurs transitions correspondent, Flex utilise la première définition du tableau de transition.  </p>
+ 
+  <p>La propriété <codeph>effect</codeph> permet de spécifier l’objet Effect à lancer lors de l’application de la transition. En règle générale, il s’agit d’un objet Effect composite, tel qu’un effet Parallel ou Sequence, qui contient plusieurs effets, comme l’illustre l’exemple suivant : </p><pre>
+ 
+  &lt;mx:Transition id="myTransition" fromState="*" toState="*">
+    &lt;mx:Parallel>
+        ...
+    &lt;/mx:Parallel>
+  &lt;/mx:Transition>
+  </pre>
+ 
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.effects.AddChildAction.xml"><linktext>mx.effects.AddChildAction</linktext></link><link href="" invalidHref="mx.effects.RemoveChildAction.xml"><linktext>mx.effects.RemoveChildAction</linktext></link><link href="" invalidHref="mx.effects.SetPropertyAction.xml"><linktext>mx.effects.SetPropertyAction</linktext></link><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.states:Transition:Transition"><apiName>Transition</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.states:Transition:autoReverse"><apiName>autoReverse</apiName><shortdesc>
+      Affectez la valeur true pour spécifier que cette transition s’applique à la fois aux changements d’état d’affichage avant et inverse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false 
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Affectez la valeur <codeph>true</codeph> pour spécifier que cette transition s’applique à la fois aux changements d’état d’affichage avant et inverse. Par conséquent, utilisez cette transition lors d’un changement de l’état d’affichage A à l’état d’affichage B, et lors du changement de B vers A. 
+     
+      <p>Lorsque la transition de l’état d’affichage A vers l’état d’affichage B est en cours, la transition inverse peut se produire pour interrompre la transition actuelle. La transition inverse interrompt toujours la transition actuelle à son emplacement actuel. Ainsi, la transition inverse s’effectue toujours comme si la propriété <codeph>interruptionBehavior</codeph> était définie sur <codeph>stop</codeph>, quelle que soit la valeur réelle de <codeph>interruptionBehavior</codeph>.</p>
+     
+      <p>Cette propriété est vérifiée uniquement si la nouvelle transition s’effectue dans la direction exactement opposée de celle qui est en cours. En d’autres termes, si une transition est en cours entre les états A et B, puis qu’une transition revenant vers A est démarrée. </p>
+      
+      <p>Si une transition utilise les propriétés <codeph>toState</codeph> et <codeph>fromState</codeph> pour gérer explicitement la transition à partir de l’état d’affichage B vers A, Flex ignore la propriété <codeph>autoReverse</codeph> </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.states.xml#Transition/interruptionBehavior"><linktext>Transition.interruptionBehavior</linktext></link></related-links></apiValue><apiValue id="mx.states:Transition:effect"><apiName>effect</apiName><shortdesc>
+      Objet IEffect à lancer lors de l’application de la transition. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.effects:IEffect</apiValueClassifier></apiValueDef><apiDesc>
+      Objet IEffect à lancer lors de l’application de la transition. En règle générale, il s’agit d’un objet Effect composite, tel qu’un effet Parallel ou Sequence, contenant plusieurs effets. 
+     
+      <p>La propriété <codeph>effect</codeph> est la propriété par défaut de la classe Transition. Vous pouvez omettre la balise <codeph>&lt;mx:effect></codeph> si vous utilisez la syntaxe de balise MXML.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:Transition:fromState"><apiName>fromState</apiName><shortdesc>
+      Chaîne indiquant l’état d’affichage en cours de modification lors de l’application de la transition. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>*</apiData><apiType value="String"/><apiDefaultValue>"&amp;#42;"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Chaîne indiquant l’état d’affichage en cours de remplacement lors de l’application de la transition. La valeur par défaut est « * », qui représente n’importe quel état d’affichage. 
+     
+      <p>Vous pouvez définir cette propriété sur une chaîne vide, "", qui correspond à l’état d’affichage de base. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:Transition:interruptionBehavior"><apiName>interruptionBehavior</apiName><shortdesc>
+      Flex ne prend pas en charge la lecture simultanée de plusieurs transitions.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>end</apiData><apiType value="String"/><apiDefaultValue>end
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Flex ne prend pas en charge la lecture simultanée de plusieurs transitions. Si une transition est en cours de lecture lorsqu’une nouvelle transition se produit, la transition en cours est interrompue. Cette propriété contrôle la façon dont la transition en cours se comporte lorsqu’elle est interrompue. 
+      
+      <p>Par défaut, la transition en cours se termine, ce qui aligne tous les effets dans la transition vers leurs valeurs finales. Cela correspond à la valeur de propriété <codeph>end</codeph>. Si la valeur de cette propriété est <codeph>stop</codeph>, la transition en cours s’interrompt à son emplacement actuel. La nouvelle transition démarre à l’emplacement d’arrêt de la précédente transition.</p> 
+     
+      <p>La valeur de <codeph>stop</codeph> peut lisser l’apparence d’une transition interrompue. La raison en est que l’utilisateur ne voit pas la transition en cours s’aligner sur son état final avant que la nouvelle transition commence.</p>
+     
+      <p>Dans certains cas, la transition d’interruption peut être l’inverse de la transition en cours. Par exemple, lorsque la transition de l’état d’affichage A vers l’état d’affichage B est en cours, la transition inverse peut se produire pour interrompre la transition en cours. Si vous définissez la propriété <codeph>autoReverse</codeph> d’une occurrence de transition sur <codeph>true</codeph>, vous pouvez utiliser la même transition pour gérer à la fois les transitions vers l’avant et inverses. Lorsque la transition d’interruption est la transition inverse de la transition en cours et que son paramètre <codeph>autoReverse</codeph> a la valeur <codeph>true</codeph>, la transition d’interruption s’exécute comme si la propriété <codeph>interruptionBehavior</codeph> avait la valeur <codeph>stop</codeph>, quelle que soit la valeur réelle du paramètre <codeph>interruptionBehavior</codeph>.</p>
+     
+      <p>La classe mx.states.InterruptionBehavior définit les valeurs possibles de cette propriété.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.states.xml#Transition/autoReverse"><linktext>Transition.autoReverse</linktext></link><link href="mx.states.xml#InterruptionBehavior"><linktext>mx.states.InterruptionBehavior</linktext></link></related-links></apiValue><apiValue id="mx.states:Transition:toState"><apiName>toState</apiName><shortdesc>
+      Chaîne indiquant l’état d’affichage auquel vous passez lors de l’application de la transition. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>*</apiData><apiType value="String"/><apiDefaultValue>"&amp;#42;"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Chaîne indiquant l’état d’affichage auquel vous passez lors de l’application de la transition. La valeur par défaut est « * », qui représente n’importe quel état d’affichage. 
+     
+      <p>Vous pouvez définir cette propriété sur une chaîne vide, "", qui correspond à l’état d’affichage de base. </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

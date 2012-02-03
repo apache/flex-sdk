@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.effectClasses"><apiName>mx.effects.effectClasses</apiName><apiDetail/><apiClassifier id="mx.effects.effectClasses:MaskEffectInstance"><apiName>MaskEffectInstance</apiName><shortdesc>
+  MaskEffectInstance クラスは、MaskEffect クラスのインスタンスクラスを実装する抽象基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MaskEffectInstance クラスは、MaskEffect クラスのインスタンスクラスを実装する抽象基本クラスです。 
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 Mask エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには以下の 4 個のアイテムを持つ配列が含まれます。 </p>
+  <ul>
+    <li>value[0]:Number ターゲットの <codeph>x</codeph> プロパティの値です。</li> 
+  
+    <li>value[1]:Number ターゲットの <codeph>y</codeph> プロパティの値です。</li>
+  
+    <li>value[2]:Number ターゲットの <codeph>scaleX</codeph> プロパティの値です。</li>
+  
+    <li>value[3]:Number ターゲットの <codeph>scaleY</codeph> プロパティの値です。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#MaskEffect"><linktext>mx.effects.MaskEffect</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:MaskEffectInstance:MaskEffectInstance"><apiName>MaskEffectInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:defaultCreateMask"><apiName>defaultCreateMask</apiName><shortdesc>
+	  エフェクトのデフォルトマスクを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>マスクを定義する Shape オブジェクトです。
+	  
+	  </apiDesc><apiType value="flash.display:Shape"/></apiReturn><apiParam><apiItemName>targ</apiItemName><apiType value="Object"/><apiDesc>エフェクトターゲットを表します。
+	  </apiDesc></apiParam><apiParam><apiItemName>bounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>ターゲットの実際の視覚的境界です。これにはドロップシャドウも含まれます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  エフェクトのデフォルトマスクを作成します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:initMaskEffect"><apiName>initMaskEffect</apiName><shortdesc>
+	  エフェクトの move プロパティと scale プロパティを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  エフェクトの <codeph>move</codeph> プロパティと <codeph>scale</codeph> プロパティを初期化します。 すべてのサブクラスで、この関数をオーバーライドする必要があります。 これは、マスクが作成された後、トゥイーンの作成前に呼び出されます。 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onMoveTweenEnd"><apiName>onMoveTweenEnd</apiName><shortdesc> 
+	  マスクの x 位置と y 位置がエフェクトによって最終的に更新されるときに呼び出されるコールバックメソッドを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>マスク位置の最終的な x 値と y 値が含まれます。<codeph>value[0]</codeph> にマスクの x 位置が含まれ、<codeph>value[1]</codeph> に y 位置が含まれます。    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  マスクの x 位置と y 位置がエフェクトによって最終的に更新されるときに呼び出されるコールバックメソッドを表します。 このメソッドは直接呼び出さないでください。 このメソッドは、スーパークラスのメソッドを実装します。 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onMoveTweenUpdate"><apiName>onMoveTweenUpdate</apiName><shortdesc> 
+	  マスクの x 位置と y 位置がエフェクトによって更新されるときに呼び出されるコールバックメソッドを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>マスク位置の補間された x 値と y 値が含まれます。<codeph>value[0]</codeph> にマスクの新しい x 位置が含まれ、<codeph>value[1]</codeph> に新しい y 位置が含まれます。    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  マスクの x 位置と y 位置がエフェクトによって更新されるときに呼び出されるコールバックメソッドを表します。 このメソッドは直接呼び出さないでください。 このメソッドは、スーパークラスのメソッドを実装します。 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onScaleTweenEnd"><apiName>onScaleTweenEnd</apiName><shortdesc> 
+	  マスクの scaleX プロパティと scaleY プロパティがエフェクトによって最終的に更新されるときに呼び出されるコールバックメソッドを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>マスクの最終的な <codeph>scaleX</codeph> 値と <codeph>scaleY</codeph> 値が含まれます。<codeph>value[0]</codeph> にマスクの <codeph>scaleX</codeph> 値が含まれ、<codeph>value[1]</codeph> に <codeph>scaleY</codeph> 値が含まれます。    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  マスクの <codeph>scaleX</codeph> プロパティと <codeph>scaleY</codeph> プロパティがエフェクトによって最終的に更新されるときに呼び出されるコールバックメソッドを表します。 このメソッドは直接呼び出さないでください。 このメソッドは、スーパークラスのメソッドを実装します。 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onScaleTweenUpdate"><apiName>onScaleTweenUpdate</apiName><shortdesc> 
+	  マスクの scaleX プロパティと scaleY プロパティがエフェクトによって更新されるときに呼び出されるコールバックメソッドを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>マスクの補間された <codeph>scaleX</codeph> 値と <codeph>scaleY</codeph> 値が含まれます。<codeph>value[0]</codeph> にマスクの新しい <codeph>scaleX</codeph> 値が含まれ、<codeph>value[1]</codeph> に新しい <codeph>scaleY</codeph> 値が含まれます。    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  マスクの <codeph>scaleX</codeph> プロパティと <codeph>scaleY</codeph> プロパティがエフェクトによって更新されるときに呼び出されるコールバックメソッドを表します。 このメソッドは直接呼び出さないでください。 このメソッドは、スーパークラスのメソッドを実装します。 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:pause"><apiName>pause</apiName><shortdesc>
+	  resume() メソッドを呼び出すまで、エフェクトを一時停止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  <codeph>resume()</codeph> メソッドを呼び出すまで、エフェクトを一時停止します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:resume"><apiName>resume</apiName><shortdesc>
+	  pause() メソッドを呼び出し、エフェクトを一時停止した後、再開させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  <codeph>pause()</codeph> メソッドを呼び出してエフェクトを一時停止した後、再開させます。 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:reverse"><apiName>reverse</apiName><shortdesc>
+	  エフェクトの現在位置から開始して、逆順でエフェクトを再生します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  エフェクトの現在位置から開始して、逆順でエフェクトを再生します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:MaskEffectInstance:protected:effectMask"><apiName>effectMask</apiName><shortdesc>
+	  defaultCreateMask() メソッドによって作成されたデフォルトマスク、または createMaskFunction プロパティに渡された関数で指定されたマスクのいずれかのエフェクトマスクが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shape"/></apiValueDef><apiDesc>
+	  <codeph>defaultCreateMask()</codeph> メソッドによって作成されたデフォルトマスク、または <codeph>createMaskFunction</codeph> プロパティに渡された関数で指定されたマスクのいずれかのエフェクトマスクが含まれます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:moveEasingFunction"><apiName>moveEasingFunction</apiName><shortdesc>
+	  マスクを移動させるのに使用するイージング関数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  マスクを移動させるのに使用するイージング関数を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleEasingFunction"><apiName>scaleEasingFunction</apiName><shortdesc>
+	  マスクの伸縮に使用するイージング関数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  マスクの伸縮に使用するイージング関数を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleXFrom"><apiName>scaleXFrom</apiName><shortdesc>
+	  マスクの初期 scaleX を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  マスクの初期 scaleX を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleXTo"><apiName>scaleXTo</apiName><shortdesc> 
+	  マスクの終了 scaleX を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  マスクの終了 scaleX を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleYFrom"><apiName>scaleYFrom</apiName><shortdesc> 
+	  マスクの初期 scaleY を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  マスクの初期 scaleY を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleYTo"><apiName>scaleYTo</apiName><shortdesc>
+	  マスクの終了 scaleY を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  マスクの終了 scaleY を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:targetArea"><apiName>targetArea</apiName><shortdesc>
+	  ターゲットでマスクが適用される領域を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+	  ターゲットでマスクが適用される領域を表します。 サイズはターゲット自体のサイズに対応します。 デフォルトでは、この領域はターゲット全体であり、<codeph>new Rectangle(0, 0, target.width, target.height);</codeph> のように作成されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:protected:targetVisualBounds"><apiName>targetVisualBounds</apiName><shortdesc>
+	  エフェクトターゲットの実際のサイズです。サイズにはドロップシャドウも含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+	  エフェクトターゲットの実際のサイズです。サイズにはドロップシャドウも含まれます。 このプロパティの値は Flex によって計算されるため、この値を設定する必要はありません。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:xFrom"><apiName>xFrom</apiName><shortdesc> 
+	  マスクの初期位置の x 座標を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  マスクの初期位置の x 座標を表します。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:xTo"><apiName>xTo</apiName><shortdesc> 
+	  マスクの移動先の位置の x 座標を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  マスクの移動先の位置の x 座標を表します。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:yFrom"><apiName>yFrom</apiName><shortdesc>
+	  マスクの初期位置の y 座標を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  マスクの初期位置の y 座標を表します。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:yTo"><apiName>yTo</apiName><shortdesc> 
+	  マスクの移動先の位置の y 座標を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  マスクの移動先の位置の y 座標を表します。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:createMaskFunction:get"><apiName>createMaskFunction</apiName><shortdesc>
+	  エフェクトによってマスクが作成される際に呼び出される関数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+	  エフェクトによってマスクが作成される際に呼び出される関数を表します。 デフォルト値は、エフェクトターゲットと同じサイズの矩形を返す関数です。 
+	 
+	  <p>このプロパティを使用して、マスクを描画する独自のコールバック関数を指定できます。 この関数には次のシグネチャが必要です。</p>
+	 
+	  <pre>
+	  public function createLargeMask(targ:Object, bounds:Rectangle):Shape {
+	    var myMask:Shape = new Shape();
+	    // Create mask.
+	  
+	    return myMask;
+	  }
+	  </pre>
+	 
+	  <p>このプロパティは、関数の名前に設定します。WipeLeft エフェクトの場合の例を以下に示します。</p>
+	 
+	  <pre>
+	    &lt;mx:WipeLeft id="showWL" createMaskFunction="createLargeMask" showTarget="false"/></pre>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:showTarget:get"><apiName>showTarget</apiName><shortdesc>
+      ターゲットコンポーネントを表示状態にするか（false）、非表示状態にするか（true）を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      ターゲットコンポーネントを表示状態にするか（<codeph>false</codeph>）、非表示状態にするか（<codeph>true</codeph>）を指定します。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:IrisInstance"><apiName>IrisInstance</apiName><shortdesc>
+  IrisInstance クラスは、Iris エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  IrisInstance クラスは、Iris エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Iris エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Iris"><linktext>mx.effects.Iris</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:IrisInstance:IrisInstance"><apiName>IrisInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:ZoomInstance"><apiName>ZoomInstance</apiName><shortdesc>
+  ZoomInstance クラスは、Zoom エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZoomInstance クラスは、Zoom エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Zoom エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 Zoom エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには以下の 2 個のアイテムを持つ配列が含まれます。 </p>
+  <ul>
+    <li>value[0]:Number <codeph>Zoom.zoomWidthFrom</codeph> プロパティ値と <codeph>Zoom.zoomWidthTo</codeph> プロパティ値の間の値です。</li>
+  
+    <li>value[1]:Number <codeph>Zoom.zoomHeightFrom</codeph> プロパティ値と <codeph>Zoom.zoomHeightTo</codeph> プロパティ値の間の値です。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Zoom"><linktext>mx.effects.Zoom</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ZoomInstance:ZoomInstance"><apiName>ZoomInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:ZoomInstance:captureRollEvents"><apiName>captureRollEvents</apiName><shortdesc>
+	  マウスが移動されなかった場合に、rollOut イベントと rollOver イベントが送出されないようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  マウスが移動されなかった場合に、<codeph>rollOut</codeph> イベントと <codeph>rollOver</codeph> イベントが送出されないようにします。 マウスを移動せずにターゲットが状態の大小を切り替える場合は、この値を <codeph>true</codeph> に設定します。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:originX"><apiName>originX</apiName><shortdesc>
+	  ズーム原点（基準点）の x 位置を表す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  ズーム原点（基準点）の x 位置を表す数値です。 デフォルト値は <codeph>target.width / 2</codeph> です。これは、ターゲットの中心です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:originY"><apiName>originY</apiName><shortdesc>
+	  ズーム原点（基準点）の y 位置を表す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  ズーム原点（基準点）の y 位置を表す数値です。 デフォルト値は <codeph>target.height / 2</codeph> です。これは、ターゲットの中心です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomHeightFrom"><apiName>zoomHeightFrom</apiName><shortdesc>
+	  0.01 から 1.0 のパーセント表記で、高さズーム開始時の倍率を示す数値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  0.01 ～ 1.0 のパーセント表記で、高さズーム開始時の倍率を表す数値です。 デフォルト値は 0.01 です。これは非常に小さな倍率です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomHeightTo"><apiName>zoomHeightTo</apiName><shortdesc>
+	  0.01 ～ 1.0 のパーセント表記で、高さズーム終了時の倍率を表す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  0.01 ～ 1.0 のパーセント表記で、高さズーム終了時の倍率を表す数値です。 デフォルト値は 1.0 です。これはオブジェクトの標準サイズです。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomWidthFrom"><apiName>zoomWidthFrom</apiName><shortdesc>
+	  0.01 ～ 1.0 のパーセント表記で、幅ズーム開始時の倍率を表す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  0.01 ～ 1.0 のパーセント表記で、幅ズーム開始時の倍率を表す数値です。 デフォルト値は 0.01 です。これは非常に小さな倍率です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomWidthTo"><apiName>zoomWidthTo</apiName><shortdesc>
+	  0.01 ～ 1.0 のパーセント表記で、幅ズーム終了時の倍率を表す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  0.01 ～ 1.0 のパーセント表記で、幅ズーム終了時の倍率を表す数値です。 デフォルト値は 1.0 です。これはオブジェクトの標準サイズです。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:PauseInstance"><apiName>PauseInstance</apiName><shortdesc>
+  PauseInstance クラスは、Pause エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PauseInstance クラスは、Pause エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Pause エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Pause"><linktext>mx.effects.Pause</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:PauseInstance:PauseInstance"><apiName>PauseInstance</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Pause エフェクトの場合、この引数は無視されます。 このパラメーターは、他のエフェクトとの一貫性を保つために用意されています。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:PauseInstance:eventName"><apiName>eventName</apiName><shortdesc> 
+     終了するまで Pause が待機しているイベントの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     終了するまで Pause が待機しているイベントの名前です。このパラメーターは、<codeph>target</codeph> プロパティと組み合わせて使用する必要があり、ターゲットは IEventDispatcher 型である必要があります。また、すべてのイベントは、いずれかのディスパッチャーから生成されている必要があります。
+     
+     <p><codeph>eventName</codeph> のリスニングは、イベントのタイムアウトとして機能する <codeph>duration</codeph> プロパティにも関連しています。<codeph>duration</codeph> で指定された時間内にイベントを受け取らなかった場合でも、エフェクトは終了します。</p>
+     
+     <p>このプロパティはオプションです。デフォルトのアクションでは、イベントを待たずに再生します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:PropertyChanges"><apiName>PropertyChanges</apiName><shortdesc>
+  PropertyChanges クラスでは、トランジションのターゲットコンポーネントにおいてプロパティ一式の開始値と終了値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PropertyChanges クラスでは、トランジションのターゲットコンポーネントにおいてプロパティ一式の開始値と終了値を定義します。 PropertyChanges クラスの <codeph>start</codeph> フィールドと <codeph>end</codeph> フィールドにはプロパティの同じセットが格納されますが、その値は異なります。 
+ 
+  <p>開始値と終了値が同じであるターゲットプロパティは、<codeph>start</codeph> フィールドと <codeph>end</codeph> フィールドには含まれません。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:PropertyChanges:PropertyChanges"><apiName>PropertyChanges</apiName><shortdesc>
+	  PropertyChanges コンストラクターを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>エフェクトのターゲットであるオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  PropertyChanges コンストラクターを表します。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:PropertyChanges:end"><apiName>end</apiName><shortdesc>
+	  ビューステートでの変更によって変更された target コンポーネントの終了プロパティを含むオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+	  ビューステートでの変更によって変更された <codeph>target</codeph> コンポーネントの終了プロパティを含むオブジェクトを表します。
+	 
+	  <p>例えば、ビューステートへの変更によって移動およびサイズ変更された <codeph>target</codeph> コンポーネントの場合、次の例に示すように、<codeph>end</codeph> にコンポーネントの終了位置とサイズが含まれます。
+	  <pre>{ x: 100, y: 100, width: 200, height: 200 }</pre></p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:start"><apiName>start</apiName><shortdesc>
+	  ビューステートでの変更によって変更された target コンポーネントの開始プロパティを含むオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+	  ビューステートでの変更によって変更された <codeph>target</codeph> コンポーネントの開始プロパティを含むオブジェクトを表します。
+	 
+	  <p>例えば、ビューステートへの変更によって移動およびサイズ変更された <codeph>target</codeph> コンポーネントの場合、次の例に示すように、<codeph>start</codeph> にコンポーネントの開始位置とサイズが含まれます。
+	  <pre>{ x: 0, y: 0, width: 100, height: 100}</pre></p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:stripUnchangedValues"><apiName>stripUnchangedValues</apiName><shortdesc>
+      このフラグは、開始状態と終了状態において変化していない値をオブジェクトから削除するかどうかを制御します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このフラグは、開始状態と終了状態において変化していない値をオブジェクトから削除するかどうかを制御します。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:target"><apiName>target</apiName><shortdesc>
+	  トランジションのターゲットコンポーネントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  トランジションのターゲットコンポーネントを表します。 PropertyChanges オブジェクトの <codeph>start</codeph> フィールドと <codeph>end</codeph> フィールドは、ビューステートへの変更によってターゲットコンポーネントがどのように変更されるかを定義します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SoundEffectInstance"><apiName>SoundEffectInstance</apiName><shortdesc>
+  SoundEffectInstance クラスは、SoundEffect エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SoundEffectInstance クラスは、SoundEffect エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、SoundEffect エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Fade"><linktext>mx.effects.Fade</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SoundEffectInstance:SoundEffectInstance"><apiName>SoundEffectInstance</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SoundEffectInstance:bufferTime"><apiName>bufferTime</apiName><shortdesc> 
+      SoundEffect クラスは、内部の Sound オブジェクトを使用して、MP3 ファイルを制御します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1000</apiData><apiType value="Number"/><apiDefaultValue>1000
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      SoundEffect クラスは、内部 Sound オブジェクトを使用して MP3 ファイルを制御します。 このプロパティは、Sound オブジェクトのバッファーに保持するサウンドデータに応じた最小時間をミリ秒単位で指定します。 Sound オブジェクトは、再生の開始前およびネットワーク停止後の再生の再開前に、少なくともこの大量のデータを取得するまで待機します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:loops"><apiName>loops</apiName><shortdesc>
+      ループ内でサウンドを再生する回数を表します。値が 0 の場合、エフェクトは 1 回再生され、値が 1 の場合、エフェクトは 2 回再生されます。以降も同様です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ループ内でサウンドを再生する回数を表します。値が 0 の場合、エフェクトは 1 回再生され、値が 1 の場合、エフェクトは 2 回再生されます。以降も同様です。 MP3 ファイルを繰り返す場合も、<codeph>useDuration</codeph> プロパティの設定により再生時間が決まります。
+     
+      <p><codeph>duration</codeph> プロパティは、このプロパティよりも優先されます。 エフェクトの継続時間がサウンドを最低 1 回再生するために必要な時間に満たない場合、サウンドはループ処理されません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panEasingFunction"><apiName>panEasingFunction</apiName><shortdesc>
+      パンエフェクトのイージング関数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      パンエフェクトのイージング関数を表します。 この関数を使用して、<codeph>panFrom</codeph> の値と <codeph>panTo</codeph> の値の間を補間します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panFrom"><apiName>panFrom</apiName><shortdesc>
+      Sound オブジェクトの初期パンを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Sound オブジェクトの初期パンを表します。 値の範囲は -1.0 ～ 1.0 です。ここで、-1.0 は左のチャネルのみを使用し、1.0 は右のチャネルのみを使用します。0.0 は 2 つのチャネル間でサウンドが均一になるようにバランスをとります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panTo"><apiName>panTo</apiName><shortdesc>
+      Sound オブジェクトの最終パンを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Sound オブジェクトの最終パンを表します。 値の範囲は -1.0 ～ 1.0 です。ここで、-1.0 は左のチャネルのみを使用し、1.0 は右のチャネルのみを使用します。0.0 は 2 つのチャネル間でサウンドが均一になるようにバランスをとります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:sound"><apiName>sound</apiName><shortdesc> 
+      内部 Sound オブジェクトへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.media:Sound"/></apiValueDef><apiDesc> 
+      内部 Sound オブジェクトへの参照です。 SoundEffect は、このインスタンスを使用して MP3 ファイルを再生します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:startTime"><apiName>startTime</apiName><shortdesc> 
+      再生を開始する MP3 ファイルの初期位置を表します（ミリ秒単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      再生を開始する MP3 ファイルの初期位置を表します（ミリ秒単位）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:useDuration"><apiName>useDuration</apiName><shortdesc>
+      true の場合、duration プロパティで指定された時間の経過後にエフェクトを停止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、<codeph>duration</codeph> プロパティで指定された時間の経過後にエフェクトを停止します。 <codeph>false</codeph> の場合、MP3 の再生またはループの完了後にエフェクトを停止します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeEasingFunction"><apiName>volumeEasingFunction</apiName><shortdesc>
+      ボリュームエフェクトのイージング関数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      ボリュームエフェクトのイージング関数を表します。 この関数を使用して、<codeph>volumeFrom</codeph> の値と <codeph>volumeTo</codeph> の値の間を補間します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeFrom"><apiName>volumeFrom</apiName><shortdesc>
+      Sound オブジェクトの初期ボリュームを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Sound オブジェクトの初期ボリュームを表します。 値の範囲は 0.0 ～ 1.0 です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeTo"><apiName>volumeTo</apiName><shortdesc>
+      Sound オブジェクトの最終ボリュームを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Sound オブジェクトの最終ボリュームを表します。 値の範囲は 0.0 ～ 1.0 です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:isLoading:get"><apiName>isLoading</apiName><shortdesc>
+      このプロパティは、MP3 がロードされている場合は、true です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このプロパティは、MP3 がロードされている場合は、<codeph>true</codeph> です。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:soundChannel:get"><apiName>soundChannel</apiName><shortdesc>
+      MP3 ファイルがロードされた SoundChannel オブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.media:SoundChannel"/></apiValueDef><apiDesc>
+      MP3 ファイルがロードされた SoundChannel オブジェクトを表します。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:source:get"><apiName>source</apiName><shortdesc>
+      再生する MP3 ファイルの URL またはクラスを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      再生する MP3 ファイルの URL またはクラスを表します。 MP3 ファイルを既に埋め込んでいる場合は、<codeph>Embed</codeph> キーワードを使用して、MP3 ファイルの Class オブジェクトを <codeph>source</codeph> プロパティに渡すことができます。 それ以外の場合は、MP3 ファイルへの完全な URL を指定します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:ActionEffectInstance"><apiName>ActionEffectInstance</apiName><shortdesc>
+  ActionEffectInstance クラスは、すべてのアクションエフェクトインスタンスクラスのスーパークラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ActionEffectInstance クラスは、すべてのアクションエフェクトインスタンスクラスのスーパークラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:ActionEffectInstance:ActionEffectInstance"><apiName>ActionEffectInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:ActionEffectInstance:protected:getStartValue"><apiName>getStartValue</apiName><shortdesc>
+	  saveStartValue() メソッドによって保存された開始状態の値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>開始状態の値を返します。
+	  
+	  </apiDesc><apiType value="any"/></apiReturn></apiOperationDef><apiDesc>
+	  <codeph>saveStartValue()</codeph> メソッドによって保存された開始状態の値を返します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:ActionEffectInstance:protected:saveStartValue"><apiName>saveStartValue</apiName><shortdesc>
+	  サブクラスはこのメソッドを実装し、エフェクトの再生前に開始状態を保存します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>開始状態の値を返します。
+	  
+	  </apiDesc><apiType value="any"/></apiReturn></apiOperationDef><apiDesc>
+	  サブクラスはこのメソッドを実装し、エフェクトの再生前に開始状態を保存します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:ActionEffectInstance:protected:playedAction"><apiName>playedAction</apiName><shortdesc>
+	  エフェクトが再生されているか（true）、再生されていないか（false）を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  エフェクトが再生されているか（<codeph>true</codeph>）、再生されていないか（<codeph>false</codeph>）を示します。 
+	 
+	  <p><codeph>play()</codeph> メソッドは、エフェクトの再生後にこのプロパティを <codeph>true</codeph> に設定します。ユーザーが直接設定することはありません。</p> 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SetStyleActionInstance"><apiName>SetStyleActionInstance</apiName><shortdesc>
+  SetStyleActionInstance クラスは、SetStyleAction エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetStyleActionInstance クラスは、SetStyleAction エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、SetStyleAction エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SetStyleActionInstance:SetStyleActionInstance"><apiName>SetStyleActionInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SetStyleActionInstance:name"><apiName>name</apiName><shortdesc> 
+	  変更されるスタイルプロパティの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  変更されるスタイルプロパティの名前を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SetStyleActionInstance:value:get"><apiName>value</apiName><shortdesc> 
+	  プロパティの新しい値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc> 
+	  プロパティの新しい値を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AnimatePropertyInstance"><apiName>AnimatePropertyInstance</apiName><shortdesc>
+  AnimatePropertyInstance クラスは、AnimateProperty エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimatePropertyInstance クラスは、AnimateProperty エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、AnimateProperty エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 AnimateProperty エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには、<codeph>AnimateProperty.fromValue</codeph> プロパティ値と <codeph>AnimateProperty.toValue</codeph> プロパティ値の間の数値が含まれます。これは、<codeph>AnimateProperty.property</codeph> で指定されたターゲットプロパティに使用されます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AnimateProperty"><linktext>mx.effects.AnimateProperty</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AnimatePropertyInstance:AnimatePropertyInstance"><apiName>AnimatePropertyInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:fromValue"><apiName>fromValue</apiName><shortdesc>
+	  エフェクトのプロパティの開始値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  エフェクトのプロパティの開始値を表します。 デフォルト値は、ターゲットの現在のプロパティ値です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:isStyle"><apiName>isStyle</apiName><shortdesc>
+	  true の場合、プロパティ属性はスタイルとなり、setStyle() メソッドを使用して設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  <codeph>true</codeph> の場合、プロパティ属性はスタイルとなり、<codeph>setStyle()</codeph> メソッドを使用して設定します。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:property"><apiName>property</apiName><shortdesc>
+	  アニメーション化するターゲットのプロパティの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  アニメーション化するターゲットのプロパティの名前を表します。 この属性は必須です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:roundValue"><apiName>roundValue</apiName><shortdesc>
+	  true の場合、補間されたトゥイーン値を最も近い整数に四捨五入します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  <codeph>true</codeph> の場合、補間されたトゥイーン値を最も近い整数に四捨五入します。 このプロパティは、アニメーション化するプロパティが整数または符号なし整数の場合に役立ちます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:toValue"><apiName>toValue</apiName><shortdesc>
+	  エフェクトの終了値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  エフェクトの終了値を表します。 デフォルト値は、ターゲットの現在のプロパティ値です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+  FadeInstance クラスは、Fade エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FadeInstance クラスは、Fade エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Fade エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 Fade エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには、<codeph>Fade.alphaFrom</codeph> プロパティ値と <codeph>Fade.alphaTo</codeph> プロパティ値の間の数値が含まれます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Fade"><linktext>mx.effects.Fade</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:FadeInstance:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:FadeInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  最初の透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最初の透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:FadeInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  最終的な透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最終的な透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:ParallelInstance"><apiName>ParallelInstance</apiName><shortdesc>
+  ParallelInstance クラスは、Parallel エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:CompositeEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ParallelInstance クラスは、Parallel エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは Parallel エフェクトの再生時に Flex により作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Parallel"><linktext>mx.effects.Parallel</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ParallelInstance:ParallelInstance"><apiName>ParallelInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Parallel エフェクトの場合、この引数は無視されます。 このパラメーターは、他の種類のエフェクトとの一貫性を保つことだけを目的として用意されています。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:ParallelInstance:end"><apiName>end</apiName><shortdesc>
+	  現在再生中のエフェクトをすべて中断し、まだ再生を開始していないエフェクトをすべてスキップして、組み合わせたエフェクトの終わりに即座にジャンプします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  現在再生中のエフェクトをすべて中断し、まだ再生を開始していないエフェクトをすべてスキップして、組み合わせたエフェクトの終わりに即座にジャンプします。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:ParallelInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+	  SequenceInstance または ParallelInstance の子エフェクトが終了するたびに、onEffectEnd() メソッドが呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>終了した子エフェクトです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  SequenceInstance または ParallelInstance の子エフェクトが終了するたびに、<codeph>onEffectEnd()</codeph> メソッドが呼び出されます。 SequenceInstance の場合、次のエフェクトが再生されます。 ParallelInstance では、すべてのエフェクトの再生が完了するまでそれらのエフェクトをすべて追跡します。 CompositeEffect のサブクラスを作成する場合は、このメソッドを実装する必要があります。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:ParallelInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+     
+      エフェクトの現在の時間位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     
+      エフェクトの現在の時間位置です。このプロパティの値の範囲は、0 から合計継続時間（Effect の <codeph>startDelay</codeph>、<codeph>repeatCount</codeph> および <codeph>repeatDelay</codeph> を含む）までです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SequenceInstance"><apiName>SequenceInstance</apiName><shortdesc>
+  SequenceInstance クラスは、Sequence エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:CompositeEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SequenceInstance クラスは、Sequence エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Sequence エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Sequence"><linktext>mx.effects.Sequence</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SequenceInstance:SequenceInstance"><apiName>SequenceInstance</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Sequence エフェクトの場合、この引数は無視されます。 このパラメーターは、他の種類のエフェクトとの一貫性を保つことだけを目的として用意されています。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:SequenceInstance:end"><apiName>end</apiName><shortdesc>
+      現在再生中のエフェクトをすべて中断し、まだ再生を開始していないエフェクトをすべてスキップして、組み合わせたエフェクトの終わりに即座にジャンプします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      現在再生中のエフェクトをすべて中断し、まだ再生を開始していないエフェクトをすべてスキップして、組み合わせたエフェクトの終わりに即座にジャンプします。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:SequenceInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+     SequenceInstance の子エフェクトが終了するたびに、onEffectEnd() メソッドが呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>子エフェクトを表します。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     SequenceInstance の子エフェクトが終了するたびに、<codeph>onEffectEnd()</codeph> メソッドが呼び出されます。 SequenceInstance の場合、次のエフェクトが再生されます。 このメソッドは、スーパークラスのメソッドを実装します。
+    
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:SequenceInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+     
+      エフェクトの現在の時間位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     
+      エフェクトの現在の時間位置です。このプロパティの値の範囲は、0 から合計継続時間（Effect の <codeph>startDelay</codeph>、<codeph>repeatCount</codeph> および <codeph>repeatDelay</codeph> を含む）までです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:MoveInstance"><apiName>MoveInstance</apiName><shortdesc>
+  MoveInstance クラスは、Move エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MoveInstance クラスは、Move エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Move エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+  
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 Move エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには以下の 2 個のアイテムを持つ配列が含まれます。 </p>
+  <ul>
+    <li>value[0]:Number <codeph>Move.xFrom</codeph> プロパティ値と <codeph>Move.xTo</codeph> プロパティ値の間の値です。</li>
+  
+    <li>value[1]:Number <codeph>Move.yFrom</codeph> プロパティ値と <codeph>Move.yTo</codeph> プロパティ値の間の値です。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Move"><linktext>mx.effects.Move</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:MoveInstance:MoveInstance"><apiName>MoveInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:MoveInstance:xBy"><apiName>xBy</apiName><shortdesc> 
+	  コンポーネントを x 軸に沿って移動する際のピクセル数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  コンポーネントを x 軸に沿って移動する際のピクセル数を表します。 負の値を指定することもできます。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:xFrom"><apiName>xFrom</apiName><shortdesc> 
+	  初期位置の x 座標を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  初期位置の x 座標を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:xTo"><apiName>xTo</apiName><shortdesc> 
+	  移動先の位置の x 座標を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  移動先の位置の x 座標を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yBy"><apiName>yBy</apiName><shortdesc> 
+	  コンポーネントを y 軸に沿って移動する際のピクセル数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  コンポーネントを y 軸に沿って移動する際のピクセル数を表します。 負の値を指定することもできます。 	
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yFrom"><apiName>yFrom</apiName><shortdesc>
+	  初期位置の y 座標を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  初期位置の y 座標を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yTo"><apiName>yTo</apiName><shortdesc> 
+	  移動先の位置の y 座標を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  移動先の位置の y 座標を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:RotateInstance"><apiName>RotateInstance</apiName><shortdesc>
+  RotateInstance クラスは、Rotate エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RotateInstance クラスは、Rotate エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Rotate エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+  
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 Rotate エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには、<codeph>Rotate.angleFrom</codeph> プロパティ値と <codeph>Rotate.angleTo</codeph> プロパティ値の間の数値が含まれます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Rotate"><linktext>mx.effects.Rotate</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RotateInstance:RotateInstance"><apiName>RotateInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:RotateInstance:angleFrom"><apiName>angleFrom</apiName><shortdesc> 
+	  ターゲットオブジェクトの回転の開始角度を度単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  ターゲットオブジェクトの回転の開始角度を度単位で表します。 有効な値の範囲は 0 ～ 360 です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:angleTo"><apiName>angleTo</apiName><shortdesc> 
+	  ターゲットオブジェクトの回転の終了角度を度単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>360</apiData><apiType value="Number"/><apiDefaultValue>360
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  ターゲットオブジェクトの回転の終了角度を度単位で表します。 正数または負数を指定できます。
+	 
+	  <p><codeph>angleTo</codeph> の値が <codeph>angleFrom</codeph> の値よりも小さい場合、ターゲットは反時計回りに回転します。 そうでない場合は、時計回りに回転します。 ターゲットを複数回回転させる場合は、この値を大きい正数または小さい負数に設定します。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:originX"><apiName>originX</apiName><shortdesc>
+	  回転の中心点の x 方向の位置を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  回転の中心点の x 方向の位置を表します。 ターゲットはこの点を中心に回転します。 有効な値の範囲は、0 からターゲットの幅までです。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:originY"><apiName>originY</apiName><shortdesc>
+	  回転の中心点の y 方向の位置を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  回転の中心点の y 方向の位置を表します。 ターゲットはこの点を中心に回転します。 有効な値の範囲は 0 からターゲットの高さになります。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:DissolveInstance"><apiName>DissolveInstance</apiName><shortdesc>
+  DissolveInstance クラスは、Dissolve エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DissolveInstance クラスは、Dissolve エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Dissolve エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+  
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 Dissolve エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには、<codeph>Dissolve.alphaFrom</codeph> プロパティ値と <codeph>Dissolve.alphaTo</codeph> プロパティ値の間の数値が含まれます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Dissolve"><linktext>mx.effects.Dissolve</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:DissolveInstance:DissolveInstance"><apiName>DissolveInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:DissolveInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  最初の透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最初の透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  最終的な透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最終的な透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:color"><apiName>color</apiName><shortdesc> 
+	  エフェクトによってターゲットオブジェクトの上に浮いて表示される矩形の色を表す 16 進値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0xFFFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc> 
+	  エフェクトによってターゲットオブジェクトの上に浮いた状態で表示される矩形の色を表す 16 進値です。 デフォルト値は、ターゲットコンポーネントの <codeph>backgroundColor</codeph> スタイルプロパティで指定された色です。<codeph>backgroundColor</codeph> が設定されていない場合は 0xFFFFFF です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:targetArea"><apiName>targetArea</apiName><shortdesc>
+	  エフェクトを再生するターゲットの領域を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+	  エフェクトを再生するターゲットの領域を表します。 Dissolve オーバーレイは、このプロパティのサイズを使用して描画されます。 UIComponent は、コンポーネント全体にわたるオーバーレイを作成します。 コンテナは、クロムではなくコンテンツ領域上にオーバーレイを作成します。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddRemoveEffectTargetFilter"><apiName>AddRemoveEffectTargetFilter</apiName><shortdesc>
+  AddRemoveEffectTargetFilter は EffectTargetFilter のサブクラスであり、コンテナに子として追加されたターゲット、またはコンテナから削除されたターゲットにフィルターを適用するためのロジックを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectTargetFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddRemoveEffectTargetFilter は EffectTargetFilter のサブクラスであり、コンテナに子として追加されたターゲット、またはコンテナから削除されたターゲットにフィルターを適用するためのロジックを処理します。Effect.filter プロパティを "add" または "remove" に設定した場合は、これらのいずれかが使用されます。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:AddRemoveEffectTargetFilter:AddRemoveEffectTargetFilter"><apiName>AddRemoveEffectTargetFilter</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AddRemoveEffectTargetFilter:add"><apiName>add</apiName><shortdesc>
+	  このフィルターが追加フィルターであるか、削除フィルターであるかを決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  このフィルターが追加フィルターであるか、削除フィルターであるかを決定します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:BlurInstance"><apiName>BlurInstance</apiName><shortdesc>
+  BlurInstance クラスは、Blur エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BlurInstance クラスは、Blur エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは、Blur エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  <p>TweenEffect クラスのサブクラスであるすべてのエフェクトクラスは、以下のイベントをサポートします。</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：トゥイーンエフェクトの終了時に送出されます。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：TweenEffect クラスで新しい値が計算されるたびに送出されます。</li> 
+  </ul>
+  
+  <p>これらのイベントのイベントリスナーに渡されるイベントオブジェクトのタイプは TweenEvent です。 TweenEvent クラスは、エフェクトで計算されたトゥイーン値を含む <codeph>value</codeph> プロパティを定義します。 Blur エフェクトの場合、<codeph>TweenEvent.value</codeph> プロパティには以下の 2 個のアイテムを持つ配列が含まれます。 </p>
+  <ul>
+    <li>value[0]:Number <codeph>Blur.blurXTo</codeph> プロパティ値と <codeph>Blur.blurXFrom</codeph> プロパティ値の間の値です。この値は、ターゲットの <codeph>BlurFilter.blurX</codeph> プロパティに適用されます。</li> 
+  
+    <li>value[1]:Number <codeph>Blur.blurYTo</codeph> プロパティ値と <codeph>Blur.blurYFrom</codeph> プロパティ値の間の値です。この値は、ターゲットの <codeph>BlurFilter.blurY</codeph> プロパティに適用されます。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Blur"><linktext>mx.effects.Blur</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:BlurInstance:BlurInstance"><apiName>BlurInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:BlurInstance:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  水平方向のぼかしの開始量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  水平方向のぼかしの開始量を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  水平方向のぼかしの終了量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  水平方向のぼかしの終了量を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  垂直方向のぼかしの開始量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  垂直方向のぼかしの開始量を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  垂直方向のぼかしの終了量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  垂直方向のぼかしの終了量を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:CompositeEffectInstance"><apiName>CompositeEffectInstance</apiName><shortdesc>
+  CompositeEffectInstance クラスは、CompositeEffect クラスのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CompositeEffectInstance クラスは、CompositeEffect クラスのインスタンスクラスを実装します。 このクラスのインスタンスは、CompositeEffect の再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#CompositeEffect"><linktext>mx.effects.CompositeEffect</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:CompositeEffectInstance:CompositeEffectInstance"><apiName>CompositeEffectInstance</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>組み合わせたエフェクトの場合、この引数は無視されます。 このパラメーターは、他の種類のエフェクトとの一貫性を保つことだけを目的として用意されています。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。  
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:CompositeEffectInstance:addChildSet"><apiName>addChildSet</apiName><shortdesc>
+      この組み合わせたエフェクトに子エフェクトの新しいセットを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childSet</apiItemName><apiType value="Array"/><apiDesc>CompositeEffect に追加する子エフェクトの配列を表します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この組み合わせたエフェクトに子エフェクトの新しいセットを追加します。 Sequence エフェクトの場合、子エフェクトの各セットが追加された順序で 1 つずつ再生されます。 Parallel エフェクトの場合、子エフェクトのすべてのセットが追加された順序に関係なく同時に再生されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:CompositeEffectInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+      いずれかの子エフェクトが再生を終了するたびに呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>子エフェクトを表します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      いずれかの子エフェクトが再生を終了するたびに呼び出されます。 サブクラスでこの関数を実装する必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:CompositeEffectInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+      エフェクトの現在の時間位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      エフェクトの現在の時間位置です。このプロパティの値の範囲は、0 から合計継続時間（Effect の <codeph>startDelay</codeph>、<codeph>repeatCount</codeph> および <codeph>repeatDelay</codeph> を含む）までです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:TweenEffectInstance"><apiName>TweenEffectInstance</apiName><shortdesc>
+ 
+  TweenEffectInstance クラスは、TweenEffect のインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+  TweenEffectInstance クラスは、TweenEffect のインスタンスクラスを実装します。 このクラスのインスタンスは、TweenEffect エフェクトの再生時に Flex によって作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Tween"><linktext>mx.effects.Tween</linktext></link><link href="mx.effects.xml#TweenEffect"><linktext>mx.effects.TweenEffect</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:TweenEffectInstance:TweenEffectInstance"><apiName>TweenEffectInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:protected:createTween"><apiName>createTween</apiName><shortdesc>
+	  Tween インスタンスを作成し、開始値、終了値および継続値を割り当てます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>新しく作成された Tween インスタンスです。
+	  
+	  </apiDesc><apiOperationClassifier>mx.effects:Tween</apiOperationClassifier></apiReturn><apiParam><apiItemName>listener</apiItemName><apiType value="Object"/><apiDesc>アニメーションの間隔ごとに通知されるオブジェクトを表します。 通常は、<codeph>this</codeph> キーワードを値として渡します。 <codeph>listener</codeph> で <codeph>onTweenUpdate()</codeph> メソッドを定義する必要があり、場合によっては <codeph>onTweenEnd()</codeph> メソッドも定義する必要があります。 <codeph>onTweenUpdate()</codeph> メソッドはアニメーションの間隔ごとに呼び出され、<codeph>onTweenEnd()</codeph> メソッドはアニメーションの完了直後に呼び出されます。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>アニメーションの初期値を表します（1 つまたは複数）。 数値または数値の配列のいずれかになります。 数値が渡された場合、Tween は、その数値と <codeph>endValue</codeph> パラメーターで渡された数値との間で補間を実行します。 数値の配列が渡された場合は、配列内の各数値が補間されます。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>アニメーションの終了値を表します（1 つまたは複数）。 この引数の型は <codeph>startValue</codeph> パラメーターの型と同じである必要があります。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>duration</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>アニメーションの継続時間を表します（ミリ秒単位）。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>minFps</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc><codeph>onTweenUpdate()</codeph> メソッドを呼び出す必要がある 1 秒ごとの最小回数を表します。 トゥイーンコードは、できるだけ頻繁に <codeph>onTweenUpdate()</codeph> メソッドを呼び出そうとします（1 秒あたり最大 100 回）。 ただし、頻度が <codeph>minFps</codeph> よりも少なくなった場合は、アニメーションの再生時間が自動的に増やされます。 その結果、CPU サイクルが得られずに一時的にフリーズしたアニメーションは、フリーズした位置から再生が再開されます。フリーズした位置よりも後の位置から突然再開することはありません。 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Tween インスタンスを作成し、開始値、終了値および継続値を割り当てます。 イージング関数が指定されている場合は、この Tween インスタンスに割り当てられます。 この Tween インスタンスには、TweenEvents のイベントリスナー（<codeph>tweenStart</codeph>、<codeph>tweenUpdate</codeph> および <codeph>tweenEnd</codeph>）が割り当てられます。 通常、このメソッドはアニメーションタイマーを効果的に開始する <codeph>EffectInstance.play()</codeph> メソッドのオーバーライドから呼び出します。 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:end"><apiName>end</apiName><shortdesc>
+	  現在再生中のエフェクトを中断し、エフェクトの終わりに即座にジャンプします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  現在再生中のエフェクトを中断し、エフェクトの終わりに即座にジャンプします。 <codeph>Tween.endTween()</codeph> メソッドを <codeph>tween</codeph> プロパティで呼び出します。 このメソッドは、スーパークラスのメソッドを実装します。 
+	 
+	  <p>TweenEffectInstance のサブクラスを作成する場合、必要に応じてこのメソッドをオーバーライドできます。</p>
+     
+	  <p>エフェクトは、<codeph>effectEnd</codeph> イベントを送出します。</p>
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.effects.xml#EffectInstance/end()"><linktext>mx.effects.EffectInstance.end()</linktext></link></related-links></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:onTweenEnd"><apiName>onTweenEnd</apiName><shortdesc> 
+	  ターゲットがエフェクトによって最終的に更新されるときに呼び出されるコールバックメソッドを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc><codeph>value</codeph> 引数の値は、<codeph>Tween.startValue</codeph> プロパティおよび <codeph>Tween.endValue</codeph> プロパティのほか、<codeph>play()</codeph> メソッドにおけるエフェクトの実装で指定された補間関数によって決定される補間値です。 <codeph>play()</codeph> メソッドでは、これらの値を使用して、一定時間エフェクトを再生する Tween オブジェクトを作成します。 <codeph>value</codeph> 引数には、Number または Number の配列を指定できます。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  ターゲットがエフェクトによって最終的に更新されるときに呼び出されるコールバックメソッドを表します。 Tween クラスは、<codeph>Tween.endValue</codeph> を <codeph>value</codeph> 引数の値として渡します。 <codeph>value</codeph> 引数には、Number または Number の配列を指定できます。 
+	 
+	  <p>この関数のオーバーライドはオプションです。 また、ロジックの後、つまりオーバーライドの終わりでこのメソッドのスーパーバージョン <codeph>super.onTweenEnd(val)</codeph> を呼び出す必要があります。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:onTweenUpdate"><apiName>onTweenUpdate</apiName><shortdesc> 
+	  ターゲットがエフェクトによって更新されるときに呼び出されるコールバックメソッドを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc><codeph>value</codeph> 引数の値は、<codeph>Tween.startValue</codeph> プロパティおよび <codeph>Tween.endValue</codeph> プロパティのほか、<codeph>play()</codeph> メソッドにおけるエフェクトの実装で指定された補間関数によって決定される補間値です。 <codeph>play()</codeph> メソッドでは、これらの値を使用して、一定時間エフェクトを再生する Tween オブジェクトを作成します。 <codeph>value</codeph> 引数には、Number または Number の配列を指定できます。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  ターゲットがエフェクトによって更新されるときに呼び出されるコールバックメソッドを表します。 Tween クラスでは、イージング関数と、<codeph>Tween.startValue</codeph>、<codeph>Tween.endValue</codeph> および <codeph>Tween.duration</codeph> の各プロパティを使用して、<codeph>value</codeph> 引数の値を計算します。 <codeph>value</codeph> 引数には、Number または Number の配列を指定できます。 
+	 
+	  <p>すべてのサブクラスで、このメソッドをオーバーライドする必要があります。 このメソッドをオーバーライドするときに、この関数のスーパーバージョンを呼び出す必要はありません。</p>
+	 
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:TweenEffectInstance:easingFunction"><apiName>easingFunction</apiName><shortdesc>
+	  アニメーションのイージング関数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  アニメーションのイージング関数を表します。 デフォルトでは、エフェクトは TweenEffect クラスと同じイージング関数を使用します。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.effects.xml#TweenEffect/easingFunction"><linktext>mx.effects.TweenEffect.easingFunction</linktext></link></related-links></apiValue><apiValue id="mx.effects.effectClasses:TweenEffectInstance:tween"><apiName>tween</apiName><shortdesc>
+	  Tween オブジェクト。アニメーション化を判断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.effects:Tween</apiValueClassifier></apiValueDef><apiDesc>
+	  Tween オブジェクト。アニメーション化を判断します。 エフェクトを作成するには、<codeph>EffectInstance.play()</codeph> メソッドのオーバーライドで Tween インスタンスを作成し、<codeph>tween</codeph> プロパティに割り当てる必要があります。 Tween オブジェクトを作成するには、<codeph>createTween()</codeph> メソッドを使用します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:TweenEffectInstance:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+	  
+      エフェクトの現在の時間位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  
+      エフェクトの現在の時間位置です。このプロパティの値の範囲は、0 から合計継続時間（Effect の <codeph>startDelay</codeph>、<codeph>repeatCount</codeph> および <codeph>repeatDelay</codeph> を含む）までです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:HideShowEffectTargetFilter"><apiName>HideShowEffectTargetFilter</apiName><shortdesc>
+  HideShowEffectTargetFilter は EffectTargetFilter のサブクラスであり、visible プロパティを変更することによって表示または非表示にされているターゲットにフィルターを適用するためのロジックを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectTargetFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HideShowEffectTargetFilter は EffectTargetFilter のサブクラスであり、<codeph>visible</codeph> プロパティを変更することによって表示または非表示にされているターゲットにフィルターを適用するためのロジックを処理します。Effect.filter プロパティを <codeph>hide</codeph> または <codeph>show</codeph> に設定している場合は、これらのいずれかが使用されます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:HideShowEffectTargetFilter:HideShowEffectTargetFilter"><apiName>HideShowEffectTargetFilter</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:HideShowEffectTargetFilter:show"><apiName>show</apiName><shortdesc>
+	  このフィルターが表示フィルターであるか、非表示フィルターであるかを決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  このフィルターが表示フィルターであるか、非表示フィルターであるかを決定します。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

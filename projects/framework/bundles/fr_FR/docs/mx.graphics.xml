@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics"><apiName>mx.graphics</apiName><apiDetail/><apiClassifier id="mx.graphics:ImageSnapshot"><apiName>ImageSnapshot</apiName><shortdesc>
+  Classe d’aide utilisée pour capturer un instantané des composants Flash qui implémentent flash.display.IBitmapDrawable, y compris les composants UIComponents Flex. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe d’aide utilisée pour capturer un instantané des composants Flash qui implémentent <codeph>flash.display.IBitmapDrawable</codeph>, y compris les composants UIComponents Flex.
+ 
+  <p>Une occurrence de cette classe peut être envoyée sous la forme d’un composant RemoteObject à Adobe LiveCycle Data Services afin de générer un fichier PDF d’une image côté client. Si vous devez spécifier d’autres propriétés de l’image au-delà de ses propriétés <codeph>contentType</codeph>, <codeph>width</codeph> et <codeph>height</codeph>, vous devez définir des paires nom/valeur pour l’objet <codeph>properties</codeph>.</p>
+ 
+  <p>Dans les versions antérieures de Flex, ces propriétés supplémentaires étaient définies sur l’occurrence ImageSnapshot. Cette classe reste dynamique afin de permettre cette action, mais elle ne le sera peut être plus dans une version ultérieure de Flex. </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics:ImageSnapshot:ImageSnapshot"><apiName>ImageSnapshot</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Largeur de l’image.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Hauteur de l’image.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>Tableau d’octets contenant l’image. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>contentType</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Type de format de l’encodeur de l’image, PNGEncoder ou JPEGEncoder. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:ImageSnapshot:captureBitmapData"><apiName>captureBitmapData</apiName><shortdesc>
+      Méthode d’utilitaire permettant de saisir un instantané brut d’un composant de l’interface utilisateur sous la forme d’un objet BitmapData. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Objet BitmapData représentant l’instantané capturé ou null si la source n’a aucune limite visible.
+      
+      </apiDesc><apiType value="flash.display:BitmapData"/></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="flash.display:IBitmapDrawable"/><apiDesc>Objet qui implémente l’interface <codeph>flash.display.IBitmapDrawable</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matrix</apiItemName><apiType value="flash.geom:Matrix"/><apiData>null</apiData><apiDesc>Objet Matrix utilisé pour redimensionner, faire pivoter ou traduire les coordonnées du bitmap capturé. Si vous ne souhaitez pas appliquer une matrice de transformation à l’image, réglez ce paramètre sur une matrice d’identité, créée à l’aide du constructeur new Matrix() par défaut, ou transmettez une valeur null.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorTransform</apiItemName><apiType value="flash.geom:ColorTransform"/><apiData>null</apiData><apiDesc>Objet ColorTransform utilisé pour définir les valeurs de couleur du bitmap. Si aucun objet n’est fourni, les couleurs de l’image bitmap ne sont pas transformées. Si ce paramètre doit être transmis, alors que vous ne souhaitez pas transformer l’image, réglez-le sur un objet ColorTransform créé à l’aide du constructeur new ColorTransform() par défaut.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>blendMode</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Chaîne extraite de la classe flash.display.BlendMode, qui spécifie le mode de fondu à appliquer au bitmap générée par l’opération.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>clipRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>Objet Rectangle qui définit la zone de l’image source à dessiner. Si cette valeur n’est pas fournie, aucun découpage n’est effectué et l’objet source est dessiné dans sa totalité.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>smoothing</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Valeur booléenne indiquant si un objet BitmapData doit être lissé lorsqu’il est redimensionné. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Méthode d’utilitaire permettant de saisir un instantané brut d’un composant de l’interface utilisateur sous la forme d’un objet BitmapData. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:ImageSnapshot:captureImage"><apiName>captureImage</apiName><shortdesc>
+      Méthode d’utilitaire permettant de saisir un instantané d’un composant, mis à l’échelle à une résolution spécifique (en ppp) et codé dans un format d’image spécifique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Une occurrence ImageSnapshot contenant un instantané capturé codé et les métadonnées d’image associées. 
+      
+      </apiDesc><apiOperationClassifier>mx.graphics:ImageSnapshot</apiOperationClassifier></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="flash.display:IBitmapDrawable"/><apiDesc>Objet qui implémente l’interface <codeph>flash.display.IBitmapDrawable</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dpi</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Résolution en points par pouce. En l’absence de résolution, la résolution à l’écran est utilisée par défaut. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>encoder</apiItemName><apiOperationClassifier>mx.graphics.codec:IImageEncoder</apiOperationClassifier><apiData>null</apiData><apiDesc>Le format d’image utilise pour coder le bitmap brut. Les deux encodeurs sont PNGEncoder et JPEGEncoder. Si aucun encodeur n’est fourni, celui par défaut est PNGEncoder. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleLimited</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>La largeur ou la hauteur maximale d’une image bitmap dans Flash est de 2880 pixels. Si la valeur scaleLimited est définie sur true la résolution est réduite proportionnellement pour rester dans la limite de 2880 pixels. Dans le cas contraire, si la valeur scaleLimited est définie sur false, des fenêtres d’instantané de taille inférieure seront prises et assemblées afin de capturer une image plus grande. La valeur par défaut est true.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Méthode d’utilitaire permettant de saisir un instantané d’un composant, mis à l’échelle à une résolution spécifique (en ppp) et codé dans un format d’image spécifique. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:ImageSnapshot:encodeImageAsBase64"><apiName>encodeImageAsBase64</apiName><shortdesc>
+      Méthode d’utilitaire permettant de convertir un instantané ImageSnapshot en chaîne codée au format base-64 à des fins de transmission dans un format de sérialisation basé sur du texte, tel que le XML. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Chaîne représentant l’instantané codé au format Base64. 
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>snapshot</apiItemName><apiOperationClassifier>mx.graphics:ImageSnapshot</apiOperationClassifier><apiDesc>Image capturée en tant qu’instantané <codeph>mx.graphics.ImageSnapshot</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Méthode d’utilitaire permettant de convertir un instantané ImageSnapshot en chaîne codée au format Base-64 à des fins de transmission dans un format de sérialisation basé sur du texte, tel que le XML. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.graphics.xml#ImageSnapshot/captureImage"><linktext>captureImage</linktext></link></related-links></apiOperation><apiValue id="mx.graphics:ImageSnapshot:MAX_BITMAP_DIMENSION"><apiName>MAX_BITMAP_DIMENSION</apiName><shortdesc>
+      Largeur et hauteur maximales d’un bitmap. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2880</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Largeur et hauteur maximales d’un bitmap. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:defaultEncoder"><apiName>defaultEncoder</apiName><shortdesc>
+      Implémentation mx.graphics.codec.IImageEncoder par défaut utilisée pour la capture d’images. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Class"/></apiValueDef><apiDesc>
+      Implémentation <codeph>mx.graphics.codec.IImageEncoder</codeph> par défaut utilisée pour la capture d’images. Les deux implémentations sont PNGEncoder et JPEGEncoder. L’encodeur par défaut utilise le format PNG. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Type de contenu MIME pour format de codage d’image utilisé pour capturer cet instantané. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Type de contenu MIME pour format de codage d’image utilisé pour capturer cet instantané. Pour les images au format PNG, le type MIME est « image/png ». Pour les images au format JPG ou JPEG, le type MIME est « image/jpeg » 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:data:get"><apiName>data</apiName><shortdesc>
+      Données codées représentant l’instantané de l’image. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.utils:ByteArray"/></apiValueDef><apiDesc>
+      Données codées représentant l’instantané de l’image. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:height:get"><apiName>height</apiName><shortdesc>
+      Hauteur de l’image, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Hauteur de l’image, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:properties:get"><apiName>properties</apiName><shortdesc>
+      Objet contenant des paires nom/valeur spécifiant des propriétés supplémentaires de l’image. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>{}
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Objet contenant des paires nom/valeur spécifiant des propriétés supplémentaires de l’image. 
+     
+      <p>En règle générale, vous devez fournir de telles informations lors de l’envoi d’une occurrence ImageSnapshot à Adobe LiveCycle Data Services en vue de générer un fichier PDF. Vous pouvez définir l’ensemble de l’objet ou définir des paires nom/valeur individuelles pour l’objet vide préexistant. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:width:get"><apiName>width</apiName><shortdesc>
+     Largeur de l’image, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+     Largeur de l’image, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:GradientStroke"><apiName>GradientStroke</apiName><shortdesc>
+  La classe GradientStroke vous permet de spécifier un contour à remplissage dégradé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IStroke</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GradientStroke vous permet de spécifier un contour à remplissage dégradé. Vous pouvez utiliser la classe GradientStroke, ainsi qu’à la classe GradientEntry, pour définir un contour dégradé. 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:GradientStroke:GradientStroke"><apiName>GradientStroke</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Spécifie l’épaisseur de trait, en pixels. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>1</codeph>  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Valeur booléenne qui permet d’ajouter des indices supplémentaires de lissage des pixels. Cette valeur affecte à la fois la position des ancres de courbe et la taille du trait. Si <codeph>pixelHinting</codeph> est défini sur <codeph>true</codeph>, Flash Player et AIR proposent des indices de largeur des pixels. Si <codeph>pixelHinting</codeph> est défini sur <codeph>false</codeph>, les courbes et les lignes droites risquent de ne pas être continues. Ce paramètre est facultatif, avec une valeur par défaut <codeph>false</codeph> 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Valeur de la classe LineScaleMode qui spécifie le mode d’échelle à utiliser. Les valeurs possibles sont les suivantes : <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> et <codeph>LineScaleMode.VERTICAL</codeph>. Ce paramètre est facultatif, avec la valeur par défaut <codeph>LineScaleMode.NORMAL</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Valeur de la classe CapsStyle qui spécifie le type d’extrémité au bout des lignes. Les valeurs possibles sont les suivantes : <codeph>CapsStyle.NONE</codeph>, <codeph>CapsStyle.ROUND</codeph> et <codeph>CapsStyle.SQUARE</codeph>. Une valeur <codeph>null</codeph> équivaut à <codeph>CapsStyle.ROUND</codeph> Ce paramètre est facultatif, avec une valeur par défaut de <codeph>CapsStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Valeur de la classe JointStyle qui spécifie le type d’apparence de liaison utilisé dans les angles. Les valeurs possibles sont les suivantes : <codeph>JointStyle.BEVEL</codeph>, <codeph>JointStyle.MITER</codeph> et <codeph>JointStyle.ROUND</codeph>. Une valeur <codeph>null</codeph> équivaut à <codeph>JointStyle.ROUND</codeph>. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>JointStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>Nombre qui indique la limite à laquelle une pointe est coupée. Les valeurs gérées sont comprises entre 1 et 255 (et les valeurs qui excèdent cette plage sont arrondies à 1 ou 255). Cette valeur n’est utilisée que si la propriété <codeph>jointStyle</codeph> est définie sur <codeph>miter</codeph>. La valeur <codeph>miterLimit</codeph> représente la longueur maximale d’une pointe au-delà du point où les lignes se rencontrent pour former une liaison. La valeur exprime un facteur du paramètre <codeph>thickness</codeph> de la ligne. Par exemple, avec un facteur <codeph>miterLimit</codeph> de 2,5 et une valeur de <codeph>thickness</codeph> de 10 pixels, la pointe est coupée à 25 pixels. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>3</codeph>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:GradientStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+	  Applique les propriétés à l’objet Graphics spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics auquel appliquer les propriétés. 
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Les limites de la forme à laquelle est appliqué le tracé.  
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.   
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Applique les propriétés à l’objet Graphics spécifié. 
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:GradientStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      
+      Génère un objet GraphicsStroke représentant ce tracé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>L’objet GraphicsStroke de dessin API-2 représentant ce tracé.  
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Le cadre de délimitation du tracé.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Génère un objet GraphicsStroke représentant ce tracé. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:GradientStroke:caps:get"><apiName>caps</apiName><shortdesc>
+      Spécifie l’aspect des extrémités de lignes. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CapsStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie l’aspect des fins de lignes. 
+     
+      <p>Les valeurs possibles sont les suivantes : <codeph>CapsStyle.NONE</codeph>, <codeph>CapsStyle.ROUND</codeph> et <codeph>CapsStyle.SQUARE</codeph>. Une valeur <codeph>null</codeph> équivaut à <codeph>CapsStyle.ROUND</codeph></p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.CapStyle.xml"><linktext>flash.display.CapStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      Valeur de la classe JointStyle qui spécifie le type d’apparence de liaison utilisé dans les angles. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>JointStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de la classe JointStyle qui spécifie le type d’apparence de liaison utilisé dans les angles. 
+     
+      <p>Les valeurs possibles sont les suivantes : <codeph>JointStyle.BEVEL</codeph>, <codeph>JointStyle.MITER</codeph> et <codeph>JointStyle.ROUND</codeph>. Une valeur <codeph>null</codeph> équivaut à <codeph>JointStyle.ROUND</codeph>.</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.JointStyle.xml"><linktext>flash.display.JointStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      Nombre qui indique la limite à laquelle une pointe est coupée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre qui indique la limite à laquelle une pointe est coupée.  
+     
+      <p>Les valeurs gérées sont comprises entre 1 et 255 (et les valeurs qui excèdent cette plage sont arrondies à 1 ou 255). </p>
+     
+      <p>Cette valeur n’est utilisée que si la propriété <codeph>jointStyle</codeph> est définie sur <codeph>JointStyle.MITER</codeph>. </p>
+     
+      <p>La valeur <codeph>miterLimit</codeph> représente la longueur maximale d’une pointe au-delà du point où les lignes se rencontrent pour former une liaison. La valeur exprime un facteur du paramètre <codeph>thickness</codeph> de la ligne. Par exemple, avec un facteur <codeph>miterLimit</codeph> de 2,5 et une valeur de <codeph>thickness</codeph> de 10 pixels, la pointe est coupée à 25 pixels.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientStroke:pixelHinting:get"><apiName>pixelHinting</apiName><shortdesc>
+      Valeur booléenne qui permet d’ajouter des indices supplémentaires de lissage des pixels. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur booléenne qui permet d’ajouter des indices supplémentaires de lissage des pixels. 
+     
+      <p>Cette valeur affecte à la fois la position des ancres de courbe et la taille du trait. </p>
+     
+      <p>Si <codeph>pixelHinting</codeph> est défini sur <codeph>true</codeph>, Flash Player et AIR proposent des indices de largeur des pixels. Si <codeph>pixelHinting</codeph> est défini sur <codeph>false</codeph>, les courbes et les lignes droites risquent de ne pas être continues. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      Spécifie le mode d’échelle à utiliser. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie le mode d’échelle à utiliser. Les valeurs possibles sont les suivantes :
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph> Redimensionne toujours l’épaisseur du trait si l’objet est redimensionné (valeur par défaut).
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph> Ne redimensionne jamais l’épaisseur du trait.
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph> N’ajuste pas l’épaisseur du trait si l’objet est redimensionné verticalement <i>uniquement</i>. 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph> N’ajuste pas l’épaisseur du trait si l’objet est redimensionné horizontalement <i>uniquement</i>. 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.LineScaleMode.xml"><linktext>flash.display.LineScaleMode</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:weight:get"><apiName>weight</apiName><shortdesc>
+      Epaisseur du trait, en pixels. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Epaisseur du trait, en pixels. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:IFill"><apiName>IFill</apiName><shortdesc>
+  Définit l’interface que les classes effectuant un remplissage doivent implémenter. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Définit l’interface que les classes effectuant un remplissage doivent implémenter. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link></related-links><apiOperation id="mx.graphics:IFill:mx.graphics:IFill:begin"><apiName>begin</apiName><shortdesc>
+	  Lance le remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics cible en cours de remplissage. 
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Objet Rectangle définissant la taille du remplissage à l’intérieur de <codeph>target</codeph>. Si les dimensions du rectangle sont supérieures à celles de <codeph>target</codeph>, le remplissage est tronqué. Si les dimensions du rectangle sont inférieures à celles de <codeph>target</codeph>, le remplissage s’étend à l’ensemble de <codeph>target</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.  
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Lance le remplissage. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:IFill:mx.graphics:IFill:end"><apiName>end</apiName><shortdesc>
+	  Termine le remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics en cours de remplissage.  
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Termine le remplissage. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.graphics:GradientEntry"><apiName>GradientEntry</apiName><shortdesc>
+  La classe GradientEntry définit les objets qui permettent de contrôler une transition dans le cadre d’un remplissage dégradé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:GradientEntry&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GradientEntry
+    <b>Properties</b>
+    alpha="1.0"
+    color="0x000000"
+    ratio="NaN"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GradientEntry définit les objets qui permettent de contrôler une transition dans le cadre d’un remplissage dégradé. Vous pouvez utiliser cette classe avec les classes LinearGradient et RadialGradient pour définir un remplissage dégradé.  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link></related-links><apiConstructor id="mx.graphics:GradientEntry:GradientEntry"><apiName>GradientEntry</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Couleur de cette entrée de dégradé. La valeur par défaut est 0x000000 (noir).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ratio</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Dans l’élément graphique, emplacement auquel la couleur est échantillonnée sur 100 %. Flex espace uniformément les entrées GradientEntries avec des valeurs de ratio manquantes. La valeur par défaut est NaN. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Valeur alpha de cette entrée dans le dégradé. Ce paramètre est facultatif. La valeur par défaut est 1.0.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:GradientEntry:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Transparence du remplissage dégradé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Transparence du remplissage dégradé. Les valeurs possibles sont comprises entre 0.0 (invisible) et 1.0 (opaque).  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientEntry:color:get"><apiName>color</apiName><shortdesc>
+      Valeur de la couleur d’un remplissage en dégradé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Valeur de la couleur d’un remplissage en dégradé.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientEntry:ratio:get"><apiName>ratio</apiName><shortdesc>
+      Dans l’élément graphique, emplacement exprimé sous forme de pourcentage compris entre 0.0 à 1.0 dans lequel Flex prélève un échantillon de la couleur associée à 100 %. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Dans l’élément graphique, emplacement exprimé sous forme de pourcentage compris entre 0.0 à 1.0 dans lequel Flex prélève un échantillon de la couleur associée à 100 %.  
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapFillMode"><apiName>BitmapFillMode</apiName><shortdesc>
+  La classe BitmapFillMode définit une énumération des modes de redimensionnement qui déterminent la manière dont une image BitmapImage remplit les dimensions spécifiées par le système de présentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe BitmapFillMode définit une énumération des modes de redimensionnement qui déterminent la manière dont une image BitmapImage remplit les dimensions spécifiées par le système de présentation.
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Image/fillMode"><linktext>spark.components.Image.fillMode</linktext></link><link href="" invalidHref="spark.primitives.xml#BitmapImage/fillMode"><linktext>spark.primitives.BitmapImage.fillMode</linktext></link></related-links><apiValue id="mx.graphics:BitmapFillMode:CLIP"><apiName>CLIP</apiName><shortdesc>
+      Le bitmap se termine sur le bord de la région. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>clip</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le bitmap se termine sur le bord de la région. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFillMode:REPEAT"><apiName>REPEAT</apiName><shortdesc>
+      Le bitmap est répété pour remplir la région. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>repeat</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le bitmap est répété pour remplir la région. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFillMode:SCALE"><apiName>SCALE</apiName><shortdesc>
+      Le remplissage de bitmap s’étire pour remplir la région. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>scale</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le remplissage de bitmap s’étire pour remplir la région. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RadialGradient"><apiName>RadialGradient</apiName><shortdesc>
+  La classe RadialGradient vous permet de spécifier une transition de couleur progressive dans la couleur de remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RadialGradient&gt;</code> tag
+  inherits all the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:RadialGradient
+    <b>Properties</b>
+    angle="0"
+    focalPointRatio="0"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe RadialGradient vous permet de spécifier une transition de couleur progressive dans la couleur de remplissage. Un dégradé radial définit un motif de remplissage qui s’étend à partir du centre d’un élément graphique. Ajoutez une série d’objets GradientEntry au tableau <codeph>entries</codeph> de l’objet RadialGradient pour définir les couleurs qui composent le remplissage dégradé. 
+  
+  <p>Dans MXML, définissez un objet RadialGradient en ajoutant une série d’objets GradientEntry, comme l’illustre l’exemple suivant : 
+  <pre>
+  &lt;mx:fill>
+      &lt;mx:RadialGradient>
+          &lt;mx:entries>
+              &lt;mx:GradientEntry color="0xC5C551" ratio="0.00" alpha="0.5"/>
+              &lt;mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+              &lt;mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+          &lt;/mx:entries>
+      &lt;/mx:RadialGradient>
+  &lt;/mx:fill>
+  </pre>
+  </p>
+  
+  <p>Vous pouvez également définir un objet RadialGradient comme remplissage pour n’importe quel élément graphique dans ActionScript, comme l’illustre l’exemple suivant : 
+  <pre>
+  
+  &lt;?xml version="1.0"?>
+  &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+      &lt;mx:Script>
+      import flash.display.Graphics;
+      import flash.geom.Rectangle;
+      import mx.graphics.GradientEntry;
+      import mx.graphics.RadialGradient;
+  
+      private function init():void
+      {
+          var w:Number = 200;
+          var h:Number = 200;
+  
+          var s:Sprite = new Sprite();
+          // Add the new Sprite to the display list.
+          rawChildren.addChild(s);    
+  
+          var g:Graphics = s.graphics;
+          g.lineStyle(1, 0x33CCFF, 1.0);
+  
+          var fill:RadialGradient = new RadialGradient();
+          
+          var g1:GradientEntry = new GradientEntry(0xFFCC66, 0.00, 0.5);
+          var g2:GradientEntry = new GradientEntry(0x000000, 0.33, 0.5);
+          var g3:GradientEntry = new GradientEntry(0x99FF33, 0.66, 0.5);
+          
+          fill.entries = [ g1, g2, g3 ];
+  
+          // Set focal point to upper left corner.
+          fill.angle = 45;
+          fill.focalPointRatio = -0.8;
+  
+          // Draw a box and fill it with the RadialGradient.
+          g.moveTo(0, 0);
+          fill.begin(g,new Rectangle(0, 0, w, h));
+          g.lineTo(w, 0);
+          g.lineTo(w, h);
+          g.lineTo(0, h);
+          g.lineTo(0, 0);      
+          fill.end(g);
+      }
+      &lt;/mx:Script>
+  &lt;/mx:Application>
+  </pre>  
+  </p>  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:RadialGradient:RadialGradient"><apiName>RadialGradient</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:RadialGradient:begin"><apiName>begin</apiName><shortdesc>
+      
+	  Lance le remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics cible en cours de remplissage. 
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Objet Rectangle définissant la taille du remplissage à l’intérieur de <codeph>target</codeph>. Si les dimensions du rectangle sont supérieures à celles de <codeph>target</codeph>, le remplissage est tronqué. Si les dimensions du rectangle sont inférieures à celles de <codeph>target</codeph>, le remplissage s’étend à l’ensemble de <codeph>target</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.  
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Lance le remplissage. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:RadialGradient:end"><apiName>end</apiName><shortdesc>
+      
+	  Termine le remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics en cours de remplissage.  
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Termine le remplissage. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:RadialGradient:focalPointRatio:get"><apiName>focalPointRatio</apiName><shortdesc>
+      Définit l’emplacement du début du remplissage radial. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Définit l’emplacement du début du remplissage radial. 
+     
+      <p>Les valeurs possibles sont comprises entre <codeph>-1,0</codeph> et <codeph>1,0</codeph>. La valeur <codeph>-1</codeph> permet de définir le point focal (ou le début du fond en dégradé) sur la gauche du rectangle de délimitation. La valeur <codeph>1</codeph> permet de définir le point focal sur la droite du rectangle de délimitation. 
+      
+      <p>Si vous utilisez cette propriété conjointement avec la propriété <codeph>angle</codeph>, cette valeur spécifie le degré de distance par rapport au centre sur lequel le point focal se produit. Par exemple, avec un angle de 45 et un paramètre <codeph>focalPointRatio</codeph> de 0.25, le point focal est légèrement inférieur et à droite du centre. Si vous définissez <codeph>focalPointRatio</codeph> sur <codeph>0</codeph>, le point focal est au milieu du rectangle de délimitation. </p>
+      Si vous définissez <codeph>focalPointRatio</codeph> sur <codeph>1</codeph>, le point focal est situé sur le coin inférieur droit du rectangle de délimitation. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradient:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Echelle horizontale de la transformation de dégradé, qui définit la largeur du dégradé (sans rotation) 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Echelle horizontale de la transformation de dégradé, qui définit la largeur du dégradé (sans rotation) 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradient:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      Echelle verticale de la transformation de dégradé, qui définit la hauteur du dégradé (sans rotation) 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Echelle verticale de la transformation de dégradé, qui définit la hauteur du dégradé (sans rotation) 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:IStroke"><apiName>IStroke</apiName><shortdesc>
+  Définit l’interface que les classes définissant une ligne doivent implémenter. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Définit l’interface que les classes définissant une ligne doivent implémenter. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.graphics:IStroke:mx.graphics:IStroke:apply"><apiName>apply</apiName><shortdesc>
+	  Applique les propriétés à l’objet Graphics spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics auquel appliquer les propriétés. 
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Les limites de la forme à laquelle est appliqué le tracé.  
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.   
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Applique les propriétés à l’objet Graphics spécifié. 
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:IStroke:mx.graphics:IStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      Génère un objet GraphicsStroke représentant ce tracé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>L’objet GraphicsStroke de dessin API-2 représentant ce tracé.  
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Le cadre de délimitation du tracé.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Génère un objet GraphicsStroke représentant ce tracé. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      Spécifie l’aspect des intersections de ligne utilisées dans les angles. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Spécifie l’aspect des intersections de ligne utilisées dans les angles. Les valeurs possibles sont <codeph>JointStyle.ROUND</codeph>, <codeph>JointStyle.MITER</codeph> et <codeph>JointStyle.BEVEL</codeph>.
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.JoingStyle.xml"><linktext>flash.display.JoingStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      Indique la limite à laquelle une pointe est coupée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique la limite à laquelle une pointe est coupée. Les valeurs possibles vont de 0 à 255.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      Valeur de la classe LineScaleMode qui spécifie le mode d’échelle à utiliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de la classe LineScaleMode qui spécifie le mode d’échelle à utiliser. Les valeurs possibles sont les suivantes :
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph> Redimensionne toujours l’épaisseur du trait si l’objet est redimensionné (valeur par défaut).
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph> Ne redimensionne jamais l’épaisseur du trait.
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph> N’ajuste pas l’épaisseur du trait si l’objet est redimensionné verticalement <i>uniquement</i>. 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph> N’ajuste pas l’épaisseur du trait si l’objet est redimensionné horizontalement <i>uniquement</i>. 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.LineScaleMode.xml"><linktext>flash.display.LineScaleMode</linktext></link></related-links></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:weight:get"><apiName>weight</apiName><shortdesc>
+	  Epaisseur du trait, en pixels. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Epaisseur du trait, en pixels. Pour de nombreuses lignes de graphique, la valeur par défaut est de 1 pixel. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapFill"><apiName>BitmapFill</apiName><shortdesc> 
+  Définit un ensemble de valeurs utilisé pour remplir une zone à l’écran avec une image bitmap ou à un autre objet DisplayObject. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  Définit un ensemble de valeurs utilisé pour remplir une zone à l’écran avec une image bitmap ou à un autre objet DisplayObject. 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link><link href="" invalidHref="flash.display.Bitmap.xml"><linktext>flash.display.Bitmap</linktext></link><link href="" invalidHref="flash.display.BitmapData.xml"><linktext>flash.display.BitmapData</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="mx.graphics:BitmapFill:BitmapFill"><apiName>BitmapFill</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:BitmapFill:protected:compoundTransform"><apiName>compoundTransform</apiName><shortdesc>
+      Contient la matrice et les propriétés de transformation pratiques (x, y et rotation). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.geom:CompoundTransform</apiValueClassifier></apiValueDef><apiDesc>
+      Contient la matrice et les propriétés de transformation pratiques (<codeph>x</codeph>, <codeph>y</codeph> et <codeph>rotation</codeph>). La classe compoundTransform est créée lors de la définition de la propriété <codeph>matrix</codeph>.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Transparence du remplissage dégradé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0. 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Transparence du remplissage dégradé. Les valeurs possibles sont comprises entre 0.0 (invisible) et 1.0 (opaque).  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:fillMode:get"><apiName>fillMode</apiName><shortdesc>
+      Détermine la manière dont l’image bitmap remplit les dimensions.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapFillMode.SCALE&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Détermine la manière dont l’image bitmap remplit les dimensions. Si vous définissez la valeur de cette propriété dans une balise, utilisez la chaîne (par exemple, « repeat »). Si vous définissez la valeur de cette propriété dans ActionScript, utilisez la constante (par exemple, <codeph>BitmapFillMode.CLIP</codeph>). Lorsque cette valeur est définie sur <codeph>BitmapFillMode.CLIP</codeph> (« clip »), le bitmap se termine sur le bord de la région. Lorsque cette valeur est définie sur <codeph>BitmapFillMode.REPEAT</codeph> (« repeat »), l’image bitmap se répète pour remplir la région. Lorsque cette valeur est définie sur <codeph>BitmapFillMode.SCALE</codeph> (« scale »), l’image bitmap s’étire pour remplir la région.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:matrix:get"><apiName>matrix</apiName><shortdesc>
+      Tableau des valeurs utilisées pour la transformation de matrice.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/></apiValueDef><apiDesc>
+      Tableau des valeurs utilisées pour la transformation de matrice.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:offsetX:get"><apiName>offsetX</apiName><shortdesc>
+      Distance de décalage horizontal du bitmap par rapport à l’origine. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue><apiDeprecated replacement="x" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Distance de décalage horizontal du bitmap par rapport à l’origine. Ce réglage est effectué après la rotation et la mise à l’échelle. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:offsetY:get"><apiName>offsetY</apiName><shortdesc>
+      Distance de décalage vertical du bitmap par rapport à l’origine. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue><apiDeprecated replacement="y" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Distance de décalage vertical du bitmap par rapport à l’origine. Ce réglage est effectué après la rotation et la mise à l’échelle. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:originX:get"><apiName>originX</apiName><shortdesc>
+      Origine horizontale du remplissage bitmap. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0 
+      
+      </apiDefaultValue><apiDeprecated replacement="transformX" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Origine horizontale du remplissage bitmap. Le remplissage bitmap est décalé afin que ce point apparaisse à l’origine. La mise à l’échelle et la rotation de l’image bitmap sont effectuées autour de ce point. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:originY:get"><apiName>originY</apiName><shortdesc>
+      Origine verticale du remplissage bitmap. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0 
+      
+      </apiDefaultValue><apiDeprecated replacement="transformY" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Origine verticale du remplissage bitmap. Le remplissage bitmap est décalé afin que ce point apparaisse à l’origine. La mise à l’échelle et la rotation de l’image bitmap sont effectuées autour de ce point. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:repeat:get"><apiName>repeat</apiName><shortdesc>
+      Indique si le bitmap est répété pour remplir la zone. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue><apiDeprecated replacement="fillMode" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Indique si le bitmap est répété pour remplir la zone. Défini sur <codeph>true</codeph> pour que le remplissage s’effectue en mosaïque vers l’extérieur jusqu’aux bords de la région remplie. Défini sur <codeph>false</codeph> pour terminer le remplissage au bord de la région. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:rotation:get"><apiName>rotation</apiName><shortdesc>
+      Nombre de degrés de rotation du bitmap. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre de degrés de rotation du bitmap. Les valeurs possibles vont de 0.0 à 360.0.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Pourcentage de mise à l’échelle horizontale du bitmap lors du remplissage, de 0.0 à 1.0. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Pourcentage de mise à l’échelle horizontale du bitmap lors du remplissage, de 0.0 à 1.0. Si la valeur est 1.0, le bitmap est rempli à sa taille naturelle. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      Le Pourcentage de mise à l’échelle verticale du bitmap lors du remplissage, de 0.0 à 1.0. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Pourcentage de mise à l’échelle verticale du bitmap lors du remplissage, de 0.0 à 1.0. Si la valeur est 1.0, le bitmap est rempli à sa taille naturelle. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:smooth:get"><apiName>smooth</apiName><shortdesc>
+      Indicateur signalant si les données bitmap doivent être lissées lors du remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Un indicateur signalant si les données bitmap doivent être lissées lors du remplissage. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:source:get"><apiName>source</apiName><shortdesc>
+      Source utilisée pour le remplissage bitmap. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Source utilisée pour le remplissage de bitmap. Le remplissage peut effectuer le rendu à partir de diverses sources graphiques, y compris les suivantes :  
+      <ul>
+       <li>Une occurrence Bitmap ou BitmapData.</li>
+       <li>Une classe représentant une sous-classe de DisplayObject. La classe BitmapFill instancie la classe et en crée un rendu de bitmap. </li>
+       <li>Une occurrence d’un objet DisplayObject. La classe BitmapFill la copie dans un bitmap en vue du remplissage. </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:transformX:get"><apiName>transformX</apiName><shortdesc>
+      Position x du point de transformation du remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position x du point de transformation du remplissage. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:transformY:get"><apiName>transformY</apiName><shortdesc>
+      Position y du point de transformation du remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position y du point de transformation du remplissage. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:x:get"><apiName>x</apiName><shortdesc>
+      Distance de translation de chaque point sur l’axe x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Distance de translation de chaque point sur l’axe x.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:y:get"><apiName>y</apiName><shortdesc>
+      Distance de translation de chaque point sur l’axe y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Distance de translation de chaque point sur l’axe y.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:LinearGradient"><apiName>LinearGradient</apiName><shortdesc>
+  La classe LinearGradient vous permet de spécifier le remplissage d’un élément graphique, dans lequel un dégradé spécifie une transition de couleur progressive dans la couleur de remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:LinearGradient&gt;</code> tag
+  inherits all the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:LinearGradient
+    <b>Properties</b>
+    angle="0"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe LinearGradient vous permet de spécifier le remplissage d’un élément graphique, dans lequel un dégradé spécifie une transition de couleur progressive dans la couleur de remplissage. Ajoutez une série d’objets GradientEntry au tableau <codeph>entries</codeph> de l’objet LinearGradient pour définir les couleurs qui composent le remplissage en dégradé. 
+  
+  <p>Dans MXML, définissez un objet LinearGradient en ajoutant une série d’objets GradientEntry, comme l’illustre l’exemple suivant : 
+  <pre>
+  &lt;mx:fill>
+  	&lt;mx:LinearGradient>
+  		&lt;mx:entries>
+  			&lt;mx:GradientEntry color="0xC5C551" ratio="0.00" alpha="0.5"/>
+  			&lt;mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+  			&lt;mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+  		&lt;/mx:entries>
+  	&lt;/mx:LinearGradient>
+  &lt;/mx:fill>
+  </pre>
+  </p>
+  
+  <p>Vous pouvez également définir un objet LinearGradient comme remplissage d’élément graphique dans ActionScript, comme l’illustre l’exemple suivant : 
+  <pre>
+  
+  &lt;?xml version="1.0"?>
+  &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+  	&lt;mx:Script>
+  	import flash.display.Graphics;
+  	import flash.geom.Rectangle;
+  	import mx.graphics.GradientEntry;
+  	import mx.graphics.LinearGradient;
+  
+  	private function init():void
+      {
+  		var w:Number = 200;
+  		var h:Number = 200;
+  
+  		var s:Sprite = new Sprite();
+  		// Add the new Sprite to the display list.
+  		rawChildren.addChild(s);	
+  
+  		var g:Graphics = s.graphics;
+  		g.lineStyle(1, 0x33CCFF, 1.0);
+  
+  		var fill:LinearGradient = new LinearGradient();
+  		
+  		var g1:GradientEntry = new GradientEntry(0xFFCC66, 0.00, 0.5);
+  		var g2:GradientEntry = new GradientEntry(0x000000, 0.33, 0.5);
+  		var g3:GradientEntry = new GradientEntry(0x99FF33, 0.66, 0.5);
+    		
+   		fill.entries = [ g1, g2, g3 ];
+  		fill.angle = 240;
+  
+   		// Draw a box and fill it with the LinearGradient.
+  		g.moveTo(0, 0);
+  		fill.begin(g, new Rectangle(0, 0, w, h));
+  		g.lineTo(w, 0);
+  		g.lineTo(w, h);
+  		g.lineTo(0, h);
+  		g.lineTo(0, 0);		
+  		fill.end(g);
+  	}
+  	&lt;/mx:Script>
+  &lt;/mx:Application>
+  </pre>  
+  </p>  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:LinearGradient:LinearGradient"><apiName>LinearGradient</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:LinearGradient:begin"><apiName>begin</apiName><shortdesc>
+	  
+	  Lance le remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics cible en cours de remplissage. 
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Objet Rectangle définissant la taille du remplissage à l’intérieur de <codeph>target</codeph>. Si les dimensions du rectangle sont supérieures à celles de <codeph>target</codeph>, le remplissage est tronqué. Si les dimensions du rectangle sont inférieures à celles de <codeph>target</codeph>, le remplissage s’étend à l’ensemble de <codeph>target</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.  
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  Lance le remplissage. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:LinearGradient:end"><apiName>end</apiName><shortdesc>
+	  
+	  Termine le remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics en cours de remplissage.  
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  Termine le remplissage. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:LinearGradient:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Echelle horizontale de la transformation de dégradé, qui définit la largeur du dégradé (sans rotation) 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Echelle horizontale de la transformation de dégradé, qui définit la largeur du dégradé (sans rotation) 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+  Les ombres portées sont généralement créées à l’aide de la classe DropShadowFilter. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Les ombres portées sont généralement créées à l’aide de la classe DropShadowFilter. Toutefois, le filtre DropShadowFilter, comme tous les filtres bitmap, peut être coûteuse en ressources informatiques. Si le filtre DropShadowFilter est appliqué à un objet DisplayObject, l’ombre portée est recalculée quand l’aspect de l’objet est modifié. Si l’objet DisplayObject est animé (à l’aide d’un effet de redimensionnement, par exemple), la présence d’ombres portées affecte la fréquence de régénération de l’animation. 
+ 
+  <p>Cette classe optimise les ombres portées dans la plupart des cas. Si vous appliquez un effet d’ombre portée à un objet rectangulaire dont les bords tombent sur limites des pixels, il faut choisir cette classe au lieu d’utiliser le filtre DropShadowFilter directement. </p>
+ 
+  <p>Cette classe accepte les quatre premiers paramètres qui sont transmis au filtre DropShadowFilter : <codeph>alpha</codeph>, <codeph>angle</codeph>, <codeph>color</codeph> et <codeph>distance</codeph>. En outre, cette classe accepte les rayons des angles pour chacun des quatre coins de l’objet rectangulaire qui projette une ombre. </p>
+ 
+  <p>Une fois ces 8 valeurs définies, cette classe précalcule l’ombre portée dans une image bitmap hors écran. Lorsque la méthode <codeph>drawShadow()</codeph>est appelée, des morceaux de l’ombre portée précalculée sont copiés sur l’objet Graphics transmis. </p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.DropShadowFilter.xml"><linktext>flash.filters.DropShadowFilter</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="mx.graphics:RectangularDropShadow:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:RectangularDropShadow:drawShadow"><apiName>drawShadow</apiName><shortdesc>
+      Génère le rendu de l’ombre sur l’écran. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics sur lequel tracer l’ombre. 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Décalage horizontal de l’ombre portée, en fonction de la position de l’objet Graphics. 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Décalage vertical de l’ombre portée, en fonction de la position de l’objet Graphics. 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Largeur de l’ombre, en pixels.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Hauteur de l’ombre, en pixels
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Effectue le rendu de l’ombre sur l’écran.  
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:RectangularDropShadow:alpha:get"><apiName>alpha</apiName><shortdesc conref="flash.filters.DropShadowFilter#alpha">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#alpha">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:angle:get"><apiName>angle</apiName><shortdesc conref="flash.filters.DropShadowFilter#angle">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#angle">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blRadius:get"><apiName>blRadius</apiName><shortdesc>
+      Rayon d’angle du coin inférieur gauche du rectangle arrondi projetant l’ombre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Rayon d’angle du coin inférieur gauche du rectangle arrondi projetant l’ombre. Peut être zéro pour des rectangles non arrondis. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blurX:get"><apiName>blurX</apiName><shortdesc>
+      Quantité de flou horizontal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Quantité de flou horizontal.
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blurY:get"><apiName>blurY</apiName><shortdesc>
+      Quantité de flou vertical.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Quantité de flou vertical.
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:brRadius:get"><apiName>brRadius</apiName><shortdesc>
+      Rayon d’angle du coin inférieur droit du rectangle arrondi projetant l’ombre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Rayon d’angle du coin inférieur droit du rectangle arrondi projetant l’ombre. Peut être zéro pour des rectangles non arrondis. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:color:get"><apiName>color</apiName><shortdesc conref="flash.filters.DropShadowFilter#color">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#color">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:distance:get"><apiName>distance</apiName><shortdesc conref="flash.filters.DropShadowFilter#distance">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#distance">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:tlRadius:get"><apiName>tlRadius</apiName><shortdesc>
+      Rayon d’angle du coin supérieur gauche du rectangle arrondi projetant l’ombre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Rayon d’angle du coin supérieur gauche du rectangle arrondi projetant l’ombre. Peut être zéro pour des rectangles non arrondis. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:trRadius:get"><apiName>trRadius</apiName><shortdesc>
+      Rayon d’angle du coin supérieur droit du rectangle arrondi projetant l’ombre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Rayon d’angle du coin supérieur droit du rectangle arrondi projetant l’ombre. Peut être zéro pour des rectangles non arrondis. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:SolidColor"><apiName>SolidColor</apiName><shortdesc> 
+  Définit une représentation de la couleur, incluant une couleur et une valeur alpha. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="color"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  Définit une représentation de la couleur, incluant une couleur et une valeur alpha.  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:SolidColor:SolidColor"><apiName>SolidColor</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Permet de spécifier la couleur. La valeur par défaut est 0x000000 (noir).
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Spécifie le niveau de transparence. Les valeurs possibles vont de 0 (entièrement transparent) à 1 (entièrement opaque). La valeur par défaut est 1.0.
+ 	  
+ 	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:SolidColor:begin"><apiName>begin</apiName><shortdesc>
+	  
+	  Lance le remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics cible en cours de remplissage. 
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Objet Rectangle définissant la taille du remplissage à l’intérieur de <codeph>target</codeph>. Si les dimensions du rectangle sont supérieures à celles de <codeph>target</codeph>, le remplissage est tronqué. Si les dimensions du rectangle sont inférieures à celles de <codeph>target</codeph>, le remplissage s’étend à l’ensemble de <codeph>target</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.  
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  Lance le remplissage. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:SolidColor:end"><apiName>end</apiName><shortdesc>
+	  
+	  Termine le remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics en cours de remplissage.  
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  Termine le remplissage. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:SolidColor:alpha:get"><apiName>alpha</apiName><shortdesc>
+	  Transparence d’une couleur. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Transparence d’une couleur. Les valeurs possibles sont comprises entre 0.0 (invisible) et 1.0 (opaque).  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColor:color:get"><apiName>color</apiName><shortdesc>
+	  Valeur de couleur. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+	  Valeur de couleur.  
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RadialGradientStroke"><apiName>RadialGradientStroke</apiName><shortdesc>
+  La classe RadialGradientStroke vous permet de spécifier un contour en dégradé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.graphics:GradientStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe RadialGradientStroke vous permet de spécifier un contour en dégradé. Vous pouvez utiliser la classe RadialGradientStroke, associée à la classe GradientEntry, pour définir un contour dégradé. 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:RadialGradientStroke:RadialGradientStroke"><apiName>RadialGradientStroke</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Spécifie l’épaisseur de trait, en pixels. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>1</codeph>  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Valeur booléenne qui permet d’ajouter des indices supplémentaires de lissage des pixels. Cette valeur affecte à la fois la position des ancres de courbe et la taille du trait. Si <codeph>pixelHinting</codeph> est défini sur <codeph>true</codeph>, Flash Player et AIR proposent des indices de largeur des pixels. Si <codeph>pixelHinting</codeph> est défini sur <codeph>false</codeph>, les courbes et les lignes droites risquent de ne pas être continues. Ce paramètre est facultatif, avec une valeur par défaut <codeph>false</codeph> 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Valeur de la classe LineScaleMode qui spécifie le mode d’échelle à utiliser. Les valeurs possibles sont les suivantes : <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> et <codeph>LineScaleMode.VERTICAL</codeph>. Ce paramètre est facultatif, avec la valeur par défaut <codeph>LineScaleMode.NORMAL</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Valeur de la classe CapsStyle qui spécifie le type d’extrémité au bout des lignes. Les valeurs possibles sont les suivantes : <codeph>CapsStyle.NONE</codeph>, <codeph>CapsStyle.ROUND</codeph> et <codeph>CapsStyle.SQUARE</codeph>. Une valeur <codeph>null</codeph> équivaut à <codeph>CapsStyle.ROUND</codeph> Ce paramètre est facultatif, avec une valeur par défaut de <codeph>CapsStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Valeur de la classe JointStyle qui spécifie le type d’apparence de liaison utilisé dans les angles. Les valeurs possibles sont les suivantes : <codeph>JointStyle.BEVEL</codeph>, <codeph>JointStyle.MITER</codeph> et <codeph>JointStyle.ROUND</codeph>. Une valeur <codeph>null</codeph> équivaut à <codeph>JointStyle.ROUND</codeph>. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>JointStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>Nombre qui indique la limite à laquelle une pointe est coupée. Les valeurs gérées sont comprises entre 1 et 255 (et les valeurs qui excèdent cette plage sont arrondies à 1 ou 255). Cette valeur n’est utilisée que si la propriété <codeph>jointStyle</codeph> est définie sur <codeph>miter</codeph>. La valeur <codeph>miterLimit</codeph> représente la longueur maximale d’une pointe au-delà du point où les lignes se rencontrent pour former une liaison. La valeur exprime un facteur du paramètre <codeph>thickness</codeph> de la ligne. Par exemple, avec un facteur <codeph>miterLimit</codeph> de 2,5 et une valeur de <codeph>thickness</codeph> de 10 pixels, la pointe est coupée à 25 pixels. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>3</codeph>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:RadialGradientStroke:focalPointRatio:get"><apiName>focalPointRatio</apiName><shortdesc>
+      Définit l’emplacement du début du remplissage radial. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Définit l’emplacement du début du remplissage radial. 
+     
+      <p>Les valeurs possibles sont comprises entre <codeph>-1,0</codeph> et <codeph>1,0</codeph>. La valeur <codeph>-1</codeph> permet de définir le point focal (ou le début du fond en dégradé) sur la gauche du rectangle de délimitation. La valeur <codeph>1</codeph> permet de définir le point focal sur la droite du rectangle de délimitation. 
+      
+      <p>Si vous utilisez cette propriété conjointement avec la propriété <codeph>angle</codeph>, cette valeur spécifie le degré de distance par rapport au centre sur lequel le point focal se produit. Par exemple, avec un angle de 45 et un paramètre <codeph>focalPointRatio</codeph> de 0.25, le point focal est légèrement inférieur et à droite du centre. Si vous définissez <codeph>focalPointRatio</codeph> sur <codeph>0</codeph>, le point focal est au milieu du rectangle de délimitation. </p>
+      Si vous définissez <codeph>focalPointRatio</codeph> sur <codeph>1</codeph>, le point focal est situé sur le coin inférieur droit du rectangle de délimitation. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradientStroke:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Echelle horizontale de la transformation de dégradé, qui définit la largeur du dégradé (sans rotation) 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Echelle horizontale de la transformation de dégradé, qui définit la largeur du dégradé (sans rotation) 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradientStroke:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      Echelle verticale de la transformation de dégradé, qui définit la hauteur du dégradé (sans rotation) 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Echelle verticale de la transformation de dégradé, qui définit la hauteur du dégradé (sans rotation) 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:LinearGradientStroke"><apiName>LinearGradientStroke</apiName><shortdesc>
+  La classe LinearGradientStroke vous permet de spécifier un contour à remplissage dégradé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.graphics:GradientStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe LinearGradientStroke vous permet de spécifier un contour à remplissage dégradé Vous pouvez utiliser la classe LinearGradientStroke, associée à la classe GradientEntry, pour définir un contour dégradé. 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:LinearGradientStroke:LinearGradientStroke"><apiName>LinearGradientStroke</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Spécifie l’épaisseur de trait, en pixels. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>1</codeph>  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Valeur booléenne qui permet d’ajouter des indices supplémentaires de lissage des pixels. Cette valeur affecte à la fois la position des ancres de courbe et la taille du trait. Si <codeph>pixelHinting</codeph> est défini sur <codeph>true</codeph>, Flash Player et AIR proposent des indices de largeur des pixels. Si <codeph>pixelHinting</codeph> est défini sur <codeph>false</codeph>, les courbes et les lignes droites risquent de ne pas être continues. Ce paramètre est facultatif, avec une valeur par défaut <codeph>false</codeph> 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Valeur de la classe LineScaleMode qui spécifie le mode d’échelle à utiliser. Les valeurs possibles sont les suivantes : <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> et <codeph>LineScaleMode.VERTICAL</codeph>. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>LineScaleMode.NONE</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Valeur de la classe CapsStyle qui spécifie le type d’extrémité au bout des lignes. Les valeurs possibles sont les suivantes : <codeph>CapsStyle.NONE</codeph>, <codeph>CapsStyle.ROUND</codeph> et <codeph>CapsStyle.SQUARE</codeph>. Une valeur <codeph>null</codeph> équivaut à <codeph>CapsStyle.ROUND</codeph> Ce paramètre est facultatif, avec une valeur par défaut de <codeph>CapsStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Valeur de la classe JointStyle qui spécifie le type d’apparence de liaison utilisé dans les angles. Les valeurs possibles sont les suivantes : <codeph>JointStyle.BEVEL</codeph>, <codeph>JointStyle.MITER</codeph> et <codeph>JointStyle.ROUND</codeph>. Une valeur <codeph>null</codeph> équivaut à <codeph>JointStyle.ROUND</codeph>. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>JointStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>Nombre qui indique la limite à laquelle une pointe est coupée. Les valeurs gérées sont comprises entre 1 et 255 (et les valeurs qui excèdent cette plage sont arrondies à 1 ou 255). Cette valeur n’est utilisée que si la propriété <codeph>jointStyle</codeph> est définie sur <codeph>miter</codeph>. La valeur <codeph>miterLimit</codeph> représente la longueur maximale d’une pointe au-delà du point où les lignes se rencontrent pour former une liaison. La valeur exprime un facteur du paramètre <codeph>thickness</codeph> de la ligne. Par exemple, avec un facteur <codeph>miterLimit</codeph> de 2,5 et une valeur de <codeph>thickness</codeph> de 10 pixels, la pointe est coupée à 25 pixels. Ce paramètre est facultatif, avec une valeur par défaut de <codeph>3</codeph>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:LinearGradientStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  Applique les propriétés à l’objet Graphics spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics auquel appliquer les propriétés. 
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Les limites de la forme à laquelle est appliqué le tracé.  
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.   
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Applique les propriétés à l’objet Graphics spécifié. 
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:LinearGradientStroke:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Echelle horizontale de la transformation de dégradé, qui définit la largeur du dégradé (sans rotation) 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Echelle horizontale de la transformation de dégradé, qui définit la largeur du dégradé (sans rotation) 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:SolidColorStroke"><apiName>SolidColorStroke</apiName><shortdesc>
+  La classe SolidColorStroke définit les propriétés d’une ligne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SolidColorStroke&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SolidColorStroke
+    <b>Properties</b>
+    alpha="1.0"
+    caps="round|none|square"
+    color="0x000000"
+    joints="round|bevel|miter"
+    miterLimit="3"
+    pixelHinting="false|true"
+    scaleMode="normal|none|horizontal|vertical"
+    weight="1 (<i>in most cases</i>)"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IStroke</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SolidColorStroke définit les propriétés d’une ligne. Vous pouvez définir un objet SolidColorStroke dans MXML, mais vous devez l’associer à un autre objet pour qu’il apparaisse dans l’application. L’exemple suivant définit deux objets SolidColorStroke, puis les utilise dans la propriété horizontalAxisRenderer d’un contrôle LineChart : 
+  
+  <pre>
+  ...
+  &lt;mx:SolidColorStroke id="ticks" color="0xFF0000" weight="1"/>
+  &lt;mx:SolidColorStroke id="mticks" color="0x0000FF" weight="1"/>
+  
+  &lt;mx:LineChart id="mychart" dataProvider="{ndxa}">
+      &lt;mx:horizontalAxisRenderer>
+          &lt;mx:AxisRenderer placement="bottom" canDropLabels="true">
+              &lt;mx:tickStroke>{ticks}&lt;/mx:tickStroke>
+              &lt;mx:minorTickStroke>{mticks}&lt;/mx:minorTickStroke>
+          &lt;/mx:AxisRenderer>
+      &lt;/mx:horizontalAxisRenderer>
+  &lt;/LineChart>
+  ...
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:SolidColorStroke:SolidColorStroke"><apiName>SolidColorStroke</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Permet de spécifier la couleur de la ligne. La valeur par défaut est 0x000000 (noir).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Spécifie l’épaisseur de trait, en pixels. La valeur par défaut est 1.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Spécifie la valeur alpha dans la plage comprise entre 0.0 et 1.0. La valeur par défaut est 1 (opaque). 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique si des indices supplémentaires de lissage des pixels doivent être ajoutés. Cette valeur affecte à la fois la position des ancres de courbe et la taille du trait. La valeur par défaut est false.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Valeur de la classe LineScaleMode qui spécifie le mode d’échelle à utiliser. Les valeurs possibles sont les suivantes : <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> et <codeph>LineScaleMode.VERTICAL</codeph>. Ce paramètre est facultatif, avec la valeur par défaut <codeph>LineScaleMode.NORMAL</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Spécifie le type d’extrémité au bout des lignes. Les valeurs possibles sont <codeph>CapsStyle.ROUND</codeph>, <codeph>CapsStyle.SQUARE</codeph> et <codeph>CapsStyle.NONE</codeph>. La valeur par défaut est <codeph>CapsStyle.ROUND</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Spécifie le type d’apparence de liaison utilisé dans les angles. Les valeurs possibles sont <codeph>JointStyle.ROUND</codeph>, <codeph>JointStyle.MITER</codeph> et <codeph>JointStyle.BEVEL</codeph>. La valeur par défaut est <codeph>JointStyle.ROUND</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>Indique la limite à laquelle une pointe est coupée. Les valeurs valides vont de 1 à 255. La valeur par défaut est 3.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:SolidColorStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+	  Applique les propriétés à l’objet Graphics spécifié. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Objet Graphics auquel appliquer les propriétés. 
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Les limites de la forme à laquelle est appliqué le tracé.  
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.   
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Applique les propriétés à l’objet Graphics spécifié. 
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:SolidColorStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      
+      Génère un objet GraphicsStroke représentant ce tracé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>L’objet GraphicsStroke de dessin API-2 représentant ce tracé.  
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Le cadre de délimitation du tracé.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Point qui définit l’origine (0,0) de la forme dans le système de coordonnées de la cible.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Génère un objet GraphicsStroke représentant ce tracé. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:SolidColorStroke:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Transparence d’une ligne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0. 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Transparence d’une ligne. Les valeurs possibles sont comprises entre 0.0 (invisible) et 1.0 (opaque).  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:caps:get"><apiName>caps</apiName><shortdesc>
+      Spécifie le type d’extrémité au bout des lignes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CapsStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie le type d’extrémité au bout des lignes. Les valeurs possibles sont les suivantes : <codeph>CapsStyle.ROUND</codeph>, <codeph>CapsStyle.SQUARE</codeph> et <codeph>CapsStyle.NONE</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:color:get"><apiName>color</apiName><shortdesc>
+      Couleur de la ligne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000 (black). 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Couleur de la ligne.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      Spécifie le type d’apparence de liaison utilisé dans les angles.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>JointStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie le type d’apparence de liaison utilisé dans les angles. Les valeurs possibles sont <codeph>JointStyle.ROUND</codeph>, <codeph>JointStyle.MITER</codeph> et <codeph>JointStyle.BEVEL</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      Indique la limite à laquelle une pointe est coupée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique la limite à laquelle une pointe est coupée. Les valeurs valides vont de 1 à 255.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:pixelHinting:get"><apiName>pixelHinting</apiName><shortdesc>
+      Indique si des indices supplémentaires de lissage des pixels doivent être ajoutés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si des indices supplémentaires de lissage des pixels doivent être ajoutés. Cette valeur affecte à la fois la position des ancres de courbe et la taille du trait. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      Valeur de la classe LineScaleMode qui spécifie le mode d’échelle à utiliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de la classe LineScaleMode qui spécifie le mode d’échelle à utiliser. Les valeurs possibles sont les suivantes :
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph> Redimensionne toujours l’épaisseur du trait si l’objet est redimensionné (valeur par défaut).
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph> Ne redimensionne jamais l’épaisseur du trait.
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph> N’ajuste pas l’épaisseur du trait si l’objet est redimensionné verticalement <i>uniquement</i>. 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph> N’ajuste pas l’épaisseur du trait si l’objet est redimensionné horizontalement <i>uniquement</i>. 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:weight:get"><apiName>weight</apiName><shortdesc>
+      Epaisseur du trait, en pixels. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Epaisseur du trait, en pixels. Pour de nombreux diagrammes, la valeur par défaut est de 1 pixel. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:GradientBase"><apiName>GradientBase</apiName><shortdesc>
+  La classe GradientBase est la classe de base pour les classes LinearGradient, LinearGradientStroke et RadialGradient. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GradientBase est la classe de base pour les classes LinearGradient, LinearGradientStroke et RadialGradient. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics:GradientBase:GradientBase"><apiName>GradientBase</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:GradientBase:GRADIENT_DIMENSION"><apiName>GRADIENT_DIMENSION</apiName><shortdesc>
+      Valeur de la largeur et de la hauteur du dégradé non transformé 
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1638.4</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Valeur de la largeur et de la hauteur du dégradé non transformé 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:protected:compoundTransform"><apiName>compoundTransform</apiName><shortdesc>
+      Contient la matrice et les propriétés de transformation pratiques (x, y et rotation). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.geom:CompoundTransform</apiValueClassifier></apiValueDef><apiDesc>
+      Contient la matrice et les propriétés de transformation pratiques (<codeph>x</codeph>, <codeph>y</codeph> et <codeph>rotation</codeph>). La classe compoundTransform est créée lors de la définition de la propriété <codeph>matrix</codeph>.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:angle:get"><apiName>angle</apiName><shortdesc>
+      Par défaut, la classe LinearGradientStroke définit une transition de gauche à droite sur le contrôle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue><apiDeprecated replacement="rotation"/></apiValueDef><apiDesc>
+      Par défaut, la classe LinearGradientStroke définit une transition de gauche à droite sur le contrôle. Utilisez la propriété <codeph>angle</codeph> pour contrôler le sens de transition. Par exemple, avec une valeur de 180.0, la transition se produit de droite à gauche, plutôt que de gauche à droite. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:entries:get"><apiName>entries</apiName><shortdesc>
+      Un tableau d’objets GradientEntry définissant les motifs de remplissage en dégradé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Tableau d’objets GradientEntry définissant les motifs de remplissage en dégradé. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:interpolationMethod:get"><apiName>interpolationMethod</apiName><shortdesc>
+      Valeur de la classe InterpolationMethod qui spécifie la méthode d’interpolation à utiliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>InterpolationMethod.RGB
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de la classe InterpolationMethod qui spécifie la méthode d’interpolation à utiliser.
+     
+      <p>Les valeurs possibles sont les suivantes : <codeph>InterpolationMethod.LINEAR_RGB</codeph> et <codeph>InterpolationMethod.RGB</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:matrix:get"><apiName>matrix</apiName><shortdesc>
+      Tableau des valeurs utilisées pour la transformation de matrice.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Tableau des valeurs utilisées pour la transformation de matrice.
+     
+      <p>Le propriétés de dégradé <codeph>scaleX</codeph> et <codeph>scaleY</codeph> représentent des pixels, tandis que les propriétés d’échelle Matrix représentent des multiplicateurs. Par conséquent, ils ne sont pas compatibles. Autre différence : contrairement à la matrice, la plupart des propriétés de transformation (<codeph>x</codeph>, <codeph>y</codeph>, <codeph>scaleX</codeph> et <codeph>scaleY</codeph>) prennent en charge les valeurs NaN. Une valeur NaN signifie que le dégradé choisit une valeur appropriée. </p>
+      
+      <p>Les propriétés <codeph>scaleX</codeph> et <codeph>scaleY</codeph> ne peuvent pas être représentées par la matrice. Une fois la matrice définie, <codeph>scaleX</codeph> et <codeph>scaleY</codeph> ne peuvent plus l’être. Par ailleurs, <codeph>x</codeph> et <codeph>y</codeph> ne peuvent pas être définis sur NaN. La matrice peut être réinitialisée sur null, ce qui réinitialise également l’ensemble des propriétés de transformation pratique sur leurs valeurs par défaut. </p>
+      
+      <p>Si la matrice est définie, la logique de traçage du dégradé met à l’échelle le dégradé pour l’adapter aux limites de l’élément graphique. Il positionne ensuite le dégradé dans le coin supérieur gauche de l’élément graphique. Enfin, il applique les transformations de matrice. </p>
+    
+      <p>Par défaut, la classe LinearGradientStroke définit une transition de gauche à droite sur le contrôle. Utilisez la propriété <codeph>rotation</codeph> pour contrôler le sens de transition. Par exemple, avec une valeur de 180.0, la transition se produit de droite à gauche, plutôt que de gauche à droite. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:rotation:get"><apiName>rotation</apiName><shortdesc>
+      Par défaut, la classe LinearGradientStroke définit une transition de gauche à droite sur le contrôle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Par défaut, la classe LinearGradientStroke définit une transition de gauche à droite sur le contrôle. Utilisez la propriété <codeph>rotation</codeph> pour contrôler le sens de transition. Par exemple, avec une valeur de 180.0, la transition se produit de droite à gauche, plutôt que de gauche à droite. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:spreadMethod:get"><apiName>spreadMethod</apiName><shortdesc>
+      Valeur de la classe SpreadMethod qui spécifie la méthode d’étalement à utiliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SpreadMethod.PAD
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de la classe SpreadMethod qui spécifie la méthode d’étalement à utiliser.
+     
+      <p>Les valeurs possibles sont les suivantes : <codeph>SpreadMethod.PAD</codeph>, <codeph>SpreadMethod.REFLECT</codeph> et <codeph>SpreadMethod.REPEAT</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:x:get"><apiName>x</apiName><shortdesc>
+      Distance de translation de chaque point sur l’axe x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Distance de translation de chaque point sur l’axe x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:y:get"><apiName>y</apiName><shortdesc>
+      Distance de translation de chaque point sur l’axe y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Distance de translation de chaque point sur l’axe y.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapScaleMode"><apiName>BitmapScaleMode</apiName><shortdesc>
+  La classe BitmapScaleMode définit une énumération des modes de redimensionnement qui déterminent la manière dont une image BitmapImage met à l’échelle le contenu de l’image lorsque fillMode est défini sur mx.graphics.BitmapFillMode.SCALE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe BitmapScaleMode définit une énumération des modes de redimensionnement qui déterminent la manière dont une image BitmapImage met à l’échelle le contenu de l’image lorsque <codeph>fillMode</codeph> est défini sur <codeph>mx.graphics.BitmapFillMode.SCALE</codeph>.
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Image/scaleMode"><linktext>spark.components.Image.scaleMode</linktext></link><link href="" invalidHref="spark.primitives.xml#BitmapImage/scaleMode"><linktext>spark.primitives.BitmapImage.scaleMode</linktext></link></related-links><apiValue id="mx.graphics:BitmapScaleMode:LETTERBOX"><apiName>LETTERBOX</apiName><shortdesc>
+      Le remplissage bitmap est redimensionné tout en conservant le rapport l/h en pixels du contenu d’origine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>letterbox</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le remplissage bitmap est redimensionné tout en conservant le rapport l/h en pixels du contenu d'origine.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapScaleMode:STRETCH"><apiName>STRETCH</apiName><shortdesc>
+      Le remplissage de bitmap s’étire pour remplir la région. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>stretch</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le remplissage de bitmap s’étire pour remplir la région. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapScaleMode:ZOOM"><apiName>ZOOM</apiName><shortdesc>
+      Le remplissage Bitmap est mis à l’échelle et recadré de manière à conserver les proportions du contenu d’origine sans afficher de bandes noires.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>zoom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Le remplissage Bitmap est mis à l’échelle et recadré de manière à conserver les proportions du contenu d’origine sans afficher de bandes noires.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapSmoothingQuality"><apiName>BitmapSmoothingQuality</apiName><shortdesc>
+  Enum des modes de qualité de lissage qui déterminent la manière dont une image BitmapImage met à l'échelle le contenu de l'image lorsque le mode fillMode est défini sur BitmapFillMode.SCALE et le lissage activé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Enum des modes de qualité de lissage qui déterminent la manière dont une image BitmapImage met à l'échelle le contenu de l'image lorsque le mode fillMode est défini sur BitmapFillMode.SCALE et le <codeph>lissage</codeph> activé.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.graphics:BitmapSmoothingQuality:DEFAULT"><apiName>DEFAULT</apiName><shortdesc>
+      Par défaut, l’algorithme de lissage est utilisé lors de la mise à l’échelle, en toute compatibilité avec la qualité de la scène (stage.quality).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>default</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Par défaut, l'algorithme de lissage est utilisé lors de la mise à l'échelle, en toute compatibilité avec la qualité de la scène (stage.quality).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapSmoothingQuality:HIGH"><apiName>HIGH</apiName><shortdesc>
+      Un algorithme de lissage de qualité supérieure est utilisé lors de la mise à l'échelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>high</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Un algorithme de lissage de qualité supérieure est utilisé lors de la mise à l'échelle. Utilisé lorsqu'une échelle de qualité (sous-échantillonnée) plus élevée est choisie. Cette option donne les meilleurs résultats lorsque l'image est redimensionnée à une taille égale au rapport l/h de l'image d'origine et permet d'obtenir des vignettes de qualité supérieure. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:Stroke"><apiName>Stroke</apiName><shortdesc>
+  La classe Stroke définit les propriétés d’une ligne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Stroke&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Stroke
+    <b>Properties</b>
+    alpha="1.0"
+    caps="null|none|round|square"
+    color="0x000000"
+    joints="null|bevel|miter|round"
+    miterLimit="1"
+    pixelHinting="false|true"
+    scaleMode="normal|none|horizontal|vertical"
+    weight="1 (<i>in most cases</i>)"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="SolidColorStroke" sinceVersion="4.0"/><apiBaseClassifier>mx.graphics:SolidColorStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Stroke définit les propriétés d’une ligne. Vous pouvez définir un objet Stroke dans MXML, mais vous devez l’associer à un autre objet pour qu’il apparaisse dans l’application. L’exemple suivant définit deux objets Stroke, puis les utilise dans la propriété horizontalAxisRenderer d’un contrôle LineChart : 
+  
+  <pre>
+  ...
+  &lt;mx:Stroke id="ticks" color="0xFF0000" weight="1"/>
+  &lt;mx:Stroke id="mticks" color="0x0000FF" weight="1"/>
+  
+  &lt;mx:LineChart id="mychart" dataProvider="{ndxa}">
+      &lt;mx:horizontalAxisRenderer>
+          &lt;mx:AxisRenderer placement="bottom" canDropLabels="true">
+              &lt;mx:tickStroke>{ticks}&lt;/mx:tickStroke>
+              &lt;mx:minorTickStroke>{mticks}&lt;/mx:minorTickStroke>
+          &lt;/mx:AxisRenderer>
+      &lt;/mx:horizontalAxisRenderer>
+  &lt;/LineChart>
+  ...
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:Stroke:Stroke"><apiName>Stroke</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Permet de spécifier la couleur de la ligne. La valeur par défaut est 0x000000 (noir).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie l’épaisseur de trait, en pixels. La valeur par défaut est 0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Spécifie la valeur alpha dans la plage comprise entre 0.0 et 1.0. La valeur par défaut est 1 (opaque). 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique si des indices supplémentaires de lissage des pixels doivent être ajoutés. Cette valeur affecte à la fois la position des ancres de courbe et la taille du trait. La valeur par défaut est false.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Valeur de la classe LineScaleMode qui spécifie le mode d’échelle à utiliser. Les valeurs possibles sont les suivantes : <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> et <codeph>LineScaleMode.VERTICAL</codeph>. Ce paramètre est facultatif, avec la valeur par défaut <codeph>LineScaleMode.NORMAL</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Spécifie le type d’extrémité au bout des lignes. Les valeurs possibles sont les suivantes : <codeph>"round"</codeph>, <codeph>"square"</codeph> et <codeph>"none"</codeph>. La valeur par défaut est <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Spécifie le type d’apparence de liaison utilisé dans les angles. Les valeurs possibles sont les suivantes : <codeph>"round"</codeph>, <codeph>"miter"</codeph> et <codeph>"bevel"</codeph>. La valeur par défaut est <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Indique la limite à laquelle une pointe est coupée. Les valeurs valides vont de 1 à 255. La valeur par défaut est 1.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

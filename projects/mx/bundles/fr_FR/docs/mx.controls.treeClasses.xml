@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.treeClasses"><apiName>mx.controls.treeClasses</apiName><apiDetail/><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor"><apiName>ITreeDataDescriptor</apiName><shortdesc>
+  Interface qui fournit des méthodes d’analyse et d’ajout de nœuds à une collection de données qui est affichée par un contrôle Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Interface qui fournit des méthodes d’analyse et d’ajout de nœuds à une collection de données qui est affichée par un contrôle Tree.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Ajoute un nœud enfant à un nœud, à l’index spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est <codeph>true</codeph> en cas de réussite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet nœud qui sera le parent de l’enfant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Objet nœud qui sera le parent du nœud.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Index de base zéro de l’endroit où placer le nœud enfant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection entière dont fait partie ce nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un nœud enfant à un nœud, à l’index spécifié.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Permet d’accéder aux enfants d’un nœud en renvoyant la vue d’une collection d’enfants s’ils existent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Vue de collection contenant les nœuds enfant.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet nœud en cours d’évaluation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection entière dont fait partie ce nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Permet d’accéder aux enfants d’un nœud en renvoyant la vue d’une collection d’enfants s’ils existent. Un nœud peut renvoyer n’importe quel objet de la collection comme étant leurs enfants. Les enfants n’ont pas besoin d’être imbriqués. Il est conseillé de renvoyer la même vue de collection pour un nœud donné.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      Obtient les données d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Données demandées.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet nœud duquel extraire les données.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection contenant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Obtient les données d’un nœud.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      Vérifie l’existence des enfants dans un nœud sans fin d’exécution.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est <codeph>true</codeph> si le nœud a au moins un enfant.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Nœud actuel.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection entière dont fait partie ce nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie l’existence des enfants dans un nœud sans fin d’exécution.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      Vérifie la fin d’exécution d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Opérateur booléen indiquant si ce nœud est sans fin d’exécution.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet nœud en cours d’évaluation.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection entière dont fait partie ce nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie la fin d’exécution d’un nœud. Les branches sont sans fin d’exécution mais n’ont pas besoin d’avoir des nœuds terminaux.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Supprime un nœud enfant d’un nœud, à l’index spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est <codeph>true</codeph> en cas de réussite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet nœud qui est le parent de l’enfant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Objet nœud qui sera supprimé.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Index de base zéro du nœud qui sera bientôt supprimé.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection entière dont fait partie ce nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime un nœud enfant d’un nœud, à l’index spécifié.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor2"><apiName>ITreeDataDescriptor2</apiName><shortdesc>
+  L’interface ITreeDataDescriptor2 définit les méthodes d’analyse et d’ajout de nœuds à une collection de données qui est affichée par un contrôle Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface ITreeDataDescriptor2 définit les méthodes d’analyse et d’ajout de nœuds à une collection de données qui est affichée par un contrôle Tree.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      Retourne une occurrence ICollectionView qui donne aux données hiérarchiques l’apparence d’une occurrence ICollectionView linéaire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Occurrence ICollectionView.
+     
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Données hiérarchiques.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>Fonction qui prend un objet et renvoie l’UID, en tant que chaîne. Ce paramètre correspond généralement à la méthode <codeph>Tree.itemToUID()</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>Les éléments qui ont été ouverts ou définis comme étant ouverts.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection à laquelle appartient ce nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Retourne une occurrence ICollectionView qui donne aux données hiérarchiques l’apparence d’une occurrence ICollectionView linéaire.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      Retourne la profondeur du nœud, c’est-à-dire le nombre de ses ancêtres.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Profondeur du nœud, où 0 correspond au niveau supérieur et -1 si la profondeur ne peut pas être calculée.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiType value="mx.collections:IViewCursor"/><apiDesc>Occurrence IViewCursor pouvant servir au calcul.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection à laquelle appartient ce nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Retourne la profondeur du nœud, c’est-à-dire le nombre de ses ancêtres.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getParent"><apiName>getParent</apiName><shortdesc>
+      Renvoie le parent du nœud. Le parent d’un nœud de niveau supérieur a la valeur null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nœud parent comptant le nœud parmi ses enfants. La valeur est <codeph>null</codeph> s’il s’agit d’un nœud de niveau supérieur et <codeph>undefined</codeph> s’il est impossible de déterminer le parent.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Occurrence ICollectionView pouvant servir au calcul.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection à laquelle appartient ce nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Retourne le parent du nœud. Le parent d’un nœud de niveau supérieur a la valeur <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+  La classe TreeListData définit le type de données de la propriété listData implémentée par les rendus ou les éditeurs d’élément supplémentaires du contrôle Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:BaseListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe TreeListData définit le type de données de la propriété <codeph>listData</codeph> implémentée par les rendus ou les éditeurs d’élément supplémentaires du contrôle Tree. Tous les rendus d’élément et éditeurs d’élément supplémentaires doivent implémenter l’interface IDropInListItemRenderer, qui définit la propriété <codeph>listData</codeph>.
+ 
+  <p>Bien que les propriétés de cette classe soient inscriptibles, vous devez les considérer comme étant en lecture seule. Elles sont initialisées par la classe Tree et lues par un rendu d’élément ou un éditeur d’élément. La modification de ces valeurs peut entraîner des résultats inattendus.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:TreeListData:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>Représentation textuelle des données d’un élément.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Identifiant unique de l’élément.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBase</apiOperationClassifier><apiDesc>Référence au contrôle Tree.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Index de l’élément dans le fournisseur de données du contrôle Tree.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Index de la colonne dans les colonnes actuellement visibles du contrôle.
+	 
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeListData:depth"><apiName>depth</apiName><shortdesc>
+	  Niveau de l’élément dans le contrôle Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  Niveau de l’élément dans le contrôle Tree. Le niveau supérieur est de 1.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+	  Classe représentant l’icône de développement/réduction de l’élément dans le contrôle Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  Classe représentant l’icône de développement/réduction de l’élément dans le contrôle Tree.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+	  Contient la valeur true si le nœud possède des enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Contient la valeur <codeph>true</codeph> si le nœud possède des enfants.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:icon"><apiName>icon</apiName><shortdesc>
+	  Classe représentant l’icône de l’élément dans le contrôle Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  Classe représentant l’icône de l’élément dans le contrôle Tree.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:indent"><apiName>indent</apiName><shortdesc>
+	  Retrait par défaut de cette rangée du contrôle Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  Retrait par défaut de cette rangée du contrôle Tree.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:item"><apiName>item</apiName><shortdesc>
+	  Données de cet élément dans le contrôle Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Données de cet élément dans le contrôle Tree.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:open"><apiName>open</apiName><shortdesc>
+	  Contient la valeur true si le nœud est ouvert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Contient la valeur <codeph>true</codeph> si le nœud est ouvert.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.treeClasses:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+  La classe DefaultDataDescriptor fournit une implémentation par défaut pour l’accès et la manipulation des données à utiliser dans des contrôles comme Tree et Menu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor2</apiBaseInterface><apiBaseInterface>mx.controls.menuClasses:IMenuDataDescriptor</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe DefaultDataDescriptor fournit une implémentation par défaut pour l’accès et la manipulation des données à utiliser dans des contrôles comme Tree et Menu. Cette implémentation gère les nœuds XML e4x et d’objet de façons proches mais différentes. Consultez la description de chaque méthode pour savoir comment la méthode accède aux valeurs dans les nœuds de types différents. Cette classe est la valeur par défaut des propriétés <codeph>dataDescriptor</codeph> des contrôles Tree, Menu, MenuBar et PopUpMenuButton.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.treeClasses.xml#ITreeDataDescriptor"><linktext>mx.controls.treeClasses.ITreeDataDescriptor</linktext></link><link href="" invalidHref="mx.controls.menuClasses.IMenuDataDescriptor.xml"><linktext>mx.controls.menuClasses.IMenuDataDescriptor</linktext></link><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.xml#PopUpMenuButton"><linktext>mx.controls.PopUpMenuButton</linktext></link><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:DefaultDataDescriptor:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Ajoute un nœud enfant au nœud qui se trouve à l’index spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est <codeph>true</codeph> en cas de réussite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet nœud qui sera le parent de l’enfant.
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Objet nœud qui sera le parent du nœud.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Index de base zéro de l’endroit où placer le nœud enfant par rapport au parent.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection entière dont fait partie ce nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un nœud enfant au nœud qui se trouve à l’index spécifié. Cette implémentation se comporte comme suit :
+     
+      <ul>
+          <li>Si le paramètre <codeph>parent</codeph> a la valeur null ou undefined, il insère le paramètre <codeph>child</codeph> à l’index spécifié dans la collection indiquée par le paramètre <codeph>model</codeph>.
+          </li>
+          <li>Si le paramètre <codeph>parent</codeph> a un champ ou une propriété <codeph>children</codeph>, la méthode lui ajoute le paramètre <codeph>child</codeph> à l’emplacement du paramètre <codeph>index</codeph>. Dans ce cas, le paramètre <codeph>model</codeph> n’est pas nécessaire.
+         </li>
+         <li>Si le paramètre <codeph>parent</codeph> n’a pas de champ ou de propriété <codeph>children</codeph>, la méthode ajoute la propriété <codeph>children</codeph> au paramètre <codeph>parent</codeph>. La méthode ajoute ensuite le paramètre <codeph>child</codeph> au parent à l’emplacement du paramètre <codeph>index</codeph>. Dans ce cas, le paramètre <codeph>model</codeph> n’est pas nécessaire.
+         </li>
+         <li>Si la valeur <codeph>index</codeph> est supérieure à la longueur de la collection ou au nombre d’enfants du parent, l’objet est ajouté en tant que dernier enfant.
+         </li>
+     </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Permet d’accéder aux enfants d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet contenant les nœuds enfant.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet nœud en cours d’évaluation.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection contenant le nœud ; ignorée par cette classe.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Permet d’accéder aux enfants d’un nœud. Renvoie une collection d’enfants s’ils existent. Si le nœud est un objet, la méthode renvoie le contenu du champ <codeph>children</codeph> de l’objet en tant qu’objet ArrayCollection. Si le nœud est XML, la méthode renvoie un objet XMLListCollection contenant les éléments enfant.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      Renvoie les données d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nœud.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet nœud en cours d’évaluation.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection contenant le nœud ; ignorée par cette classe.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie les données d’un nœud. Renvoie actuellement le nœud entier.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getGroupName"><apiName>getGroupName</apiName><shortdesc>
+      Renvoie le nom du groupe de cases d’option auquel appartient le nœud, le cas échéant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de l’attribut <codeph>groupName</codeph> ou du champ du nœud ou chaîne vide si aucune entrée de ce type n’existe.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Nœud pour lequel extraire le nom du groupe.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le nom du groupe de cases d’option auquel appartient le nœud, le cas échéant. Cette méthode est utilisée par les contrôles basés sur les menus.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      
+      Retourne une occurrence ICollectionView qui donne aux données hiérarchiques l’apparence d’une occurrence ICollectionView linéaire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Occurrence ICollectionView.
+     
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Données hiérarchiques.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>Fonction qui prend un objet et renvoie l’UID, en tant que chaîne. Ce paramètre correspond généralement à la méthode <codeph>Tree.itemToUID()</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>Les éléments qui ont été ouverts ou définis comme étant ouverts.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection à laquelle appartient ce nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Retourne une occurrence ICollectionView qui donne aux données hiérarchiques l’apparence d’une occurrence ICollectionView linéaire.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      
+      Retourne la profondeur du nœud, c’est-à-dire le nombre de ses ancêtres.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Profondeur du nœud, où 0 correspond au niveau supérieur et -1 si la profondeur ne peut pas être calculée.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiType value="mx.collections:IViewCursor"/><apiDesc>Occurrence IViewCursor pouvant servir au calcul.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection à laquelle appartient ce nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Retourne la profondeur du nœud, c’est-à-dire le nombre de ses ancêtres.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getParent"><apiName>getParent</apiName><shortdesc>
+      
+      Renvoie le parent du nœud. Le parent d’un nœud de niveau supérieur a la valeur null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nœud parent comptant le nœud parmi ses enfants. La valeur est <codeph>null</codeph> s’il s’agit d’un nœud de niveau supérieur et <codeph>undefined</codeph> s’il est impossible de déterminer le parent.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Occurrence ICollectionView pouvant servir au calcul.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection à laquelle appartient ce nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Retourne le parent du nœud. Le parent d’un nœud de niveau supérieur a la valeur <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getType"><apiName>getType</apiName><shortdesc>
+      Renvoie l’identifiant de type d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de l’attribut <codeph>type</codeph> ou du champ du nœud ou chaîne vide si aucun champ de ce type n’existe.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet nœud pour lequel extraire le type.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie l’identifiant de type d’un nœud. Cette méthode est utilisée pour les contrôles basés sur les menus pour déterminer si le nœud représente un séparateur, une case d’option, une case à cocher ou un élément normal.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      Détermine si le nœud a réellement des enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est <codeph>true</codeph> si ce nœud a actuellement des enfants.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet nœud en cours d’évaluation.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection contenant le nœud ; ignorée par cette classe.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Détermine si le nœud a réellement des enfants. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      Vérifie la fin d’exécution d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est <codeph>true</codeph> si ce nœud est sans fin d’exécution.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet nœud en cours d’évaluation.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection contenant le nœud ; ignorée par cette classe.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Vérifie la fin d’exécution d’un nœud. Les branches sont sans fin d’exécution mais n’ont pas besoin d’avoir des nœuds terminaux. Si le nœud est XML, renvoie la valeur <codeph>true</codeph> si le nœud a des enfants ou un attribut <codeph>true isBranch</codeph>. Si le nœud est un objet, renvoie la valeur <codeph>true</codeph> si le nœud a un champ (éventuellement vide) <codeph>children</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isEnabled"><apiName>isEnabled</apiName><shortdesc>
+      Indique si le nœud est activé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de l’attribut <codeph>enabled</codeph> ou du champ du nœud ou valeur <codeph>true</codeph> si aucune entrée de ce type n’existe ou si la valeur n’est pas <codeph>false</codeph>.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Nœud pour lequel extraire l’état.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Indique si le nœud est activé. Cette méthode est utilisée par les contrôles basés sur les menus.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isToggled"><apiName>isToggled</apiName><shortdesc>
+      Indique si le nœud est basculé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Valeur de l’attribut <codeph>toggled</codeph> ou du champ du nœud ou valeur <codeph>false</codeph> si aucune entrée de ce type n’existe.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Nœud pour lequel extraire l’état.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Indique si le nœud est basculé. Cette méthode est utilisée par les contrôles basés sur les menus.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Supprime le nœud enfant d’un nœud à l’index spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur est <codeph>true</codeph> en cas de réussite.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet nœud qui est le parent actuel du nœud enfant.
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Nœud en cours de suppression.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Index de base zéro du nœud enfant à supprimer, par rapport au parent.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Collection entière dont fait partie ce nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime le nœud enfant d’un nœud, à l’index spécifié. Si le paramètre <codeph>parent</codeph> a la valeur null ou est indéterminé, la méthode utilise le paramètre <codeph>model</codeph> pour accéder à l’enfant. Sinon, il utilise le paramètre <codeph>parent</codeph> et ignore le paramètre <codeph>model</codeph>.
+    
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setEnabled"><apiName>setEnabled</apiName><shortdesc>
+      Définit la valeur du champ ou attribut dans le fournisseur de données qui identifie si le nœud est activé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Nœud pour lequel définir l’état.
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>Indique si le nœud est activé.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit la valeur du champ ou attribut dans le fournisseur de données qui identifie si le nœud est activé. Cette méthode définit la valeur de l’attribut ou du champ <codeph>enabled</codeph> du nœud. Cette méthode est utilisée par les contrôles basés sur les menus.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setToggled"><apiName>setToggled</apiName><shortdesc>
+      Définit la valeur du champ ou attribut dans le fournisseur de données qui identifie si le nœud est basculé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Nœud pour lequel définir l’état.
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>Indique si le nœud est basculé.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit la valeur du champ ou attribut dans le fournisseur de données qui identifie si le nœud est basculé. Cette méthode définit la valeur de l’attribut ou du champ <codeph>toggled</codeph> du nœud. Cette méthode est utilisée par les contrôles basés sur les menus.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+  La classe TreeItemRenderer définit le rendu d’élément par défaut d’un contrôle Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Couleur du composant s’il est désactivé. La valeur par défaut est <codeph>0xAAB3B3</codeph>.
+ 
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Couleur de texte de l’étiquette d’un composant. La valeur par défaut du thème Halo est <codeph>0x0B333C</codeph>. La valeur par défaut du thème Spark est <codeph>0x000000</codeph>. 
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe TreeItemRenderer définit le rendu d’élément par défaut d’un contrôle Tree. Par défaut, le rendu d’élément trace le texte associé à chaque élément de l’arborescence, une icône facultative et une icône de développement/réduction facultative.
+ 
+  <p>Vous pouvez remplacer le rendu d’élément par défaut en créant un rendu d’élément personnalisé.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.treeClasses:TreeItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Distribué lorsque la propriété data change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la propriété <codeph>data</codeph> change.
+ 
+  <p>Lorsque vous utilisez un composant comme rendu d’élément, la propriété <codeph>data</codeph> contient les données à afficher. Vous pouvez écouter cet événement et mettre à jour le composant lorsque la propriété <codeph>data</codeph> change.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.treeClasses:TreeItemRenderer:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+      Objet IFlexDisplayObject interne qui affiche l’icône de développement/réduction dans cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      Objet IFlexDisplayObject interne qui affiche l’icône de développement/réduction dans cette fonctionnalité de rendu.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:icon"><apiName>icon</apiName><shortdesc>
+      Objet IFlexDisplayObject interne qui affiche l’icône dans cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      Objet IFlexDisplayObject interne qui affiche l’icône dans cette fonctionnalité de rendu.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:label"><apiName>label</apiName><shortdesc>
+      Objet UITextField interne qui affiche le texte dans cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Objet UITextField interne qui affiche le texte dans cette fonctionnalité de rendu.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Implémentation de la propriété data, telle que définie par l’interface IDataRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Implémentation de la propriété <codeph>data</codeph>, telle que définie par l’interface IDataRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      Implémentation de la propriété listData, telle que définie par l’interface IDropInListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      Implémentation de la propriété <codeph>listData</codeph>, telle que définie par l’interface IDropInListItemRenderer.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

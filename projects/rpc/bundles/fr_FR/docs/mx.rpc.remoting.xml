@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.remoting"><apiName>mx.rpc.remoting</apiName><apiDetail/><apiClassifier id="mx.rpc.remoting:Operation"><apiName>Operation</apiName><shortdesc>
+ Opération utilisée spécialement par les objets RemoteObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Opération utilisée spécialement par les objets RemoteObject. Une opération est une méthode individuelle sur un service. Une opération peut être appelée en invoquant la fonction du même nom sur le service ou en accédant à l’opération en tant que propriété sur le service et en appelant la méthode <codeph>send()</codeph>.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.remoting:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+     Crée une nouvelle opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>remoteObject</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>Objet RemoteObject définissant le service. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom du service. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée une nouvelle opération. Cela est généralement effectué directement par l’objet RemoteObject lorsque l’utilisateur accède à une opération inconnue. Il n’est pas recommandé qu’un développeur utilise ce constructeur directement.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.remoting:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Classe AsyncToken associée à l’appel qui est annulé ou null si aucun appel n’a été annulé.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID messageId de l’invocation à annuler. Facultatif. Si omis, la dernière invocation de service est annulée.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié. Même s’il se peut que l’opération de réseau se poursuive, aucun événement de résultat ou d’erreur n’est distribué.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting:Operation:send"><apiName>send</apiName><shortdesc>
+     
+     Exécute la méthode.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Objet AsyncToken. Le même objet est disponible dans les événements <codeph>result</codeph> et <codeph>fault</codeph> de la propriété <codeph>token</codeph>.
+     
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>args</apiItemName><apiType value="restParam"/><apiDesc>Arguments facultatifs transmis dans le cadre de l’appel de méthode. Si aucun argument n’est transmis, l’objet d’argument est utilisé comme source de paramètres.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+     Exécute la méthode. Les arguments transmis le sont dans le cadre de l’appel de méthode. Si aucun argument n’est transmis, l’objet d’argument est utilisé comme source de paramètres.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.remoting:Operation:argumentNames"><apiName>argumentNames</apiName><shortdesc>
+     Liste ordonnée des noms des arguments à transmettre à un appel de méthode.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     Liste ordonnée des noms des arguments à transmettre à un appel de méthode. L’objet d’argument étant une table de hachage sans ordre garanti, ce tableau aide à rassembler tous les éléments correctement. Il sera automatiquement défini par le compilateur MXML, si nécessaire, lorsque l’opération est utilisée dans un format de balise.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     Utilisation simultanée pour cette opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Utilisation simultanée pour cette opération. Si ceci n’a pas été défini explicitement, le paramètre de la classe RemoteObject est utilisé.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:Operation:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     Indique si cette opération doit afficher le curseur occupé pendant qu’elle s’exécute.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Indique si cette opération doit afficher le curseur occupé pendant qu’elle s’exécute. Si ceci n’a pas été défini explicitement, le paramètre de la classe RemoteObject est utilisé.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.remoting:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+ La classe RemoteObject vous permet d’accéder à des classes sur un serveur d’applications distant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.rpc:AbstractService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe RemoteObject vous permet d’accéder à des classes sur un serveur d’applications distant.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.remoting:RemoteObject:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+     Crée une nouvelle classe RemoteObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>(Facultatif) Destination de la classe RemoteObject ; doit correspondre à un nom de destination dans le fichier services-config.xml.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée une nouvelle classe RemoteObject.
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.remoting:RemoteObject:getOperation"><apiName>getOperation</apiName><shortdesc>
+     Renvoie une opération du nom donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Opération qui s’exécute pour ce nom.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Nom affichable de l’opération.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Renvoie une opération du nom donné. Si l’opération n’a pas été créée auparavant, une nouvelle opération <codeph>mx.rpc.remoting.Operation</codeph> est créée lors de cet appel. Pour accéder aux opérations, il suffit en général simplement de les nommer après la variable de service (<codeph>myService.someOperation</codeph>), mais si le nom de votre opération correspond à une méthode définie sur le service (par exemple, <codeph>setCredentials</codeph>), vous pouvez utiliser cette méthode pour obtenir l’opération à la place.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting:RemoteObject:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+     Si un objet distant est géré par un service externe (par exemple, un composant CFC (ColdFusion Component)), un nom d’utilisateur et un mot de passe peuvent être définis pour le mécanisme d’authentification de ce service distant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>Nom d’utilisateur à transmettre à l’extrémité distante.
+     </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>Mot de passe à transmettre à l’extrémité distante.
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères à utiliser lors du codage des informations d’identification distantes. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. Le seul autre jeu de caractères pris en charge est « UTF-8 ».
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Si un objet distant est géré par un service externe (par exemple, un composant CFC (ColdFusion Component)), un nom d’utilisateur et un mot de passe peuvent être définis pour le mécanisme d’authentification de ce service distant.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting:RemoteObject:toString"><apiName>toString</apiName><shortdesc>
+     Représente une occurrence de la classe RemoteObject en tant que chaîne et décrit des propriétés importantes telles que l’ID de destination et le jeu de canaux assigné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie une chaîne représentant une occurrence d’une classe RemoteObject.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Représente une occurrence de la classe RemoteObject en tant que chaîne et décrit des propriétés importantes telles que l’ID de destination et le jeu de canaux assigné.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.remoting:RemoteObject:convertParametersHandler"><apiName>convertParametersHandler</apiName><shortdesc>
+     Fonction facultative, destinée essentiellement aux développeurs de structure qui doivent installer une fonction devant être appelée avec les paramètres transmis à chaque invocation d’objet distant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     Fonction facultative, destinée essentiellement aux développeurs de structure qui doivent installer une fonction devant être appelée avec les paramètres transmis à chaque invocation d’objet distant. La fonction prend un tableau de paramètres et renvoie le tableau potentiellement modifié. La définition de la fonction doit se présenter comme suit : <codeph> function myParametersFunction(parameters:Array):Array </codeph>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:convertResultHandler"><apiName>convertResultHandler</apiName><shortdesc>
+     Fonction facultative, destinée essentiellement aux développeurs de structure qui doivent installer un crochet pour traiter les résultats d’une opération avant de notifier les gestionnaires de résultats.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     Fonction facultative, destinée essentiellement aux développeurs de structure qui doivent installer un crochet pour traiter les résultats d’une opération avant de notifier les gestionnaires de résultats. La définition de la fonction doit se présenter comme suit : <codeph> function myConvertResultsFunction(result: operation:AbstractOperation): </codeph> Elle reçoit le résultat juste après la conversion makeObjectsBindable mais avant la création de l’événement result.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+    Valeur indiquant comment traiter plusieurs appels au même service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+    Valeur indiquant comment traiter plusieurs appels au même service. La valeur par défaut est multiple. Les valeurs suivantes sont autorisées :
+    <ul>
+    <li>multiple - Les demandes existantes ne sont pas annulées et il incombe au développeur de vérifier la cohérence des données renvoyées en gérant avec soin le flux d’événements. Il s’agit de la valeur par défaut.</li>
+    <li>single - N’effectuer qu’une demande à la fois est autorisé sur la méthode ; les demandes supplémentaires effectuées alors qu’une demande est en attente génèrent immédiatement une erreur sur le client et ne sont pas envoyées au serveur.</li>
+    <li>last - Si une demande est effectuée, le client ignore un résultat ou une erreur pour une demande en attente actuelle. Seul le résultat ou seule l’erreur pour la demande la plus récente sera distribuée au client. Cela peut simplifier la gestion des événements dans l’application client, mais prenez soin de n’utiliser ce mode que si les résultats ou erreurs des demandes peuvent être ignorés sans risque.</li>
+    </ul>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:endpoint:get"><apiName>endpoint</apiName><shortdesc>
+     Cette propriété permet au développeur de spécifier rapidement une extrémité pour une destination d’objet distant sans se référer à un fichier de configuration de services lors de la compilation ou créer par programmation une classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Cette propriété permet au développeur de spécifier rapidement une extrémité pour une destination d’objet distant sans se référer à un fichier de configuration de services lors de la compilation ou créer par programmation une classe ChannelSet. Elle remplace également une classe ChannelSet existante si une classe ChannelSet a été définie pour le service RemoteObject.
+     
+     <p>Si l’adresse URL de l’extrémité commence par « https », une classe SecureAMFChannel est utilisée ; dans le cas contraire, une classe AMFChannel est utilisée. Deux jetons spéciaux, {server.name} et {server.port}, peuvent être utilisés dans l’URL de l’extrémité pour indiquer que le canal doit utiliser le nom et le port de serveur ayant été utilisés pour charger le SWF. </p>
+     
+     <p><b>Remarque :</b> cette propriété est obligatoire lors de la création d’applications AIR.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    Si true, un curseur occupé s’affiche lors de l’exécution d’un service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    Si <codeph>true</codeph>, un curseur occupé s’affiche lors de l’exécution d’un service. La valeur par défaut est <codeph>false</codeph>.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:source:get"><apiName>source</apiName><shortdesc>
+     Vous permet de spécifier une valeur source sur le client ; non pris en charge pour les destinations utilisant l’adaptateur Java.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Vous permet de spécifier une valeur source sur le client ; non pris en charge pour les destinations utilisant l’adaptateur Java. Cela vous permet de fournir plusieurs sources accessibles à partir d’une destination unique sur le serveur. 
+         
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.mxml"><apiName>mx.rpc.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.mxml:IMXMLSupport"><apiName>IMXMLSupport</apiName><shortdesc>
+  实现此接口意味着可以通过使用 MXML 标记在 MXML 文档中使用 RPC 服务。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  实现此接口意味着可以通过使用 MXML 标记在 MXML 文档中使用 RPC 服务。
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.mxml:IMXMLSupport:mx.rpc.mxml:IMXMLSupport:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+      RPC 操作或 HTTPService 的并发设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      RPC 操作或 HTTPService 的并发设置。“multiple”、“last”或“single”之一。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:IMXMLSupport:mx.rpc.mxml:IMXMLSupport:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+      指示 RPC 操作或 HTTPService 是否应在执行时显示忙状态光标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示 RPC 操作或 HTTPService 是否应在执行时显示忙状态光标。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.mxml:Concurrency"><apiName>Concurrency</apiName><shortdesc>
+ 通过对 RPC 服务的访问（基于 MXML）来设置并发，以指示如何处理对同一服务的多个调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 通过对 RPC 服务的访问（基于 MXML）来设置并发，以指示如何处理对同一服务的多个调用。默认并发设置值为 <codeph>multiple</codeph>。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.mxml:Concurrency:LAST"><apiName>LAST</apiName><shortdesc>
+     发出请求可导致客户端忽略任何当前未处理请求的结果或错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     发出请求可导致客户端忽略任何当前未处理请求的结果或错误。仅在客户端上分派最新请求的结果或错误。这样可以简化客户端应用程序中的事件处理过程，但应该特别注意的是，只有在可以安全忽略请求的结果或错误时，才可使用此模式。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:Concurrency:MULTIPLE"><apiName>MULTIPLE</apiName><shortdesc>
+     不取消现有请求，开发人员通过谨慎管理事件流来负责确保返回数据的一致性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multiple</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     不取消现有请求，开发人员通过谨慎管理事件流来负责确保返回数据的一致性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:Concurrency:SINGLE"><apiName>SINGLE</apiName><shortdesc>
+     每次只允许在此方法中发出一个请求；在有请求未处理时在客户端上发出的其它请求会立即出错，而不会发送给服务器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>single</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     每次只允许在此方法中发出一个请求；在有请求未处理时在客户端上发出的其它请求会立即出错，而不会发送给服务器。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

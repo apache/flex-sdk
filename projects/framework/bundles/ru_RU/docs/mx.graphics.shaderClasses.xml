@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics.shaderClasses"><apiName>mx.graphics.shaderClasses</apiName><apiDetail/><apiClassifier id="mx.graphics.shaderClasses:LuminosityShader"><apiName>LuminosityShader</apiName><shortdesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Свечение» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Свечение» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite. Этот режим наложения не принадлежит Flash, но доступен в таких инструментах, как Adobe Illustrator и Adobe Photoshop. 
+ 
+  <p>Режим наложения «Свечение» может быть установлен для групп и графических элементов Flex. Визуальный внешний вид в таких инструментах, как Adobe Illustrator и Adobe Photoshop, будет имитирован с помощью этого затенения наложения.</p>  
+ 
+  </apiDesc><example conref="LuminosityShaderExample.mxml"><swfblock conref="examples/LuminosityShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:LuminosityShader:LuminosityShader"><apiName>LuminosityShader</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:SoftLightShader"><apiName>SoftLightShader</apiName><shortdesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Мягкий свет» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Мягкий свет» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite. Этот режим наложения не принадлежит Flash, но доступен в таких инструментах, как Adobe Illustrator и Adobe Photoshop. 
+ 
+  <p>Режим наложения «Мягкий свет» может быть установлен для групп и графических элементов Flex. Визуальный внешний вид в таких инструментах, как Adobe Illustrator и Adobe Photoshop, будет имитирован с помощью этого затенения наложения.</p>  
+ 
+  </apiDesc><example conref="SoftLightShaderExample.mxml"><swfblock conref="examples/SoftLightShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:SoftLightShader:SoftLightShader"><apiName>SoftLightShader</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:HueShader"><apiName>HueShader</apiName><shortdesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Тон» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Тон» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite. Этот режим наложения не принадлежит Flash, но доступен в таких инструментах, как Adobe Illustrator и Adobe Photoshop. 
+ 
+  <p>Режим наложения «Тон» может быть установлен для групп и графических элементов Flex. Визуальный внешний вид в таких инструментах, как Adobe Illustrator и Adobe Photoshop, будет имитирован с помощью этого затенения наложения.</p>  
+ 
+  </apiDesc><example conref="HueShaderExample.mxml"><swfblock conref="examples/HueShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:HueShader:HueShader"><apiName>HueShader</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorShader"><apiName>ColorShader</apiName><shortdesc>
+  Класс ColorShader создает затенение наложения, которое эквивалентно режиму наложения «Цвет» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ColorShader создает затенение наложения, которое эквивалентно режиму наложения «Цвет» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite. Этот режим наложения не принадлежит Flash, но доступен в таких инструментах, как Adobe Illustrator и Adobe Photoshop. Режим наложения «Цвет» может быть установлен для групп и графических элементов Flex, и визуальный внешний вид в таких инструментах, как Adobe Illustrator и Adobe Photoshop, будет имитирован с помощью этого затенения наложения.  
+ 
+  </apiDesc><example conref="ColorShaderExample.mxml"><swfblock conref="examples/ColorShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorShader:ColorShader"><apiName>ColorShader</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ExclusionShader"><apiName>ExclusionShader</apiName><shortdesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Исключение» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Исключение» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite. Этот режим наложения не принадлежит Flash, но доступен в таких инструментах, как Adobe Illustrator и Adobe Photoshop. 
+ 
+  <p>Режим наложения «Исключение» может быть установлен для групп и графических элементов Flex. Визуальный внешний вид в таких инструментах, как Adobe Illustrator и Adobe Photoshop, будет имитирован с помощью этого затенения наложения.</p>  
+ 
+  </apiDesc><example conref="ExclusionShaderExample.mxml"><swfblock conref="examples/ExclusionShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ExclusionShader:ExclusionShader"><apiName>ExclusionShader</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorDodgeShader"><apiName>ColorDodgeShader</apiName><shortdesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Осветление основы» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Осветление основы» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite. Этот режим наложения не принадлежит Flash, но доступен в таких инструментах, как Adobe Illustrator и Adobe Photoshop. 
+ 
+  <p>Режим наложения «Осветление основы» может быть установлен для групп и графических элементов Flex. Визуальный внешний вид в таких инструментах, как Adobe Illustrator и Adobe Photoshop, будет имитирован с помощью этого затенения наложения.</p>
+ 
+  </apiDesc><example conref="ColorDodgeShaderExample.mxml"><swfblock conref="examples/ColorDodgeShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorDodgeShader:ColorDodgeShader"><apiName>ColorDodgeShader</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorBurnShader"><apiName>ColorBurnShader</apiName><shortdesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Затемнение основы» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Затемнение основы» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite. Этот режим наложения не принадлежит Flash, но доступен в таких инструментах, как Adobe Illustrator и Adobe Photoshop. 
+ 
+  <p>Режим наложения «Затемнение основы» может быть установлен для групп и графических элементов Flex, и визуальный внешний вид в таких инструментах, как Adobe Illustrator и Adobe Photoshop, будет имитирован с помощью этого затенения наложения.</p>  
+ 
+  </apiDesc><example conref="ColorBurnShaderExample.mxml"><swfblock conref="examples/ColorBurnShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorBurnShader:ColorBurnShader"><apiName>ColorBurnShader</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор. 
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:LuminosityMaskShader"><apiName>LuminosityMaskShader</apiName><shortdesc>
+  Создает затенение наложения, которое эквивалентно параметру маскирования свечения (также известному как мягкое маскирование), доступному в инструментах Adobe Creative Suite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Создает затенение наложения, которое эквивалентно параметру маскирования свечения (также известному как мягкое маскирование), доступному в инструментах Adobe Creative Suite. Этот тип маски не принадлежит Flash, но доступен в таких инструментах, как Adobe Illustrator и Adobe Photoshop. 
+ 
+  <p>Тип маски свечения может быть установлен для групп и графических элементов Flex. Визуальный внешний вид в таких инструментах, как Adobe Illustrator и Adobe Photoshop, будет имитирован с помощью этого затенения наложения.</p>
+  
+  </apiDesc><example conref="LuminosityMaskShaderExample.mxml"><swfblock conref="examples/LuminosityMaskShaderExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/maskType"><linktext>spark.primitives.supportClasses.GraphicElement.maskType</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/maskType"><linktext>spark.components.supportClasses.GroupBase.maskType</linktext></link></related-links><apiConstructor id="mx.graphics.shaderClasses:LuminosityMaskShader:LuminosityMaskShader"><apiName>LuminosityMaskShader</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор. 
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics.shaderClasses:LuminosityMaskShader:mode:get"><apiName>mode</apiName><shortdesc>
+      Вспомогательное поле, учитывающее, включены или отключены luminosityClip и/или luminosityInvert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Вспомогательное поле, учитывающее, включены или отключены luminosityClip и/или luminosityInvert. 
+     
+      <ul>
+       <li>mode 0 = luminosityClip off, luminosityInvert off</li>
+       <li>mode 1 = luminosityClip off, luminosityInvert on</li>
+       <li>mode 2 = luminosityClip on, luminosityInvert off</li>
+       <li>mode 3 = luminosityClip on, luminosityInvert on </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/luminosityClip"><linktext>spark.primitives.supportClasses.GraphicElement.luminosityClip</linktext></link><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/luminosityInvert"><linktext>spark.primitives.supportClasses.GraphicElement.luminosityInvert</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/luminosityClip"><linktext>spark.components.supportClasses.GroupBase.luminosityClip</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/luminosityInvert"><linktext>spark.components.supportClasses.GroupBase.luminosityInvert</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:SaturationShader"><apiName>SaturationShader</apiName><shortdesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Насыщенность» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Создает затенение наложения, которое эквивалентно режиму наложения «Насыщенность» для предварительно умноженных значений цвета RGB, доступных в инструментах Adobe Creative Suite. Этот режим наложения не принадлежит Flash, но доступен в таких инструментах, как Adobe Illustrator и Adobe Photoshop. 
+ 
+  <p>Режим наложения «Насыщенность» может быть установлен для групп и графических элементов Flex. Визуальный внешний вид в таких инструментах, как Adobe Illustrator и Adobe Photoshop, будет имитирован с помощью этого затенения наложения.</p>  
+ 
+  </apiDesc><example conref="SaturationShaderExample.mxml"><swfblock conref="examples/SaturationShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:SaturationShader:SaturationShader"><apiName>SaturationShader</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

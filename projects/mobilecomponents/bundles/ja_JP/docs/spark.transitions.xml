@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.transitions"><apiName>spark.transitions</apiName><apiDetail/><apiClassifier id="spark.transitions:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+  CrossFadeViewTransition クラスは、ビューのための単純なクロスフェードトランジションとして機能します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CrossFadeViewTransition クラスは、ビューのための単純なクロスフェードトランジションとして機能します。このクラスは、既存のビューをフェードアウトして新しいビューが表示されるようにトランジションを実行します。クロスフェードでは、コントロールバーとビュー内容を 1 つのアイテムとしてトランジションを実行します。  
+   <p><b>メモ：</b>ビューのトランジションは ActionScript で作成および設定します。MXML では作成できません。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.transitions:CrossFadeViewTransition:CrossFadeViewTransition"><apiName>CrossFadeViewTransition</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+  SlideViewTransition クラスはビューのための単純なスライドトランジションを実行します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SlideViewTransition クラスはビューのための単純なスライドトランジションを実行します。新しいビューのスライドインに連れて既存のビューがスライドアウトします。スライドトランジションは、複数のモード（プッシュ、スライドイン、スライドアウト）とオプションの方向（上、下、左、または右）をサポートします。
+   <p><b>メモ：</b>ビューのトランジションは ActionScript で作成および設定します。MXML では作成できません。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransitionMode"><linktext>SlideViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:SlideViewTransition:SlideViewTransition"><apiName>SlideViewTransition</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:SlideViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      スライドトランジションの方向を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スライドトランジションの方向を指定します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      実行するスライドトランジションのタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SlideViewTransitionMode.PUSH
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      実行するスライドトランジションのタイプを指定します。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:SlideViewTransitionMode"><apiName>SlideViewTransitionMode</apiName><shortdesc>
+  SlideViewTransitionMode クラスは、スライドトランジションのタイプを指定するために使用される定数を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SlideViewTransitionMode クラスは、スライドトランジションのタイプを指定するために使用される定数を提供します。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#SlideViewTransition"><linktext>SlideViewTransition</linktext></link></related-links><apiValue id="spark.transitions:SlideViewTransitionMode:COVER"><apiName>COVER</apiName><shortdesc>
+     新しいビューがスライドインして前のビューをカバーします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     新しいビューがスライドインして前のビューをカバーします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:PUSH"><apiName>PUSH</apiName><shortdesc>
+     新しいビューのスライドインに連れて前のビューがスライドアウトします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>push</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     新しいビューのスライドインに連れて前のビューがスライドアウトします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:SlideViewTransitionMode:UNCOVER"><apiName>UNCOVER</apiName><shortdesc>
+     前のビューがスライドアウトして新しいビューが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>uncover</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     前のビューがスライドアウトして新しいビューが表示されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+  ZoomViewTransition クラスは、ヒューのズームインまたはズームアウトのトランジションを実行します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZoomViewTransition クラスは、ヒューのズームインまたはズームアウトのトランジションを実行します。 このクラスは、既存のビューをズームアウトして新しいビューを表示するか、新しいビューにズームインして既存のビューをカバーすることによりトランジションを実行します。 
+ 
+  <p>ZoomViewTransition のデフォルト継続時間は 350 ミリ秒です。また、デフォルトでは、<codeph>transitionControlsWithContent</codeph> が <codeph>true</codeph> であるかのように、コントロールバーとビュー内容を 1 つとしてトランジションが実行されます。 </p>
+   <p><b>メモ：</b>ビューのトランジションは ActionScript で作成および設定します。MXML では作成できません。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransitionMode"><linktext>ZoomViewTransitionMode</linktext></link></related-links><apiConstructor id="spark.transitions:ZoomViewTransition:ZoomViewTransition"><apiName>ZoomViewTransition</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:ZoomViewTransition:minimumScale:get"><apiName>minimumScale</apiName><shortdesc>
+      ズームされるビューの最小スケール（ズームインの場合は最初に表示されるビューを表し、ズームアウトの場合は最後に表示されるビューを表します）を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.25
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ズームされるビューの最小スケール（ズームインの場合は最初に表示されるビューを表し、ズームアウトの場合は最後に表示されるビューを表します）を指定します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      実行するズームトランジションのタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ZoomTransitionMode.OUT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      実行するズームトランジションのタイプを指定します。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionDirection"><apiName>ViewTransitionDirection</apiName><shortdesc>
+  ViewTransitionDirection クラスは、ビュートランジションの方向のヒントを表示する場合に使用される定数を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewTransitionDirection クラスは、ビュートランジションの方向のヒントを表示する場合に使用される定数を提供します。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="spark.transitions:ViewTransitionDirection:DOWN"><apiName>DOWN</apiName><shortdesc>
+      トランジションのアニメーションは下方向です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      トランジションのアニメーションは下方向です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:LEFT"><apiName>LEFT</apiName><shortdesc>
+      トランジションのアニメーションは左方向です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      トランジションのアニメーションは左方向です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      トランジションのアニメーションは右方向です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      トランジションのアニメーションは右方向です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionDirection:UP"><apiName>UP</apiName><shortdesc>
+      トランジションのアニメーションは上方向です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      トランジションのアニメーションは上方向です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+  FlipViewTransition クラスはビューのための単純な反転トランジションを実行します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.transitions:ViewTransitionBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlipViewTransition クラスはビューのための単純な反転トランジションを実行します。 反転トランジションは、2 つのモード（カードとキューブ）とオプションの方向（上、下、左、または右）をサポートします。
+ 
+  <p>FlipViewTransition のデフォルト継続時間は 400 ミリ秒です。</p>
+   <p><b>メモ：</b>ビューのトランジションは ActionScript で作成および設定します。MXML では作成できません。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links><apiConstructor id="spark.transitions:FlipViewTransition:FlipViewTransition"><apiName>FlipViewTransition</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.transitions:FlipViewTransition:direction:get"><apiName>direction</apiName><shortdesc>
+      反転トランジションの方向を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ViewTransitionDirection.LEFT
+           </apiDefaultValue></apiValueDef><apiDesc>
+      反転トランジションの方向を指定します。
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#ViewTransitionDirection"><linktext>ViewTransitionDirection</linktext></link></related-links></apiValue><apiValue id="spark.transitions:FlipViewTransition:mode:get"><apiName>mode</apiName><shortdesc>
+      実行する反転トランジションのタイプを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>FlipViewTransitionMode.CARD
+           </apiDefaultValue></apiValueDef><apiDesc>
+      実行する反転トランジションのタイプを指定します。
+           </apiDesc></apiValueDetail><related-links><link href="spark.transitions.xml#FlipViewTransitionMode"><linktext>FlipViewTransitionMode</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.transitions:ZoomViewTransitionMode"><apiName>ZoomViewTransitionMode</apiName><shortdesc>
+  ZoomTransitionMode クラスは、ズームトランジションインスタンスのスタイルモードの設定する場合に使用される定数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZoomTransitionMode クラスは、ズームトランジションインスタンスのスタイルモードの設定する場合に使用される定数を定義します。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#ZoomViewTransition"><linktext>ZoomViewTransition</linktext></link></related-links><apiValue id="spark.transitions:ZoomViewTransitionMode:IN"><apiName>IN</apiName><shortdesc>
+      新しいビューがズームインして前のビューをカバーします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>in</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      新しいビューがズームインして前のビューをカバーします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ZoomViewTransitionMode:OUT"><apiName>OUT</apiName><shortdesc>
+     前のビューがズームアウトして新しいビューが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>out</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     前のビューがズームアウトして新しいビューが表示されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+  ViewTransitionBase クラスは、すべてのビュートランジションのための基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ViewTransitionBase クラスは、すべてのビュートランジションのための基本クラスです。 それ自体がトランジションとして使用されることは意図されていません。 このクラスは、ビュートランジションによって使用される便利な共通メソッドやヘルパーメソッドを提供する以外に、デフォルトのアクションバートランジションシーケンスを提供します。
+ 
+  <p>ビュートランジションが初期化されると、所有しているビューナビゲーターが <codeph>startView</codeph> プロパティと <codeph>endView</codeph> プロパティを、トランジションが動作するビューに設定します。<codeph>navigator</codeph> プロパティは、ビューナビゲーターに設定されます。</p>
+ 
+  <p>トランジションのライフサイクルは次のとおりです。</p>
+    <ul>
+      <li>トランジションは <codeph>captureStartValues()</codeph> メソッドから始まります。メソッドが呼び出された時点では、ナビゲーターは開始ステートです。 この時点で、トランジションはそれが必要とするすべての開始値またはビットマップをキャプチャする必要があります。  </li>
+      <li>保留中のビューで検証パスが実行され、<codeph>captureEndValues()</codeph> メソッドが呼び出されます。この時点で、トランジションは保留中のビューからすべてのプロパティまたは 個のビットマップ表現をキャプチャします。</li>
+      <li>次に、<codeph>prepareForPlay()</codeph> メソッドが呼び出され、これにより、トランジションは Spark エフェクトのシーケンスの準備や過渡的な要素の表示リストへの配置などの準備を進めることができます。</li>
+      <li>必要な場合は最後の検証パスの後、ナビゲーターによって <codeph>play()</codeph> メソッドが呼び出され、実際のトランジションが実行されます。 </li>
+      <li>すべてのアニメーションが開始する前、<codeph>start</codeph> イベントが送出されます。</li>
+      <li>トランジションが完了すると、<codeph>end</codeph> イベントが送出されます。</li>
+    </ul>
+   <p><b>メモ：</b>ビューのトランジションは ActionScript で作成および設定します。MXML では作成できません。</p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionEnd"><apiName>transitionEnd</apiName><shortdesc>
+  トランジションが完了したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  トランジションが完了したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.transitions:ViewTransitionBase_mx.events.FlexEvent.TRANSITION_START_transitionStart"><apiName>transitionStart</apiName><shortdesc>
+  トランジションが開始するときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.TRANSITION_START</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  トランジションが開始するときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.transitions:ViewTransitionBase:ViewTransitionBase"><apiName>ViewTransitionBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.transitions:ViewTransitionBase:protected:canTransitionControlBarContent"><apiName>canTransitionControlBarContent</apiName><shortdesc>
+      Flex が、ビューとは無関係に、アクションバーまたはタブバーのコンテンツでトランジションを実行できるかどうかを決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ビューとビューの間でコントロールバーの互換性がないと判断される場合は <codeph>false</codeph> です。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Flex が、ビューとは無関係に、アクションバーまたはタブバーのコンテンツでトランジションを実行できるかどうかを決定します。
+     
+      <p>次の場合、Flex はトランジションをコントロールバーで個別に実行できません。</p>
+      <ul>
+          <li>コントロールバーが格納されているビューナビゲーターが TabbedViewNavigator で、タブバーの可視性がビューとビューの間で変わる場合。</li>
+          <li>ビューナビゲーターの <codeph>overlayControls</codeph> プロパティの値が、ビューとビューの間で変わる場合。</li>
+          <li>アクションバーのサイズまたは可視性が、ビューとビューの間で変わる場合。</li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureEndValues"><apiName>captureEndValues</apiName><shortdesc>
+      トランジションの準備フェーズ中に ViewNavigator によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      トランジションの準備フェーズ中に ViewNavigator によって呼び出されます。 これは新しいビューが完全に認識されて検証されたときに呼び出され、アクションバーとタブバーの内容が新しいビューのステートを反映します。 トランジションは、この時点で、保留中のビューから必要なすべての値をキャプチャできます。 また、新しいビュー、タブバー、またはアクションバーのステートを反映するすべてのビットマップは、アニメーション用に必要な場合、キャプチャする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:captureStartValues"><apiName>captureStartValues</apiName><shortdesc>
+      トランジションの準備フェーズ中に ViewNavigator によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      トランジションの準備フェーズ中に ViewNavigator によって呼び出されます。 これは新しいビューが完全に認識されて検証されたときに呼び出され、アクションバーとタブバーの内容が新しいビューのステートを反映します。 トランジションは、このメソッドを使用して、保留中のビューから必要なすべての値をキャプチャできます。 新しいビュー、タブバー、またはアクションバーのステートを反映するすべてのビットマップは、アニメーション用に必要な場合、キャプチャする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:cleanUp"><apiName>cleanUp</apiName><shortdesc>
+      トランジションの完了後に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      トランジションの完了後に呼び出されます。 このメソッドは、トランジションによって使用された参照および一時コンストラクトを解放する役割があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createActionBarEffect"><apiName>createActionBarEffect</apiName><shortdesc>
+      このメソッドはデフォルトの prepareForPlay() 実装によって呼び出され、トランジションが開始するときにアクションバーで再生される Spark エフェクトを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>アクションバーエフェクトとして機能する IEffect インスタンス。 このエフェクトはデフォルトの <codeph>play()</codeph> メソッドの実装によって再生されます。
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      このメソッドはデフォルトの <codeph>prepareForPlay()</codeph> 実装によって呼び出され、トランジションが開始するときにアクションバーで再生される Spark エフェクトを作成します。カスタムのアクションバーエフェクトが必要な場合、このメソッドはサブクラスによってオーバーライドする必要があります。デフォルトでは、このメソッドは基本のアクションバーエフェクトを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createConsolidatedEffect"><apiName>createConsolidatedEffect</apiName><shortdesc>
+      このメソッドはデフォルトの prepareForPlay() 実装によって呼び出され、必要なときにコントロールバーのコンテンツを含むナビゲーター全体のトランジションを実行するために再生される Spark エフェクトを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ビュートランジションとして機能する IEffect インスタンス。 このエフェクトはデフォルトの <codeph>play()</codeph> メソッドの実装によって再生されます。
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      このメソッドはデフォルトの <codeph>prepareForPlay()</codeph> 実装によって呼び出され、必要なときにコントロールバーのコンテンツを含むナビゲーター全体のトランジションを実行するために再生される Spark エフェクトを作成します。このメソッドはサブクラスによってオーバーライドされる必要があります。 デフォルトでは、このメソッドは null を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createTabBarEffect"><apiName>createTabBarEffect</apiName><shortdesc>
+      このメソッドはデフォルトの prepareForPlay() 実装によって呼び出され、トランジションが開始するときにタブバーで再生される Spark エフェクトを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>タブバートランジションとして機能する IEffect インスタンス。 このエフェクトはデフォルトの <codeph>play()</codeph> メソッドの実装によって再生されます。
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      このメソッドはデフォルトの <codeph>prepareForPlay()</codeph> 実装によって呼び出され、トランジションが開始するときにタブバーで再生される Spark エフェクトを作成します。 このメソッドはサブクラスによってオーバーライドされる必要があります。 デフォルトで、これは null を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:createViewEffect"><apiName>createViewEffect</apiName><shortdesc>
+      このメソッドはデフォルトの prepareForPlay() 実装によって呼び出され、トランジションが開始するときに現在のビューと次のビューで再生される Spark エフェクトを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ビュートランジションとして機能する IEffect インスタンス。 このエフェクトはデフォルトの <codeph>play()</codeph> メソッドの実装によって再生されます。
+     
+      </apiDesc><apiType value="mx.effects:IEffect"/></apiReturn></apiOperationDef><apiDesc>
+      このメソッドはデフォルトの <codeph>prepareForPlay()</codeph> 実装によって呼び出され、トランジションが開始するときに現在のビューと次のビューで再生される Spark エフェクトを作成します。 このメソッドはサブクラスによってオーバーライドされる必要があります。 デフォルトでは、このメソッドは null を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:getSnapshot"><apiName>getSnapshot</apiName><shortdesc>
+      トランジションの準備においてスクリーン要素のスナップショットをレンダリングするために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ターゲットを表す BitmapImage オブジェクトです。
+     
+      </apiDesc><apiType value="spark.primitives:BitmapImage"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>キャプチャする表示オブジェクト。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>padding</apiItemName><apiType value="int"/><apiData>4</apiData><apiDesc>BitmapImage オブジェクトに含められるオブジェクトの周りのパディングです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>globalPosition</apiItemName><apiType value="flash.geom:Point"/><apiData>null</apiData><apiDesc>null でない場合は、グローバル座標の BitmapImage の原点で <codeph>globalPosition</codeph> が更新されます。 別の座標スペースに移動する際には、この値を使用して、画面上のグローバルな位置が変わらないようにスナップショットの位置を調整できます。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      トランジションの準備においてスクリーン要素のスナップショットをレンダリングするために使用されます。 ビットマップは BitmapImage オブジェクトのフォームで返されます。 
+       
+      <p>BitmapImage はターゲットの親座標空間にあります。親が同じ場合は、ターゲットに正確に重なります。 別の親に移動する際には、必ず BitmapImage の変換を調整して、座標空間の変更を正しく考慮するようにしてください。<codeph>globalPosition</codeph> パラメーターの更新された値を、そのために使用できます。</p> 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:play"><apiName>play</apiName><shortdesc>
+      トランジションのアニメーションが開始されるときに ViewNavigator によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      トランジションのアニメーションが開始されるときに ViewNavigator によって呼び出されます。 このタイミングで、トランジションは <codeph>start</codeph> イベントを送出する必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:prepareForPlay"><apiName>prepareForPlay</apiName><shortdesc>
+      トランジションの準備フェーズ中に ViewNavigator によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      トランジションの準備フェーズ中に ViewNavigator によって呼び出されます。 このメソッドは、トランジションが、基盤となる IEffect インスタンスを作成および設定したり、過渡的な要素を表示リストに追加したりする機会を与えます。 過渡的な要素の例としては、ビットマッププレースホルダー、トランジション中に必要な一時コンテナおよびその他の要素などがあります。 必要に応じて、<codeph>play()</codeph> メソッドを起動する前に、最終検証パスが実行されます。
+     
+      <p>標準トランジションを開始できると判断された場合、つまりトランジションにおいてコントロールバーがビューとは別に実行される場合、このメソッドのデフォルト実装は、ビューのトランジション、アクションバーのトランジションおよびタブバーのトランジションの個々のエフェクトシーケンスをラップする、単一の Parallel エフェクトを構築します。 このメソッドは、<codeph>createActionBarEffect()</codeph>、<codeph>createTabBarEffect()</codeph>、<codeph>createViewEffect()</codeph> の各メソッドを使用します。</p>
+     
+      <p><codeph>transitionControlsWithContent</codeph> が <codeph>true</codeph> に設定された場合、またはコントロールバーのトランジションを個別に実行できないと判断された場合、ナビゲーター全体のトランジションを実行する単一のエフェクトが作成されます。 この場合、<codeph>createConsolidatedEffect()</codeph> のみが呼び出されます。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.transitions:ViewTransitionBase:protected:transitionComplete"><apiName>transitionComplete</apiName><shortdesc>
+      トランジションが完了したことを示すためにトランジションによって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      トランジションが完了したことを示すためにトランジションによって呼び出されます。 このメソッドは <codeph>end</codeph> イベントを送出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.transitions:ViewTransitionBase:duration:get"><apiName>duration</apiName><shortdesc>
+      トランジションの継続時間を表します（ミリ秒単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      トランジションの継続時間を表します（ミリ秒単位）。 トランジションによってデフォルトは異なる場合がありますが、ViewTransitionBase では 250 ミリ秒に設定されています。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:easer:get"><apiName>easer</apiName><shortdesc>
+      このトランジションのイージングビヘイビアーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="spark.effects.easing:IEaser"/><apiDefaultValue>Sine(.5);
+           </apiDefaultValue></apiValueDef><apiDesc>
+      このトランジションのイージングビヘイビアーです。IEaser オブジェクトは通常、実際のトランジションアニメーションを管理する IEffect インスタンスに反映されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.effects.easing.xml"><linktext>spark.effects.easing</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:endView:get"><apiName>endView</apiName><shortdesc>
+      ナビゲーターのトランジション後のビューで、所有する側の ViewNavigator オブジェクトによって設定されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ナビゲーターのトランジション後のビューで、所有する側の ViewNavigator オブジェクトによって設定されます。このプロパティは null に指定することができます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:navigator:get"><apiName>navigator</apiName><shortdesc>
+      所有する ViewNavigator によって設定される所有する ViewNavigator への参照。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:ViewNavigator</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      所有する ViewNavigator によって設定される所有する ViewNavigator への参照。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:startView:get"><apiName>startView</apiName><shortdesc>
+      ビューナビゲーターの現在アクティブなビューで、所有するビューナビゲーターによって設定されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:View</apiValueClassifier></apiValueDef><apiDesc>
+      ビューナビゲーターの現在アクティブなビューで、所有するビューナビゲーターによって設定されます。このプロパティは null に指定することができます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:ViewTransitionBase:suspendBackgroundProcessing:get"><apiName>suspendBackgroundProcessing</apiName><shortdesc>
+      true に設定すると、トランジションが再生される前に UIComponent.suspendBackgroundProcessing() メソッドが呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+           </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> に設定すると、トランジションが再生される前に <codeph>UIComponent.suspendBackgroundProcessing()</codeph> メソッドが呼び出されます。これにより、Flex の Layout Manager が無効になり、パフォーマンスが向上します。トランジションの完了後、<codeph>UIComponent.resumeBackgroundProcessing()</codeph> メソッドの呼び出しにより、Layout Manager の機能が復元されます。 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/suspendBackgroundProcessing()"><linktext>mx.core.UIComponent.suspendBackgroundProcessing()</linktext></link><link href="" invalidHref="mx.core.xml#UIComponent/resumeBackgroundProcessing()"><linktext>mx.core.UIComponent.resumeBackgroundProcessing()</linktext></link></related-links></apiValue><apiValue id="spark.transitions:ViewTransitionBase:transitionControlsWithContent:get"><apiName>transitionControlsWithContent</apiName><shortdesc>
+      true に設定すると、主なビュートランジションを使用して、アクションバーを含むビューナビゲーター全体にトランジションが実行されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> に設定すると、主なビュートランジションを使用して、アクションバーを含むビューナビゲーター全体にトランジションが実行されます。 アクションバー固有のトランジションは実行されません。 タブバーはビューではなくアプリケーション全体に関連付けられているため、ビューのトランジションの影響はありません。
+           <p><codeph>false</codeph> に設定したとしても、アクションバーにトランジションを実行できない場合があることに注意してください。 例えば、2 つのビューのどちらかにアクションバーが存在しない場合やアクションバーのサイズが変更される場合などがあります。</p>
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.transitions:FlipViewTransitionMode"><apiName>FlipViewTransitionMode</apiName><shortdesc>
+  FlipViewTransitionMode クラスは、反転トランジションインスタンスのスタイルモードのヒントを表示する場合に使用される定数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlipViewTransitionMode クラスは、反転トランジションインスタンスのスタイルモードのヒントを表示する場合に使用される定数を定義します。
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.transitions.xml#FlipViewTransition"><linktext>FlipViewTransition</linktext></link></related-links><apiValue id="spark.transitions:FlipViewTransitionMode:CARD"><apiName>CARD</apiName><shortdesc>
+      前のビューが中心点で反転すると、裏側に新しいビューが表示されてきます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>card</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      前のビューが中心点で反転すると、裏側に新しいビューが表示されてきます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.transitions:FlipViewTransitionMode:CUBE"><apiName>CUBE</apiName><shortdesc>
+     前のビューが回転するキューブの 1 つの面のように消えて行くと、キューブの隣の面に新しいビューが表示されてきます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cube</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     前のビューが回転するキューブの 1 つの面のように消えて行くと、キューブの隣の面に新しいビューが表示されてきます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

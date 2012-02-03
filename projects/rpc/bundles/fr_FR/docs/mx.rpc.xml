@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc"><apiName>mx.rpc</apiName><apiDetail/><apiClassifier id="mx.rpc:AbstractService"><apiName>AbstractService</apiName><shortdesc>
+ La classe AbstractService est la classe de base des classes HTTPMultiService, WebService et RemoteObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe AbstractService est la classe de base des classes HTTPMultiService, WebService et RemoteObject. Cette classe crée des opérations qui procèdent à l’exécution réelle des appels de procédures distantes.
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc:AbstractService_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ L’événement fault est distribué lorsqu’un appel de service échoue et n’est pas traité par l’opération elle-même.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ L’événement fault est distribué lorsqu’un appel de service échoue et n’est pas traité par l’opération elle-même.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:AbstractService_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ L’événement result est distribué lorsqu’un appel de service réussit et n’est pas traité par l’opération elle-même.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ L’événement result est distribué lorsqu’un appel de service réussit et n’est pas traité par l’opération elle-même.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:AbstractService_mx.rpc.events.InvokeEvent.INVOKE_invoke"><apiName>invoke</apiName><shortdesc>
+ L’événement invoke est déclenché lorsqu’une opération de service est invoquée à condition qu’une erreur ne soit pas générée avant que le canal ne tente d’envoyer le message.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.InvokeEvent.INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ L’événement invoke est déclenché lorsqu’une opération de service est invoquée à condition qu’une erreur ne soit pas générée avant que le canal ne tente d’envoyer le message.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc:AbstractService:AbstractService"><apiName>AbstractService</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Destination du service.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AbstractService:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Déconnecte la connexion réseau du service et supprime les répondeurs de demandes en attente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Déconnecte la connexion réseau du service et supprime les répondeurs de demandes en attente. Cette méthode n’attend pas que les opérations de réseau en attente se terminent. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     Renvoie une opération du nom donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Opération qui s’exécute pour ce nom.
+     
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Nom affichable de l’opération.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Renvoie une opération du nom donné. Si l’opération n’a pas été créée auparavant, les sous-classes sont chargées de la créer pendant cet appel. Pour accéder aux opérations, il suffit en général simplement de les nommer après la variable de service (<codeph>myService.someOperation</codeph>), mais si le nom de votre opération correspond à une méthode définie sur le service (par exemple, <codeph>setCredentials</codeph>), vous pouvez utiliser cette méthode pour obtenir l’opération à la place.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:initialize"><apiName>initialize</apiName><shortdesc>
+      Appelé pour initialiser le service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Appelé pour initialiser le service.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:logout"><apiName>logout</apiName><shortdesc>
+     Déconnecte l’utilisateur de la destination.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Déconnecte l’utilisateur de la destination. La déconnexion d’une destination s’applique à tous les éléments connectés à l’aide de la même classe ChannelSet tel que spécifié dans la configuration de serveur. Par exemple, si vous êtes connecté via le canal my-rtmp et que vous vous déconnectez à l’aide de l’un de vos composants RPC, tous les éléments qui étaient connectés via la même classe ChannelSet sont déconnectés.
+     
+      <p><b>Remarque :</b> Adobe vous recommande d’utiliser la méthode mx.messaging.ChannelSet.logout() au lieu de cette méthode.  </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.rpc:AbstractService:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+     Définit les informations d’identification pour la destination à laquelle le service accède lors de l’utilisation des services de données côté serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>Nom d’utilisateur pour la destination.
+     </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>Mot de passe pour la destination.
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères à utiliser lors du codage des informations d’identification. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. Le seul autre jeu de caractères pris en charge est « UTF-8 ».
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Définit les informations d’identification pour la destination à laquelle le service accède lors de l’utilisation des services de données côté serveur. Les informations d’identification sont appliquées à tous les services connectés via la même classe ChannelSet. Les services utilisant un proxy ou un adaptateur tiers sur une extrémité distante devront appeler la méthode setRemoteCredentials à la place.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+     Nom d’utilisateur et mot de passe à utiliser pour authentifier un utilisateur lors de l’accès à une extrémité distante tierce telle qu’un service Web via un proxy ou un objet distant via un adaptateur personnalisé lors de l’utilisation de services de données côté serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>Nom d’utilisateur à transmettre à l’extrémité distante
+     </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>Mot de passe à transmettre à l’extrémité distante
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères à utiliser lors du codage des informations d’identification distantes. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. Le seul autre jeu de caractères pris en charge est « UTF-8 ».
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Nom d’utilisateur et mot de passe à utiliser pour authentifier un utilisateur lors de l’accès à une extrémité distante tierce telle qu’un service Web via un proxy ou un objet distant via un adaptateur personnalisé lors de l’utilisation de services de données côté serveur.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AbstractService:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      Fournit un accès à la classe ChannelSet utilisée par le service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      Permet d’accéder à l’occurrence ChannelSet utilisée par le service. La classe ChannelSet peut être manuellement construite et assignée, ou elle sera dynamiquement créée afin d’utiliser les canaux configurés pour la <codeph>destination</codeph> de ce service.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:destination:get"><apiName>destination</apiName><shortdesc>
+     Destination du service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Destination du service. Cette valeur doit correspondre à une entrée de destination du fichier services-config.xml.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:managers:get"><apiName>managers</apiName><shortdesc>
+     La propriété managers stocke une liste de gestionnaires de données qui modifient le comportement de ce service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+     La propriété managers stocke une liste de gestionnaires de données qui modifient le comportement de ce service. Vous pouvez utiliser ce crochet pour définir un ou plusieurs composants de gestionnaires associés à ce service. Lorsque cette propriété est définie, si les gestionnaires comportent une propriété nommée « service », cette propriété est définie sur la valeur de ce service. Lorsque ce service est initialisé, la méthode initialize est aussi appelée sur les composants de gestionnaires.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      Fournit un accès au délai d’attente de demande en secondes pour les messages envoyés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Fournit un accès au délai d’attente de demande en secondes pour les messages envoyés. Une valeur égale ou inférieure à zéro empêche les délais d’attente de demande.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:operations:set"><apiName>operations</apiName><shortdesc>
+     En général, le tableau Operations n’est défini que par le compilateur MXML si vous créez un service à l’aide d’une balise MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     En général, le tableau Operations n’est défini que par le compilateur MXML si vous créez un service à l’aide d’une balise MXML.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:AbstractInvoker"><apiName>AbstractInvoker</apiName><shortdesc>
+ Un invocateur est un objet exécutant un appel de procédure distante (RPC).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Un invocateur est un objet exécutant un appel de procédure distante (RPC). Par exemple, les objets RemoteObject, HTTPService et WebService sont des invocateurs.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc:AbstractInvoker:cancel"><apiName>cancel</apiName><shortdesc>
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Classe AsyncToken associée à l’appel qui est annulé ou null si aucun appel n’a été annulé.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID messageId de l’invocation à annuler. Facultatif. Si omis, la dernière invocation de service est annulée.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Annule la dernière invocation de service ou une invocation comportant l’ID spécifié. Même s’il se peut que l’opération de réseau se poursuive, aucun événement de résultat ou d’erreur n’est distribué.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractInvoker:clearResult"><apiName>clearResult</apiName><shortdesc>
+      Définit la propriété result de l’invocateur sur null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>fireBindingEvent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Défini sur <codeph>true</codeph> si vous voulez que les éléments liés aux résultats soient mis à jour. Dans le cas contraire, défini sur <codeph>false</codeph>. La valeur par défaut est <codeph>true</codeph>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit la propriété <codeph>result</codeph> de l’invocateur sur <codeph>null</codeph>. Cela est utile lorsque le résultat est un objet de grande taille qui n’est plus utilisé.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractInvoker:setResult"><apiName>setResult</apiName><shortdesc>
+      Ce crochet est exposé pour mettre à jour la propriété lastResult.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>result</apiItemName><apiType value="Object"/><apiDesc>Nouvelle valeur de la propriété lastResult.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ce crochet est exposé pour mettre à jour la propriété lastResult. La propriété lastResult étant normalement automatiquement mise à jour par le service, vous n’appelez généralement pas cela. Cela est utilisé par les services gérés qui veulent s’assurer que la propriété lastResult pointe toujours vers l’occurrence gérée pour une identité donnée même si le service renvoie une nouvelle copie du même objet.  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AbstractInvoker:operationManager"><apiName>operationManager</apiName><shortdesc>
+     Cette propriété est généralement définie par le code de structure qui désire modifier le comportement d’une invocation de service sans modifier la manière dont le service est appelé en externe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     Cette propriété est généralement définie par le code de structure qui désire modifier le comportement d’une invocation de service sans modifier la manière dont le service est appelé en externe. Cela permet d'ajouter une étape "filtre" à l'appel de méthode afin de vous assurer par exemple que vous ne retournez pas des instances en double correspondant au même ID ou n'insérez pas de paramètres permettant de procéder à la pagination à la demande. Lorsque cela est défini sur une valeur non nulle sur l’appel d’envoi, la fonction operationManager est appelée à la place. Cela renvoie le jeton que l’appelant utilise pour être informé du résultat. En général, la fonction appelée efface temporairement cette propriété à un certain stade, puis invoque de nouveau l’opération cette fois-ci en l’envoyant réellement vers le serveur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:resultElementType"><apiName>resultElementType</apiName><shortdesc>
+     Comme resultType, utilisé pour définir la classe ActionScript utilisée par une opération donnée, bien que cette propriété ne s’applique qu’aux opérations qui renvoient un résultat à plusieurs valeurs (par exemple,</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+     Comme resultType, utiliser ceci pour définir la classe ActionScript utilisée par une opération donnée via cette propriété ne s’applique qu’aux opérations qui renvoient un résultat à plusieurs valeurs (par exemple, un tableau ou une classe ArrayCollection (IList)). Cette propriété spécifie une classe ActionScript pour les membres du tableau ou la collection de tableaux. Lorsque vous définissez la propriété resultElementType, il n’est pas nécessaire de définir la propriété resultType. Dans ce cas, l’opération renvoie un tableau si makeObjectsbindable a la valeur false et une collection ArrayCollection dans le cas contraire.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:resultType"><apiName>resultType</apiName><shortdesc> 
+     Spécifie un type de retour facultatif pour l’opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc> 
+     Spécifie un type de retour facultatif pour l’opération. Utilisé dans les situations où vous voulez forcer les informations en ligne dans une classe ActionScript spécifique ou afin de fournir des métadonnées pour d’autres services pour le type de retour de cette opération.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:lastResult:get"><apiName>lastResult</apiName><shortdesc>
+      Résultat de la dernière invocation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resultForBinding"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Résultat de la dernière invocation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque cette valeur est true, les objets anonymes retournés sont forcés sur des objets liables.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:AsyncResponder"><apiName>AsyncResponder</apiName><shortdesc>
+ Cette classe fournit une implémentation RPC de mx.rpc.IResponder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Cette classe fournit une implémentation RPC de <codeph>mx.rpc.IResponder</codeph>. Elle permet au créateur d’associer des données (un jeton) et des méthodes à appeler lorsqu’une demande est terminée. La méthode result spécifiée doit comporter la signature suivante : <codeph><pre>
+     public function myResultFunction(result:Object, token:Object = null):void;
+  </pre></codeph>La méthode result spécifiée doit comporter la signature suivante : <codeph><pre>
+     public function myFaultFunction(error:Object, token:Object = null):void;
+  </pre></codeph> Toute autre signature résultera en une erreur d’exécution.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:AsyncResponder:AsyncResponder"><apiName>AsyncResponder</apiName><shortdesc>
+      Construit une occurrence du répondeur avec les données et les gestionnaires spécifiés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>result</apiItemName><apiType value="Function"/><apiDesc>Fonction à appeler lorsque la demande aboutit. Elle doit présenter la signature suivante : 
+              <pre>public function (result:Object, token:Object = null):void;</pre>
+      </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiType value="Function"/><apiDesc>Fonction à appeler lorsque la demande génère une erreur. Elle doit présenter la signature suivante : 
+              <pre>public function (error:FaultEvent, token:Object = null):void;</pre>
+      </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Informations supplémentaires à associer à cette demande.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Construit une occurrence du répondeur avec les données et les gestionnaires spécifiés.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AsyncResponder:fault"><apiName>fault</apiName><shortdesc>
+      Cette méthode est appelée par un service lorsqu’une erreur est reçue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>Objet contenant des informations sur l’erreur survenue.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode est appelée par un service lorsqu’une erreur est reçue.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AsyncResponder:result"><apiName>result</apiName><shortdesc>
+      Cette méthode est appelée par un service lorsque la valeur de retour est reçue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Objet contenant les informations renvoyées par la demande.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode est appelée par un service lorsque la valeur de retour est reçue.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:IResponder"><apiName>IResponder</apiName><shortdesc>
+  Cette interface fournit le contrat pour un service devant répondre à des appels distants ou asynchrones.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Cette interface fournit le contrat pour un service devant répondre à des appels distants ou asynchrones.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc:IResponder:mx.rpc:IResponder:fault"><apiName>fault</apiName><shortdesc>
+	  Cette méthode est appelée par un service lorsqu’une erreur est reçue.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>Contient les informations relatives à l'erreur qui s'est produite.
+	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Cette méthode est appelée par un service lorsqu’une erreur est reçue. Pendant que des <codeph>informations</codeph> sont saisies en tant qu'Objet, il s'agit souvent (mais pas toujous) d'un objet mx.rpc.events.FaultEvent.
+         
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:IResponder:mx.rpc:IResponder:result"><apiName>result</apiName><shortdesc>
+	  Cette méthode est appelée par un service lorsque la valeur de retour est reçue.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Contient les informations renvoyées par la requête.
+	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Cette méthode est appelée par un service lorsque la valeur de retour est reçue. Pendant que les <codeph>données</codeph> sont saisies en tant qu'Objet, il s'agit souvent (mais pas toujours) de d'un objet mx.rpc.events.ResultEvent.
+         
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+ La classe AbstractOperation représente une méthode individuelle sur un service.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractInvoker</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe AbstractOperation représente une méthode individuelle sur un service. Une opération peut être appelée en invoquant la fonction du même nom sur le service ou en accédant à l’opération en tant que propriété sur le service et en appelant la méthode <codeph>send()</codeph>.
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.xml#AbstractService"><linktext>mx.rpc.AbstractService</linktext></link><link href="mx.rpc.remoting.xml#RemoteObject"><linktext>mx.rpc.remoting.RemoteObject</linktext></link><link href="mx.rpc.soap.xml#WebService"><linktext>mx.rpc.soap.WebService</linktext></link></related-links><adobeApiEvent id="mx.rpc:AbstractOperation_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ Distribué lorsqu’une opération échoue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Distribué lorsqu’une opération échoue.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:AbstractOperation_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ Distribué lorsqu’une invocation d’opération réussit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Distribué lorsqu’une invocation d’opération réussit.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc:AbstractOperation:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+     Crée une nouvelle opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>service</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>Service sur lequel l’opération est invoquée.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom de la nouvelle opération.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée une nouvelle opération. Cela est généralement effectué directement par le compilateur MXML ou automatiquement par le service lorsque l’utilisateur accède à une opération inconnue. Il n’est pas recommandé qu’un développeur utilise ce constructeur directement.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AbstractOperation:send"><apiName>send</apiName><shortdesc>
+     Exécute la méthode.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet AsyncToken. Le même objet est disponible dans les événements <codeph>result</codeph> et <codeph>fault</codeph> de la propriété <codeph>token</codeph>.
+     
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>args</apiItemName><apiType value="restParam"/><apiDesc>Arguments facultatifs transmis dans le cadre de l’appel de méthode. Si aucun argument n’est transmis, l’objet d’argument est utilisé comme source de paramètres.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Exécute la méthode. Les arguments transmis le sont dans le cadre de l’appel de méthode. Si aucun argument n’est transmis, l’objet d’argument est utilisé comme source de paramètres.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AbstractOperation:arguments"><apiName>arguments</apiName><shortdesc>
+     Arguments à transmettre à l’opération lorsqu’elle est invoquée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Arguments à transmettre à l’opération lorsqu’elle est invoquée. Si vous appelez la méthode <codeph>send()</codeph> sans aucun paramètre, un tableau basé sur cet objet est envoyé. Si vous appelez la méthode <codeph>send()</codeph> avec des paramètres (ou appelez la fonction directement sur le service), ces paramètres sont utilisés à la place des éléments stockés dans cette propriété. Pour les opérations RemoteObject, le tableau de noms argumentName associé détermine l’ordre des arguments transmis.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractOperation:properties"><apiName>properties</apiName><shortdesc>
+     Il s’agit d’un crochet permettant essentiellement aux développeurs de structures d’enregistrer d’autres propriétés spécifiées par l’utilisateur pour votre opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Il s’agit d’un crochet permettant essentiellement aux développeurs de structures d’enregistrer d’autres propriétés spécifiées par l’utilisateur pour votre opération.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractOperation:name:get"><apiName>name</apiName><shortdesc>
+     Nom de cette opération.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     Nom de cette opération. Il s’agit de la manière dont l’opération est accédée en dehors du service. Ne peut être défini qu’une seule fois.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractOperation:service:get"><apiName>service</apiName><shortdesc>
+     Fournit un accès pratique au service sur lequel l’opération est invoquée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.rpc:AbstractService</apiValueClassifier></apiValueDef><apiDesc>
+     Fournit un accès pratique au service sur lequel l’opération est invoquée. Le service ne peut pas être changé une fois l’opération construite.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:Responder"><apiName>Responder</apiName><shortdesc>
+  Cette classe fournit une implémentation par défaut de l’interface mx.rpc.IResponder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Cette classe fournit une implémentation par défaut de l’interface mx.rpc.IResponder.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:Responder:Responder"><apiName>Responder</apiName><shortdesc>
+      Construit une occurrence du répondeur avec les gestionnaires spécifiés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>result</apiItemName><apiType value="Function"/><apiDesc>Fonction à appeler lorsque la demande a réussi. 
+      </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiType value="Function"/><apiDesc>Fonction à appeler lorsque la demande s’est terminée avec des erreurs. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Construit une occurrence du répondeur avec les gestionnaires spécifiés.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:Responder:fault"><apiName>fault</apiName><shortdesc>
+      Cette méthode est appelée par un service lorsqu’une erreur est reçue.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>Objet contenant les informations renvoyées par la demande. Bien que <codeph>info</codeph> soit de type objet, il constitue souvent (mais pas toujours) un événement mx.rpc.events.FaultEvent.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode est appelée par un service lorsqu’une erreur est reçue.
+         
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:Responder:result"><apiName>result</apiName><shortdesc>
+      Cette méthode est appelée par un service distant lorsque la valeur de retour est reçue.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Objet contenant des informations sur l’erreur survenue. . Bien que <codeph>data</codeph> soit de type objet, il constitue souvent (mais pas toujours) un événement mx.rpc.events.ResultEvent.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode est appelée par un service distant lorsque la valeur de retour est reçue.
+         
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:AsyncRequest"><apiName>AsyncRequest</apiName><shortdesc>
+  La classe AsyncRequest fournit une abstraction des échanges de messages pour l’invocation d’appels RPC.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:Producer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe AsyncRequest fournit une abstraction des échanges de messages pour l’invocation d’appels RPC. Une demande AsyncRequest permet d’effectuer plusieurs demandes sur une destination distante et rappelle le répondeur spécifié dans la demande une fois la demande distante terminée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:AsyncRequest:AsyncRequest"><apiName>AsyncRequest</apiName><shortdesc>
+	  Construit une nouvelle demande asynchrone.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Construit une nouvelle demande asynchrone.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AsyncRequest:hasPendingRequestForMessage"><apiName>hasPendingRequestForMessage</apiName><shortdesc>
+    Renvoie true si des demandes sont en attente pour le message transmis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si des demandes sont en attente pour le message transmis ; dans le cas contraire, renvoie <codeph>false</codeph>.
+     
+     </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message pour lequel l’existence de demandes en attente est vérifiée.
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    Renvoie <codeph>true</codeph> si des demandes sont en attente pour le message transmis.
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AsyncRequest:invoke"><apiName>invoke</apiName><shortdesc>
+	  Distribue la demande asynchrone et stocke le répondeur à appeler ultérieurement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message à envoyer de manière asynchrone.
+         
+         </apiDesc></apiParam><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>Répondeur à appeler ultérieurement.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Distribue la demande asynchrone et stocke le répondeur à appeler ultérieurement.
+         
+         </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:Fault"><apiName>Fault</apiName><shortdesc>
+ La classe Fault représente une erreur dans une invocation de service RPC (Remote Procedure Call).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe Fault représente une erreur dans une invocation de service RPC (Remote Procedure Call).
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:Fault:Fault"><apiName>Fault</apiName><shortdesc>
+     Crée un nouvel objet Fault.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>faultCode</apiItemName><apiType value="String"/><apiDesc>Code simple décrivant l’erreur.
+     </apiDesc></apiParam><apiParam><apiItemName>faultString</apiItemName><apiType value="String"/><apiDesc>Description textuelle de l’erreur.
+     </apiDesc></apiParam><apiParam><apiItemName>faultDetail</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Détails supplémentaires décrivant l’erreur.
+     
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Crée un nouvel objet Fault.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:Fault:toString"><apiName>toString</apiName><shortdesc>
+     Renvoie une représentation de chaîne d’un objet Fault.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie une représentation de chaîne d’un objet Fault.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une représentation de chaîne d’un objet Fault.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:Fault:content"><apiName>content</apiName><shortdesc>
+     Contenu brut de l’erreur (s’il est disponible), tel qu’un corps de réponse HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Contenu brut de l’erreur (s’il est disponible), tel qu’un corps de réponse HTTP.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:rootCause"><apiName>rootCause</apiName><shortdesc>
+     Cause de l’erreur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Cause de l’erreur. La valeur est nulle si la cause est inconnue ou si cette erreur représente la racine elle-même.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:faultCode:get"><apiName>faultCode</apiName><shortdesc>
+     Code simple décrivant l’erreur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     Code simple décrivant l’erreur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:faultDetail:get"><apiName>faultDetail</apiName><shortdesc>
+     Détails supplémentaires sur l’erreur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     Détails supplémentaires sur l’erreur.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:faultString:get"><apiName>faultString</apiName><shortdesc>
+     Description textuelle de l’erreur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     Description textuelle de l’erreur.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:AsyncToken"><apiName>AsyncToken</apiName><shortdesc>
+  Cette classe fournit un endroit afin de définir des données supplémentaires ou de niveau jeton pour des opérations RPC asynchrones.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Cette classe fournit un endroit afin de définir des données supplémentaires ou de niveau jeton pour des opérations RPC asynchrones. Elle permet aussi de rattacher un répondeur IResponder pour un appel individuel. La classe AsyncToken peut être référencée dans les événements <codeph>ResultEvent</codeph> et <codeph>FaultEvent</codeph> de la propriété <codeph>token</codeph>.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc:AsyncToken_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Distribué lorsqu’une propriété de la classe ChannelSet change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une propriété de la classe ChannelSet change.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc:AsyncToken:AsyncToken"><apiName>AsyncToken</apiName><shortdesc>
+     Construit une occurrence du jeton avec le message spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>Message auquel le jeton est associé.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Construit une occurrence du jeton avec le message spécifié.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AsyncToken:addResponder"><apiName>addResponder</apiName><shortdesc>
+      Ajoute un répondeur à un tableau de répondeurs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>Gestionnaire qui sera appelé au terme de la demande asynchrone.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un répondeur à un tableau de répondeurs. L’objet assigné au paramètre de répondeur doit implémenter <codeph>mx.rpc.IResponder</codeph>.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link></related-links></apiOperation><apiOperation id="mx.rpc:AsyncToken:hasResponder"><apiName>hasResponder</apiName><shortdesc>
+     Détermine si ce jeton comporte au moins une méthode mx.rpc.IResponder enregistrée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>true si au moins un répondeur a été ajouté à ce jeton. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+     Détermine si ce jeton comporte au moins une méthode <codeph>mx.rpc.IResponder</codeph> enregistrée.
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AsyncToken:message:get"><apiName>message</apiName><shortdesc>
+      Fournit un accès au message associé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      Fournit un accès au message associé.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AsyncToken:responders:get"><apiName>responders</apiName><shortdesc>
+     Tableau de gestionnaires IResponder allant être appelés lorsque la demande asynchrone se termine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     Tableau de gestionnaires IResponder allant être appelés lorsque la demande asynchrone se termine. La fonction <codeph>result</codeph> ou <codeph>fault</codeph> appelée de chaque répondeur assigné au jeton transmettra l’événement correspondant <i>avant</i> que l’opération ou le service ne distribue l’événement lui-même. Un développeur peut empêcher le service de distribuer par la suite l’événement en appelant la méthode <codeph>event.preventDefault()</codeph>. Cela n’empêchera pas la propriété <codeph>result</codeph> du service ou de l’opération d’être assignée.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AsyncToken:result:get"><apiName>result</apiName><shortdesc>
+     Résultat renvoyé par l’appel RPC associé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     Résultat renvoyé par l’appel RPC associé. Une fois la propriété result sur le jeton assignée, elle est strictement égale à la propriété result sur l’événement ResultEvent associé.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:CallResponder"><apiName>CallResponder</apiName><shortdesc>
+  Ce composant vous aide à gérer les résultats des appels asynchrones effectués depuis les services RPC, généralement depuis des composants MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Ce composant vous aide à gérer les résultats des appels asynchrones effectués depuis les services RPC, généralement depuis des composants MXML. Bien que chaque opération et service individuel distribue des événements result et fault, il est courant de devoir utiliser la même opération dans différentes parties de votre application. Utiliser un écouteur d’événement ou une valeur lastResult à travers l’application entière peut être difficile. Au lieu de créer deux composants de services se référant au même service, vous pouvez utiliser une classe CallResponder légère simple afin de gérer les écouteurs d’événements et la valeur lastResult pour une invocation spécifique d’un service.
+  <p>
+  Définissez la propriété token de ce composant sur la classe AsyncToken renvoyée par le service. Vous pouvez ensuite ajouter des écouteurs d’événements sur ce composant au lieu d’avoir à les ajouter à chaque classe AsyncToken renvoyée. Ce composant conserve aussi la propriété lastResult, qui est une copie de la valeur renvoyée par le dernier événement event réussi distribué par un jeton que ce service surveille. Bien que vous puissiez effectuer une liaison à la méthode <codeph>callResponder.token.result</codeph> ou <codeph>callResponder.lastResult</codeph>, la seconde est préservée pendant qu’un second appel au même service est en cours, alors que la première est réinitialisée dès que démarre une nouvelle invocation de service.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc:CallResponder_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ Distribué lorsqu’une opération échoue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Distribué lorsqu’une opération échoue.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:CallResponder_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ Distribué lorsqu’une invocation d’opération réussit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Distribué lorsqu’une invocation d’opération réussit.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.rpc:CallResponder:fault"><apiName>fault</apiName><shortdesc>
+      Cette méthode est appelée par la classe AsyncToken lorsqu’elle désire livrer un événement FaultEvent à la classe CallResponder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Evénement FaultEvent délivré par la classe AsyncToken.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode est appelée par la classe AsyncToken lorsqu’elle désire livrer un événement <codeph>FaultEvent</codeph> à la classe CallResponder. Vous n’appelez pas cette méthode directement.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:CallResponder:result"><apiName>result</apiName><shortdesc>
+      Cette méthode est appelée par la classe AsyncToken lorsqu’elle désire livrer un événement ResultEvent à la classe CallResponder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Evénement ResultEvent délivré par la classe AsyncToken.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode est appelée par la classe AsyncToken lorsqu’elle désire livrer un événement <codeph>ResultEvent</codeph> à la classe CallResponder. Vous n’appelez pas cette méthode directement. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:CallResponder:lastResult:get"><apiName>lastResult</apiName><shortdesc>
+      Cette propriété stocke la propriété result du jeton chaque fois qu’elle livre un résultat réussi.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc>
+      Cette propriété stocke la propriété result du jeton chaque fois qu’elle livre un résultat réussi. Vous pouvez établir une liaison ou accéder à cette propriété à la place de la propriété token.result pour que votre code ne voie pas que cette valeur a été effacée lors du second appel et de l’appel suivant à une méthode de service spécifique. De plus, en cas d’erreur, cette valeur reste définie sur le dernier résultat réussi renvoyé par un jeton que cette classe CallResponder surveille.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:CallResponder:token:set"><apiName>token</apiName><shortdesc>
+      Chaque classe CallResponder distribue le résultat et les événements fault reçus d’un jeton unique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc:AsyncToken</apiValueClassifier></apiValueDef><apiDesc>
+      Chaque classe CallResponder distribue le résultat et les événements fault reçus d’un jeton unique. Cette valeur de propriété spécifie ce jeton. En règle générale, vous définissez cette propriété sur l’objet AsyncToken renvoyé par le service. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

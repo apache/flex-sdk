@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.sampler" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.sampler</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.sampler:StackFrame" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">StackFrame</apiName><shortdesc class="- topic/shortdesc ">
+     Класс StackFrame обеспечивает доступ к свойствам блока данных, содержащего функцию.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame
+     </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Класс StackFrame обеспечивает доступ к свойствам блока данных, содержащего функцию. Только для отладочной версии проигрывателя Flash Player.
+     </apiDesc></apiClassifierDetail><apiOperation id="flash.sampler:StackFrame:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+         Преобразует объект StackFrame в строку, содержащую соответствующие свойства.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.toString, toString
+         </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Строка, содержащая свойство <codeph class="+ topic/ph pr-d/codeph ">name</codeph>, и, возможно, свойства <codeph class="+ topic/ph pr-d/codeph ">file</codeph> и <codeph class="+ topic/ph pr-d/codeph ">line</codeph> (если SWF-файл открыт в режиме отладки) из объекта StackFrame. Только для отладочной версии проигрывателя Flash Player.
+         </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Преобразует объект StackFrame в строку, содержащую соответствующие свойства.
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sampler:StackFrame:file" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">file</apiName><shortdesc class="- topic/shortdesc ">
+         Имя SWF-файла, открытого в режиме отладки.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.file, file
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Имя SWF-файла, открытого в режиме отладки. Только для отладочной версии проигрывателя Flash Player.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:StackFrame:line" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">line</apiName><shortdesc class="- topic/shortdesc ">
+         Число строк для функции в отлаживаемом SWF-файле.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.line, line
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Число строк для функции в отлаживаемом SWF-файле. Только для отладочной версии проигрывателя Flash Player.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:StackFrame:name" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">name</apiName><shortdesc class="- topic/shortdesc ">
+         Имя функции в объекте StackFrame.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.name, name
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Имя функции в объекте StackFrame. Только для отладочной версии проигрывателя Flash Player.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:StackFrame:scriptID" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">scriptID</apiName><shortdesc class="- topic/shortdesc ">
+         Идентификатор для функции сценария в профилируемом приложении.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.scriptID, scriptID
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Идентификатор для функции сценария в профилируемом приложении.
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.sampler:NewObjectSample" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">NewObjectSample</apiName><shortdesc class="- topic/shortdesc ">
+    Класс NewObjectSample воспроизводит объекты, которые были созданы в потоке getSamples().</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">NewObjectSample
+    </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.sampler:Sample</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    Класс NewObjectSample воспроизводит объекты, которые были созданы в потоке <codeph class="+ topic/ph pr-d/codeph ">getSamples()</codeph>. Только для отладочной версии проигрывателя Flash Player.
+    </apiDesc><example conref="examples\SampleTypesExample.as" class="- topic/example "> В следующем примере свойства <codeph class="+ topic/ph pr-d/codeph ">stack</codeph> и <codeph class="+ topic/ph pr-d/codeph ">time</codeph> объекта Sample с именем <codeph class="+ topic/ph pr-d/codeph ">s</codeph> используются для сбора образцов памяти. Эти образцы содержат объекты NewObjectSample (массив <codeph class="+ topic/ph pr-d/codeph ">newSamples</codeph>), объекты DeleteObjectSample (массив <codeph class="+ topic/ph pr-d/codeph ">delSamples</codeph>) и объекты с образцами памяти ЦП (массив <codeph class="+ topic/ph pr-d/codeph ">cpuSamples</codeph>). Для использования профилировщика памяти необходим установленный отладочный вариант проигрывателя Flash Player версии 9.0.115.0 или более поздней.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.sampler.*
+    import flash.system.*
+    import flash.utils.*
+    import flash.display.Sprite
+    public class sampleTypes extends Sprite
+    {
+      var b:Boolean = true
+        public function sampleTypes() {
+            flash.sampler.startSampling();
+            for(var i:int=0;i&lt;10000;i++)
+              new Object();
+
+            var cpuSamples:Array=[];
+            var newSamples:Array=[];
+            var delSamples:Array=[];
+            var ids:Array=[]
+
+            var lastTime:Number=0;
+            for each(var s:Sample in getSamples()) {
+              
+              assert(s.time > 0); // positive
+              assert(Math.floor(s.time) == s.time, s.time); // integral
+              assert(s.time >= lastTime, s.time + ":" + lastTime); // ascending
+              assert(s.stack == null || s.stack is Array)
+              if(s.stack) {
+                assert(s.stack[0] is StackFrame);
+                assert(s.stack[0].name is String);
+            }
+              
+              if(s is NewObjectSample) {
+                var nos = NewObjectSample(s);
+                assert(s.id > 0, s.id);
+                assert(s.type is Class, getQualifiedClassName(s.type));
+                newSamples.push(s);
+                ids[s.id] = "got one";
+              } else if(s is DeleteObjectSample) {
+                var dos = DeleteObjectSample(s);
+                delSamples.push(s);
+                assert(ids[dos.id] == "got one");
+              } else if(s is Sample)
+                cpuSamples.push(s);
+              else {
+                assert(false);
+              }
+              lastTime = s.time;
+            }
+
+            trace(b)
+            trace(newSamples.length > 0)
+            trace(cpuSamples.length > 0)
+            trace(delSamples.length > 0)
+
+        }
+
+        private function assert(e:Boolean, mess:String=null):void {
+          b = e &amp;&amp; b;
+          if(true &amp;&amp; !e) {
+            if(mess) trace(mess);
+            trace(new Error().getStackTrace());
+          }     
+        }         
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="package.html#getSamples()" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.getSamples()</linktext></link></related-links><apiValue id="flash.sampler:NewObjectSample:type" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">type</apiName><shortdesc class="- topic/shortdesc ">
+         Объект Class, соответствующий объекту, который создан в потоке getSamples().</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">NewObjectSample, NewObjectSample.type, type
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Class</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Объект Class, соответствующий объекту, который создан в потоке <codeph class="+ topic/ph pr-d/codeph ">getSamples()</codeph>. Только для отладочной версии проигрывателя Flash Player.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:NewObjectSample:object:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">object</apiName><shortdesc class="- topic/shortdesc ">
+         Объект NewObjectSample, если он еще существует.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">NewObjectSample, NewObjectSample.object, object
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiType value="any" name="type" class="- topic/state reference/state apiRef/apiType "/></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Объект NewObjectSample, если он еще существует. Если объект заполнен некорректными данными, это свойство не определено и существует соответствующий объект DeleteObjectSample. Только для отладочной версии проигрывателя Flash Player.
+         </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#DeleteObjectSample" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.DeleteObjectSample</linktext></link></related-links></apiValue><apiValue id="flash.sampler:NewObjectSample:size:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">size</apiName><shortdesc class="- topic/shortdesc ">
+         Размер объекта NewObjectSample.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">NewObjectSample, NewObjectSample.size, size
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Размер объекта NewObjectSample. Если объект очищен в процессе сбора мусора, это свойство не определено и существует соответствующий объект DeleteObjectSample. Только для отладочной версии Flash Player.
+         </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#DeleteObjectSample" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.DeleteObjectSample</linktext></link></related-links></apiValue></apiClassifier><apiOperation id="globalOperation:flash.sampler:clearSamples" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">clearSamples</apiName><shortdesc class="- topic/shortdesc ">
+     Удаляет текущий набор объектов Sample.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">clearSamples
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Удаляет текущий набор объектов Sample. Этот метод обычно используется после вызова <codeph class="+ topic/ph pr-d/codeph ">getSamples()</codeph> и повторяется для каждого объекта Sample. Только для отладочной версии проигрывателя Flash Player.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#getSamples()" class="- topic/link "><linktext class="- topic/linktext ">getSamples()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getGetterInvocationCount" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getGetterInvocationCount</apiName><shortdesc class="- topic/shortdesc ">
+     Возвращает число, указывающее на то, сколько раз была выполнена функция получения.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getInvocationCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Число, указывающее на то, сколько раз был выполнен метод получения.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Экземпляр метода или класс.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">qname</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">QName</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Если для qname задано <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph>, возвращается число итераций функции конструктора.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Возвращает число, указывающее на то, сколько раз была выполнена функция получения. С помощью метода <codeph class="+ topic/ph pr-d/codeph ">isGetterSetter()</codeph> можно проверить наличие функции получения/установки перед использованием метода <codeph class="+ topic/ph pr-d/codeph ">getGetterInvocationCount()</codeph>. Только для отладочной версии проигрывателя Flash Player.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#isGetterSetter()" class="- topic/link "><linktext class="- topic/linktext ">isGetterSetter()</linktext></link><link href="package.html#getInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getInvocationCount()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getInvocationCount" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getInvocationCount</apiName><shortdesc class="- topic/shortdesc ">
+     Возвращает число, указывающее на то, сколько раз был выполнен метод.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getInvocationCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Число, указывающее на то, сколько раз был выполнен метод.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Экземпляр метода или класс. Класс можно использовать для получения счетчика вызовов функций экземпляра, когда экземпляр метода недоступен. Если для <codeph class="+ topic/ph pr-d/codeph ">obj</codeph> задано <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph>, этот метод возвращает счетчик действующей на уровне пакета функции с названием <codeph class="+ topic/ph pr-d/codeph ">qname</codeph>.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">qname</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">QName</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Если для qname задано <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph>, возвращается число итераций функции конструктора.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Возвращает число, указывающее на то, сколько раз был выполнен метод. Если параметр <codeph class="+ topic/ph pr-d/codeph ">obj</codeph> это класс, а для параметра <codeph class="+ topic/ph pr-d/codeph ">qname</codeph> задано <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph>, то данный метод возвращает число итераций функции конструктора. Только для отладочной версии проигрывателя Flash Player.
+     </apiDesc><example conref="examples\GetInvocationCountExample.as" class="- topic/example "> 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ package 
+{
+  public function exec3() {}
+
+  import flash.sampler.*;
+  import flash.system.*;
+  import flash.display.Sprite;
+  import flash.utils.*;
+  public class getInvocationCountTest extends Sprite
+    {
+      public function getInvocationCountTest()
+    {
+      for(var i:int=0;i&lt;10;i++)
+        exec();
+      for(var i:int=0;i&lt;10;i++)
+        exec2();
+      for(var i:int=0;i&lt;10;i++)
+        exec3();
+
+      // get exec QName
+      var execName:QName;
+          var name:QName;
+      var fooName:QName;
+      for each(name in getMemberNames(this)) {
+          if(name.localName == "exec")
+          execName = name;
+          if(name.localName == "foo")
+          fooName = name;
+      }
+
+      var exec2Name:QName;
+      for each(name in getMemberNames(getInvocationCountTest)) {
+          if(name.localName == "exec2")
+          exec2Name = name;
+      }
+
+      // execute get/set
+      foo = "bar";
+
+      trace(isGetterSetter(this, fooName));
+      trace(getSetterInvocationCount(this, fooName) == 1);
+      trace(getGetterInvocationCount(this, fooName) == 0);
+
+      foo;
+      
+      trace(getSetterInvocationCount(getInvocationCountTest, fooName) == 1);
+      trace(getGetterInvocationCount(getInvocationCountTest, fooName) == 1);
+
+      trace(getInvocationCount(this, execName) == 10);
+      trace(getInvocationCount(getInvocationCountTest, execName) == 10);
+      trace(getInvocationCount(getInvocationCountTest, exec2Name) == 10);
+      trace(getInvocationCount(getInvocationCountTest, undefined) == 1);
+    
+      getTimer();
+      getTimer();
+
+      trace(getInvocationCount(undefined, new QName("", "trace")) == 9);
+      trace(getInvocationCount(undefined, new QName("flash.utils", "getTimer")) == 2);
+      trace(getInvocationCount(undefined, new QName("", "exec3")) == 10);
+
+    }
+
+      private function exec():void {}
+      private static function exec2():void {}
+
+      private function get foo():String { return "fo"; }
+      private function set foo(s:String) { }
+      
+    }
+}
+</codeblock></example></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:getLexicalScopes" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getLexicalScopes</apiName><shortdesc class="- topic/shortdesc ">
+     Показывает лексическую область объекта Function, так что захваченные объекты области (включая объекты активации и имеющие область действия) рассматриваются профилировщиком как сохраняемые экземпляром Function.</shortdesc><prolog class="- topic/prolog "/><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Массив, содержащий все элементы лексического диапазон
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Array</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Function</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Функция
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Показывает лексическую область объекта Function, так что захваченные объекты области (включая объекты активации и имеющие область действия) рассматриваются профилировщиком как сохраняемые экземпляром Function.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:getMasterString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getMasterString</apiName><shortdesc class="- topic/shortdesc ">
+     Возвращает главную строку, от которой зависит данная строка, или ноль если данная строка не зависит от других.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Строка, от которой зависит переданная строка, или ноль, если переданная строка не зависит от других.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">str</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Строка
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Возвращает главную строку, от которой зависит данная строка, или ноль если данная строка не зависит от других. Например, если вызвать метод <codeph class="+ topic/ph pr-d/codeph ">String.substr()</codeph>, возвращенная строка на самом деле часто внедряется в исходную строку лишь как указатель с целью обеспечения быстродействия. При нормальном использовании эта сторона внедрения не видна пользователю. Однако это может вызвать недоразумение при использовании профилировщика для анализа потребления памяти программой, так как для строки может быть указано меньше памяти, чем необходимо для содержащегося в ней значения. Кроме того, строка может сохраняться в памяти лишь по той причине, что она служит главной строкой для других зависимых строк. Метод <codeph class="+ topic/ph pr-d/codeph ">getMasterString()</codeph> позволяет профилировщикам показывать пользователю точную схему зависимостей строк.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:getMemberNames" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getMemberNames</apiName><shortdesc class="- topic/shortdesc ">
+     Возвращается объект, содержащий все члены указанного объекта, включая частные члены.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getMemberNames
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект, для которого следует выполнять итерации с помощью цикла <codeph class="+ topic/ph pr-d/codeph ">for each..in</codeph> для извлечения QNames по каждому свойству.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">o</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект для анализа.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">instanceNames</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Если объект является классом, а для instanceNames задано значение true, то имена экземпляров передаются, как если бы «o» было экземпляром класса вместо имен членов класса.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Возвращается объект, содержащий все члены указанного объекта, включая частные члены. Затем можно выполнить итерации для возвращенного объекта, чтобы увидеть все значения. Этот метод сходен с методом flash.utils.describeType(), но также позволяет увидеть частных членов и пропустить промежуточный шаг создания объекта XML. Только для отладочной версии проигрывателя Flash Player.
+     
+     </apiDesc><example conref="examples\GetMemberNamesExample.as" class="- topic/example "> В следующем примере метод <codeph class="+ topic/ph pr-d/codeph ">getMemberNames()</codeph> используется для анализа объекта и отображения свойств <codeph class="+ topic/ph pr-d/codeph ">buttonMode</codeph>, <codeph class="+ topic/ph pr-d/codeph ">filters</codeph> и <codeph class="+ topic/ph pr-d/codeph ">dispatchEvent</codeph> для его членов. Для использования профилировщика памяти необходимо, чтобы был установлен отладочный вариант проигрывателя Flash Player версии 9.0.115.0 или более поздней.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ package 
+{
+  import flash.sampler.*;
+  import flash.system.*;
+  import flash.display.Sprite;
+  public class getMemberNamesTest extends Sprite
+    {
+      public function getMemberNamesTest()
+    {
+      var name_iter = getMemberNames(this);
+      var o={};
+      for each(var name:QName in name_iter) {
+        o[name.localName] = "got it";
+      }
+
+      name_iter = getMemberNames(this);
+      var count=0;
+      for(var dum in name_iter) {
+        count++;
+      }
+      trace(count == 1);
+
+      // my member
+      trace("buttonMode" in o);
+      // inherited member
+      trace("filters" in o);
+      // inherited function
+      trace("dispatchEvent" in o);
+
+      var name_iter = getMemberNames(getMemberNamesTest, true);
+      var o={};
+      for each(var name:QName in name_iter) {
+        o[name.localName] = "got it";
+      }
+
+      // my member
+      trace("buttonMode" in o);
+      // inherited member
+      trace("filters" in o);
+      // inherited function
+      trace("dispatchEvent" in o);
+
+    }
+    }
+}
+</codeblock></example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.utils.xml#/describeType()" class="- topic/link "><linktext class="- topic/linktext ">flash.utils.describeType()</linktext></link><link href="../../statements.html#for_each..in" class="- topic/link "><linktext class="- topic/linktext ">for each..in</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getSampleCount" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSampleCount</apiName><shortdesc class="- topic/shortdesc ">
+     Возвращает число собранных образцов.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getSampleCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Итератор экземпляров Sample.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Возвращает число собранных образцов. Только для отладочной версии проигрывателя Flash Player.
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#Sample" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.Sample</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getSamples" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSamples</apiName><shortdesc class="- topic/shortdesc ">
+     Возвращает объект с экземплярами Sample, содержащими данные об использовании памяти для последнего сеанса взятия образцов.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getSamples
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Итератор экземпляров Sample.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Возвращает объект с экземплярами Sample, содержащими данные об использовании памяти для последнего сеанса взятия образцов. Только для отладочной версии проигрывателя Flash Player.
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#Sample" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.Sample</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getSavedThis" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSavedThis</apiName><shortdesc class="- topic/shortdesc ">
+     Возвращает сохраненное свойство this из объекта MethodClosure, который обычно не видно в коде AS.</shortdesc><prolog class="- topic/prolog "/><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект, являющийся значением свойства this для объекта MethodClosure
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Function</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Экземпляр MethodClosure
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Возвращает сохраненное свойство this из объекта MethodClosure, который обычно не видно в коде AS.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:getSetterInvocationCount" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSetterInvocationCount</apiName><shortdesc class="- topic/shortdesc ">
+     Возвращает число, указывающее на то, сколько раз была выполнена функция установки.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getInvocationCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Возвращает число, указывающее на то, сколько раз был выполнен метод установки.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Экземпляр метода или класс.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">qname</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">QName</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Если для qname задано <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph>, возвращается число итераций функции конструктора.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Возвращает число, указывающее на то, сколько раз была выполнена функция установки. С помощью метода <codeph class="+ topic/ph pr-d/codeph ">isGetterSetter()</codeph> можно проверить наличие функции получения/установки перед использованием метода <codeph class="+ topic/ph pr-d/codeph ">getSetterInvocationCount()</codeph>. Только для отладочной версии проигрывателя Flash Player.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#isGetterSetter()" class="- topic/link "><linktext class="- topic/linktext ">isGetterSetter()</linktext></link><link href="package.html#getInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getInvocationCount()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getSize" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSize</apiName><shortdesc class="- topic/shortdesc ">
+    Возвращает размер, занимаемый указанным объектом в памяти, при использовании его в проигрывателе Flash Player 9.0.115.0 или более поздних отладочных версиях.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getSize
+    </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Счетчик памяти (в байтах), использованной указанным объектом.
+    </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">o</apiItemName><apiType value="any" name="type" class="- topic/state reference/state apiRef/apiType "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект для анализа использования памяти.
+    </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    Возвращает размер, занимаемый указанным объектом в памяти, при использовании его в проигрывателе Flash Player 9.0.115.0 или более поздних отладочных версиях. При использовании не с отладочной версией проигрывателя Flash Player этот метод возвращает значение <codeph class="+ topic/ph pr-d/codeph ">0</codeph>.
+    </apiDesc><example conref="examples\DeletedObjectSizeExample.as" class="- topic/example "> В следующем примере методы <codeph class="+ topic/ph pr-d/codeph ">startSampling()</codeph> и <codeph class="+ topic/ph pr-d/codeph ">pauseSampling</codeph> используются для сбора объектов Sample. Затем пример повторяется для всех объектов Sample с разными значениями <codeph class="+ topic/ph pr-d/codeph ">id</codeph> и размерами. После вызова <codeph class="+ topic/ph pr-d/codeph ">System.gc()</codeph> для прекращения текущего процесса, в примере выполняется сравнение объектов deletedObjectSample с исходными значениями <codeph class="+ topic/ph pr-d/codeph ">id</codeph>, и отображается их размер. Для использования профилировщика памяти необходим установленный отладочный вариант проигрывателя Flash Player версии 9.0.115.0 или более поздней.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ package {
+  import flash.sampler.*;
+  import flash.system.*;
+  import flash.display.Sprite;
+  import flash.utils.Dictionary;
+  public class deletedObjectSize extends Sprite {
+    public function deletedObjectSize() {
+
+      startSampling();
+      var obj = {};
+      pauseSampling();
+
+      var id:Number;
+      var sampleIter = getSamples();
+      for each(var s:Sample in sampleIter) {
+    id = s.id;
+      }
+      
+      sampleIter = getSamples();
+      var count=0;
+      for(var dum in sampleIter) {
+    count++;
+      }
+      trace(count == 1);
+
+      var size:Number = getSize(obj);
+      obj = undefined;
+
+      startSampling();
+
+      // force DRC
+      for(var i:int=0;i&lt;1000;i++)
+    new Object();
+      
+      System.gc();
+
+      pauseSampling();
+      
+      var sampleIter = getSamples();
+      for each(var s:Sample in sampleIter) {
+    //    trace(s);
+    if(s is DeleteObjectSample &amp;&amp; s.id == id) {
+      trace(s.size == size);
+    }      
+      }       
+
+    }
+  }
+}
+</codeblock></example></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:isGetterSetter" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">isGetterSetter</apiName><shortdesc class="- topic/shortdesc ">
+     Выполняется проверка, позволяющая увидеть, что свойство определено с помощью функции получения/установки.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getInvocationCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Логическое значение указывает на то, задано ли это свойство функцией получения/установки (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) или нет (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>).
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Экземпляр метода или класс.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">qname</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">QName</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Если для qname задано <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph>, возвращается число итераций функции конструктора.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Выполняется проверка, позволяющая увидеть, что свойство определено с помощью функции получения/установки. Если требуется использовать метод <codeph class="+ topic/ph pr-d/codeph ">getInvocationCount()</codeph> в отношении функции получения/установки для свойства, вначале вызовите метод <codeph class="+ topic/ph pr-d/codeph ">isGetterSetter()</codeph>, чтобы проверить, действительно ли это функция получения/установки, а затем используйте либо <codeph class="+ topic/ph pr-d/codeph ">getSetterInvocationCount</codeph>, либо <codeph class="+ topic/ph pr-d/codeph ">getGetterInvocationCount</codeph> для получения соответствующих счетчиков. Только для отладочной версии проигрывателя Flash Player.
+     </apiDesc><example conref="examples\GetInvocationCountExample.as" class="- topic/example "> 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ package 
+{
+  public function exec3() {}
+
+  import flash.sampler.*;
+  import flash.system.*;
+  import flash.display.Sprite;
+  import flash.utils.*;
+  public class getInvocationCountTest extends Sprite
+    {
+      public function getInvocationCountTest()
+    {
+      for(var i:int=0;i&lt;10;i++)
+        exec();
+      for(var i:int=0;i&lt;10;i++)
+        exec2();
+      for(var i:int=0;i&lt;10;i++)
+        exec3();
+
+      // get exec QName
+      var execName:QName;
+          var name:QName;
+      var fooName:QName;
+      for each(name in getMemberNames(this)) {
+          if(name.localName == "exec")
+          execName = name;
+          if(name.localName == "foo")
+          fooName = name;
+      }
+
+      var exec2Name:QName;
+      for each(name in getMemberNames(getInvocationCountTest)) {
+          if(name.localName == "exec2")
+          exec2Name = name;
+      }
+
+      // execute get/set
+      foo = "bar";
+
+      trace(isGetterSetter(this, fooName));
+      trace(getSetterInvocationCount(this, fooName) == 1);
+      trace(getGetterInvocationCount(this, fooName) == 0);
+
+      foo;
+      
+      trace(getSetterInvocationCount(getInvocationCountTest, fooName) == 1);
+      trace(getGetterInvocationCount(getInvocationCountTest, fooName) == 1);
+
+      trace(getInvocationCount(this, execName) == 10);
+      trace(getInvocationCount(getInvocationCountTest, execName) == 10);
+      trace(getInvocationCount(getInvocationCountTest, exec2Name) == 10);
+      trace(getInvocationCount(getInvocationCountTest, undefined) == 1);
+    
+      getTimer();
+      getTimer();
+
+      trace(getInvocationCount(undefined, new QName("", "trace")) == 9);
+      trace(getInvocationCount(undefined, new QName("flash.utils", "getTimer")) == 2);
+      trace(getInvocationCount(undefined, new QName("", "exec3")) == 10);
+
+    }
+
+      private function exec():void {}
+      private static function exec2():void {}
+
+      private function get foo():String { return "fo"; }
+      private function set foo(s:String) { }
+      
+    }
+}
+</codeblock></example></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#getInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getInvocationCount()</linktext></link><link href="package.html#getSetterInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getSetterInvocationCount()</linktext></link><link href="package.html#getGetterInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getGetterInvocationCount()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:pauseSampling" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">pauseSampling</apiName><shortdesc class="- topic/shortdesc ">
+     Немедленно завершает обработку образцов.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">pauseSampling
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Немедленно завершает обработку образцов. Процесс обработки образцов повторно запускается с помощью метода <codeph class="+ topic/ph pr-d/codeph ">startSampling()</codeph>. Только для отладочной версии проигрывателя Flash Player.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#startSampling()" class="- topic/link "><linktext class="- topic/linktext ">startSampling()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:sampleInternalAllocs" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">sampleInternalAllocs</apiName><shortdesc class="- topic/shortdesc ">
+     Сообщает обработчику образцов о том, что необходимо создать объект NewObjectSamples для внутреннего распределения из Flash Player.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">sampleInternalAllocs
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">b</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Сообщает обработчику образцов о том, что необходимо создать объект NewObjectSamples для внутреннего распределения из Flash Player. Если имеет значение true, то в результате каждого распределения создается объект NewObjectSample. У этих внутренних распределений нет типа, как и ссылки на объект. У них есть трассировка стека ActionScript, которая инициируется распределением. По умолчанию имеет значение false, которое собирает распределения только для объектов ActionScript.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:setSamplerCallback" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setSamplerCallback</apiName><shortdesc class="- topic/shortdesc ">
+     Задает для обработчика образцов функцию обратного вызова, которая будет вызываться, когда поток образцов будет почти полностью исчерпан.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">sampleInternalAllocs
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">f</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Function</apiOperationClassifier></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Задает для обработчика образцов функцию обратного вызова, которая будет вызываться, когда поток образцов будет почти полностью исчерпан. Его следует использовать для обработки образцов до заполнения буфера образцов. pauseSampling вызывается до инициации обратного вызова, а startSampling после выполнения обратного вызова.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:startSampling" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">startSampling</apiName><shortdesc class="- topic/shortdesc ">
+     Начинается процесс сбора информации об использовании памяти в объектах Sample.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">startSampling
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Начинается процесс сбора информации об использовании памяти в объектах Sample. Только для отладочной версии проигрывателя Flash Player.
+     </apiDesc><example conref="examples\StartSamplingExample.as" class="- topic/example "> В следующем примере запускается процесс сбора образцов и повторения операций для собираемых объектов. Для использования профилировщика памяти необходима установленная отладочная версия проигрывателя Flash Player 9.0.115.0 или выше.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.sampler.*
+    import flash.system.*
+    import flash.display.Sprite
+    public class startSampling extends Sprite
+    {
+        public function startSampling()
+        {
+            flash.sampler.startSampling();
+            for(var i:int=0;i&lt;1000;i++)
+                new Object()
+            trace(getSampleCount() > 0)
+        }
+    }
+}
+</codeblock></example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#Sample" class="- topic/link "><linktext class="- topic/linktext ">Класс Sample</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:stopSampling" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">stopSampling</apiName><shortdesc class="- topic/shortdesc ">
+     Завершает процесс сбора объектов Sample с данными об использовании памяти и освобождает ресурсы, выделенные для обработки образцов.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">stopSampling
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Завершает процесс сбора объектов Sample с данными об использовании памяти и освобождает ресурсы, выделенные для обработки образцов. Процесс сбора образцов запускается с помощью метода <codeph class="+ topic/ph pr-d/codeph ">startSampling()</codeph>. Только для отладочной версии проигрывателя Flash Player.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#Sample" class="- topic/link "><linktext class="- topic/linktext ">Класс Sample</linktext></link></related-links></apiOperation><apiClassifier languages="" id="flash.sampler:Sample" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Sample</apiName><shortdesc class="- topic/shortdesc ">
+     В классе Sample создаются объекты, содержащие информацию с анализом памяти за определенные промежутки времени.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Sample
+     </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     В классе Sample создаются объекты, содержащие информацию с анализом памяти за определенные промежутки времени. Только для отладочной версии проигрывателя Flash Player.
+     
+     </apiDesc><example conref="examples\SampleTypesExample.as" class="- topic/example "> В следующем примере свойства <codeph class="+ topic/ph pr-d/codeph ">stack</codeph> и <codeph class="+ topic/ph pr-d/codeph ">time</codeph> объекта Sample с именем <codeph class="+ topic/ph pr-d/codeph ">s</codeph> используются для сбора образцов памяти. Эти образцы содержат объекты NewObjectSample (массив <codeph class="+ topic/ph pr-d/codeph ">newSamples</codeph>), объекты DeleteObjectSample (массив <codeph class="+ topic/ph pr-d/codeph ">delSamples</codeph>) и объекты с образцами памяти ЦП (массив <codeph class="+ topic/ph pr-d/codeph ">cpuSamples</codeph>). Для использования профилировщика памяти необходим установленный отладочный вариант проигрывателя Flash Player версии 9.0.115.0 или более поздней.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.sampler.*
+    import flash.system.*
+    import flash.utils.*
+    import flash.display.Sprite
+    public class sampleTypes extends Sprite
+    {
+      var b:Boolean = true
+        public function sampleTypes() {
+            flash.sampler.startSampling();
+            for(var i:int=0;i&lt;10000;i++)
+              new Object();
+
+            var cpuSamples:Array=[];
+            var newSamples:Array=[];
+            var delSamples:Array=[];
+            var ids:Array=[]
+
+            var lastTime:Number=0;
+            for each(var s:Sample in getSamples()) {
+              
+              assert(s.time > 0); // positive
+              assert(Math.floor(s.time) == s.time, s.time); // integral
+              assert(s.time >= lastTime, s.time + ":" + lastTime); // ascending
+              assert(s.stack == null || s.stack is Array)
+              if(s.stack) {
+                assert(s.stack[0] is StackFrame);
+                assert(s.stack[0].name is String);
+            }
+              
+              if(s is NewObjectSample) {
+                var nos = NewObjectSample(s);
+                assert(s.id > 0, s.id);
+                assert(s.type is Class, getQualifiedClassName(s.type));
+                newSamples.push(s);
+                ids[s.id] = "got one";
+              } else if(s is DeleteObjectSample) {
+                var dos = DeleteObjectSample(s);
+                delSamples.push(s);
+                assert(ids[dos.id] == "got one");
+              } else if(s is Sample)
+                cpuSamples.push(s);
+              else {
+                assert(false);
+              }
+              lastTime = s.time;
+            }
+
+            trace(b)
+            trace(newSamples.length > 0)
+            trace(cpuSamples.length > 0)
+            trace(delSamples.length > 0)
+
+        }
+
+        private function assert(e:Boolean, mess:String=null):void {
+          b = e &amp;&amp; b;
+          if(true &amp;&amp; !e) {
+            if(mess) trace(mess);
+            trace(new Error().getStackTrace());
+          }     
+        }         
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="package.html#getSamples()" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.getSamples()</linktext></link></related-links><apiValue id="flash.sampler:Sample:stack" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">stack</apiName><shortdesc class="- topic/shortdesc ">
+         Содержит информацию о методах, выполненных проигрывателем Flash Player за указанный период времени.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Sample, Sample.stack, stack
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Содержит информацию о методах, выполненных проигрывателем Flash Player за указанный период времени. Формат для отслеживания стека сходен с содержимым диалогового окна для обработки исключений в отладочной версии проигрывателя Flash Player. Только для отладочной версии проигрывателя Flash Player.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:Sample:time" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">time</apiName><shortdesc class="- topic/shortdesc ">
+         Число микросекунд, определяющее продолжительность экземпляра Sample.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Sample, Sample.time, time
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Число микросекунд, определяющее продолжительность экземпляра Sample. Только для отладочной версии проигрывателя Flash Player.
+         
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.sampler:DeleteObjectSample" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">DeleteObjectSample</apiName><shortdesc class="- topic/shortdesc ">
+    Класс DeleteObjectSample воспроизводит объекты, созданные внутри потока getSamples(); каждый объект DeleteObjectSample соответствует объекту NewObjectSample.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">DeleteObjectSample
+    </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.sampler:Sample</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    Класс DeleteObjectSample воспроизводит объекты, созданные внутри потока <codeph class="+ topic/ph pr-d/codeph ">getSamples()</codeph>; каждый объект DeleteObjectSample соответствует объекту NewObjectSample. Только для отладочной версии проигрывателя Flash Player.
+    </apiDesc><example conref="examples\SampleTypesExample.as" class="- topic/example "> В следующем примере свойства <codeph class="+ topic/ph pr-d/codeph ">stack</codeph> и <codeph class="+ topic/ph pr-d/codeph ">time</codeph> объекта Sample с именем <codeph class="+ topic/ph pr-d/codeph ">s</codeph> используются для сбора образцов памяти. Эти образцы содержат объекты NewObjectSample (массив <codeph class="+ topic/ph pr-d/codeph ">newSamples</codeph>), объекты DeleteObjectSample (массив <codeph class="+ topic/ph pr-d/codeph ">delSamples</codeph>) и объекты с образцами памяти ЦП (массив <codeph class="+ topic/ph pr-d/codeph ">cpuSamples</codeph>). Для использования профилировщика памяти необходим установленный отладочный вариант проигрывателя Flash Player версии 9.0.115.0 или более поздней.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.sampler.*
+    import flash.system.*
+    import flash.utils.*
+    import flash.display.Sprite
+    public class sampleTypes extends Sprite
+    {
+      var b:Boolean = true
+        public function sampleTypes() {
+            flash.sampler.startSampling();
+            for(var i:int=0;i&lt;10000;i++)
+              new Object();
+
+            var cpuSamples:Array=[];
+            var newSamples:Array=[];
+            var delSamples:Array=[];
+            var ids:Array=[]
+
+            var lastTime:Number=0;
+            for each(var s:Sample in getSamples()) {
+              
+              assert(s.time > 0); // positive
+              assert(Math.floor(s.time) == s.time, s.time); // integral
+              assert(s.time >= lastTime, s.time + ":" + lastTime); // ascending
+              assert(s.stack == null || s.stack is Array)
+              if(s.stack) {
+                assert(s.stack[0] is StackFrame);
+                assert(s.stack[0].name is String);
+            }
+              
+              if(s is NewObjectSample) {
+                var nos = NewObjectSample(s);
+                assert(s.id > 0, s.id);
+                assert(s.type is Class, getQualifiedClassName(s.type));
+                newSamples.push(s);
+                ids[s.id] = "got one";
+              } else if(s is DeleteObjectSample) {
+                var dos = DeleteObjectSample(s);
+                delSamples.push(s);
+                assert(ids[dos.id] == "got one");
+              } else if(s is Sample)
+                cpuSamples.push(s);
+              else {
+                assert(false);
+              }
+              lastTime = s.time;
+            }
+
+            trace(b)
+            trace(newSamples.length > 0)
+            trace(cpuSamples.length > 0)
+            trace(delSamples.length > 0)
+
+        }
+
+        private function assert(e:Boolean, mess:String=null):void {
+          b = e &amp;&amp; b;
+          if(true &amp;&amp; !e) {
+            if(mess) trace(mess);
+            trace(new Error().getStackTrace());
+          }     
+        }         
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="package.html#getSamples()" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.getSamples()</linktext></link></related-links><apiValue id="flash.sampler:DeleteObjectSample:id" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">id</apiName><shortdesc class="- topic/shortdesc ">
+         Уникальный идентификационный номер, который совпадает с идентификационным номером NewObjectSample.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">DeleteObjectSample, DeleteObjectSample.id, id
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Уникальный идентификационный номер, который совпадает с идентификационным номером NewObjectSample. Только для отладочной версии проигрывателя Flash Player.
+         </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#NewObjectSample/id" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.NewObjectSample.id</linktext></link></related-links></apiValue><apiValue id="flash.sampler:DeleteObjectSample:size" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">size</apiName><shortdesc class="- topic/shortdesc ">
+         Размер объекта DeleteObjectSample перед его удалением.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">DeleteObjectSample, DeleteObjectSample.size, size
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Размер объекта DeleteObjectSample перед его удалением. Только для отладочной версии проигрывателя Flash Player.
+         </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#NewObjectSample/id" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.NewObjectSample.id</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

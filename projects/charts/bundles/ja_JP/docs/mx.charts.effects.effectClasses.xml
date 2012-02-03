@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.effects.effectClasses"><apiName>mx.charts.effects.effectClasses</apiName><apiDetail/><apiClassifier id="mx.charts.effects.effectClasses:SeriesEffectInstance"><apiName>SeriesEffectInstance</apiName><shortdesc>
+  SeriesEffectInstance クラスは、チャート系列エフェクトの基本インスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SeriesEffectInstance クラスは、チャート系列エフェクトの基本インスタンスクラスを実装します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.effects.xml#SeriesEffect"><linktext>mx.charts.effects.SeriesEffect</linktext></link></related-links><apiConstructor id="mx.charts.effects.effectClasses:SeriesEffectInstance:SeriesEffectInstance"><apiName>SeriesEffectInstance</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>エフェクトのターゲットを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.charts.effects.effectClasses:SeriesEffectInstance:protected:beginTween"><apiName>beginTween</apiName><shortdesc>
+	  トゥイーン計算を初期化し、elementCount プロパティと同じアイテム数の interpolationValues 配列を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>elementCount</apiItemName><apiType value="int"/><apiDesc>補完値を生成するエレメントの数を表します。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  トゥイーン計算を初期化し、<codeph>interpolationValues</codeph> 配列を <codeph>elementCount</codeph> プロパティと同じアイテム数だけ設定します。 派生クラスでは、この関数が <codeph>play()</codeph> メソッドで呼び出される必要があります。
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:elementOffset"><apiName>elementOffset</apiName><shortdesc>
+	  系列内の各エレメントのエフェクトを遅延させる時間をミリ秒単位で指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>20</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  系列内の各エレメントのエフェクトを遅延させる時間をミリ秒単位で指定します。
+	 
+	  <p><codeph>elementOffset</codeph> を <codeph>0</codeph> に設定すると、系列に含まれるすべてのエレメントが同時にこの値の影響を受けます。 この場合、すべてのエフェクトが同時に開始し、同時に終了します。</p>
+	 
+	  <p><codeph>elementOffset</codeph> に整数値（<codeph>30</codeph> など）を設定すると、各エレメントのエフェクトの時間が指定時間分ずれます。 例えば、スライドエフェクトの場合、最初のエレメントは即座にスライドし、2 番目以降のエレメントは 30 ミリ秒ずつ遅れて次々にスライドします。 各エフェクトの実行にかかる時間はすべてのエレメントで同じですが、全体の継続時間はこれより長くなります。</p>
+	 
+	  <p><codeph>elementOffset</codeph> に負の値を設定すると、リストの末尾から先頭に向かってエフェクトが逆順に実行されます。</p>
+	 
+	  <p>デフォルト値は <codeph>20</codeph> です。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:protected:interpolationValues"><apiName>interpolationValues</apiName><shortdesc>
+	  このエフェクトで管理される各チャートアイテムの現在の位置を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  このエフェクトで管理される各チャートアイテムの現在の位置を表します。 これは、エフェクトによって系列の各アイテムがその開始値と終了値の間のどの位置でレンダリングされる必要があるかを示す、0 ～ 1 の値の配列です。 これらの値は、継続時間、エレメント数、エレメントオフセット、最小エレメント継続時間、およびイージング関数に基づいて計算されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:minimumElementDuration"><apiName>minimumElementDuration</apiName><shortdesc>
+	  個々のエレメントがエフェクトを完了するのに必要な時間をミリ秒単位で指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  個々のエレメントがエフェクトを完了するのに必要な時間をミリ秒単位で指定します。
+	 
+	  <p>系列に含まれるデータポイントの数が可変のチャートでは、<codeph>duration</codeph> プロパティだけを使っても、スムーズにエフェクトを生成できない場合があります。 例えば、<codeph>duration</codeph> が <codeph>1000</codeph> であり、<codeph>elementOffset</codeph> が <codeph>100</codeph> のエフェクトがあるとします。ここで、系列内に 2 つのエレメントが存在する場合、各エレメントは 900 ミリ秒でエフェクトを完了する必要があります。 各エフェクトの開始のオフセットが 100 で、各エフェクトが 1000 ミリ秒で完了するためです。</p>
+	 
+	  <p>系列内に 4 つのエレメントが存在する場合、各エレメントは 700 ミリ秒でエフェクトを完了する必要があります。最後のエフェクトは 300 ミリ秒遅れて開始され、全体として 1000 ミリ秒で完了する必要があるからです。 仮に 10 個のエレメントが存在する場合、各エレメントを実行する時間は 100 ミリ秒しか</p>
+	  残されていないことになります。
+	 
+	  <p><codeph>minimumElementDuration</codeph> の値は、各エレメントの最小継続時間を設定します。 この値を指定すると、系列内のエレメントの数および <codeph>duration</codeph> プロパティの値に関係なく、エフェクトの実行がこの指定した時間（ミリ秒）より早く完了することはありません。 したがって、全体としてのエフェクトの実行時間は指定した<codeph>duration</codeph>より長くなる可能性があり、これは <codeph>duration</codeph>、<codeph>offset</codeph>、<codeph>minimumElementDuration</codeph> の 3 つのプロパティのうち 2 つ以上が指定されている場合も同様です。</p>
+	  
+	  <p>デフォルト値は <codeph>0</codeph> です。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:offset"><apiName>offset</apiName><shortdesc>
+	  エフェクトの遅延時間をミリ秒単位で指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  エフェクトの遅延時間をミリ秒単位で指定します。
+	 
+	  <p>複数の系列がある場合に時間差を付けてエフェクトを開始する場合は、このプロパティを使用します。</p>
+	 
+	  <p>デフォルト値は <codeph>0</codeph> です。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:protected:targetSeries"><apiName>targetSeries</apiName><shortdesc>
+	  このインスタンスでターゲットとなる系列を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.charts.chartClasses:Series</apiValueClassifier></apiValueDef><apiDesc>
+	  このインスタンスでターゲットとなる系列を表します。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesEffectInstance:type"><apiName>type</apiName><shortdesc>
+	  このエフェクトが使用されているトランジションのタイプを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>show</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  このエフェクトが使用されているトランジションのタイプを表します。 系列のエフェクトには、これらがチャートトランジションの表示または非表示のどちらの部分で使用されるかによって異なる動作が定義されるものがあります。 例えば SeriesSlide エフェクトでは、タイプが <codeph>hide</codeph> に設定された場合はエレメントが画面外の位置からスライドされ、<codeph>show</codeph> に設定された場合は画面上からスライドされます。 このプロパティは、チャートによって、エフェクトが割り当てられるスタイル（ShowDataEffect または HideDataEffect）に基づいて自動的に設定されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.effects.effectClasses:SeriesZoomInstance"><apiName>SeriesZoomInstance</apiName><shortdesc>
+  SeriesZoomInstance クラスは、SeriesZoom エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.effects.effectClasses:SeriesEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SeriesZoomInstance クラスは、SeriesZoom エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは SeriesZoom エフェクトの再生時に Flex により作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.effects.xml#SeriesZoom"><linktext>mx.charts.effects.SeriesZoom</linktext></link></related-links><apiConstructor id="mx.charts.effects.effectClasses:SeriesZoomInstance:SeriesZoomInstance"><apiName>SeriesZoomInstance</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>エフェクトのターゲットを表します。  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.effects.effectClasses:SeriesZoomInstance:horizontalFocus"><apiName>horizontalFocus</apiName><shortdesc>
+      ズームの焦点の位置を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      ズームの焦点の位置を定義します。
+     
+      <p><codeph>horizontalFocus</codeph> の有効な値は、<codeph>"left"</codeph>、<codeph>"center"</codeph>、<codeph>"right"</codeph>、および <codeph>null</codeph> です。</p>
+      デフォルト値は <codeph>"center"</codeph> です。
+     
+      <p><codeph>horizontalFocus</codeph> プロパティと <codeph>verticalFocus</codeph> プロパティを組み合わせて、データ系列がズームインまたはズームアウトする場所を定義します。 例えば、<codeph>horizontalFocus</codeph> を <codeph>"left"</codeph> に設定し、<codeph>verticalFocus</codeph> を <codeph>"top"</codeph> に設定すると、エレメントまたはチャート（<codeph>relativeTo</codeph> プロパティの設定による）の左上を焦点として、データ系列がズームインまたはズームアウトします。</p>
+     
+      <p>これらのプロパティの一方のみを指定した場合は、ズームインまたはズームアウトする先が点ではなく水平線または垂直線になります。 例えば、<codeph>horizontalFocus</codeph> を <codeph>"left"</codeph> に設定し、<codeph>verticalFocus</codeph> を <codeph>null</codeph> に設定すると、エレメントは境界線の左の垂直線にズームインまたはズームアウトします。 チャートエレメントをチャート境界ボックスの中央の水平線にズームインまたはズームアウトするには、<codeph>verticalFocus</codeph> を <codeph>"center"</codeph> に設定します。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesZoomInstance:relativeTo"><apiName>relativeTo</apiName><shortdesc>
+      ズームの焦点を計算する基準の境界ボックスを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>series</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ズームの焦点を計算する基準の境界ボックスを指定します。
+     
+      <p><codeph>relativeTo</codeph> で使用できる値は、<codeph>"series"</codeph> と <codeph>"chart"</codeph> です。 デフォルト値は <codeph>"series"</codeph> です。</p>
+     
+      <p><codeph>"series"</codeph> に設定すると、各エレメントはそれ自体の位置を基準にズームします。 例えば、ColumnChart のそれぞれの縦棒は、縦棒の左上や縦棒の中央などにズームします。</p>
+     
+      <p><codeph>"chart"</codeph> に設定すると、各エレメントはチャートの領域を基準にズームします。 例えば、それぞれの縦棒は軸の左上や軸の中央などにズームします。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.effects.effectClasses:SeriesZoomInstance:verticalFocus"><apiName>verticalFocus</apiName><shortdesc>
+      ズームの焦点の位置を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      ズームの焦点の位置を定義します。
+     
+      <p><codeph>verticalFocus</codeph> の有効な値は、<codeph>"top"</codeph>、<codeph>"center"</codeph>、<codeph>"bottom"</codeph>、および <codeph>null</codeph> です。 デフォルト値は <codeph>"center"</codeph> です。</p>
+     
+      <p>詳細については、<codeph>horizontalFocus</codeph> プロパティの説明を参照してください。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.effects.effectClasses:SeriesSlideInstance"><apiName>SeriesSlideInstance</apiName><shortdesc>
+  SeriesSlideInstance クラスは SeriesSlide エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.effects.effectClasses:SeriesEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SeriesSlideInstance クラスは SeriesSlide エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは SeriesSlide エフェクトの再生時に Flex により作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.effects.xml#SeriesSlide"><linktext>mx.charts.effects.SeriesSlide</linktext></link></related-links><apiConstructor id="mx.charts.effects.effectClasses:SeriesSlideInstance:SeriesSlideInstance"><apiName>SeriesSlideInstance</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>エフェクトのターゲットを表します。  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.effects.effectClasses:SeriesSlideInstance:direction"><apiName>direction</apiName><shortdesc>
+      系列をスライドする方向を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      系列をスライドする方向を定義します。 有効な値は <codeph>"left"</codeph>、<codeph>"right"</codeph>、<codeph>"up"</codeph>、および <codeph>"down"</codeph> です。 デフォルト値は <codeph>"left"</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.effects.effectClasses:SeriesInterpolateInstance"><apiName>SeriesInterpolateInstance</apiName><shortdesc>
+  SeriesInterpolateInstance クラスは、SeriesInterpolate エフェクトのインスタンスクラスを実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.effects.effectClasses:SeriesEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SeriesInterpolateInstance クラスは、SeriesInterpolate エフェクトのインスタンスクラスを実装します。 このクラスのインスタンスは SeriesInterpolate エフェクトの再生時に Flex により作成されます。ユーザー自身が作成することはありません。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.effects.xml#SeriesInterpolate"><linktext>mx.charts.effects.SeriesInterpolate</linktext></link></related-links><apiConstructor id="mx.charts.effects.effectClasses:SeriesInterpolateInstance:SeriesInterpolateInstance"><apiName>SeriesInterpolateInstance</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>エフェクトのターゲットを表します。  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

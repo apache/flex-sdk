@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins.halo"><apiName>mx.skins.halo</apiName><apiDetail/><apiClassifier id="mx.skins.halo:ActivatorSkin"><apiName>ActivatorSkin</apiName><shortdesc>
+  Definiert die Status „Oben“, „Unten“ und „Darüber“ für MenuBarItem-Objekte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Definiert die Status „Oben“, „Unten“ und „Darüber“ für MenuBarItem-Objekte.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ActivatorSkin:ActivatorSkin"><apiName>ActivatorSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressIndeterminateSkin"><apiName>ProgressIndeterminateSkin</apiName><shortdesc>
+  Die Skin für den unbestimmten Status einer ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für den unbestimmten Status einer ProgressBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressIndeterminateSkin:ProgressIndeterminateSkin"><apiName>ProgressIndeterminateSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollThumbSkin"><apiName>ScrollThumbSkin</apiName><shortdesc>
+  Die Skin für alle Status des Bildlauffelds in einer ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status des Bildlauffelds in einer ScrollBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollThumbSkin:ScrollThumbSkin"><apiName>ScrollThumbSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ButtonSkin"><apiName>ButtonSkin</apiName><shortdesc>
+  Die Skin für alle Status einer Schaltfläche.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status einer Schaltfläche.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ButtonSkin:ButtonSkin"><apiName>ButtonSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ApplicationBackground"><apiName>ApplicationBackground</apiName><shortdesc>
+  Die Skin für den Farbverlauf des Hintergrunds der Anwendung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für den Farbverlauf des Hintergrunds der Anwendung.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ApplicationBackground:ApplicationBackground"><apiName>ApplicationBackground</apiName><shortdesc>
+      Konstruktor	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:MenuBarBackgroundSkin"><apiName>MenuBarBackgroundSkin</apiName><shortdesc>
+  Die Skin für den Hintergrund einer MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für den Hintergrund einer MenuBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:MenuBarBackgroundSkin:MenuBarBackgroundSkin"><apiName>MenuBarBackgroundSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:WindowBackground"><apiName>WindowBackground</apiName><shortdesc>
+  Die Skin für den Farbverlauf des Hintergrunds einer Fensterkomponente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für den Farbverlauf des Hintergrunds einer Fensterkomponente.
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:WindowBackground:WindowBackground"><apiName>WindowBackground</apiName><shortdesc>
+      Konstruktor  
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor  
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollArrowSkin"><apiName>ScrollArrowSkin</apiName><shortdesc>
+  Die Skin für alle Status der Aufwärts- und Abwärts-Schaltfläche in einer ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status der Aufwärts- und Abwärts-Schaltfläche in einer ScrollBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollArrowSkin:ScrollArrowSkin"><apiName>ScrollArrowSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ColorPickerSkin"><apiName>ColorPickerSkin</apiName><shortdesc>
+  Die Skin für alle Status eines ColorPicker.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status eines ColorPicker.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ColorPickerSkin:ColorPickerSkin"><apiName>ColorPickerSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollTrackSkin"><apiName>ScrollTrackSkin</apiName><shortdesc>
+  Die Skin für die Leiste in einer ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für die Leiste in einer ScrollBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollTrackSkin:ScrollTrackSkin"><apiName>ScrollTrackSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:CheckBoxIcon"><apiName>CheckBoxIcon</apiName><shortdesc>
+  Die Skin für alle Status des Symbols in einer CheckBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status des Symbols in einer CheckBox.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:CheckBoxIcon:CheckBoxIcon"><apiName>CheckBoxIcon</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridHeaderBackgroundSkin"><apiName>DataGridHeaderBackgroundSkin</apiName><shortdesc>
+  Die Skin für den Hintergrund der Spaltenüberschriften in einem DataGrid-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für den Hintergrund der Spaltenüberschriften in einem DataGrid-Steuerelement.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.skins.halo:DataGridHeaderBackgroundSkin:DataGridHeaderBackgroundSkin"><apiName>DataGridHeaderBackgroundSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:TabSkin"><apiName>TabSkin</apiName><shortdesc>
+  Die Skin für alle Status einer Registerkarte in einem TabNavigator oder einer TabBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status einer Registerkarte in einem TabNavigator oder einer TabBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:TabSkin:TabSkin"><apiName>TabSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:RadioButtonIcon"><apiName>RadioButtonIcon</apiName><shortdesc>
+  Die Skin für alle Status des Symbols für RadioButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status des Symbols für RadioButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:RadioButtonIcon:RadioButtonIcon"><apiName>RadioButtonIcon</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderThumbSkin"><apiName>SliderThumbSkin</apiName><shortdesc>
+  Die Skin für alle Status des Schiebereglers auf einer Schiebereglerleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status des Schiebereglers auf einer Schiebereglerleiste.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderThumbSkin:SliderThumbSkin"><apiName>SliderThumbSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins.halo:SliderThumbSkin:protected:drawThumbState"><apiName>drawThumbState</apiName><shortdesc>
+	 Zur internen Verwendung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>borderColors</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>fillColors</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>fillAlphas</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>drawBacking</apiItemName><apiType value="Boolean"/></apiParam><apiParam><apiItemName>drillHole</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+	 Zur internen Verwendung.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.skins.halo:SwatchPanelSkin"><apiName>SwatchPanelSkin</apiName><shortdesc>
+  Die Skin für den Rahmen eines SwatchPanel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für den Rahmen eines SwatchPanel. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SwatchPanelSkin:SwatchPanelSkin"><apiName>SwatchPanelSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:NumericStepperDownSkin"><apiName>NumericStepperDownSkin</apiName><shortdesc>
+  Die Skin für alle Status der Schaltfläche „Nach unten“ in einem NumericStepper.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status der Schaltfläche „Nach unten“ in einem NumericStepper.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:NumericStepperDownSkin:NumericStepperDownSkin"><apiName>NumericStepperDownSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:NumericStepperUpSkin"><apiName>NumericStepperUpSkin</apiName><shortdesc>
+  Die Skin für alle Status der Aufwärts-Schaltfläche in einem NumericStepper.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status der Aufwärts-Schaltfläche in einem NumericStepper.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:NumericStepperUpSkin:NumericStepperUpSkin"><apiName>NumericStepperUpSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:LinkSeparator"><apiName>LinkSeparator</apiName><shortdesc>
+  Die Skin für die Trennlinie zwischen Links in einer LinkBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für die Trennlinie zwischen Links in einer LinkBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:LinkSeparator:LinkSeparator"><apiName>LinkSeparator</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:HaloBorder"><apiName>HaloBorder</apiName><shortdesc>
+  Definiert das Aussehen des Standardrahmens für das Halo-Thema.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:RectangularBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Definiert das Aussehen des Standardrahmens für das Halo-Thema.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:HaloBorder:HaloBorder"><apiName>HaloBorder</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpIcon"><apiName>PopUpIcon</apiName><shortdesc>
+  Die Skin für alle Status des Symbols in einem PopUpButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status des Symbols in einem PopUpButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpIcon:PopUpIcon"><apiName>PopUpIcon</apiName><shortdesc>
+      Konstruktor	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PanelSkin"><apiName>PanelSkin</apiName><shortdesc>
+  Die PanelSkin-Klasse definiert die Skin für Panel-, TitleWindow- und Alert-Komponenten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins.halo:HaloBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die PanelSkin-Klasse definiert die Skin für Panel-, TitleWindow- und Alert-Komponenten.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PanelSkin:PanelSkin"><apiName>PanelSkin</apiName><shortdesc>
+      Konstruktor
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressMaskSkin"><apiName>ProgressMaskSkin</apiName><shortdesc>
+  Die Skin für die Maske von „bestimmten“ und „unbestimmten“ Fortschrittsleisten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für die Maske von „bestimmten“ und „unbestimmten“ Fortschrittsleisten. Die Maske definiert den Bereich zur Anzeige der bestimmten oder unbestimmten Fortschrittsleiste. Standardmäßig legt die Maske fest, dass die Fortschrittsleiste 1 Pixel von der Leiste entfernt eingefügt wird.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#ProgressBar"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiConstructor id="mx.skins.halo:ProgressMaskSkin:ProgressMaskSkin"><apiName>ProgressMaskSkin</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:TitleBackground"><apiName>TitleBackground</apiName><shortdesc>
+  Die Skin für einen Titelleistenbereich eines Bedienfelds.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für einen Titelleistenbereich eines Bedienfelds.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:TitleBackground:TitleBackground"><apiName>TitleBackground</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridColumnDropIndicator"><apiName>DataGridColumnDropIndicator</apiName><shortdesc>
+  Die Skin für den Drop-Indikator von Spalten in einem DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für den Drop-Indikator von Spalten in einem DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridColumnDropIndicator:DataGridColumnDropIndicator"><apiName>DataGridColumnDropIndicator</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ComboBoxArrowSkin"><apiName>ComboBoxArrowSkin</apiName><shortdesc>
+  Die Skin für alle Status der Schaltfläche in einer ComboBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status der Schaltfläche in einer ComboBox.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ComboBoxArrowSkin:ComboBoxArrowSkin"><apiName>ComboBoxArrowSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:AccordionHeaderSkin"><apiName>AccordionHeaderSkin</apiName><shortdesc>
+  Die Skin für alle Status eines AccordionHeader in einem Accordion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status eines AccordionHeader in einem Accordion.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:AccordionHeaderSkin:AccordionHeaderSkin"><apiName>AccordionHeaderSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderTrackSkin"><apiName>SliderTrackSkin</apiName><shortdesc>
+  Die Skin für die Leiste in einer Schiebereglerleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für die Leiste in einer Schiebereglerleiste.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderTrackSkin:SliderTrackSkin"><apiName>SliderTrackSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridSortArrow"><apiName>DataGridSortArrow</apiName><shortdesc>
+  Die Skin für den Sortierpfeil in der Spaltenüberschrift in einem DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für den Sortierpfeil in der Spaltenüberschrift in einem DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridSortArrow:DataGridSortArrow"><apiName>DataGridSortArrow</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:LinkButtonSkin"><apiName>LinkButtonSkin</apiName><shortdesc>
+  Die Skin für alle Status eines LinkButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status eines LinkButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:LinkButtonSkin:LinkButtonSkin"><apiName>LinkButtonSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserIndicator"><apiName>DateChooserIndicator</apiName><shortdesc>
+  Die Skins der DateChooser-Indikatoren zur Anzeige des Tagesdatums, des Rollover-Datums und ausgewählter Datumswerte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skins der DateChooser-Indikatoren zur Anzeige des Tagesdatums, des Rollover-Datums und ausgewählter Datumswerte.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserIndicator:DateChooserIndicator"><apiName>DateChooserIndicator</apiName><shortdesc>
+      Konstruktor	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridColumnResizeSkin"><apiName>DataGridColumnResizeSkin</apiName><shortdesc>
+  Die Skin für die Größenänderung von Spalten im DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für die Größenänderung von Spalten im DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridColumnResizeSkin:DataGridColumnResizeSkin"><apiName>DataGridColumnResizeSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridHeaderSeparator"><apiName>DataGridHeaderSeparator</apiName><shortdesc>
+  Die Skin für die Trennlinie zwischen Spaltenüberschriften in einem DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für die Trennlinie zwischen Spaltenüberschriften in einem DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridHeaderSeparator:DataGridHeaderSeparator"><apiName>DataGridHeaderSeparator</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ButtonBarButtonSkin"><apiName>ButtonBarButtonSkin</apiName><shortdesc>
+  Die Skin für alle Status der ButtonBarButtons in einer ButtonBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status der ButtonBarButtons in einer ButtonBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ButtonBarButtonSkin:ButtonBarButtonSkin"><apiName>ButtonBarButtonSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderHighlightSkin"><apiName>SliderHighlightSkin</apiName><shortdesc>
+  Die Skin für den hervorgehobenen Status der Leiste einer Schiebereglerleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für den hervorgehobenen Status der Leiste einer Schiebereglerleiste.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderHighlightSkin:SliderHighlightSkin"><apiName>SliderHighlightSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:HaloColors"><apiName>HaloColors</apiName><shortdesc>
+  Definiert die Farben von Komponenten mit Unterstützung für das Halo-Thema.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Definiert die Farben von Komponenten mit Unterstützung für das Halo-Thema.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.skins.halo:HaloColors:addHaloColors"><apiName>addHaloColors</apiName><shortdesc>
+	  Berechnet die Farben von Komponenten, die das Halo-Design unterstützen, z. B. die Farben von abgeflachten Kanten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Object"/><apiDesc>Das Objekt zum Speichern der berechneten Farbwerte.  
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>themeColor</apiItemName><apiType value="uint"/><apiDesc>Der Wert der <codeph>themeColor</codeph>-Stileigenschaft.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>fillColor0</apiItemName><apiType value="uint"/><apiDesc>Farbe einer Füllung am Anfang.
+
+	 </apiDesc></apiParam><apiParam><apiItemName>fillColor1</apiItemName><apiType value="uint"/><apiDesc>Farbe einer Füllung am Ende.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Berechnet die Farben von Komponenten, die das Halo-Design unterstützen, z. B. die Farben von abgeflachten Kanten. Diese Methode berechnet die Farben mithilfe der <codeph>themeColor</codeph>- und <codeph>fillColors</codeph>-Eigenschaften.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins.halo:HaloColors:getCacheKey"><apiName>getCacheKey</apiName><shortdesc>
+	  Gibt einen eindeutigen Hash-Schlüssel zurück, der auf den übergebenen Farben basiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="restParam"/><apiDesc>Eine beliebige Anzahl von RGB-Farben, die als <codeph>uint</codeph>-Werte (Beispiel: 0xFF0000) ausgedrückt werden .
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Gibt einen eindeutigen Hash-Schlüssel zurück, der auf den übergebenen Farben basiert. Dieser Wert dient zum Speichern berechneter Farben, sodass sie nur einmal berechnet werden müssen.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserYearArrowSkin"><apiName>DateChooserYearArrowSkin</apiName><shortdesc>
+  Die Skin für alle Status der Schaltflächen „Nächstes Jahr“ und „Voriges Jahr“ in einem DateChooser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status der Schaltflächen „Nächstes Jahr“ und „Voriges Jahr“ in einem DateChooser.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserYearArrowSkin:DateChooserYearArrowSkin"><apiName>DateChooserYearArrowSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpButtonSkin"><apiName>PopUpButtonSkin</apiName><shortdesc>
+  Die Skin für alle Status eines PopUpButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IProgrammaticSkin</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status eines PopUpButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpButtonSkin:PopUpButtonSkin"><apiName>PopUpButtonSkin</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SwatchSkin"><apiName>SwatchSkin</apiName><shortdesc>
+  Die Skin für alle Farbfelder in einem ColorPicker.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Farbfelder in einem ColorPicker.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SwatchSkin:SwatchSkin"><apiName>SwatchSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressBarSkin"><apiName>ProgressBarSkin</apiName><shortdesc>
+  Die Skin für eine ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für eine ProgressBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressBarSkin:ProgressBarSkin"><apiName>ProgressBarSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserMonthArrowSkin"><apiName>DateChooserMonthArrowSkin</apiName><shortdesc>
+  Die Skin für alle Status der Schaltflächen „Nächster Monat“ und „Voriger Monat“ in einem DateChooser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status der Schaltflächen „Nächster Monat“ und „Voriger Monat“ in einem DateChooser.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserMonthArrowSkin:DateChooserMonthArrowSkin"><apiName>DateChooserMonthArrowSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressTrackSkin"><apiName>ProgressTrackSkin</apiName><shortdesc>
+  Die Skin für die Spur in einer ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für die Spur in einer ProgressBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressTrackSkin:ProgressTrackSkin"><apiName>ProgressTrackSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpMenuIcon"><apiName>PopUpMenuIcon</apiName><shortdesc>
+  Die Skin für alle Status des Symbols in einem PopUpMenuButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins.halo:PopUpIcon</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Skin für alle Status des Symbols in einem PopUpMenuButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpMenuIcon:PopUpMenuIcon"><apiName>PopUpMenuIcon</apiName><shortdesc>
+      Konstruktor	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

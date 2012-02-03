@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.events"><apiName>mx.events</apiName><apiDetail/><apiClassifier id="mx.events:AdvancedDataGridEventReason"><apiName>AdvancedDataGridEventReason</apiName><shortdesc>
+  AdvancedDataGridEventReason クラスは、type プロパティが itemEditEnd である場合に、AdvancedDataGridEvent オブジェクトの reason プロパティ値の定数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AdvancedDataGridEventReason クラスは、AdvancedDataGridEvent オブジェクトの <codeph>reason</codeph> プロパティ値の定数を定義します（<codeph>type</codeph> プロパティが <codeph>itemEditEnd</codeph> である場合）。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.events.xml#AdvancedDataGridEvent"><linktext>mx.events.AdvancedDataGridEvent</linktext></link></related-links><apiValue id="mx.events:AdvancedDataGridEventReason:CANCELLED"><apiName>CANCELLED</apiName><shortdesc>
+      ユーザーによって編集がキャンセルされ、編集データは保存されないことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>cancelled</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ユーザーによって編集がキャンセルされ、編集データは保存されないことを示します。 <codeph>preventDefault()</codeph> メソッドを <codeph>itemEditEnd</codeph> イベントのイベントリスナー内から呼び出しても、Flex では <codeph>destroyItemEditor()</codeph> エディターを呼び出してエディターを閉じます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEventReason:NEW_COLUMN"><apiName>NEW_COLUMN</apiName><shortdesc>
+      ユーザーが同じ行の新しい列にフォーカスを移動したことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>newColumn</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ユーザーが同じ行の新しい列にフォーカスを移動したことを示します。 イベントリスナー内で、フォーカスの変更を行ったり、変更を禁止したりすることができます。例えば、イベントリスナーでは、ユーザーが現在編集中のアイテムに有効な値を入力したかどうかをチェックできます。 有効な値が入力されていない場合は、<codeph>preventDefault()</codeph> メソッドを呼び出して、ユーザーが新しいアイテムに移動できないようにできます。 この場合、アイテムエディターは開いたままになり、ユーザーは現在のアイテムを引き続き編集します。 <codeph>preventDefault()</codeph> メソッドを呼び出して、さらに <codeph>destroyItemEditor()</codeph> メソッドを呼び出すと、新しいアイテムへの移動は阻止されますが、アイテムエディターは閉じます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEventReason:NEW_ROW"><apiName>NEW_ROW</apiName><shortdesc>
+      ユーザーがフォーカスを新しい行に移動したことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>newRow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ユーザーがフォーカスを新しい行に移動したことを示します。 この理由の場合は <codeph>NEW_COLUMN</codeph> と同様に処理します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEventReason:OTHER"><apiName>OTHER</apiName><shortdesc>
+      List コントロールがフォーカスを失った場合やスクロールされた場合など、何らかの理由で編集できない状態になったことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>other</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      List コントロールがフォーカスを失った場合やスクロールされた場合など、何らかの理由で編集できない状態になったことを示します。 <codeph>preventDefault()</codeph> メソッドを <codeph>itemEditEnd</codeph> イベントのイベントリスナー内から呼び出しても、Flex では <codeph>destroyItemEditor()</codeph> エディターを呼び出してエディターを閉じます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:AdvancedDataGridEvent"><apiName>AdvancedDataGridEvent</apiName><shortdesc>
+   AdvancedDataGridEvent クラスは、AdvancedDataGrid コントロール固有のイベントオブジェクトを表します。例えば、編集可能なグリッドアイテムにフォーカスが置かれた場合に送出されるイベントなどがあります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+   AdvancedDataGridEvent クラスは、AdvancedDataGrid コントロール固有のイベントオブジェクトを表します。例えば、編集可能なグリッドアイテムにフォーカスが置かれた場合に送出されるイベントなどがあります。
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.events.xml#AdvancedDataGridEventReason"><linktext>mx.events.AdvancedDataGridEventReason</linktext></link></related-links><adobeApiEvent id="mx.events:AdvancedDataGridEvent:COLUMN_STRETCH_columnStretch"><apiName>columnStretch</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:COLUMN_STRETCH</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:HEADER_DRAG_OUTSIDE_headerDragOutside"><apiName>headerDragOutside</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:HEADER_DRAG_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:HEADER_DROP_OUTSIDE_headerDropOutside"><apiName>headerDropOutside</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:HEADER_DROP_OUTSIDE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:HEADER_RELEASE_headerRelease"><apiName>headerRelease</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:HEADER_RELEASE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_CLOSE_itemClose"><apiName>itemClose</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_CLOSE</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGINNING_itemEditBeginning"><apiName>itemEditBeginning</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGINNING</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGIN_itemEditBegin"><apiName>itemEditBegin</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGIN</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_END_itemEditEnd"><apiName>itemEditEnd</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_EDIT_END</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_IN_itemFocusIn"><apiName>itemFocusIn</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_FOCUS_IN</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_OUT_itemFocusOut"><apiName>itemFocusOut</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_FOCUS_OUT</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_OPENING_itemOpening"><apiName>itemOpening</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_OPENING</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:ITEM_OPEN_itemOpen"><apiName>itemOpen</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:ITEM_OPEN</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AdvancedDataGridEvent:SORT_sort"><apiName>sort</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AdvancedDataGridEvent:SORT</apiEventType><adobeApiEventClassifier>mx.events:AdvancedDataGridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:AdvancedDataGridEvent:AdvancedDataGridEvent"><apiName>AdvancedDataGridEvent</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+           </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+           </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+           </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>イベントが発生した列の 0 から始まるインデックスです。
+           </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc> 列に関連付けられているデータ内のフィールドまたはプロパティの名前です。
+           </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>データプロバイダーのアイテムの 0 から始まるインデックスです。
+           </apiDesc></apiParam><apiParam><apiItemName>reason</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc><codeph>itemEditEnd</codeph> イベントの発生理由です。
+           </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiData>null</apiData><apiDesc>編集中のアイテムレンダラーか、クリックされたヘッダーレンダラーです。
+           </apiDesc></apiParam><apiParam><apiItemName>localX</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc><codeph>columnStretch</codeph> イベントを再生する場合の列の x 座標の位置です。
+           </apiDesc></apiParam><apiParam><apiItemName>multiColumnSort</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>複数列のソートを指定します。
+           </apiDesc></apiParam><apiParam><apiItemName>removeColumnFromSort</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>複数列のソートから列を削除するように指定します。
+           </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc><codeph>node</codeph> プロパティを指定します。
+           </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>このイベントをトリガーした MouseEvent または KeyboardEvent です。このイベントがプログラムでトリガーされた場合は <codeph>null</codeph> になります。
+           </apiDesc></apiParam><apiParam><apiItemName>headerPart</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:AdvancedDataGridEvent:COLUMN_STRETCH"><apiName>COLUMN_STRETCH</apiName><shortdesc>
+      AdvancedDataGridEvent.COLUMN_STRETCH 定数は、columnStretch イベントのイベントオブジェクトの type プロパティ値を定義し、ユーザーが列を水平方向に展開したことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>columnStretch</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.COLUMN_STRETCH 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>columnStretch</codeph> イベント用に定義し、ユーザーが列を水平方向に展開したことを示します。
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>列に関連付けられているデータ内のフィールドまたはプロパティの名前です。</entry></row><row><entry><codeph>item</codeph></entry><entry>閉じられた AdvancedDataGrid アイテム（ノード）です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>null</entry></row><row><entry><codeph>localX</codeph></entry><entry>マウスの x 座標です。</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>データプロバイダーのアイテムの 0 から始まるインデックスです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.COLUMN_STRETCH</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:HEADER_DRAG_OUTSIDE"><apiName>HEADER_DRAG_OUTSIDE</apiName><shortdesc>
+      AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE 定数は、headerDragOutside イベントのイベントオブジェクトの type プロパティ値を定義し、ユーザーが列ヘッダーの上でマウスボタンを押して離したことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerDragOutside</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.HEADER_DRAG_OUTSIDE 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>headerDragOutside</codeph> イベント用に定義し、ユーザーが列ヘッダーの上でマウスボタンを押して離したことを示します。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>列に関連付けられているデータ内のフィールドまたはプロパティの名前です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>リリース中のヘッダーレンダラーです。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.HEADER_RELEASE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:HEADER_DROP_OUTSIDE"><apiName>HEADER_DROP_OUTSIDE</apiName><shortdesc>
+      AdvancedDataGridEvent.HEADER_DROP_OUTSIDE 定数は、headerDropOutside イベントのイベントオブジェクトの type プロパティ値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerDropOutside</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.HEADER_DROP_OUTSIDE 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>headerDropOutside</codeph> イベント用に定義します。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>列に関連付けられているデータ内のフィールドまたはプロパティの名前です。</entry></row><row><entry><codeph>item</codeph></entry><entry>閉じられた AdvancedDataGrid アイテム（ノード）です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>リリース中のヘッダーレンダラーです。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.HEADER_RELEASE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:HEADER_RELEASE"><apiName>HEADER_RELEASE</apiName><shortdesc>
+      AdvancedDataGridEvent.HEADER_RELEASE 定数は、headerRelease イベントのイベントオブジェクトの type プロパティ値を定義し、ユーザーが列ヘッダーの上でマウスボタンを押して離したことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>headerRelease</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.HEADER_RELEASE 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>headerRelease</codeph> イベント用に定義し、ユーザーが列ヘッダーの上でマウスボタンを押して離したことを示します。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>列に関連付けられているデータ内のフィールドまたはプロパティの名前です。</entry></row><row><entry><codeph>item</codeph></entry><entry>閉じられた AdvancedDataGrid アイテム（ノード）です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>リリース中のヘッダーレンダラーです。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>undefined</codeph> - 複数の列に対してソートする場合は、<codeph>sort</codeph> イベントを使用します。 </entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.HEADER_RELEASE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_CLOSE"><apiName>ITEM_CLOSE</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_CLOSE イベント型定数は、AdvancedDataGrid のブランチが閉じた（畳まれた）状態であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClose</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_CLOSE イベント型定数は、AdvancedDataGrid のブランチが閉じた（畳まれた）状態であることを示します。
+           <p>このイベントタイプのイベントオブジェクトの各プロパティには次の値が設定されています。イベントの種類によっては無効なプロパティもあります。詳細については、各プロパティの説明を参照してください。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>列に関連付けられているデータ内のフィールドまたはプロパティの名前です。</entry></row><row><entry><codeph>item</codeph></entry><entry>閉じられた AdvancedDataGrid アイテム（ノード）です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry>
+             <entry>閉じられたノードの ListItemRenderer です。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>-1</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_CLOSE</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGINNING"><apiName>ITEM_EDIT_BEGINNING</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM__EDIT_BEGINNING 定数は、itemEditBeginning イベントのイベントオブジェクトの type プロパティ値を定義し、ユーザーがアイテム上でマウスボタンを離すなどの操作によってアイテムを編集できる状態にあることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemEditBeginning</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM__EDIT_BEGINNING 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>itemEditBeginning</codeph> イベント用に定義し、ユーザーがアイテム上でマウスボタンを離すなどの操作によってアイテムを編集できる状態にあることを示します。 
+           <p>このイベントのデフォルトリスナーによって、<codeph>AdvancedDataGrid.editedItemPosition</codeph> プロパティがフォーカスを持つアイテムに設定されて、アイテムの編集セッションが開始されます。</p>
+           <p>通常は、このイベントに対する独自のイベントリスナーを記述して、特定のアイテムを編集できないようにします。 このイベントの独自のイベントリスナー内から <codeph>preventDefault()</codeph> メソッドを呼び出すことによって、デフォルトリスナーの実行が阻止されます。</p>
+           <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>アイテムの列に関連付けられているデータ内のフィールドまたはプロパティの名前です。</entry></row><row><entry><codeph>item</codeph></entry><entry>閉じられた AdvancedDataGrid アイテム（ノード）です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>編集対象のアイテムに対応するアイテムレンダラーです。 このイベントがキーボードから生成された場合は、編集するアイテムが画面外である可能性があるため、このプロパティは null です。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>データプロバイダーのアイテムの 0 から始まるインデックスです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_EDIT_BEGINNING</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_BEGIN"><apiName>ITEM_EDIT_BEGIN</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_EDIT_BEGIN 定数は itemEditBegin イベントのイベントオブジェクトの type プロパティ値を定義し、アイテムが編集可能であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemEditBegin</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_EDIT_BEGIN 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>itemEditBegin</codeph> イベント用に定義し、アイテムが編集可能であることを示します。 
+           <p>このイベントのデフォルトリスナーは、次のアクションを実行します。</p>
+     
+      <ul>
+        <li><codeph>createItemEditor()</codeph> メソッドの呼び出しを通じてアイテムエディターオブジェクトを作成します。</li>
+        <li><codeph>data</codeph> プロパティをアイテムからエディターにコピーします。 デフォルトでは、アイテムエディターオブジェクトは、TextInput コントロールのインスタンスです。 リストコントロールの <codeph>itemEditor</codeph> プロパティを使用して、独自のアイテムエディタークラスを指定します。</li>
+             <li>リストコントロールの <codeph>itemEditorInstance</codeph> プロパティを設定して、アイテムエディターインスタンスを参照するようにします。</li>
+      </ul>
+           <p>このイベントのイベントリスナーを記述して、アイテムエディターに渡されるデータを変更できます。 例えば、データ、データのフォーマットなど、アイテムエディターで使用する情報を変更できます。</p>
+           <p>イベントリスナーを作成して、アイテムの編集に使用するアイテムエディターを指定することもできます。 例えば、2 つの異なるアイテムエディターがあるとします。 イベントリスナー内で、編集するデータまたは他の情報を調べ、以下の手順に従って適切なアイテムエディターを開くことができます。</p>
+     
+      <ol>
+         <li><codeph>preventDefault()</codeph> を呼び出すと、<codeph>createItemEditor()</codeph> メソッドがデフォルトイベントリスナーの一部として呼び出されることを阻止できます。</li>
+         <li><codeph>itemEditor</codeph> プロパティに適切なエディターを設定します。</li>
+         <li><codeph>createItemEditor()</codeph> メソッドを呼び出します。</li>
+      </ol>
+           <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+           <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>null</entry></row><row><entry><codeph>item</codeph></entry><entry>AdvancedDataGrid アイテム（ノード）です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>編集中のアイテムに対応するアイテムレンダラーです。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>データプロバイダーのアイテムの 0 から始まるインデックスです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_EDIT_BEGIN</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_EDIT_END"><apiName>ITEM_EDIT_END</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_EDIT_END 定数は、itemEditEnd イベントのイベントオブジェクトの type プロパティ値を定義し、編集セッションが終了することを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemEditEnd</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_EDIT_END 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>itemEditEnd</codeph> イベント用に定義し、編集セッションが終了することを示します。  
+           <p>List コンポーネントには、このイベントのデフォルトハンドラーがあり、アイテムエディターから List コントロールのデータプロバイダーにデータをコピーします。 デフォルトのイベントリスナーは、次のアクションを実行します。</p>
+     
+      <ul>
+        <li>このイベントに関連付けられた AdvancedDataGridColumn コントロールの <codeph>editorDataField</codeph> プロパティを使用して、新しいデータを含むアイテムエディターのプロパティを判別し、その新しいデータでデータプロバイダーアイテムを更新します。 デフォルトのアイテムエディターは TextInput コントロールであるため、<codeph>editorDataField</codeph> プロパティのデフォルト値は <codeph>"text"</codeph> であり、TextInput の <codeph>text</codeph> プロパティに新しいアイテムデータが含まれることを指定します。</li>
+             <li><codeph>destroyItemEditor()</codeph> メソッドを呼び出してアイテムエディターを閉じます。</li>
+      </ul>
+           <p>通常は、このイベントのイベントリスナーを記述して、次のアクションを実行します。</p>
+      <ul>
+        <li>イベントリスナーで、エディターから List コンポーネントに返されたデータを変更できます。 例えば、List コントロールにデータを返す前に、データを再フォーマットできます。デフォルトでは、アイテムエディターは単一の値のみ返すことができます。 複数の値を返す場合は、<codeph>itemEditEnd</codeph> イベントのイベントリスナーを記述する必要があります。</li> 
+             <li>イベントリスナーでは、アイテムエディターに入力されたデータを確認できます。 データが正しくない場合は、<codeph>preventDefault()</codeph> メソッドを呼び出して、新しいデータが List コントロールに渡されないようにすることで、エディターが閉じることを阻止できます。 </li>
+      </ul>
+           <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>アイテムの列に関連付けられているデータ内のフィールドまたはプロパティの名前です。</entry></row><row><entry><codeph>item</codeph></entry><entry>閉じられた AdvancedDataGrid アイテム（ノード）です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>編集中のアイテムに対応するアイテムレンダラーです。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>イベントの理由を定義する定数です。値は、<codeph>AdvancedDataGridEventReason</codeph> クラスのメンバーです。</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>データプロバイダーのアイテムの 0 から始まるインデックスです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_EDIT_END</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_IN"><apiName>ITEM_FOCUS_IN</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_FOCUS_IN 定数は、itemFocusIn イベントのイベントオブジェクトの type プロパティ値を定義し、アイテムがフォーカスを受け取ったことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemFocusIn</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_FOCUS_IN 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>itemFocusIn</codeph> イベント用に定義し、アイテムがフォーカスを受け取ったことを示します。 
+           <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>null</entry></row><row><entry><codeph>item</codeph></entry><entry>閉じられた AdvancedDataGrid アイテム（ノード）です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>編集中のアイテムに対応するアイテムエディターインスタンスです。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>データプロバイダーのアイテムの 0 から始まるインデックスです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_FOCUS_IN</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_FOCUS_OUT"><apiName>ITEM_FOCUS_OUT</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_FOCUS_OUT 定数は、itemFocusOut イベントのイベントオブジェクトの type プロパティ値を定義し、アイテムがフォーカスを失ったことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemFocusOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_FOCUS_OUT 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>itemFocusOut</codeph> イベント用に定義し、アイテムがフォーカスを失ったことを示します。 
+           <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>null</entry></row><row><entry><codeph>item</codeph></entry><entry>閉じられた AdvancedDataGrid アイテム（ノード）です。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>編集中のアイテムに対応するアイテムエディターインスタンスです。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>reason</codeph></entry><entry>null</entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>データプロバイダーのアイテムの 0 から始まるインデックスです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_FOCUS_OUT</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_OPENING"><apiName>ITEM_OPENING</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_OPENING イベントタイプ定数は、AdvancedDataGrid の開閉直前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemOpening</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_OPENING イベントタイプ定数は、AdvancedDataGrid の開閉直前に送出されます。
+           <p>このイベントタイプのイベントオブジェクトの各プロパティには次の値が設定されています。イベントの種類によっては無効なプロパティもあります。詳細については、各プロパティの説明を参照してください。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>animate</codeph></entry><entry>開くまたは閉じる操作をアニメーション化するかどうかを指定します。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。</entry></row><row><entry><codeph>dispatchEvent</codeph></entry><entry>開くアニメーションまたは閉じるアニメーションの終了後に、<codeph>ITEM_OPEN</codeph> イベントまたは <codeph>ITEM_CLOSE</codeph> イベントを送出するかどうかを指定します。true</entry></row><row><entry><codeph>item</codeph></entry><entry>開かれた AdvancedDataGrid ノードです。</entry></row><row><entry><codeph>itemRenderer</codeph></entry>
+             <entry>開かれたアイテム（ノード）の ListItemRenderer です。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>-1</entry></row><row><entry><codeph>opening</codeph></entry><entry>アイテムが開く場合は <codeph>true</codeph>、閉じる場合は false です。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>アイテムがユーザーの操作に応答して開いた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_OPENING</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:ITEM_OPEN"><apiName>ITEM_OPEN</apiName><shortdesc>
+      AdvancedDataGridEvent.ITEM_OPEN イベント型定数は、AdvancedDataGrid のブランチが開かれた（展開された）状態であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemOpen</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.ITEM_OPEN イベント型定数は、AdvancedDataGrid のブランチが開かれた（展開された）状態であることを示します。
+           <p>このイベントタイプのイベントオブジェクトの各プロパティには次の値が設定されています。イベントの種類によっては無効なプロパティもあります。詳細については、各プロパティの説明を参照してください。</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>item</codeph></entry><entry>開かれた AdvancedDataGrid ノードです。</entry></row><row><entry><codeph>itemRenderer</codeph></entry>
+             <entry>開かれたアイテム（ノード）の ListItemRenderer です。</entry></row><row><entry><codeph>localX</codeph></entry><entry>NaN</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>-1</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>アイテム（ノード）がユーザーの操作に応答して開いた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.ITEM_OPEN</entry></row></tbody></tgroup></adobetable>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:SORT"><apiName>SORT</apiName><shortdesc>
+      AdvancedDataGridEvent.SORT 定数は、sort イベントのイベントオブジェクトの type プロパティ値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>sort</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      AdvancedDataGridEvent.SORT 定数は、イベントオブジェクトの <codeph>type</codeph> プロパティ値を <codeph>sort</codeph> イベント用に定義します。 AdvancedDataGrid コントロールは、<codeph>dataField</codeph> と <codeph>multiColumnSort</codeph> プロパティの値に基づいてソートを実行します。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>columnIndex</codeph></entry><entry> AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列内のアイテムの列の 0 から始まるインデックスです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>dataField</codeph></entry><entry>列に関連付けられているデータ内のフィールドまたはプロパティの名前です。</entry></row><row><entry><codeph>multiColumnSort </codeph></entry><entry><codeph>true</codeph> の場合、既に使用しているソートと共に新しい <codeph>dataField</codeph> プロパティを使用して、複数列のソートにする必要があることを示します。
+     
+           <p><codeph>false</codeph> の場合は、現在のすべてのソートを削除し、新しい <codeph>dataField</codeph> プロパティに対して新たなソートを実行する必要があります。</p>
+           </entry></row><row><entry><codeph>removeColumnFromSort</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry>
+             <entry>ノードがユーザーの操作に応答して閉じた場合は、キーボードアクションまたはマウスアクションとして識別します。</entry></row><row><entry><codeph>type</codeph></entry><entry>AdvancedDataGridEvent.SORT</entry></row></tbody></tgroup></adobetable>
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:animate"><apiName>animate</apiName><shortdesc>
+      true の場合、開閉操作をアニメーション化します。これは、ITEM_OPENING タイプのイベントにのみ使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、開閉操作をアニメーション化します。これは、<codeph>ITEM_OPENING</codeph> タイプのイベントにのみ使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:columnIndex"><apiName>columnIndex</apiName><shortdesc>
+      AdvancedDataGrid オブジェクトの columns 配列の、イベントに関連付けられた列の 0 から始まるインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      AdvancedDataGrid オブジェクトの <codeph>columns</codeph> 配列の、イベントに関連付けられた列の 0 から始まるインデックスです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:column"><apiName>column</apiName><shortdesc>
+     イベントの基となる列の AdvancedDataGridColumnGroup インスタンスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.controls.advancedDataGridClasses:AdvancedDataGridColumn</apiValueClassifier></apiValueDef><apiDesc>
+     イベントの基となる列の AdvancedDataGridColumnGroup インスタンスです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:dataField"><apiName>dataField</apiName><shortdesc>
+      列に関連付けられているデータ内のフィールドまたはプロパティの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      列に関連付けられているデータ内のフィールドまたはプロパティの名前です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+      開くアニメーションまたは閉じるアニメーションの終了後に、ITEM_OPEN イベントまたは ITEM_CLOSE イベントを送出するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      開くアニメーションまたは閉じるアニメーションの終了後に、<codeph>ITEM_OPEN</codeph> イベントまたは <codeph>ITEM_CLOSE</codeph> イベントを送出するかどうかを指定します。 <codeph>ITEM_OPENING</codeph> イベントにのみ使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:headerPart"><apiName>headerPart</apiName><shortdesc>
+     HEADER_RELEASE イベントの場合は、クリックされたヘッダーの部分です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     HEADER_RELEASE イベントの場合は、クリックされたヘッダーの部分です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+      編集中のアイテムに対応するアイテムレンダラーか、クリックまたは展開されたヘッダーレンダラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiValueDef><apiDesc>
+      編集中のアイテムに対応するアイテムレンダラーか、クリックまたは展開されたヘッダーレンダラーです。このプロパティを使用してデータプロバイダーにアクセスできます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:item"><apiName>item</apiName><shortdesc>
+      ノードプロパティの記憶域を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      <codeph>node</codeph> プロパティの記憶域を表します。 XML データから AdvancedDataGrid コントロールを設定する場合、<codeph>label</codeph> プロパティおよび <codeph>data</codeph> プロパティには、<codeph>node</codeph> に対して <codeph>event.node.attributes.label</codeph> および <codeph>event.node.attributes.data</codeph> を使用してアクセスします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:localX"><apiName>localX</apiName><shortdesc>
+      列の伸縮イベントを再生する場合の列の x 座標の位置（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      列の伸縮イベントを再生する場合の列の x 座標の位置（ピクセル単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:multiColumnSort"><apiName>multiColumnSort</apiName><shortdesc>
+      true の場合、既に使用しているソートと共に新しい dataField プロパティを使用して、複数列のソートにする必要があることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、既に使用しているソートと共に新しい <codeph>dataField</codeph> プロパティを使用して、複数列のソートにする必要があることを示します。
+           <p><codeph>false</codeph> の場合は、現在のすべてのソートを削除し、新しい <codeph>dataField</codeph> プロパティに対して新たなソートを実行する必要があります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:opening"><apiName>opening</apiName><shortdesc>
+      アイテムが開いている（true）か閉じている（false）かどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      アイテムが開いている（<codeph>true</codeph>）か閉じている（<codeph>false</codeph>）かどうかを示します。 <codeph>ITEM_OPENING</codeph> タイプのイベントにのみ使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:reason"><apiName>reason</apiName><shortdesc>
+      itemEditEnd イベントが送出された理由です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>itemEditEnd</codeph> イベントが送出された理由です。 タイプが <codeph>ITEM_EDIT_END</codeph> のイベントに対してのみ有効です。 有効な値は、AdvancedDataGridEventReason クラスに定義されています。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.events.xml#AdvancedDataGridEventReason"><linktext>AdvancedDataGridEventReason</linktext></link></related-links></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:removeColumnFromSort"><apiName>removeColumnFromSort</apiName><shortdesc>
+      true の場合、複数列のソートから列を削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、複数列のソートから列を削除します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:rowIndex"><apiName>rowIndex</apiName><shortdesc>
+      データプロバイダーのアイテムの 0 から始まるインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      データプロバイダーのアイテムの 0 から始まるインデックスです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AdvancedDataGridEvent:triggerEvent"><apiName>triggerEvent</apiName><shortdesc>
+      このイベントをトリガーしたイベントの MouseEvent オブジェクトまたは KeyboardEvent オブジェクトです。このイベントがプログラムでトリガーされた場合は null になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+      このイベントをトリガーしたイベントの MouseEvent オブジェクトまたは KeyboardEvent オブジェクトです。このイベントがプログラムでトリガーされた場合は <codeph>null</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:CubeEvent"><apiName>CubeEvent</apiName><shortdesc>
+  OLAPCube でステータスを示すときに使用するイベントクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OLAPCube でステータスを示すときに使用するイベントクラスです。CubeEvent クラスは、OLAPCube クラス固有のイベントオブジェクトを表します。例えば、キューブに対する照会が実行可能な場合に送出されるイベントなどがあります。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPCube"><linktext>mx.olap.OLAPCube</linktext></link></related-links><adobeApiEvent id="mx.events:CubeEvent:CUBE_COMPLETE_queryProgress"><apiName>queryProgress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:CubeEvent:CUBE_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events:CubeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:CubeEvent:CUBE_PROGRESS_progress"><apiName>progress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:CubeEvent:CUBE_PROGRESS</apiEventType><adobeApiEventClassifier>mx.events:CubeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:CubeEvent:QUERY_PROGRESS_queryProgress"><apiName>queryProgress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:CubeEvent:QUERY_PROGRESS</apiEventType><adobeApiEventClassifier>mx.events:CubeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:CubeEvent:CubeEvent"><apiName>CubeEvent</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:CubeEvent:CUBE_COMPLETE"><apiName>CUBE_COMPLETE</apiName><shortdesc>
+      CubeEvent.CUBE_COMPLETE 定数により、complete イベントのイベントオブジェクトの type プロパティ値が定義されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>complete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>CubeEvent.CUBE_COMPLETE</codeph> 定数により、イベントオブジェクトの <codeph>type</codeph> プロパティ値が <codeph>complete</codeph> イベント用に定義されます。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>description</codeph></entry><entry>処理対象についての説明です。</entry></row><row><entry><codeph>progress</codeph></entry><entry>キューブ内の更新済みエレメントの数です。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>total</codeph></entry><entry>キューブ内の、更新が必要なエレメントの総数です。</entry></row><row><entry><codeph>type</codeph></entry><entry>CubeEvent.CUBE_COMPLETE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:CUBE_PROGRESS"><apiName>CUBE_PROGRESS</apiName><shortdesc>
+      CubeEvent.CUBE_PROGRESS 定数により、progress イベントのイベントオブジェクトの type プロパティ値が定義されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>progress</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>CubeEvent.CUBE_PROGRESS</codeph> 定数により、イベントオブジェクトの <codeph>type</codeph> プロパティ値が <codeph>progress</codeph> イベント用に定義されます。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>description</codeph></entry><entry>処理対象についての説明です。</entry></row><row><entry><codeph>progress</codeph></entry><entry>キューブ内の更新済みエレメントの数です。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>total</codeph></entry><entry>キューブ内の、更新が必要なエレメントの総数です。</entry></row><row><entry><codeph>type</codeph></entry><entry>CubeEvent.CUBE_PROGRESS</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:QUERY_PROGRESS"><apiName>QUERY_PROGRESS</apiName><shortdesc>
+      CubeEvent.QUERY_PROGRESS 定数により、queryProgress イベントのイベントオブジェクトの type プロパティ値が定義されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>queryProgress</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>CubeEvent.QUERY_PROGRESS</codeph> 定数により、イベントオブジェクトの <codeph>type</codeph> プロパティ値が <codeph>queryProgress</codeph> イベント用に定義されます。
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>description</codeph></entry><entry>処理対象についての説明です。</entry></row><row><entry><codeph>progress</codeph></entry><entry>キューブ内の更新済みエレメントの数です。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>total</codeph></entry><entry>キューブ内の、更新が必要なエレメントの総数です。</entry></row><row><entry><codeph>type</codeph></entry><entry>CubeEvent.QUERY_PROGRESS</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:message"><apiName>message</apiName><shortdesc>
+      処理対象についての説明です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      処理対象についての説明です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:progress"><apiName>progress</apiName><shortdesc>
+      キューブ内の更新済みエレメントの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      キューブ内の更新済みエレメントの数です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:CubeEvent:total"><apiName>total</apiName><shortdesc>
+      キューブ内の、更新が必要なエレメントの総数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      キューブ内の、更新が必要なエレメントの総数です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

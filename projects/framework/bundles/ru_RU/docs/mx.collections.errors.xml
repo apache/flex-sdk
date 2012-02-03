@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections.errors"><apiName>mx.collections.errors</apiName><apiDetail/><apiClassifier id="mx.collections.errors:ItemPendingError"><apiName>ItemPendingError</apiName><shortdesc>
+  Эта ошибка выводится при необходимости асинхронного вызова при извлечении элемента из представления коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эта ошибка выводится при необходимости асинхронного вызова при извлечении элемента из представления коллекции. Эта ошибка происходит, если представлены данные из удаленного источника, и локально данные еще не доступны.
+ 
+  <p>Если получателю этой ошибки требуется уведомление о том, когда запрашиваемый элемент станет доступным (то есть по завершении асинхронного вызова), он должен использовать метод <codeph>addResponder()</codeph> и указать объект, поддерживающий интерфейс <codeph>mx.rpc.IResponder</codeph> для ответа, когда элемент станет доступным. Класс <codeph>mx.collections.ItemResponder</codeph> выполняет реализацию интерфейса IResponder и поддерживает свойство<codeph>data</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#ItemResponder"><linktext>mx.collections.ItemResponder</linktext></link><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link></related-links><apiConstructor id="mx.collections.errors:ItemPendingError:ItemPendingError"><apiName>ItemPendingError</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Сообщение c информацией о причине ошибки.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  <p>Вызывается инфраструктурой Flex при запросе элемента, не являющегося локальным.</p>
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections.errors:ItemPendingError:addResponder"><apiName>addResponder</apiName><shortdesc>
+	  addResponder добавляет ответчик к массиву ответчиков.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>Обработчик, вызываемый по завершении асинхронного запроса.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  <codeph>addResponder</codeph> добавляет ответчик к массиву ответчиков. Объект, назначенный параметру ответчика должен реализовать интерфейс mx.rpc.IResponder.
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link><link href="mx.collections.xml#ItemResponder"><linktext>mx.collections.ItemResponder</linktext></link></related-links></apiOperation><apiValue id="mx.collections.errors:ItemPendingError:responders:get"><apiName>responders</apiName><shortdesc>
+      Массив обработчиков IResponder, вызываемый по завершении асинхронного запроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив обработчиков IResponder, вызываемый по завершении асинхронного запроса.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections.errors:SortError"><apiName>SortError</apiName><shortdesc>
+  Эта ошибка выводится при неправильной настройке класса Sort; например, если критерии поиска являются недопустимыми.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эта ошибка выводится при неправильной настройке класса Sort; например, если критерии поиска являются недопустимыми.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:SortError:SortError"><apiName>SortError</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Сообщение c информацией о причине ошибки.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections.errors:CursorError"><apiName>CursorError</apiName><shortdesc>
+  Эта ошибка выводится коллекцией курсора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эта ошибка выводится коллекцией курсора. Ошибки этого класса выводятся классами, реализующими интерфейс IViewCursor.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:CursorError:CursorError"><apiName>CursorError</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Сообщение c информацией о причине ошибки.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections.errors:CollectionViewError"><apiName>CollectionViewError</apiName><shortdesc>
+  Класс CollectionViewError представляет общие ошибки в коллекции, не связанные с определенными действиями, например поиском курсора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс <codeph>CollectionViewError</codeph> представляет общие ошибки в коллекции, не связанные с определенными действиями, например поиском курсора. Ошибки этого класса выводятся классом ListCollectionView.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:CollectionViewError:CollectionViewError"><apiName>CollectionViewError</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Сообщение c информацией о причине ошибки.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

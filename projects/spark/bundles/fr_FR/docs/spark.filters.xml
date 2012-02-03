@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.filters"><apiName>spark.filters</apiName><apiDetail/><apiClassifier id="spark.filters:GradientBevelFilter"><apiName>GradientBevelFilter</apiName><shortdesc>
+ La classe GradientBevelFilter permet d’appliquer un effet de biseau en dégradé à des objets d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientBevelFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientBevelFilter/&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>spark.filters:GradientFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe GradientBevelFilter permet d’appliquer un effet de biseau en dégradé à des objets d’affichage. Un biseau en dégradé est une bordure biseautée, enrichie par des couleurs dégradées à l’extérieur, à l’intérieur ou au-dessus d’un objet. Les bordures biseautées donnent un aspect tridimensionnel aux objets. Vous pouvez appliquer le filtre à tout objet d’affichage (autrement dit, aux objets héritant des propriétés de la classe DisplayObject), tels que MovieClip, SimpleButton, TextField et Video, ainsi qu’aux objets BitmapData.
+ 
+ <p>L’utilisation de filtres dépend de l’objet auquel vous appliquez le filtre.</p>
+ <ul><li>Pour appliquer des filtres aux objets d’affichage, utilisez la propriété <codeph>filters</codeph>. Lorsque vous définissez la propriété <codeph>filters</codeph> d’un objet, celui-ci n’est pas modifié. En outre, vous pouvez supprimer la propriété <codeph>filters</codeph> pour enlever le filtre. </li>
+ 
+ <li>Pour appliquer des filtres aux objets BitmapData, utilisez la méthode <codeph>BitmapData.applyFilter()</codeph>. L’appel de <codeph>applyFilter()</codeph> pour un objet BitmapData génère une image filtrée à partir de l’objet BitmapData source et de l’objet filtre.</li>
+ </ul>
+ 
+ <p>Si vous appliquez un filtre à un objet d’affichage, la propriété <codeph>cacheAsBitmap</codeph> de cet objet est réglée sur <codeph>true</codeph>. Si vous supprimez tous les filtres, la valeur d’origine de <codeph>cacheAsBitmap</codeph> est restaurée.</p> 
+ 
+ <p>Ce filtre prend en charge le redimensionnement de la scène. Toutefois, le redimensionnement général, la rotation et l’inclinaison ne sont pas pris en charge. Si l’objet est lui-même redimensionné (si les propriétés <codeph>scaleX</codeph> et <codeph>scaleY</codeph> ne sont pas réglées sur 1,0), l’effet de filtre n’est pas redimensionné. Le redimensionnement est effectué uniquement en cas de zoom avant sur la scène.</p>
+ 
+ <p>Aucun filtre n’est appliqué si l’image obtenue dépasse les dimensions maximales. Dans AIR 1.5 et Flash Player 10, la taille maximale est de 8 191 pixels en largeur ou en hauteur, et le nombre total de pixels ne peut pas excéder 16 777 215 pixels (ainsi, si la largeur d’une image est de 8 191 pixels, sa hauteur maximale doit être de 2 048 pixels). Par exemple, lorsque vous effectuez un zoom avant sur un clip de grande taille auquel un filtre est appliqué, le filtre sera désactivé si l’image obtenue dépasse les dimensions maximales.</p>
+ 
+  </apiDesc><example conref="GradientBevelFilterExample.mxml"><swfblock conref="examples/GradientBevelFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#BevelFilter"><linktext>spark.filters.BevelFilter</linktext></link><link href="" invalidHref="flash.filters.GradientBevelFilter.xml"><linktext>flash.filters.GradientBevelFilter</linktext></link><link href="spark.filters.xml#GradientBevelFilter/ratios"><linktext>GradientBevelFilter.ratios</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link></related-links><apiConstructor id="spark.filters:GradientBevelFilter:GradientBevelFilter"><apiName>GradientBevelFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>La distance de décalage. Les valeurs valides sont comprises entre 0 et 8. 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>Angle, exprimé en degrés. Les valeurs valides sont comprises entre 0 et 360. 
+     </apiDesc></apiParam><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de valeurs hexadécimales de couleur RVB à utiliser pour le dégradé. Par exemple, rouge correspond à 0xFF0000, bleu à 0x0000FF, etc.
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de valeurs de transparence alpha pour les couleurs correspondantes du tableau <codeph>colors</codeph>. Les valeurs valides pour chaque élément du tableau sont comprises entre 0 et 1. Par exemple, 0,25 définit une valeur de transparence de 25 %.
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de taux de distribution des couleurs ; les valeurs possibles sont comprises entre 0 et 255.
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou horizontal. Les valeurs valides sont comprises entre 0 et 255. Un flou d’une valeur inférieure ou égale à 1 signifie que l’image d’origine n’est pas modifiée avant d’être copiée. La valeur par défaut est 4. Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou vertical. Les valeurs valides sont comprises entre 0 et 255. Un flou d’une valeur inférieure ou égale à 1 signifie que l’image d’origine n’est pas modifiée avant d’être copiée. Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Intensité de l’empreinte ou recouvrement. Plus la valeur est élevée, plus le recouvrement est intense et plus le contraste est important entre le biseau et l’arrière-plan. Les valeurs valides sont comprises entre 0 et 255. La valeur 0 signifie que le filtre n’est pas appliqué. 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>La qualité du filtre. Utilisez les constantes BitmapFilterQuality :
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Pour plus d’informations, voir la description de la propriété <codeph>quality</codeph>.</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>inner</apiData><apiDesc>Positionnement de l’effet biseau. Les valeurs possibles sont les constantes BitmapFilterType :
+     <ul><li><codeph>BitmapFilterType.OUTER</codeph>, biseau sur le bord extérieur de l’objet.</li>
+     <li><codeph>BitmapFilterType.INNER</codeph>, biseau sur le bord intérieur de l’objet.</li>
+     <li><codeph>BitmapFilterType.FULL</codeph>, biseau sur le dessus de l’objet.</li>
+     </ul>
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Spécifie si un effet de masquage est appliqué. La valeur <codeph>true</codeph> applique un effet de masquage qui rend le remplissage de l’objet transparent et révèle la couleur d’arrière-plan du document.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:GradientBevelFilter:clone"><apiName>clone</apiName><shortdesc>
+     Renvoie une copie de cet objet filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouvelle occurrence de GradientBevelFilter dont toutes les propriétés sont identiques à celles de l’occurrence de GradientBevelFilter d’origine.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une copie de cet objet filtre.
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.filters:DropShadowFilter"><apiName>DropShadowFilter</apiName><shortdesc>
+ La classe DropShadowFilter permet d’ajouter un effet d’ombre portée aux objets d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:DropShadowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DropShadowFilter 
+    <strong>Properties</strong>
+    alpha="1"
+    angle="45"
+    color="0xFF0000"
+    distance="4"
+    hideObject="false"
+    inner="false"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe DropShadowFilter permet d’ajouter un effet d’ombre portée aux objets d’affichage. L’algorithme d’ombre est dérivé du même filtre que celui utilisé par le filtre de flou. Vous disposez de plusieurs options pour définir le style de l’ombre portée, notamment l’ombre intérieure ou extérieure et le mode de masquage. Vous pouvez appliquer le filtre à tout objet d’affichage (autrement dit, aux objets héritant des propriétés de la classe DisplayObject), tels que MovieClip, SimpleButton, TextField et Video, ainsi qu’aux objets BitmapData.
+ 
+ <p>L’utilisation de filtres dépend de l’objet auquel vous appliquez le filtre.</p>
+ <ul><li>Pour appliquer des filtres aux objets d’affichage, utilisez la propriété <codeph>filters</codeph> (héritée de DisplayObject). Lorsque vous définissez la propriété <codeph>filters</codeph> d’un objet, celui-ci n’est pas modifié. En outre, vous pouvez supprimer la propriété <codeph>filters</codeph> pour enlever le filtre. </li>
+ 
+ <li>Pour appliquer des filtres aux objets BitmapData, utilisez la méthode <codeph>BitmapData.applyFilter()</codeph>. L’appel de <codeph>applyFilter()</codeph> pour un objet BitmapData génère une image filtrée à partir de l’objet BitmapData source et de l’objet filtre.</li>
+ </ul>
+ 
+ <p>Si vous appliquez un filtre à un objet d’affichage, la valeur de la propriété <codeph>cacheAsBitmap</codeph> de cet objet est définie sur <codeph>true</codeph>. Si vous supprimez tous les filtres, la valeur d’origine de <codeph>cacheAsBitmap</codeph> est restaurée.</p>
+ <p>Ce filtre prend en charge le redimensionnement de la scène. Cependant, il ne prend pas en charge le redimensionnement général, la rotation ni l’inclinaison. Si l’objet est redimensionné (si les propriétés <codeph>scaleX</codeph> et <codeph>scaleY</codeph> ne sont pas réglées sur 1,0), le filtre ne l’est pas. Le redimensionnement est effectué uniquement en cas de zoom avant sur la scène.</p>
+ 
+ <p>Aucun filtre n’est appliqué si l’image obtenue dépasse les dimensions maximales. Dans AIR 1.5 et Flash Player 10, la taille maximale est de 8 191 pixels en largeur ou en hauteur, et le nombre total de pixels ne peut pas excéder 16 777 215 pixels (ainsi, si la largeur d’une image est de 8 191 pixels, sa hauteur maximale doit être de 2 048 pixels). Par exemple, si vous effectuez un zoom avant sur un clip de grande taille auquel un filtre est appliqué, le filtre sera désactivé si l’image obtenue dépasse les dimensions maximales.</p>
+ 
+  </apiDesc><example conref="DropShadowFilterExample.mxml"><swfblock conref="examples/DropShadowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.DropShadowFilter.xml"><linktext>flash.filters.DropShadowFilter</linktext></link></related-links><apiConstructor id="spark.filters:DropShadowFilter:DropShadowFilter"><apiName>DropShadowFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Distance de décalage de l’ombre, en pixels. 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>Angle de l’ombre, de 0 à 360° (virgule flottante). 
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Couleur de l’ombre, au format hexadécimal <i>0xRRGGBB</i>. La valeur par défaut est 0x000000.
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Valeur de transparence alpha de la couleur d’ombre. Les valeurs valides sont comprises entre 0.0 et 1.0. Par exemple, 0,25 définit une valeur de transparence de 25 %. 
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou horizontal. Les valeurs possibles sont comprises entre 0 et 255.0 (virgule flottante). 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou vertical. Les valeurs possibles sont comprises entre 0 et 255.0 (virgule flottante). 
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Intensité de l’empreinte ou recouvrement. Plus la valeur est élevée, plus le recouvrement est intense et plus le contraste est important entre l’ombre et l’arrière-plan. Les valeurs possibles sont comprises entre 0 et 255.0. 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Nombre d’applications du filtre. Utilisez les constantes BitmapFilterQuality :
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Pour plus d’informations sur ces valeurs, voir la description de la propriété <codeph>quality</codeph>.</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>inner</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique si l’ombre est intérieure ou non. La valeur <codeph>true</codeph> spécifie une ombre intérieure. La valeur <codeph>false</codeph> renvoie une ombre extérieure au niveau des bords extérieurs de l’objet.
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Applique un effet de masquage (<codeph>true</codeph>) qui, en réalité, rend le remplissage de l’objet transparent et révèle la couleur d’arrière-plan du document. 
+     </apiDesc></apiParam><apiParam><apiItemName>hideObject</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique si l’objet est caché ou non. La valeur <codeph>true</codeph> indique que l’objet lui-même n’est pas tracé et que seule l’ombre est visible. 
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterQuality.xml"><linktext>flash.filters.BitmapFilterQuality</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:DropShadowFilter:clone"><apiName>clone</apiName><shortdesc>
+     Renvoie une copie de cet objet filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouvelle occurrence de DropShadowFilter dont les propriétés sont toutes identiques à celles de l’occurrence de DropShadowFilter d’origine.
+     
+      </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une copie de cet objet filtre.
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:DropShadowFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Valeur de transparence alpha de la couleur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de transparence alpha de la couleur. Les valeurs possibles sont comprises entre 0 et 1. Par exemple, 0,25 définit une valeur de transparence de 25 %.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:angle:get"><apiName>angle</apiName><shortdesc>
+       Angle du biseau.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+       Angle du biseau. Les valeurs possibles sont comprises entre 0 et 360°. La valeur d’angle représente l’angle de la source lumineuse théorique éclairant l’objet et détermine l’emplacement de l’effet par rapport à ce dernier. Si la valeur de la propriété distance est définie sur 0, il n’y a pas d’effet de décalage par rapport à l’objet. La propriété angle n’a donc aucun effet.
+     
+       </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:color:get"><apiName>color</apiName><shortdesc>
+      Couleur du rayonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Couleur du rayonnement. Les valeurs disponibles sont au format hexadécimal 0xRRGGBB. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      La distance de décalage du biseau.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      La distance de décalage du biseau. Les valeurs possibles sont en pixels (virgule flottante).  
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:hideObject:get"><apiName>hideObject</apiName><shortdesc>
+      Indique si l’objet est caché ou non.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si l’objet est caché ou non. Une valeur <codeph>true</codeph> indique que l’objet lui-même n’est pas tracé et que seule l’ombre est visible. La valeur par défaut est <codeph>false</codeph>, soit montrer l’objet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:inner:get"><apiName>inner</apiName><shortdesc>
+      Spécifie si le rayonnement est interne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie si le rayonnement est interne. La valeur <codeph>true</codeph> indique un rayonnement interne. La valeur par défaut est <codeph>false</codeph>, créant un rayonnement externe (au niveau des bords extérieurs de l’objet).
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ConvolutionFilter"><apiName>ConvolutionFilter</apiName><shortdesc>
+La classe ConvolutionFilter applique un effet de filtre de convolution de matrice.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>The <code>&lt;s:ConvolutionFilter&gt;</code> tag inherits all of the tag 
+ attributes of its superclass and adds the following tag attributes:</p>
+
+ <pre>
+ &lt;s:ConvolutionFilter 
+   <strong>Properties</strong>
+   alpha="1"
+   clamp="true"
+   color="0xFF0000"
+   divisor="1.0"
+   matrix="[]"
+   matrixX="0"
+   matrixY="0"
+   preserveAlpha="true"
+ /&gt;
+ </pre>
+
+]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+La classe ConvolutionFilter applique un effet de filtre de convolution de matrice. Une convolution associe les pixels de l’image d’entrée aux pixels environnants pour produire une image. Les convolutions permettent de produire de nombreux effets d’image, notamment le flou, la détection de contour, l’accentuation, l’estampage et le biseautage. Vous pouvez appliquer le filtre à tout objet d’affichage (autrement dit, aux objets héritant des propriétés de la classe DisplayObject), tels que MovieClip, SimpleButton, TextField et Video, ainsi qu’aux objets BitmapData.
+
+<p>Pour créer un filtre de convolution, utilisez la syntaxe <codeph>new ConvolutionFilter()</codeph>. L’utilisation de filtres dépend de l’objet auquel vous appliquez le filtre.</p>
+<ul><li>Pour appliquer des filtres aux clips, champs de texte, boutons et vidéo, utilisez la propriété <codeph>filters</codeph> (héritée de DisplayObject). Lorsque vous définissez la propriété <codeph>filters</codeph> d’un objet, celui-ci n’est pas modifié. En outre, vous pouvez supprimer la propriété <codeph>filters</codeph> pour enlever le filtre. </li>
+
+<li>Pour appliquer des filtres aux objets BitmapData, utilisez la méthode <codeph>BitmapData.applyFilter()</codeph>. L’appel de <codeph>applyFilter()</codeph> pour un objet BitmapData génère une image filtrée à partir de l’objet BitmapData source et de l’objet filtre.</li>
+</ul>
+
+<p>Si vous appliquez un filtre à un objet d’affichage, la valeur de la propriété <codeph>cacheAsBitmap</codeph> de cet objet est définie sur <codeph>true</codeph>. Si vous supprimez tous les filtres, la valeur d’origine de <codeph>cacheAsBitmap</codeph> est restaurée.</p>
+
+<p>Aucun filtre n’est appliqué si l’image obtenue dépasse les dimensions maximales. Dans AIR 1.5 et Flash Player 10, la taille maximale est de 8 191 pixels en largeur ou en hauteur, et le nombre total de pixels ne peut pas excéder 16 777 215 pixels (ainsi, si la largeur d’une image est de 8 191 pixels, sa hauteur maximale doit être de 2 048 pixels). Par exemple, lorsque vous effectuez un zoom avant sur un clip de grande taille auquel un filtre est appliqué, le filtre sera désactivé si l’image obtenue dépasse les dimensions maximales.</p>
+
+ </apiDesc><example conref="ConvolutionFilterExample.mxml"><swfblock conref="examples/ConvolutionFilterExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.filters:ConvolutionFilter:ConvolutionFilter"><apiName>ConvolutionFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>matrixX</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Dimension <i>x</i> de la matrice (nombre de colonnes de la matrice). La valeur par défaut est 0.
+     </apiDesc></apiParam><apiParam><apiItemName>matrixY</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Dimension <i>y</i> de la matrice (nombre de lignes de la matrice). La valeur par défaut est 0.
+     </apiDesc></apiParam><apiParam><apiItemName>matrix</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau des valeurs utilisées pour la transformation de matrice. Le nombre d’éléments dans le tableau doit être égal à <codeph>matrixX ~~ matrixY</codeph>.
+     </apiDesc></apiParam><apiParam><apiItemName>divisor</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Diviseur utilisé pendant la transformation de matrice. La valeur par défaut est 1. Un diviseur correspondant à la somme de toutes les valeurs de matrice atténue l’intensité de couleurs globale du résultat. La valeur 0 est ignorée ; elle est remplacée par la valeur par défaut. 
+     </apiDesc></apiParam><apiParam><apiItemName>bias</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Ecart à ajouter au résultat de la transformation de matrice. La valeur par défaut est 0.
+     </apiDesc></apiParam><apiParam><apiItemName>preserveAlpha</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>La valeur <codeph>false</codeph> indique que la valeur alpha n’est pas conservée et que la convolution s’applique à tous les canaux, y compris le canal alpha. La valeur <codeph>true</codeph> indique que la convolution s’applique uniquement aux canaux de couleur. La valeur par défaut est <codeph>true</codeph>.
+     </apiDesc></apiParam><apiParam><apiItemName>clamp</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Pour les pixels provenant de l’image source, la valeur <codeph>true</codeph> indique que l’image d’entrée est agrandie autant que nécessaire au niveau de ses bordures en dupliquant les valeurs de couleur sur le bord donné. La valeur <codeph>false</codeph> indique qu’il faut utiliser une autre couleur, comme spécifié dans les propriétés <codeph>color</codeph> et <codeph>alpha</codeph>. La valeur par défaut est <codeph>true</codeph>. 
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Couleur hexadécimale à substituer aux pixels provenant de l’image source.
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Alpha de la couleur de substitution.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:ConvolutionFilter:clone"><apiName>clone</apiName><shortdesc> 
+     Renvoie une copie de cet objet filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>BitmapFilter Nouvelle occurrence de ConvolutionFilter dont les propriétés sont toutes identiques à celles de l’occurrence de ConvolutionMatrixFilter d’origine.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc> 
+     Renvoie une copie de cet objet filtre.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:ConvolutionFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Valeur de transparence alpha de la couleur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de transparence alpha de la couleur. Les valeurs possibles sont comprises entre 0 et 1. Par exemple, 0,25 définit une valeur de transparence de 25 %.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:bias:get"><apiName>bias</apiName><shortdesc>
+      Ecart à ajouter au résultat de la transformation de matrice.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ecart à ajouter au résultat de la transformation de matrice. L’écart augmente la valeur de couleur de chaque canal de telle sorte que les couleurs sombres paraissent plus vives.  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:clamp:get"><apiName>clamp</apiName><shortdesc>
+      Indique si l’image doit être corrigée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si l’image doit être corrigée. Pour les pixels provenant de l’image source, la valeur true indique que l’image d’entrée est agrandie autant que nécessaire au niveau de ses bordures en dupliquant les valeurs de couleur de chacun de ses bords respectifs. La valeur false indique qu’il faut utiliser une autre couleur, comme spécifié dans les propriétés color et alpha.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:color:get"><apiName>color</apiName><shortdesc>
+      Couleur du rayonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Couleur du rayonnement. Les valeurs disponibles sont au format hexadécimal 0xRRGGBB. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:divisor:get"><apiName>divisor</apiName><shortdesc>
+      Diviseur utilisé pendant la transformation de matrice.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Diviseur utilisé pendant la transformation de matrice. La valeur par défaut est 1. Un diviseur correspondant à la somme de toutes les valeurs de matrice atténue l’intensité globale des couleurs du résultat. La valeur 0 est ignorée ; elle est remplacée par la valeur par défaut.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrixX:get"><apiName>matrixX</apiName><shortdesc>
+     Dimension x de la matrice (le nombre de lignes de la matrice).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     Dimension x de la matrice (le nombre de lignes de la matrice). 
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrixY:get"><apiName>matrixY</apiName><shortdesc>
+     Dimension y de la matrice (nombre de colonnes de la matrice).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     Dimension y de la matrice (nombre de colonnes de la matrice). 
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrix:get"><apiName>matrix</apiName><shortdesc>
+      Quantité de flou horizontal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Quantité de flou horizontal. Les valeurs valides sont comprises entre 0 et 255. Un flou d’une valeur inférieure ou égale à 1 signifie que l’image d’origine n’est pas modifiée avant d’être copiée. La valeur par défaut est 4. Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:preserveAlpha:get"><apiName>preserveAlpha</apiName><shortdesc>
+      Indique si le canal alpha est conservé ou si le filtre de convolution s’applique aussi bien à lui qu’aux canaux de couleur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si le canal alpha est conservé ou si le filtre de convolution s’applique aussi bien à lui qu’aux canaux de couleur. La valeur false indique que la convolution s’applique à tous les canaux, y compris le canal alpha. La valeur true indique que la convolution s’applique uniquement aux canaux de couleur.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:BlurFilter"><apiName>BlurFilter</apiName><shortdesc>
+ La classe BlurFilter permet d’appliquer un effet visuel de flou aux objets d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BlurFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BlurFilter
+    <strong>Properties</strong>
+    blurX="4.0"
+    blurY="4.0"
+    quality="low"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe BlurFilter permet d’appliquer un effet visuel de flou aux objets d’affichage. Un effet de flou adoucit les détails d’une image. Vous pouvez produire différents flous, d’un aspect doux et sans contours précis, à un flou gaussien dont l’aspect voilé produit le même effet que celui d’une image regardée à travers un verre semi-opaque. Quand la propriété <codeph>quality</codeph> de ce filtre est réglée sur faible, vous obtenez un aspect doux sans contours précis. Quand la propriété <codeph>quality</codeph> est élevée, l’effet se rapproche d’un filtre de flou gaussien. Vous pouvez appliquer le filtre à tout objet d’affichage (autrement dit, aux objets héritant des propriétés de la classe DisplayObject), tels que MovieClip, SimpleButton, TextField et Video, ainsi qu’aux objets BitmapData.
+ 
+ <p>Pour créer un nouveau filtre, utilisez le constructeur <codeph>new BlurFilter()</codeph>. L’utilisation de filtres dépend de l’objet auquel vous appliquez le filtre.</p>
+ <ul><li>Pour appliquer des filtres aux clips, champs de texte, boutons et vidéo, utilisez la propriété <codeph>filters</codeph> (héritée de DisplayObject). Lorsque vous définissez la propriété <codeph>filters</codeph> d’un objet, celui-ci n’est pas modifié. En outre, vous pouvez supprimer la propriété <codeph>filters</codeph> pour enlever le filtre. </li>
+ 
+ <li>Pour appliquer des filtres aux objets BitmapData, utilisez la méthode <codeph>BitmapData.applyFilter()</codeph>. L’appel de <codeph>applyFilter()</codeph> pour un objet BitmapData génère une image filtrée à partir de l’objet BitmapData source et de l’objet filtre.</li>
+ </ul>
+ 
+ <p>Si vous appliquez un filtre à un objet d’affichage, la propriété <codeph>cacheAsBitmap</codeph> de cet objet est réglée sur <codeph>true</codeph>. Si vous supprimez tous les filtres, la valeur d’origine de <codeph>cacheAsBitmap</codeph> est restaurée.</p>
+ 
+ <p>Ce filtre prend en charge le redimensionnement de la scène. Cependant, il ne prend pas en charge le redimensionnement général, la rotation ni l’inclinaison. Si l’objet lui-même est redimensionné (les propriétés <codeph>scaleX</codeph> et <codeph>scaleY</codeph> ne sont pas réglées sur 100 %), l’effet de filtre n’est pas redimensionné. Le redimensionnement est effectué uniquement en cas de zoom avant sur la scène.</p>
+ 
+ <p>Aucun filtre n’est appliqué si l’image obtenue dépasse les dimensions maximales. Dans AIR 1.5 et Flash Player 10, la taille maximale est de 8 191 pixels en largeur ou en hauteur, et le nombre total de pixels ne peut pas excéder 16 777 215 pixels (ainsi, si la largeur d’une image est de 8 191 pixels, sa hauteur maximale doit être de 2 048 pixels). Par exemple, si vous effectuez un zoom avant sur un clip de grande taille auquel un filtre est appliqué, le filtre sera désactivé si l’image obtenue dépasse les dimensions maximales.</p>
+ 
+  </apiDesc><example conref="BlurFilterExample.mxml"><swfblock conref="examples/BlurFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.BlurFilter.xml"><linktext>flash.filters.BlurFilter</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link></related-links><apiConstructor id="spark.filters:BlurFilter:BlurFilter"><apiName>BlurFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou à appliquer horizontalement. Les valeurs possibles sont comprises entre 0 et 255,0 (valeur en virgule flottante). 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou à appliquer verticalement. Les valeurs possibles sont comprises entre 0 et 255,0 (valeur en virgule flottante). 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Nombre d’applications du filtre. Vous pouvez définir la qualité à l’aide des constantes flash.filters.BitmapFilterQuality :
+     <ul>
+     <li><codeph>flash.filters.BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>flash.filters.BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>flash.filters.BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>La qualité supérieure se rapproche d’un flou gaussien. Dans la plupart des cas, ces trois valeurs sont suffisantes. Il est possible d’utiliser des valeurs numériques allant jusqu’à 15 pour obtenir différents effets, mais le rendu des valeurs les plus élevées est moins rapide.</p>
+     </apiDesc></apiParam><apiTipTexts><apiTipText>Initialise le filtre.
+     </apiTipText></apiTipTexts></apiConstructorDef><apiDesc>
+     Constructeur. Les valeurs par défaut créent une image floue sans contours précis.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:BlurFilter:clone"><apiName>clone</apiName><shortdesc>
+     Renvoie une copie de cet objet filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouvelle occurrence de BlurFilter dont toutes les propriétés sont identiques à celles de l’occurrence BlurFilter d’origine.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une copie de cet objet filtre.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:BlurFilter:blurX:get"><apiName>blurX</apiName><shortdesc>
+      Quantité de flou horizontal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Quantité de flou horizontal. Les valeurs valides sont comprises entre 0 et 255. Un flou d’une valeur inférieure ou égale à 1 signifie que l’image d’origine n’est pas modifiée avant d’être copiée. La valeur par défaut est 4. Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BlurFilter:blurY:get"><apiName>blurY</apiName><shortdesc>
+      Quantité de flou vertical.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Quantité de flou vertical. Les valeurs valides sont comprises entre 0 et 255. Un flou d’une valeur inférieure ou égale à 1 signifie que l’image d’origine n’est pas modifiée avant d’être copiée. La valeur par défaut est 4. Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BlurFilter:quality:get"><apiName>quality</apiName><shortdesc>
+      Nombre d’applications du filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>"low"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre d’applications du filtre. La valeur par défaut est <codeph>BitmapFilterQuality.LOW</codeph>, ce qui revient à appliquer le filtre une seule fois. La valeur <codeph>BitmapFilterQuality.MEDIUM</codeph> applique le filtre deux fois. La valeur <codeph>BitmapFilterQuality.HIGH</codeph> l’applique trois fois. Les rendus des filtres de valeurs faibles sont obtenus plus rapidement. 
+     
+      <p>Pour la plupart des applications, une valeur de qualité faible, moyenne ou élevée est suffisante. Il est possible d’utiliser des valeurs numériques allant jusqu’à 15 pour obtenir différents effets, mais le rendu des valeurs les plus élevées est moins rapide. Sans augmenter la valeur de quality, vous pouvez généralement obtenir un effet similaire, avec un rendu plus rapide, en augmentant simplement les valeurs des propriétés <codeph>blurX</codeph> et <codeph>blurY</codeph>.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ColorMatrixFilter"><apiName>ColorMatrixFilter</apiName><shortdesc>
+  La classe ColorMatrixFilter vous permet d’appliquer une transformation de matrice 4 x 5 aux valeurs de couleur RVBA et alpha de chaque pixel de l’image d’entrée afin d’obtenir un résultat intégrant un nouvel ensemble de valeurs de couleur RVBA et alpha. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ColorMatrixFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ColorMatrixFilter
+    <strong>Properties</strong>
+    matrix="[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ColorMatrixFilter vous permet d’appliquer une transformation de matrice 4 x 5 aux valeurs de couleur RVBA et alpha de chaque pixel de l’image d’entrée afin d’obtenir un résultat intégrant un nouvel ensemble de valeurs de couleur RVBA et alpha. Cette classe permet d’effectuer des modifications de saturation et des rotations de teinte, de définir la luminance de l’alpha et de produire d’autres effets. Vous pouvez appliquer le filtre à tout objet d’affichage (autrement dit, aux objets héritant des propriétés de la classe DisplayObject), tels que MovieClip, SimpleButton, TextField et Video, ainsi qu’aux objets BitmapData.
+ 
+  </apiDesc><example conref="ColorMatrixFilterExample.mxml"><swfblock conref="examples/ColorMatrixFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.ColorMatrixFilter.xml"><linktext>flash.filters.ColorMatrixFilter</linktext></link></related-links><apiConstructor id="spark.filters:ColorMatrixFilter:ColorMatrixFilter"><apiName>ColorMatrixFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>matrix</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de 20 éléments organisés en matrice de 4 x 5.
+     
+     </apiDesc></apiParam><apiTipTexts><apiTipText>Initialise une nouvelle occurrence ColorMatrixFilter.
+     
+     </apiTipText></apiTipTexts></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:ColorMatrixFilter:clone"><apiName>clone</apiName><shortdesc>
+     Renvoie une copie de cet objet filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouvelle occurrence de ColorMatrixFilter dont les propriétés sont toutes identiques à celles de l’occurrence d’origine.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une copie de cet objet filtre.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:ColorMatrixFilter:matrix:get"><apiName>matrix</apiName><shortdesc>
+      Liste séparée par des virgules de 20 doubles qui constitue une matrice 4x5 appliquée à l’élément rendu. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Liste séparée par des virgules de 20 doubles qui constitue une matrice 4x5 appliquée à l’élément rendu. La matrice se trouve dans l’ordre de ligne « major » -- en d’autres termes, les cinq premiers éléments sont multipliés par le vecteur [srcR,srcG,srcB,srcA,1] pour déterminer la valeur red de sortie, les cinq seconds éléments déterminent la valeur green de sortie, etc. 
+     
+      <p>La valeur doit être un tableau ou une chaîne délimitée par des virgules de 20 nombres.  </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:GradientFilter"><apiName>GradientFilter</apiName><shortdesc>
+ La classe de base pour les filtres qui fournissent des effets visuels dégradés. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientFilter
+    <strong>Properties</strong>
+    angle="45"
+    distance="4.0"
+    entries="[]"
+    type="inner"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe de base pour les filtres qui fournissent des effets visuels dégradés. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.filters.xml#GradientGlowFilter"><linktext>spark.filters.GradientGlowFilter</linktext></link><link href="spark.filters.xml#GradientBevelFilter"><linktext>spark.filters.GradientBevelFilter</linktext></link></related-links><apiConstructor id="spark.filters:GradientFilter:GradientFilter"><apiName>GradientFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de valeurs hexadécimales de couleur RVB à utiliser pour le dégradé. Par exemple, rouge correspond à 0xFF0000, bleu à 0x0000FF, etc.
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de valeurs de transparence alpha pour les couleurs correspondantes du tableau <codeph>colors</codeph>. Les valeurs valides pour chaque élément du tableau sont comprises entre 0 et 1. Par exemple, 0,25 définit une valeur de transparence de 25 %.
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de taux de distribution des couleurs ; les valeurs possibles sont comprises entre 0 et 255.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.filters:GradientFilter:angle:get"><apiName>angle</apiName><shortdesc>
+      Angle, exprimé en degrés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Angle, exprimé en degrés. Les valeurs possibles sont comprises entre 0 et 360. La valeur d’angle représente l’angle de la source lumineuse théorique éclairant l’objet et détermine l’emplacement de l’effet par rapport à ce dernier. Si la valeur de distance est 0, il n’y a pas d’effet de décalage par rapport à l’objet. La propriété angle n’a donc aucun effet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      Distance de décalage du rayonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Distance de décalage du rayonnement. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:entries:get"><apiName>entries</apiName><shortdesc>
+      Un tableau d’objets GradientEntry définissant les motifs de remplissage en dégradé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Tableau d’objets GradientEntry définissant les motifs de remplissage en dégradé. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:type:get"><apiName>type</apiName><shortdesc>
+      Positionnement de l’effet de filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>BitmapFilterType.INNER
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Positionnement de l’effet de filtre. Les valeurs possibles sont les constantes flash.filters.BitmapFilterType :
+      <ul>
+        <li><codeph>BitmapFilterType.OUTER</codeph>, rayonnement sur le bord extérieur de l’objet.</li>
+        <li><codeph>BitmapFilterType.INNER</codeph>, biseau sur le bord intérieur de l’objet.</li>
+        <li><codeph>BitmapFilterType.FULL</codeph>, rayonnement au-dessus de l’objet.</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.filters:BevelFilter"><apiName>BevelFilter</apiName><shortdesc> 
+ La classe BevelFilter permet d’appliquer un effet de biseau à des objets d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BevelFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BevelFilter 
+    <strong>Properties</strong>
+    angle="45"
+    distance="4"
+    highlightAlpha="1"
+    highlightColor="0xFFFFFF"
+    shadowAlpha="1"
+    shadowColor="0x000000"
+    type="inner"
+  /&gt;
+  </pre>
+ 
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc> 
+ La classe BevelFilter permet d’appliquer un effet de biseau à des objets d’affichage. L’effet de biseau donne aux objets tels que des boutons un aspect tridimensionnel. Vous pouvez personnaliser l’aspect du biseau grâce à différentes couleurs d’éclairage et d’ombre, à la quantité de flou sur le biseau, à l’angle du biseau, au positionnement du biseau et à un effet de masquage. Vous pouvez appliquer le filtre à tout objet d’affichage (autrement dit, aux objets héritant des propriétés de la classe DisplayObject), tels que MovieClip, SimpleButton, TextField et Video, ainsi qu’aux objets BitmapData.
+ 
+ <p>Pour créer un filtre, utilisez le constructeur <codeph>new BevelFilter()</codeph>. L’utilisation de filtres dépend de l’objet auquel vous appliquez le filtre.</p>
+ <ul><li>Pour appliquer des filtres aux clips, champs de texte, boutons et vidéo, utilisez la propriété <codeph>filters</codeph> (héritée de DisplayObject). Lorsque vous définissez la propriété <codeph>filters</codeph> d’un objet, celui-ci n’est pas modifié. En outre, vous pouvez supprimer la propriété <codeph>filters</codeph> pour enlever le filtre. </li>
+ 
+ <li>Pour appliquer des filtres aux objets BitmapData, utilisez la méthode <codeph>BitmapData.applyFilter()</codeph>. L’appel de <codeph>applyFilter()</codeph> pour un objet BitmapData génère une image filtrée à partir de l’objet BitmapData source et de l’objet filtre.</li>
+ </ul>
+ 
+ <p>Si vous appliquez un filtre à un objet d’affichage, la valeur de la propriété <codeph>cacheAsBitmap</codeph> de cet objet est définie sur <codeph>true</codeph>. Si vous supprimez tous les filtres, la valeur d’origine de <codeph>cacheAsBitmap</codeph> est restaurée.</p>
+ 
+ <p>Ce filtre prend en charge le redimensionnement de la scène. Cependant, il ne prend pas en charge le redimensionnement général, la rotation ni l’inclinaison. Si l’objet lui-même est redimensionné (si les propriétés <codeph>scaleX</codeph> et <codeph>scaleY</codeph> ne sont pas définies sur 100 %), l’effet de filtre n’est pas redimensionné. Le redimensionnement est effectué uniquement en cas de zoom avant sur la scène.</p>
+ 
+ <p>Aucun filtre n’est appliqué si l’image obtenue dépasse les dimensions maximales. Dans AIR 1.5 et Flash Player 10, la taille maximale est de 8 191 pixels en largeur ou en hauteur, et le nombre total de pixels ne peut pas excéder 16 777 215 pixels (ainsi, si la largeur d’une image est de 8 191 pixels, sa hauteur maximale doit être de 2 048 pixels). Par exemple, si vous effectuez un zoom avant sur un clip de grande taille auquel un filtre est appliqué, le filtre sera désactivé si l’image obtenue dépasse les dimensions maximales.</p>
+ 
+  </apiDesc><example conref="BevelFilterExample.mxml"><swfblock conref="examples/BevelFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.BevelFilter.xml"><linktext>flash.filters.BevelFilter</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link></related-links><apiConstructor id="spark.filters:BevelFilter:BevelFilter"><apiName>BevelFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Distance de décalage du biseau, en pixels (virgule flottante). 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>Angle du biseau, de 0 à 360 degrés. 
+     </apiDesc></apiParam><apiParam><apiItemName>highlightColor</apiItemName><apiType value="uint"/><apiData>0xFFFFFF</apiData><apiDesc>Couleur de surbrillance du biseau, <i>0xRRGGBB</i>. 
+     </apiDesc></apiParam><apiParam><apiItemName>highlightAlpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Valeur de transparence alpha de la couleur d’éclairage. Les valeurs valides sont comprises entre 0.0 et 1.0. Par exemple, 0,25 définit une valeur de transparence de 25 %. 
+     </apiDesc></apiParam><apiParam><apiItemName>shadowColor</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Couleur d’ombre du biseau, <i>0xRRGGBB</i>. 
+     </apiDesc></apiParam><apiParam><apiItemName>shadowAlpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Valeur de transparence alpha de la couleur d’ombre. Les valeurs valides sont comprises entre 0.0 et 1.0. Par exemple, 0,25 définit une valeur de transparence de 25 %. 
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou horizontal, en pixels. Les valeurs possibles sont comprises entre 0 et 255.0 (virgule flottante). 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou vertical en pixels. Les valeurs possibles sont comprises entre 0 et 255.0 (virgule flottante).
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Intensité de l’empreinte ou recouvrement. Plus la valeur est élevée, plus le recouvrement est intense et plus le contraste est important entre le biseau et l’arrière-plan. Les valeurs possibles sont comprises entre 0 et 255.0. 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Qualité du biseau. Les valeurs gérées sont comprises entre 0 et 15, mais pour la plupart des applications, vous pouvez utiliser les constantes <codeph>flash.filters.BitmapFilterQuality</codeph> :
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Le rendu des filtres de valeur faible est plus rapide. Vous pouvez utiliser les autres valeurs numériques disponibles pour obtenir des effets différents.</p>
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>inner</apiData><apiDesc>Le type de biseau. Les valeurs possbiles sont les constantes <codeph>flash.filters.BitmapFilterType</codeph> : <codeph>BitmapFilterType.INNER</codeph>, <codeph>BitmapFilterType.OUTER</codeph> ou <codeph>BitmapFilterType.FULL</codeph>. 
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Applique un effet de masquage (<codeph>true</codeph>) qui, en réalité, rend le remplissage de l’objet transparent et révèle la couleur d’arrière-plan du document.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterQuality.xml"><linktext>flash.filters.BitmapFilterQuality</linktext></link><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:BevelFilter:clone"><apiName>clone</apiName><shortdesc>
+     Renvoie une copie de cet objet filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouvelle occurrence de BevelFilter dont toutes les propriétés sont identiques à celles de l’occurrence de BevelFilter d’origine.
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une copie de cet objet filtre.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:BevelFilter:angle:get"><apiName>angle</apiName><shortdesc>
+       Angle du biseau, en degrés. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+       Angle du biseau, en degrés. Les valeurs possibles sont comprises entre 0 et 360. La valeur d’angle représente l’angle de la source lumineuse théorique éclairant l’objet et détermine l’emplacement de l’effet par rapport à ce dernier. Si la valeur de la propriété distance est définie sur 0, il n’y a pas d’effet de décalage par rapport à l’objet. La propriété angle n’a donc aucun effet.
+     
+       </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      La distance de décalage du biseau.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      La distance de décalage du biseau. Les valeurs possibles sont en pixels (virgule flottante).  
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:highlightAlpha:get"><apiName>highlightAlpha</apiName><shortdesc>
+      Valeur de transparence alpha de la couleur d’éclairage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de transparence alpha de la couleur d’éclairage. Cette valeur est spécifiée en tant que valeur normalisée comprise entre 0 et 1. Par exemple, 0,25 définit une valeur de transparence de 25 %. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:highlightColor:get"><apiName>highlightColor</apiName><shortdesc>
+      Couleur d’éclairage du biseau.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFFFFFF
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Couleur d’éclairage du biseau. Les valeurs possibles sont au format hexadécimal, 0xRRGGBB.  
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:shadowAlpha:get"><apiName>shadowAlpha</apiName><shortdesc>
+      Valeur de transparence alpha de la couleur d’ombre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de transparence alpha de la couleur d’ombre. Cette valeur est spécifiée en tant que valeur normalisée comprise entre 0 et 1. Par exemple, 0,25 définit une valeur de transparence de 25 %.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:shadowColor:get"><apiName>shadowColor</apiName><shortdesc>
+      La couleur d’ombre du biseau.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      La couleur d’ombre du biseau. Les valeurs possibles sont au format hexadécimal, 0xRRGGBB.  
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:type:get"><apiName>type</apiName><shortdesc>
+      Positionnement de l’effet de filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>BitmapFilterType.INNER
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Positionnement de l’effet de filtre. Les valeurs possibles sont les constantes flash.filters.BitmapFilterType :
+      <ul>
+        <li><codeph>BitmapFilterType.OUTER</codeph>, rayonnement sur le bord extérieur de l’objet.</li>
+        <li><codeph>BitmapFilterType.INNER</codeph>, rayonnement sur le bord intérieur de l’objet, il s’agit de la valeur par défaut.</li>
+        <li><codeph>BitmapFilterType.FULL</codeph>, rayonnement au-dessus de l’objet.</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.filters:GradientGlowFilter"><apiName>GradientGlowFilter</apiName><shortdesc>
+ La classe GradientGlowFilter permet d’appliquer un effet de rayonnement dégradé à des objets d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientGlowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientGlowFilter/&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>spark.filters:GradientFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe GradientGlowFilter permet d’appliquer un effet de rayonnement dégradé à des objets d’affichage. L’aspect d’un rayonnement dégradé est réaliste et inclut un dégradé de couleurs que vous pouvez contrôler. Vous pouvez appliquer un rayonnement dégradé autour du bord intérieur ou extérieur d’un objet, ou encore par-dessus l’objet. Vous pouvez appliquer le filtre à tout objet d’affichage (autrement dit, aux objets héritant des propriétés de la classe DisplayObject), tels que MovieClip, SimpleButton, TextField et Video, ainsi qu’aux objets BitmapData.
+ 
+ <p>L’utilisation de filtres dépend de l’objet auquel vous appliquez le filtre.</p>
+ <ul><li>Pour appliquer des filtres aux objets d’affichage, utilisez la propriété <codeph>filters</codeph>. Lorsque vous définissez la propriété <codeph>filters</codeph> d’un objet, celui-ci n’est pas modifié. En outre, vous pouvez supprimer la propriété <codeph>filters</codeph> pour enlever le filtre. </li>
+ 
+ <li>Pour appliquer des filtres aux objets BitmapData, utilisez la méthode <codeph>BitmapData.applyFilter()</codeph>. L’appel de <codeph>applyFilter()</codeph> pour un objet BitmapData génère une image filtrée à partir de l’objet BitmapData source et de l’objet filtre.</li>
+ </ul>
+ 
+ <p>Si vous appliquez un filtre à un objet d’affichage, la propriété <codeph>cacheAsBitmap</codeph> de cet objet est réglée sur <codeph>true</codeph>. Si vous supprimez tous les filtres, la valeur d’origine de <codeph>cacheAsBitmap</codeph> est restaurée.</p> 
+ 
+ <p>Ce filtre prend en charge le redimensionnement de la scène. Toutefois, le redimensionnement général, la rotation et l’inclinaison ne sont pas pris en charge. Si l’objet est lui-même redimensionné (si les propriétés <codeph>scaleX</codeph> et <codeph>scaleY</codeph> ne sont pas réglées sur 1,0), l’effet de filtre n’est pas redimensionné. Le redimensionnement est effectué uniquement en cas de zoom avant sur la scène.</p>
+ 
+ <p>Aucun filtre n’est appliqué si l’image obtenue dépasse les dimensions maximales. Dans AIR 1.5 et Flash Player 10, la taille maximale est de 8 191 pixels en largeur ou en hauteur, et le nombre total de pixels ne peut pas excéder 16 777 215 pixels (ainsi, si la largeur d’une image est de 8 191 pixels, sa hauteur maximale doit être de 2 048 pixels). Par exemple, lorsque vous effectuez un zoom avant sur un clip de grande taille auquel un filtre est appliqué, le filtre sera désactivé si l’image obtenue dépasse les dimensions maximales.</p>
+ 
+  </apiDesc><example conref="GradientGlowFilterExample.mxml"><swfblock conref="examples/GradientGlowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#GlowFilter"><linktext>spark.filters.GlowFilter</linktext></link><link href="" invalidHref="flash.filters.GradientGlowFilter.xml"><linktext>flash.filters.GradientGlowFilter</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link></related-links><apiConstructor id="spark.filters:GradientGlowFilter:GradientGlowFilter"><apiName>GradientGlowFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Distance de décalage du rayonnement. 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>Angle, exprimé en degrés. Les valeurs valides sont comprises entre 0 et 360. 
+     </apiDesc></apiParam><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de couleurs définissant un dégradé. Par exemple, rouge correspond à 0xFF0000, bleu à 0x0000FF, etc.
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau de valeurs de transparence alpha pour les couleurs correspondantes du tableau <codeph>colors</codeph>. Les valeurs valides pour chaque élément du tableau sont comprises entre 0 et 1. La valeur 0,25, par exemple, définit une valeur de transparence alpha de 25 %.
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau des taux de répartition des couleurs. Les valeurs valides sont comprises entre 0 et 255. Cette valeur définit le pourcentage de la largeur où la couleur est échantillonnée sur 100 %.
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou horizontal. Les valeurs valides sont comprises entre 0 et 255. Un flou d’une valeur inférieure ou égale à 1 signifie que l’image d’origine n’est pas modifiée avant d’être copiée. Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou vertical. Les valeurs valides sont comprises entre 0 et 255. Un flou d’une valeur inférieure ou égale à 1 signifie que l’image d’origine n’est pas modifiée avant d’être copiée. Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Intensité de l’empreinte ou recouvrement. Plus la valeur est élevée, plus le recouvrement est intense et plus le contraste entre le rayonnement et l’arrière-plan est important. Les valeurs valides sont comprises entre 0 et 255. Plus la valeur est élevée, plus l’empreinte est marquée. La valeur 0 signifie que le filtre n’est pas appliqué.
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Nombre d’applications du filtre. Utilisez les constantes flash.filters.BitmapFilterQuality :
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Pour plus d’informations, voir la description de la propriété <codeph>quality</codeph>.</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>outer</apiData><apiDesc>Positionnement de l’effet de filtre. Les valeurs possibles sont les constantes flash.filters.BitmapFilterType :
+     <ul>
+     <li><codeph>BitmapFilterType.OUTER</codeph>, rayonnement sur le bord extérieur de l’objet ;; la valeur par défaut.</li>
+     <li><codeph>BitmapFilterType.INNER</codeph>, biseau sur le bord intérieur de l’objet.</li>
+     <li><codeph>BitmapFilterType.FULL</codeph>, rayonnement au-dessus de l’objet.</li>
+     </ul>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Spécifie si l’objet a un effet de masquage. Un effet de masquage rend le remplissage de l’objet transparent et révèle la couleur d’arrière-plan du document. La valeur <codeph>true</codeph> spécifie un effet de masquage ; la valeur par défaut est <codeph>false</codeph> (pas d’effet de masquage).
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:GradientGlowFilter:clone"><apiName>clone</apiName><shortdesc>
+     Renvoie une copie de cet objet filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouvelle occurrence de GradientGlowFilter dont toutes les propriétés sont identiques à celles de l’occurrence de GradientGlowFilter d’origine.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une copie de cet objet filtre.
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.filters:DisplacementMapFilter"><apiName>DisplacementMapFilter</apiName><shortdesc>
+La classe DisplacementMapFilter utilise les valeurs de pixels de l’objet BitmapData spécifié (appelé image de mappage du déplacement) pour déplacer un objet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>The <code>&lt;s:DisplacementMapFilter&gt;</code> tag inherits all of the tag 
+ attributes of its superclass and adds the following tag attributes:</p>
+
+ <pre>
+ &lt;s:DisplacementMapFilter 
+   <strong>Properties</strong>
+   alpha="0"
+   color="0x000000"
+   componentX="0"
+   componentY="0"
+   mapBitmap="null"
+   mapPoint="null"
+   mode="wrap"
+   scaleX="0"
+   scaleY="0"
+ /&gt;
+ </pre>
+
+]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+La classe DisplacementMapFilter utilise les valeurs de pixels de l’objet BitmapData spécifié (appelé <i>displacement map image</i>) pour déplacer un objet. Vous pouvez utiliser ce filtre pour appliquer un effet voilé ou tacheté à tout objet héritant des propriétés de la classe DisplayObject, tels que MovieClip, SimpleButton, TextField et Video, ainsi qu’aux objets BitmapData.
+
+<p>L’utilisation de filtres dépend de l’objet auquel vous appliquez le filtre.</p>
+<ul><li>Pour appliquer des filtres à un objet d’affichage, utilisez la propriété <codeph>filters</codeph> de cet objet. Lorsque vous définissez la propriété <codeph>filters</codeph> d’un objet, celui-ci n’est pas modifié. En outre, vous pouvez supprimer la propriété <codeph>filters</codeph> pour enlever le filtre. </li>
+
+<li>Pour appliquer des filtres aux objets BitmapData, utilisez la méthode <codeph>BitmapData.applyFilter()</codeph>. L’appel de <codeph>applyFilter()</codeph> pour un objet BitmapData génère une image filtrée à partir de l’objet BitmapData source et de l’objet filtre.</li>
+</ul>
+
+<p>Si vous appliquez un filtre à un objet d’affichage, la valeur de la propriété <codeph>cacheAsBitmap</codeph> de cet objet est définie sur <codeph>true</codeph>. Si vous supprimez tous les filtres, la valeur d’origine de <codeph>cacheAsBitmap</codeph> est restaurée.</p>
+
+<p>Le filtre utilise la formule suivante :</p>
+
+<codeblock>
+dstPixel[x, y] = srcPixel[x + ((componentX(x, y) - 128) ~~ scaleX) / 256, y + ((componentY(x, y) - 128) ~~scaleY) / 256)
+</codeblock>
+
+<p>où <codeph>componentX(x, y)</codeph> extrait la valeur de couleur de la propriété <codeph>componentX</codeph> de la propriété <codeph>mapBitmap</codeph>, à <codeph>(x - mapPoint.x ,y - mapPoint.y)</codeph>.</p>
+
+<p>L’image de mappage utilisée par le filtre est redimensionnée en fonction de l’échelle de la scène. Elle n’est en aucun cas redimensionnée lorsque l’objet l’est.</p>
+
+<p>Ce filtre prend en charge le redimensionnement de la scène. Mais le redimensionnement général, la rotation et l’inclinaison ne sont pas gérés. Si l’objet lui-même est redimensionné (si les propriétés <codeph>scaleX</codeph> et <codeph>scaleY</codeph> ne correspondent pas à 1,0), l’effet du filtre n’est pas redimensionné. Le redimensionnement est effectué uniquement en cas de zoom avant sur la scène.</p>
+
+ </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link></related-links><apiConstructor id="spark.filters:DisplacementMapFilter:DisplacementMapFilter"><apiName>DisplacementMapFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>mapBitmap</apiItemName><apiType value="flash.display:BitmapData"/><apiData>null</apiData><apiDesc>Objet BitmapData contenant les données de mappage du déplacement.
+     </apiDesc></apiParam><apiParam><apiItemName>mapPoint</apiItemName><apiType value="flash.geom:Point"/><apiData>null</apiData><apiDesc>Valeur contenant le décalage du coin supérieur gauche de l’objet d’affichage cible par rapport au coin supérieur gauche de l’image de mappage.
+     </apiDesc></apiParam><apiParam><apiItemName>componentX</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Décrit le canal de couleur à utiliser dans l’image de mappage pour déplacer le résultat <i>x</i>. Les valeurs possibles sont les constantes BitmapDataChannel. 
+     </apiDesc></apiParam><apiParam><apiItemName>componentY</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Décrit le canal de couleur à utiliser dans l’image de mappage pour déplacer le résultat <i>y</i>. Les valeurs possibles sont les constantes BitmapDataChannel. 
+     </apiDesc></apiParam><apiParam><apiItemName>scaleX</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Multiplicateur à utiliser pour redimensionner le résultat du déplacement <i>x</i> à partir du calcul de mappage.
+     </apiDesc></apiParam><apiParam><apiItemName>scaleY</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Multiplicateur à utiliser pour redimensionner le résultat du déplacement <i>y</i> à partir du calcul de mappage.
+     </apiDesc></apiParam><apiParam><apiItemName>mode</apiItemName><apiType value="String"/><apiData>wrap</apiData><apiDesc>Mode du filtre. Les valeurs possibles sont les constantes DisplacementMapFilterMode.
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Spécifie la couleur à utiliser pour les déplacements en dehors des limites. La plage valide est comprise entre 0.0 et 1.0. Utilisez ce paramètre si la propriété <codeph>mode</codeph> est réglée sur <codeph>DisplacementMapFilterMode.COLOR</codeph>.
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>Spécifie la valeur alpha à utiliser pour les déplacements en dehors des limites. Elle est spécifiée en tant que valeur normalisée comprise entre 0,0 et 1,0. Par exemple, 0,25 définit une valeur de transparence de 25 %. Utilisez ce paramètre si la propriété <codeph>mode</codeph> est réglée sur <codeph>DisplacementMapFilterMode.COLOR</codeph>.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.display.BitmapDataChannel.xml"><linktext>flash.display.BitmapDataChannel</linktext></link><link href="" invalidHref="flash.filters.DisplacementMapFilterMode.xml"><linktext>flash.filters.DisplacementMapFilterMode</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:DisplacementMapFilter:clone"><apiName>clone</apiName><shortdesc>
+     Renvoie une copie de cet objet filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouvelle occurrence de DisplacementMapFilter dont les propriétés sont toutes identiques à celles de l’occurrence d’origine.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une copie de cet objet filtre.
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:DisplacementMapFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Spécifie la transparence alpha à utiliser pour les déplacements en dehors des limites.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie la transparence alpha à utiliser pour les déplacements en dehors des limites. Elle est spécifiée en tant que valeur normalisée comprise entre 0,0 et 1,0. Par exemple, 0,25 définit une valeur de transparence de 25 %. La valeur par défaut est 0. Utilisez cette propriété si la propriété mode est réglée sur DisplacementMapFilterMode.COLOR.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:color:get"><apiName>color</apiName><shortdesc>
+      Spécifie la couleur à utiliser pour les déplacements en dehors des limites.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie la couleur à utiliser pour les déplacements en dehors des limites. La plage valide est comprise entre 0.0 et 1.0. Les valeurs sont au format hexadécimal. La valeur par défaut pour color est 0. Utilisez cette propriété si la propriété mode est réglée sur DisplacementMapFilterMode.COLOR. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:componentX:get"><apiName>componentX</apiName><shortdesc>
+      Décrit le canal de couleur à utiliser dans l’image de mappage pour déplacer le résultat x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0, meaning no channel.
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Décrit le canal de couleur à utiliser dans l’image de mappage pour déplacer le résultat x. Les valeurs possibles sont les constantes BitmapDataChannel :
+      <ul>
+        <li><codeph>BitmapDataChannel.ALPHA</codeph></li>
+        <li><codeph>BitmapDataChannel.BLUE</codeph></li>
+        <li><codeph>BitmapDataChannel.GREEN</codeph></li>
+        <li><codeph>BitmapDataChannel.RED</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.BitmapDataChannel.xml"><linktext>flash.display.BitmapDataChannel</linktext></link></related-links></apiValue><apiValue id="spark.filters:DisplacementMapFilter:componentY:get"><apiName>componentY</apiName><shortdesc>
+      Décrit le canal de couleur à utiliser dans l’image de mappage pour déplacer le résultat y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0, meaning no channel.
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Décrit le canal de couleur à utiliser dans l’image de mappage pour déplacer le résultat y. Les valeurs possibles sont les constantes BitmapDataChannel :
+      <ul>
+        <li><codeph>BitmapDataChannel.ALPHA</codeph></li>
+        <li><codeph>BitmapDataChannel.BLUE</codeph></li>
+        <li><codeph>BitmapDataChannel.GREEN</codeph></li>
+        <li><codeph>BitmapDataChannel.RED</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mapBitmap:get"><apiName>mapBitmap</apiName><shortdesc>
+      Objet BitmapData contenant les données de mappage du déplacement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:BitmapData"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Objet BitmapData contenant les données de mappage du déplacement.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mapPoint:get"><apiName>mapPoint</apiName><shortdesc>
+      Valeur contenant le décalage du coin supérieur gauche de l’objet d’affichage cible par rapport au coin supérieur gauche de l’image de mappage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Point"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur contenant le décalage du coin supérieur gauche de l’objet d’affichage cible par rapport au coin supérieur gauche de l’image de mappage.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mode:get"><apiName>mode</apiName><shortdesc>
+      Mode du filtre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>DisplacementMapFilterMode.WRAP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Mode du filtre. Les valeurs possibles sont les constantes DisplacementMapFilterMode :
+      <ul>
+        <li><codeph>DisplacementMapFilterMode.WRAP</codeph> — Ramène la valeur de déplacement à l’autre côté de l’image source.</li>
+        <li><codeph>DisplacementMapFilterMode.CLAMP</codeph> — Corrige la valeur de déplacement en fonction du bord de l’image source.</li>
+        <li><codeph>DisplacementMapFilterMode.IGNORE</codeph> — Si la valeur de déplacement est hors limites, ignore le déplacement et utilise le pixel source.</li>
+        <li><codeph>DisplacementMapFilterMode.COLOR</codeph> — Si la valeur de déplacement est en dehors de l’image, remplace les valeurs des propriétés color et alpha.</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Multiplicateur à utiliser pour redimensionner le résultat du déplacement x à partir du calcul de mappage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Multiplicateur à utiliser pour redimensionner le résultat du déplacement x à partir du calcul de mappage.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      Multiplicateur à utiliser pour redimensionner le résultat du déplacement y à partir du calcul de mappage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Multiplicateur à utiliser pour redimensionner le résultat du déplacement y à partir du calcul de mappage.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ShaderFilter"><apiName>ShaderFilter</apiName><shortdesc>
+ La classe ShaderFilter Flex élimine de nombreux détails de l’utilisation des classes ShaderFilter, Shader et ShaderData Flash de pour appliquer un mélangeur de pixel comme filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ShaderFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ShaderFilter
+    <strong>Properties</strong>
+    bottomExtension="0"
+    leftExtension="0"
+    precisionHint="full"
+    rightExtension="0"
+    shader="[]"
+    topExtension="0"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe ShaderFilter Flex élimine de nombreux détails de l’utilisation des classes ShaderFilter, Shader et ShaderData Flash de pour appliquer un mélangeur de pixel comme filtre.
+ 
+ <p>La classe ShaderFilter doit être initialisée avec une occurrence d’un objet Shader ou d’une classe représentative d’un objet Shader (par exemple, d’un objet incorporé). La classe ShaderFilter sert alors de proxy au shader sous-jacent et offre un mécanisme pratique pour accéder aux paramètres d’entrée shader scalaire et multi-dimensionnel directement comme propriétés nommées simples. </p>
+ 
+ <p>Pour définir un paramètre d’entrée shader scalaire simple (par exemple, de type FLOAT ou INT), vous pouvez simplement vous référer directement à la propriété (par exemple, <codeph>myFilter.radius</codeph>).</p>
+ 
+ <p>Pour définir ou animer un composant individuel d’un paramètre d’entrée shader multidimensionnel (par exemple, FLOAT2), vous pouvez utiliser une convention de suffixe de propriété pour traiter directement la valeur individuelle. Le code suivant illustre deux façons de définir le premier et le deuxième composants de la propriété FLOAT2 <codeph>center</codeph>: <codeph><pre>
+     // 'center' is an input parameter of type FLOAT2.
+     shader.center = [10,20];
+ </pre></codeph>
+ <codeph><pre>
+     // Use property suffix convention to access the first and second component of 'center'. 
+     shader.center_x = 10;
+     shader.center_y = 20;
+ </pre></codeph></p>
+ 
+ <p>Le jeu complet de suffixes de propriété pris en charge que vous pouvez utiliser est le suivant :  </p>
+ 
+ <ul>
+ <li>Pour les paramètres d’entrée shader de type BOOL2, BOOL3, BOOL4, FLOAT2, FLOAT3, FLOAT4, INT2, INT3 ou INT4, « r g b a », « x y z w » ou « s t p q » peuvent être utilisés comme suffixes pratiques pour accéder respectivement au 1er, 2ème, 3ème et 4ème composant.</li>
+ 
+ <li>Pour les paramètres d’entrée shader de type MATRIX2x2, MATRIX3x3 ou MATRIX4x4, « a b c d e f g h i j k l m n o p » peuvent être utilisés comme suffixes de propriété pour accéder du 1er au 16ème composant d’une matrice donnée.</li>
+ </ul>
+ 
+ <p>Au fur et à mesure que ses propriétés changent (par exemple, lors d’une animation), la classe ShaderFilter se réapplique automatiquement elle-même au tableau de filtres du composant visuel auquel elle est appliquée.</p>
+ 
+  </apiDesc><example>Exemple de classe ShaderFilter simple :
+ <codeblock rev="3.0">
+ &lt;?xml version="1.0"?>
+ &lt;s:Application 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009">
+ 
+     &lt;!-- The hypothetical 'spherize' shader applied below has two input parameters, 'center' and 'radius'
+          with the following attributes:
+ 
+          parameter 'center' ==&lt;
+              type: float2
+              minValue: float2(-200,-200)
+              maxValue: float2(800,500)
+              defaultValue: float2(400,250)
+              description: "displacement center"
+  
+          parameter 'radius' ==&lt;
+              type: float
+              minValue: float(.1)
+              maxValue: float(400)
+              defaultValue: float(200)
+              description: "radius"
+     -->
+  
+     &lt;s:Label text="ABCDEF">
+         &lt;s:filters>
+             &lt;s:ShaderFilter shader="@Embed(source='shaders/spherize.pbj')"
+                 radius="25" center_x="50" center_y="15" />
+        &lt;/s:filters>
+     &lt;/s:Label>
+   
+ &lt;/s:Application> 
+ </codeblock>
+  
+  </example></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateFilter"><linktext>spark.effects.AnimateFilter</linktext></link></related-links><apiConstructor id="spark.filters:ShaderFilter:ShaderFilter"><apiName>ShaderFilter</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>shader</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Occurrence flash.display.Shader entièrement réalisée ou classe représentant un shader (par exemple, depuis un objet Embed).
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.filters:ShaderFilter:bottomExtension:get"><apiName>bottomExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#bottomExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#bottomExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:leftExtension:get"><apiName>leftExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#leftExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#leftExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:precisionHint:get"><apiName>precisionHint</apiName><shortdesc>
+      Précision des opérations mathématiques effectuées par le shader sous-jacent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ShaderPrecision.FULL
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Précision des opérations mathématiques effectuées par le shader sous-jacent. L’ensemble des valeurs possibles de la propriété precisionHint est défini par les constantes de la classe ShaderPrecision.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Shader.xml"><linktext>flash.display.Shader</linktext></link><link href="" invalidHref="flash.display.ShaderPrecision.xml"><linktext>flash.display.ShaderPrecision</linktext></link></related-links></apiValue><apiValue id="spark.filters:ShaderFilter:rightExtension:get"><apiName>rightExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#rightExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#rightExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:shader:get"><apiName>shader</apiName><shortdesc>
+     Une occurrence flash.display.Shader. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Shader"/></apiValueDef><apiDesc>
+     Une occurrence flash.display.Shader. 
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Shader.xml"><linktext>flash.display.Shader</linktext></link></related-links></apiValue><apiValue id="spark.filters:ShaderFilter:topExtension:get"><apiName>topExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#topExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#topExtension">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:GlowFilter"><apiName>GlowFilter</apiName><shortdesc>
+ La classe GlowFilter permet d’appliquer un effet de rayonnement aux objets d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GlowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GlowFilter
+    <strong>Properties</strong>
+    alpha="1"
+    color="0xFF0000"
+    inner="false"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe GlowFilter permet d’appliquer un effet de rayonnement aux objets d’affichage. Vous disposez de plusieurs options pour définir le style de rayonnement, notamment le rayonnement interne ou externe et le mode de masquage. Le filtre de rayonnement est similaire au filtre d’ombre portée dont les propriétés <codeph>distance</codeph> et <codeph>angle</codeph> sont définies sur zéro. Vous pouvez appliquer le filtre à tout objet d’affichage (autrement dit, aux objets héritant des propriétés de la classe DisplayObject), tels que MovieClip, SimpleButton, TextField et Video, ainsi qu’aux objets BitmapData.
+ 
+ <p>L’utilisation de filtres dépend de l’objet auquel vous appliquez le filtre.</p>
+ <ul><li>Pour appliquer des filtres aux objets d’affichage, utilisez la propriété <codeph>filters</codeph> (héritée de DisplayObject). Lorsque vous définissez la propriété <codeph>filters</codeph> d’un objet, celui-ci n’est pas modifié. En outre, vous pouvez supprimer la propriété <codeph>filters</codeph> pour enlever le filtre. </li>
+ 
+ <li>Pour appliquer des filtres aux objets BitmapData, utilisez la méthode <codeph>BitmapData.applyFilter()</codeph>. L’appel de <codeph>applyFilter()</codeph> pour un objet BitmapData génère une image filtrée à partir de l’objet BitmapData source et de l’objet filtre.</li>
+ </ul>
+ 
+ <p>Si vous appliquez un filtre à un objet d’affichage, la propriété <codeph>cacheAsBitmap</codeph> de cet objet est réglée sur <codeph>true</codeph>. Si vous supprimez tous les filtres, la valeur d’origine de <codeph>cacheAsBitmap</codeph> est restaurée.</p>
+ 
+ <p>Ce filtre prend en charge le redimensionnement de la scène. Cependant, il ne prend pas en charge le redimensionnement général, la rotation ni l’inclinaison. Si l’objet est redimensionné (si les propriétés <codeph>scaleX</codeph> et <codeph>scaleY</codeph> ne sont pas réglées sur 1,0), le filtre ne l’est pas. Le redimensionnement est effectué uniquement en cas de zoom avant sur la scène.</p>
+ 
+ <p>Aucun filtre n’est appliqué si l’image obtenue dépasse les dimensions maximales. Dans AIR 1.5 et Flash Player 10, la taille maximale est de 8 191 pixels en largeur ou en hauteur, et le nombre total de pixels ne peut pas excéder 16 777 215 pixels (ainsi, si la largeur d’une image est de 8 191 pixels, sa hauteur maximale doit être de 2 048 pixels). Par exemple, lorsque vous effectuez un zoom avant sur un clip de grande taille auquel un filtre est appliqué, le filtre sera désactivé si l’image obtenue dépasse les dimensions maximales.</p>
+ 
+  </apiDesc><example conref="GlowFilterExample.mxml"><swfblock conref="examples/GlowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.GlowFilter.xml"><linktext>flash.filters.GlowFilter</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scaleX"><linktext>flash.display.DisplayObject.scaleX</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scaleY"><linktext>flash.display.DisplayObject.scaleY</linktext></link><link href="" invalidHref="flash.filters.xml#DropShadowFilter/distance"><linktext>flash.filters.DropShadowFilter.distance</linktext></link><link href="" invalidHref="flash.filters.xml#DropShadowFilter/angle"><linktext>flash.filters.DropShadowFilter.angle</linktext></link></related-links><apiConstructor id="spark.filters:GlowFilter:GlowFilter"><apiName>GlowFilter</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0xFF0000</apiData><apiDesc>Couleur du rayonnement, au format hexadécimal 0x<i>RRGGBB</i>. La valeur par défaut est 0xFF0000.
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Valeur de transparence alpha de la couleur. Les valeurs possibles sont comprises entre 0 et 1. Par exemple, 0,25 définit une valeur de transparence de 25 %.
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou horizontal. Les valeurs possibles sont comprises entre 0 et 255 (virgule flottante). Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>Quantité de flou vertical. Les valeurs possibles sont comprises entre 0 et 255 (virgule flottante). Les valeurs correspondant à une puissance de 2 (telles que 2, 4, 8, 16 et 32) sont optimisées pour obtenir un rendu plus rapide qu’avec les autres valeurs.
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Intensité de l’empreinte ou recouvrement. Plus la valeur est élevée, plus le recouvrement est intense et plus le contraste entre le rayonnement et l’arrière-plan est important. Les valeurs possibles sont comprises entre 0 et 255. 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>Nombre d’applications du filtre. Utilisez les constantes BitmapFilterQuality :
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>Pour plus d’informations, voir la description de la propriété <codeph>quality</codeph>.</p>
+     </apiDesc></apiParam><apiParam><apiItemName>inner</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Spécifie si le rayonnement est interne. La valeur <codeph> true</codeph> indique un rayonnement interne. La valeur <codeph>false</codeph> renvoie un rayonnement externe (au niveau des bords extérieurs de l’objet). 
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Spécifie si l’objet a un effet de masquage. La valeur <codeph>true</codeph> applique un effet de masquage qui rend le remplissage de l’objet transparent et révèle la couleur d’arrière-plan du document. 
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Constructeur.
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="spark.filters.BitmapFilterQuality.xml"><linktext>BitmapFilterQuality</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:GlowFilter:clone"><apiName>clone</apiName><shortdesc>
+     Renvoie une copie de cet objet filtre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nouvelle occurrence de GlowFilter dont toutes les propriétés sont identiques à celles de l’occurrence de GlowFilter d’origine.
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie une copie de cet objet filtre.
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:GlowFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Valeur de transparence alpha de la couleur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de transparence alpha de la couleur. Les valeurs possibles sont comprises entre 0 et 1. Par exemple, 0,25 définit une valeur de transparence de 25 %.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GlowFilter:color:get"><apiName>color</apiName><shortdesc>
+      Couleur du rayonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Couleur du rayonnement. Les valeurs disponibles sont au format hexadécimal 0xRRGGBB. 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GlowFilter:inner:get"><apiName>inner</apiName><shortdesc>
+      Spécifie si le rayonnement est interne.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie si le rayonnement est interne. La valeur true indique un rayonnement interne. La valeur par défaut est false, renvoyant un rayonnement externe (au niveau des bords extérieurs de l’objet).
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

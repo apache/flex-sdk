@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.formatters.supportClasses"><apiName>spark.formatters.supportClasses</apiName><apiDetail/><apiClassifier id="spark.formatters.supportClasses:NumberFormatterBase"><apiName>NumberFormatterBase</apiName><shortdesc>
+  Класс NumberFormatterBase является базовым классом для классов NumberFormatter и CurrencyFormatter.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:NumberFormatterBase&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberFormatterBase 
+    <strong>Properties</strong>
+    decimalSeparator="<i>locale and OS dependent</i>"
+    digitsType="<i>locale and OS dependent</i>"
+    errorText="null"
+    fractionalDigits="<i>locale and OS dependent</i>"
+    groupingPattern="<i>locale and OS dependent</i>"
+    groupingSeparator="<i>locale and OS dependent</i>"
+    leadingZero="<i>locale and OS dependent</i>"
+    negativeSymbol="<i>locale and OS dependent</i>"
+    trailingZeros="<i>locale and OS dependent</i>"
+    useGrouping="<i>locale and OS dependent</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс NumberFormatterBase является базовым классом для классов NumberFormatter и CurrencyFormatter.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter"><linktext>spark.formatters.CurrencyFormatter</linktext></link><link href="spark.formatters.xml#NumberFormatter"><linktext>spark.formatters.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters.supportClasses:NumberFormatterBase:NumberFormatterBase"><apiName>NumberFormatterBase</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      Символ-разделитель десятичной дроби, используемый для форматирования или анализа чисел с дробной частью.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>если это свойство имеет нулевое значение.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Символ-разделитель десятичной дроби, используемый для форматирования или анализа чисел с дробной частью.
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:digitsType:get"><apiName>digitsType</apiName><shortdesc>
+      Определяет набор цифровых символов, которые должны использоваться при форматировании чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Определяет набор цифровых символов, которые должны использоваться при форматировании чисел.
+     
+      <p>В различных языках и регионах используются разные символы для представления цифр 0—9. Это свойство определяет используемый набор цифр.</p>
+     
+      <p>Значение этого свойства представляет значение Юникод для обозначения нуля в десятичном наборе цифр. Действительные значения для этого свойства определены в классе <codeph>NationalDigitsType</codeph>.</p>
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:errorText:get"><apiName>errorText</apiName><shortdesc>
+      Строка замены, возвращенная методом format() при возникновении ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка замены, возвращенная методом <codeph>format()</codeph> при возникновении ошибки.
+     
+      <p>Если <codeph>errorText</codeph> не является null и ошибка возникает при форматировании  количества или денежной суммы, метод формата возвратит строку, присвоенную этому свойству.</p>
+     
+      Например:
+      <codeblock rev="3.0">
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale", "en-US");
+      nf.errorText = "###"
+      trace(nf.format("abc"));  // ###
+      </codeblock>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:fractionalDigits:get"><apiName>fractionalDigits</apiName><shortdesc>
+      Максимальное число цифр, которые могут отображаться после десятичного разделителя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Максимальное число цифр, которые могут отображаться после десятичного разделителя.
+     
+      <p>Числа округляются до указанного в этом свойстве количества знаков. Схема округления варьируется в зависимости от операционной системы пользователя приложения.</p>
+     
+      <p>Когда свойство <codeph>trailingZeros</codeph> имеет значение <codeph>true</codeph>, дробная часть числа (после запятой) дополняется нулями, чтобы ее длина соответствовала значению данного свойства <codeph>fractionalDigits</codeph>.</p>
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/trailingZeros"><linktext>trailingZeros</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:groupingPattern:get"><apiName>groupingPattern</apiName><shortdesc>
+      Описывает размещение разделителей группировки в пределах отформатированной числовой строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>если это свойство имеет нулевое значение.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Описывает размещение разделителей группировки в пределах отформатированной числовой строки.
+     
+      <p>Когда свойство <codeph>useGrouping</codeph> имеет значение true, свойство <codeph>groupingPattern</codeph> используется для определения местоположения разделителя группировки и используемого шаблона.</p>
+     
+      <p>Шаблон группировки определяется как строка, содержащая числа, разделенные точкой с запятой и в некоторых случаях может оканчиваться звездочкой. Например: <codeph>"3;2;*"</codeph>. Каждое число в строке представляет собой количество цифр в группе. Разделитель группировки помещается перед каждой группой цифр. Звездочка в конце строки обозначает, что группы с этим числом цифр должны повторяться до конца отформатированной строки. Если звездочки нет, то в оставшейся части отформатированной строки нет дополнительных групп или символов. </p>
+     
+      <p>Первое число в строке соответствует первой группе цифр слева от десятичного разделителя. Последующие числа определяют количество цифр в следующих группах слева. Таким образом строка <codeph>"3;2;*"</codeph> обозначает, что разделитель группировки ставится после первой группы из 3 цифр, за которой следуют группы из 2 цифр. Например: <codeph>98,76,54,321</codeph></p>
+     
+      <p>В следующей таблице приводятся примеры форматирования числа 123456789,12 с различными шаблонами группировки. В данном случае в качестве разделителя группировки используется запятая, а в качестве десятичного разделителя — точка.
+      </p>
+        <adobetable class="innertable">
+              
+              
+              
+              
+        <tgroup cols="2"><tbody><row>
+                    <entry>Шаблон группировки</entry>
+                    <entry>Образец формата</entry>
+              </row><row>
+                    <entry><codeph>3;*</codeph></entry>
+                    <entry>123,456,789.12</entry>
+              </row><row>
+                    <entry><codeph>3;2;*</codeph></entry>
+                    <entry>12,34,56,789.12</entry>
+              </row><row>
+                    <entry><codeph>3</codeph></entry>
+                    <entry>123456,789.12</entry>
+              </row></tbody></tgroup></adobetable>
+     
+      <p>Можно определить лишь ограниченное число размеров группировки. В одних операционных системах шаблоны группировки могут содержать только два числа и звездочку. Другие операционные системы могут поддерживать до четырех чисел и звездочку. Когда речь идет о шаблонах без звездочки, одни операционные системы поддерживают только одно число, а другие до трех чисел. Если превышено максимальное число элементов группировки, то лишние элементы игнорируются и свойство <codeph>lastOperationStatus</codeph> обозначает, что используется резервное значение.
+      </p>
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingSeparator"><linktext>groupingSeparator</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/useGrouping"><linktext>useGrouping</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:groupingSeparator:get"><apiName>groupingSeparator</apiName><shortdesc>
+      Символ или строка, используемые в качестве разделителя группировки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>если это свойство имеет нулевое значение.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Символ или строка, используемые в качестве разделителя группировки.
+     
+      <p>Значение этого свойства используется в качестве разделителя группировки при форматировании числа, когда свойство <codeph>useGrouping</codeph> имеет значение <codeph>true</codeph>. Это свойство изначально задается на основе локали, выбранной при создании объекта NumberFormatter.</p>
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/useGrouping"><linktext>useGrouping</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingPattern"><linktext>groupingPattern</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      Состояние самой последней операции, выполненной этим объектом класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Состояние самой последней операции, выполненной этим объектом класса. Свойство <codeph>lastOperationStatus</codeph> задается каждый раз при вызове конструктора или метода этого класса или при задании значения для другого свойства. Другие возможные значения см. в описании соответствующего метода.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:leadingZero:get"><apiName>leadingZero</apiName><shortdesc>
+      Определяет, включается ли начальный нуль в отформатированное число, если слева от десятичного разделителя нет целых чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiException><apiDesc>если это свойство имеет нулевое значение.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Определяет, включается ли начальный нуль в отформатированное число, если слева от десятичного разделителя нет целых чисел.
+     
+      <p>Когда это свойство имеет значение <codeph>true</codeph>, начальный нуль добавляется слева от десятичного разделителя при форматировании числовых значений в диапазоне от -1,0 до 1,0. Когда это свойство имеет значение <codeph>false</codeph>, начальный нуль не добавляется.</p>
+     
+      <p>Например, если форматируется число 0,321 и это свойство имеет значение <codeph>true</codeph>, в отформатированную строку включается начальный нуль. Если свойство имеет значение <codeph>false</codeph>, то начальный нуль не включается. В этом случае строка будет содержать только десятичный разделитель и дробную часть: <codeph>,321</codeph>.</p>
+     
+      <p>В следующей таблице приводятся примеры форматирования чисел на основе значений этого свойства, а также связанных свойств <codeph>fractionalDigits</codeph> и <codeph>trailingZeros</codeph>.
+      </p>
+     
+         <adobetable class="innertable">
+             
+             
+             
+             
+             
+      <tgroup cols="5"><tbody><row>
+                 <entry>trailingZeros</entry>
+                 <entry><b>leadingZero</b></entry>
+                 <entry>fractionalDigits</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+              </row><row>
+                 <entry>true</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.120</entry>
+                 <entry>0.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+             </row><row>
+                 <entry>true</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.120</entry>
+                 <entry>.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.12</entry>
+                 <entry>0</entry>
+             </row></tbody></tgroup></adobetable>
+     
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/trailingZeros"><linktext>trailingZeros</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:negativeSymbol:get"><apiName>negativeSymbol</apiName><shortdesc>
+      Отрицательный символ, который должен использоваться при форматировании отрицательных величин.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Отрицательный символ, который должен использоваться при форматировании отрицательных величин.
+     
+      <p>Этот символ используется вместе с форматом отрицательных чисел при форматировании чисел, которые меньше нуля. Он не используется в форматах отрицательных чисел, которые не включают отрицательный символ (например, когда отрицательные числа заключены в круглые скобки). </p>
+     
+      <p>Этому свойству задается значение по умолчанию для фактической локали, выбранной при создании этого объекта NumberFormatter. Ему можно присвоить значение для переопределения настройки по умолчанию.</p>
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/negativeNumberFormat"><linktext>negativeNumberFormat</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:trailingZeros:get"><apiName>trailingZeros</apiName><shortdesc>
+      Определяет, добавляются ли нули в конце форматируемого числа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiException><apiDesc>если это свойство имеет нулевое значение.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Определяет, добавляются ли нули в конце форматируемого числа.
+     
+      <p>Когда это свойство имеет значение <codeph>true</codeph>, в конце дробной части отформатированного числа добавляются нули, чтобы его длина соответствовала ограничению, определенному в свойстве <codeph>fractionalDigits</codeph>. Когда это свойство имеет значение <codeph>false</codeph>, нули в конце числа не отображаются.</p>
+     
+      <p>Например, если форматируется числовое значение 123,4 и это свойство имеет значение true, а свойству <codeph>fractionalDigits</codeph> задано значение 3, в конце отформатированной строки будут отображаться нули: <codeph>123,400</codeph>. Если же это свойство имеет значение <codeph>false</codeph>, нули в конце строки не добавляются и после десятичного разделителя отображаются только ненулевые цифры: <codeph>123,4</codeph>.</p>
+     
+      <p>В следующей таблице приводятся примеры форматирования чисел на основе значений этого свойства, а также связанных свойств <codeph>fractionalDigits</codeph> и <codeph>leadingZero</codeph>.
+      </p>
+     
+         <adobetable class="innertable">
+             
+             
+             
+             
+             
+      <tgroup cols="5"><tbody><row>
+                 <entry><b>trailingZeros</b></entry>
+                 <entry>leadingZero</entry>
+                 <entry>fractionalDigits</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+              </row><row>
+                 <entry>true</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.120</entry>
+                 <entry>0.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+             </row><row>
+                 <entry>true</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.120</entry>
+                 <entry>.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.12</entry>
+                 <entry>0</entry>
+             </row></tbody></tgroup></adobetable>
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/leadingZero"><linktext>leadingZero</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:useGrouping:get"><apiName>useGrouping</apiName><shortdesc>
+      Позволяет использовать разделитель группировки при форматировании чисел.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Позволяет использовать разделитель группировки при форматировании чисел.
+     
+      <p>Когда свойство <codeph>useGrouping</codeph> имеет значение <codeph>true</codeph>, цифры группируются и разделяются с использованием символа-разделителя группировки. Например, <codeph>123,456,789.22</codeph></p>
+     
+      <p>Когда свойство <codeph>useGrouping</codeph> имеет значение <codeph>false</codeph>, цифры не группируются и не разделяются. Например, <codeph>123456789.22</codeph></p>
+
+      <p>Символ, который должен использоваться в качестве разделителя группировки, определяется свойством <codeph>groupingSeparator</codeph>. Число знаком между разделителями группировки определяется свойством <codeph>groupingPattern</codeph>.</p>
+     
+      <p>Значение по умолчанию зависит от локали и операционной системы.</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingPattern"><linktext>groupingPattern</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingSeparator"><linktext>groupingSeparator</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.messages"><apiName>mx.messaging.messages</apiName><apiDetail/><apiClassifier id="mx.messaging.messages:SOAPMessage"><apiName>SOAPMessage</apiName><shortdesc>
+  SOAPMessages 与 HTTPRequestMessages 类似。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:HTTPRequestMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SOAPMessages 与 HTTPRequestMessages 类似。但是，它们始终包含 SOAP XML 封套请求正文，通常使用 HTTP POST 发送此请求正文。它们还允许指定 SOAP 操作。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:SOAPMessage:SOAPMessage"><apiName>SOAPMessage</apiName><shortdesc>
+      构造未初始化的 SOAPMessage。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造未初始化的 SOAPMessage。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:SOAPMessage:getSOAPAction"><apiName>getSOAPAction</apiName><shortdesc>
+      提供对将调用的远程方法/操作名称的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回将调用的远程方法/操作的名称。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      提供对将调用的远程方法/操作名称的访问权限。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:SOAPMessage:SOAP_ACTION_HEADER"><apiName>SOAP_ACTION_HEADER</apiName><shortdesc>
+      存储 SOAPMessage 的 SOAP 操作的 HTTP 标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>SOAPAction</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      存储 SOAPMessage 的 SOAP 操作的 HTTP 标头。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:ErrorMessage"><apiName>ErrorMessage</apiName><shortdesc>
+  ErrorMessage 类用于报告消息传送系统中的错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AcknowledgeMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ErrorMessage 类用于报告消息传送系统中的错误。错误消息仅用于响应系统内部发送的消息。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:ErrorMessage:ErrorMessage"><apiName>ErrorMessage</apiName><shortdesc>
+      构造 ErrorMessage 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造 ErrorMessage 实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:ErrorMessage:MESSAGE_DELIVERY_IN_DOUBT"><apiName>MESSAGE_DELIVERY_IN_DOUBT</apiName><shortdesc>
+      如果尚未传递消息，则 faultCode 会包含此常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.Error.DeliveryInDoubt</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      如果尚未传递消息，则 <codeph>faultCode</codeph> 会包含此常量。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:RETRYABLE_HINT_HEADER"><apiName>RETRYABLE_HINT_HEADER</apiName><shortdesc>
+      可重试提示标头的标头名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRetryableErrorHint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      可重试提示标头的标头名称。用于指示生成错误的操作可以重试，而不是致命错误。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:extendedData"><apiName>extendedData</apiName><shortdesc>
+     远程目标所选择的扩展数据，用以与此错误关联以便在客户端上处理自定义错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     远程目标所选择的扩展数据，用以与此错误关联以便在客户端上处理自定义错误。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultCode"><apiName>faultCode</apiName><shortdesc>
+      错误的错误代码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      错误的错误代码。此值通常遵循“[outer_context].[inner_context].[issue]”约定。例如：“Channel.Connect.Failed”、“Server.Call.Failed”等。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultDetail"><apiName>faultDetail</apiName><shortdesc>
+      错误原因的详细描述。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      错误原因的详细描述。此项通常为远程目标上的堆栈跟踪。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultString"><apiName>faultString</apiName><shortdesc>
+      错误的简单描述。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      错误的简单描述。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:rootCause"><apiName>rootCause</apiName><shortdesc>
+      如果存在错误根源，则此属性会包含其详细信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      如果存在错误根源，则此属性会包含其详细信息。该错误根源可能是 ErrorMessage、NetStatusEvent info Object 或基本的 Flash 错误事件（ErrorEvent、IOErrorEvent 或 SecurityErrorEvent）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:RemotingMessage"><apiName>RemotingMessage</apiName><shortdesc>
+  RemotingMessages 用于将 RPC 请求发送到远程端点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemotingMessages 用于将 RPC 请求发送到远程端点。这些消息使用 <codeph>operation</codeph> 属性指定要对远程对象调用的方法。<codeph>destination</codeph> 属性指示应使用的对象/服务。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:RemotingMessage:RemotingMessage"><apiName>RemotingMessage</apiName><shortdesc>
+      构造未初始化的 RemotingMessage。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造未初始化的 RemotingMessage。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:RemotingMessage:operation"><apiName>operation</apiName><shortdesc>
+      提供对应调用的远程方法/操作名称的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对应调用的远程方法/操作名称的访问权限。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:RemotingMessage:source"><apiName>source</apiName><shortdesc>
+      通过此属性可提供向后兼容性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      通过此属性可提供向后兼容性。但是，最佳做法不是公开客户端上 RemoteObject 目标的基础源，而是对一个目标仅公开一个源。为安全起见，某些远程处理服务类型甚至会忽略此属性。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AbstractMessage"><apiName>AbstractMessage</apiName><shortdesc>
+  所有消息的抽象基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:IMessage</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  所有消息的抽象基类。消息包含两个可自定义的部分：标头和正文。通过 <codeph>headers</codeph> 属性可访问特定消息实例的专门元信息。<codeph>headers</codeph> 属性是以特定标头名称作为关键字的关联数组。
+  <p>
+  消息正文包含需要由远程目标传递和处理的特定实例数据。<codeph>body</codeph> 是作为消息有效负载的对象。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AbstractMessage:AbstractMessage"><apiName>AbstractMessage</apiName><shortdesc>
+      构造一个正文和标头为空的 AbstractMessage 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造一个正文和标头为空的 AbstractMessage 实例。不应直接实例化或使用此消息类型。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:AbstractMessage:toString"><apiName>toString</apiName><shortdesc>
+      返回消息的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>消息的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回消息的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:AbstractMessage:DESTINATION_CLIENT_ID_HEADER"><apiName>DESTINATION_CLIENT_ID_HEADER</apiName><shortdesc>
+      从服务器发出的消息可能按批到达，批处理过程中可能会将这些消息发送给不同的 Consumer 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSDstClientId</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      从服务器发出的消息可能按批到达，批处理过程中可能会将这些消息发送给不同的 Consumer 实例。每条消息都包含此标头，用以识别接收该消息的 Consumer 实例。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:ENDPOINT_HEADER"><apiName>ENDPOINT_HEADER</apiName><shortdesc>
+      消息将以所用发送 Channel 的端点 ID 作为标签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSEndpoint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      消息将以所用发送 Channel 的端点 ID 作为标签。通道会在发送消息时自动设置此值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:FLEX_CLIENT_ID_HEADER"><apiName>FLEX_CLIENT_ID_HEADER</apiName><shortdesc>
+	  服务器指定标头后，可通过该标头在出站消息中传输全局 FlexClient Id 值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSId</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  服务器指定标头后，可通过该标头在出站消息中传输全局 FlexClient Id 值。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:PRIORITY_HEADER"><apiName>PRIORITY_HEADER</apiName><shortdesc>
+      由 MessageAgent 发送的消息可带优先级头，使用 0 到 9 数值表示（0 最低），服务器可以选择使用这种数值表示到客户端的消息的优先级。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPriority</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      由 MessageAgent 发送的消息可带优先级头，使用 0 到 9 数值表示（0 最低），服务器可以选择使用这种数值表示到客户端的消息的优先级。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REMOTE_CREDENTIALS_CHARSET_HEADER"><apiName>REMOTE_CREDENTIALS_CHARSET_HEADER</apiName><shortdesc>
+      需要为目标设置远程凭据的消息还需要报告使用此标头创建凭据 String 时所用的字符集编码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemoteCredentialsCharset</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      需要为目标设置远程凭据的消息还需要报告使用此标头创建凭据 String 时所用的字符集编码。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REMOTE_CREDENTIALS_HEADER"><apiName>REMOTE_CREDENTIALS_HEADER</apiName><shortdesc>
+      需要为目标设置远程凭据的消息采用此标头中的 Base64 编码凭据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemoteCredentials</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      需要为目标设置远程凭据的消息采用此标头中的 Base64 编码凭据。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REQUEST_TIMEOUT_HEADER"><apiName>REQUEST_TIMEOUT_HEADER</apiName><shortdesc>
+	  随定义的请求超时发送的消息将用到此标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRequestTimeout</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  随定义的请求超时发送的消息将用到此标头。请求超时值在出站消息上通过服务或通道设置，此值可控制在请求超时前相应的 MessageResponder 等待消息确认、结果或错误响应所需的时间。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:STATUS_CODE_HEADER"><apiName>STATUS_CODE_HEADER</apiName><shortdesc>
+      一种状态代码，可以提供有关响应消息性质的上下文。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSStatusCode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      一种状态代码，可以提供有关响应消息性质的上下文。例如，从基于 HTTP 的通道接收的消息可能需要报告 HTTP 响应状态代码（如果可用）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:body:get"><apiName>body</apiName><shortdesc>
+      消息正文包含需要传递到远程目标的特定数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      消息正文包含需要传递到远程目标的特定数据。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:clientId:get"><apiName>clientId</apiName><shortdesc>
+      ClientId 指示发送消息的 MessageAgent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ClientId 指示发送消息的 MessageAgent。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:destination:get"><apiName>destination</apiName><shortdesc>
+      消息目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      消息目标。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:headers:get"><apiName>headers</apiName><shortdesc>
+      消息标头是一个关联数组，其中关键字为标头名称，而值为标头值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      消息标头是一个关联数组，其中关键字为标头名称，而值为标头值。通过此属性可访问特定消息实例的专门元信息。核心标头名称以“DS”前缀开头。自定义标头名称应该以唯一的前缀开头，以避免名称冲突。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:messageId:get"><apiName>messageId</apiName><shortdesc>
+      消息的唯一 ID。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      消息的唯一 ID。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:timeToLive:get"><apiName>timeToLive</apiName><shortdesc>
+      消息的生存时间值指示该消息应视为有效且可传送的时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      消息的生存时间值指示该消息应视为有效且可传送的时间。此值可与 <codeph>timestamp</codeph> 值配合使用。生存时间指消息从指定的 <codeph>timestamp</codeph> 值起保持有效的时间（以毫秒为单位）。例如，如果 <codeph>timestamp</codeph> 值为 04/05/05 1:30：45 PST，而 <codeph>timeToLive</codeph> 值为 5000，则此消息将于 04/05/05 1:30：50 PST 到期。一旦消息到期，便不会传递到其它任何客户端。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      提供对消息时间戳的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      提供对消息时间戳的访问权限。时间戳是发送消息的日期和时间。时间戳用于通过系统跟踪消息，以确保服务质量级别并提供消息期限机制。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#AbstractMessage/timeToLive"><linktext>timeToLive</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:MessagePerformanceUtils"><apiName>MessagePerformanceUtils</apiName><shortdesc> 
+     MessagePerformanceUtils 实用程序类用于检索从客户端发送到服务器的消息及其响应消息的各种大小和时间度量信息，以及从服务器返回到客户端的消息的相应信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc> 
+     MessagePerformanceUtils 实用程序类用于检索从客户端发送到服务器的消息及其响应消息的各种大小和时间度量信息，以及从服务器返回到客户端的消息的相应信息。在启用通道上所使用的相应属性时会收集度量信息：&lt;record-message-times> 指示捕获时间信息，&lt;record-message-sizes> 指示捕获大小信息。
+     
+     <p>接着，您可以使用此 utility 类的方法来检索有关您刚收到的消息的各种性能信息。</p>
+     
+     <p>启用这些度量时，应该使用如下代码从响应、确认或消息处理函数中创建此类的一个实例： </p>
+     
+     <pre>
+          var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(event.message);
+     </pre> 
+          </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:MessagePerformanceUtils:MessagePerformanceUtils"><apiName>MessagePerformanceUtils</apiName><shortdesc>
+         构造函数会根据消息中传递的 MPI 标头中的信息创建一个 MPUtils 实例。
+         
+         </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="Object"/><apiDesc>在检索 MPI 信息过程中将使用其 MPI 标头的消息
+                  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+         构造函数会根据消息中传递的 MPI 标头中的信息创建一个 MPUtils 实例。
+         
+         </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:MessagePerformanceUtils:prettyPrint"><apiName>prettyPrint</apiName><shortdesc>
+          返回 MPI 中可用的所有信息的摘要。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含 MPI 中所有可用信息摘要的字符串
+                  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+          返回 MPI 中可用的所有信息的摘要。例如：
+         
+         <pre>
+              var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(message);                     
+              Alert.show(mpiutil.prettyPrint(), "MPI Output", Alert.NONMODAL);
+         </pre>            
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:MessagePerformanceUtils:clientReceiveTime:get"><apiName>clientReceiveTime</apiName><shortdesc>
+         从客户端收到来自服务器的响应消息时开始的时间戳（以毫秒为单位）.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         从客户端收到来自服务器的响应消息时开始的时间戳（以毫秒为单位）.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:messageSize:get"><apiName>messageSize</apiName><shortdesc>
+         在服务器端点反序列化期间测量的原始客户端消息的大小.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+         在服务器端点反序列化期间测量的原始客户端消息的大小.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:networkRTT:get"><apiName>networkRTT</apiName><shortdesc>
+         从客户端发送消息到服务器对其响应所需的网络往返时间，根据总时间和服务器处理时间之间的时间差计算.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         从客户端发送消息到服务器对其响应所需的网络往返时间，根据总时间和服务器处理时间之间的时间差计算.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:originatingMessageSentTime:get"><apiName>originatingMessageSentTime</apiName><shortdesc>
+         仅对于传递的消息填充，表示从生成传递消息的客户端发送其消息时开始的时间戳（以毫秒为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         仅对于传递的消息填充，表示从生成传递消息的客户端发送其消息时开始的时间戳（以毫秒为单位）。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:originatingMessageSize:get"><apiName>originatingMessageSize</apiName><shortdesc>
+         仅对于传递的消息填充，表示生成此传递消息的原始消息大小（以字节为单位）.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         仅对于传递的消息填充，表示生成此传递消息的原始消息大小（以字节为单位）.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:pushOneWayTime:get"><apiName>pushOneWayTime</apiName><shortdesc>
+         仅对于传递的消息填充，表示从服务器传递消息到客户端收到该消息所用的网络时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         仅对于传递的消息填充，表示从服务器传递消息到客户端收到该消息所用的网络时间。请注意，只有服务器和客户端的时钟保持同步，此属性才有意义。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:pushedMessageFlag:get"><apiName>pushedMessageFlag</apiName><shortdesc>
+         如果向客户端传递了消息但该消息不是对客户端所发送消息的响应，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+         如果向客户端传递了消息但该消息不是对客户端所发送消息的响应，则返回 true.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:responseMessageSize:get"><apiName>responseMessageSize</apiName><shortdesc>
+         在服务器端点反序列化期间测量的服务器发送到客户端的响应消息的大小.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+         在服务器端点反序列化期间测量的服务器发送到客户端的响应消息的大小.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverAdapterExternalTime:get"><apiName>serverAdapterExternalTime</apiName><shortdesc>
+         在准备好对消息进行响应或准备好将消息传递到接收客户端之前，花费在与此消息的目标相关联的外部适配器上所调用模块中的时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         在准备好对消息进行响应或准备好将消息传递到接收客户端之前，花费在与此消息的目标相关联的外部适配器上所调用模块中的时间。  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverAdapterTime:get"><apiName>serverAdapterTime</apiName><shortdesc>
+         在准备好对消息进行响应或准备好将消息传递到接收客户端之前，花费在与此消息的目标相关联的适配器中的时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         在准备好对消息进行响应或准备好将消息传递到接收客户端之前，花费在与此消息的目标相关联的适配器中的时间。  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverNonAdapterTime:get"><apiName>serverNonAdapterTime</apiName><shortdesc>
+         花费在与此消息的目标相关联的适配器外部的服务器处理时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         花费在与此消息的目标相关联的适配器外部的服务器处理时间.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverPollDelay:get"><apiName>serverPollDelay</apiName><shortdesc>
+         在消息已准备好以传递到客户端（但尚未被轮询）之后该消息在服务器上等待的时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         在消息已准备好以传递到客户端（但尚未被轮询）之后该消息在服务器上等待的时间。
+                  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverPrePushTime:get"><apiName>serverPrePushTime</apiName><shortdesc>
+         从服务器收到客户端消息到开始将消息传递到其它客户端作为原始消息结果所需的时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         从服务器收到客户端消息到开始将消息传递到其它客户端作为原始消息结果所需的时间。  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverProcessingTime:get"><apiName>serverProcessingTime</apiName><shortdesc>
+         从服务器收到客户端消息到对接收的消息做出响应，或准备好发送到接收客户端的消息所需的时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         从服务器收到客户端消息到对接收的消息做出响应，或准备好发送到接收客户端的消息所需的时间。  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverSendTime:get"><apiName>serverSendTime</apiName><shortdesc>
+         从服务器将响应消息发送回客户端时开始的时间戳（以毫秒为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         从服务器将响应消息发送回客户端时开始的时间戳（以毫秒为单位）.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:totalPushTime:get"><apiName>totalPushTime</apiName><shortdesc>
+         仅对于传递的消息填充，表示从客户端发送其消息到接收客户端收到该消息所用的时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         仅对于传递的消息填充，表示从客户端发送其消息到接收客户端收到该消息所用的时间。请注意，只有两个客户端的时钟保持同步，此属性才有意义。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:totalTime:get"><apiName>totalTime</apiName><shortdesc>
+         从客户端发送消息到收到服务器对该消息的响应所需的时间
+         
+         </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         从客户端发送消息到收到服务器对该消息的响应所需的时间
+         
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:HTTPRequestMessage"><apiName>HTTPRequestMessage</apiName><shortdesc>
+  HTTP 请求将发送到使用此消息类型的 HTTP 端点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HTTP 请求将发送到使用此消息类型的 HTTP 端点。HTTPRequestMessage 将封装通常由浏览器发出的 HTTP 请求中存在的内容和标头。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:HTTPRequestMessage:HTTPRequestMessage"><apiName>HTTPRequestMessage</apiName><shortdesc>
+      构造未初始化的 HTTP 请求。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造未初始化的 HTTP 请求。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_FORM"><apiName>CONTENT_TYPE_FORM</apiName><shortdesc>
+      指示此消息的内容为表单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此消息的内容为表单。
+     
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_SOAP_XML"><apiName>CONTENT_TYPE_SOAP_XML</apiName><shortdesc>
+      指示此消息的内容为表示 SOAP 请求的 XML。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text/xml; charset=utf-8</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此消息的内容为表示 SOAP 请求的 XML。
+     
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_SOAP_XML;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_XML"><apiName>CONTENT_TYPE_XML</apiName><shortdesc>
+      指示此消息的内容为 XML。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此消息的内容为 XML。
+     
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_XML;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:DELETE_METHOD"><apiName>DELETE_METHOD</apiName><shortdesc>
+      指示此请求应使用方法“delete”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DELETE</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此请求应使用方法“delete”。
+      
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.DELETE_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:GET_METHOD"><apiName>GET_METHOD</apiName><shortdesc>
+      指示此请求应使用方法“get”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GET</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此请求应使用方法“get”。
+     
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.GET_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:HEAD_METHOD"><apiName>HEAD_METHOD</apiName><shortdesc>
+      指示此请求应使用方法“head”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>HEAD</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此请求应使用方法“head”。
+     
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.HEAD_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:OPTIONS_METHOD"><apiName>OPTIONS_METHOD</apiName><shortdesc>
+      指示此请求应使用方法“options”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>OPTIONS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此请求应使用方法“options”。
+     
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.OPTIONS_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:POST_METHOD"><apiName>POST_METHOD</apiName><shortdesc>
+      指示此请求应使用方法“post”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>POST</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此请求应使用方法“post”。
+     
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:PUT_METHOD"><apiName>PUT_METHOD</apiName><shortdesc>
+      指示此请求应使用方法“put”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>PUT</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此请求应使用方法“put”。
+     
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.PUT_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:TRACE_METHOD"><apiName>TRACE_METHOD</apiName><shortdesc>
+      指示此请求应使用方法“trace”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>TRACE</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指示此请求应使用方法“trace”。
+     
+      <p>以下是使用此常量的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.TRACE_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:contentType"><apiName>contentType</apiName><shortdesc>
+      指示此消息的内容类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      指示此消息的内容类型。此请求发送到的目标必须能识别此值。
+     
+      <p>以下是设置 <codeph>contentType</codeph> 属性的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:httpHeaders"><apiName>httpHeaders</apiName><shortdesc>
+      包含应置于目标请求上的特定 HTTP 标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      包含应置于目标请求上的特定 HTTP 标头。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:recordHeaders"><apiName>recordHeaders</apiName><shortdesc>
+     如果代理返回请求并响应其使用的标头，则仅在通过代理时使用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     如果代理返回请求并响应其使用的标头，则仅在通过代理时使用。默认值为 false。当前仅在使用 NetworkMonitor 时进行设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:url"><apiName>url</apiName><shortdesc>
+      包含此请求的最终目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      包含此请求的最终目标。这是使用指定方法发送在 <codeph>body</codeph> 属性中找到的消息内容的 URL。
+     
+      <p>以下是设置 <codeph>url</codeph> 属性的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:method:get"><apiName>method</apiName><shortdesc>
+      指示请求应使用的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指示请求应使用的方法。仅允许使用下列值：
+      <ul>
+        <li><codeph>HTTPRequestMessage.DELETE_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.GET_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.HEAD_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.POST_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.OPTIONS_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.PUT_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.TRACE_METHOD</codeph></li>
+      </ul>
+     
+      <p>以下是设置 <codeph>method</codeph> 属性的示例：</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AsyncMessage"><apiName>AsyncMessage</apiName><shortdesc>
+  AsyncMessage 是所有异步消息的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:ISmallMessage</apiBaseInterface><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AsyncMessage 是所有异步消息的基类。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AsyncMessage:AsyncMessage"><apiName>AsyncMessage</apiName><shortdesc>
+      构造正文和标头为空的 AsyncMessage 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>body</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>为消息指定的可选正文。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>headers</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>为消息指定的可选标头。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造正文和标头为空的 AsyncMessage 实例。除此默认行为外，可能还会将此消息的正文和标头传递给构造函数以便于使用。例如，调用正文的方法为：<codeph>var msg:AsyncMessage = new AsyncMessage("Body text");</codeph>；同时调用正文和标头的方法为：<codeph>var msg:AsyncMessage = new AsyncMessage("Body text", {"customerHeader":"customValue"});</codeph>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:AsyncMessage:SUBTOPIC_HEADER"><apiName>SUBTOPIC_HEADER</apiName><shortdesc>
+	  由 MessageAgent（已定义 subtopic 属性）发送的消息会在此标头中指示其目标 subtopic。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSSubtopic</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  由 MessageAgent（已定义 <codeph>subtopic</codeph> 属性）发送的消息会在此标头中指示其目标 subtopic。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AsyncMessage:correlationId:get"><apiName>correlationId</apiName><shortdesc>
+      提供对此消息的相关 ID 的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对此消息的相关 ID 的访问权限。用于对消息进行确认和分段。<codeph>correlationId</codeph> 包含此消息引用的前一消息的 <codeph>messageId</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#AbstractMessage/messageId"><linktext>mx.messaging.messages.AbstractMessage.messageId</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AcknowledgeMessage"><apiName>AcknowledgeMessage</apiName><shortdesc>
+  AcknowledgeMessage 可确认收到了以前发送的消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:ISmallMessage</apiBaseInterface><apiBaseClassifier>mx.messaging.messages:AsyncMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AcknowledgeMessage 可确认收到了以前发送的消息。消息传送系统中发送的每条消息都必须进行确认。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AcknowledgeMessage:AcknowledgeMessage"><apiName>AcknowledgeMessage</apiName><shortdesc>
+      构造一个正文和标头为空的 AcknowledgeMessage 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造一个正文和标头为空的 AcknowledgeMessage 实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:AcknowledgeMessage:ERROR_HINT_HEADER"><apiName>ERROR_HINT_HEADER</apiName><shortdesc>
+      错误提示标头的标头名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSErrorHint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      错误提示标头的标头名称。用于指示该确认针对生成错误的消息。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:IMessage"><apiName>IMessage</apiName><shortdesc>
+  此接口定义 message 对象的约定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  此接口定义 message 对象的约定。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:toString"><apiName>toString</apiName><shortdesc>
+      此方法将返回消息的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>消息的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      此方法将返回消息的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:body:get"><apiName>body</apiName><shortdesc>
+      消息正文包含需要传递到远程目标的特定数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      消息正文包含需要传递到远程目标的特定数据。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:clientId:get"><apiName>clientId</apiName><shortdesc>
+      ClientId 指示发送该消息的客户端。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ClientId 指示发送该消息的客户端。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:destination:get"><apiName>destination</apiName><shortdesc>
+      消息目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      消息目标。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:headers:get"><apiName>headers</apiName><shortdesc>
+      提供对消息标头的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      提供对消息标头的访问权限。消息标头是一个关联数组，其中关键字为标头名称。此属性提供对特定消息实例的专门元信息的访问权限。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:messageId:get"><apiName>messageId</apiName><shortdesc>
+      消息的唯一 ID。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      消息的唯一 ID。通过消息 ID 可将响应与请求-响应消息传送方案中的原始请求消息关联起来。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:timeToLive:get"><apiName>timeToLive</apiName><shortdesc>
+      消息的生存时间值指示该消息应视为有效且可传送的时间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      消息的生存时间值指示该消息应视为有效且可传送的时间。此值可与 <codeph>timestamp</codeph> 值配合使用。生存时间指消息从指定的 <codeph>timestamp</codeph> 值起保持有效的时间（以毫秒为单位）。例如，如果 <codeph>timestamp</codeph> 值为 04/05/05 1:30：45 PST，而 <codeph>timeToLive</codeph> 值为 5000，则此消息将于 04/05/05 1:30：50 PST 到期。一旦消息到期，便不会传递到其它任何客户端。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      提供对消息时间戳的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      提供对消息时间戳的访问权限。时间戳是发送消息的日期和时间。时间戳用于通过系统跟踪消息，以确保服务质量级别并提供期限机制。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#IMessage/timeToLive"><linktext>timeToLive</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:CommandMessage"><apiName>CommandMessage</apiName><shortdesc>
+  CommandMessage 类可提供用于将命令发送至服务器基础结构（如与发布/订阅消息传送方案、ping 操作和群集操作相关的命令）的机制。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AsyncMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CommandMessage 类可提供用于将命令发送至服务器基础结构（如与发布/订阅消息传送方案、ping 操作和群集操作相关的命令）的机制。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:CommandMessage:CommandMessage"><apiName>CommandMessage</apiName><shortdesc>
+      构造正文和标头为空，默认操作为 UNKNOWN_OPERATION 的 CommandMessage 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造正文和标头为空，默认 <codeph>operation</codeph> 为 <codeph>UNKNOWN_OPERATION</codeph> 的 CommandMessage 实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:CommandMessage:getOperationAsString"><apiName>getOperationAsString</apiName><shortdesc>
+      提供对指定操作的描述。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>操作的短名称。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>op</apiItemName><apiType value="uint"/><apiDesc>CommandMessage 操作常量之一。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      提供对指定操作的描述。使用此方法对该消息进行 <codeph>toString()</codeph> 操作。
+     
+      </apiDesc><example>
+      <codeph><pre>
+         var msg:CommandMessage = CommandMessage(event.message);
+         trace("Current operation -'"+
+                CommandMessage.getOperationAsString(msg.operation)+ "'.");
+      </pre></codeph>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.messages:CommandMessage:toString"><apiName>toString</apiName><shortdesc>
+      返回消息的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>消息的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回消息的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:CommandMessage:ADD_SUBSCRIPTIONS"><apiName>ADD_SUBSCRIPTIONS</apiName><shortdesc> 
+     MULTI_SUBSCRIBE 消息中使用的标头，用于指定要添加到现有的一组 subscriptions 的 子主题/选择器对数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSAddSub</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+     MULTI_SUBSCRIBE 消息中使用的标头，用于指定要添加到现有的一组 subscriptions 的 子主题/选择器对数组。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:AUTHENTICATION_MESSAGE_REF_TYPE"><apiName>AUTHENTICATION_MESSAGE_REF_TYPE</apiName><shortdesc>
+      身份验证命令的服务器消息类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>flex.messaging.messages.AuthenticationMessage</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      身份验证命令的服务器消息类型。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLIENT_PING_OPERATION"><apiName>CLIENT_PING_OPERATION</apiName><shortdesc>
+      此操作用于测试通过当前通道到远程端点的连接性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>5</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      此操作用于测试通过当前通道到远程端点的连接性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLIENT_SYNC_OPERATION"><apiName>CLIENT_SYNC_OPERATION</apiName><shortdesc>
+      在客户端发出轮询命令后，远程目标通过此操作将漏掉或缓存的消息同步回客户端。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      在客户端发出轮询命令后，远程目标通过此操作将漏掉或缓存的消息同步回客户端。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLUSTER_REQUEST_OPERATION"><apiName>CLUSTER_REQUEST_OPERATION</apiName><shortdesc>
+      此操作用于根据群集成员身份请求远程目标故障转移端点的 URI 列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>7</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      此操作用于根据群集成员身份请求远程目标故障转移端点的 URI 列表。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CREDENTIALS_CHARSET_HEADER"><apiName>CREDENTIALS_CHARSET_HEADER</apiName><shortdesc>
+     指定对登录凭据进行编码时所使用的字符集编码的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSCredentialsCharset</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     指定对登录凭据进行编码时所使用的字符集编码的标头。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:DISCONNECT_OPERATION"><apiName>DISCONNECT_OPERATION</apiName><shortdesc>
+      此操作用于指示通道已断开。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>12</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      此操作用于指示通道已断开。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:HEARTBEAT_HEADER"><apiName>HEARTBEAT_HEADER</apiName><shortdesc>
+     指示消息是检测信号的标头。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DS&lt;3</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     指示消息是检测信号的标头。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:LOGIN_OPERATION"><apiName>LOGIN_OPERATION</apiName><shortdesc>
+     此操作用于向端点发送凭据，以便用户可通过当前通道登录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     此操作用于向端点发送凭据，以便用户可通过当前通道登录。凭据需要为 Base64 编码格式并存储在消息的 <codeph>body</codeph> 中。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:LOGOUT_OPERATION"><apiName>LOGOUT_OPERATION</apiName><shortdesc>
+     此操作用于将用户从当前通道中注销；如果该通道基于 HTTP，则会使服务器会话失效。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>9</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     此操作用于将用户从当前通道中注销；如果该通道基于 HTTP，则会使服务器会话失效。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MAX_FREQUENCY_HEADER"><apiName>MAX_FREQUENCY_HEADER</apiName><shortdesc>
+     用来指示使用者希望每秒钟收到的消息的最大数量的头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSMaxFrequency</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     用来指示使用者希望每秒钟收到的消息的最大数量的头。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MESSAGING_VERSION"><apiName>MESSAGING_VERSION</apiName><shortdesc>
+     通过在进行初始 ping CommandMessage 的握手期间报告所能够支持的最新消息传送版本，端点可指示它们支持的功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSMessagingVersion</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     通过在进行初始 ping CommandMessage 的握手期间报告所能够支持的最新消息传送版本，端点可指示它们支持的功能。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MULTI_SUBSCRIBE_OPERATION"><apiName>MULTI_SUBSCRIBE_OPERATION</apiName><shortdesc>
+     供 MultiTopicConsumer 用于在同一消息中订阅或取消订阅同一消息中的多个主题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>11</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     供 MultiTopicConsumer 用于在同一消息中订阅或取消订阅同一消息中的多个主题。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:NEEDS_CONFIG_HEADER"><apiName>NEEDS_CONFIG_HEADER</apiName><shortdesc>
+     指示 Channel 需要服务器中配置的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSNeedsConfig</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     指示 Channel 需要服务器中配置的标头。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:NO_OP_POLL_HEADER"><apiName>NO_OP_POLL_HEADER</apiName><shortdesc>
+     禁止处理轮询响应的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSNoOpPoll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     禁止处理轮询响应的标头。如果客户端已经向服务器提交了一个长轮询并发出了另一个轮询，则应使用此标头作为该后续轮询响应的标签：在此情况下，会将该响应视为 no-op（无操作），且不会分派下一个轮询。如果没有此标头，后续的轮询会将通道和端点置于繁忙的轮询循环中。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:POLL_OPERATION"><apiName>POLL_OPERATION</apiName><shortdesc>
+      此操作用于轮询未处理、未传递的消息的远程目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      此操作用于轮询未处理、未传递的消息的远程目标。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:POLL_WAIT_HEADER"><apiName>POLL_WAIT_HEADER</apiName><shortdesc>
+     强迫在请求下一次客户端轮询前需经历空闲等待时间的标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPollWait</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     强迫在请求下一次客户端轮询前需经历空闲等待时间的标头。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:PRESERVE_DURABLE_HEADER"><apiName>PRESERVE_DURABLE_HEADER</apiName><shortdesc>
+      当取消订阅消息在标头中将此参数设置为 true 时，将保留持久的 JMS subscriptions。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPreserveDurable</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      当取消订阅消息在标头中将此参数设置为 true 时，将保留持久的 JMS subscriptions。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:REMOVE_SUBSCRIPTIONS"><apiName>REMOVE_SUBSCRIPTIONS</apiName><shortdesc>
+     如上所述，但指定要删除的子主题/选择器数组
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemSub</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     如上所述，但指定要删除的子主题/选择器数组
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SELECTOR_HEADER"><apiName>SELECTOR_HEADER</apiName><shortdesc>
+      Consumer 发出的订阅命令在此标头中传递 Consumer 的选择器表达式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSSelector</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Consumer 发出的订阅命令在此标头中传递 Consumer 的 <codeph>selector</codeph> 表达式。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBSCRIBE_OPERATION"><apiName>SUBSCRIBE_OPERATION</apiName><shortdesc>
+      此操作用于订阅远程目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      此操作用于订阅远程目标。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBSCRIPTION_INVALIDATE_OPERATION"><apiName>SUBSCRIPTION_INVALIDATE_OPERATION</apiName><shortdesc>
+     此操作用于指示客户端的远程目标订阅已超时。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     此操作用于指示客户端的远程目标订阅已超时。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBTOPIC_SEPARATOR"><apiName>SUBTOPIC_SEPARATOR</apiName><shortdesc>
+     在添加和删除订阅标头过程中用于分隔 subtopic 和 selector 的分隔符字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>_;_</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     在添加和删除订阅标头过程中用于分隔 subtopic 和 selector 的分隔符字符串。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:TRIGGER_CONNECT_OPERATION"><apiName>TRIGGER_CONNECT_OPERATION</apiName><shortdesc>
+      此操作用于触发要连接的 ChannelSet。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>13</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      此操作用于触发要连接的 ChannelSet。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:UNKNOWN_OPERATION"><apiName>UNKNOWN_OPERATION</apiName><shortdesc>
+      这是新 CommandMessage 实例的默认操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>10000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      这是新 CommandMessage 实例的默认操作。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:UNSUBSCRIBE_OPERATION"><apiName>UNSUBSCRIBE_OPERATION</apiName><shortdesc>
+      此操作用于从远程目标取消订阅。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      此操作用于从远程目标取消订阅。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:operation"><apiName>operation</apiName><shortdesc>
+      提供对 CommandMessage 的操作/命令的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      提供对 CommandMessage 的操作/命令的访问权限。Operation 指示远程目标如何处理此消息。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:ISmallMessage"><apiName>ISmallMessage</apiName><shortdesc>
+ 一个标记接口，用于指示 IMessage 具有备选的较小形式以供进行序列化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:IMessage</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 一个标记接口，用于指示 IMessage 具有备选的较小形式以供进行序列化。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.messages:ISmallMessage:mx.messaging.messages:ISmallMessage:getSmallMessage"><apiName>getSmallMessage</apiName><shortdesc>
+     此方法必须由具有“较小”形式的子类实现，通常使用 flash.utils.IExternalizable 完成此任务。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回 flex.messaging.messages.IMessage 的备选表示形式，以使序列化形式小于常规消息。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+     此方法必须由具有“较小”形式的子类实现，通常使用 <codeph>flash.utils.IExternalizable</codeph> 完成此任务。如果较小形式不可用，此方法应返回 null。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

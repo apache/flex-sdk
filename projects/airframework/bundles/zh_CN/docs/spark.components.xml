@@ -1,0 +1,809 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components"><apiName>spark.components</apiName><apiDetail/><apiClassifier id="spark.components:Window"><apiName>Window</apiName><shortdesc>
+  Window 是 AIR 桌面应用程序中其它窗口的顶级容器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion><Exclude kind="effect" name="moveEffect"/><skinStates><SkinState name="disabledAndInactive" owner="spark.components:Window" playerVersion="Flash10">
+<description>
+  应用程序已禁用且处于非活动状态。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndInactive" owner="spark.components:Window" playerVersion="Flash10">
+<description>
+  应用程序已启用且处于非活动状态。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="spark.components:Window">
+<description>
+  当组件未处于最小化状态时播放。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="spark.components:Window">
+<description>
+  当组件处于最小化状态时播放。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="spark.components:Window">
+<description>
+  当窗口处于关闭状态时播放。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect></effects><styles><style format="length" inherit="no" name="resizeAffordanceWidth" owner="spark.components:Window" playerVersion="Flash10" type="Number">
+<description>
+  如果是在距离窗口的外部边缘 resizeAffordance 像素的位置进行单击，则可以将在窗口上的单击视为在窗口边框上的单击。
+  
+  </description>
+<default>6
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="spark.components:Window" playerVersion="Flash10" type="uint">
+<description>
+  应用程序的背景色。将此颜色用作应用程序的舞台颜色和 HTML 嵌入标签的背景色。
+   
+  </description>
+<default>0xFFFFFF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="spark.components:Window" playerVersion="Flash10" type="Number">
+<description>
+  由 <codeph>backgroundColor</codeph> 属性定义的颜色的 alpha 级别。
+   
+  </description>
+<default>1.0
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="mxmlContentFactory"/><skinParts><SkinPart name="gripper" owner="spark.components:Window" playerVersion="Flash10" required="false" var_type="spark.components:Button">
+<description>
+      定义用于调整窗口大小的控制手柄按钮的外观部件。 
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusBar" owner="spark.components:Window" playerVersion="AIR1.5" required="false" var_type="mx.core:IVisualElement">
+<description>
+      定义状态栏的显示的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusText" owner="spark.components:Window" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      定义状态栏文本的显示的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleBar" owner="spark.components:Window" playerVersion="AIR1.5" required="false" var_type="spark.components.windowClasses:TitleBar">
+<description>
+      定义标题栏的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart></skinParts></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Window&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Window
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    backgroundColor="white"
+    colorCorrection="default"
+    maxHeight="2880 less the height of the system chrome"
+    maximizable="true"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minimizable="true"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    resizable="true"
+    showStatusBar="true"
+    status=""
+    systemChrome="standard"
+    title=""
+    titleIcon="<i>null</i>"
+    transparent="false"
+    type="normal"
+    visible="true"
+    width="100"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    close="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowActivate="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowDeactivate="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>spark.components:SkinnableContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Window 是 AIR 桌面应用程序中其它窗口的顶级容器。
+ 
+  <p>Window 容器无法在其它布局容器中使用，在这个意义上来说，它是一种特殊容器。spark.components.Window 组件必须是其 MXML 文档中的顶级组件。</p>
+ 
+  <p>使用 Window 组件定义本机窗口的最简便方法是创建一个 MXML 文档，并在该文档中使用 <codeph>&lt;s:Window></codeph> 标签作为顶级标签。您可以按照使用其它任何容器的方式来使用 Window 组件，包括指定布局类型、定义子控件等等。与其它所有自定义 MXML 组件类似，编译应用程序的同时也会将 MXML 文档编译到作为 Window 组件子类的自定义类中。</p>
+ 
+  <p>在应用程序代码中，要在屏幕上显示 Window 子类的实例，请首先在代码中创建类的实例（通过定义变量并调用 <codeph>new MyWindowClass()</codeph> 构造函数）。接下来，设置您希望为新窗口指定的所有属性。最后，调用 Window 组件的 <codeph>open()</codeph> 方法，从而在屏幕上打开该窗口。</p>
+ 
+  <p>请注意，Window 类的部分属性仅可以在<b>调用</b> <codeph>open()</codeph> 方法打开该窗口之前设置。创建基础 NativeWindow 后，可以读取这些初始化属性，但无法对其进行更改。此限制适用于下列属性：</p>
+ 
+  <ul>
+    <li><codeph>maximizable</codeph></li>
+    <li><codeph>minimizable</codeph></li>
+    <li><codeph>resizable</codeph></li>
+    <li><codeph>systemChrome</codeph></li>
+    <li><codeph>transparent</codeph></li>
+    <li><codeph>type</codeph></li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#WindowedApplication"><linktext>spark.components.WindowedApplication</linktext></link></related-links><adobeApiEvent id="spark.components:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  在调整基础 NativeWindow 的大小后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调整基础 NativeWindow 的大小后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  在移动窗口后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在移动窗口后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  当 Window 完成其初始布局并打开基础 NativeWindow 时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 Window 完成其初始布局并打开基础 NativeWindow 时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  在调整基础 NativeWindow 的大小之前或拖动 Window 对象边界时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调整基础 NativeWindow 的大小之前或拖动 Window 对象边界时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  当计算机连接到网络或与网络断开连接时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当计算机连接到网络或与网络断开连接时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  在移动窗口前和拖动窗口时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在移动窗口前和拖动窗口时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  在显示状态更改为最小化、最大化或还原状态之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在显示状态更改为最小化、最大化或还原状态之前分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  在显示状态更改为最小化、最大化或还原状态之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在显示状态更改为最小化、最大化或还原状态之后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  在窗口关闭之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在窗口关闭之前分派。此事件是可取消的。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  在窗口关闭之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在窗口关闭之后分派。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  在取消激活窗口之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在取消激活窗口之后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  在激活窗口之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在激活窗口之后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  当取消激活此应用程序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当取消激活此应用程序时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  当激活此应用程序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当激活此应用程序时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components:Window:Window"><apiName>Window</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components:Window:activate"><apiName>activate</apiName><shortdesc>
+      激活基础 NativeWindow（即使此 Window 的应用程序当前未处于活动状态）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      激活基础 NativeWindow（即使此 Window 的应用程序当前未处于活动状态）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:close"><apiName>close</apiName><shortdesc>
+      关闭窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      关闭窗口。可取消此操作。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:getWindow"><apiName>getWindow</apiName><shortdesc>
+      返回将某个组件编为其子级的 Window。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>希望查找其 Window 的组件。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回将某个组件编为其子级的 Window。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:maximize"><apiName>maximize</apiName><shortdesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:minimize"><apiName>minimize</apiName><shortdesc>
+      最小化窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最小化窗口。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:protected:mouseDownHandler"><apiName>mouseDownHandler</apiName><shortdesc>
+      管理窗口边框上的鼠标按下事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/></apiParam></apiOperationDef><apiDesc>
+      管理窗口边框上的鼠标按下事件。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:open"><apiName>open</apiName><shortdesc>
+      创建基础 NativeWindow 并将其打开。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>openWindowActive</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定打开的 Window 是否已激活（即它是否具有焦点）。默认值为 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      创建基础 NativeWindow 并将其打开。关闭后，Window 对象仍为一个有效的引用，但是不允许访问大多数的属性和方法。关闭的窗口无法重新打开。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      将窗口排序到另一个窗口的正后方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到另一个窗口的后方，则为 <codeph>true</codeph>；如果窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>此窗口将排序到其后方的 IWindow（Window 或 WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将窗口排序到另一个窗口的正后方。要将窗口排序到不实现 IWindow 的 NativeWindow 之后，请使用此窗口的 nativeWindow 的 <codeph>orderInBackOf()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      将窗口排序到另一个窗口的正前方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到另一个窗口的前方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>此窗口将排序到其前方的 IWindow（Window 或 WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将窗口排序到另一个窗口的正前方。要将该窗口排序到不实现 IWindow 的 NativeWindow 之前，请使用此窗口的 nativeWindow 的 <codeph>orderInFrontOf()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+      将窗口排序到同一应用程序中的其它所有窗口的后方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到其它所有窗口的后方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      将窗口排序到同一应用程序中的其它所有窗口的后方。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+      将窗口排序到同一应用程序中的其它所有窗口的前方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到其它所有窗口的前方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      将窗口排序到同一应用程序中的其它所有窗口的前方。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:restore"><apiName>restore</apiName><shortdesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components:Window:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      确定基础 NativeWindow 是否始终显示在其它窗口的前方（包括其它应用程序的窗口）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      确定基础 NativeWindow 是否始终显示在其它窗口的前方（包括其它应用程序的窗口）。设置此属性的同时也就设置了基础 NativeWindow 的 <codeph>alwaysInFront</codeph> 属性。有关此项设置如何影响窗口堆叠顺序的详细信息，请参阅 <codeph>NativeWindow.alwaysInFront</codeph> 属性说明。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/alwaysInFront"><linktext>flash.display.NativeWindow.alwaysInFront</linktext></link></related-links></apiValue><apiValue id="spark.components:Window:closed:get"><apiName>closed</apiName><shortdesc>
+      一个标志，用于指示窗口是否已关闭。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，用于指示窗口是否已关闭。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:colorCorrection:get"><apiName>colorCorrection</apiName><shortdesc>
+     舞台的 colorCorrection 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ColorCorrection.DEFAULT
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     舞台的 <codeph>colorCorrection</codeph> 属性的值。如果此应用程序无权访问舞台的 <codeph>colorCorrection</codeph> 属性，则会将 <codeph>colorCorrection</codeph> 属性的值报告为 null。仅允许主应用程序设置 <codeph>colorCorrection</codeph> 属性。如果子应用程序需要设置 color correction 属性，则它将需要通过主应用程序的实例进行设置，可以直接使用对象实例，或通过某个事件（不存在用于此目的的框架事件）。  
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      指定窗口是否可最大化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最大化。此属性的值在窗口打开后是只读的。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      指定窗口是否可最小化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最小化。此属性在窗口打开后是只读的。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      此 Window 组件使用的基础 NativeWindow。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      此 Window 组件使用的基础 NativeWindow。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:resizable:get"><apiName>resizable</apiName><shortdesc>
+      指定窗口是否可调整大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可调整大小。此属性在窗口打开后是只读的。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      如果为 true，则状态栏可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则状态栏可见。
+     
+      <p>只有将 WindowedApplicationSkin 类或 SparkChromeWindowedApplicationSkin 类用作应用程序或任何应用程序窗口的外观时，才会显示状态栏。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:status:get"><apiName>status</apiName><shortdesc>
+      如果可见，为显示在状态栏中的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果可见，为显示在状态栏中的字符串。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      指定窗口具有的系统镶边类型（如果有）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定窗口具有的系统镶边类型（如果有）。可能值集由 NativeWindowSystemChrome 类中的常量定义。
+     
+      <p>打开窗口后，此属性将立即变为只读模式。</p>
+     
+      <p>默认值为 <codeph>NativeWindowSystemChrome.STANDARD</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowSystemChrome.xml"><linktext>flash.display.NativeWindowSystemChrome</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/systemChrome"><linktext>flash.display.NativeWindowInitOptions.systemChrome</linktext></link></related-links></apiValue><apiValue id="spark.components:Window:title:get"><apiName>title</apiName><shortdesc>
+      窗口标题栏和任务栏中显示的标题文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      窗口标题栏和任务栏中显示的标题文本。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      用于绘制标题栏图标的 Class（通常是图像）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于绘制标题栏图标的 Class（通常是图像）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:transparent:get"><apiName>transparent</apiName><shortdesc>
+      指定窗口是否透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否透明。对于使用系统镶边的窗口，不支持将此属性设置为 <codeph>true</codeph>。
+     
+      <p>此属性在窗口打开后是只读的。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:type:get"><apiName>type</apiName><shortdesc>
+      指定此组件代表的 NativeWindow 类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定此组件代表的 NativeWindow 类型。可能值集由 NativeWindowType 类中的常量定义。
+     
+      <p>打开窗口后，此属性将立即变为只读模式。</p>
+     
+      <p>默认值为 <codeph>NativeWindowType.NORMAL</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/type"><linktext>flash.display.NativeWindowInitOptions.type</linktext></link></related-links></apiValue><apiValue id="spark.components:Window:menu:set"><apiName>menu</apiName><shortdesc>
+      此窗口的窗口菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      此窗口的窗口菜单。某些操作系统不支持窗口菜单，此时将忽略此属性。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+  WindowedApplication 定义 Application 容器，用于为 AIR 应用程序创建 Flex 应用程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion><Exclude kind="effect" name="moveEffect"/><Exclude kind="property" name="controlBarVisible"/><Exclude kind="property" name="controlBarLayout"/><Exclude kind="property" name="controlBarGroup"/><Exclude kind="property" name="controlBarContent"/><skinStates><SkinState name="disabledAndInactive" owner="spark.components:WindowedApplication" playerVersion="Flash10">
+<description>
+  应用程序已禁用且处于非活动状态。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndInactive" owner="spark.components:WindowedApplication" playerVersion="Flash10">
+<description>
+  应用程序已启用且处于非活动状态。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="spark.components:WindowedApplication">
+<description>
+  当组件未处于最小化状态时播放。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="spark.components:WindowedApplication">
+<description>
+  当组件处于最小化状态时播放。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="spark.components:WindowedApplication">
+<description>
+  当窗口处于关闭状态时播放。
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect></effects><styles><style format="length" inherit="no" name="resizeAffordanceWidth" owner="spark.components:WindowedApplication" playerVersion="Flash10" type="Number">
+<description>
+  如果是在距离窗口的外部边缘 resizeAffordance 像素的位置进行单击，则可以将在窗口上的单击视为在窗口边框上的单击。
+ 
+  </description>
+<default>6
+   
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="spark.components:WindowedApplication" playerVersion="Flash10" type="uint">
+<description>
+  应用程序的背景色。将此颜色用作应用程序的舞台颜色和 HTML 嵌入标签的背景色。
+   
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="spark.components:WindowedApplication" playerVersion="Flash10" type="Number">
+<description>
+  由 <codeph>backgroundColor</codeph> 属性定义的颜色的 alpha 级别。
+   
+  </description>
+<default>1.0
+   
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="mxmlContentFactory"/><skinParts><SkinPart name="gripper" owner="spark.components:WindowedApplication" playerVersion="Flash10" required="false" var_type="spark.components:Button">
+<description>
+      定义用于调整窗口大小的控制手柄按钮的外观部件。 
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusBar" owner="spark.components:WindowedApplication" playerVersion="AIR1.5" required="false" var_type="mx.core:IVisualElement">
+<description>
+      定义状态栏的显示的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusText" owner="spark.components:WindowedApplication" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      定义状态栏文本的显示的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleBar" owner="spark.components:WindowedApplication" playerVersion="AIR1.5" required="false" var_type="spark.components.windowClasses:TitleBar">
+<description>
+      定义标题栏的显示的外观部件。
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart></skinParts></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WindowedApplication&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:WindowedApplication
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    autoExit="true"
+    backgroundFrameRate="1"
+    dockIconMenu="<i>null</i>"
+    maxHeight="2880 less the height of the system chrome"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    showStatusBar="true"
+    status=""
+    systemTrayIconMenu="<i>null</i>"
+    title=""
+    titleIcon="<i>null</i>"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    close="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    invoke="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowActivate="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowDeactivate="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>spark.components:Application</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedApplication 定义 Application 容器，用于为 AIR 应用程序创建 Flex 应用程序。
+ 
+  <p>WindowedApplication 有两个作用。它可以替换 &lt;mx:WindowedApplication> 标签，与基于 Flex 的 AIR 应用程序的入口点具有相同的作用。此外，作为容器，WindowedApplication 可定义 Flex AIR 应用程序初始窗口的布局，在 WindowedApplication 中定义的任何可见控件都将成为 AIR 应用程序加载的初始窗口中的内容。</p>
+ 
+  <p>WindowedApplication 是基于 Flex 的 AIR 应用程序的顶层应用程序。该应用程序没有设计为由其它 Flex 应用程序进行加载。如果 WindowedApplication 需要加载其它应用程序，请使用 Application 类作为这些应用程序的容器。如果需要其它窗口，请使用 Window 类作为这些窗口的容器。</p>
+  
+  <p>请注意，由于 WindowedApplication 只表示单个窗口（而不是多窗口应用程序中的所有窗口）中的可见内容，因此 WindowedApplication 实例只为自己的舞台和窗口分派与显示相关的事件（WindowedApplication 类从显示对象的 InteractiveObject 和 UIComponent 等基类继承的事件），而不为在应用程序中其它窗口上发生的事件分派这些事件。这与基于浏览器的应用程序不同。在后者中，FxApplication 容器会为应用程序中的所有窗口分派这些事件（因为从技术角度而言，这些窗口都是在单个 Application 舞台上呈现的显示对象）。</p>
+ 
+  </apiDesc><example conref="WindowedApplicationSample.mxml"/></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.Windowed.xml"><linktext>spark.components.Windowed</linktext></link><link href="spark.skins.spark.xml#SparkChromeWindowedApplicationSkin"><linktext>spark.skins.spark.SparkChromeWindowedApplicationSkin</linktext></link><link href="spark.skins.spark.xml#WindowedApplicationSkin"><linktext>spark.skins.spark.WindowedApplicationSkin</linktext></link></related-links><adobeApiEvent id="spark.components:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  在调整基础 NativeWindow 对象的大小后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调整基础 NativeWindow 对象的大小后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  在 WindowedApplication 对象移动后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 WindowedApplication 对象移动后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  在 WindowedApplication 完成其初始布局后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 WindowedApplication 完成其初始布局后分派。默认情况下，此时 WindowedApplication 将处于可见状态。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  在调整 WindowedApplication 对象大小之前分派，或在拖动 WindowedApplication 对象边界时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调整 WindowedApplication 对象大小之前分派，或在拖动 WindowedApplication 对象边界时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  当计算机连接到网络或与网络断开连接时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当计算机连接到网络或与网络断开连接时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  在 WindowedApplication 对象移动前分派，或在拖动 WindowedApplication 对象时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 WindowedApplication 对象移动前分派，或在拖动 WindowedApplication 对象时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.InvokeEvent_invoke"><apiName>invoke</apiName><shortdesc>
+  在调用应用程序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>flash.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在调用应用程序时分派。
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  在显示状态更改为最小化、最大化或还原状态之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在显示状态更改为最小化、最大化或还原状态之前分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  在显示状态更改为最小化、最大化或还原状态之后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在显示状态更改为最小化、最大化或还原状态之后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  在 WindowedApplication 窗口关闭前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 WindowedApplication 窗口关闭前分派。可取消。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  在关闭此应用程序窗口后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在关闭此应用程序窗口后分派。
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  在取消激活此应用程序窗口后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在取消激活此应用程序窗口后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  在激活此应用程序窗口后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在激活此应用程序窗口后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  在取消激活此应用程序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在取消激活此应用程序时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  在激活此应用程序时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在激活此应用程序时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components:WindowedApplication:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components:WindowedApplication:activate"><apiName>activate</apiName><shortdesc>
+      激活基础 NativeWindow（即使此应用程序当前未处于活动状态）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      激活基础 NativeWindow（即使此应用程序当前未处于活动状态）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:close"><apiName>close</apiName><shortdesc>
+      关闭应用程序的 NativeWindow（应用程序打开的初始本机窗口）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      关闭应用程序的 NativeWindow（应用程序打开的初始本机窗口）。可取消此操作。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:exit"><apiName>exit</apiName><shortdesc>
+      关闭窗口并退出应用程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      关闭窗口并退出应用程序。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:maximize"><apiName>maximize</apiName><shortdesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最大化窗口；如果窗口已经最大化，则不执行任何操作。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:minimize"><apiName>minimize</apiName><shortdesc>
+      最小化窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      最小化窗口。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:protected:mouseDownHandler"><apiName>mouseDownHandler</apiName><shortdesc>
+      管理窗口边框上的鼠标按下事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/></apiParam></apiOperationDef><apiDesc>
+      管理窗口边框上的鼠标按下事件。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      将窗口排序到另一个窗口的正后方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到另一个窗口的后方，则为 <codeph>true</codeph>；如果窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>此窗口将排序到其后方的 IWindow（Window 或 WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将窗口排序到另一个窗口的正后方。要将该窗口排序到不实现 IWindow 的 NativeWindow 之后，请使用此窗口的 NativeWindow 的 <codeph>orderInBackOf()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      将窗口排序到另一个窗口的正前方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到另一个窗口的前方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>此窗口将排序到其前方的 IWindow（Window 或 WindowedAplication）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将窗口排序到另一个窗口的正前方。要将该窗口排序到不实现 IWindow 的 NativeWindow 之前，请使用此窗口的 NativeWindow 的 <codeph>orderInFrontOf()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+       将窗口排序到同一应用程序中的其它所有窗口的后方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到其它所有窗口的后方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+       
+       </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+       将窗口排序到同一应用程序中的其它所有窗口的后方。
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+   将窗口排序到同一应用程序中的其它所有窗口的前方。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果窗口成功排序到其它所有窗口的前方，则为 <codeph>true</codeph>；如果该窗口不可见或处于最小化状态，则为 <codeph>false</codeph>。
+   
+   </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+   将窗口排序到同一应用程序中的其它所有窗口的前方。
+  
+   </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:restore"><apiName>restore</apiName><shortdesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      还原窗口（如果窗口处于最大化状态，则取消最大化；如果处于最小化状态，则取消最小化）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components:WindowedApplication:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      确定基础 NativeWindow 是否始终位于其它窗口之前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      确定基础 NativeWindow 是否始终位于其它窗口之前。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:applicationID:get"><apiName>applicationID</apiName><shortdesc>
+      AIR 用于标识应用程序的标识符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      AIR 用于标识应用程序的标识符。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:autoExit:get"><apiName>autoExit</apiName><shortdesc>
+      指定当关闭最后一个窗口时，AIR 应用程序是退出，还是继续在背景中运行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定当关闭最后一个窗口时，AIR 应用程序是退出，还是继续在背景中运行。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:backgroundFrameRate:get"><apiName>backgroundFrameRate</apiName><shortdesc>
+      指定当应用程序处于非活动状态时要使用的帧速率。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定当应用程序处于非活动状态时要使用的帧速率。设置为 -1 时，不会发生背景帧速率调节。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:closed:get"><apiName>closed</apiName><shortdesc>
+      如果已关闭基础窗口，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果已关闭基础窗口，则返回 true。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:dockIconMenu:get"><apiName>dockIconMenu</apiName><shortdesc>
+      停靠图标菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      停靠图标菜单。一些操作系统不支持停靠图标菜单。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      指定窗口是否可最大化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最大化。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:menu:get"><apiName>menu</apiName><shortdesc>
+      支持应用程序菜单的操作系统的应用程序菜单，或者支持窗口菜单的操作系统的应用程序初始窗口中的窗口菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      支持应用程序菜单的操作系统的应用程序菜单，或者支持窗口菜单的操作系统的应用程序初始窗口中的窗口菜单。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      指定窗口是否可最小化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可最小化。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:nativeApplication:get"><apiName>nativeApplication</apiName><shortdesc>
+      代表 AIR 应用程序的 NativeApplication 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.desktop:NativeApplication"/></apiValueDef><apiDesc>
+      代表 AIR 应用程序的 NativeApplication 对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      此 WindowedApplication 组件使用的 NativeWindow（应用程序的初始本机窗口）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      此 WindowedApplication 组件使用的 NativeWindow（应用程序的初始本机窗口）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:resizable:get"><apiName>resizable</apiName><shortdesc>
+      指定窗口是否可调整大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否可调整大小。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      如果为 true，则状态栏可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则状态栏可见。
+     
+      <p>只有将 WindowedApplicationSkin 类或 SparkChromeWindowedApplicationSkin 类用作应用程序或任何应用程序窗口的外观时，才会显示状态栏。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:status:get"><apiName>status</apiName><shortdesc>
+      如果可见，为显示在状态栏中的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果可见，为显示在状态栏中的字符串。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      指定窗口具有的系统镶边类型（如果有）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定窗口具有的系统镶边类型（如果有）。可能值集由 NativeWindowSystemChrome 类中的常量定义。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/systemChrome"><linktext>flash.display.NativeWindow.systemChrome</linktext></link></related-links></apiValue><apiValue id="spark.components:WindowedApplication:systemTrayIconMenu:get"><apiName>systemTrayIconMenu</apiName><shortdesc>
+      系统任务栏图标菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      系统任务栏图标菜单。一些操作系统不支持系统任务栏图标菜单。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:title:get"><apiName>title</apiName><shortdesc>
+      在窗口标题栏和任务栏中显示的标题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在窗口标题栏和任务栏中显示的标题。如果您正在使用系统镶边，并将此属性设置为与 application.xml 中的 &lt;title> 不同的标签，则首先可能会看到 XML 文件的标题一闪而过。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      用于绘制标题栏图标的 Class（通常是图像）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于绘制标题栏图标的 Class（通常是图像）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:transparent:get"><apiName>transparent</apiName><shortdesc>
+      指定窗口是否透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定窗口是否透明。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:type:get"><apiName>type</apiName><shortdesc>
+      指定此组件代表的 NativeWindow 类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定此组件代表的 NativeWindow 类型。可能值集由 NativeWindowType 类中的常量定义。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

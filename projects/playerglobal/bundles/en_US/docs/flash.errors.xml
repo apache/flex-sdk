@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.errors" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.errors</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.errors:ScriptTimeoutError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ScriptTimeoutError</apiName><shortdesc class="- topic/shortdesc ">
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+	The ScriptTimeoutError exception is thrown when the script timeout interval is reached.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Error
+	 
+	 </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Error</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The ScriptTimeoutError exception is thrown when the script timeout interval is reached. 
+	The script timeout interval is 15 seconds. <ph outputclass="flexonly" class="- topic/ph ">There are two XML attributes 
+	that you can add to the <codeph class="+ topic/ph pr-d/codeph ">mx:Application</codeph> tag: <codeph class="+ topic/ph pr-d/codeph ">scriptTimeLimit</codeph> 
+	(the number of seconds until script timeout) and <codeph class="+ topic/ph pr-d/codeph ">scriptRecursionLimit</codeph> 
+	(the depth of recursive calls permitted). </ph> 
+	
+	<p class="- topic/p ">Two ScriptTimeoutError exceptions are thrown. The first exception you can catch and exit
+	cleanly. If there is no exception handler, the uncaught exception terminates execution. The 
+	second exception is thrown but cannot be caught by user code; it goes to the uncaught 
+	exception handler. It is uncatchable to prevent the player from hanging 
+	indefinitely.</p>
+	
+ 	</apiDesc><example conref="examples\ScriptTimeoutErrorExample.as" class="- topic/example "> The following example uses the sample ScriptTimeoutErrorExample class to show 
+ the error generated in the event of script timeout.  This is accomplished with the following 
+ steps:
+ <ol class="- topic/ol "><li class="- topic/li ">A <codeph class="+ topic/ph pr-d/codeph ">keepLooking</codeph> Boolean property is declared.</li><li class="- topic/li ">The constructor calls the <codeph class="+ topic/ph pr-d/codeph ">lockMachine()</codeph> method within an error handling code
+     segment that catches ScriptTimeoutError objects.  </li><li class="- topic/li ">The <codeph class="+ topic/ph pr-d/codeph ">lockMachine()</codeph> method contains an endless <codeph class="+ topic/ph pr-d/codeph ">while</codeph> loop.</li><li class="- topic/li ">After awhile, the ScriptTimeoutError is thrown. The constructor catches it, 
+     outputs an error message through the <codeph class="+ topic/ph pr-d/codeph ">trace</codeph> statement and resets the <codeph class="+ topic/ph pr-d/codeph ">keepLooking</codeph>
+     Boolean to <codeph class="+ topic/ph pr-d/codeph ">false</codeph>, which terminates the <codeph class="+ topic/ph pr-d/codeph ">while</codeph> loop in <codeph class="+ topic/ph pr-d/codeph ">lockMachine()</codeph>. </li></ol>
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.errors.ScriptTimeoutError;
+
+    public class ScriptTimeoutErrorExample extends Sprite {        
+        private var keepLooping:Boolean = true;
+
+        public function ScriptTimeoutErrorExample() {
+            try {
+                lockMachine();
+            } 
+            catch(e:ScriptTimeoutError) {
+                trace(e);    // ScriptTimeoutError: Error #1502: A script has executed for longer than 15 seconds
+                keepLooping = false;
+            }
+        }
+        
+        private function lockMachine():void {
+            while(keepLooping){        
+            }
+        }
+    }
+}
+</codeblock></example></apiClassifierDetail><apiConstructor id="flash.errors:ScriptTimeoutError:flash.errors:ScriptTimeoutError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">ScriptTimeoutError</apiName><shortdesc class="- topic/shortdesc ">
+		Creates a new ScriptTimeoutError object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+		</keyword></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">message</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string associated with the error object.
+		
+		</apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Creates a new ScriptTimeoutError object.
+		
+		</apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier languages="" id="flash.errors:SQLError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SQLError</apiName><shortdesc class="- topic/shortdesc ">
+ A SQLError instance provides detailed information about a failed operation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Error</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ A SQLError instance provides detailed information about a failed operation.
+ 
+ <p class="- topic/p ">In asynchronous execution mode, when an error occurs
+ with a SQL database operation the SQLConnection or SQLStatement instance
+ dispatches a SQLErrorEvent object. Information about the error in the form of a
+ SQLError instance can be accessed from the SQLErrorEvent object's <codeph class="+ topic/ph pr-d/codeph ">error</codeph>
+ property.</p>
+ 
+ <p class="- topic/p ">In synchronous execution mode, when an error occurs with a SQL
+ database operation the SQLConnection or SQLStatement instance throws a
+ SQLError exception, which can be handled by enclosing the error-throwing code in
+ a <codeph class="+ topic/ph pr-d/codeph ">try..catch</codeph> block.</p>
+ 
+ <p class="- topic/p ">This class provides properties containing the error details (specifying the specific type of
+ error that occured), a text message
+ containing the details of the error, and the operation that caused the
+ error to occur.</p>
+ 
+ </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.events.xml#SQLErrorEvent" class="- topic/link "><linktext class="- topic/linktext ">flash.events.SQLErrorEvent</linktext></link><link href="flash.data.xml#SQLConnection" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection</linktext></link><link href="flash.data.xml#SQLStatement" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLStatement</linktext></link></related-links><apiConstructor id="flash.errors:SQLError:SQLError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">SQLError</apiName><shortdesc class="- topic/shortdesc ">
+     Creates a SQLError instance that can be thrown or used with a
+     SQLErrorEvent instance's error property.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">operation</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Indicates the specific operation that caused
+     the failure. The value is one of the constants defined in the
+     SQLErrorOperation class.
+     
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">details</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The details for the current error.
+     
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">message</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The description of the error that
+     occurred.
+     
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">id</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A reference number associated with the specific error message.
+     
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">detailID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">-1</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A reference number associated with the detail error message.
+     
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">detailArgs</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Array</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An ordered array of substitution values that can be used
+     to construct a locale specific detail error message.
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Creates a SQLError instance that can be thrown or used with a
+     SQLErrorEvent instance's <codeph class="+ topic/ph pr-d/codeph ">error</codeph> property.
+     
+     </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.errors.xml#SQLErrorOperation" class="- topic/link "><linktext class="- topic/linktext ">flash.errors.SQLErrorOperation</linktext></link></related-links></apiConstructor><apiOperation id="flash.errors:SQLError:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+     
+	
+	Returns the string "Error" by default or the value contained in the Error.message property,
+    if defined.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The error message.
+	
+	</apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     
+	
+	Returns the string <codeph class="+ topic/ph pr-d/codeph ">"Error"</codeph> by default or the value contained in the <codeph class="+ topic/ph pr-d/codeph ">Error.message</codeph> property,
+    if defined.
+	
+    </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.errors:SQLError:detailArguments:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">detailArguments</apiName><shortdesc class="- topic/shortdesc ">
+      An array of String values that can be used to construct a locale specific
+      detail error message.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+      An array of String values that can be used to construct a locale specific
+      detail error message.
+      
+      <p class="- topic/p ">This property contains the value or values that are substituted into 
+	  the <codeph class="+ topic/ph pr-d/codeph ">details</codeph> property error message to indicate the specific 
+	  database object or objects (table name, column name, and so forth) 
+	  associated with the error. For example, suppose an error with the following 
+	  <codeph class="+ topic/ph pr-d/codeph ">details</codeph> property error message occurs in an application:</p>
+	  
+	  <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">there is already another table or index with this name: 'my_table'</codeblock>
+	  
+	  <p class="- topic/p ">In that case, the SQLError instance's <codeph class="+ topic/ph pr-d/codeph ">detailArguments</codeph> 
+	  property would contain a single element with the value <codeph class="+ topic/ph pr-d/codeph ">"my_table"</codeph>.</p>
+	  
+	  <p class="- topic/p ">Using the <codeph class="+ topic/ph pr-d/codeph ">detailID</codeph> property an 
+	  application can identify the specific <codeph class="+ topic/ph pr-d/codeph ">details</codeph> error message. The 
+	  application can provide alternate text for the end user in the language 
+	  of his or her locale. The argument values in the <codeph class="+ topic/ph pr-d/codeph ">detailArguments</codeph> array 
+	  can be substituted in the appropriate position in the error message string. This 
+	  is useful for applications that wish to display the <codeph class="+ topic/ph pr-d/codeph ">details</codeph> 
+	  property error message for this error directly to end users in a specific locale.</p>
+      
+      <p class="- topic/p ">For a list of the <codeph class="+ topic/ph pr-d/codeph ">detailID</codeph> values and their corresponding 
+	  English error details message and arguments, see  
+	  "<xref href="http://adobe.com/go/learn_as3_sqlerrordetail_en" class="- topic/xref ">SQL error detail messages, ids, and arguments</xref>."</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="flash.errors:SQLError:detailID:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">detailID</apiName><shortdesc class="- topic/shortdesc ">
+      A reference number associated with the specific detail message.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+      A reference number associated with the specific detail message.
+      This value is used to support locale specific translations of the
+      <codeph class="+ topic/ph pr-d/codeph ">details</codeph> property error message.
+      
+      <p class="- topic/p ">This property provides a unique identifier for each <codeph class="+ topic/ph pr-d/codeph ">details</codeph> 
+	  message. (For any type of error with a specific <codeph class="+ topic/ph pr-d/codeph ">errorID</codeph> there are 
+	  multiple errors with unique <codeph class="+ topic/ph pr-d/codeph ">detailID</codeph> values.) Using this 
+	  identifier together with the value or values in the 
+	  <codeph class="+ topic/ph pr-d/codeph ">detailArguments</codeph> array, an application can provide 
+      locale specific detail error messages. This is useful for applications
+      that wish to display the <codeph class="+ topic/ph pr-d/codeph ">details</codeph> property error message for 
+	  this error directly to end users in a specific locale.</p>
+      
+      <p class="- topic/p ">For a list of the <codeph class="+ topic/ph pr-d/codeph ">detailID</codeph> values and their corresponding 
+	  English error details message and arguments, see  
+	  "<xref href="http://adobe.com/go/learn_as3_sqlerrordetail_en" class="- topic/xref ">SQL error detail messages, ids, and arguments</xref>."</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="flash.errors:SQLError:details:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">details</apiName><shortdesc class="- topic/shortdesc ">
+     Details of the current error.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Details of the current error. This provides additional specific
+     information about the error that occurred.
+     
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.errors:SQLError:operation:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">operation</apiName><shortdesc class="- topic/shortdesc ">
+     A value indicating the operation that was being attempted when the error occurred.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     A value indicating the operation that was being attempted when the error occurred.
+     This value is one of the constants defined in the SQLErrorOperation class.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.errors.xml#SQLErrorOperation" class="- topic/link "><linktext class="- topic/linktext ">flash.errors.SQLErrorOperation</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.errors:SQLErrorOperation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">SQLErrorOperation</apiName><shortdesc class="- topic/shortdesc ">
+ This class contains the constants that represent the possible values for the
+ SQLError.operation property.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ This class contains the constants that represent the possible values for the
+ <codeph class="+ topic/ph pr-d/codeph ">SQLError.operation</codeph> property. These values indicate the attempted operation
+ that caused the error to occur.
+ 
+ <p class="- topic/p ">Each value represents one of the operations of the SQLConnection class
+ or the SQLStatement class.</p>
+ 
+ </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.errors.xml#SQLError/operation" class="- topic/link "><linktext class="- topic/linktext ">flash.errors.SQLError.operation</linktext></link><link href="flash.data.xml#SQLConnection" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection</linktext></link><link href="flash.data.xml#SQLStatement" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLStatement</linktext></link></related-links><apiValue id="flash.errors:SQLErrorOperation:ANALYZE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ANALYZE</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.analyze() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">analyze</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.analyze()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/analyze()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.analyze()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:ATTACH" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ATTACH</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.attach() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">attach</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.attach()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/attach()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.attach()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:BEGIN" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">BEGIN</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.begin() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">begin</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.begin()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/begin()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.begin()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:CLOSE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">CLOSE</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.close() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">close</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.close()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/close()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.close()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:COMMIT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">COMMIT</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.commit() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">commit</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.commit()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/commit()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.commit()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:COMPACT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">COMPACT</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.compact() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">compact</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.compact()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/compact()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.compact()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:DEANALYZE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">DEANALYZE</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.deanalyze() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">deanalyze</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.deanalyze()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/deanalyze()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.deanalyze()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:DETACH" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">DETACH</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.detach() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">detach</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.detach()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/detach()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.detach()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:EXECUTE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">EXECUTE</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that either the SQLStatement.execute() method
+	 or the SQLStatement.next() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">execute</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that either the <codeph class="+ topic/ph pr-d/codeph ">SQLStatement.execute()</codeph> method
+	 or the <codeph class="+ topic/ph pr-d/codeph ">SQLStatement.next()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLStatement/execute()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLStatement.execute()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:OPEN" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">OPEN</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that either the SQLConnection.open() method or the SQLConnection.openAsync() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">open</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that either the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.open()</codeph> method or the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.openAsync()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/open()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.open()</linktext></link><link href="flash.data.xml#SQLConnection/openAsync()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.openAsync()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:REENCRYPT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">REENCRYPT</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.reencrypt() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">reencrypt</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.reencrypt()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/reencrypt()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.reencrypt()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:RELEASE_SAVEPOINT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">RELEASE_SAVEPOINT</apiName><shortdesc class="- topic/shortdesc ">
+	 Indicates that the SQLConnection.releaseSavepoint() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">releaseSavepoint</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.releaseSavepoint()</codeph> method was called.
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/releaseSavepoint()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.releaseSavepoint()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:ROLLBACK_TO_SAVEPOINT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ROLLBACK_TO_SAVEPOINT</apiName><shortdesc class="- topic/shortdesc ">
+	 Indicates that the SQLConnection.rollbackToSavepoint() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">rollbackToSavepoint</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.rollbackToSavepoint()</codeph> method was called.
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/rollbackToSavepoint()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.rollbackToSavepoint()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:ROLLBACK" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ROLLBACK</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.rollback() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">rollback</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.rollback()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/rollback()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.rollback()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:SCHEMA" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">SCHEMA</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates that the SQLConnection.loadSchema() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">schema</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.loadSchema()</codeph> method was called.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/loadSchema()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.loadSchema()</linktext></link></related-links></apiValue><apiValue id="flash.errors:SQLErrorOperation:SET_SAVEPOINT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">SET_SAVEPOINT</apiName><shortdesc class="- topic/shortdesc ">
+	 Indicates that the SQLConnection.setSavepoint() method was called.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">setSavepoint</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Indicates that the <codeph class="+ topic/ph pr-d/codeph ">SQLConnection.setSavepoint()</codeph> method was called.
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.data.xml#SQLConnection/setSavepoint()" class="- topic/link "><linktext class="- topic/linktext ">flash.data.SQLConnection.setSavepoint()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.errors:MemoryError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">MemoryError</apiName><shortdesc class="- topic/shortdesc ">
+	The MemoryError exception is thrown when a memory allocation request fails.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Error
+	 
+	 </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Error</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The MemoryError exception is thrown when a memory allocation request fails. 
+	
+	<p class="- topic/p ">On a desktop machine, memory allocation failures are rare unless an allocation 
+	request is extremely large. For example, a 32-bit Windows program can access only 2GB of
+	address space, so a request for 10 billion bytes is impossible.</p>
+	
+	<p class="- topic/p ">By default, Flash Player does not impose a limit on how much memory an 
+	ActionScript program can allocate.</p>
+	
+ 	</apiDesc><example conref="examples\MemoryErrorExample.as" class="- topic/example "> The following example shows one method of generating a MemoryError.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.errors.MemoryError;
+    import flash.utils.setInterval;
+       
+    public class MemoryErrorExample extends Sprite {
+        private var crashingStr:String;
+        private var intervalId:Number;
+           
+        public function MemoryErrorExample() {
+            crashingStr = "abcdefghijklmnopqrstuvwxyz";
+            intervalId = setInterval(exhaustMemory, 50);
+        }
+           
+        public function exhaustMemory():void {            
+            try {
+                crashingStr += crashingStr;
+            }
+            catch(e:MemoryError) {
+                trace(e);
+            }
+        }
+    }
+}  
+</codeblock></example></apiClassifierDetail><apiConstructor id="flash.errors:MemoryError:flash.errors:MemoryError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">MemoryError</apiName><shortdesc class="- topic/shortdesc "> 
+		Creates a new MemoryError object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+		</keyword></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">message</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string associated with the error object.
+		
+		</apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		Creates a new MemoryError object.
+		
+		</apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier languages="" id="flash.errors:StackOverflowError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">StackOverflowError</apiName><shortdesc class="- topic/shortdesc ">
+	ActionScript throws a StackOverflowError exception when the stack available to the script 
+	is exhausted.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Error
+	 
+	 </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Error</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	ActionScript throws a StackOverflowError exception when the stack available to the script 
+	is exhausted. ActionScript uses a stack to store information about each method call made in 
+	a script, such as the local variables that the method uses. The amount of stack space 
+	available varies from system to system.
+	
+	<p class="- topic/p ">A StackOverflowError exception might indicate that infinite recursion has occurred, in 
+	which case a termination case needs to be added to the function. It also might indicate 
+	that the recursive algorithm has a proper terminating condition but has exhausted the stack 
+	anyway. In this case, try to express the algorithm iteratively instead.</p>
+	
+ 	</apiDesc><example conref="examples\StackOverflowErrorExample.as" class="- topic/example "> The following example uses the sample StackOverflowErrorExample class to show 
+ the error generated in the event of a stack overflow.  This is accomplished using the following 
+ steps:
+ <ol class="- topic/ol "><li class="- topic/li ">The constructor calls the method <codeph class="+ topic/ph pr-d/codeph ">lockMachine()</codeph> within an error handling code
+     segment that catches StackOverflowError objects.  </li><li class="- topic/li ">The <codeph class="+ topic/ph pr-d/codeph ">lockMachine()</codeph> method calls itself until the stack overflows.</li><li class="- topic/li ">After the StackOverflowError is thrown, the constructor catches it and then outputs an 
+     error message through the <codeph class="+ topic/ph pr-d/codeph ">trace</codeph> statement. </li></ol>
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.errors.StackOverflowError;
+
+    public class StackOverflowErrorExample extends Sprite {        
+        public function StackOverflowErrorExample() {
+            try {
+                lockMachine();
+            } 
+            catch(e:StackOverflowError) {
+                trace(e);    // StackOverflowError: Error #1023: Stack overflow.
+            }
+        }
+        
+        private function lockMachine():void {
+            lockMachine();
+        }
+    }
+}
+</codeblock></example></apiClassifierDetail><apiConstructor id="flash.errors:StackOverflowError:flash.errors:StackOverflowError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">StackOverflowError</apiName><shortdesc class="- topic/shortdesc ">
+		Creates a new StackOverflowError object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+		</keyword></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">message</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string associated with the error object.
+		
+		</apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Creates a new StackOverflowError object.
+		</apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier languages="" id="flash.errors:DRMManagerError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">DRMManagerError</apiName><shortdesc class="- topic/shortdesc ">
+ The DRMManager dispatches a DRMManagerError event to report errors.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Error</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ The DRMManager dispatches a DRMManagerError event to report errors.
+ 
+ </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.net.drm.xml#DRMManager" class="- topic/link "><linktext class="- topic/linktext ">flash.net.drm.DRMManager</linktext></link></related-links><apiConstructor id="flash.errors:DRMManagerError:DRMManagerError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">DRMManagerError</apiName><shortdesc class="- topic/shortdesc ">
+	 Creates a new instance of the DRMManagerError class.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">message</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The error description
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">id</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The general error number
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">subErrorID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The specific error number
+	 
+ 	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Creates a new instance of the DRMManagerError class.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="flash.errors:DRMManagerError:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 
+	
+	Returns the string "Error" by default or the value contained in the Error.message property,
+    if defined.</shortdesc><prolog class="- topic/prolog "/><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The error message.
+	
+	</apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+	
+	Returns the string <codeph class="+ topic/ph pr-d/codeph ">"Error"</codeph> by default or the value contained in the <codeph class="+ topic/ph pr-d/codeph ">Error.message</codeph> property,
+    if defined.
+	
+    </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.errors:DRMManagerError:subErrorID:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">subErrorID</apiName><shortdesc class="- topic/shortdesc ">
+	 The specific error number.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="1.5" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 The specific error number.
+	 
+ 	 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.errors:IOError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">IOError</apiName><shortdesc class="- topic/shortdesc ">
+	The IOError exception is thrown when some type of input or output failure occurs.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Error
+	 
+	 </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Error</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The IOError exception is thrown when some type of input or output failure occurs. 
+	For example, an IOError exception is thrown if a read/write operation is attempted on 
+	a socket that has not connected or that has become disconnected.
+	
+	
+ 	</apiDesc><example conref="examples\IOErrorExample.as" class="- topic/example "> The following example throws an IOError exception when it attempts to close
+ a Sound stream that has never been loaded.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.errors.IOError;
+    import flash.media.Sound;
+      
+    public class IOErrorExample extends Sprite
+    {
+        public function IOErrorExample()
+        {
+            var music:Sound = new Sound();
+            try {
+                  music.close();
+                  trace("Stream closed.");
+            } catch (error:IOError) {
+                  trace("The stream could not be closed, or the stream was not open.");
+            }
+        }
+    }
+}
+</codeblock></example></apiClassifierDetail><apiConstructor id="flash.errors:IOError:flash.errors:IOError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">IOError</apiName><shortdesc class="- topic/shortdesc "> 
+		Creates a new IOError object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+		</keyword></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">message</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string associated with the error object.
+		
+		
+		</apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		Creates a new IOError object.
+		
+		</apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier languages="" id="flash.errors:IllegalOperationError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">IllegalOperationError</apiName><shortdesc class="- topic/shortdesc ">
+	The IllegalOperationError exception is thrown when a method is not implemented or the 
+	implementation doesn't cover the current usage.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Error
+	 
+	 </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Error</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The IllegalOperationError exception is thrown when a method is not implemented or the 
+	implementation doesn't cover the current usage.
+	
+	<p class="- topic/p ">Examples of illegal operation error exceptions include:</p>
+	<ul class="- topic/ul "><li class="- topic/li ">A base class, such as DisplayObjectContainer, provides more functionality than a Stage 
+	can support (such as masks)</li><li class="- topic/li ">Certain accessibility methods are called when the player is compiled without accessibility 
+	support</li><li class="- topic/li ">The mms.cfg setting prohibits a FileReference action</li><li class="- topic/li ">ActionScript tries to run a <codeph class="+ topic/ph pr-d/codeph ">FileReference.browse()</codeph> call when a browse dialog box is already open</li><li class="- topic/li ">ActionScript tries to use an unsupported protocol for a FileReference object (such as FTP)</li><li product="flash" class="- topic/li ">Authoring-only features are invoked from a run-time player</li><li product="flash" class="- topic/li ">An attempt is made to set the name of a Timeline-placed object</li></ul>
+	
+ 	</apiDesc><example conref="examples\IllegalOperationErrorExample.as" class="- topic/example "> The following example shows the use of an <codeph class="+ topic/ph pr-d/codeph ">IllegalOperationError</codeph> handler.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.DisplayObject;
+    import flash.display.Sprite;
+    import flash.errors.IllegalOperationError;
+
+    public class IllegalOperationErrorExample extends Sprite {
+        public function IllegalOperationErrorExample() {
+            var child:Sprite = new Sprite();
+            try {
+                addChild(child);
+            }
+            catch(e:IllegalOperationError) {
+                trace(e);
+            }
+        }
+
+        public override function addChild(child:DisplayObject):DisplayObject {
+            throw new IllegalOperationError("addChild cannot be performed on the IllegalOperationErrorExample class");
+        }
+    }
+}
+</codeblock></example></apiClassifierDetail><apiConstructor id="flash.errors:IllegalOperationError:flash.errors:IllegalOperationError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">IllegalOperationError</apiName><shortdesc class="- topic/shortdesc ">
+		Creates a new IllegalOperationError object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+		</keyword></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">message</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string associated with the error object.
+		
+		</apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Creates a new IllegalOperationError object.
+		
+		</apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier languages="" id="flash.errors:EOFError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">EOFError</apiName><shortdesc class="- topic/shortdesc ">
+	An EOFError exception is thrown when you attempt to read past the end of the available data.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Error
+	 
+	 </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.errors:IOError</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	An EOFError exception is thrown when you attempt to read past the end of the available data. For example, an 
+	EOFError is thrown when one of the read methods in the IDataInput interface is 
+	called and there is insufficient data to satisfy the read request. 
+	
+ 	</apiDesc><example conref="examples\EOFErrorExample.as" class="- topic/example "> The following example uses the <codeph class="+ topic/ph pr-d/codeph ">EOFErrorExample</codeph> class to show 
+ the error generated if an attempt is made to read past the end of the available
+ data.  This is accomplished with the following steps:
+ <ol class="- topic/ol "><li class="- topic/li ">The constructor creates a ByteArray object <codeph class="+ topic/ph pr-d/codeph ">byteArr</codeph> and writes a Boolean
+     value of <codeph class="+ topic/ph pr-d/codeph ">false</codeph> into the byte stream using <codeph class="+ topic/ph pr-d/codeph ">writeBoolean()</codeph>.  </li><li class="- topic/li ">The position of <codeph class="+ topic/ph pr-d/codeph ">byteArr</codeph> is reset to <codeph class="+ topic/ph pr-d/codeph ">0</codeph> (start of the data stream).</li><li class="- topic/li ">A single byte is removed from the data stream using <codeph class="+ topic/ph pr-d/codeph ">readBoolean()</codeph>.  The 
+     data stream now contains no data.</li><li class="- topic/li ">Within an error handling code segment set to catch EOFError objects, <codeph class="+ topic/ph pr-d/codeph ">readBoolean()</codeph>
+     is called a second time and the EOFError is caught and passed to a <codeph class="+ topic/ph pr-d/codeph ">trace()</codeph>
+     statement, which outputs the error message associated with EOFError objects. </li></ol>
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.errors.EOFError;
+    import flash.utils.ByteArray;
+
+    public class EOFErrorExample extends Sprite {        
+        public function EOFErrorExample() {
+            var byteArr:ByteArray = new ByteArray();
+
+            byteArr.writeBoolean(false);
+            trace(byteArr.length);        // 1
+            
+            byteArr.position = 0;
+            try {
+                trace(byteArr.readBoolean());    // false
+            }
+            catch(e:EOFError) {
+                trace(e);
+            }
+            try {
+                trace(byteArr.readBoolean());
+            } 
+            catch(e:EOFError) {
+                trace(e);        // EOFError: Error #2030: End of file was encountered.
+            }
+        }
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.utils.xml#ByteArray" class="- topic/link "><linktext class="- topic/linktext ">flash.utils.ByteArray</linktext></link><link href="flash.utils.xml#IDataInput" class="- topic/link "><linktext class="- topic/linktext ">flash.utils.IDataInput</linktext></link><link href="flash.net.xml#Socket" class="- topic/link "><linktext class="- topic/linktext ">flash.net.Socket</linktext></link><link href="flash.net.xml#URLStream" class="- topic/link "><linktext class="- topic/linktext ">flash.net.URLStream</linktext></link></related-links><apiConstructor id="flash.errors:EOFError:flash.errors:EOFError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">EOFError</apiName><shortdesc class="- topic/shortdesc ">
+		Creates a new EOFError object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+		</keyword></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">message</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string associated with the error object.
+		
+		</apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Creates a new EOFError object.
+		
+		</apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier languages="" id="flash.errors:InvalidSWFError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">InvalidSWFError</apiName><shortdesc class="- topic/shortdesc ">
+  The Flash runtimes throw this exception when they encounter a corrupted SWF file.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Error</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+  The Flash runtimes throw this exception when they encounter a corrupted SWF file. 
+  </apiDesc></apiClassifierDetail><apiConstructor id="flash.errors:InvalidSWFError:InvalidSWFError" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">InvalidSWFError</apiName><shortdesc class="- topic/shortdesc ">
+        Creates a new InvalidSWFError object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+         
+         </keyword></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">message</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string associated with the error object.
+        
+        </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">id</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+        Creates a new InvalidSWFError object.
+        
+        </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

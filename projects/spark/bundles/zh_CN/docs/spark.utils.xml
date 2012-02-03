@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.utils"><apiName>spark.utils</apiName><apiDetail/><apiClassifier id="spark.utils:TextFlowUtil"><apiName>TextFlowUtil</apiName><shortdesc>
+  TextFlowUtil 是提供用于导入和导出 TextFlow 方法以及 Text Layout Framework 所用的标记语言的实用程序类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TextFlowUtil 是提供用于导入和导出 TextFlow 方法以及 Text Layout Framework 所用的标记语言的实用程序类。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.utils:TextFlowUtil:export"><apiName>export</apiName><shortdesc>
+      使用 XML 的形式，将 TextFlow 导入到 Text Layout Framework 所用的标记语言中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>包含 Text Layout Framework 标记语言的 XML。
+      
+      </apiDesc><apiType value="XML"/></apiReturn><apiParam><apiItemName>textFlow</apiItemName><apiType value="flashx.textLayout.elements:TextFlow"/><apiDesc>要使用 Text Layout Framework 标记语言进行导出的 TextFlow。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用 XML 的形式，将 TextFlow 导入到 Text Layout Framework 所用的标记语言中。
+     
+      <p>导出的 XML 的根标签将是
+      <pre>
+      &lt;TextFlow xmlns="http://ns.adobe.com/textLayout/2008" ...>
+      </pre>
+      </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.utils:TextFlowUtil:importFromString"><apiName>importFromString</apiName><shortdesc>
+      通过导入（即，分析）包含 Text Layout Framework 所用的标记语言的 String，创建 TextFlow。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>根据该标记创建的新 TextFlow 实例。
+      
+      </apiDesc><apiType value="flashx.textLayout.elements:TextFlow"/></apiReturn><apiParam><apiItemName>markup</apiItemName><apiType value="String"/><apiDesc>要导入的标记 String。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>whiteSpaceCollapse</apiItemName><apiType value="String"/><apiData>collapse</apiData><apiDesc>指示是否应折叠或保留标记中的空白的 String。可能的值为 flashx.textLayout.formats.WhiteSpaceCollapse 类中的 <codeph>WhiteSpaceCollapse.COLLAPSE</codeph> 和 <codeph>WhiteSpaceCollapse.PRESERVE</codeph>。默认值为 <codeph>WhiteSpaceCollapse.COLLAPSE</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过导入（即，分析）包含 Text Layout Framework 所用的标记语言的 String，创建 TextFlow。
+      
+      <p>标记字符串的一个示例是
+      <pre>
+      "&lt;TextFlow xmlns='http://ns.adobe.com/textLayout/2008'>
+      <p><ph>Hello, </ph><ph fontWeight="bold">World!</ph></p>&lt;/TextFlow>"
+      </pre>
+      </p>
+     
+      <p>但是，您可以使用 terser 标记，例如
+      <pre>"Hello, <ph fontWeight="bold">World!</ph>"</pre>。在正确的命名空间中，将使用 TextFlow 标签回绕它，并在需要时自动插入跨距和段落标签，以遵守 TextFlow 的结构。</p>
+     
+      <p>如果您自己指定 TextFlow 标签，则它必须处于运行时 Text Layout Framework 标记（即<codeph>“http://ns.adobe.com/textLayout/2008”</codeph>）的正确的 XML 命名空间中。</p>
+     
+      <p>不正确的标记将导致此方法引发各种异常。该错误消息将包含关于无法分析它的原因的信息。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.utils:TextFlowUtil:importFromXML"><apiName>importFromXML</apiName><shortdesc>
+      通过导入（分析）包含 Text Layout Framework 所用的标记语言的 XML，创建 TextFlow。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>根据该标记创建的新 TextFlow 实例。
+      
+      </apiDesc><apiType value="flashx.textLayout.elements:TextFlow"/></apiReturn><apiParam><apiItemName>markup</apiItemName><apiType value="XML"/><apiDesc>要导入的标记 XML。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>whiteSpaceCollapse</apiItemName><apiType value="String"/><apiData>collapse</apiData><apiDesc>指示是否应折叠或保留标记中的空白的 String。可能的值为 flashx.textLayout.formats.WhiteSpaceCollapse 类中的 <codeph>WhiteSpaceCollapse.COLLAPSE</codeph> 和 <codeph>WhiteSpaceCollapse.PRESERVE</codeph>。默认值为 <codeph>WhiteSpaceCollapse.COLLAPSE</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过导入（分析）包含 Text Layout Framework 所用的标记语言的 XML，创建 TextFlow。
+      
+      <p>标记 XML 的一个示例如下：
+      <pre>
+      &lt;TextFlow xmlns='http://ns.adobe.com/textLayout/2008'>
+        <p><ph>Hello, </ph><ph fontWeight="bold">World!</ph></p>
+      &lt;/TextFlow>
+      </pre>
+      </p>
+     
+      <p>还可以使用 terser 标记，例如：
+      <pre>
+      "Hello, &lt;span fontWeight='bold'>World!&lt;/span>"
+      </pre>
+      分析器在正确的命名空间中使用 <codeph>&lt;TextFlow></codeph> 标签包装标记。分析器还将在需要的位置处插入 &lt;span> 和 &lt;paragraph> 标签，以便符合 TextFlow 对象的结构。</p>
+     
+      <p>如果您自己指定 TextFlow 标签，则它必须处于运行时 Text Layout Framework 标记（即<codeph>“http://ns.adobe.com/textLayout/2008”</codeph>）的正确的 XML 命名空间中。</p>
+     
+      <p>不正确的标记将导致此方法引发各种异常。该错误消息将包含有关无法分析它的原因的信息。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.utils:LabelUtil"><apiName>LabelUtil</apiName><shortdesc>
+  LabelUtil 类供组件使用，用于确定要为其呈示器或子部件显示的正确文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LabelUtil 类供组件使用，用于确定要为其呈示器或子部件显示的正确文本。 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.utils:LabelUtil:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      支持项呈示器的组件所用的函数，用于确定项呈示器应该为某个数据项目显示的正确文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>数据项目的字符串表示形式 
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>数据项目。Null 项目返回空字符串。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>labelField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要返回的数据项目中的字段。如果 labelField 设置为空字符串 ("")，则在数据项目中不会使用任何字段来表示标签。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>labelFunction</apiItemName><apiType value="Function"/><apiData>null</apiData><apiDesc>将数据项目当作单一参数并返回一个 String 的函数。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      支持项呈示器的组件所用的函数，用于确定项呈示器应该为某个数据项目显示的正确文本。如果未指定 <codeph>labelField</codeph> 或 <codeph>labelFunction</codeph> 参数，则会调用数据项目的 <codeph>toString()</codeph> 方法以返回数据项目的字符串表示形式。
+      
+      <p><codeph>labelFunction</codeph> 属性采用对函数的引用。 函数仅使用数据提供程序中的某个项目作为唯一参数，并返回一个 String：</p>
+      <pre>
+      myLabelFunction(item:Object):String</pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.utils:BitmapUtil"><apiName>BitmapUtil</apiName><shortdesc>
+  此类提供与位图相关的实用程序函数 
+  
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  此类提供与位图相关的实用程序函数 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.utils:BitmapUtil:getSnapshotWithPadding"><apiName>getSnapshotWithPadding</apiName><shortdesc>
+      创建目标对象的 BitmapData 表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc><codeph>target</codeph> 对象及其所有子对象与调用者并非来自同一个域，或者不在调用者可通过调用 <codeph>Security.allowDomain()</codeph> 方法访问的内容中。
+           </apiDesc><apiItemName>SecurityError</apiItemName><apiOperationClassifier>SecurityError</apiOperationClassifier></apiException><apiReturn><apiDesc>包含该图像的 BitmapData 对象。
+           </apiDesc><apiType value="flash.display:BitmapData"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>在结果 BitmapData 中要捕获的对象
+     
+      </apiDesc></apiParam><apiParam><apiItemName>padding</apiItemName><apiType value="int"/><apiData>4</apiData><apiDesc>内边距（以像素为单位），围绕在目标周围，使其包含在位图内。
+           </apiDesc></apiParam><apiParam><apiItemName>propagateColorTransform</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 true，目标的颜色变换将应用于位图捕获操作。 
+       
+      </apiDesc></apiParam><apiParam><apiItemName>bounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>如果为非 null，将使用对象的可见边界（相对于对象本身）填充此 Rectangle。
+        
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      创建目标对象的 BitmapData 表示形式。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.utils:BitmapUtil:getSnapshot"><apiName>getSnapshot</apiName><shortdesc>
+      创建目标对象的 BitmapData 表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc><codeph>target</codeph> 对象及其所有子对象与调用者并非来自同一个域，或者不在调用者可通过调用 <codeph>Security.allowDomain()</codeph> 方法访问的内容中。
+           </apiDesc><apiItemName>SecurityError</apiItemName><apiOperationClassifier>SecurityError</apiOperationClassifier></apiException><apiReturn><apiDesc>包含该图像的 BitmapData 对象。
+           </apiDesc><apiType value="flash.display:BitmapData"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>在结果 BitmapData 中要捕获的对象  
+      </apiDesc></apiParam><apiParam><apiItemName>visibleBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>如果为非 null，将使用对象的可见边界（相对于对象本身）填充此 Rectangle。   
+      </apiDesc></apiParam><apiParam><apiItemName>propagateColorTransform</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 true，目标的颜色变换将应用于位图捕获操作。 
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      创建目标对象的 BitmapData 表示形式。
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.utils:DataItem"><apiName>DataItem</apiName><shortdesc>
+  DataItem 类代表具有可绑定属性的动态对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.utils:ObjectProxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataItem 类代表具有可绑定属性的动态对象。这说明如果 DataItem 的属性在运行时发生更改，Flex 数据绑定机制可以识别这种情况。例如，Spark DataGrid 项呈示器依赖于到控件的数据提供程序中项的属性的数据绑定。由于使用了数据绑定，因此如果属性在运行时发生更改，项呈示器会自动更新。
+ 
+  <p>该类在 MXML 中使用，用于定义属性必须为可绑定的对象文字。通常用于在 MXML 文件中针对带有绑定至其数据的项呈示器的小应用程序或示例定义 List 或 DataGrid 数据提供程序项。非普通的应用程序或关注性能的任何应用程序应定义具有一组固定强类型属性的 <codeph>[Bindable]</codeph> 类，并使用该类定义数据提供程序项。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.utils:DataItem:DataItem"><apiName>DataItem</apiName><shortdesc>
+      构造函数
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.utils:MultiDPIBitmapSource"><apiName>MultiDPIBitmapSource</apiName><shortdesc>
+  该类提供各种运行时密度的位图列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  该类提供各种运行时密度的位图列表。这是作为 BitmapImage 或 Image 的源，以及作为按钮的图标提供的。组件会使用 Application.runtimeDPI 选择要显示的图像。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.utils:MultiDPIBitmapSource:getSource"><apiName>getSource</apiName><shortdesc>
+      基于给定的 DPI 选择 sourceXXXdpi 属性之一。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>基于所需的 DPI 的 sourceXXXdpi 属性之一。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>desiredDPI</apiItemName><apiType value="Number"/><apiDesc>所需的 DPI。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基于给定的 DPI 选择 sourceXXXdpi 属性之一。如果给定的为 null，则该函数处理各种 sourceXXXdpi 属性的回退。如果给定的不为 null，则策略尝试选择下一个最高属性，如果还是不为 null 则返回较低属性，然后才返回 null。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.utils:MultiDPIBitmapSource:source160dpi"><apiName>source160dpi</apiName><shortdesc>
+      如果 Application.runtimeDPI 是 DPIClassification.DPI_160 时要使用的源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      当 <codeph>Application.runtimeDPI</codeph> 是 <codeph>DPIClassification.DPI_160</codeph> 时要使用的源。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.utils:MultiDPIBitmapSource:source240dpi"><apiName>source240dpi</apiName><shortdesc>
+      当 Application.runtimeDPI 是 DPIClassification.DPI_240 时要使用的源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      当 <codeph>Application.runtimeDPI</codeph> 是 <codeph>DPIClassification.DPI_240</codeph> 时要使用的源。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.utils:MultiDPIBitmapSource:source320dpi"><apiName>source320dpi</apiName><shortdesc>
+      当 Application.runtimeDPI 是 DPIClassification.DPI_320 时要使用的源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      当 <codeph>Application.runtimeDPI</codeph> 是 <codeph>DPIClassification.DPI_320</codeph> 时要使用的源。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

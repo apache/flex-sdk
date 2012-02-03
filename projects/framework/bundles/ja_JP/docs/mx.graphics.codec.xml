@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics.codec"><apiName>mx.graphics.codec</apiName><apiDetail/><apiClassifier id="mx.graphics.codec:IImageEncoder"><apiName>IImageEncoder</apiName><shortdesc>
+  IImageEncoder インターフェイスは、イメージエンコーダーが、BitmapData オブジェクトまたは生の ARGB ピクセルを含む ByteArrays を入力として受け取り、PNG、JPEG などの一般的なイメージ形式に変換するために実装するインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IImageEncoder インターフェイスは、イメージエンコーダーが、BitmapData オブジェクトまたは生の ARGB ピクセルを含む ByteArrays を入力として受け取り、PNG、JPEG などの一般的なイメージ形式に変換するために実装するインターフェイスです。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.codec.xml#PNGEncoder"><linktext>PNGEncoder</linktext></link><link href="mx.graphics.codec.xml#JPEGEncoder"><linktext>JPEGEncoder</linktext></link></related-links><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      32 ビットの ARGB（アルファ、赤、緑、青）形式の生のピクセルを含む ByteArray オブジェクトを、エンコードされたイメージデータを含む新しい ByteArray オブジェクトとしてエンコードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>エンコードされたイメージデータを含む ByteArray オブジェクトを返します。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>生のピクセルを含む、入力する ByteArray オブジェクトです。 この ByteArray には、<codeph>4 width height</codeph> バイトが含まれます。 各ピクセルは、4 バイト（ARGB の順）で表されます。 最初の 4 バイトは、イメージの左上のピクセルを表します。 次の 4 バイトは、その右のピクセルを表します。以降のバイトも同様です。 各行はスペースなしで前の行に続きます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>入力イメージの幅（ピクセル単位）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>入力イメージの高さ（ピクセル単位）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc><codeph>false</codeph> の場合、アルファチャンネルの情報は無視されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      32 ビットの ARGB（アルファ、赤、緑、青）形式の生のピクセルを含む ByteArray オブジェクトを、エンコードされたイメージデータを含む新しい ByteArray オブジェクトとしてエンコードします。 元の ByteArray は、変更されずに残ります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encode"><apiName>encode</apiName><shortdesc>
+      BitmapData オブジェクトを ByteArray としてエンコードします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>エンコードされたイメージデータを含む ByteArray オブジェクトを返します。 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>入力する BitmapData オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      BitmapData オブジェクトを ByteArray としてエンコードします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      このエンコーダーが生成するイメージ形式の MIME タイプ。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このエンコーダーが生成するイメージ形式の MIME タイプ。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+  JPEGEncoder クラスは、Joint Photographic Experts Group（JPEG）圧縮を使用して、生のビットマップイメージをエンコードされたイメージに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  JPEGEncoder クラスは、Joint Photographic Experts Group（JPEG）圧縮を使用して、生のビットマップイメージをエンコードされたイメージに変換します。 JPEG アルゴリズムの詳細については、http://www.opennet.ru/docs/formats/jpeg.txt にある Cristi Cuturicu が作成したドキュメントを参照してください。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:JPEGEncoder:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>quality</apiItemName><apiType value="Number"/><apiData>50.0</apiData><apiDesc>0.0 ～ 100.0 の値です。 <codeph>quality</codeph> 値を小さくすると、イメージのファイルサイズが小さくなります。 この値は、エンコードの速度には影響しません。 この値は 0.0 ～ 100.0 までの数値ですが、パーセンテージを表しているわけではありません。 デフォルト値は 50.0 です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:JPEGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      32 ビットの ARGB（アルファ、赤、緑、青）形式の生のピクセルを含む ByteArray オブジェクトを、JPEG でエンコードされた新しい ByteArray オブジェクトに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>JPEG でエンコードされたイメージデータを含む ByteArray オブジェクトを返します。 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>生のピクセルを含む、入力する ByteArray オブジェクトです。 この ByteArray には、<codeph>4 width height</codeph> バイトが含まれます。 各ピクセルは、4 バイト（ARGB の順）で表されます。 最初の 4 バイトは、イメージの左上のピクセルを表します。 次の 4 バイトは、その右のピクセルを表します。以降のバイトも同様です。 各行はスペースなしで前の行に続きます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>入力イメージの幅（ピクセル単位）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>入力イメージの高さ（ピクセル単位）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc><codeph>false</codeph> の場合、アルファチャンネルの情報は無視されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      32 ビットの ARGB（アルファ、赤、緑、青）形式の生のピクセルを含む ByteArray オブジェクトを、JPEG でエンコードされた新しい ByteArray オブジェクトに変換します。 元の ByteArray は、変更されずに残ります。 透明度はサポートされていません。ただし、各ピクセルは 4 バイトの ARGB 形式で表す必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:JPEGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      BitmapData オブジェクトのピクセルを JPEG でエンコードされた ByteArray オブジェクトに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>JPEG でエンコードされたイメージデータを含む ByteArray オブジェクトを返します。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>入力する BitmapData オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      BitmapData オブジェクトのピクセルを JPEG でエンコードされた ByteArray オブジェクトに変換します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:JPEGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      JPEG でエンコードされるイメージの MIME タイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      JPEG でエンコードされるイメージの MIME タイプです。 値は <codeph>"image/jpeg"</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+  PNGEncoder クラスは、ロスのない圧縮方式である Portable Network Graphics（PNG）を使用して、未処理のビットマップイメージをエンコード済みのイメージに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PNGEncoder クラスは、ロスのない圧縮方式である Portable Network Graphics（PNG）を使用して、未処理のビットマップイメージをエンコード済みのイメージに変換します。
+ 
+  <p>PNG の仕様については、http://www.w3.org/TR/PNG/ を参照してください。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:PNGEncoder:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:PNGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      32 ビットの ARGB（アルファ、赤、緑、青）形式の生のピクセルを含む ByteArray オブジェクトを、PNG でエンコードされた新しい ByteArray オブジェクトに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>PNG でエンコードされたイメージデータを含む ByteArray オブジェクトを返します。 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>生のピクセルを含む、入力する ByteArray オブジェクトです。 この ByteArray には、<codeph>4 width height</codeph> バイトが含まれます。 各ピクセルは、4 バイト（ARGB の順）で表されます。 最初の 4 バイトは、イメージの左上のピクセルを表します。 次の 4 バイトは、その右のピクセルを表します。以降のバイトも同様です。 各行はスペースなしで前の行に続きます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>入力イメージの幅（ピクセル単位）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>入力イメージの高さ（ピクセル単位）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc><codeph>false</codeph> の場合、アルファチャンネルの情報は無視されますが、それでも各ピクセルを 4 バイトの ARGB 形式で表す必要があります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      32 ビットの ARGB（アルファ、赤、緑、青）形式の生ピクセルを含む ByteArray オブジェクトを、PNG でエンコードされた新しい ByteArray オブジェクトに変換します。 元の ByteArray は、変更されずに残ります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:PNGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      BitmapData オブジェクトのピクセルを PNG でエンコードされた ByteArray オブジェクトに変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>PNG でエンコードされたイメージデータを含む ByteArray オブジェクトを返します。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>入力する BitmapData オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      BitmapData オブジェクトのピクセルを PNG でエンコードされた ByteArray オブジェクトに変換します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:PNGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      PNG でエンコードされるイメージの MIME タイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      PNG でエンコードされるイメージの MIME タイプです。 値は <codeph>"image/png"</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.dataGridClasses"><apiName>mx.controls.dataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.dataGridClasses:FTEDataGridItemRenderer"><apiName>FTEDataGridItemRenderer</apiName><shortdesc>
+  FTEDataGridItemRenderer 类为与 FTEText 一起使用的 DataGrid 控件定义默认项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier>mx.core:UIFTETextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FTEDataGridItemRenderer 类为与 FTEText 一起使用的 DataGrid 控件定义默认项呈示器。默认情况下，项呈示器绘制与网格中各项相关联的文本。
+ 
+  <p>通过创建自定义的项呈示器，您可以覆盖默认项呈示器。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.DataGrid.xml"><linktext>mx.controls.DataGrid</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.dataGridClasses:FTEDataGridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  当 data 属性更改时进行分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>data</codeph> 属性更改时进行分派。
+ 
+  <p>当您使用组件作为项呈示器时，<codeph>data</codeph> 属性将包含要显示的数据。您可以侦听此事件，并在 <codeph>data</codeph> 属性更改时更新组件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:FTEDataGridItemRenderer"><apiName>FTEDataGridItemRenderer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:clearStyle"><apiName>clearStyle</apiName><shortdesc conref="mx.core.UIComponent#clearStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#clearStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:initProtoChain"><apiName>initProtoChain</apiName><shortdesc>
+      设置 inheritingStyles 和 nonInheritingStyles 对象及其主要链，以便 getStyle() 方法起作用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      设置 <codeph>inheritingStyles</codeph> 和 <codeph>nonInheritingStyles</codeph> 对象及其主要链，以便 <codeph>getStyle()</codeph> 方法起作用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.core.UIComponent#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:protected:toolTipShowHandler"><apiName>toolTipShowHandler</apiName><shortdesc>
+      定位工具提示的事件处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:ToolTipEvent"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      定位工具提示的事件处理函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 LayoutManager.invalidateDisplayList() 方法，则在更新显示列表时将调用此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 <codeph>LayoutManager.invalidateDisplayList()</codeph> 方法，则在更新显示列表时将调用此函数。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 LayoutManager.invalidateProperties() 方法，则在提交属性值时将调用此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 <codeph>LayoutManager.invalidateProperties()</codeph> 方法，则在提交属性值时将调用此函数。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:validateSize"><apiName>validateSize</apiName><shortdesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 LayoutManager.invalidateSize() 方法，则在进行测量时会调用此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>true</codeph>，则调用对象子项的此方法。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 <codeph>LayoutManager.invalidateSize()</codeph> 方法，则在进行测量时会调用此函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      由 IDataRenderer 接口定义的 data 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      由 IDataRenderer 接口定义的 <codeph>data</codeph> 属性实现。
+     
+      <p>此值将被忽略。仅使用 <codeph>listData</codeph> 属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      由 IDropInListItemRenderer 接口定义的 listData 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      由 IDropInListItemRenderer 接口定义的 <codeph>listData</codeph> 属性实现。将呈示器的文本设置为 listData 的 <codeph>label</codeph> 属性。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      存储此对象的内嵌继承样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.styles:CSSStyleDeclaration"/></apiValueDef><apiDesc>
+      存储此对象的内嵌继承样式。第一次调用该组件的 <codeph>setStyle()</codeph> 方法来设置继承样式时，将创建此 CSSStyleDeclaration 对象。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:MXDataGridItemRenderer"><apiName>MXDataGridItemRenderer</apiName><shortdesc>
+  MXDataGridItemRenderer 类定义 Spark 项呈示器类，以便与 MX DataGrid 控件一起使用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="listData"/><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:MXDataGridItemRenderer&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:MXItemRenderer
+    <strong>Properties</strong>
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:MXItemRenderer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MXDataGridItemRenderer 类定义 Spark 项呈示器类，以便与 MX DataGrid 控件一起使用。通过该类，可以将 Spark 项呈示器体系结构与 MX DataGrid 控件一起使用。 
+ 
+  </apiDesc><example conref="MXDataGridItemRenderer.mxml"><swfblock conref="examples/MXDataGridItemRenderer.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.DataGrid.xml"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:MXDataGridItemRenderer:MXDataGridItemRenderer"><apiName>MXDataGridItemRenderer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:MXDataGridItemRenderer:dataGridListData:get"><apiName>dataGridListData</apiName><shortdesc>
+      由 IDropInListItemRenderer 接口定义的 listData 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.controls.dataGridClasses:DataGridListData"/></apiValueDef><apiDesc>
+      由 IDropInListItemRenderer 接口定义的 <codeph>listData</codeph> 属性实现。使用此属性可以访问由项呈示器显示的数据项的相关信息。     
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

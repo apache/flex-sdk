@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.geom"><apiName>mx.geom</apiName><apiDetail/><apiClassifier id="mx.geom:TransformOffsets"><apiName>TransformOffsets</apiName><shortdesc>
+	  CompoundTransform は、2D または 3D のマトリックス変換を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  CompoundTransform は、2D または 3D のマトリックス変換を表します。これは UIComponent または GraphicElement の postLayoutTransformOffsets プロパティで使用できます。
+	  
+	  </apiDesc></apiClassifierDetail><apiConstructor id="mx.geom:TransformOffsets:TransformOffsets"><apiName>TransformOffsets</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.geom:TransformOffsets:rotationX:set"><apiName>rotationX</apiName><shortdesc>
+	 変換に追加される rotationX（度単位）です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 変換に追加される rotationX（度単位）です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:rotationY:set"><apiName>rotationY</apiName><shortdesc>
+	 変換に追加される rotationY（度単位）です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 変換に追加される rotationY（度単位）です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:rotationZ:set"><apiName>rotationZ</apiName><shortdesc>
+	 変換に追加される rotationZ（度単位）です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 変換に追加される rotationZ（度単位）です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:scaleX:set"><apiName>scaleX</apiName><shortdesc>
+	 変換の scaleX に適用される乗数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 変換の scaleX に適用される乗数です。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:scaleY:set"><apiName>scaleY</apiName><shortdesc>
+	 変換の scaleY に適用される乗数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 変換の scaleY に適用される乗数です。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:scaleZ:set"><apiName>scaleZ</apiName><shortdesc>
+	 変換の scaleZ に適用される乗数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 変換の scaleZ に適用される乗数です。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:x:set"><apiName>x</apiName><shortdesc>
+	 変換に追加される x 値です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 変換に追加される x 値です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:y:set"><apiName>y</apiName><shortdesc>
+	 変換に追加される y 値です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 変換に追加される y 値です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:TransformOffsets:z:set"><apiName>z</apiName><shortdesc>
+	 変換に追加される z 値です。
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	 変換に追加される z 値です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.geom:Transform"><apiName>Transform</apiName><shortdesc>
+  flash.geom.Transform クラス上に同期サポートを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.geom:Transform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  flash.geom.Transform クラス上に同期サポートを追加します。このクラスには、Transform が割り当てられている IVisualElement である <codeph>target</codeph> プロパティがあります。IVisualElement の実装は、通常、Transform がその <codeph>transform</codeph> プロパティに割り当てられると、target をそれ自身に設定します。 
+ 
+  <p>Transform プロパティが変更されると、target に自動的にプッシュされます。Transform プロパティからの読み取りでは、target の変換から直接読み取られます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.geom.Transform.xml"><linktext>flash.geom.Transform</linktext></link></related-links><apiConstructor id="mx.geom:Transform:Transform"><apiName>Transform</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>src</apiItemName><apiType value="flash.display:DisplayObject"/><apiData>null</apiData><apiDesc>変換の target です。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.geom:Transform:getRelativeMatrix3D"><apiName>getRelativeMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="flash.geom:Matrix3D"/></apiReturn><apiParam><apiItemName>relativeTo</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.geom:Transform:matrix3D:set"><apiName>matrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix3D"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.geom:Transform:target:set"><apiName>target</apiName><shortdesc>
+      Transform が同期を維持する IVisualElement です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IVisualElement</apiValueClassifier></apiValueDef><apiDesc>
+      Transform が同期を維持する IVisualElement です。IVisualElement の実装は、通常、Transform がその transform プロパティに割り当てられると、target をそれ自身に設定します。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.geom:RoundedRectangle"><apiName>RoundedRectangle</apiName><shortdesc>
+  RoundedRectangle は角丸矩形を表します。
+  
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.geom:Rectangle</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RoundedRectangle は角丸矩形を表します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.geom:RoundedRectangle:RoundedRectangle"><apiName>RoundedRectangle</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩形の左上隅の x 座標です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩形の左上隅の y 座標です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩形の幅（ピクセル単位）です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩形の高さ（ピクセル単位）です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>cornerRadius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>各角の半径 (ピクセル単位)。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.geom:RoundedRectangle:cornerRadius"><apiName>cornerRadius</apiName><shortdesc>
+	  各角の半径（ピクセル単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  各角の半径（ピクセル単位）。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.geom:CompoundTransform"><apiName>CompoundTransform</apiName><shortdesc>
+      CompoundTransform は、2D または 3D のマトリックス変換を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      CompoundTransform は、2D または 3D のマトリックス変換を表します。複合変換は、2D マトリックス、3D マトリックス、または x、y、scaleX、rotationZ などの個々の変換プロパティとして照会または設定できるマトリックスを表します。 
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="mx.geom:CompoundTransform:CompoundTransform"><apiName>CompoundTransform</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.geom:CompoundTransform:translateBy"><apiName>translateBy</apiName><shortdesc> 
+      変換の平行移動コンポーネントにデルタを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>変換の x 値です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>変換の y 値です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>z</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>変換の z 値です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      変換の平行移動コンポーネントにデルタを適用します。x、y、または z プロパティを直接設定するのとは異なり、このメソッドは、変換の「真実の源」という概念を変更することなく安全に呼び出すことができます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.geom:CompoundTransform:matrix3D:get"><apiName>matrix3D</apiName><shortdesc>
+      3D マトリックスは、ユーザーが直接設定するか、変換の中心、伸縮、回転、および平行移動の値をこの順序どおりに組み合わせることによって構成されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix3D"/></apiValueDef><apiDesc>
+      3D マトリックスは、ユーザーが直接設定するか、変換の中心、伸縮、回転、および平行移動の値をこの順序どおりに組み合わせることによって構成されます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:matrix:get"><apiName>matrix</apiName><shortdesc>
+      2D マトリックスは、ユーザーが直接設定するか、変換の中心、伸縮、回転、および平行移動の値をこの順序どおりに組み合わせることによって構成されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/></apiValueDef><apiDesc>
+      2D マトリックスは、ユーザーが直接設定するか、変換の中心、伸縮、回転、および平行移動の値をこの順序どおりに組み合わせることによって構成されます。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:rotationX:set"><apiName>rotationX</apiName><shortdesc>
+      変換の rotationX（度単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の rotationX（度単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:rotationY:set"><apiName>rotationY</apiName><shortdesc>
+      変換の rotationY（度単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の rotationY（度単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:rotationZ:set"><apiName>rotationZ</apiName><shortdesc>
+      変換の rotationZ（度単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の rotationZ（度単位）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:scaleX:set"><apiName>scaleX</apiName><shortdesc>
+      変換の scaleX です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の scaleX です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:scaleY:set"><apiName>scaleY</apiName><shortdesc>
+      変換の scaleY です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の scaleY です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:scaleZ:set"><apiName>scaleZ</apiName><shortdesc>
+      変換の scaleZ です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の scaleZ です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:transformX:set"><apiName>transformX</apiName><shortdesc>
+      変換の中心の x 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の中心の x 値です。変換の中心は、回転や伸縮が適用されても固定され続けます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:transformY:set"><apiName>transformY</apiName><shortdesc>
+      変換の中心の y 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の中心の y 値です。変換の中心は、回転や伸縮が適用されても固定され続けます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:transformZ:set"><apiName>transformZ</apiName><shortdesc>
+      変換の中心の z 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の中心の z 値です。変換の中心は、回転や伸縮が適用されても固定され続けます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:x:set"><apiName>x</apiName><shortdesc>
+      変換の x 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の x 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:y:set"><apiName>y</apiName><shortdesc>
+      変換の y 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の y 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.geom:CompoundTransform:z:set"><apiName>z</apiName><shortdesc>
+      変換の z 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      変換の z 値です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections.errors"><apiName>mx.collections.errors</apiName><apiDetail/><apiClassifier id="mx.collections.errors:ItemPendingError"><apiName>ItemPendingError</apiName><shortdesc>
+  当从集合视图检索项目需要进行异步调用时，将引发此错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  当从集合视图检索项目需要进行异步调用时，将引发此错误。当通过远程源提供备份数据而该数据在本地尚不可用时，将出现此错误。
+ 
+  <p>如果此错误的接收方需要在请求的项目可用时（即异步调用完成时）获得通知，则必须使用 <codeph>addResponder()</codeph> 方法并指定一个支持 <codeph>mx.rpc.IResponder</codeph> 接口的对象，以便在项目可用时做出响应。<codeph>mx.collections.ItemResponder</codeph> 类实现 IResponder 接口，并支持 <codeph>data</codeph> 属性。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#ItemResponder"><linktext>mx.collections.ItemResponder</linktext></link><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link></related-links><apiConstructor id="mx.collections.errors:ItemPendingError:ItemPendingError"><apiName>ItemPendingError</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>提供有关错误原因信息的消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  <p>针对非本地项目发出请求时，由 Flex 框架调用。</p>
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections.errors:ItemPendingError:addResponder"><apiName>addResponder</apiName><shortdesc>
+	  AddResponder 可向响应器 Array 中添加响应器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>异步请求完成时将调用的处理函数。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  <codeph>addResponder</codeph> 可向响应器 Array 中添加响应器。分配给 responder 参数的对象必须实现 mx.rpc.IResponder 接口。
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link><link href="mx.collections.xml#ItemResponder"><linktext>mx.collections.ItemResponder</linktext></link></related-links></apiOperation><apiValue id="mx.collections.errors:ItemPendingError:responders:get"><apiName>responders</apiName><shortdesc>
+      异步请求完成时将要调用的 IResponder 处理程序数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      异步请求完成时将要调用的 IResponder 处理程序数组。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections.errors:SortError"><apiName>SortError</apiName><shortdesc>
+  当未正确配置 Sort 类时，将引发此错误；例如，查找条件无效。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  当未正确配置 Sort 类时，将引发此错误；例如，查找条件无效。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:SortError:SortError"><apiName>SortError</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>提供有关错误原因信息的消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections.errors:CursorError"><apiName>CursorError</apiName><shortdesc>
+  此错误由集合光标引发。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  此错误由集合光标引发。此类的错误由实现 IViewCursor 接口的类引发。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:CursorError:CursorError"><apiName>CursorError</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>提供有关错误原因信息的消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections.errors:CollectionViewError"><apiName>CollectionViewError</apiName><shortdesc>
+  CollectionViewError 类代表集合中的常规错误，这些错误与特定活动（如光标搜索）无关。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>CollectionViewError</codeph> 类代表集合中的常规错误，这些错误与特定活动（如光标搜索）无关。此类的错误由 ListCollectionView 类引发。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:CollectionViewError:CollectionViewError"><apiName>CollectionViewError</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>提供有关错误原因信息的消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

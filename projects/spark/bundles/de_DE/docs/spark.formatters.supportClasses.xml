@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.formatters.supportClasses"><apiName>spark.formatters.supportClasses</apiName><apiDetail/><apiClassifier id="spark.formatters.supportClasses:NumberFormatterBase"><apiName>NumberFormatterBase</apiName><shortdesc>
+  Die NumberFormatterBase-Klasse ist eine Basisklasse für die NumberFormatter- und die CurrencyFormatter-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:NumberFormatterBase&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberFormatterBase 
+    <strong>Properties</strong>
+    decimalSeparator="<i>locale and OS dependent</i>"
+    digitsType="<i>locale and OS dependent</i>"
+    errorText="null"
+    fractionalDigits="<i>locale and OS dependent</i>"
+    groupingPattern="<i>locale and OS dependent</i>"
+    groupingSeparator="<i>locale and OS dependent</i>"
+    leadingZero="<i>locale and OS dependent</i>"
+    negativeSymbol="<i>locale and OS dependent</i>"
+    trailingZeros="<i>locale and OS dependent</i>"
+    useGrouping="<i>locale and OS dependent</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die NumberFormatterBase-Klasse ist eine Basisklasse für die NumberFormatter- und die CurrencyFormatter-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter"><linktext>spark.formatters.CurrencyFormatter</linktext></link><link href="spark.formatters.xml#NumberFormatter"><linktext>spark.formatters.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters.supportClasses:NumberFormatterBase:NumberFormatterBase"><apiName>NumberFormatterBase</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      Das Dezimaltrennzeichen, das für die Formatierung oder Analyse von Zahlen mit Dezimalteil verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>wenn dieser Eigenschaft ein null-Wert zugewiesen wird.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Das Dezimaltrennzeichen, das für die Formatierung oder Analyse von Zahlen mit Dezimalteil verwendet wird.
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:digitsType:get"><apiName>digitsType</apiName><shortdesc>
+      Definiert den Satz von Ziffernzeichen, die beim Formatieren von Zahlen verwendet werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Definiert den Satz von Ziffernzeichen, die beim Formatieren von Zahlen verwendet werden sollen.
+     
+      <p>Verschiedene Sprachen und Regionen verwenden unterschiedliche Zeichengruppen, um die Ziffern 0 bis 9 darzustellen. Diese Eigenschaft definiert die verwendete Zifferngruppe.</p>
+     
+      <p>Der Wert dieser Eigenschaft repräsentiert den Unicode-Wert für die Ziffer Null einer dezimalen Zifferngruppe. Die gültigen Werte für diese Eigenschaft werden in der <codeph>NationalDigitsType</codeph>-Klasse definiert.</p>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:errorText:get"><apiName>errorText</apiName><shortdesc>
+      Ersetzungsstring, der bei einem Fehler von der format()-Methode zurückgegeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ersetzungsstring, der bei einem Fehler von der <codeph>format()</codeph>-Methode zurückgegeben wird.
+     
+      <p>Wenn für <codeph>errorText</codeph> ein anderer Wert als „null“ festgelegt ist und während der Formatierung einer Zahl oder eines Währungsbetrags ein Fehler auftritt, gibt die format-Methode den dieser Eigenschaft zugewiesenen String zurück.</p>
+     
+      Beispiel:
+      <codeblock rev="3.0">
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale", "en-US");
+      nf.errorText = "###"
+      trace(nf.format("abc"));  // ###
+      </codeblock>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:fractionalDigits:get"><apiName>fractionalDigits</apiName><shortdesc>
+      Die Höchstzahl von Ziffern, die nach dem Dezimaltrennzeichen erscheinen können.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Die Höchstzahl von Ziffern, die nach dem Dezimaltrennzeichen erscheinen können.
+     
+      <p>Zahlen werden auf die Anzahl von Ziffern gerundet, die mit dieser Eigenschaft angegeben wird. Das Rundungsschema variiert je nach Betriebssystem des Benutzers.</p>
+     
+      <p>Wenn die <codeph>trailingZeros</codeph>-Eigenschaft den Wert <codeph>true</codeph> hat, werden dem gebrochenen Teil der Zahl (nach dem Dezimalzeichen) Nullen nachgestellt, bis die Länge mit dem Wert dieser <codeph>fractionalDigits</codeph>-Eigenschaft übereinstimmt.</p>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/trailingZeros"><linktext>trailingZeros</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:groupingPattern:get"><apiName>groupingPattern</apiName><shortdesc>
+      Beschreibt die Platzierung von Gruppierungstrennzeichen innerhalb des formatierten Zahlenstrings.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>wenn dieser Eigenschaft ein null-Wert zugewiesen wird.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Beschreibt die Platzierung von Gruppierungstrennzeichen innerhalb des formatierten Zahlenstrings.
+     
+      <p>Wenn die <codeph>useGrouping</codeph>-Eigenschaft den Wert „true“ hat, wird die <codeph>groupingPattern</codeph>-Eigenschaft verwendet, um die Platzierung und das Muster für das Gruppierungstrennzeichen zu definieren.</p>
+     
+      <p>Das Gruppierungsmuster wird als String definiert, der Zahlen enthält, die durch Kommas getrennt sind, und der optional mit einem Asterisk enden kann. Beispiel: <codeph>"3;2;*"</codeph>. Jede Zahl in diesem String repräsentiert die Anzahl der Ziffern in einer Gruppe. Das Gruppierungstrennzeichen wird vor jeder Gruppe von Ziffern platziert. Ein Asterisk am Ende des Strings gibt an, dass Gruppen mit dieser Anzahl von Ziffern für den verbleibenden Rest des Strings wiederholt werden sollen. Fehlt der Asterisk, gibt es im Rest des formatierten Strings keine weiteren Gruppen oder Trennzeichen. </p>
+     
+      <p>Die erste Zahl im String entspricht der ersten Gruppe von Ziffern links des Dezimaltrennzeichens. Die weiteren Zahlen geben die Anzahl von Ziffern in nach links aufeinander folgenden Gruppen an. Der String <codeph>"3;2;*"</codeph> gibt also an, dass ein Gruppierungstrennzeichen nach der ersten Gruppe mit 3 Ziffern gesetzt wird, dann nach der nächsten Gruppe mit 2 Ziffern. Beispiel: <codeph>98,76,54,321</codeph></p>
+     
+      <p>In der folgenden Tabelle sind Beispiele für die Formatierung der Zahl 123456789.12 mit verschiedenen Gruppierungsmustern aufgeführt. Als Gruppierungstrennzeichen wird ein Komma, als Dezimalzeichen ein Punkt verwendet.
+      </p>
+        <adobetable class="innertable">
+              
+              
+              
+              
+        <tgroup cols="2"><tbody><row>
+                    <entry>Gruppierungsmuster</entry>
+                    <entry>Beispielformat</entry>
+              </row><row>
+                    <entry><codeph>3;*</codeph></entry>
+                    <entry>123,456,789.12</entry>
+              </row><row>
+                    <entry><codeph>3;2;*</codeph></entry>
+                    <entry>12,34,56,789.12</entry>
+              </row><row>
+                    <entry><codeph>3</codeph></entry>
+                    <entry>123456,789.12</entry>
+              </row></tbody></tgroup></adobetable>
+     
+      <p>Es kann nur eine begrenzte Anzahl von Gruppengrößen definiert werden. Bei einigen Betriebssystemen können Gruppierungsmuster nur zwei Zahlen und einen Asterisk enthalten. Andere Betriebssysteme unterstützen bis zu vier Zahlen und einen Asterisk. Bei Mustern ohne Asterisk unterstützen einige Betriebssystem nur eine Zahl, andere bis zu drei Zahlen. Wenn die maximale Anzahl von Elementen in einem Gruppierungsmuster überschritten wird, werden die überzähligen Elemente ignoriert und die <codeph>lastOperationStatus</codeph>-Eigenschaft wird festgelegt, um anzugeben, dass ein Ersatzwert verwendet wird.
+      </p>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingSeparator"><linktext>groupingSeparator</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/useGrouping"><linktext>useGrouping</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:groupingSeparator:get"><apiName>groupingSeparator</apiName><shortdesc>
+      Das Zeichen oder der String, das bzw. der als Gruppierungstrennzeichen verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>wenn dieser Eigenschaft ein null-Wert zugewiesen wird.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Das Zeichen oder der String, das bzw. der als Gruppierungstrennzeichen verwendet wird.
+     
+      <p>Der Wert dieser Eigenschaft wird beim Formatieren von Zahlen mit der <codeph>useGrouping</codeph>-Eigenschaft mit dem Wert <codeph>true</codeph> als Gruppierungstrennzeichen verwendet. Diese Eigenschaft wird anfänglich basierend auf dem Gebietsschema, das beim Konstruieren des Formatter-Objekts ausgewählt wurde, festgelegt.</p>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/useGrouping"><linktext>useGrouping</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingPattern"><linktext>groupingPattern</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      Der Status der letzten Operation, die dieses Klassenobjekt ausgeführt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Der Status der letzten Operation, die dieses Klassenobjekt ausgeführt hat. Die <codeph>lastOperationStatus</codeph>-Eigenschaft wird immer festgelegt, wenn der Konstruktor oder eine Methode dieser Klasse aufgerufen oder eine Eigenschaft festgelegt wird. Die möglichen Werte sind in der Beschreibung der einzelnen Methoden aufgeführt.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:leadingZero:get"><apiName>leadingZero</apiName><shortdesc>
+      Gibt an, ob in der formatierten Zahl vorne eine Null angezeigt wird, wenn es keine Ganzzahlen links des Dezimaltrennzeichens gibt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiException><apiDesc>wenn dieser Eigenschaft ein null-Wert zugewiesen wird.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Gibt an, ob in der formatierten Zahl vorne eine Null angezeigt wird, wenn es keine Ganzzahlen links des Dezimaltrennzeichens gibt.
+     
+      <p>Wenn diese Eigenschaft den Wert <codeph>true</codeph> hat, wird beim Formatieren von numerischen Werten zwischen -1.0 und 1.0 links des Dezimalzeichens eine Null vorangestellt. Wenn diese Eigenschaft den Wert <codeph>false</codeph> hat, wird keine Null vorangestellt.</p>
+     
+      <p>Wenn die Zahl zum Beispiel 0.321 lautet und diese Eigenschaft den Wert <codeph>true</codeph> hat, wird die vorangestellte Null in den formatierten String einbezogen. Wenn die Eigenschaft den Wert <codeph>false</codeph> hat, wird keine Null vor das Dezimalzeichen gesetzt. In diesem Fall enthält der String lediglich das Dezimalzeichen, gefolgt von den Dezimalstellen, also <codeph>.321</codeph>.</p>
+     
+      <p>Die folgende Tabelle enthält Beispiele für die Formatierung von Zahlen anhand der Werte für diese Eigenschaft und die verwandten Eigenschaften <codeph>fractionalDigits</codeph> und <codeph>trailingZeros</codeph>.
+      </p>
+     
+         <adobetable class="innertable">
+             
+             
+             
+             
+             
+      <tgroup cols="5"><tbody><row>
+                 <entry>trailingZeros</entry>
+                 <entry><b>leadingZero</b></entry>
+                 <entry>fractionalDigits</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+              </row><row>
+                 <entry>true</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.120</entry>
+                 <entry>0.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+             </row><row>
+                 <entry>true</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.120</entry>
+                 <entry>.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.12</entry>
+                 <entry>0</entry>
+             </row></tbody></tgroup></adobetable>
+     
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/trailingZeros"><linktext>trailingZeros</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:negativeSymbol:get"><apiName>negativeSymbol</apiName><shortdesc>
+      Das Negativsymbol, das bei der Formatierung negativer Werte verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Das Negativsymbol, das bei der Formatierung negativer Werte verwendet wird.
+     
+      <p>Dieses Symbol wird mit dem Format für negative Zahlen verwendet, wenn die formatierte Zahl kleiner als null ist. Es wird nicht verwendet bei Formaten für negative Zahlen, die kein Negativsymbol enthalten (zum Beispiel, wenn negative Zahlen in Klammern gesetzt werden). </p>
+     
+      <p>Diese Eigenschaft wird auf einen Standardwert für das tatsächlich verwendete Gebietsschema, das beim Konstruieren des Formatters ausgewählt wurde, gesetzt. Es kann ein Wert festgelegt werden, um die Standardeinstellung zu überschreiben.</p>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/negativeNumberFormat"><linktext>negativeNumberFormat</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:trailingZeros:get"><apiName>trailingZeros</apiName><shortdesc>
+      Gibt an, ob nachfolgende Nullen in einer formatierten Zahl angezeigt werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiException><apiDesc>wenn dieser Eigenschaft ein null-Wert zugewiesen wird.
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Gibt an, ob nachfolgende Nullen in einer formatierten Zahl angezeigt werden.
+     
+      <p>Wenn diese Eigenschaft den Wert <codeph>true</codeph> hat, werden nachfolgende Nullen in den gebrochenen Teil der formatierten Zahl eingeschlossen, und zwar bis zu dem Grenzwert, der mit der <codeph>fractionalDigits</codeph>-Eigenschaft festgelegt wurde. Wenn diese Eigenschaft den Wert <codeph>false</codeph> hat, werden keine nachfolgenden Nullen hinzugefügt.</p>
+     
+      <p>Lautet der numerische Wert beispielsweise 123.4 und diese Eigenschaft hat den Wert „true“, während die <codeph>fractionalDigits</codeph>-Eigenschaft auf „3“ eingestellt ist, werden im formatierten String nachfolgende Nullen bis zur dritten Dezimalstelle angezeigt, also <codeph>123.400</codeph> . Wenn diese Eigenschaft den Wert <codeph>false</codeph> hat, werden keine nachfolgenden Nullen angezeigt und der String zeigt nur das Dezimalzeichen, gefolgt von den Dezimalstellen, die nicht null sind, also <codeph>123.4</codeph>.</p>
+     
+      <p>Die folgende Tabelle enthält Beispiele für die Formatierung von numerischen Werten anhand der Werte für diese Eigenschaft und die verwandten Eigenschaften <codeph>fractionalDigits</codeph> und <codeph>leadingZero</codeph>.
+      </p>
+     
+         <adobetable class="innertable">
+             
+             
+             
+             
+             
+      <tgroup cols="5"><tbody><row>
+                 <entry><b>trailingZeros</b></entry>
+                 <entry>leadingZero</entry>
+                 <entry>fractionalDigits</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+              </row><row>
+                 <entry>true</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.120</entry>
+                 <entry>0.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+             </row><row>
+                 <entry>true</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.120</entry>
+                 <entry>.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.12</entry>
+                 <entry>0</entry>
+             </row></tbody></tgroup></adobetable>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/leadingZero"><linktext>leadingZero</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:useGrouping:get"><apiName>useGrouping</apiName><shortdesc>
+      Aktiviert die Verwendung des Gruppierungstrennzeichens bei der Formatierung von Zahlen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Aktiviert die Verwendung des Gruppierungstrennzeichens bei der Formatierung von Zahlen.
+     
+      <p>Wenn die <codeph>useGrouping</codeph>-Eigenschaft den Wert <codeph>true</codeph> hat, werden Ziffern gruppiert und durch ein Gruppierungstrennzeichen getrennt. Beispiel: <codeph>123,456,789.22</codeph></p>
+     
+      <p>Wenn die <codeph>useGrouping</codeph>-Eigenschaft den Wert <codeph>false</codeph> hat, werden die Ziffern nicht gruppiert oder getrennt. Beispiel: <codeph>123456789.22</codeph></p>
+
+      <p>Das Symbol, das als Gruppierungstrennzeichen verwendet wird, wird mit der <codeph>groupingSeparator</codeph>-Eigenschaft definiert. Die Anzahl der Ziffern zwischen den Gruppierungstrennzeichen wird mit der <codeph>groupingPattern</codeph>-Eigenschaft definiert.</p>
+     
+      <p>Der Standardwert hängt vom Gebietsschema und Betriebssystem ab.</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingPattern"><linktext>groupingPattern</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingSeparator"><linktext>groupingSeparator</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

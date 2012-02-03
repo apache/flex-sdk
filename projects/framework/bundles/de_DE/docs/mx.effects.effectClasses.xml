@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.effectClasses"><apiName>mx.effects.effectClasses</apiName><apiDetail/><apiClassifier id="mx.effects.effectClasses:MaskEffectInstance"><apiName>MaskEffectInstance</apiName><shortdesc>
+  Die MaskEffectInstance-Klasse ist eine abstrakte Basisklasse, welche die Instanzklasse für die MaskEffect-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die MaskEffectInstance-Klasse ist eine abstrakte Basisklasse, welche die Instanzklasse für die MaskEffect-Klasse implementiert. 
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den Maskierungseffekt enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft ein Array mit vier Elementen, wobei Folgendes gilt: </p>
+  <ul>
+    <li>value[0]:Number Der Wert der <codeph>x</codeph>-Eigenschaft des Ziels.</li> 
+  
+    <li>value[1]:Number Der Wert der <codeph>y</codeph>-Eigenschaft des Ziels.</li>
+  
+    <li>value[2]:Number Der Wert der <codeph>scaleX</codeph>-Eigenschaft des Ziels.</li>
+  
+    <li>value[3]:Number Der Wert der <codeph>scaleY</codeph>-Eigenschaft des Ziels.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#MaskEffect"><linktext>mx.effects.MaskEffect</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:MaskEffectInstance:MaskEffectInstance"><apiName>MaskEffectInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor. 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:defaultCreateMask"><apiName>defaultCreateMask</apiName><shortdesc>
+	  Erstellt die Standardmaske für den Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Ein Shape-Objekt, das die Maske definiert.
+	  
+	  </apiDesc><apiType value="flash.display:Shape"/></apiReturn><apiParam><apiItemName>targ</apiItemName><apiType value="Object"/><apiDesc>Das Effektziel.
+	  </apiDesc></apiParam><apiParam><apiItemName>bounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Die tatsächlichen visuellen Grenzen des Ziels einschließlich der Schlagschatten.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Erstellt die Standardmaske für den Effekt.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:initMaskEffect"><apiName>initMaskEffect</apiName><shortdesc>
+	  Initialisiert die move- und scale-Eigenschaften des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Initialisiert die <codeph>move</codeph>- und <codeph>scale</codeph>-Eigenschaften des Effekts. Alle Unterklassen sollten diese Funktion überschreiben. Flex ruft sie nach der Erstellung der Maske, jedoch vor der Erstellung der Tweens auf. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onMoveTweenEnd"><apiName>onMoveTweenEnd</apiName><shortdesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn die x- und die y-Position der Maske durch den Effekt ein letztes Mal aktualisiert werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Enthält den x- und y-Wert der Maskenposition, wobei <codeph>value[0]</codeph> die x-Position der Maske und <codeph>value[1]</codeph> die y-Position der Maske enthält.    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn die x- und die y-Position der Maske durch den Effekt ein letztes Mal aktualisiert werden sollen. Sie können diese Methode nicht direkt aufrufen. Diese Methode implementiert die Methoden der Superklasse. 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onMoveTweenUpdate"><apiName>onMoveTweenUpdate</apiName><shortdesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn die x- und die y-Position der Maske durch den Effekt aktualisiert werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Enthält einen interpolierten x- und y-Wert für die Maskenposition, wobei <codeph>value[0]</codeph> die neue x-Position der Maske und <codeph>value[1]</codeph> die neue y-Position enthält.    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn die x- und die y-Position der Maske durch den Effekt aktualisiert werden sollen. Sie können diese Methode nicht direkt aufrufen. Diese Methode implementiert die Methoden der Superklasse. 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onScaleTweenEnd"><apiName>onScaleTweenEnd</apiName><shortdesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn die scaleX- und die scaleY-Eigenschaften der Maske durch den Effekt ein letztes Mal aktualisiert werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Enthält den endgültigen <codeph>scaleX</codeph>- und <codeph>scaleY</codeph>-Wert für die Maske, wobei <codeph>value[0]</codeph> den <codeph>scaleX</codeph>-Wert der Maske und <codeph>value[1]</codeph> den <codeph>scaleY</codeph>-Wert enthält.    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn die <codeph>scaleX</codeph>- und die <codeph>scaleY</codeph>-Eigenschaften der Maske durch den Effekt ein letztes Mal aktualisiert werden sollen. Sie können diese Methode nicht direkt aufrufen. Diese Methode implementiert die Methoden der Superklasse. 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onScaleTweenUpdate"><apiName>onScaleTweenUpdate</apiName><shortdesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn die scaleX- und die scaleY-Eigenschaft der Maske durch den Effekt aktualisiert werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Enthält einen interpolierten <codeph>scaleX</codeph>- und <codeph>scaleY</codeph>-Wert für die Maske, wobei <codeph>value[0]</codeph> den neuen <codeph>scaleX</codeph>-Wert und <codeph>value[1]</codeph> den neuen <codeph>scaleY</codeph>-Wert enthält.    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn die <codeph>scaleX</codeph>- und die <codeph>scaleY</codeph>-Eigenschaft der Maske durch den Effekt aktualisiert werden sollen. Sie können diese Methode nicht direkt aufrufen. Diese Methode implementiert die Methoden der Superklasse. 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:pause"><apiName>pause</apiName><shortdesc>
+	  Hält den Effekt an, bis die resume()-Methode aufgerufen wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Hält den Effekt an, bis die <codeph>resume()</codeph>-Methode aufgerufen wird.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:resume"><apiName>resume</apiName><shortdesc>
+	  Setzt den Effekt fort, nachdem er durch Aufrufen der pause()-Methode vorübergehend unterbrochen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Setzt den Effekt fort, nachdem er durch Aufrufen der <codeph>pause()</codeph>-Methode vorübergehend unterbrochen wurde. 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:reverse"><apiName>reverse</apiName><shortdesc>
+	  Gibt den Effekt rückwärts wieder und beginnt dabei an der aktuellen Position des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Gibt den Effekt rückwärts wieder und beginnt dabei an der aktuellen Position des Effekts.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:MaskEffectInstance:protected:effectMask"><apiName>effectMask</apiName><shortdesc>
+	  Enthält die Effektmaske, d. h. entweder die durch die defaultCreateMask()-Methode erstellte Standardmaske oder die durch die Funktion an die createMaskFunction-Eigenschaft übergebene Maske.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shape"/></apiValueDef><apiDesc>
+	  Enthält die Effektmaske, d. h. entweder die durch die <codeph>defaultCreateMask()</codeph>-Methode erstellte Standardmaske oder die durch die Funktion an die <codeph>createMaskFunction</codeph>-Eigenschaft übergebene Maske.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:moveEasingFunction"><apiName>moveEasingFunction</apiName><shortdesc>
+	  Beschleunigungsfunktion zum Verschieben der Maske.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  Beschleunigungsfunktion zum Verschieben der Maske.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleEasingFunction"><apiName>scaleEasingFunction</apiName><shortdesc>
+	  Beschleunigungsfunktion zum Skalieren der Maske.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  Beschleunigungsfunktion zum Skalieren der Maske.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleXFrom"><apiName>scaleXFrom</apiName><shortdesc>
+	  scaleX der Maske am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  scaleX der Maske am Anfang.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleXTo"><apiName>scaleXTo</apiName><shortdesc> 
+	  scaleX der Maske am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  scaleX der Maske am Ende.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleYFrom"><apiName>scaleYFrom</apiName><shortdesc> 
+	  scaleY der Maske am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  scaleY der Maske am Anfang.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleYTo"><apiName>scaleYTo</apiName><shortdesc>
+	  scaleY der Maske am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  scaleY der Maske am Ende.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:targetArea"><apiName>targetArea</apiName><shortdesc>
+	  Der Bereich, in dem die Maske auf das Ziel angewendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+	  Der Bereich, in dem die Maske auf das Ziel angewendet wird. Die Abmessungen sind von Ziel abhängig. Standardmäßig füllt der Bereich das ganze Ziel aus und wird folgendermaßen erstellt: <codeph>new Rectangle(0, 0, target.width, target.height);</codeph>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:protected:targetVisualBounds"><apiName>targetVisualBounds</apiName><shortdesc>
+	  Die tatsächliche Größe des Effektziels einschließlich der Schlagschatten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+	  Die tatsächliche Größe des Effektziels einschließlich der Schlagschatten. Flex berechnet den Wert dieser Eigenschaft. Sie müssen sie nicht einstellen. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:xFrom"><apiName>xFrom</apiName><shortdesc> 
+	  Die x-Koordinate der Maskenposition am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Die x-Koordinate der Maskenposition am Anfang.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:xTo"><apiName>xTo</apiName><shortdesc> 
+	  Die x-Koordinate der Zielposition der Maske.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Die x-Koordinate der Zielposition der Maske.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:yFrom"><apiName>yFrom</apiName><shortdesc>
+	  Die y-Koordinate der Maskenposition am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Die y-Koordinate der Maskenposition am Anfang.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:yTo"><apiName>yTo</apiName><shortdesc> 
+	  Die y-Koordinate der Zielposition der Maske.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Die y-Koordinate der Zielposition der Maske.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:createMaskFunction:get"><apiName>createMaskFunction</apiName><shortdesc>
+	  Funktion, die aufgerufen wird, wenn der Effekt die Maske erstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+	  Funktion, die aufgerufen wird, wenn der Effekt die Maske erstellt. Der Standardwert ist eine Funktion, die ein Rechteck mit der gleichen Größe wie das Ziel zurückgibt. 
+	 
+	  <p>Sie können diese Eigenschaft verwenden, um eine eigene Rückruffunktion zum Zeichnen der Maske festzulegen. Die Funktion muss folgende Signatur haben:</p>
+	 
+	  <pre>
+	  public function createLargeMask(targ:Object, bounds:Rectangle):Shape {
+	    var myMask:Shape = new Shape();
+	    // Create mask.
+	  
+	    return myMask;
+	  }
+	  </pre>
+	 
+	  <p>Sie setzen diese Eigenschaft auf den Namen der Funktion, wie im folgenden Beispiel für den WipeLeft-Effekt gezeigt:</p>
+	 
+	  <pre>
+	    &lt;mx:WipeLeft id="showWL" createMaskFunction="createLargeMask" showTarget="false"/></pre>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:showTarget:get"><apiName>showTarget</apiName><shortdesc>
+      Gibt an, dass die Zielkomponente sichtbar („false“) oder unsichtbar („true“) wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt an, dass die Zielkomponente sichtbar (<codeph>false</codeph>) oder unsichtbar (<codeph>true</codeph>) wird.
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:IrisInstance"><apiName>IrisInstance</apiName><shortdesc>
+  Die IrisInstance-Klasse implementiert die Instanzklasse für den Iriseffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die IrisInstance-Klasse implementiert die Instanzklasse für den Iriseffekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Iriseffekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Iris"><linktext>mx.effects.Iris</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:IrisInstance:IrisInstance"><apiName>IrisInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:ZoomInstance"><apiName>ZoomInstance</apiName><shortdesc>
+  Die ZoomInstance-Klasse implementiert die Instanzklasse für den Zoomeffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ZoomInstance-Klasse implementiert die Instanzklasse für den Zoomeffekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Zoomeffekts. Sie selbst erstellen sie nicht.
+ 
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den Zoomeffekt enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft ein Array mit zwei Elementen, wobei Folgendes gilt: </p>
+  <ul>
+    <li>value[0]:Number Ein Wert zwischen den Werten der <codeph>Zoom.zoomWidthFrom</codeph>- und der <codeph>Zoom.zoomWidthTo</codeph>-Eigenschaft.</li>
+  
+    <li>value[1]:Number Ein Wert zwischen den Werten der <codeph>Zoom.zoomHeightFrom</codeph>- und der <codeph>Zoom.zoomHeightTo</codeph>-Eigenschaft.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Zoom"><linktext>mx.effects.Zoom</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ZoomInstance:ZoomInstance"><apiName>ZoomInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:ZoomInstance:captureRollEvents"><apiName>captureRollEvents</apiName><shortdesc>
+	  Verhindert, dass rollOut- und rollOver-Ereignisse ausgelöst werden, ohne dass sich die Maus bewegt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Verhindert, dass <codeph>rollOut</codeph>- und <codeph>rollOver</codeph>-Ereignisse ausgelöst werden, ohne dass sich die Maus bewegt. Setzen Sie diesen Wert auf <codeph>true</codeph>, wenn das Ziel zwischen einem vergrößerten und verkleinerten Status ohne Mausbewegung wechselt.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:originX"><apiName>originX</apiName><shortdesc>
+	  Wert, der die x-Position des Zoomursprungs oder den Registrierungspunkt darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Wert, der die x-Position des Zoomursprungs oder den Registrierungspunkt darstellt. Der Standardwert ist <codeph>target.width / 2</codeph>, was dem Mittelpunkt des Ziels entspricht.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:originY"><apiName>originY</apiName><shortdesc>
+	  Wert, der die y-Position des Zoomursprungs oder den Registrierungspunkt darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Wert, der die y-Position des Zoomursprungs oder den Registrierungspunkt darstellt. Der Standardwert ist <codeph>target.height / 2</codeph>, was dem Mittelpunkt des Ziels entspricht.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomHeightFrom"><apiName>zoomHeightFrom</apiName><shortdesc>
+	  Anfangswert zum Zoomen der Höhe (Prozentwert zwischen 0,01 und 1,0).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Anfangswert zum Zoomen der Höhe (Prozentwert zwischen 0,01 und 1,0). Der Standardwert ist 0,01, was einer sehr geringen Höhe entspricht.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomHeightTo"><apiName>zoomHeightTo</apiName><shortdesc>
+	  Endwert zum Zoomen der Höhe (Prozentwert zwischen 0.01 und 1.0).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Endwert zum Zoomen der Höhe (Prozentwert zwischen 1.0 und 0.01). Der Standardwert ist 1.0, was der normalen Objekthöhe entspricht.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomWidthFrom"><apiName>zoomWidthFrom</apiName><shortdesc>
+	  Anfangswert zum Zoomen der Breite (Prozentwert zwischen 0.01 und 1.0).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Anfangswert zum Zoomen der Breite (Prozentwert zwischen 0,01 und 1,0). Der Standardwert ist 0,01, was einer sehr geringen Breite entspricht.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomWidthTo"><apiName>zoomWidthTo</apiName><shortdesc>
+	  Endwert zum Zoomen der Breite (Prozentwert zwischen 0.01 und 1.0).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Endwert zum Zoomen der Breite (Prozentwert zwischen 1.0 und 0.01). Der Standardwert ist 1.0, was der normalen Objektbreite entspricht.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:PauseInstance"><apiName>PauseInstance</apiName><shortdesc>
+  Die PauseInstance-Klasse implementiert die Instanzklasse für den Pauseneffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die PauseInstance-Klasse implementiert die Instanzklasse für den Pauseneffekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Pauseneffekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Pause"><linktext>mx.effects.Pause</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:PauseInstance:PauseInstance"><apiName>PauseInstance</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Dieses Argument wird vom Pauseneffekt ignoriert. Es wird zur Sicherstellung der Einheitlichkeit bei anderen Effekten eingeschlossen.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:PauseInstance:eventName"><apiName>eventName</apiName><shortdesc> 
+     Name des Ereignisses, auf das gewartet wird, um die Pause zu beenden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     Name des Ereignisses, auf das gewartet wird, um die Pause zu beenden. Dieser Parameter muss zusammen mit der <codeph>target</codeph>-Eigenschaft verwendet werden, die den Typ IEventDispatcher aufweisen muss. Alle Ereignisse müssen von einem Dispatcher ausgelöst werden.
+     
+     <p>Das Warten auf einen <codeph>eventName</codeph> ist auch mit der <codeph>duration</codeph>-Eigenschaft verknüpft, die bestimmt, wann das Zeitlimit des Ereignisses erreicht ist. Tritt das Ereignis in dem in <codeph>duration</codeph> angegebenen Zeitraum nicht auf, endet der Effekt in jedem Fall.</p>
+     
+     <p>Diese Eigenschaft ist optional. Standardmäßig wird der Effekt wiedergegeben, ohne dass auf ein Ereignis gewartet wird.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:PropertyChanges"><apiName>PropertyChanges</apiName><shortdesc>
+  Die PropertyChanges-Klasse definiert die Anfangs- und Endwerte für einen Satz Eigenschaften der Zielkomponente eines Übergangs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die PropertyChanges-Klasse definiert die Anfangs- und Endwerte für einen Satz Eigenschaften der Zielkomponente eines Übergangs. Das <codeph>start</codeph>- und das <codeph>end</codeph>-Feld der PropertyChanges-Klasse enthalten den gleichen Satz Eigenschaften, jedoch mit verschiedenen Werten. 
+ 
+  <p>Zieleigenschaften mit den gleichen Anfangs- und Endwerten werden nicht in das <codeph>start</codeph>- und das <codeph>end</codeph>-Feld eingeschlossen.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:PropertyChanges:PropertyChanges"><apiName>PropertyChanges</apiName><shortdesc>
+	  Der PropertyChanges-Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Objekt, das ein Ziel eines Effekts darstellt.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Der PropertyChanges-Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:PropertyChanges:end"><apiName>end</apiName><shortdesc>
+	  Ein Objekt mit den Endeigenschaften der Zielkomponente, die durch die Änderung des Ansichtsstatus modifiziert wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+	  Ein Objekt mit den Endeigenschaften der <codeph>target</codeph>-Komponente, die durch die Änderung des Ansichtsstatus modifiziert wurden.
+	 
+	  <p>Für eine <codeph>target</codeph>-Komponente, bei der eine Änderung des Ansichtsstatus sowohl eine Verschiebung als auch eine Größenänderung bewirkt hat, enthält <codeph>end</codeph> die Endposition und -größe, wie in folgendem Beispiel gezeigt:
+	  <pre>{ x: 100, y: 100, width: 200, height: 200 }</pre></p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:start"><apiName>start</apiName><shortdesc>
+	  Ein Objekt, das die anfänglichen Eigenschaften der target-Komponente enthält, die durch die Änderung das Ansichtsstatus geändert wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+	  Ein Objekt, das die anfänglichen Eigenschaften der <codeph>target</codeph>-Komponente enthält, die durch die Änderung das Ansichtsstatus geändert wurden.
+	 
+	  <p>Für eine <codeph>target</codeph>-Komponente, bei der eine Änderung des Ansichtsstatus sowohl eine Verschiebung als auch eine Größenänderung bewirkt hat, enthält <codeph>end</codeph> die anfängliche Komponentenposition und -größe, wie in folgendem Beispiel gezeigt:
+	  <pre>{ x: 0, y: 0, width: 100, height: 100}</pre></p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:stripUnchangedValues"><apiName>stripUnchangedValues</apiName><shortdesc>
+      Dieses Flag steuert, ob Werte, die in Anfangs- und Endstatus gleich sind, aus den Objekten entfernt werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Dieses Flag steuert, ob Werte, die in Anfangs- und Endstatus gleich sind, aus den Objekten entfernt werden. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:target"><apiName>target</apiName><shortdesc>
+	  Eine Zielkomponente eines Übergangs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Eine Zielkomponente eines Übergangs. Die <codeph>start</codeph>- und <codeph>end</codeph>-Felder des PropertyChanges-Objekts definieren, wie die Zielkomponente durch die Änderung des Ansichtsstatus geändert wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SoundEffectInstance"><apiName>SoundEffectInstance</apiName><shortdesc>
+  Die SoundEffectInstance-Klasse implementiert die Instanzklasse für den SoundEffect-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SoundEffectInstance-Klasse implementiert die Instanzklasse für den SoundEffect-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines SoundEffect-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Fade"><linktext>mx.effects.Fade</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SoundEffectInstance:SoundEffectInstance"><apiName>SoundEffectInstance</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SoundEffectInstance:bufferTime"><apiName>bufferTime</apiName><shortdesc> 
+      Die SoundEffect-Klasse verwendet ein internes Sound-Objekt zum Steuern der MP3-Datei.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1000</apiData><apiType value="Number"/><apiDefaultValue>1000
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Die SoundEffect-Klasse verwendt ein internes Sound-Objekt zum Steuern der MP3-Datei. Diese Eigenschaft gibt an, wie viele Millisekunden Sounddaten im Puffer des Sound-Objekts mindestens enthalten sein müssen. Beim Starten und Fortsetzen der Wiedergabe nach einem Netzwerkabsturz wartet das Sound-Objekt mit der Wiedergabe, bis es mindestens so viele Daten erhalten hat.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:loops"><apiName>loops</apiName><shortdesc>
+      Anzahl der Wiedergaben in einer Sound-Schleife. Beim Wert 0 wird der Effekt ein einziges Mal wiedergegeben, beim Wert 1 zwei Male usw. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Anzahl der Wiedergaben in einer Sound-Schleife. Beim Wert 0 wird der Effekt ein einziges Mal wiedergegeben, beim Wert 1 zwei Male usw. Soll die MP3-Datei wiederholt werden, dann wird die Wiedergabezeit durch die <codeph>useDuration</codeph>-Eigenschaft bestimmt.
+     
+      <p>Die <codeph>duration</codeph>-Eigenschaft hat Vorrang vor dieser Eigenschaft. Wenn die Effektdauer nicht lang genug ist, um den Sound mindestens ein Mal ganz wiederzugeben, durchläuft der Sound keine Schleife.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panEasingFunction"><apiName>panEasingFunction</apiName><shortdesc>
+      Die Beschleunigungsfunktion für den Richtungseffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Die Beschleunigungsfunktion für den Richtungseffekt. Mit dieser Funktion können Sie zwischen den Werten von <codeph>panFrom</codeph> und <codeph>panTo</codeph> interpolieren.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panFrom"><apiName>panFrom</apiName><shortdesc>
+      Richtungseinstellung des Sound-Objekts am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Richtungseinstellung des Sound-Objekts am Anfang. Der Wert kann zwischen -1,0 und 1,0 liegen. Bei -1,0 wird nur der linke Kanal und bei 1,0 nur der rechte Kanal verwendet. Bei 0,0 wird der Sound gleichmäßig über beide Kanäle übertragen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panTo"><apiName>panTo</apiName><shortdesc>
+      Richtungseinstellung des Sound-Objekts am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Richtungseinstellung des Sound-Objekts am Ende. Der Wert kann zwischen -1,0 und 1,0 liegen. Bei -1,0 wird nur der linke Kanal und bei 1,0 nur der rechte Kanal verwendet. Bei 0,0 wird der Sound gleichmäßig über beide Kanäle übertragen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:sound"><apiName>sound</apiName><shortdesc> 
+      Verweis auf das interne Soundobjekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.media:Sound"/></apiValueDef><apiDesc> 
+      Verweis auf das interne Soundobjekt. Der Soundeffekt verwendet diese Instanz zur Wiedergabe der MP3-Datei.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:startTime"><apiName>startTime</apiName><shortdesc> 
+      Die Anfangsposition in der MP3-Datei in Millisekunden, an der die Wiedergabe beginnen soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Die Anfangsposition in der MP3-Datei in Millisekunden, an der die Wiedergabe beginnen soll.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:useDuration"><apiName>useDuration</apiName><shortdesc>
+      Bei „true“ wird der Effekt nach der durch die duration-Eigenschaft angegebenen Zeit beendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Bei <codeph>true</codeph> wird der Effekt nach der durch die <codeph>duration</codeph>-Eigenschaft angegebenen Zeit beendet. Bei <codeph>false</codeph> endet der Effekt am Ende der MP3 oder der Schleife.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeEasingFunction"><apiName>volumeEasingFunction</apiName><shortdesc>
+      Die Beschleunigungsfunktion für den Lautstärkeeffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Die Beschleunigungsfunktion für den Lautstärkeeffekt. Mit dieser Funktion können Sie zwischen den Werten von <codeph>volumeFrom</codeph> und <codeph>volumeTo</codeph>interpolieren.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeFrom"><apiName>volumeFrom</apiName><shortdesc>
+      Lautstärke des Sound-Objekts am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Lautstärke des Sound-Objekts am Anfang. Die Werte können zwischen 0,0 und 1,0 liegen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeTo"><apiName>volumeTo</apiName><shortdesc>
+      Lautstärke des Sound-Objekts am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Lautstärke des Sound-Objekts am Ende. Die Werte können zwischen 0,0 und 1,0 liegen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:isLoading:get"><apiName>isLoading</apiName><shortdesc>
+      Diese Eigenschaft hat den Wert „true“, wenn die MP3 geladen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Diese Eigenschaft hat den Wert <codeph>true</codeph>, wenn die MP3 geladen wurde. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:soundChannel:get"><apiName>soundChannel</apiName><shortdesc>
+      Das SoundChannel-Objekt, in das die MP3-Datei geladen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.media:SoundChannel"/></apiValueDef><apiDesc>
+      Das SoundChannel-Objekt, in das die MP3-Datei geladen wurde. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:source:get"><apiName>source</apiName><shortdesc>
+      Die URL oder Klasse der MP3-Datei, die wiedergegeben werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Die URL oder Klasse der MP3-Datei, die wiedergegeben werden soll. Wenn Sie die MP3-Datei bereits eingebettet haben, können Sie mit dem <codeph>Embed</codeph>-Schlüsselwort das Class-Objekt der MP3-Datei an die <codeph>source</codeph>-Eigenschaft übergeben. Geben Sie andernfalls die vollständige URL der MP3-Datei an.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:ActionEffectInstance"><apiName>ActionEffectInstance</apiName><shortdesc>
+  Die ActionEffectInstance-Klasse ist die Superklasse für alle Aktionseffekt-Instanzklassen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ActionEffectInstance-Klasse ist die Superklasse für alle Aktionseffekt-Instanzklassen.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:ActionEffectInstance:ActionEffectInstance"><apiName>ActionEffectInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:ActionEffectInstance:protected:getStartValue"><apiName>getStartValue</apiName><shortdesc>
+	  Gibt den von der saveStartValue()-Methode gespeicherten Wert für den Anfangsstatus zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Gibt den Wert für den Anfangsstatus zurück.
+	  
+	  </apiDesc><apiType value="any"/></apiReturn></apiOperationDef><apiDesc>
+	  Gibt den von der <codeph>saveStartValue()</codeph>-Methode gespeicherten Wert für den Anfangsstatus zurück.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:ActionEffectInstance:protected:saveStartValue"><apiName>saveStartValue</apiName><shortdesc>
+	  Unterklassen implementieren diese Methode zum Speichern des Anfangsstatus vor der Wiedergabe des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Gibt den Wert für den Anfangsstatus zurück.
+	  
+	  </apiDesc><apiType value="any"/></apiReturn></apiOperationDef><apiDesc>
+	  Unterklassen implementieren diese Methode zum Speichern des Anfangsstatus vor der Wiedergabe des Effekts.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:ActionEffectInstance:protected:playedAction"><apiName>playedAction</apiName><shortdesc>
+	  Gibt an, ob der Effekt wiedergegeben wurde („true“) oder nicht („false“).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Gibt an, ob der Effekt wiedergegeben wurde (<codeph>true</codeph>) oder nicht (<codeph>false</codeph>). 
+	 
+	  <p>Die <codeph>play()</codeph>-Methode setzt diese Eigenschaft auf <codeph>true</codeph>, nachdem der Effekt wiedergegeben wurde. Sie stellen sie nicht selbst ein.</p> 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SetStyleActionInstance"><apiName>SetStyleActionInstance</apiName><shortdesc>
+  Die SetStyleActionInstance-Klasse implementiert die Instanzklasse für den SetStyleAction-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SetStyleActionInstance-Klasse implementiert die Instanzklasse für den SetStyleAction-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines SetStyleAction-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SetStyleActionInstance:SetStyleActionInstance"><apiName>SetStyleActionInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SetStyleActionInstance:name"><apiName>name</apiName><shortdesc> 
+	  Der Name der geänderten Stileigenschaft.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  Der Name der geänderten Stileigenschaft.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SetStyleActionInstance:value:get"><apiName>value</apiName><shortdesc> 
+	  Der neue Wert der Eigenschaft. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc> 
+	  Der neue Wert der Eigenschaft. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AnimatePropertyInstance"><apiName>AnimatePropertyInstance</apiName><shortdesc>
+  Die AnimatePropertyInstance-Klasse implementiert die Instanzklasse für den AnimateProperty-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die AnimatePropertyInstance-Klasse implementiert die Instanzklasse für den AnimateProperty-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines AnimateProperty-Effekts. Sie selbst erstellen sie nicht.
+ 
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den AnimateProperty-Effekt enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft einen Wert zwischen den Werten der <codeph>AnimateProperty.fromValue</codeph>- und <codeph>AnimateProperty.toValue</codeph>-Eigenschaft für die Zieleigenschaft, die durch <codeph>AnimateProperty.property</codeph> angegeben wird.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AnimateProperty"><linktext>mx.effects.AnimateProperty</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AnimatePropertyInstance:AnimatePropertyInstance"><apiName>AnimatePropertyInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:fromValue"><apiName>fromValue</apiName><shortdesc>
+	  Der Anfangswert der Eigenschaft für den Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Der Anfangswert der Eigenschaft für den Effekt. Der Standardwert ist der aktuelle Eigenschaftswert des Ziels.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:isStyle"><apiName>isStyle</apiName><shortdesc>
+	  Bei „true“ ist das Eigenschaftsattribut ein Stil und Sie stellen es mit der setStyle()-Methode ein.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Bei <codeph>true</codeph> ist das Eigenschaftsattribut ein Stil und Sie stellen es mit der <codeph>setStyle()</codeph>-Methode ein. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:property"><apiName>property</apiName><shortdesc>
+	  Der Name der Eigenschaft auf dem zu animierenden Ziel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  Der Name der Eigenschaft auf dem zu animierenden Ziel. Dieses Attribut ist erforderlich.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:roundValue"><apiName>roundValue</apiName><shortdesc>
+	  Bei „true“ wird der interpolierte Tween-Wert auf die nächste Ganzzahl gerundet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Bei <codeph>true</codeph> wird der interpolierte Tween-Wert auf die nächste Ganzzahl gerundet. Diese Eigenschaft ist nützlich, wenn die animierte Eigenschaft eine Ganzzahl mit oder ohne Vorzeichen ist.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:toValue"><apiName>toValue</apiName><shortdesc>
+	  Der Endwert des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Der Endwert des Effekts. Der Standardwert ist der aktuelle Eigenschaftswert des Ziels.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+  Die FadeInstance-Klasse implementiert die Instanzklasse für den Effekt „Ein-und ausblenden“.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die FadeInstance-Klasse implementiert die Instanzklasse für den Effekt „Ein-und ausblenden“. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe des Effekts „Ein-und ausblenden“. Sie selbst erstellen sie nicht.
+ 
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den Effekt „Ein-und ausblenden“ enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft eine Zahl zwischen den Werten der <codeph>Fade.alphaFrom</codeph>- und der <codeph>Fade.alphaTo</codeph>-Eigenschaft.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Fade"><linktext>mx.effects.Fade</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:FadeInstance:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:FadeInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  Die Transparenzstufe am Anfang kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Die Transparenzstufe am Anfang kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:FadeInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  Die Transparenzstufe am Ende kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Die Transparenzstufe am Ende kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:ParallelInstance"><apiName>ParallelInstance</apiName><shortdesc>
+  Die ParallelInstance-Klasse implementiert die Instanzklasse für den Paralleleffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:CompositeEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ParallelInstance-Klasse implementiert die Instanzklasse für den Paralleleffekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Paralleleffekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Parallel"><linktext>mx.effects.Parallel</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ParallelInstance:ParallelInstance"><apiName>ParallelInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Dieses Argument wird für Paralleleffekte ignoriert. Es wird nur zur Sicherstellung der Einheitlichkeit bei anderen Effekten eingeschlossen.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:ParallelInstance:end"><apiName>end</apiName><shortdesc>
+	  Unterbricht jeden aktuell wiedergegebenen Effekt, lässt alle Effekte aus, deren Wiedergabe noch nicht gestartet wurde, und springt sofort zum Ende des Composite-Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Unterbricht jeden aktuell wiedergegebenen Effekt, lässt alle Effekte aus, deren Wiedergabe noch nicht gestartet wurde, und springt sofort zum Ende des Composite-Effekts.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:ParallelInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+	  Sobald ein untergeordneter Effekt der SequenceInstance oder ParallelInstance abgeschlossen ist, ruft Flex die onEffectEnd()-Methode auf.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>Ein untergeordneter Effekt, der beendet wurde. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Sobald ein untergeordneter Effekt der SequenceInstance oder ParallelInstance abgeschlossen ist, ruft Flex die <codeph>onEffectEnd()</codeph>-Methode auf. Für SequenceInstance wird der nächste Effekt wiedergegeben. In ParallelInstance werden die Effekte verfolgt, bis alle wiedergegeben wurden. Wenn Sie eine Unterklasse von CompositeEffect erstellen, müssen Sie diese Methode implementieren.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:ParallelInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+     
+      Aktuelle Zeitposition des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     
+      Aktuelle Zeitposition des Effekts. Der Wert dieser Eigenschaft liegt zwischen 0 und der Gesamtdauer, die <codeph>startDelay</codeph>, <codeph>repeatCount</codeph> und <codeph>repeatDelay</codeph> einschließt.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SequenceInstance"><apiName>SequenceInstance</apiName><shortdesc>
+  Die SequenceInstance-Klasse implementiert die Instanzklasse für den Sequenzeffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:CompositeEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SequenceInstance-Klasse implementiert die Instanzklasse für den Sequenzeffekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Sequenzeffekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Sequence"><linktext>mx.effects.Sequence</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SequenceInstance:SequenceInstance"><apiName>SequenceInstance</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Dieses Argument wird für Sequenzeffekte ignoriert: Es wird nur zur Sicherstellung der Einheitlichkeit bei anderen Effekten eingeschlossen.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:SequenceInstance:end"><apiName>end</apiName><shortdesc>
+      Unterbricht jeden aktuell wiedergegebenen Effekt, lässt alle Effekte aus, deren Wiedergabe noch nicht gestartet wurde, und springt sofort zum Ende des Composite-Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Unterbricht jeden aktuell wiedergegebenen Effekt, lässt alle Effekte aus, deren Wiedergabe noch nicht gestartet wurde, und springt sofort zum Ende des Composite-Effekts.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:SequenceInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+     Sobald ein untergeordneter Effekt der SequenceInstance endet, ruft Flex die onEffectEnd()-Methode auf.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>Der untergeordnete Effekt.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Sobald ein untergeordneter Effekt der SequenceInstance endet, ruft Flex die <codeph>onEffectEnd()</codeph>-Methode auf. Für SequenceInstance wird der nächste Effekt wiedergegeben. Diese Methode implementiert die Methoden der Superklasse.
+    
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:SequenceInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+     
+      Aktuelle Zeitposition des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     
+      Aktuelle Zeitposition des Effekts. Der Wert dieser Eigenschaft liegt zwischen 0 und der Gesamtdauer, die <codeph>startDelay</codeph>, <codeph>repeatCount</codeph> und <codeph>repeatDelay</codeph> einschließt.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:MoveInstance"><apiName>MoveInstance</apiName><shortdesc>
+  Die MoveInstance-Klasse implementiert die Instanzklasse für den Verschieben-Effekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die MoveInstance-Klasse implementiert die Instanzklasse für den Verschieben-Effekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Verschieben-Effekts. Sie selbst erstellen sie nicht.
+  
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den Verschieben-Effekt enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft ein Array mit zwei Elementen, wobei Folgendes gilt: </p>
+  <ul>
+    <li>value[0]:Number Ein Wert zwischen den Werten der <codeph>Move.xFrom</codeph>- und der <codeph>Move.xTo</codeph>-Eigenschaft.</li>
+  
+    <li>value[1]:Number Ein Wert zwischen den Werten der <codeph>Move.yFrom</codeph>- und <codeph>Move.yTo</codeph>-Eigenschaft.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Move"><linktext>mx.effects.Move</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:MoveInstance:MoveInstance"><apiName>MoveInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:MoveInstance:xBy"><apiName>xBy</apiName><shortdesc> 
+	  Anzahl der Pixel zum Verschieben der Komponenten entlang der x-Achse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anzahl der Pixel zum Verschieben der Komponenten entlang der x-Achse. Werte können negativ sein. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:xFrom"><apiName>xFrom</apiName><shortdesc> 
+	  x-Koordinate der Anfangsposition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  x-Koordinate der Anfangsposition.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:xTo"><apiName>xTo</apiName><shortdesc> 
+	  x-Koordinate der Zielposition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  x-Koordinate der Zielposition.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yBy"><apiName>yBy</apiName><shortdesc> 
+	  Anzahl der Pixel zum Verschieben der Komponenten entlang der y-Achse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Anzahl der Pixel zum Verschieben der Komponenten entlang der y-Achse. Werte können negativ sein. 	
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yFrom"><apiName>yFrom</apiName><shortdesc>
+	  y-Koordinate der Anfangsposition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  y-Koordinate der Anfangsposition.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yTo"><apiName>yTo</apiName><shortdesc> 
+	  y-Koordinate der Zielposition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  y-Koordinate der Zielposition.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:RotateInstance"><apiName>RotateInstance</apiName><shortdesc>
+  Die RotateInstance-Klasse implementiert die Instanzklasse für den Dreheffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die RotateInstance-Klasse implementiert die Instanzklasse für den Dreheffekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Dreheffekts. Sie selbst erstellen sie nicht.
+  
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den Dreheffekt enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft eine Zahl zwischen den Werten der <codeph>Rotate.angleFrom</codeph>- und <codeph>Rotate.angleTo</codeph>-Eigenschaft.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Rotate"><linktext>mx.effects.Rotate</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RotateInstance:RotateInstance"><apiName>RotateInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:RotateInstance:angleFrom"><apiName>angleFrom</apiName><shortdesc> 
+	  Der Anfangswinkel für die Drehung des Zielobjekts in Grad.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Der Anfangswinkel für die Drehung des Zielobjekts in Grad. Der gültige Wertebereich ist: 0 bis 360.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:angleTo"><apiName>angleTo</apiName><shortdesc> 
+	  Der Endwinkel für die Drehung des Zielobjekts in Grad.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>360</apiData><apiType value="Number"/><apiDefaultValue>360
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  Der Endwinkel für die Drehung des Zielobjekts in Grad. Die Werte können positiv oder negativ sein.
+	 
+	  <p>Ist der Wert von <codeph>angleTo</codeph> niedriger als der Wert von <codeph>angleFrom</codeph>, wird das Ziel gegen den Uhrzeigersinn gedreht. Andernfalls wird es im Uhrzeigersinn gedreht. Wenn Sie das Ziel mehrmals drehen möchten, setzen Sie diesen Wert auf einen hohen positiven oder kleinen negativen Wert.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:originX"><apiName>originX</apiName><shortdesc>
+	  Die x-Position des Mittelpunkts für die Drehung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Die x-Position des Mittelpunkts für die Drehung. Das Ziel dreht sich um diesen Punkt. Die gültigen Werte liegen zwischen 0 und der Breite des Ziels.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:originY"><apiName>originY</apiName><shortdesc>
+	  Die y-Position des Mittelpunkts für die Drehung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Die y-Position des Mittelpunkts für die Drehung. Das Ziel dreht sich um diesen Punkt. Die gültigen Werte liegen zwischen 0 und der Höhe des Ziels.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:DissolveInstance"><apiName>DissolveInstance</apiName><shortdesc>
+  Die DissolveInstance-Klasse implementiert die Instanzklasse für den Auflösungseffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DissolveInstance-Klasse implementiert die Instanzklasse für den Auflösungseffekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Auflösungseffekts. Sie selbst erstellen sie nicht.
+  
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den Auflösungseffekt enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft eine Zahl zwischen den Werten der <codeph>Dissolve.alphaFrom</codeph>- und der <codeph>Dissolve.alphaTo</codeph>-Eigenschaft.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Dissolve"><linktext>mx.effects.Dissolve</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:DissolveInstance:DissolveInstance"><apiName>DissolveInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:DissolveInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  Die Transparenzstufe am Anfang kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Die Transparenzstufe am Anfang kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht. 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  Die Transparenzstufe am Ende kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Die Transparenzstufe am Ende kann zwischen 0,0 und 1,0 liegen, wobei 0,0 vollständig transparent und 1,0 vollständig undurchsichtig entspricht.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:color"><apiName>color</apiName><shortdesc> 
+	  Hex-Wert für die Farbe des eingeblendeten Rechtecks, das der Effekt über dem Zielobjekt anzeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0xFFFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc> 
+	  Hex-Wert für die Farbe des eingeblendeten Rechtecks, das der Effekt über dem Zielobjekt anzeigt. Der Standardwert ist die durch die <codeph>backgroundColor</codeph>-Stileigenschaft der Zielkomponente angegebene Farbe oder 0xFFFFFF, wenn <codeph>backgroundColor</codeph> nicht eingestellt ist.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:targetArea"><apiName>targetArea</apiName><shortdesc>
+	  Der Bereich des Ziels zur Wiedergabe des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+	  Der Bereich des Ziels zur Wiedergabe des Effekts. Die Auflösungsüberlagerung wird mit den Abmessungen dieser Eigenschaft gezeichnet. UIComponents erstellen eine Überlagerung über der gesamten Komponente. Container erstellen eine Überlagerung über ihrem Inhaltsbereich, nicht jedoch dem Chrom. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddRemoveEffectTargetFilter"><apiName>AddRemoveEffectTargetFilter</apiName><shortdesc>
+  AddRemoveEffectTargetFilter ist eine Unterklasse von EffectTargetFilter, welche die Logik zum Filtern von Zielen verarbeitet, die als untergeordnete Elemente einem Container hinzugefügt oder daraus entfernt wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectTargetFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddRemoveEffectTargetFilter ist eine Unterklasse von EffectTargetFilter, welche die Logik zum Filtern von Zielen verarbeitet, die als untergeordnete Elemente einem Container hinzugefügt oder daraus entfernt wurden. Wenn Sie die Effect.filter-Eigenschaft auf „add“ oder „remove“ setzen, wird eine dieser Einstellungen verwendet. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:AddRemoveEffectTargetFilter:AddRemoveEffectTargetFilter"><apiName>AddRemoveEffectTargetFilter</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AddRemoveEffectTargetFilter:add"><apiName>add</apiName><shortdesc>
+	  Bestimmt, ob es sich um einen Filter zum Hinzufügen oder Entfernen handelt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Bestimmt, ob es sich um einen Filter zum Hinzufügen oder Entfernen handelt.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:BlurInstance"><apiName>BlurInstance</apiName><shortdesc>
+  Die BlurInstance-Klasse implementiert die Instanzklasse für den Weichzeichnungseffekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die BlurInstance-Klasse implementiert die Instanzklasse für den Weichzeichnungseffekt. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Weichzeichnungseffekts. Sie selbst erstellen sie nicht.
+ 
+  <p>Jede Effektklasse, die eine Unterklasse der TweenEffect-Klasse ist, unterstützt folgende Ereignisse:</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>: Wird ausgelöst, wenn der Tweeneffekt endet. </li>
+  
+    <li><codeph>tweenUpdate</codeph>: Wird jedes Mal ausgelöst, wenn eine TweenEffect-Klasse einen neuen Wert berechnet.</li> 
+  </ul>
+  
+  <p>Das Ereignisobjekt, das für diese Ereignisse an den Ereignis-Listener übergeben wird, hat den Typ TweenEvent. Die TweenEvent-Klasse definiert die <codeph>value</codeph>-Eigenschaft, die den durch den Effekt berechneten Tween-Wert enthält. Für den Weichzeichnungseffekt enthält die <codeph>TweenEvent.value</codeph>-Eigenschaft ein Array mit zwei Elementen, wobei Folgendes gilt: </p>
+  <ul>
+    <li>value[0]:Number Ein Wert zwischen den Werten der <codeph>Blur.blurXTo</codeph>- und der <codeph>Blur.blurXFrom</codeph>-Eigenschaft, der auf die <codeph>BlurFilter.blurX</codeph>-Eigenschaft des Ziels angewendet wird.</li> 
+  
+    <li>value[1]:Number Ein Wert zwischen den Werten der <codeph>Blur.blurYTo</codeph>- und <codeph>Blur.blurYFrom</codeph>-Eigenschaft, der auf die <codeph>BlurFilter.blurY</codeph>-Eigenschaft des Ziels angewendet wird.</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Blur"><linktext>mx.effects.Blur</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:BlurInstance:BlurInstance"><apiName>BlurInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:BlurInstance:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  Der Grad der horizontalen Weichzeichnung am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Der Grad der horizontalen Weichzeichnung am Anfang.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  Der Grad der horizontalen Weichzeichnung am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Der Grad der horizontalen Weichzeichnung am Ende.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  Der Grad der vertikalen Weichzeichnung am Anfang.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Der Grad der vertikalen Weichzeichnung am Anfang.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  Der Grad der vertikalen Weichzeichnung am Ende.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  Der Grad der vertikalen Weichzeichnung am Ende.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:CompositeEffectInstance"><apiName>CompositeEffectInstance</apiName><shortdesc>
+  Die CompositeEffectInstance-Klasse implementiert die Instanzklasse für die CompositeEffect-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die CompositeEffectInstance-Klasse implementiert die Instanzklasse für die CompositeEffect-Klasse. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Composite-Effekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#CompositeEffect"><linktext>mx.effects.CompositeEffect</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:CompositeEffectInstance:CompositeEffectInstance"><apiName>CompositeEffectInstance</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Dieses Argument wird für Composite-Effekte ignoriert. Es wird nur zur Sicherstellung der Einheitlichkeit bei anderen Effekten eingeschlossen.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.  
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:CompositeEffectInstance:addChildSet"><apiName>addChildSet</apiName><shortdesc>
+      Fügt einen neuen Satz untergeordneter Effekte diesem Composite-Effekt hinzu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childSet</apiItemName><apiType value="Array"/><apiDesc>Array von untergeordneten Effekten, die dem Composite-Effekt hinzugefügt werden.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Fügt einen neuen Satz untergeordneter Effekte diesem Composite-Effekt hinzu. Die untergeordneten Effekte eines Sequenzeffekts werden nacheinander in der Reihenfolge wiedergegeben, in der sie hinzugefügt wurden. Die untergeordneten Effekte eines Paralleleffekts werden gleichzeitig wiedergegeben. Die Reihenfolge, in der sie hinzugefügt wurden, ist nicht von Bedeutung.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:CompositeEffectInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+      Wird aufgerufen, sobald die Wiedergabe eines untergeordneten Effekts abgeschlossen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>Untergeordneter Effekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wird aufgerufen, sobald die Wiedergabe eines untergeordneten Effekts abgeschlossen ist. Unterklassen müssen diese Funktion implementieren.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:CompositeEffectInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+      Aktuelle Zeitposition des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Aktuelle Zeitposition des Effekts. Der Wert dieser Eigenschaft liegt zwischen 0 und der Gesamtdauer, die <codeph>startDelay</codeph>, <codeph>repeatCount</codeph> und <codeph>repeatDelay</codeph> einschließt.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:TweenEffectInstance"><apiName>TweenEffectInstance</apiName><shortdesc>
+ 
+  Die TweenEffectInstance-Klasse implementiert die Instanzklasse für den TweenEffect.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+  Die TweenEffectInstance-Klasse implementiert die Instanzklasse für den TweenEffect. Flex erstellt eine Instanz dieser Klasse bei der Wiedergabe eines Tweeneffekts. Sie selbst erstellen sie nicht.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Tween"><linktext>mx.effects.Tween</linktext></link><link href="mx.effects.xml#TweenEffect"><linktext>mx.effects.TweenEffect</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:TweenEffectInstance:TweenEffectInstance"><apiName>TweenEffectInstance</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das mit diesem Effekt animiert wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:protected:createTween"><apiName>createTween</apiName><shortdesc>
+	  Erstellt eine Tweeninstanz und weist ihr die Werte für den Anfang, das Ende und die Dauer zu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die neu erstellte Tweeninstanz.
+	  
+	  </apiDesc><apiOperationClassifier>mx.effects:Tween</apiOperationClassifier></apiReturn><apiParam><apiItemName>listener</apiItemName><apiType value="Object"/><apiDesc>Objekt, das bei jedem Intervall der Animation benachrichtigt wird. Normalerweise übergeben Sie das <codeph>this</codeph>-Schlüsselwort als Wert. Der <codeph>listener</codeph> muss die <codeph>onTweenUpdate()</codeph>-Methode und optional die <codeph>onTweenEnd()</codeph>-Methode definieren. Die erste <codeph>onTweenUpdate()</codeph>-Methode wird für jedes Intervall der Animation und die zweite <codeph>onTweenEnd()</codeph>-Methode nur nach Beendigung der Animation aufgerufen.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>Wert(e) am Anfang der Animation. Entweder eine Zahl oder ein Array von Zahlen. Bei Übergabe einer Zahl interpoliert Tween zwischen dieser und der im <codeph>endValue</codeph>-Parameter übergebenen Zahl. Bei Übergabe von einem Array von Zahlen ist jede Zahl im Array interpoliert.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>Wert(e) am Ende der Animation. Der Typ dieses Arguments muss dem <codeph>startValue</codeph>-Parameter entsprechen.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>duration</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>Dauer der Animation in Millisekunden.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>minFps</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>Gibt an, wie oft die <codeph>onTweenUpdate()</codeph>-Methode pro Sekunde mindestens aufgerufen werden muss. Der Tweencode versucht, die <codeph>onTweenUpdate()</codeph>-Methode so oft wie möglich (bis zu 100 Mal pro Sekunde) aufzurufen. Wenn die Häufigkeit jedoch unter <codeph>minFps</codeph> sinkt, wird die Animation automatisch verlängert. Wenn eine Animation also an einer bestimmten Stelle vorübergehend zum Stillstand kommt (da nicht genügend CPU-Zyklen zur Verfügung stehen), wird sie an dieser Stelle fortgesetzt und plötzliche Sprünge werden vermieden. 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Erstellt eine Tweeninstanz und weist ihr die Werte für den Anfang, das Ende und die Dauer zu. Wenn eine Beschleunigungsfunktion angegeben wurde, wird sie der Tweeninstanz zugewiesen. Die Tweeninstanz wird Ereignis-Listenern für die Tween-Ereignisse <codeph>tweenStart</codeph>, <codeph>tweenUpdate</codeph> und <codeph>tweenEnd</codeph> zugewiesen. Normalerweise rufen Sie diese Methode von Ihrer Überschreibung der <codeph>EffectInstance.play()</codeph>-Methode aus auf, die den Animationstimer startet. 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:end"><apiName>end</apiName><shortdesc>
+	  Unterbricht einen aktuell wiedergegebenen Effekt und springt sofort zum Ende des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Unterbricht einen aktuell wiedergegebenen Effekt und springt sofort zum Ende des Effekts. Ruft die <codeph>Tween.endTween()</codeph>-Methode auf der <codeph>tween</codeph>-Eigenschaft auf. Diese Methode implementiert die Methoden der Superklasse. 
+	 
+	  <p>Wenn Sie eine Unterklasse der TweenEffectInstance erstellen, können Sie diese Methode optional überschreiben.</p>
+     
+	  <p>Der Effekt löst das <codeph>effectEnd</codeph>-Ereignis aus.</p>
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.effects.xml#EffectInstance/end()"><linktext>mx.effects.EffectInstance.end()</linktext></link></related-links></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:onTweenEnd"><apiName>onTweenEnd</apiName><shortdesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn das Ziel durch den Effekt ein letztes Mal aktualisiert werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Der Wert des <codeph>value</codeph>-Arguments ist ein interpolierter Wert, der durch die <codeph>Tween.startValue</codeph>-Eigenschaft, die <codeph>Tween.endValue</codeph>-Eigenschaft und die Interpolationsfunktion bestimmt wird, die von der Implementierung des Effekts in dessen <codeph>play()</codeph>-Methode angegeben wird. Die <codeph>play()</codeph>-Methode verwendet diese Werte zum Erstellen eines Tweenobjekts, das den Effekt für einen bestimmten Zeitraum wiedergibt. Das <codeph>value</codeph>-Argument kann entweder eine Zahl oder ein Array von Zahlen sein. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn das Ziel durch den Effekt ein letztes Mal aktualisiert werden soll. Die Tween-Klasse übergibt <codeph>Tween.endValue</codeph> als Wert des <codeph>value</codeph>-Arguments. Das <codeph>value</codeph>-Argument kann entweder eine Zahl oder ein Array von Zahlen sein. 
+	 
+	  <p>Das Überschreiben dieser Funktion ist optional. Sie müssen außerdem die übergeordnete Version dieser Methode am Ende der Überschreibung, <codeph>super.onTweenEnd(val)</codeph>, nach der Logik aufrufen.</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:onTweenUpdate"><apiName>onTweenUpdate</apiName><shortdesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn das Ziel durch den Effekt aktualisiert werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Der Wert des <codeph>value</codeph>-Arguments ist ein interpolierter Wert, der durch die <codeph>Tween.startValue</codeph>-Eigenschaft, die <codeph>Tween.endValue</codeph>-Eigenschaft und die Interpolationsfunktion bestimmt wird, die von der Implementierung des Effekts in dessen <codeph>play()</codeph>-Methode angegeben wird. Die <codeph>play()</codeph>-Methode verwendet diese Werte zum Erstellen eines Tweenobjekts, das den Effekt für einen bestimmten Zeitraum wiedergibt. Das <codeph>value</codeph>-Argument kann entweder eine Zahl oder ein Array von Zahlen sein. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Rückrufmethode, die aufgerufen wird, wenn das Ziel durch den Effekt aktualisiert werden soll. Die Tween-Klasse verwendet die Beschleunigungsfunktion und die <codeph>Tween.startValue</codeph>-, <codeph>Tween.endValue</codeph>- und <codeph>Tween.duration</codeph>-Eigenschaft, um den Wert des <codeph>value</codeph>-Arguments zu berechnen. Das <codeph>value</codeph>-Argument kann entweder eine Zahl oder ein Array von Zahlen sein. 
+	 
+	  <p>Alle Unterklassen müssen diese Methode überschreiben. Es ist nicht unbedingt erforderlich, beim Überschreiben dieser Methode die übergeordnete Version dieser Funktion aufzurufen.</p>
+	 
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:TweenEffectInstance:easingFunction"><apiName>easingFunction</apiName><shortdesc>
+	  Die Beschleunigungsfunktion für die Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  Die Beschleunigungsfunktion für die Animation. Standardmäßig verwenden die Effekte die gleiche Beschleunigungsfunktion wie die TweenEffect-Klasse.
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.effects.xml#TweenEffect/easingFunction"><linktext>mx.effects.TweenEffect.easingFunction</linktext></link></related-links></apiValue><apiValue id="mx.effects.effectClasses:TweenEffectInstance:tween"><apiName>tween</apiName><shortdesc>
+	  Das Tweenobjekt, das die Animation bestimmt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.effects:Tween</apiValueClassifier></apiValueDef><apiDesc>
+	  Das Tweenobjekt, das die Animation bestimmt. Um einen Effekt zu erstellen, müssen Sie eine Tweeninstanz in der Überschreibung der <codeph>EffectInstance.play()</codeph>-Methode erstellen und sie der <codeph>tween</codeph>-Eigenschaft zuweisen. Verwenden Sie die <codeph>createTween()</codeph>-Methode, um das Tweenobjekt zu erstellen.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:TweenEffectInstance:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+	  
+      Aktuelle Zeitposition des Effekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  
+      Aktuelle Zeitposition des Effekts. Der Wert dieser Eigenschaft liegt zwischen 0 und der Gesamtdauer, die <codeph>startDelay</codeph>, <codeph>repeatCount</codeph> und <codeph>repeatDelay</codeph> einschließt.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:HideShowEffectTargetFilter"><apiName>HideShowEffectTargetFilter</apiName><shortdesc>
+  HideShowEffectTargetFilter ist eine Unterklasse von EffectTargetFilter, welche die Logik zum Filtern von Zielen verarbeitet, die abhängig von der visible-Eigenschaft ein- oder ausgeblendet sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectTargetFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HideShowEffectTargetFilter ist eine Unterklasse von EffectTargetFilter, welche die Logik zum Filtern von Zielen verarbeitet, die abhängig von der <codeph>visible</codeph>-Eigenschaft ein- oder ausgeblendet sind. Wenn Sie die Effect.filter-Eigenschaft auf <codeph>hide</codeph> oder <codeph>show</codeph> setzen, wird eine dieser Einstellungen verwendet.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:HideShowEffectTargetFilter:HideShowEffectTargetFilter"><apiName>HideShowEffectTargetFilter</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:HideShowEffectTargetFilter:show"><apiName>show</apiName><shortdesc>
+	  Bestimmt, ob es sich um einen Filter zum Einblenden oder Ausblenden handelt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Bestimmt, ob es sich um einen Filter zum Einblenden oder Ausblenden handelt.
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

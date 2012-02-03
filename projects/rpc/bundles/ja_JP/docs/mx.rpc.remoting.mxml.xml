@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.remoting.mxml"><apiName>mx.rpc.remoting.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.remoting.mxml:Operation"><apiName>Operation</apiName><shortdesc>
+ MXML ドキュメントで作成された RemoteObject に使用する Operation です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseClassifier>mx.rpc.remoting:Operation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MXML ドキュメントで作成された RemoteObject に使用する Operation です。
+  
+  </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="mx.rpc.remoting.mxml:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+  &amp;lt;mx:RemoteObject&amp;gt; タグは、MXML ファイル内で HTTPService オブジェクトを表すために使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>
+ The &lt;mx:RemoteObject&gt; tag accepts the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:RemoteObject
+  <b>Properties</b>
+  concurrency="multiple|single|last"
+  destination="<i>No default.</i>"
+  id="<i>No default.</i>"
+  endpoint="<i>No default.</i>"
+  showBusyCursor="false|true"
+  source="<i>No default.</i>" (currently, Adobe ColdFusion only)
+  makeObjectsBindable="false|true"
+  
+  <b>Events</b>
+  fault="<i>No default.</i>"
+  result="<i>No default.</i>"  
+ /&gt;
+ </pre>
+ </p>
+ 
+ <p>
+ &lt;mx:RemoteObject&gt; can have multiple &lt;mx:method&gt; tags, which have the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:method
+  <b>Properties</b>
+  concurrency="multiple|single|last"
+  name="<i>No default, required.</i>"
+  makeObjectsBindable="false|true"
+         
+ <b>Events</b>
+  fault="<i>No default.</i>"
+  result="<i>No default.</i>"
+ /&gt;
+ </pre>
+ <p>
+ It then can have a single &lt;mx:arguments&gt; child tag which is an array of objects that is passed
+ in order.
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.remoting:RemoteObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+  &lt;mx:RemoteObject> タグは、MXML ファイル内で HTTPService オブジェクトを表すために使用します。このタグを使用すると、Action Message Format（AMF）エンコーディングを使用する Java オブジェクトのメソッドにアクセスできます。
+
+ </apiDesc><example conref="RemoteObjectExample.mxml"/></apiClassifierDetail><apiConstructor id="mx.rpc.remoting.mxml:RemoteObject:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+     新しい RemoteObject を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>RemoteObject の宛先。services-config.xml ファイル内の宛先名と一致する必要があります。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい RemoteObject を作成します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.remoting.mxml:RemoteObject:getOperation"><apiName>getOperation</apiName><shortdesc>
+     指定された名前の Operation を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この名前に対して実行される Operation です。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Operation の名前です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定された名前の Operation を返します。Operation が事前に作成されなかった場合、新しい <codeph>mx.rpc.remoting.mxml.Operation</codeph> がこの呼び出し中に作成されます。 Operation は通常、その名前をサービス変数（<codeph>myService.someOperation</codeph>）の後に指定するだけでアクセスすることができますが、Operation 名がサービスに対して定義されているメソッドと一致している場合（例えば <codeph>setCredentials</codeph>）、代わりにこのメソッドを使って Operation を取得することができます。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting.mxml:RemoteObject:initialized"><apiName>initialized</apiName><shortdesc>
+     RemoteObject がタグを使用して設定されている場合、MXML コンパイラーによって自動的に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>この RemoteObject が存在する MXML ドキュメントです。
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>ドキュメント内部でのこの RemoteObject の ID です。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     RemoteObject がタグを使用して設定されている場合、MXML コンパイラーによって自動的に呼び出されます。 ActionScript によって RemoteObject を作成する場合、このメソッドはすべてのパラメーターを検証する際に役立つため、このメソッドを呼び出すことをお勧めします。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

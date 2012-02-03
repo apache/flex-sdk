@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.accessibility"><apiName>mx.accessibility</apiName><apiDetail/><apiClassifier id="mx.accessibility:ButtonAccImpl"><apiName>ButtonAccImpl</apiName><shortdesc>
+  ButtonAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Button-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Button-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ButtonAccImpl:ButtonAccImpl"><apiName>ButtonAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Button-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Button-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Button-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DateChooserAccImpl"><apiName>DateChooserAccImpl</apiName><shortdesc>
+  DateChooserAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der DateChooser-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateChooserAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der DateChooser-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DateChooserAccImpl:DateChooserAccImpl"><apiName>DateChooserAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DateChooserAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der DateChooser-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der DateChooser-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend DateChooser-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+  TabBarAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der TabBar-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TabBarAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der TabBar-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TabBarAccImpl:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TabBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der TabBar-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der TabBar-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend TabBar-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:LabelAccImpl"><apiName>LabelAccImpl</apiName><shortdesc>
+  LabelAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Label-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LabelAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Label-Klasse implementiert.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:LabelAccImpl:LabelAccImpl"><apiName>LabelAccImpl</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:LabelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Label-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Aktiviert Barrierefreiheit (Accessibility) in der Label-Klasse.
+     
+      <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Label-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+  ListBaseAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der ListBase-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListBaseAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der ListBase-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ListBaseAccImpl:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ListBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der ListBase-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der ListBase-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend ListBase-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ComboBaseAccImpl"><apiName>ComboBaseAccImpl</apiName><shortdesc>
+  ComboBaseAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der ComboBase-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBaseAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der ComboBase-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ComboBaseAccImpl:ComboBaseAccImpl"><apiName>ComboBaseAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ComboBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der ComboBase-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der ComboBase-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend ComboBase-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:MenuBarAccImpl"><apiName>MenuBarAccImpl</apiName><shortdesc>
+  MenuBarAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der MenuBar-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuBarAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der MenuBar-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:MenuBarAccImpl:MenuBarAccImpl"><apiName>MenuBarAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:MenuBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der MenuBar-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der MenuBar-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend MenuBar-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:MenuBarAccImpl:get_accRole"><apiName>get_accRole</apiName><shortdesc>
+	  Ruft die Rolle der Komponente ab.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/><apiDesc>uint
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Ruft die Rolle der Komponente ab.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:LinkButtonAccImpl"><apiName>LinkButtonAccImpl</apiName><shortdesc>
+  LinkButtonAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der LinkButton-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ButtonAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LinkButtonAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der LinkButton-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:LinkButtonAccImpl:LinkButtonAccImpl"><apiName>LinkButtonAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:LinkButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der LinkButton-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der LinkButton-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend LinkButton-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+  TitleWindowAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der TitleWindow-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:PanelAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TitleWindowAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der TitleWindow-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TitleWindowAccImpl:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TitleWindowAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der TitleWindow-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der TitleWindow-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend TitleWindow-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:AlertAccImpl"><apiName>AlertAccImpl</apiName><shortdesc>
+  AlertAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Alert-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:TitleWindowAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AlertAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Alert-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AlertAccImpl:AlertAccImpl"><apiName>AlertAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AlertAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Alert-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Alert-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Alert-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:SliderAccImpl"><apiName>SliderAccImpl</apiName><shortdesc>
+  SliderAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Slider-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Slider-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:SliderAccImpl:SliderAccImpl"><apiName>SliderAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:SliderAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Slider-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Slider-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Slider-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:SliderAccImpl:protected:getState"><apiName>getState</apiName><shortdesc>
+	  Dienstmethode, die den Status der barrierefreien Komponente bestimmt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+	  Dienstmethode, die den Status der barrierefreien Komponente bestimmt.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+  ComboBoxAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der ComboBox-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ComboBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBoxAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der ComboBox-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ComboBoxAccImpl:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ComboBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der ComboBox-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der ComboBox-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend ComboBox-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:AccordionHeaderAccImpl"><apiName>AccordionHeaderAccImpl</apiName><shortdesc>
+  AccordionHeaderAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der AccordionHeader-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AccordionHeaderAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der AccordionHeader-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AccordionHeaderAccImpl:AccordionHeaderAccImpl"><apiName>AccordionHeaderAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AccordionHeaderAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der AccordionHeader-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der AccordionHeader-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend AccordionHeader-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+  RadioButtonAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der RadioButton-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:CheckBoxAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadioButtonAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der RadioButton-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:RadioButtonAccImpl:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:RadioButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der RadioButton-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der RadioButton-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend RadioButton-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+  ListAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der List-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der List-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ListAccImpl:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ListAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der List-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der List-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend List-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ColorPickerAccImpl"><apiName>ColorPickerAccImpl</apiName><shortdesc>
+  ColorPickerAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der ColorPicker-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ComboBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorPickerAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der ColorPicker-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ColorPickerAccImpl:ColorPickerAccImpl"><apiName>ColorPickerAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ColorPickerAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der ColorPicker-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der ColorPicker-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend ColorPicker-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+  DataGridAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der DataGrid-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der DataGrid-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DataGridAccImpl:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DataGridAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der DataGrid-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der DataGrid-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend DataGrid-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+  CheckBoxAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der CheckBox-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ButtonAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CheckBoxAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der CheckBox-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:CheckBoxAccImpl:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:CheckBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der CheckBox-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der CheckBox-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend CheckBox-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DateFieldAccImpl"><apiName>DateFieldAccImpl</apiName><shortdesc>
+  DateFieldAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der DateField-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateFieldAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der DateField-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DateFieldAccImpl:DateFieldAccImpl"><apiName>DateFieldAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DateFieldAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der DateField-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der DateField-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend DateField-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TreeAccImpl"><apiName>TreeAccImpl</apiName><shortdesc>
+  TreeAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Tree-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TreeAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Tree-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TreeAccImpl:TreeAccImpl"><apiName>TreeAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TreeAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Tree-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Tree-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Tree-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+  PanelAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Panel-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PanelAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Panel-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:PanelAccImpl:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:PanelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Panel-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Panel-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Panel-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:MenuAccImpl"><apiName>MenuAccImpl</apiName><shortdesc>
+  MenuAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Menu-Klasse implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuAccImpl ist eine Unterklasse von AccessibilityImplementation, die Barrierefreiheit in der Menu-Klasse implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:MenuAccImpl:MenuAccImpl"><apiName>MenuAccImpl</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Die UIComponent-Instanz, die durch diese AccImpl-Instanz barrierefrei gemacht wird.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:MenuAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Menu-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Aktiviert Barrierefreiheit (Accessibility) in der Menu-Klasse.
+	 
+	  <p>Diese Methode wird durch Anwendungsstartcode aufgerufen, der vom MXML-Compiler automatisch generiert wird. Wenn anschließend Menu-Instanzen initialisiert werden, wird deren <codeph>accessibilityImplementation</codeph>-Eigenschaft auf eine Instanz dieser Klasse gesetzt.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

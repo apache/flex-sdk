@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.filters"><apiName>spark.filters</apiName><apiDetail/><apiClassifier id="spark.filters:GradientBevelFilter"><apiName>GradientBevelFilter</apiName><shortdesc>
+ 使用 GradientBevelFilter 类可以对显示对象应用渐变斜角效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientBevelFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientBevelFilter/&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>spark.filters:GradientFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 使用 GradientBevelFilter 类可以对显示对象应用渐变斜角效果。渐变斜角是位于对象外部、内部或顶部的使用渐变色增强的有斜面的边缘。有斜面的边缘使对象具有三维外观。您可以将滤镜应用于任何显示对象（即，从 DisplayObject 类继承的对象），例如 MovieClip、SimpleButton、TextField 和 Video 对象，以及 BitmapData 对象。
+ 
+ <p>滤镜的具体使用取决于要应用滤镜的对象：</p>
+ <ul><li>要对显示对象应用滤镜，请使用 <codeph>filters</codeph> 属性。设置对象的 <codeph>filters</codeph> 属性不会修改相应的对象，而清除 <codeph>filters</codeph> 属性可以删除相应的滤镜。 </li>
+ 
+ <li>要对 BitmapData 对象应用滤镜，请使用 <codeph>BitmapData.applyFilter()</codeph> 方法。对 BitmapData 对象调用 <codeph>applyFilter()</codeph> 会取得源 BitmapData 对象和滤镜对象，并最终生成一个过滤图像。</li>
+ </ul>
+ 
+ <p>如果对显示对象应用滤镜，显示对象的 <codeph>cacheAsBitmap</codeph> 属性将设置为 <codeph>true</codeph>。如果清除所有滤镜，将恢复 <codeph>cacheAsBitmap</codeph> 的原始值。</p> 
+ 
+ <p>此滤镜支持舞台缩放。但是，它不支持常规缩放、旋转和倾斜；如果对象本身进行了缩放（如果将 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 设置为除 1.0 以外的其他值），滤镜效果将不进行缩放。只有用户在舞台上进行放大时它才会缩放。</p>
+ 
+ <p>如果所得图像超过最大尺寸，则不应用滤镜。在 AIR 1.5 和 Flash Player 10 中，最大宽度或高度为 8,191 像素，并且像素总数不能超过 16,777,215 像素。（因此，如果图像的宽度为 8,191 像素，则其高度只能为 2,048 像素。）例如，如果在放大某大型影片剪辑时应用了滤镜，则所得图像超过最大尺寸时，将关闭该滤镜。</p>
+ 
+  </apiDesc><example conref="GradientBevelFilterExample.mxml"><swfblock conref="examples/GradientBevelFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#BevelFilter"><linktext>spark.filters.BevelFilter</linktext></link><link href="" invalidHref="flash.filters.GradientBevelFilter.xml"><linktext>flash.filters.GradientBevelFilter</linktext></link><link href="spark.filters.xml#GradientBevelFilter/ratios"><linktext>GradientBevelFilter.ratios</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link></related-links><apiConstructor id="spark.filters:GradientBevelFilter:GradientBevelFilter"><apiName>GradientBevelFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>偏移距离。有效值为 0 到 8。 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>角度，以度为单位。有效值为 0 到 360。 
+     </apiDesc></apiParam><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>渐变中使用的 RGB 十六进制颜色值数组。例如，红色为 0xFF0000，蓝色为 0x0000FF 等等。
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc><codeph>colors</codeph> 数组中对应颜色的 Alpha 透明度值的数组。数组中每个元素的有效值为 0 到 1。例如，0.25 设置透明度值为 25%。
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>颜色分布比例的数组；有效值为 0 到 255。
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平模糊量。有效值为 0 到 255。如果模糊量小于或等于 1，则表明原始图像是按原样复制的。默认值为 4。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈示速度比其它值更快。
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直模糊量。有效值为 0 到 255。如果模糊量小于或等于 1，则表明原始图像是按原样复制的。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈示速度比其它值更快。
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>印记或跨页的强度。该值越高，压印的颜色越深，而且斜角与背景之间的对比度也越强。有效值为 0 到 255。值为 0 表示未应用滤镜。 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>滤镜的品质。使用 BitmapFilterQuality 常量：
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>有关详细信息，请参阅 <codeph>quality</codeph> 属性的说明。</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>inner</apiData><apiDesc>斜角效果的放置。可能的值为 BitmapFilterType 常量：
+     <ul><li><codeph>BitmapFilterType.OUTER</codeph> -- 对象外缘上的斜角</li>
+     <li><codeph>BitmapFilterType.INNER</codeph> -- 对象内缘上的斜角</li>
+     <li><codeph>BitmapFilterType.FULL</codeph> -- 对象顶部的斜角</li>
+     </ul>
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否应用挖空效果。值为 <codeph>true</codeph> 将使对象的填充变为透明，并显示文档的背景颜色。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:GradientBevelFilter:clone"><apiName>clone</apiName><shortdesc>
+     返回此滤镜对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与原始 GradientBevelFilter 实例具有完全相同的属性的新 GradientBevelFilter 实例。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     返回此滤镜对象的副本。
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.filters:DropShadowFilter"><apiName>DropShadowFilter</apiName><shortdesc>
+ 可使用 DropShadowFilter 类向显示对象添加投影。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:DropShadowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DropShadowFilter 
+    <strong>Properties</strong>
+    alpha="1"
+    angle="45"
+    color="0xFF0000"
+    distance="4"
+    hideObject="false"
+    inner="false"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 可使用 DropShadowFilter 类向显示对象添加投影。阴影算法基于模糊滤镜使用的同一个框型滤镜。投影样式有多个选项，包括内侧或外侧阴影和挖空模式。您可以将滤镜应用于任何显示对象（即，从 DisplayObject 类继承的对象），例如 MovieClip、SimpleButton、TextField 和 Video 对象，以及 BitmapData 对象。
+ 
+ <p>滤镜的具体使用取决于要应用滤镜的对象：</p>
+ <ul><li>要对显示对象应用滤镜，请使用 <codeph>filters</codeph> 属性（继承自 DisplayObject）。设置对象的 <codeph>filters</codeph> 属性不会修改相应的对象，而清除 <codeph>filters</codeph> 属性可以删除相应的滤镜。 </li>
+ 
+ <li>要对 BitmapData 对象应用滤镜，请使用 <codeph>BitmapData.applyFilter()</codeph> 方法。对 BitmapData 对象调用 <codeph>applyFilter()</codeph> 会取得源 BitmapData 对象和滤镜对象，并最终生成一个过滤图像。</li>
+ </ul>
+ 
+ <p>如果对显示对象应用滤镜，则该显示对象的 <codeph>cacheAsBitmap</codeph> 属性值将设置为 <codeph>true</codeph>。如果清除所有滤镜，将恢复 <codeph>cacheAsBitmap</codeph> 的原始值。</p>
+ <p>此滤镜支持舞台缩放。但是，它不支持常规缩放、旋转和倾斜。如果对象本身进行了缩放（如果将 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 设置为除 1.0 以外的其它值），滤镜将不进行缩放。只有用户在舞台上进行放大时它才会缩放。</p>
+ 
+ <p>如果所得图像超过最大尺寸，则不应用滤镜。在 AIR 1.5 和 Flash Player 10 中，最大宽度或高度为 8,191 像素，并且像素总数不能超过 16,777,215 像素。（因此，如果图像的宽度为 8,191 像素，则其高度只能为 2,048 像素。）例如，如果在放大某大型影片剪辑时应用了滤镜，则所得图像超过最大尺寸时，将关闭该滤镜。</p>
+ 
+  </apiDesc><example conref="DropShadowFilterExample.mxml"><swfblock conref="examples/DropShadowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.DropShadowFilter.xml"><linktext>flash.filters.DropShadowFilter</linktext></link></related-links><apiConstructor id="spark.filters:DropShadowFilter:DropShadowFilter"><apiName>DropShadowFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>阴影的偏移距离，以像素为单位。 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>阴影的角度，0 到 360 度（浮点）。 
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>阴影颜色，采用十六进制格式 <i>0xRRGGBB</i>。默认值为 0x000000。
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>阴影颜色的 Alpha 透明度值。有效值为 0.0 到 1.0。例如，0.25 设置透明度值为 25%。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平模糊量。有效值为 0 到 255.0（浮点）。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直模糊量。有效值为 0 到 255.0（浮点）。 
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>印记或跨页的强度。该值越高，压印的颜色越深，而且阴影与背景之间的对比度也越强。有效值为 0 到 255.0。 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>应用滤镜的次数。使用 BitmapFilterQuality 常量：
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>有关这些值的详细信息，请参阅 <codeph>quality</codeph> 属性说明。</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>inner</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>表示阴影是否为内侧阴影。值 <codeph>true</codeph> 指定内侧阴影。值 <codeph>false</codeph> 指定外侧阴影（对象外缘周围的阴影）。
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>应用挖空效果 (<codeph>true</codeph>)，这将有效地使对象的填色变为透明，并显示文档的背景颜色。 
+     </apiDesc></apiParam><apiParam><apiItemName>hideObject</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>表示是否隐藏对象。如果值为 <codeph>true</codeph>，则表示没有绘制对象本身，只有阴影是可见的。 
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterQuality.xml"><linktext>flash.filters.BitmapFilterQuality</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:DropShadowFilter:clone"><apiName>clone</apiName><shortdesc>
+     返回此滤镜对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>具有原始 DropShadowFilter 实例的所有属性的新 DropShadowFilter 实例。
+     
+      </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     返回此滤镜对象的副本。
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:DropShadowFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      颜色的 Alpha 透明度值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      颜色的 Alpha 透明度值。有效值为 0 到 1。例如，0.25 设置透明度值为 25%。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:angle:get"><apiName>angle</apiName><shortdesc>
+       斜角的角度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+       斜角的角度。有效值为 0 到 360 度。角度值表示理论上的光源落在对象上的角度，它决定了效果相对于该对象的位置。如果 distance 属性设置为 0，则效果相对于对象没有偏移，因此 angle 属性不起作用。
+     
+       </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:color:get"><apiName>color</apiName><shortdesc>
+      光晕颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      光晕颜色。有效值采用十六进制格式 0xRRGGBB。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      斜角的偏移距离。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      斜角的偏移距离。有效值以像素为单位（浮点）。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:hideObject:get"><apiName>hideObject</apiName><shortdesc>
+      表示是否隐藏对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示是否隐藏对象。如果值为 <codeph>true</codeph>，则表示没有绘制对象本身，只有阴影是可见的。默认值为 <codeph>false</codeph>，这意味着会显示对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:inner:get"><apiName>inner</apiName><shortdesc>
+      指定发光是否为内侧发光。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定发光是否为内侧发光。值 <codeph>true</codeph> 表示内侧发光。默认值为 <codeph>false</codeph>，即创建外侧发光（对象外缘周围的发光）。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ConvolutionFilter"><apiName>ConvolutionFilter</apiName><shortdesc>
+ConvolutionFilter 类应用矩阵盘绕滤镜效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>The <code>&lt;s:ConvolutionFilter&gt;</code> tag inherits all of the tag 
+ attributes of its superclass and adds the following tag attributes:</p>
+
+ <pre>
+ &lt;s:ConvolutionFilter 
+   <strong>Properties</strong>
+   alpha="1"
+   clamp="true"
+   color="0xFF0000"
+   divisor="1.0"
+   matrix="[]"
+   matrixX="0"
+   matrixY="0"
+   preserveAlpha="true"
+ /&gt;
+ </pre>
+
+]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ConvolutionFilter 类应用矩阵盘绕滤镜效果。卷积将输入图像的像素与相邻的像素合并以生成图像。通过卷积，可以实现大量的图像效果，包括模糊、边缘检测、锐化、浮雕和斜角。您可以将滤镜应用于任何显示对象（即，从 DisplayObject 类继承的对象），例如 MovieClip、SimpleButton、TextField 和 Video 对象，以及 BitmapData 对象。
+
+<p>要创建卷积滤镜，请使用语法 <codeph>new ConvolutionFilter()</codeph>。滤镜的具体使用取决于要应用滤镜的对象：</p>
+<ul><li>要对影片剪辑、文本字段、按钮和视频应用滤镜，请使用 <codeph>filters</codeph> 属性（继承自 DisplayObject）。设置对象的 <codeph>filters</codeph> 属性不会修改相应的对象，而清除 <codeph>filters</codeph> 属性可以删除相应的滤镜。 </li>
+
+<li>要对 BitmapData 对象应用滤镜，请使用 <codeph>BitmapData.applyFilter()</codeph> 方法。对 BitmapData 对象调用 <codeph>applyFilter()</codeph> 会取得源 BitmapData 对象和滤镜对象，并最终生成一个过滤图像。</li>
+</ul>
+
+<p>如果对显示对象应用滤镜，则该对象的 <codeph>cacheAsBitmap</codeph> 属性值将设置为 <codeph>true</codeph>。如果清除所有滤镜，将恢复 <codeph>cacheAsBitmap</codeph> 的原始值。</p>
+
+<p>如果所得图像超过最大尺寸，则不应用滤镜。在 AIR 1.5 和 Flash Player 10 中，最大宽度或高度为 8,191 像素，并且像素总数不能超过 16,777,215 像素。（因此，如果图像的宽度为 8,191 像素，则其高度只能为 2,048 像素。）例如，如果在放大某大型影片剪辑时应用了滤镜，则所得图像超过最大尺寸时，将关闭该滤镜。</p>
+
+ </apiDesc><example conref="ConvolutionFilterExample.mxml"><swfblock conref="examples/ConvolutionFilterExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.filters:ConvolutionFilter:ConvolutionFilter"><apiName>ConvolutionFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>matrixX</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩阵的 <i>x</i> 维度（矩阵中列的数目）。默认值为 0。
+     </apiDesc></apiParam><apiParam><apiItemName>matrixY</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>矩阵的 <i>y</i> 维度（矩阵中行的数目）。默认值为 0。
+     </apiDesc></apiParam><apiParam><apiItemName>matrix</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>用于矩阵转换的值的数组。数组中的项数必须等于 <codeph>matrixX * matrixY</codeph>。
+     </apiDesc></apiParam><apiParam><apiItemName>divisor</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>矩阵转换中使用的除数。默认值为 1。如果除数是所有矩阵值的总和，则可调平结果的总体色彩强度。忽略 0 值，此时使用默认值。 
+     </apiDesc></apiParam><apiParam><apiItemName>bias</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>要添加到矩阵转换结果的偏差。默认值为 0。
+     </apiDesc></apiParam><apiParam><apiItemName>preserveAlpha</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc><codeph>false</codeph> 值表示未保留 Alpha 值，并且卷积适用于所有通道（包括 Alpha 通道）。值为 <codeph>true</codeph> 表示只对颜色通道应用卷积。默认值为 <codeph>true</codeph>。
+     </apiDesc></apiParam><apiParam><apiItemName>clamp</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>对于源图像之外的像素，如果值为 <codeph>true</codeph>，则表明通过复制输入图像给定边缘处的颜色值，沿着输入图像的每个边框按需要扩展输入图像。如果值为 <codeph>false</codeph>，则表明应按照 <codeph>color</codeph> 和 <codeph>alpha</codeph> 属性中的指定使用其他颜色。默认值为 <codeph>true</codeph>。 
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>要替换源图像之外的像素的十六进制颜色。
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>替换颜色的 Alpha。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:ConvolutionFilter:clone"><apiName>clone</apiName><shortdesc> 
+     返回此滤镜对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>BitmapFilter，与原始 ConvolutionMatrixFilter 实例具有完全相同的属性的新 ConvolutionFilter 实例。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc> 
+     返回此滤镜对象的副本。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:ConvolutionFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      颜色的 Alpha 透明度值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      颜色的 Alpha 透明度值。有效值为 0 到 1。例如，0.25 设置透明度值为 25%。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:bias:get"><apiName>bias</apiName><shortdesc>
+      要添加到矩阵转换结果中的偏差量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要添加到矩阵转换结果中的偏差量。偏差可增加每个通道的颜色值，以便暗色变得较明亮。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:clamp:get"><apiName>clamp</apiName><shortdesc>
+      表示是否应锁定图像。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示是否应锁定图像。对于源图像之外的像素，如果值为 true，则表明通过复制输入图像每个相应的边缘处的颜色值，沿着输入图像的每个边框按需要扩展输入图像。如果值为 false，则表明应按照 color 和 alpha 属性中的指定使用其它颜色。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:color:get"><apiName>color</apiName><shortdesc>
+      光晕颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      光晕颜色。有效值采用十六进制格式 0xRRGGBB。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:divisor:get"><apiName>divisor</apiName><shortdesc>
+      矩阵转换中使用的除数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩阵转换中使用的除数。默认值为 1。如果除数是所有矩阵值的总和，则可调平结果的总体色彩强度。忽略 0 值，此时使用默认值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrixX:get"><apiName>matrixX</apiName><shortdesc>
+     矩阵的 x 维度（矩阵中的行数）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     矩阵的 x 维度（矩阵中的行数）。 
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrixY:get"><apiName>matrixY</apiName><shortdesc>
+     矩阵的 y 维度（矩阵中的列数）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     矩阵的 y 维度（矩阵中的列数）。 
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrix:get"><apiName>matrix</apiName><shortdesc>
+      水平模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      水平模糊量。有效值为 0 到 255。如果模糊量小于或等于 1，则表明原始图像是按原样复制的。默认值为 4。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈现速度比其他值更快。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:preserveAlpha:get"><apiName>preserveAlpha</apiName><shortdesc>
+      表示是否已保留 Alpha 通道并且不使用滤镜效果，或是否对 Alpha 通道以及颜色通道应用卷积滤镜。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示是否已保留 Alpha 通道并且不使用滤镜效果，或是否对 Alpha 通道以及颜色通道应用卷积滤镜。值为 false 表示卷积应用于所有通道，包括 Alpha 通道。值为 true 表示只对颜色通道应用卷积。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:BlurFilter"><apiName>BlurFilter</apiName><shortdesc>
+ 可使用 BlurFilter 类将模糊视觉效果应用于显示对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BlurFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BlurFilter
+    <strong>Properties</strong>
+    blurX="4.0"
+    blurY="4.0"
+    quality="low"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 可使用 BlurFilter 类将模糊视觉效果应用于显示对象。模糊效果可以柔化图像的细节。您可以生成一些模糊效果，范围从创建一个柔化的、未聚焦的外观到高斯模糊（就像通过半透明玻璃查看图像一样的朦胧的外观）。当此滤镜的 <codeph>quality</codeph> 属性设置为低时，结果为柔化的、未聚焦的外观。当 <codeph>quality</codeph> 属性设置为高时，该属性接近高斯模糊滤镜。您可以将滤镜应用于任何显示对象（即，从 DisplayObject 类继承的对象），例如 MovieClip、SimpleButton、TextField 和 Video 对象，以及 BitmapData 对象。
+ 
+ <p>要创建新的滤镜，请使用构造函数 <codeph>new BlurFilter()</codeph>。滤镜的具体使用取决于要应用滤镜的对象：</p>
+ <ul><li>要对影片剪辑、文本字段、按钮和视频应用滤镜，请使用 <codeph>filters</codeph> 属性（继承自 DisplayObject）。设置对象的 <codeph>filters</codeph> 属性不会修改相应的对象，而清除 <codeph>filters</codeph> 属性可以删除相应的滤镜。 </li>
+ 
+ <li>要对 BitmapData 对象应用滤镜，请使用 <codeph>BitmapData.applyFilter()</codeph> 方法。对 BitmapData 对象调用 <codeph>applyFilter()</codeph> 会取得源 BitmapData 对象和滤镜对象，并最终生成一个过滤图像。</li>
+ </ul>
+ 
+ <p>如果对显示对象应用滤镜，显示对象的 <codeph>cacheAsBitmap</codeph> 属性将设置为 <codeph>true</codeph>。如果删除所有滤镜，将恢复 <codeph>cacheAsBitmap</codeph> 的原始值。</p>
+ 
+ <p>此滤镜支持舞台缩放。但是，它不支持常规缩放、旋转和倾斜。如果对象本身进行了缩放（<codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 未设置为 100%），滤镜效果将不进行缩放。只有用户在舞台上进行放大时它才会缩放。</p>
+ 
+ <p>如果所得图像超过最大尺寸，则不应用滤镜。在 AIR 1.5 和 Flash Player 10 中，最大宽度或高度为 8,191 像素，并且像素总数不能超过 16,777,215 像素。（因此，如果图像的宽度为 8,191 像素，则其高度只能为 2,048 像素。）例如，如果在放大某大型影片剪辑时应用了滤镜，则所得图像超过最大尺寸时，将关闭该滤镜。</p>
+ 
+  </apiDesc><example conref="BlurFilterExample.mxml"><swfblock conref="examples/BlurFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.BlurFilter.xml"><linktext>flash.filters.BlurFilter</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link></related-links><apiConstructor id="spark.filters:BlurFilter:BlurFilter"><apiName>BlurFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平模糊量。有效值为 0 到 255.0（浮点值）。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直模糊量。有效值为 0 到 255.0（浮点值）。 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>应用滤镜的次数。可以使用 flash.filters.BitmapFilterQuality 常量来指定品质：
+     <ul>
+     <li><codeph>flash.filters.BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>flash.filters.BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>flash.filters.BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>高品质接近高斯模糊。对于大多数应用，这三个值已足够了。虽然您可以使用不超过 15 的其它数值来达到不同的效果，但是请注意，值越高，呈现速度越慢。</p>
+     </apiDesc></apiParam><apiTipTexts><apiTipText>初始化滤镜。
+     </apiTipText></apiTipTexts></apiConstructorDef><apiDesc>
+     构造函数。默认值会创建一个柔化的、未聚焦的图像。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:BlurFilter:clone"><apiName>clone</apiName><shortdesc>
+     返回此滤镜对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>具有与原始 BlurFilter 实例相同的所有属性的新 BlurFilter 实例。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     返回此滤镜对象的副本。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:BlurFilter:blurX:get"><apiName>blurX</apiName><shortdesc>
+      水平模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      水平模糊量。有效值为 0 到 255。如果模糊量小于或等于 1，则表明原始图像是按原样复制的。默认值为 4。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈现速度比其他值更快。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BlurFilter:blurY:get"><apiName>blurY</apiName><shortdesc>
+      垂直模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      垂直模糊量。有效值为 0 到 255。如果模糊量小于或等于 1，则表明原始图像是按原样复制的。默认值为 4。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈现速度比其他值更快。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BlurFilter:quality:get"><apiName>quality</apiName><shortdesc>
+      应用滤镜的次数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>"low"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      应用滤镜的次数。默认值为 <codeph>BitmapFilterQuality.LOW</codeph>，与应用一次滤镜等效。值 <codeph>BitmapFilterQuality.MEDIUM</codeph> 两次应用滤镜；值 <codeph>BitmapFilterQuality.HIGH</codeph> 三次应用滤镜。滤镜的值越小，呈示速度越快。 
+     
+      <p>对于大多数应用，quality 的值为低、中或高就足够了。您可以使用其他数值（最高为 15）来达到不同的效果，但是值越高，呈示速度越慢。除了增加 quality 的值，仅增加 <codeph>blurX</codeph> 和 <codeph>blurY</codeph> 属性的值通常也可以获得类似的效果，而且呈示速度更快。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ColorMatrixFilter"><apiName>ColorMatrixFilter</apiName><shortdesc>
+  使用 ColorMatrixFilter 类可以将 4 x 5 矩阵转换应用于输入图像上的每个像素的 RGBA 颜色和 Alpha 值，以生成具有一组新的 RGBA 颜色和 Alpha 值的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ColorMatrixFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ColorMatrixFilter
+    <strong>Properties</strong>
+    matrix="[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  使用 ColorMatrixFilter 类可以将 4 x 5 矩阵转换应用于输入图像上的每个像素的 RGBA 颜色和 Alpha 值，以生成具有一组新的 RGBA 颜色和 Alpha 值的结果。该类允许饱和度更改、色相旋转、亮度为 Alpha 以及各种其他效果。您可以将滤镜应用于任何显示对象（即，从 DisplayObject 类继承的对象），例如 MovieClip、SimpleButton、TextField 和 Video 对象，以及 BitmapData 对象。
+ 
+  </apiDesc><example conref="ColorMatrixFilterExample.mxml"><swfblock conref="examples/ColorMatrixFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.ColorMatrixFilter.xml"><linktext>flash.filters.ColorMatrixFilter</linktext></link></related-links><apiConstructor id="spark.filters:ColorMatrixFilter:ColorMatrixFilter"><apiName>ColorMatrixFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>matrix</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>由 20 个项目（排列成 4 x 5 矩阵）组成的数组。
+     
+     </apiDesc></apiParam><apiTipTexts><apiTipText>初始化新 ColorMatrixFilter 实例。
+     
+     </apiTipText></apiTipTexts></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:ColorMatrixFilter:clone"><apiName>clone</apiName><shortdesc>
+     返回此滤镜对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与原始实例具有完全相同的属性的新 ColorMatrixFilter 实例。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     返回此滤镜对象的副本。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:ColorMatrixFilter:matrix:get"><apiName>matrix</apiName><shortdesc>
+      构成应用于所呈示的元素的一个 4x5 矩阵的、以逗号分隔的 20 个双精度数的列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      构成应用于所呈示的元素的一个 4x5 矩阵的、以逗号分隔的 20 个双精度数的列表。矩阵以行作为主要顺序，即用第一行五个元素乘以矢量 [srcR,srcG,srcB,srcA,1] 以确定输出的红色值，用第二行的五个元素确定输出的绿色值，等等。
+     
+      <p>该值必须为 20 个数字组成的数组或以逗号分隔的字符串。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:GradientFilter"><apiName>GradientFilter</apiName><shortdesc>
+ 提供渐变视觉效果的滤镜的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientFilter
+    <strong>Properties</strong>
+    angle="45"
+    distance="4.0"
+    entries="[]"
+    type="inner"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 提供渐变视觉效果的滤镜的基类。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.filters.xml#GradientGlowFilter"><linktext>spark.filters.GradientGlowFilter</linktext></link><link href="spark.filters.xml#GradientBevelFilter"><linktext>spark.filters.GradientBevelFilter</linktext></link></related-links><apiConstructor id="spark.filters:GradientFilter:GradientFilter"><apiName>GradientFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>渐变中使用的 RGB 十六进制颜色值数组。例如，红色为 0xFF0000，蓝色为 0x0000FF 等等。
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc><codeph>colors</codeph> 数组中对应颜色的 Alpha 透明度值的数组。数组中每个元素的有效值为 0 到 1。例如，0.25 设置透明度值为 25%。
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>颜色分布比例的数组；有效值为 0 到 255。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.filters:GradientFilter:angle:get"><apiName>angle</apiName><shortdesc>
+      角度，以度为单位。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      角度，以度为单位。有效值为 0 到 360。角度值表示理论上的光源落在对象上的角度，它决定了效果相对于该对象的位置。如果将 distance 设置为 0，则效果相对于对象没有偏移，因此 angle 属性不起作用。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      光晕的偏移距离。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      光晕的偏移距离。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:entries:get"><apiName>entries</apiName><shortdesc>
+      GradientEntry 对象 Array，用于定义渐变填充的填充模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      GradientEntry 对象 Array，用于定义渐变填充的填充模式。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:type:get"><apiName>type</apiName><shortdesc>
+      滤镜效果的放置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>BitmapFilterType.INNER
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滤镜效果的放置。可能的值是 flash.filters.BitmapFilterType 常量：
+      <ul>
+        <li><codeph>BitmapFilterType.OUTER</codeph> - 对象外缘上的发光。</li>
+        <li><codeph>BitmapFilterType.INNER</codeph> - 对象内缘上的发光。</li>
+        <li><codeph>BitmapFilterType.FULL</codeph> - 对象顶部的发光。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.filters:BevelFilter"><apiName>BevelFilter</apiName><shortdesc> 
+ 可使用 BevelFilter 类对显示对象添加斜角效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BevelFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BevelFilter 
+    <strong>Properties</strong>
+    angle="45"
+    distance="4"
+    highlightAlpha="1"
+    highlightColor="0xFFFFFF"
+    shadowAlpha="1"
+    shadowColor="0x000000"
+    type="inner"
+  /&gt;
+  </pre>
+ 
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc> 
+ 可使用 BevelFilter 类对显示对象添加斜角效果。斜角效果使对象（如按钮）具有三维外观。您可以利用不同的加亮颜色和阴影颜色、斜角上的模糊量、斜角的角度、斜角的位置和挖空效果来自定义斜角的外观。您可以将滤镜应用于任何显示对象（即，从 DisplayObject 类继承的对象），例如 MovieClip、SimpleButton、TextField 和 Video 对象，以及 BitmapData 对象。
+ 
+ <p>要创建新滤镜，请使用构造函数 <codeph>new BevelFilter()</codeph>。滤镜的具体使用取决于要应用滤镜的对象：</p>
+ <ul><li>要对影片剪辑、文本字段、按钮和视频应用滤镜，请使用 <codeph>filters</codeph> 属性（继承自 DisplayObject）。设置对象的 <codeph>filters</codeph> 属性不会修改相应的对象，而清除 <codeph>filters</codeph> 属性可以删除相应的滤镜。 </li>
+ 
+ <li>要对 BitmapData 对象应用滤镜，请使用 <codeph>BitmapData.applyFilter()</codeph> 方法。对 BitmapData 对象调用 <codeph>applyFilter()</codeph> 会取得源 BitmapData 对象和滤镜对象，并最终生成一个过滤图像。</li>
+ </ul>
+ 
+ <p>如果对显示对象应用滤镜，则该对象的 <codeph>cacheAsBitmap</codeph> 属性值将设置为 <codeph>true</codeph>。如果删除所有滤镜，将恢复 <codeph>cacheAsBitmap</codeph> 的原始值。</p>
+ 
+ <p>此滤镜支持舞台缩放。但是，它不支持常规缩放、旋转和倾斜。如果对象本身进行了缩放（如果 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 属性未被设置为 100%），则滤镜不进行缩放。只有用户在舞台上进行放大时它才会缩放。</p>
+ 
+ <p>如果所得图像超过最大尺寸，则不应用滤镜。在 AIR 1.5 和 Flash Player 10 中，最大宽度或高度为 8,191 像素，并且像素总数不能超过 16,777,215 像素。（因此，如果图像的宽度为 8,191 像素，则其高度只能为 2,048 像素。）例如，如果在放大某大型影片剪辑时应用了滤镜，则所得图像超过最大尺寸时，将关闭该滤镜。</p>
+ 
+  </apiDesc><example conref="BevelFilterExample.mxml"><swfblock conref="examples/BevelFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.BevelFilter.xml"><linktext>flash.filters.BevelFilter</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link></related-links><apiConstructor id="spark.filters:BevelFilter:BevelFilter"><apiName>BevelFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>斜角的偏移距离，以像素为单位（浮点）。 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>斜角的角度，0 至 360 度。 
+     </apiDesc></apiParam><apiParam><apiItemName>highlightColor</apiItemName><apiType value="uint"/><apiData>0xFFFFFF</apiData><apiDesc>斜角的加亮颜色，<i>0xRRGGBB</i>。 
+     </apiDesc></apiParam><apiParam><apiItemName>highlightAlpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>加亮颜色的 Alpha 透明度值。有效值为 0.0 到 1.0。例如，0.25 设置透明度值为 25%。 
+     </apiDesc></apiParam><apiParam><apiItemName>shadowColor</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>斜角的阴影颜色，<i>0xRRGGBB</i>。 
+     </apiDesc></apiParam><apiParam><apiItemName>shadowAlpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>阴影颜色的 Alpha 透明度值。有效值为 0.0 到 1.0。例如，0.25 设置透明度值为 25%。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平模糊量，以像素为单位。有效值为 0 到 255.0（浮点）。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直模糊量，以像素为单位。有效值为 0 到 255.0（浮点）。
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>印记或跨页的强度。该值越高，压印的颜色越深，而且斜角与背景之间的对比度也越强。有效值为 0 到 255.0。 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>斜角的品质。有效值为 0 至 15，但是对于大多数应用情形，可以使用 <codeph>flash.filters.BitmapFilterQuality</codeph> 常量：
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>这些值越低，滤镜的呈现速度就越快。可以使用其它可用的数值来实现不同的效果。</p>
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>inner</apiData><apiDesc>斜角类型。有效值为 <codeph>flash.filters.BitmapFilterType</codeph> 常量：<codeph>BitmapFilterType.INNER</codeph>、<codeph>BitmapFilterType.OUTER</codeph> 或 <codeph>BitmapFilterType.FULL</codeph>。 
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>应用挖空效果 (<codeph>true</codeph>)，这将有效地使对象的填色变为透明，并显示文档的背景颜色。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterQuality.xml"><linktext>flash.filters.BitmapFilterQuality</linktext></link><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:BevelFilter:clone"><apiName>clone</apiName><shortdesc>
+     返回此滤镜对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>具有与原始 BevelFilter 实例相同的所有属性的新 BevelFilter 实例。
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     返回此滤镜对象的副本。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:BevelFilter:angle:get"><apiName>angle</apiName><shortdesc>
+       斜角的角度（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+       斜角的角度（以度为单位）。有效值为 0 到 360。角度值表示理论上的光源落在对象上的角度，它决定了效果相对于该对象的位置。如果 distance 属性设置为 0，则效果相对于对象没有偏移，因此 angle 属性不起作用。
+     
+       </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      斜角的偏移距离。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      斜角的偏移距离。有效值以像素为单位（浮点）。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:highlightAlpha:get"><apiName>highlightAlpha</apiName><shortdesc>
+      加亮颜色的 Alpha 透明度值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      加亮颜色的 Alpha 透明度值。该值被指定为 0 到 1 之间的标准值。例如，0.25 设置透明度值为 25%。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:highlightColor:get"><apiName>highlightColor</apiName><shortdesc>
+      斜角的加亮颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFFFFFF
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      斜角的加亮颜色。有效值采用十六进制格式，0xRRGGBB。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:shadowAlpha:get"><apiName>shadowAlpha</apiName><shortdesc>
+      阴影颜色的 Alpha 透明度值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      阴影颜色的 Alpha 透明度值。该值被指定为 0 到 1 之间的标准值。例如，0.25 设置透明度值为 25%。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:shadowColor:get"><apiName>shadowColor</apiName><shortdesc>
+      斜角的阴影颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      斜角的阴影颜色。有效值采用十六进制格式，0xRRGGBB。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:type:get"><apiName>type</apiName><shortdesc>
+      滤镜效果的放置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>BitmapFilterType.INNER
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滤镜效果的放置。可能的值是 flash.filters.BitmapFilterType 常量：
+      <ul>
+        <li><codeph>BitmapFilterType.OUTER</codeph> - 对象外缘上的发光。</li>
+        <li><codeph>BitmapFilterType.INNER</codeph> - 对象内缘上的发光；默认值。</li>
+        <li><codeph>BitmapFilterType.FULL</codeph> - 对象顶部的发光。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.filters:GradientGlowFilter"><apiName>GradientGlowFilter</apiName><shortdesc>
+ 可使用 GradientGlowFilter 类对显示对象应用渐变发光效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientGlowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientGlowFilter/&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>spark.filters:GradientFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 可使用 GradientGlowFilter 类对显示对象应用渐变发光效果。渐变发光是一种非常逼真的发光效果，您可以控制颜色渐变。可以在对象的内缘或外缘的周围或者对象的顶部应用渐变发光。您可以将滤镜应用于任何显示对象（即，从 DisplayObject 类继承的对象），例如 MovieClip、SimpleButton、TextField 和 Video 对象，以及 BitmapData 对象。
+ 
+ <p>滤镜的具体使用取决于要应用滤镜的对象：</p>
+ <ul><li>要对显示对象应用滤镜，请使用 <codeph>filters</codeph> 属性。设置对象的 <codeph>filters</codeph> 属性不会修改相应的对象，而清除 <codeph>filters</codeph> 属性可以删除相应的滤镜。 </li>
+ 
+ <li>要对 BitmapData 对象应用滤镜，请使用 <codeph>BitmapData.applyFilter()</codeph> 方法。对 BitmapData 对象调用 <codeph>applyFilter()</codeph> 会取得源 BitmapData 对象和滤镜对象，并最终生成一个过滤图像。</li>
+ </ul>
+ 
+ <p>如果对显示对象应用滤镜，显示对象的 <codeph>cacheAsBitmap</codeph> 属性将设置为 <codeph>true</codeph>。如果清除所有滤镜，将恢复 <codeph>cacheAsBitmap</codeph> 的原始值。</p> 
+ 
+ <p>此滤镜支持舞台缩放。但是，它不支持常规缩放、旋转和倾斜；如果对象本身进行了缩放（如果将 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 设置为除 1.0 以外的其他值），滤镜效果将不进行缩放。只有用户在舞台上进行放大时它才会缩放。</p>
+ 
+ <p>如果所得图像超过最大尺寸，则不应用滤镜。在 AIR 1.5 和 Flash Player 10 中，最大宽度或高度为 8,191 像素，并且像素总数不能超过 16,777,215 像素。（因此，如果图像的宽度为 8,191 像素，则其高度只能为 2,048 像素。）例如，如果在放大某大型影片剪辑时应用了滤镜，则所得图像超过最大尺寸时，将关闭该滤镜。</p>
+ 
+  </apiDesc><example conref="GradientGlowFilterExample.mxml"><swfblock conref="examples/GradientGlowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#GlowFilter"><linktext>spark.filters.GlowFilter</linktext></link><link href="" invalidHref="flash.filters.GradientGlowFilter.xml"><linktext>flash.filters.GradientGlowFilter</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link></related-links><apiConstructor id="spark.filters:GradientGlowFilter:GradientGlowFilter"><apiName>GradientGlowFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>光晕的偏移距离。 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>角度，以度为单位。有效值为 0 到 360。 
+     </apiDesc></apiParam><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>定义渐变的颜色数组。例如，红色为 0xFF0000，蓝色为 0x0000FF 等等。
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc><codeph>colors</codeph> 数组中对应颜色的 Alpha 透明度值的数组。数组中每个元素的有效值为 0 到 1。例如，值 0.25 将 Alpha 透明度值设置为 25%。
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>颜色分布比例的数组。有效值为 0 到 255。该值定义颜色采样率为 100% 之处的宽度百分比。
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平模糊量。有效值为 0 到 255。如果模糊量小于或等于 1，则表明原始图像是按原样复制的。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈示速度比其它值更快。
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直模糊量。有效值为 0 到 255。如果模糊量小于或等于 1，则表明原始图像是按原样复制的。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈示速度比其它值更快。
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>印记或跨页的强度。该值越高，压印的颜色越深，而且发光与背景之间的对比度也越强。有效值为 0 到 255。值越大，压印越强。值为 0 意味着未应用滤镜。
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>应用滤镜的次数。使用 flash.filters.BitmapFilterQuality 常量：
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>有关详细信息，请参阅 <codeph>quality</codeph> 属性的说明。</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>outer</apiData><apiDesc>滤镜效果的放置。可能的值是 flash.filters.BitmapFilterType 常量：
+     <ul>
+     <li><codeph>BitmapFilterType.OUTER</codeph> - 对象外缘上的发光；默认值。</li>
+     <li><codeph>BitmapFilterType.INNER</codeph> - 对象内缘上的发光</li>
+     <li><codeph>BitmapFilterType.FULL</codeph> -- 对象顶部的发光</li>
+     </ul>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定对象是否具有挖空效果。应用挖空效果将使对象的填充变为透明，并显示文档的背景颜色。值为 <codeph>true</codeph> 将指定应用挖空效果；默认值为 <codeph>false</codeph>，即不应用挖空效果。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:GradientGlowFilter:clone"><apiName>clone</apiName><shortdesc>
+     返回此滤镜对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与原始 GradientGlowFilter 实例具有完全相同的属性的新 GradientGlowFilter 实例。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     返回此滤镜对象的副本。
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.filters:DisplacementMapFilter"><apiName>DisplacementMapFilter</apiName><shortdesc>
+DisplacementMapFilter 类使用指定的 BitmapData 对象（称为置换图图像）的像素值执行对象置换。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>The <code>&lt;s:DisplacementMapFilter&gt;</code> tag inherits all of the tag 
+ attributes of its superclass and adds the following tag attributes:</p>
+
+ <pre>
+ &lt;s:DisplacementMapFilter 
+   <strong>Properties</strong>
+   alpha="0"
+   color="0x000000"
+   componentX="0"
+   componentY="0"
+   mapBitmap="null"
+   mapPoint="null"
+   mode="wrap"
+   scaleX="0"
+   scaleY="0"
+ /&gt;
+ </pre>
+
+]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+DisplacementMapFilter 类使用指定的 BitmapData 对象（称为<i>置换图图像</i>）的像素值执行对象置换。您可以使用此滤镜将扭曲或斑点效果应用于从 DisplayObject 类中继承的任何对象，例如 MovieClip、SimpleButton、TextField 和 Video 对象，以及 BitmapData 对象。
+
+<p>滤镜的具体使用取决于要应用滤镜的对象：</p>
+<ul><li>要将滤镜应用于显示对象，请使用显示对象的 <codeph>filters</codeph> 属性。设置对象的 <codeph>filters</codeph> 属性不会修改相应的对象，而清除 <codeph>filters</codeph> 属性可以删除相应的滤镜。 </li>
+
+<li>要对 BitmapData 对象应用滤镜，请使用 <codeph>BitmapData.applyFilter()</codeph> 方法。对 BitmapData 对象调用 <codeph>applyFilter()</codeph> 会取得源 BitmapData 对象和滤镜对象，并生成一个过滤后的图像。</li>
+</ul>
+
+<p>如果对显示对象应用滤镜，则该显示对象的 <codeph>cacheAsBitmap</codeph> 属性值将设置为 <codeph>true</codeph>。如果清除所有滤镜，将恢复 <codeph>cacheAsBitmap</codeph> 的原始值。</p>
+
+<p>此滤镜使用以下公式：</p>
+
+<codeblock>
+dstPixel[x, y] = srcPixel[x + ((componentX(x, y) - 128) ~~ scaleX) / 256, y + ((componentY(x, y) - 128) ~~scaleY) / 256)
+</codeblock>
+
+<p>其中，<codeph>componentX(x, y)</codeph> 从 <codeph>mapBitmap</codeph> 属性获得 <codeph>(x - mapPoint.x ,y - mapPoint.y)</codeph> 处的 <codeph>componentX</codeph> 属性颜色值。</p>
+
+<p>滤镜使用的映射图像会进行缩放，以匹配舞台缩放比例。当对象自身呈一定的比例时，它不会进行缩放。</p>
+
+<p>此滤镜支持舞台缩放。但不支持常规缩放、旋转和倾斜。如果对象本身进行了缩放（如果将 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 属性设置为除 1.0 以外的其它值），滤镜效果将不进行缩放。只有用户在舞台上进行放大时它才会缩放。</p>
+
+ </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link></related-links><apiConstructor id="spark.filters:DisplacementMapFilter:DisplacementMapFilter"><apiName>DisplacementMapFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>mapBitmap</apiItemName><apiType value="flash.display:BitmapData"/><apiData>null</apiData><apiDesc>包含置换映射数据的 BitmapData 对象。
+     </apiDesc></apiParam><apiParam><apiItemName>mapPoint</apiItemName><apiType value="flash.geom:Point"/><apiData>null</apiData><apiDesc>一个值，它包含目标显示对象的左上角相对于映射图像左上角的偏移量。
+     </apiDesc></apiParam><apiParam><apiItemName>componentX</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>说明在映射图像中使用哪个颜色通道来置换 <i>x</i> 结果。可能的值为 BitmapDataChannel 常量。 
+     </apiDesc></apiParam><apiParam><apiItemName>componentY</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>说明在映射图像中使用哪个颜色通道来置换 <i>y</i> 结果。可能的值为 BitmapDataChannel 常量。 
+     </apiDesc></apiParam><apiParam><apiItemName>scaleX</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>用于缩放映射计算的 <i>x</i> 置换结果的乘数。
+     </apiDesc></apiParam><apiParam><apiItemName>scaleY</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>用于缩放映射计算的 <i>y</i> 置换结果的乘数。
+     </apiDesc></apiParam><apiParam><apiItemName>mode</apiItemName><apiType value="String"/><apiData>wrap</apiData><apiDesc>滤镜模式。可能的值为 DisplacementMapFilterMode 常量。
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>指定对于超出范围的替换应用什么颜色。置换的有效范围是 0.0 到 1.0。如果 <codeph>mode</codeph> 设置为 <codeph>DisplacementMapFilterMode.COLOR</codeph>，则使用此参数。
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>指定对于超出范围的替换应用什么 Alpha 值。它被指定为 0.0 到 1.0 之间的标准值。例如，0.25 设置透明度值为 25%。如果 <codeph>mode</codeph> 设置为 <codeph>DisplacementMapFilterMode.COLOR</codeph>，则使用此参数。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.display.BitmapDataChannel.xml"><linktext>flash.display.BitmapDataChannel</linktext></link><link href="" invalidHref="flash.filters.DisplacementMapFilterMode.xml"><linktext>flash.filters.DisplacementMapFilterMode</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:DisplacementMapFilter:clone"><apiName>clone</apiName><shortdesc>
+     返回此滤镜对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>具有与原始实例相同的所有属性的新 DisplacementMapFilter 实例。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     返回此滤镜对象的副本。
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:DisplacementMapFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      指定对于超出范围的替换应用的 Alpha 透明度值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定对于超出范围的替换应用的 Alpha 透明度值。它被指定为 0.0 到 1.0 之间的标准值。例如，0.25 设置透明度值为 25%。默认值为 0。如果 mode 属性设置为 DisplacementMapFilterMode.COLOR，则使用此属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:color:get"><apiName>color</apiName><shortdesc>
+      指定对于超出范围的替换应用什么颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定对于超出范围的替换应用什么颜色。置换的有效范围是 0.0 到 1.0。值采用十六进制格式。color 的默认值为 0。如果 mode 属性设置为 DisplacementMapFilterMode.COLOR，则使用此属性。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:componentX:get"><apiName>componentX</apiName><shortdesc>
+      说明在映射图像中使用哪个颜色通道来置换 x 结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0, meaning no channel.
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      说明在映射图像中使用哪个颜色通道来置换 x 结果。可能的值为 BitmapDataChannel 常量：
+      <ul>
+        <li><codeph>BitmapDataChannel.ALPHA</codeph></li>
+        <li><codeph>BitmapDataChannel.BLUE</codeph></li>
+        <li><codeph>BitmapDataChannel.GREEN</codeph></li>
+        <li><codeph>BitmapDataChannel.RED</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.BitmapDataChannel.xml"><linktext>flash.display.BitmapDataChannel</linktext></link></related-links></apiValue><apiValue id="spark.filters:DisplacementMapFilter:componentY:get"><apiName>componentY</apiName><shortdesc>
+      说明在映射图像中使用哪个颜色通道来置换 y 结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0, meaning no channel.
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      说明在映射图像中使用哪个颜色通道来置换 y 结果。可能的值为 BitmapDataChannel 常量：
+      <ul>
+        <li><codeph>BitmapDataChannel.ALPHA</codeph></li>
+        <li><codeph>BitmapDataChannel.BLUE</codeph></li>
+        <li><codeph>BitmapDataChannel.GREEN</codeph></li>
+        <li><codeph>BitmapDataChannel.RED</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mapBitmap:get"><apiName>mapBitmap</apiName><shortdesc>
+      包含置换映射数据的 BitmapData 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:BitmapData"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      包含置换映射数据的 BitmapData 对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mapPoint:get"><apiName>mapPoint</apiName><shortdesc>
+      一个值，它包含目标显示对象的左上角相对于映射图像左上角的偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Point"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个值，它包含目标显示对象的左上角相对于映射图像左上角的偏移量。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mode:get"><apiName>mode</apiName><shortdesc>
+      滤镜模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>DisplacementMapFilterMode.WRAP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滤镜模式。可能的值为 DisplacementMapFilterMode 常量：
+      <ul>
+        <li><codeph>DisplacementMapFilterMode.WRAP</codeph> - 将置换值折返到源图像的另一侧。</li>
+        <li><codeph>DisplacementMapFilterMode.CLAMP</codeph> - 将置换值锁定在源图像的边缘。</li>
+        <li><codeph>DisplacementMapFilterMode.IGNORE</codeph> - 如果置换值超出了范围，则忽略置换并使用源像素。</li>
+        <li><codeph>DisplacementMapFilterMode.COLOR</codeph> - 如果置换值在图像之外，则替换 color 和 alpha 属性中的值。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      用于缩放映射计算的 x 置换结果的乘数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于缩放映射计算的 x 置换结果的乘数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      用于缩放映射计算的 y 置换结果的乘数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于缩放映射计算的 y 置换结果的乘数。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ShaderFilter"><apiName>ShaderFilter</apiName><shortdesc>
+ Flex ShaderFilter 类可提取出大量细节，这些细节是关于如何使用 Flash ShaderFilter、Shader 和 ShaderData 类将 Pixel Bender 着色器应用为滤镜的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ShaderFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ShaderFilter
+    <strong>Properties</strong>
+    bottomExtension="0"
+    leftExtension="0"
+    precisionHint="full"
+    rightExtension="0"
+    shader="[]"
+    topExtension="0"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Flex ShaderFilter 类可提取出大量细节，这些细节是关于如何使用 Flash ShaderFilter、Shader 和 ShaderData 类将 Pixel Bender 着色器应用为滤镜的。
+ 
+ <p>ShaderFilter 类必须使用 Shader 对象的实例或者 Shader 的 Class 代理（例如来自 Embed）来初始化。这样，ShaderFilter 类就会充当基础 Shader 的代理，提供一种方便的机制，将标量和多维着色器输入参数都作为简单命名的属性直接访问。</p>
+ 
+ <p>要设置简单标量着色器输入参数（例如类型为 FLOAT 或 INT 的此类参数），可以直接引用属性，如 <codeph>myFilter.radius</codeph>。</p>
+ 
+ <p>要设置多维着色器输入参数（如 FLOAT2）的各个组件或设置其动画，可以使用属性后缀约定直接访问各个值。以下代码显示设置 FLOAT2 属性 <codeph>center</codeph> 的第一个和第二个组件的两种方式：<codeph><pre>
+     // 'center' is an input parameter of type FLOAT2.
+     shader.center = [10,20];
+ </pre></codeph>
+ <codeph><pre>
+     // Use property suffix convention to access the first and second component of 'center'. 
+     shader.center_x = 10;
+     shader.center_y = 20;
+ </pre></codeph></p>
+ 
+ <p>可以使用的支持的属性后缀的全集如下所示： </p>
+ 
+ <ul>
+ <li>对于类型为 BOOL2、BOOL3、BOOL4、FLOAT2、FLOAT3、FLOAT4、INT2、INT3 或 INT4 的着色器输入参数，可以使用“r g b a”、“x y z w”或“s t p q”分别访问第一个、第二个、第三个和第四个组件。</li>
+ 
+ <li>对于类型为 MATRIX2x2、MATRIX3x3 或 MATRIX4x4 的着色器输入参数，可以使用“a b c d e f g h i j k l m n o p”分别访问给定矩阵的第 1 个至第 16 个组件。</li>
+ </ul>
+ 
+ <p>随着 ShaderFilter 上属性的更改（例如在动画过程中），ShaderFilter 会自动将其自身重新应用于它所应用的可视组件的滤镜数组。</p>
+ 
+  </apiDesc><example>简单 ShaderFilter 示例：
+ <codeblock rev="3.0">
+ &lt;?xml version="1.0"?>
+ &lt;s:Application 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009">
+ 
+     &lt;!-- The hypothetical 'spherize' shader applied below has two input parameters, 'center' and 'radius'
+          with the following attributes:
+ 
+          parameter 'center' ==&lt;
+              type: float2
+              minValue: float2(-200,-200)
+              maxValue: float2(800,500)
+              defaultValue: float2(400,250)
+              description: "displacement center"
+  
+          parameter 'radius' ==&lt;
+              type: float
+              minValue: float(.1)
+              maxValue: float(400)
+              defaultValue: float(200)
+              description: "radius"
+     -->
+  
+     &lt;s:Label text="ABCDEF">
+         &lt;s:filters>
+             &lt;s:ShaderFilter shader="@Embed(source='shaders/spherize.pbj')"
+                 radius="25" center_x="50" center_y="15" />
+        &lt;/s:filters>
+     &lt;/s:Label>
+   
+ &lt;/s:Application> 
+ </codeblock>
+  
+  </example></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateFilter"><linktext>spark.effects.AnimateFilter</linktext></link></related-links><apiConstructor id="spark.filters:ShaderFilter:ShaderFilter"><apiName>ShaderFilter</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>shader</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>完全实现的 flash.display.Shader 实例，或者代表 Shader 的 Class（例如来自 Embed）。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.filters:ShaderFilter:bottomExtension:get"><apiName>bottomExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#bottomExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#bottomExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:leftExtension:get"><apiName>leftExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#leftExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#leftExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:precisionHint:get"><apiName>precisionHint</apiName><shortdesc>
+      基础着色器所执行的数学运算的精度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ShaderPrecision.FULL
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      基础着色器所执行的数学运算的精度。precisionHint 属性的可能值集是由 ShaderPrecision 类中的常量定义的。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Shader.xml"><linktext>flash.display.Shader</linktext></link><link href="" invalidHref="flash.display.ShaderPrecision.xml"><linktext>flash.display.ShaderPrecision</linktext></link></related-links></apiValue><apiValue id="spark.filters:ShaderFilter:rightExtension:get"><apiName>rightExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#rightExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#rightExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:shader:get"><apiName>shader</apiName><shortdesc>
+     一个 flash.display.Shader 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Shader"/></apiValueDef><apiDesc>
+     一个 flash.display.Shader 实例。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Shader.xml"><linktext>flash.display.Shader</linktext></link></related-links></apiValue><apiValue id="spark.filters:ShaderFilter:topExtension:get"><apiName>topExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#topExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#topExtension">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:GlowFilter"><apiName>GlowFilter</apiName><shortdesc>
+ 使用 GlowFilter 类可以对显示对象应用发光效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GlowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GlowFilter
+    <strong>Properties</strong>
+    alpha="1"
+    color="0xFF0000"
+    inner="false"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 使用 GlowFilter 类可以对显示对象应用发光效果。有多个用于发光样式的选项，包括内侧发光或外侧发光以及挖空模式。在投影滤镜的 <codeph>distance</codeph> 和 <codeph>angle</codeph> 属性设置为 0 时，发光滤镜与投影滤镜极为相似。您可以将滤镜应用于任何显示对象（即，从 DisplayObject 类继承的对象），例如 MovieClip、SimpleButton、TextField 和 Video 对象，以及 BitmapData 对象。
+ 
+ <p>滤镜的具体使用取决于要应用滤镜的对象：</p>
+ <ul><li>要对显示对象应用滤镜，请使用 <codeph>filters</codeph> 属性（继承自 DisplayObject）。设置对象的 <codeph>filters</codeph> 属性不会修改相应的对象，而清除 <codeph>filters</codeph> 属性可以删除相应的滤镜。 </li>
+ 
+ <li>要对 BitmapData 对象应用滤镜，请使用 <codeph>BitmapData.applyFilter()</codeph> 方法。对 BitmapData 对象调用 <codeph>applyFilter()</codeph> 会取得源 BitmapData 对象和滤镜对象，并最终生成一个过滤图像。</li>
+ </ul>
+ 
+ <p>如果对显示对象应用滤镜，显示对象的 <codeph>cacheAsBitmap</codeph> 属性将设置为 <codeph>true</codeph>。如果清除所有滤镜，将恢复 <codeph>cacheAsBitmap</codeph> 的原始值。</p>
+ 
+ <p>此滤镜支持舞台缩放。但是，它不支持常规缩放、旋转和倾斜。如果对象本身进行了缩放（如果将 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 设置为除 1.0 以外的其它值），滤镜将不进行缩放。只有用户在舞台上进行放大时它才会缩放。</p>
+ 
+ <p>如果所得图像超过最大尺寸，则不应用滤镜。在 AIR 1.5 和 Flash Player 10 中，最大宽度或高度为 8,191 像素，并且像素总数不能超过 16,777,215 像素。（因此，如果图像的宽度为 8,191 像素，则其高度只能为 2,048 像素。）例如，如果在放大某大型影片剪辑时应用了滤镜，则所得图像超过最大尺寸时，将关闭该滤镜。</p>
+ 
+  </apiDesc><example conref="GlowFilterExample.mxml"><swfblock conref="examples/GlowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.GlowFilter.xml"><linktext>flash.filters.GlowFilter</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scaleX"><linktext>flash.display.DisplayObject.scaleX</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scaleY"><linktext>flash.display.DisplayObject.scaleY</linktext></link><link href="" invalidHref="flash.filters.xml#DropShadowFilter/distance"><linktext>flash.filters.DropShadowFilter.distance</linktext></link><link href="" invalidHref="flash.filters.xml#DropShadowFilter/angle"><linktext>flash.filters.DropShadowFilter.angle</linktext></link></related-links><apiConstructor id="spark.filters:GlowFilter:GlowFilter"><apiName>GlowFilter</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0xFF0000</apiData><apiDesc>光晕颜色，采用十六进制格式 0x<i>RRGGBB</i>。默认值为 0xFF0000。
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>颜色的 Alpha 透明度值。有效值为 0 到 1。例如，0.25 设置透明度值为 25%。
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平模糊量。有效值为 0 到 255（浮点）。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈示速度比其它值更快。
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直模糊量。有效值为 0 到 255（浮点）。2 的乘方值（如 2、4、8、16 和 32）经过优化，呈示速度比其它值更快。
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>印记或跨页的强度。该值越高，压印的颜色越深，而且发光与背景之间的对比度也越强。有效值为 0 到 255。 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>应用滤镜的次数。使用 BitmapFilterQuality 常量：
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>有关详细信息，请参阅 <codeph>quality</codeph> 属性的说明。</p>
+     </apiDesc></apiParam><apiParam><apiItemName>inner</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定发光是否为内侧发光。值 <codeph> true</codeph> 指定发光是内侧发光。值 <codeph>false</codeph> 指定发光是外侧发光（对象外缘周围的发光）。 
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定对象是否具有挖空效果。值为 <codeph>true</codeph> 将使对象的填充变为透明，并显示文档的背景颜色。 
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="spark.filters.BitmapFilterQuality.xml"><linktext>BitmapFilterQuality</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:GlowFilter:clone"><apiName>clone</apiName><shortdesc>
+     返回此滤镜对象的副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>具有原始 GlowFilter 实例的所有属性的新 GlowFilter 实例。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     返回此滤镜对象的副本。
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:GlowFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      颜色的 Alpha 透明度值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      颜色的 Alpha 透明度值。有效值为 0 到 1。例如，0.25 设置透明度值为 25%。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GlowFilter:color:get"><apiName>color</apiName><shortdesc>
+      光晕颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      光晕颜色。有效值采用十六进制格式 0xRRGGBB。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GlowFilter:inner:get"><apiName>inner</apiName><shortdesc>
+      指定发光是否为内侧发光。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定发光是否为内侧发光。值 true 表示内侧发光。默认值为 false，即外侧发光（对象外缘周围的发光）。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

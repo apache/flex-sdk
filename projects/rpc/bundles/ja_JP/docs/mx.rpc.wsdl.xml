@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.wsdl"><apiName>mx.rpc.wsdl</apiName><apiDetail/><apiClassifier id="mx.rpc.wsdl:WSDLBinding"><apiName>WSDLBinding</apiName><shortdesc>
+ バインディングは、操作との間で送受信されるメッセージのメッセージフォーマットとプロトコルを、特定の portType で定義されるように定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ バインディングは、操作との間で送受信されるメッセージのメッセージフォーマットとプロトコルを、特定の portType で定義されるように定義します。
+ <p>
+ WSDL では、現在 SOAP バインディングのみがサポートされています。
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.wsdl:WSDLBinding:WSDLBinding"><apiName>WSDLBinding</apiName><shortdesc>
+    新しい WSDLBinding を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>このバインディングの一意の名前です。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+    新しい WSDLBinding を作成します。WSDL では、現在 SOAP バインディングのみがサポートされています。
+    
+    </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.wsdl:WSDLBinding:name:get"><apiName>name</apiName><shortdesc>
+     このバインディングの一意の名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     このバインディングの一意の名前です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:portType:get"><apiName>portType</apiName><shortdesc>
+     このバインディングの操作にインターフェイス定義を提供する、このバインディングの portType です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.rpc.wsdl:WSDLPortType"/></apiValueDef><apiDesc>
+     このバインディングの操作にインターフェイス定義を提供する、このバインディングの portType です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:style:get"><apiName>style</apiName><shortdesc>
+     このバインディングで定義されるすべての操作のデフォルトである、SOAP バインディングのスタイル属性を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     このバインディングで定義されるすべての操作のデフォルトである、SOAP バインディングのスタイル属性を表します。 スタイルは、操作が RPC 指向（パラメーターと戻り値を含むメッセージ）か、ドキュメント指向（ドキュメントを含むメッセージ）かを示します。
+     <p>
+     デフォルト値は <codeph>document</codeph> です。
+     </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:transport:get"><apiName>transport</apiName><shortdesc>
+     SOAP エンコードメッセージを送信するために使用されるトランスポートの URI を示す、SOAP バインディングのトランスポート属性を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     SOAP エンコードメッセージを送信するために使用されるトランスポートの URI を示す、SOAP バインディングのトランスポート属性を表します。 デフォルトの URI は、http://schemas.xmlsoap.org/soap/http/ です。これは、SOAP over HTTP を示しています（現在はトランスポートのみがサポートされています）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

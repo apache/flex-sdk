@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.styles"><apiName>mx.charts.styles</apiName><apiDetail/><apiClassifier id="mx.charts.styles:HaloDefaults"><apiName>HaloDefaults</apiName><shortdesc>
+  グラフクラスの基本的なデフォルトのスタイルを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  グラフクラスの基本的なデフォルトのスタイルを初期化します。 グラフやエレメントのスタイル値はそれぞれのグラフおよびエレメントで初期化されますが、これらの値は HaloDefaults クラスで計算される一般的な値に依存します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.charts.styles:HaloDefaults:createSelector"><apiName>createSelector</apiName><shortdesc>
+	  CSSStyleDeclaration オブジェクトを作成するか、既存のオブジェクトを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定されたセレクター名と一致する CSSStyleDeclaration オブジェクトです。 その名前と一致する CSSStyleDeclaration オブジェクトがない場合、このメソッドは新しいオブジェクトを作成して返します。
+	  
+	  </apiDesc><apiType value="mx.styles:CSSStyleDeclaration"/></apiReturn><apiParam><apiItemName>selectorName</apiItemName><apiType value="String"/><apiDesc>返されるセレクターの名前です。 この名前と一致する既存の CSSStyleDeclaration オブジェクトがない場合、このメソッドは新しいオブジェクトを作成して返します。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>styleManager</apiItemName><apiType value="mx.styles:IStyleManager2"/><apiDesc>スタイル宣言を取得および設定するために使用する styleManager インスタンス。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  CSSStyleDeclaration オブジェクトを作成するか、既存のオブジェクトを返します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.charts.styles:HaloDefaults:init"><apiName>init</apiName><shortdesc>
+	  グラフクラスおよびエレメントクラスのデフォルトのスタイルで使用される一般的な値を初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleManager</apiItemName><apiType value="mx.styles:IStyleManager2"/><apiDesc>スタイル宣言を取得および設定するために使用する styleManager インスタンス。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  グラフクラスおよびエレメントクラスのデフォルトのスタイルで使用される一般的な値を初期化します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

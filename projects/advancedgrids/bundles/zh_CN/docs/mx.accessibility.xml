@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.accessibility"><apiName>mx.accessibility</apiName><apiDetail/><apiClassifier id="mx.accessibility:AdvancedDataGridAccImpl"><apiName>AdvancedDataGridAccImpl</apiName><shortdesc>
+  AdvancedDataGridAccImpl 类是 AdvancedDataGrid 的 Accessibility 类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><review/></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiTipTexts><apiTipText>这是 AdvancedDataGrid Accessibility 类。
+  </apiTipText></apiTipTexts><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AdvancedDataGridAccImpl 类是 AdvancedDataGrid 的 Accessibility 类。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AdvancedDataGridAccImpl:AdvancedDataGridAccImpl"><apiName>AdvancedDataGridAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AdvancedDataGridAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  用于启用组件辅助功能的方法调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  用于启用组件辅助功能的方法调用。该方法是编译器激活组件的辅助功能类所必需的。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc"><apiName>mx.rpc</apiName><apiDetail/><apiClassifier id="mx.rpc:AbstractService"><apiName>AbstractService</apiName><shortdesc>
+ AbstractService 类是 HTTPMultiService、WebService 和 RemoteObject 类的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+ AbstractService 类是 HTTPMultiService、WebService 和 RemoteObject 类的基类。该类创建实际执行远程过程调用的操作。
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc:AbstractService_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ 当服务调用失败并且操作自身不处理时，将分派 fault 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当服务调用失败并且操作自身不处理时，将分派 fault 事件。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:AbstractService_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ 当服务调用成功返回并且操作自身不处理时，将分派 result 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当服务调用成功返回并且操作自身不处理时，将分派 result 事件。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:AbstractService_mx.rpc.events.InvokeEvent.INVOKE_invoke"><apiName>invoke</apiName><shortdesc>
+ 当调用服务操作时，只要在通道尝试发送消息前没有引发错误，将分派 invoke 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.InvokeEvent.INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当调用服务操作时，只要在通道尝试发送消息前没有引发错误，将分派 invoke 事件。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc:AbstractService:AbstractService"><apiName>AbstractService</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>服务的目标。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AbstractService:disconnect"><apiName>disconnect</apiName><shortdesc>
+      断开此服务的网络连接并删除任何未处理的请求 responder。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      断开此服务的网络连接并删除任何未处理的请求 responder。此方法不会等待未完成的网络操作完成。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:getOperation"><apiName>getOperation</apiName><shortdesc>
+     返回给定名称的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>为此名称执行的操作。
+     
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>操作的名称。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     返回给定名称的操作。如果之前没有创建操作，则子类将负责在此调用过程中创建该操作。通常只需在服务变量之后命名操作即可访问操作 (<codeph>myService.someOperation</codeph>)，但如果 Operation 的名称恰好与服务上所定义的方法（如 <codeph>setCredentials</codeph>）相匹配，则可以改用此方法来获取 Operation。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:initialize"><apiName>initialize</apiName><shortdesc>
+      调用以初始化服务。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      调用以初始化服务。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:logout"><apiName>logout</apiName><shortdesc>
+     将用户从目标中注销。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     将用户从目标中注销。从目标中注销适用于使用在服务器配置中指定的同一 ChannelSet 连接的所有对象。例如，如果通过 my-rtmp 通道连接并且使用 RPC 组件之一注销，则通过同一 ChannelSet 连接的任何内容都将被注销。
+     
+      <p><b>注意：</b>Adobe 建议使用 mx.messaging.ChannelSet.logout() 方法而不是此方法。 </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.rpc:AbstractService:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+     当在服务器端使用 Data Services 时，为服务访问的目标设置凭据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>目标的用户名。
+     </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>目标的密码。
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。其它受支持的字符集仅有“UTF-8”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     当在服务器端使用 Data Services 时，为服务访问的目标设置凭据。凭据适用于通过相同 ChannelSet 连接的所有服务。请注意，使用代理或第三方适配器连接到远程端点的服务将需要 setRemoteCredentials。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractService:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+     当在服务器端使用 Data Services 时，用于在访问远程第三方端点（例如通过代理访问 Web 服务或通过自定义适配器访问远程对象）时对用户进行身份验证的用户名和密码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>要传递给远程端点的用户名
+     </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>要传递给远程端点的密码
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对远程凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。其它受支持的字符集仅有“UTF-8”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     当在服务器端使用 Data Services 时，用于在访问远程第三方端点（例如通过代理访问 Web 服务或通过自定义适配器访问远程对象）时对用户进行身份验证的用户名和密码。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AbstractService:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      提供对服务使用的 ChannelSet 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      提供对服务使用的 ChannelSet 的访问。可以手动构造并分配 ChannelSet，否则将动态创建 <codeph> 以使用为此服务的 </codeph> 配置的通道。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:destination:get"><apiName>destination</apiName><shortdesc>
+     服务的目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     服务的目标。该值应与 services-config.xml 文件中的目标条目匹配。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:managers:get"><apiName>managers</apiName><shortdesc>
+     managers 属性存储修改此服务行为的数据管理器的列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+     managers 属性存储修改此服务行为的数据管理器的列表。您可以使用此挂钩定义一个或多个与此服务关联的管理器组件。设置此属性后，如果管理器具有一个名为“service”的属性，则将该属性设置为此服务的值。初始化此服务时，我们也会对任何管理器组件调用 initialize 方法。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      提供对已发送消息的请求超时（以秒为单位）的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      提供对已发送消息的请求超时（以秒为单位）的访问。如果值小于 0 或等于 0，则可阻止请求超时的发生。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractService:operations:set"><apiName>operations</apiName><shortdesc>
+     如果使用 MXML 标签创建服务，则操作数组通常仅由 MXML 编译器设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     如果使用 MXML 标签创建服务，则操作数组通常仅由 MXML 编译器设置。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:AbstractInvoker"><apiName>AbstractInvoker</apiName><shortdesc>
+ invoker 是实际执行远程过程调用 (RPC) 的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+ invoker 是实际执行远程过程调用 (RPC) 的对象。例如，RemoteObject、HTTPService 和 WebService 对象都是 invoker。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc:AbstractInvoker:cancel"><apiName>cancel</apiName><shortdesc>
+      取消上次服务调用或具有指定 ID 的调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与被取消的调用关联的 AsyncToken，如果未取消任何调用，则为 null。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要取消的调用的 messageId。可选。如果省略，将取消上一次服务调用。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      取消上次服务调用或具有指定 ID 的调用。即使网络操作可能仍在继续，也不分派 result 或 fault 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractInvoker:clearResult"><apiName>clearResult</apiName><shortdesc>
+      将 invoker 的 result 属性设置为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>fireBindingEvent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果要更新绑定到结果的任何内容，请将 设置为 <codeph>true</codeph>。否则设置为 <codeph>false</codeph>。默认值是 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 invoker 的 <codeph>result</codeph> 属性设置为 <codeph>null</codeph>。当结果为不再使用的较大对象时，这将非常有用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AbstractInvoker:setResult"><apiName>setResult</apiName><shortdesc>
+      公开此挂钩可以更新 lastResult 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>result</apiItemName><apiType value="Object"/><apiDesc>lastResult 属性的新值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      公开此挂钩可以更新 lastResult 属性。由于 lastResult 一般由服务自动更新，因此您通常无需调用该方法。该方法由托管服务（希望确保 lastResult 始终指向给定标识的托管实例）使用，即使该服务返回同一对象的新副本时也是如此。  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AbstractInvoker:operationManager"><apiName>operationManager</apiName><shortdesc>
+     此属性通常由框架代码设置，框架代码需要修改服务调用的行为，而不修改外部调用服务的方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     此属性通常由框架代码设置，框架代码需要修改服务调用的行为，而不修改外部调用服务的方式。这样，您就可以对方法调用添加“过滤”步骤以确保（例如）不会返回具有相同 ID 的重复实例或在执行按需分页时插入参数。如果对于 send 调用此属性设置为非 null 值，则会改为调用 operationManager 函数。它将返回调用者用来获得结果通知的标记。通常，调用的函数会在某个时刻暂时清除此属性，然后再次调用该操作（这次实际上是将其发送到服务器）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:resultElementType"><apiName>resultElementType</apiName><shortdesc>
+     与 resultType 类似，用于定义由给定操作使用的 ActionScript 类，但是此属性只适用于返回多值结果（例如，Array 或 ArrayCollection (IList)）的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+     与 resultType 类似，用于定义由给定操作使用的 ActionScript 类，但是此属性只适用于返回多值结果（例如，Array 或 ArrayCollection (IList)）的操作。此属性为数组或数组集合的成员指定一个 ActionScript 类。如果设置了 resultElementType，则无需设置 resultType。在这种情况下，如果 makeObjectsbindable 为 false，则该操作将返回 Array；否则返回 ArrayCollection。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:resultType"><apiName>resultType</apiName><shortdesc> 
+     指定操作的可选返回类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc> 
+     指定操作的可选返回类型。此属性适用于以下情形：您希望将通过网络传送的信息强制为特定 ActionScript 类，或者根据此操作的返回类型为其它服务提供元数据。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:lastResult:get"><apiName>lastResult</apiName><shortdesc>
+      上次调用的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resultForBinding"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      上次调用的结果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractInvoker:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:AsyncResponder"><apiName>AsyncResponder</apiName><shortdesc>
+ 该类提供特定于 RPC 的 mx.rpc.IResponder 实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 该类提供特定于 RPC 的 <codeph>mx.rpc.IResponder</codeph> 实现。允许创建者将数据（一个标记）和请求完成后应调用的方法相关联。指定的 result 方法必须包含以下签名：<codeph><pre>
+     public function myResultFunction(result:Object, token:Object = null):void;
+  </pre></codeph>指定的 fault 方法必须包含以下签名：<codeph><pre>
+     public function myFaultFunction(error:Object, token:Object = null):void;
+  </pre></codeph>任何其它签名将导致运行时错误。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:AsyncResponder:AsyncResponder"><apiName>AsyncResponder</apiName><shortdesc>
+      使用指定的数据和处理函数构造 responder 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>result</apiItemName><apiType value="Function"/><apiDesc>成功完成请求时应调用的函数。必须具有以下签名：
+              <pre>public function (result:Object, token:Object = null):void;</pre>
+      </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiType value="Function"/><apiDesc>请求完成但出错时应调用的函数。必须具有以下签名：
+              <pre>public function (error:FaultEvent, token:Object = null):void;</pre>
+      </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>与此请求相关的其它信息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      使用指定的数据和处理函数构造 responder 实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AsyncResponder:fault"><apiName>fault</apiName><shortdesc>
+      收到错误后由服务调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>包含有关发生的错误的信息的对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      收到错误后由服务调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AsyncResponder:result"><apiName>result</apiName><shortdesc>
+      收到返回值后由服务调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>包含从请求返回的信息的对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      收到返回值后由服务调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:IResponder"><apiName>IResponder</apiName><shortdesc>
+  此接口为任何需要响应远程或异步调用的服务提供协定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  此接口为任何需要响应远程或异步调用的服务提供协定。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc:IResponder:mx.rpc:IResponder:fault"><apiName>fault</apiName><shortdesc>
+	  收到错误后由服务调用此方法。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>包含有关发生的错误的信息。
+	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  收到错误后由服务调用此方法。虽然 <codeph>info</codeph> 被分类为对象，但它通常是（但并不总是）一个 mx.rpc.events.FaultEvent 对象。
+         
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:IResponder:mx.rpc:IResponder:result"><apiName>result</apiName><shortdesc>
+	  收到返回值后由服务调用此方法。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>包含从请求返回的信息。
+	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  收到返回值后由服务调用此方法。虽然 <codeph>data</codeph> 被分类为对象，但它通常是（但并不总是）一个 mx.rpc.events.ResultEvent 对象。
+         
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+ AbstractOperation 类表示服务上的单个方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractInvoker</apiBaseClassifier></apiClassifierDef><apiDesc>
+ AbstractOperation 类表示服务上的单个方法。可以通过在服务上调用同名函数或在服务上访问作为属性的 Operation 并调用 <codeph>send()</codeph> 方法来调用 Operation。
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="mx.rpc.xml#AbstractService"><linktext>mx.rpc.AbstractService</linktext></link><link href="mx.rpc.remoting.xml#RemoteObject"><linktext>mx.rpc.remoting.RemoteObject</linktext></link><link href="mx.rpc.soap.xml#WebService"><linktext>mx.rpc.soap.WebService</linktext></link></related-links><adobeApiEvent id="mx.rpc:AbstractOperation_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ 当操作调用失败时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当操作调用失败时分派。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:AbstractOperation_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ 当操作调用成功返回时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当操作调用成功返回时分派。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc:AbstractOperation:AbstractOperation"><apiName>AbstractOperation</apiName><shortdesc>
+     创建一个新的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>service</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>对其调用 Operation 的服务。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>新 Operation 的名称。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 Operation。这通常在访问未知操作时直接由 MXML 编译器执行或由服务自动执行。建议开发人员不要直接使用此构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AbstractOperation:send"><apiName>send</apiName><shortdesc>
+     执行此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>AsyncToken 对象。<codeph>token</codeph> 属性的 <codeph>result</codeph> 和 <codeph>fault</codeph> 事件中具有相同的对象。
+     
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>args</apiItemName><apiType value="restParam"/><apiDesc>作为方法调用的一部分传入的可选参数。如果没有传递的参数，则参数对象将用作参数源。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     执行此方法。任何传入的任何参数将作为方法调用的一部分进行传递。如果没有传递的参数，则参数对象将用作参数源。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AbstractOperation:arguments"><apiName>arguments</apiName><shortdesc>
+     当操作被调用时传递到此操作的参数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     当操作被调用时传递到此操作的参数。如果不带参数调用 <codeph>send()</codeph> 方法，将发送基于此对象的数组。如果使用参数调用 <codeph>send()</codeph> 方法（或直接在服务上调用此函数），将使用这些参数来代替此属性中存储的任何内容。对于 RemoteObject 操作，关联的 argumentNames 数组确定传递参数的顺序。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractOperation:properties"><apiName>properties</apiName><shortdesc>
+     这是一个挂钩，主要供框架开发人员用来为您的操作注册用户指定的其它属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     这是一个挂钩，主要供框架开发人员用来为您的操作注册用户指定的其它属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractOperation:name:get"><apiName>name</apiName><shortdesc>
+     此操作的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     此操作的名称。这是脱离服务访问操作的方式。只能对其设置一次。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AbstractOperation:service:get"><apiName>service</apiName><shortdesc>
+     提供对在其上调用此操作的服务的方便访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.rpc:AbstractService</apiValueClassifier></apiValueDef><apiDesc>
+     提供对在其上调用此操作的服务的方便访问。请注意，构造操作之后将不能更改服务。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:Responder"><apiName>Responder</apiName><shortdesc>
+  此类提供 mx.rpc.IResponder 接口的默认实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  此类提供 mx.rpc.IResponder 接口的默认实现。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:Responder:Responder"><apiName>Responder</apiName><shortdesc>
+      使用指定的处理函数构造 responder 的实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>result</apiItemName><apiType value="Function"/><apiDesc>成功完成请求时应调用的函数。
+      </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiType value="Function"/><apiDesc>请求完成但出错时应调用的函数。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      使用指定的处理函数构造 responder 的实例。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:Responder:fault"><apiName>fault</apiName><shortdesc>
+      收到错误后由服务调用此方法。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>包含从请求返回的信息的对象。虽然 <codeph>info</codeph> 的类型为 Object，但它通常是（但并不总是）mx.rpc.events.FaultEvent。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      收到错误后由服务调用此方法。
+         
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:Responder:result"><apiName>result</apiName><shortdesc>
+      接收到返回值后，该方法将被远程服务调用。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>包含有关发生的错误的信息的对象。虽然 <codeph>data</codeph> 被分类为对象，但它通常是（但不总是）一个 mx.rpc.events.ResultEvent。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      接收到返回值后，该方法将被远程服务调用。
+         
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:AsyncRequest"><apiName>AsyncRequest</apiName><shortdesc>
+  AsyncRequest 类为 RPC 调用提供消息传递抽象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:Producer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AsyncRequest 类为 RPC 调用提供消息传递抽象。AsyncRequest 允许对远程目标进行多个请求，并在远程请求完成之后对请求中指定的 responder 进行回调。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:AsyncRequest:AsyncRequest"><apiName>AsyncRequest</apiName><shortdesc>
+	  构造新的异步请求。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造新的异步请求。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AsyncRequest:hasPendingRequestForMessage"><apiName>hasPendingRequestForMessage</apiName><shortdesc>
+    如果存在传入消息的任何挂起的请求，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>如果对传入的消息有任何挂起的请求，则返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>。
+     
+     </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>已针对其检查是否存在挂起请求的消息。
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    如果对传入的消息有任何挂起的请求，则返回 <codeph>true</codeph>。
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:AsyncRequest:invoke"><apiName>invoke</apiName><shortdesc>
+	  分派异步请求并存储 responder 以便以后调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>要异步发送的消息。
+         
+         </apiDesc></apiParam><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>以后要调用的 responder。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  分派异步请求并存储 responder 以便以后调用。
+         
+         </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc:Fault"><apiName>Fault</apiName><shortdesc>
+ Fault 类表示远程过程调用 (RPC) 服务调用中存在错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Fault 类表示远程过程调用 (RPC) 服务调用中存在错误。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc:Fault:Fault"><apiName>Fault</apiName><shortdesc>
+     创建一个新的 Fault 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>faultCode</apiItemName><apiType value="String"/><apiDesc>描述错误的简单代码。
+     </apiDesc></apiParam><apiParam><apiItemName>faultString</apiItemName><apiType value="String"/><apiDesc>错误的文本说明。
+     </apiDesc></apiParam><apiParam><apiItemName>faultDetail</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>描述错误的其它详细信息。
+     
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 Fault 对象。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:Fault:toString"><apiName>toString</apiName><shortdesc>
+     返回 Fault 对象的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回 Fault 对象的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     返回 Fault 对象的字符串表示形式。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:Fault:content"><apiName>content</apiName><shortdesc>
+     错误的原始内容（如果可用），如 HTTP 响应正文。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     错误的原始内容（如果可用），如 HTTP 响应正文。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:rootCause"><apiName>rootCause</apiName><shortdesc>
+     错误的原因。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     错误的原因。如果错误原因未知，或该错误是否表示根本身未知，则该值为空。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:faultCode:get"><apiName>faultCode</apiName><shortdesc>
+     描述错误的简单代码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     描述错误的简单代码。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:faultDetail:get"><apiName>faultDetail</apiName><shortdesc>
+     错误的任何其它详细信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     错误的任何其它详细信息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:Fault:faultString:get"><apiName>faultString</apiName><shortdesc>
+     错误的文本说明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     错误的文本说明。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:AsyncToken"><apiName>AsyncToken</apiName><shortdesc>
+  该类为异步 RPC 操作提供设置额外数据或标记级别数据的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  该类为异步 RPC 操作提供设置额外数据或标记级别数据的位置。它也允许为单独的调用附加 IResponder。可从 <codeph>token</codeph> 属性的 <codeph>ResultEvent</codeph> 和 <codeph>FaultEvent</codeph> 中引用 AsyncToken。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc:AsyncToken_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  当通道设置的属性发生更改时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当通道设置的属性发生更改时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc:AsyncToken:AsyncToken"><apiName>AsyncToken</apiName><shortdesc>
+     使用指定的消息构造标记的实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>标记与之关联的消息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     使用指定的消息构造标记的实例。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc:AsyncToken:addResponder"><apiName>addResponder</apiName><shortdesc>
+      可向响应器 Array 中添加响应器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>异步请求完成时将调用的处理函数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      可向响应器 Array 中添加响应器。分配给 responder 参数的对象必须实现 <codeph>mx.rpc.IResponder</codeph>。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link></related-links></apiOperation><apiOperation id="mx.rpc:AsyncToken:hasResponder"><apiName>hasResponder</apiName><shortdesc>
+     确定此标记是否至少具有一个注册的 mx.rpc.IResponder。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果至少向此标记添加了一个 responder，则其值为 true。 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+     确定此标记是否至少具有一个注册的 <codeph>mx.rpc.IResponder</codeph>。
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:AsyncToken:message:get"><apiName>message</apiName><shortdesc>
+      提供对关联消息的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      提供对关联消息的访问。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AsyncToken:responders:get"><apiName>responders</apiName><shortdesc>
+     异步请求完成时将要调用的 IResponder 处理程序数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     异步请求完成时将要调用的 IResponder 处理程序数组。分配给标记的 Eaxh responder 将调用 <codeph>result</codeph> 或 <codeph>fault</codeph> 函数，以在操作或服务分派事件自身<i>之前</i>传入匹配的事件。开发人员可通过调用 <codeph>event.preventDefault()</codeph> 来防止服务随后分派此事件。请注意，这样不能阻止分配服务或操作的 <codeph>result</codeph> 属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:AsyncToken:result:get"><apiName>result</apiName><shortdesc>
+     关联的 RPC 调用返回的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     关联的 RPC 调用返回的结果。当标记上的 result 属性已分配时，该值将和关联的 ResultEvent 上的 result 属性完全相同。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc:CallResponder"><apiName>CallResponder</apiName><shortdesc>
+  此组件帮助您管理从基于 RPC 的服务（通常从 MXML 组件）进行的异步调用的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  此组件帮助您管理从基于 RPC 的服务（通常从 MXML 组件）进行的异步调用的结果。尽管每个服务和操作都会分派结果和错误事件，但是通常需要在应用程序的不同部分使用相同的操作。在整个应用程序中使用一个事件侦听器或 lastResult 值可能非常不方便。您可以使用简单轻型的 CallResponder 为服务的特定调用管理事件侦听器和 lastResult 值，而不是创建引用同一服务的两个服务组件。
+  <p>
+  可以将此组件的 token 属性设置为服务返回的 AsyncToken。然后，可以在此组件上添加事件侦听器，而无需将其添加到返回的每个 AsyncToken。此组件还保留了 lastResult 属性，该属性是此服务监视的标记所分派的上一个成功结果事件返回的值的副本。尽管您可以绑定到 <codeph>￼callResponder.token.result￼</codeph> 或 <codeph>callResponder.lastResult</codeph>￼，但是，当第二次调用同一个服务时，将保留 callResponder.lastResult；当启动新的服务调用时，将重置 callResponder.token.result。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc:CallResponder_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ 当操作调用失败时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当操作调用失败时分派。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.rpc:CallResponder_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ 当操作调用成功返回时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 当操作调用成功返回时分派。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.rpc:CallResponder:fault"><apiName>fault</apiName><shortdesc>
+      当 AsyncToken 希望将 FaultEvent 传送到 CallResponder 时，AsyncToken 会调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>通过 AsyncToken 传送的 FaultEvent
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在 AsyncToken 希望将 <codeph>FaultEvent</codeph> 传送到 CallResponder 时，会调用此方法。您无需直接调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc:CallResponder:result"><apiName>result</apiName><shortdesc>
+      在 AsyncToken 希望将 ResultEvent 传送到 CallResponder 时，会调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>通过 AsyncToken 传送的 ResultEvent
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在 AsyncToken 希望将 <codeph>ResultEvent</codeph> 传送到 CallResponder 时，会调用此方法。您无需直接调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc:CallResponder:lastResult:get"><apiName>lastResult</apiName><shortdesc>
+      此属性每当标记传送成功结果时存储标记的 result 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc>
+      此属性每当标记传送成功结果时存储标记的 result 属性。您可以绑定到或访问此属性（而不是 token.result 属性），以防止在第二次或接下来调用特定服务方法时，代码发现值已被清除。另外，如果发生错误，此值仍会设置为由此 CallResponder 监视的标记返回的上一个成功结果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc:CallResponder:token:set"><apiName>token</apiName><shortdesc>
+      每个 CallResponder 都分派从单一标记处收到的结果和错误事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc:AsyncToken</apiValueClassifier></apiValueDef><apiDesc>
+      每个 CallResponder 都分派从单一标记处收到的结果和错误事件。此属性值指定该标记。通常会将此属性设置为由服务返回的 AsyncToken 对象。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

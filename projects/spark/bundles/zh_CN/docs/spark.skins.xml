@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.skins"><apiName>spark.skins</apiName><apiDetail/><apiClassifier id="spark.skins:IHighlightBitmapCaptureClient"><apiName>IHighlightBitmapCaptureClient</apiName><shortdesc>
+  IHighlightBitmapCaptureClient 为支持加亮位图捕获的外观定义接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IHighlightBitmapCaptureClient 为支持加亮位图捕获的外观定义接口。
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:beginHighlightBitmapCapture"><apiName>beginHighlightBitmapCapture</apiName><shortdesc>
+	  在为此外观进行位图捕获之前调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+	  在为此外观进行位图捕获之前调用。如果需要在捕获位图之前更新外观，则返回为 true。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:endHighlightBitmapCapture"><apiName>endHighlightBitmapCapture</apiName><shortdesc>
+	  在为此外观进行位图捕获之后调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+	  在为此外观进行位图捕获之后调用。如果需要更新外观，则返回 true。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:validateNow"><apiName>validateNow</apiName><shortdesc>
+	  验证外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  验证外观。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.skins:SparkButtonSkin"><apiName>SparkButtonSkin</apiName><shortdesc>
+      Spark 按钮外观的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.skins:SparkSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+      Spark 按钮外观的基类。主要用于量入为出的图标管理。
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="spark.skins:SparkButtonSkin:SparkButtonSkin"><apiName>SparkButtonSkin</apiName><shortdesc>
+         构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+         构造函数。
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.skins:SparkButtonSkin:autoIconManagement:get"><apiName>autoIconManagement</apiName><shortdesc>
+          如果启用，会自动构造所需构造以显示 iconDisplay 部分并对其布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          如果启用，会自动构造所需构造以显示 iconDisplay 部分并对其布局。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:gap:get"><apiName>gap</apiName><shortdesc>
+          按钮的图标和标签之间的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          按钮的图标和标签之间的像素数。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconDisplay:get"><apiName>iconDisplay</apiName><shortdesc conref="spark.components.supportClasses.ButtonBase#iconDisplay">
+         </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.primitives:BitmapImage</apiValueClassifier></apiValueDef><apiDesc conref="spark.components.supportClasses.ButtonBase#iconDisplay">
+         </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingBottom:get"><apiName>iconGroupPaddingBottom</apiName><shortdesc>
+          按钮的底边缘与图标或标签的底边缘之间的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          按钮的底边缘与图标或标签的底边缘之间的像素数。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingLeft:get"><apiName>iconGroupPaddingLeft</apiName><shortdesc>
+          按钮的左边缘与图标或标签的左边缘之间的最少像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          按钮的左边缘与图标或标签的左边缘之间的最少像素数。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingRight:get"><apiName>iconGroupPaddingRight</apiName><shortdesc>
+          按钮的右边缘与图标或标签的右边缘之间的最少像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          按钮的右边缘与图标或标签的右边缘之间的最少像素数。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingTop:get"><apiName>iconGroupPaddingTop</apiName><shortdesc>
+          按钮的顶边缘与第一个图标或标签的顶边缘之间的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          按钮的顶边缘与第一个图标或标签的顶边缘之间的像素数。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:labelDisplay:get"><apiName>labelDisplay</apiName><shortdesc conref="spark.components.supportClasses.ButtonBase#labelDisplay">
+         </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.core:IDisplayText</apiValueClassifier></apiValueDef><apiDesc conref="spark.components.supportClasses.ButtonBase#labelDisplay">
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.skins:SparkSkin"><apiName>SparkSkin</apiName><shortdesc>
+  Spark 外观的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.supportClasses:Skin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Spark 外观的基类。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.skins:SparkSkin:SparkSkin"><apiName>SparkSkin</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.skins:SparkSkin:protected:useChromeColor"><apiName>useChromeColor</apiName><shortdesc>
+      指定此外观是否应受 chromeColor 样式的影响。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定此外观是否应受 <codeph>chromeColor</codeph> 样式的影响。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:colorizeExclusions:get"><apiName>colorizeExclusions</apiName><shortdesc>
+      不应由 chromeColor 样式进行着色的项的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      不应由 <codeph>chromeColor</codeph> 样式进行着色的项的名称。仅应该排除类型为 DisplayObject 或 GraphicElement 的项。将忽略其他类型的项。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:contentItems:get"><apiName>contentItems</apiName><shortdesc>
+     应该由 contentBackgroundColor 样式定义其 color 属性的项的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     应该由 <codeph>contentBackgroundColor</codeph> 样式定义其 <codeph>color</codeph> 属性的项的名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:symbolItems:get"><apiName>symbolItems</apiName><shortdesc>
+     应该由 symbolColor 样式定义其 color 属性的项目的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     应该由 <codeph>symbolColor</codeph> 样式定义其 <codeph>color</codeph> 属性的项目的名称。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

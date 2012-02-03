@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.utils"><apiName>mx.utils</apiName><apiDetail/><apiClassifier id="mx.utils:URLUtil"><apiName>URLUtil</apiName><shortdesc>
+      Класс URLUtil представляет собой статический класс с методами работы с полными и относительными URL-адресами в пределах Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      Класс URLUtil представляет собой статический класс с методами работы с полными и относительными URL-адресами в пределах Flex.
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.BrowserManager.xml"><linktext>mx.managers.BrowserManager</linktext></link></related-links><apiOperation id="mx.utils:URLUtil:getFullURL"><apiName>getFullURL</apiName><shortdesc>
+          Преобразует потенциально относительный URL-адрес в полный URL-адрес.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Полный URL-адрес.
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiDesc>URL-адрес, используемый для определения URL-адреса, задаваемого параметром <codeph>url</codeph>, если <codeph>url</codeph> является относительным.
+          </apiDesc></apiParam><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Преобразуемый URL-адрес.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Преобразует потенциально относительный URL-адрес в полный URL-адрес. Если URL-адрес не является относительным, то он возвращается в исходном виде. Если URL-адрес начинается с наклонной черты вправо, то сначала указывается хост и порт из корневого URL-адреса. В противном случае сначала указывается хост, порт и путь.
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getPort"><apiName>getPort</apiName><shortdesc>
+          Возвращает номер порта из указанного URL-адреса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Номер порта указанного URL-адреса.
+          
+          </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Анализируемый URL-адрес.
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Возвращает номер порта из указанного URL-адреса.
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getProtocol"><apiName>getProtocol</apiName><shortdesc>
+          Возвращает раздел протокола указанного URL-адреса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Протокол или пустая строка, если протокол не указан.
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Строка, содержащая анализируемый URL-адрес.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Возвращает раздел протокола указанного URL-адреса. В следующих примерах показано, что возвращается на основе различных URL-адресов:
+          
+          <pre>
+          getProtocol("https://localhost:2700/") returns "https"
+          getProtocol("rtmp://www.myCompany.com/myMainDirectory/groupChatApp/HelpDesk") returns "rtmp"
+          getProtocol("rtmpt:/sharedWhiteboardApp/June2002") returns "rtmpt"
+          getProtocol("rtmp::1234/chatApp/room_name") returns "rtmp"
+          </pre>
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getServerNameWithPort"><apiName>getServerNameWithPort</apiName><shortdesc>
+          Возвращает информацию о домене и порте из указанного URL-адреса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Имя сервера и порт указанного URL-адреса.
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Анализируемый URL-адрес.
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Возвращает информацию о домене и порте из указанного URL-адреса.
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getServerName"><apiName>getServerName</apiName><shortdesc>
+          Возвращает имя сервера из указанного URL-адреса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Имя сервера указанного URL-адреса.
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Анализируемый URL-адрес.
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Возвращает имя сервера из указанного URL-адреса.
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:hasTokens"><apiName>hasTokens</apiName><shortdesc>
+          При наличии url-адреса определяет, содержит ли этот url маркеры server.name и server.port.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph>, если этот url-адрес содержит маркеры server.name и server.port.
+         
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Строка URL. 
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          При наличии url-адреса определяет, содержит ли этот url маркеры server.name и server.port.
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:hasUnresolvableTokens"><apiName>hasUnresolvableTokens</apiName><shortdesc>
+         Если свойство LoaderConfig.url не доступно, то метод replaceTokens() не сможет правильно заменить имя сервера и свойства порта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph>, если свойство <codeph>LoaderConfig.url</codeph> не доступно. В противном случае <codeph>false</codeph>.
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+         Если свойство <codeph>LoaderConfig.url</codeph> не доступно, то метод <codeph>replaceTokens()</codeph> не сможет правильно заменить имя сервера и свойства порта.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:isHttpURL"><apiName>isHttpURL</apiName><shortdesc>
+          Определяет, использует ли URL-адрес протокол HTTP, HTTPS или RTMP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph>, если URL-адрес начинается с «http://», «https://» или «rtmp://».
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Анализируемый URL-адрес.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Определяет, использует ли URL-адрес протокол HTTP, HTTPS или RTMP. 
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:isHttpsURL"><apiName>isHttpsURL</apiName><shortdesc>
+          Определяет, использует ли URL-адрес защищенный протокол HTTPS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph>, если URL-адрес начинается с https://.
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Анализируемый URL-адрес.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Определяет, использует ли URL-адрес защищенный протокол HTTPS. 
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:objectToString"><apiName>objectToString</apiName><shortdesc>
+          Перечисляет динамические свойства объекта (при использовании циклаfor in) и возвращает строку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Объект, переданный методу.
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>Объект, подлежащий преобразованию в строку.
+          </apiDesc></apiParam><apiParam><apiItemName>separator</apiItemName><apiType value="String"/><apiData/><apiDesc>Символ, разделяющий каждую пару объекта <codeph>property:value</codeph> в строке.
+          </apiDesc></apiParam><apiParam><apiItemName>encodeURL</apiItemName><apiType value="Boolean"/><apiData/><apiDesc>Определяет необходимость кодировки URL для строки.
+          
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Перечисляет динамические свойства объекта (при использовании цикла <codeph>forin</codeph>) и возвращает строку. Обычно этот метод используется для преобразования объекта ActionScript в строку, которая затем добавляется в окончание URL-адреса. По умолчанию, недопустимыми символами URL являются символы в кодировке URL (преобразованные в формат <codeph>%XX</codeph>).
+         
+          <p>Например:
+          <pre>
+          var o:Object = { name: "Alex", age: 21 };
+          var s:String = URLUtil.objectToString(o,";",true);
+          trace(s);
+          </pre>
+          Печатает «name=Alex; age=21» в журнал трассировки.
+          </p>
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:replacePort"><apiName>replacePort</apiName><shortdesc>
+          Возвращает новую строку с портом, замененным на указанный порт.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>URI с новым портом.
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>Строка, содержащая URI с замененным портом.
+          </apiDesc></apiParam><apiParam><apiItemName>newPort</apiItemName><apiType value="uint"/><apiDesc>uint, содержащий новый заменяемый порт.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Возвращает новую строку с портом, замененным на указанный порт. Если в указанном URI отсутствует порт, то он вставляется. Этот метод предполагает, что в URI должен быть указан протокол.
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:replaceProtocol"><apiName>replaceProtocol</apiName><shortdesc>
+          Заменяет протокол указанного URI на данный протокол.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>URI с замененным протоколом, или пустая строка, если URI не содержит протокол.
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>Строка, содержащая URI, в котором должен быть заменен протокол.
+         
+          </apiDesc></apiParam><apiParam><apiItemName>newProtocol</apiItemName><apiType value="String"/><apiDesc>Строка, содержащая новый протокол для использования.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Заменяет протокол указанного URI на данный протокол.
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:replaceTokens"><apiName>replaceTokens</apiName><shortdesc>
+          Возвращает новую строку с маркерами порта и сервера, замененными портом и сервером из выполняющегося в настоящее время приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>URI с замененным портом и сервером.
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Строка, содержащая <codeph>SERVER_NAME_TOKEN</codeph> и/или <codeph>SERVER_NAME_PORT</codeph>, подлежащие замене на порт и сервер из приложения.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Возвращает новую строку с маркерами порта и сервера, замененными портом и сервером из выполняющегося в настоящее время приложения.
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:stringToObject"><apiName>stringToObject</apiName><shortdesc>
+          Возвращает объект из строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Объект, содержащий свойства и значения, извлеченные из строки, передаваемой в этот метод.
+          
+          </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>string</apiItemName><apiType value="String"/><apiDesc>Строка, преобразуемая в объект.
+          </apiDesc></apiParam><apiParam><apiItemName>separator</apiItemName><apiType value="String"/><apiData/><apiDesc>Символ, разделяющий пары <codeph>name=value</codeph> в строке.
+          </apiDesc></apiParam><apiParam><apiItemName>decodeURL</apiItemName><apiType value="Boolean"/><apiData/><apiDesc>Определяет необходимость декодирования символов в кодировке URL в строке.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          Возвращает объект из строки. Строка содержит пары <codeph>name=value</codeph>, которые становятся динамическими свойствами возвращенного объекта. Эти пары свойств разделяются определенным символом <codeph>separator</codeph>. Этот метод преобразует значения Number и Boolean, Array (определяемый символом «[]»), и подобъекты (определяемые символом «{}»). По умолчанию образцы URL-адреса в формате <codeph>%XX</codeph> преобразуются в соответствующий символ строки.
+         
+          <p>Например:
+          <pre>
+          var s:String = "name=Alex;age=21";
+          var o:Object = URLUtil.stringToObject(s, ";", true);
+          </pre>
+          
+          Возвращает объект: <codeph>{ name: "Alex", age: 21 }</codeph>.
+          </p>
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:urisEqual"><apiName>urisEqual</apiName><shortdesc>
+         Проверяет, эквивалентны ли две строки URI, игнорируя регистр и различия в косых чертах в конце.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph>, если URI равны. В противном случае <codeph>false</codeph>.
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uri1</apiItemName><apiType value="String"/><apiDesc>Первый сравниваемый URI.
+          </apiDesc></apiParam><apiParam><apiItemName>uri2</apiItemName><apiType value="String"/><apiDesc>Второй сравниваемый URI.
+          
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         Проверяет, эквивалентны ли две строки URI, игнорируя регистр и различия в косых чертах в конце.
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:URLUtil:SERVER_NAME_TOKEN"><apiName>SERVER_NAME_TOKEN</apiName><shortdesc>
+          Образец в строке, передаваемый в метод replaceTokens() и заменяемый именем сервера приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>{server.name}</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          Образец в строке, передаваемый в метод <codeph>replaceTokens()</codeph> и заменяемый именем сервера приложения.
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:URLUtil:SERVER_PORT_TOKEN"><apiName>SERVER_PORT_TOKEN</apiName><shortdesc>
+          Образец в строке, передаваемый в метод replaceTokens() и заменяемый портом приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>{server.port}</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          Образец в строке, передаваемый в метод <codeph>replaceTokens()</codeph> и заменяемый портом приложения.
+          
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:RPCStringUtil"><apiName>RPCStringUtil</apiName><shortdesc>
+  Класс RPCStringUtil представляет собой подмножество StringUtil, удаляющее методы, которые создают проблемы зависимости при нахождении сообщений RPC в программе начальной загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RPCStringUtil представляет собой подмножество StringUtil, удаляющее методы, которые создают проблемы зависимости при нахождении сообщений RPC в программе начальной загрузки.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCStringUtil:isWhitespace"><apiName>isWhitespace</apiName><shortdesc>
+      Возвращает значение true, если указанная строка представляет собой знак одиночного пробела, табулятора, возврата каретки, новой строки, или символ «перевода страницы».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Значение <codeph>true</codeph>, если указанная строка представляет собой знак одиночного пробела, табулятора, возврата каретки, новой строки, или перевода страницы.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>character</apiItemName><apiType value="String"/><apiDesc>Запрашиваемая строка. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение <codeph>true</codeph>, если указанная строка представляет собой знак одиночного пробела, табулятора, возврата каретки, новой строки, или символ прогона страницы.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCStringUtil:substitute"><apiName>substitute</apiName><shortdesc>
+      Заменяет маркеры "{n}" внутри указанной строки соответствующими передаваемыми аргументами.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Новая строка со всеми маркерами <codeph>{n}</codeph>, замещенными соответствующими указанными аргументами.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>Строка, в которой заменяются маркеры. Эта строка может содержать специальные маркеры в виде <codeph>{n}</codeph>, где <codeph>n</codeph> является отсчитываемым от нуля индексом, который будет заменен указанными дополнительными параметрами в соответствии с индексом.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Дополнительные параметры, которые могут быть заменены в параметре <codeph>str</codeph> для каждого местоположения <codeph>{n}</codeph>, где <codeph>n</codeph> является целым индексом (отсчитываемым от нуля) в массиве указанных значений. Если первый параметр является массивом, то этот массив используется как список параметров. Это позволяет многократно использовать эту подпрограмму в других методах, в которых требуется использовать оставшуюся подпись.... Например <pre>
+         public function myTracer(str:String, ... rest):void
+         { 
+             label.text += StringUtil.substitute(str, rest) + "\n";
+         } </pre>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Заменяет маркеры "{n}" внутри указанной строки соответствующими передаваемыми аргументами.
+     
+      </apiDesc><example>
+     
+      var str:String = "here is some info '{0}' и \1 \}"; trace(StringUtil.substitute(str, 15.4, true)); // это выведет следующую строку: // "here is some info '15.4' and true"
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCStringUtil:trimArrayElements"><apiName>trimArrayElements</apiName><shortdesc>
+      Удаляет все символы пробела из начала и конца каждого элемента в массиве, если массив сохраняется в виде строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Обновленная строка с удаленными пробелами из начала и конца каждого элемента. 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>String, пробелы в которой должны быть сокращены. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>delimiter</apiItemName><apiType value="String"/><apiDesc>Строка, разграничивающая элементы массива в строке.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет все символы пробела из начала и конца каждого элемента в массиве, если массив сохраняется в виде строки. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCStringUtil:trim"><apiName>trim</apiName><shortdesc>
+      Удаляет все символы пробела из начала и конца указанной строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Обновленная String с удаленными пробелами из начала и конца. 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>String, пробелы в которой должны быть сокращены. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет все символы пробела из начала и конца указанной строки.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RPCObjectUtil"><apiName>RPCObjectUtil</apiName><shortdesc>
+  Класс RPCObjectUtil представляет собой подмножество ObjectUtil, которое удаляет методы, создающие проблемы зависимости, при нахождении сообщений RPC в программе начальной загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RPCObjectUtil представляет собой подмножество ObjectUtil, которое удаляет методы, создающие проблемы зависимости, при нахождении сообщений RPC в программе начальной загрузки.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCObjectUtil:getClassInfo"><apiName>getClassInfo</apiName><shortdesc>
+      Возвращает информацию о классе и свойствах класса для указанного объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Каждый Object содержит следующие свойства:
+      <ul>
+        <li><codeph>name</codeph>: String, содержащая имя класса;</li>
+        <li><codeph>properties</codeph>: сортированный список имен свойств указанного объекта.</li>
+      </ul>
+     
+     </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>Проверяемый Object.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>excludes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив строк, указывающий имена свойств, которые должны быть исключены из возвращаемого результата. Например, для объекта Event можно указать <codeph>[currentTarget, target]</codeph>, так как эти свойства могут увеличить возвращаемый результат.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Посредством этого метода возвращается Object, содержащий одно или более свойств, управляющих информацией. Эти свойства включают следующее:
+     
+      <ul>
+        <li><codeph>includeReadOnly</codeph>: при значении <codeph>false</codeph> исключаются свойства объекта, доступные только для чтения. По умолчанию используется значение <codeph>true</codeph>.</li>
+      <li><codeph>includeTransient</codeph>: при значении <codeph>false</codeph> исключаются свойства объекта и переменные, имеющие метаданные <codeph>[Transient]</codeph>. По умолчанию используется значение <codeph>true</codeph>.</li>
+      <li><codeph>uris</codeph>: массив строк всех пространств имен, которые должны быть включены в выходные данные. Он позволяет использовать подстановочный символ «~~». По умолчанию он имеет значение null, т.е. никакие пространства имен не должны включаться в выходные данные. Например, можно указать <codeph>[mx_internal, mx_object]</codeph> или <codeph>[~~]</codeph>.</li>
+      </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает информацию о классе и свойствах класса для указанного объекта.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCObjectUtil:toString"><apiName>toString</apiName><shortdesc>
+      Печатает указанный объект методом prettyPrint в строку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Строка, содержащая отформатированную версию указанного объекта.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, подлежащий печати методом prettyPrint.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>namespaceURIs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив пространства имен URI для свойств, которые должны быть включены в выходные данные. По умолчанию только свойства из общего пространства имен включаются в выходные данные. Для получения всех свойств независимо от пространства имен передайте массив с единственным элементом ".
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exclude</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив имен свойств, которые должны быть исключены из выходных данных. Используйте его для удаления данных из отформатированной строки.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Печатает указанный объект методом prettyPrint в строку. Все свойства будут расположены в альфа-порядке. Каждому объекту при печати будет присвоен идентификатор; его значение отобразится рядом с маркером типа объекта, перед которым стоит знак «#», например:
+     
+      <pre>
+      (mx.messaging.messages::AsyncMessage)#2.</pre>
+     
+      <p>Этот идентификатор используется для указания на циклическую ссылку. Свойства объекта типа <codeph>Class</codeph> появляются только в виде присвоенного типа. Например, следующее пользовательское определение:</p>
+     
+      <pre>
+        public class MyCustomClass {
+          public var clazz:Class;
+        }</pre>
+     
+      <p>Со свойством <codeph>clazz</codeph>, присвоенным <codeph>Date</codeph>, отобразится следующим образом:</p>
+     
+      <pre>
+       (somepackage::MyCustomClass)#0
+          clazz = (Date)</pre>
+     
+      </apiDesc><example>
+      <pre>
+      // example 1
+      var obj:AsyncMessage = new AsyncMessage();
+      obj.body = [];
+      obj.body.push(new AsyncMessage());
+      obj.headers["1"] = { name: "myName", num: 15.3};
+      obj.headers["2"] = { name: "myName", num: 15.3};
+      obj.headers["10"] = { name: "myName", num: 15.3};
+      obj.headers["11"] = { name: "myName", num: 15.3};
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (mx.messaging.messages::AsyncMessage)#0
+        body = (Array)#1
+          [0] (mx.messaging.messages::AsyncMessage)#2
+            body = (Object)#3
+            clientId = (Null)
+            correlationId = ""
+            destination = ""
+            headers = (Object)#4
+            messageId = "378CE96A-68DB-BC1B-BCF7FFFFFFFFB525"
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+        clientId = (Null)
+        correlationId = ""
+        destination = ""
+        headers = (Object)#5
+          1 = (Object)#6
+            name = "myName"
+            num = 15.3
+          10 = (Object)#7
+            name = "myName"
+            num = 15.3
+          11 = (Object)#8
+            name = "myName"
+            num = 15.3
+          2 = (Object)#9
+            name = "myName"
+            num = 15.3
+        messageId = "1D3E6E96-AC2D-BD11-6A39FFFFFFFF517E"
+        sequenceId = (Null)
+        sequencePosition = 0
+        sequenceSize = 0
+        timeToLive = 0
+        timestamp = 0
+     
+      // example 2 with circular references
+      obj = {};
+      obj.prop1 = new Date();
+      obj.prop2 = [];
+      obj.prop2.push(15.2);
+      obj.prop2.push("testing");
+      obj.prop2.push(true);
+      obj.prop3 = {};
+      obj.prop3.circular = obj;
+      obj.prop3.deeper = new ErrorMessage();
+      obj.prop3.deeper.rootCause = obj.prop3.deeper;
+      obj.prop3.deeper2 = {};
+      obj.prop3.deeper2.deeperStill = {};
+      obj.prop3.deeper2.deeperStill.yetDeeper = obj;
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (Object)#0
+        prop1 = Tue Apr 26 13:59:17 GMT-0700 2005
+        prop2 = (Array)#1
+          [0] 15.2
+          [1] "testing"
+          [2] true
+        prop3 = (Object)#2
+          circular = (Object)#0
+          deeper = (mx.messaging.messages::ErrorMessage)#3
+            body = (Object)#4
+            clientId = (Null)
+            code = (Null)
+            correlationId = ""
+            destination = ""
+            details = (Null)
+            headers = (Object)#5
+            level = (Null)
+            message = (Null)
+            messageId = "14039376-2BBA-0D0E-22A3FFFFFFFF140A"
+            rootCause = (mx.messaging.messages::ErrorMessage)#3
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+          deeper2 = (Object)#6
+            deeperStill = (Object)#7
+              yetDeeper = (Object)#0
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RpcClassAliasInitializer"><apiName>RpcClassAliasInitializer</apiName><shortdesc>
+  Класс RpcClassAliasInitializer регистрирует все классы для сериализации AMF, необходимой для библиотеки Flex RPC.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RpcClassAliasInitializer регистрирует все классы для сериализации AMF, необходимой для библиотеки Flex RPC.
+   </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RpcClassAliasInitializer:registerClassAliases"><apiName>registerClassAliases</apiName><shortdesc>
+     Если приложение не использует классы пользовательского интерфейса Flex, что приводит к обработке кода начальной загрузки [RemoteClass(alias="")], эта функция зарегистрирует все классы для сериализации AMF, которая требуется для библиотеки Flex RPC.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Если приложение не использует классы пользовательского интерфейса Flex, что приводит к обработке кода начальной загрузки <codeph>[RemoteClass(alias="")]</codeph>, эта функция зарегистрирует все классы для сериализации AMF, которая требуется для библиотеки Flex RPC.
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RPCUIDUtil"><apiName>RPCUIDUtil</apiName><shortdesc>
+  Класс RPCUIDUtil представляет собой копию UIDUtil без некоторых функций, вызывающих проблемы зависимости при нахождении сообщений RPC в программе начальной загрузки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RPCUIDUtil представляет собой копию UIDUtil без некоторых функций, вызывающих проблемы зависимости при нахождении сообщений RPC в программе начальной загрузки.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCUIDUtil:createUID"><apiName>createUID</apiName><shortdesc>
+      Генерирует UID (уникальный идентификатор) на основе генератора псевдослучайных чисел ActionScript и текущего времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Вновь сгенерированный UID.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Генерирует UID (уникальный идентификатор) на основе генератора псевдослучайных чисел ActionScript и текущего времени.
+     
+      <p>UID имеет вид <codeph>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</codeph>, где X – шестнадцатеричное число (0-9, A-F).</p>
+     
+      <p>Этот идентификатор не будет по-настоящему глобально уникальным; но это лучшее, что можно создать без поддержки проигрывателя при генерации UID.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:fromByteArray"><apiName>fromByteArray</apiName><shortdesc>
+     Преобразует 128-битовый UID, закодированный как ByteArray в представление в виде строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Строковое представление UID или null, если предоставлен недопустимый ByteArray.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>ba</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>ByteArray длиной 16 байт, представляющий 128-битовый UID.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Преобразует 128-битовый UID, закодированный как ByteArray в представление в виде строки. Формат соответствует генерируемому createUID. Если подходящий ByteArray не предоставлен, возвращается значение null.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:isUID"><apiName>isUID</apiName><shortdesc>
+     Служебный метод для проверки, представляет ли значение String правильно отформатированное значение UID.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Возвращает true, если значение отформатировано как UID.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Значение, проверяемое на правильность форматирования как UID.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Служебный метод для проверки, представляет ли значение String правильно отформатированное значение UID. Значения UID должны быть в формате, генерируемом createUID(), что означает поддержку только заглавных букв от A-F и цифр 0-9.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     Преобразует форматированную строку UID в ByteArray.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ByteArray длиной в 16 байт, представляющей 128 бит UID, или null, если uid невозможно преобразовать.
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Записывает 128-разрядное целое число.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Преобразует форматированную строку UID в ByteArray. UID должен быть в формате, генерируемом createUID, в противном случае возвращается значение null.
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

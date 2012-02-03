@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls"><apiName>mx.controls</apiName><apiDetail/><apiClassifier id="mx.controls:SWFLoader"><apiName>SWFLoader</apiName><shortdesc>
+  Das SWFLoader-Steuerelement lädt eine festgelegte SWF-Datei und zeigt sie an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="style" name="chromeColor"/><effects><effect event="complete" name="completeEffect" owner="mx.controls:SWFLoader">
+<description>
+  Ein Effekt der gestartet wird, wenn das complete-Ereignis ausgelöst wurde.
+  
+  </description>
+<playerversion>Flash 9
+  </playerversion>
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></effect></effects><styles><style enumeration="bottom,middle,top" inherit="no" name="verticalAlign" owner="mx.controls:SWFLoader" playerVersion="Flash9" type="String">
+<description>
+  Die vertikale Ausrichtung des Inhalts, wenn das Seitenverhältnis nicht 1:1 ist. Mögliche Werte sind: <codeph>"top"</codeph>, <codeph>"middle"</codeph> und <codeph>"bottom"</codeph>.
+  </description>
+<default>"top"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="no" name="horizontalAlign" owner="mx.controls:SWFLoader" playerVersion="Flash9" type="String">
+<description>
+  Die horizontale Ausrichtung des Inhalts, wenn das Seitenverhältnis nicht 1:1 ist. Mögliche Werte sind <codeph>"left"</codeph>, <codeph>"center"</codeph> und <codeph>"right"</codeph>.
+  </description>
+<default>"left"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="brokenImageSkin" owner="mx.controls:SWFLoader" playerVersion="Flash9" type="Class">
+<description>
+  Der Name der Klasse, die als SWFLoader-Skin verwendet werden soll, wenn das Steuerelement den Inhalt nicht laden kann. Der Standardwert ist das Symbol „__brokenImage“ in der Assets.swf-Datei.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="brokenImageBorderSkin" owner="mx.controls:SWFLoader" playerVersion="Flash9" type="Class">
+<description>
+  Der Name der Klasse, die als SWFLoader-Border-Skin verwendet wird, wenn das Steuerelement den Inhalt nicht laden kann.
+  </description>
+<default>BrokenImageBorderSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The &lt;mx:SWFLoader&gt; tag inherits all of the tag attributes
+  of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SWFLoader
+    <strong>Properties</strong>
+    autoLoad="true|false"
+    loadForCompatibility="false|true"
+    loaderContext="null"
+    maintainAspectRatio="true|false"
+    scaleContent="true|false"
+    showBusyCursor="false|true"
+    source="<i>No default</i>"
+    trustContent="false|true"
+  
+    <strong>Styles</strong>
+    brokenImageBorderSkin="BrokenImageBorderSkin"
+    brokenImageSkin="<i>'__brokenImage' symbol in Assets.swf</i>"
+    horizontalAlign="left|center|right"
+    verticalAlign="top|middle|bottom"
+  
+    <strong>Effects</strong>
+    completeEffect="<i>No default</i>"
+    
+    <strong>Events</strong>
+    complete="<i>No default</i>"
+    httpStatus="<i>No default</i>"
+    init="<i>No default</i>"
+    ioError="<i>No default</i>"
+    open="<i>No default</i>"
+    progress="<i>No default</i>"
+    securityError="<i>No default</i>"
+    unload="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:ISWFLoader</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Das SWFLoader-Steuerelement lädt eine festgelegte SWF-Datei und zeigt sie an. Normalerweise wird eine Flex-Anwendung mithilfe von SWFLoader in eine Flex-Hostanwendung geladen.
+ 
+  <p><b>Hinweis:</b> Sie können das SWFLoader-Steuerelement verwenden, um eine GIF-, JPEG- oder PNG-Bilddatei zur Laufzeit zu laden, um ein ByteArray zur Laufzeit zu laden, welches SWF-, GIF-, JPEG- oder PNG-Bilder darstellt, oder um eine eingebettete Version jeder dieser Dateitypen und SVG-Dateien zur Kompilierzeit zu laden, indem Sie <codeph>@Embed(source='filename')</codeph> verwenden. Das Image-Steuerelement ist besser geeignet und sollte deshalb für die Großzahl von Bildladevorgängen verwendet werden. Das Image-Steuerelement ist auch dafür ausgelegt, in benutzerdefinierten Elementrenderern und Elementeditoren verwendet zu werden. Wenn Sie SWFLoader oder Image mit einer SVG-Datei verwenden, können Sie die SVG-Datei nur laden, wenn diese in Ihre Anwendung mithilfe eines Embed-Ausdrucks eingebettet wurde. Sie können SVG-Dateien nicht aus dem Netzwerk zur Laufzeit laden.</p>
+ 
+  <p>Das SWFLoader-Steuerelement erlaubt es Ihnen, seinen Inhalt zu skalieren und seine Größe festzulegen. Es kann sich auch selbst skalieren, um sich dem Inhalt anzupassen. Standardmäßig wird der Inhalt skaliert und in das SWFLoader-Steuerelement eingepasst. Je nach Bedarf kann der Inhalt auch programmgesteuert geladen und der Ladevorgang überwacht werden.</p>  
+ 
+  <p>Ein SWFLoader-Steuerelement kann keinen Fokus erhalten. Die Inhalte eines SWFLoader-Steuerelements können Fokus akzeptieren und ihre eigenen Fokusinteraktionen haben.</p>
+ 
+  <p>Das SWFLoader-Steuerelement verfügt über die folgenden Standardeigenschaften:</p>
+     <adobetable class="innertable">
+        
+        
+        
+        
+     <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Beschreibung</entry></row></thead><tbody><row>
+           <entry>Standardgröße</entry>
+           <entry>Ausreichende Breite und Höhe für den geladenen Inhalt.</entry>
+        </row><row>
+           <entry>Minimale Größe</entry>
+           <entry>0 Pixel</entry>
+        </row><row>
+           <entry>Maximale Größe</entry>
+           <entry>Nicht festgelegt</entry>
+        </row></tbody></tgroup></adobetable>
+ 
+  </apiDesc><example conref="local.mxml"/><example conref="SimpleLoader.mxml"><swfblock conref="examples/SimpleLoader.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Image.xml"><linktext>mx.controls.Image</linktext></link></related-links><adobeApiEvent id="mx.controls:SWFLoader_flash.events.Event.UNLOAD_unload"><apiName>unload</apiName><shortdesc>
+  Wird ausgelöst, wenn ein geladenes Objekt entfernt wird oder wenn eine zweite Ladung von demselben SWFLoader-Steuerelement durchgeführt wird und der Originalinhalt vor dem Start des neuen Ladevorgangs entfernt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.UNLOAD</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn ein geladenes Objekt entfernt wird oder wenn eine zweite Ladung von demselben SWFLoader-Steuerelement durchgeführt wird und der Originalinhalt vor dem Start des neuen Ladevorgangs entfernt wurde.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.SecurityErrorEvent.SECURITY_ERROR_securityError"><apiName>securityError</apiName><shortdesc>
+  Wird ausgelöst, wenn beim Laden des Inhalts ein Sicherheitsfehler auftritt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SecurityErrorEvent.SECURITY_ERROR</apiEventType><adobeApiEventClassifier>flash.events.SecurityErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn beim Laden des Inhalts ein Sicherheitsfehler auftritt. Weitere Informationen finden Sie in SecurityErrorEvent-Klasse.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.ProgressEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  Wird während des Ladevorgangs ausgelöst.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.ProgressEvent.PROGRESS</apiEventType><adobeApiEventClassifier>flash.events.ProgressEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird während des Ladevorgangs ausgelöst.
+ 
+  <p>Dieses Ereignis wird unabhängig davon ausgelöst, ob der Ladevorgang automatisch oder durch einen expliziten Aufruf der Methode <codeph>load()</codeph> ausgelöst wurde.</p>
+ 
+  <p><b>Hinweis:</b> Es ist nicht sicher, dass das <codeph>progress</codeph>-Ereignis ausgelöst werden kann. Das <codeph>complete</codeph>-Ereignis kann auch eingehen, wenn kein <codeph>progress</codeph>-Ereignis ausgelöst wurde. Dies kann passieren, wenn der geladene Inhalt eine lokale Datei ist.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.Event.OPEN_open"><apiName>open</apiName><shortdesc>
+  Wird beim Start eines Netzwerkprozesses ausgelöst.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.OPEN</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird beim Start eines Netzwerkprozesses ausgelöst.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.IOErrorEvent.IO_ERROR_ioError"><apiName>ioError</apiName><shortdesc>
+  Wird ausgelöst, wenn ein Eingabe-/Ausgabe-Fehler auftritt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.IOErrorEvent.IO_ERROR</apiEventType><adobeApiEventClassifier>flash.events.IOErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn ein Eingabe-/Ausgabe-Fehler auftritt.
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.IOErrorEvent.xml"><linktext>flash.events.IOErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.Event.INIT_init"><apiName>init</apiName><shortdesc>
+  Wird ausgelöst, wenn die Eigenschaften und Methoden einer geladenen SWF-Datei zugänglich sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.INIT</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn die Eigenschaften und Methoden einer geladenen SWF-Datei zugänglich sind. Die folgenden beiden Bedingungen müssen erfüllt sein, bevor dieses Ereignis ausgelöst wird:
+ 
+  <ul>
+    <li>Alle mit dem geladenen Objekt und dem Steuerelement verknüpften Eigenschaften und Methoden sind zugänglich.</li>
+    <li>Die Konstruktoren für alle untergeordneten Objekte sind abgeschlossen.</li>
+  </ul>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.HTTPStatusEvent.HTTP_STATUS_httpStatus"><apiName>httpStatus</apiName><shortdesc>
+  Wird ausgelöst, wenn eine Netzwerkanfrage über HTTP und Flash Player gestellt wird oder AIR den HTTP-Statuscode ermittelt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.HTTPStatusEvent.HTTP_STATUS</apiEventType><adobeApiEventClassifier>flash.events.HTTPStatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn eine Netzwerkanfrage über HTTP und Flash Player gestellt wird oder AIR den HTTP-Statuscode ermittelt hat.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:SWFLoader_flash.events.Event.COMPLETE_complete"><apiName>complete</apiName><shortdesc>
+  Wird nach Abschluss des Ladevorgangs ausgelöst.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.COMPLETE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird nach Abschluss des Ladevorgangs ausgelöst.
+ 
+  <p>Dieses Ereignis wird unabhängig davon ausgelöst, ob der Ladevorgang automatisch oder durch einen expliziten Aufruf der Methode <codeph>load()</codeph> ausgelöst wurde.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:SWFLoader:SWFLoader"><apiName>SWFLoader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:SWFLoader:getVisibleApplicationRect"><apiName>getVisibleApplicationRect</apiName><shortdesc>
+      
+      Ruft die Grenzen der geladenen Anwendung ab, die auf dem Bildschirm zu sehen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein <codeph>Rectangle</codeph>, welches den sichtbaren Teil dieses Objekts enthält. Das Rechteck verwendet globale Koordinaten.
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>allApplications</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Bestimmt, ob das sichtbare Rechteck nur basierend auf den Anzeigeobjekten innerhalb dieser Anwendung berechnet wurde, oder ob alle übergeordneten Anwendungen ebenfalls in die Berechnung einbezogen wurden. Das Einbeziehen von übergeordneten Anwendungen kann die zurückgegebene sichtbare Fläche verringern. Wenn <codeph>true</codeph>, werden alle Anwendungen verwendet, um die sichtbare Fläche zu suchen. Anderenfalls werden lediglich die Anzeigeobjekte dieser Anwendung verwendet.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Ruft die Grenzen der geladenen Anwendung ab, die auf dem Bildschirm zu sehen ist.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:SWFLoader:load"><apiName>load</apiName><shortdesc>
+      Lädt ein Bild oder eine SWF-Datei.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Absolute oder relative URL der zu ladenden GIF-, JPEG-, PNG- oder SWF-Datei.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Lädt ein Bild oder eine SWF-Datei. Das <codeph>url</codeph>-Argument kann GIF-, JPEG-, PNG- oder SWF-Dateien referenzieren; diese Methode können Sie jedoch nicht für das Laden vom SVG-Dateien verwenden. Stattdessen muss sie mithilfe eines Embed-Ausdrucks und der <codeph>source</codeph> Eigenschaft geladen werden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:SWFLoader:unloadAndStop"><apiName>unloadAndStop</apiName><shortdesc>
+      Entlädt eine Bild- oder SWF-Datei.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>invokeGarbageCollector</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc> Stellt einen Hinweis für den Garbagekollektor bereit, ob er für die untergeordneten SWF-Objekte ausgeführt werden soll (<codeph>true</codeph>) oder nicht (<codeph>false</codeph>). Wenn Sie viele Objekte in asynchroner Weise entladen, kann das Setzen des <codeph>gc</codeph>-Parameters auf <codeph>false</codeph> die Leistung der Anwendung verbessern. Allerdings kann das Setzen von <codeph>false</codeph> dazu führen, dass Medien und Anzeigeobjekte der untergeordneten SWF-Datei nach dem Entladen der untergeordneten SWF-Datei weiterhin im Speicher verbleiben.  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Entlädt eine Bild- oder SWF-Datei. Nachdem diese Methode <codeph>source</codeph> zurückgegeben hat, wird die Eigenschaft „null“. Dies wird nur unterstützt, wenn der Host-Flash Player Version 10 oder höher ist. Wenn der Host-Flash Player älter als Version 10 ist, entlädt diese Methode den Inhalt so, als ob <codeph>source</codeph> auf „null“ gesetzt wäre. Diese Methode versucht SWF-Dateien zu entladen, indem sie Verweise auf EventDispatcher-, NetConnection-, Timer-, Sound- oder Video-Objekte der untergeordneten SWF-Datei entfernt. Als Ergebnis tritt Folgendes für die untergeordnete SWF-Datei und die Anzeigeliste der untergeordneten SWF-Datei ein: 
+      <ul>
+      <li>Sounds werden gestoppt.</li>
+      <li>Stage-Ereignis-Listener werden entfernt.</li>
+      <li>Ereignis-Listener für <codeph>enterFrame</codeph>, <codeph>frameConstructed</codeph>, <codeph>exitFrame</codeph>, <codeph>activate</codeph> und <codeph>deactivate</codeph> werden entfernt.</li>
+      <li>Timer werden gestoppt.</li>
+      <li>Kamera- und Mikrofoninstanzen werden getrennt.</li>
+      <li>Movieclips werden gestoppt.</li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:SWFLoader:autoLoad:get"><apiName>autoLoad</apiName><shortdesc>
+      Ein Flag, welches anzeigt, ob ein Inhalt automatisch geladen wird oder auf den Aufruf der load()-Methode wartet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="autoLoadChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, welches anzeigt, ob ein Inhalt automatisch geladen wird oder auf den Aufruf der <codeph>load()</codeph>-Methode wartet. Wenn <codeph>true</codeph>, wird der Inhalt automatisch geladen. Wenn <codeph>false</codeph>, muss die <codeph>load()</codeph>-Methode aufgerufen werden.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:bytesLoaded:get"><apiName>bytesLoaded</apiName><shortdesc>
+      Die Anzahl der bereits geladenen Byte der SWF- bzw. Grafikdatei.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="progress"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Die Anzahl der bereits geladenen Byte der SWF- bzw. Bilddatei.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:bytesTotal:get"><apiName>bytesTotal</apiName><shortdesc>
+      Die Gesamtgröße der SWF- oder Bilddatei.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="complete"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Die Gesamtgröße der SWF- oder Bilddatei.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:childAllowsParent:get"><apiName>childAllowsParent</apiName><shortdesc>
+     
+      Testet, ob das untergeordnete Element dem übergeordneten Element Zugriff auf seine Anzeigeobjekte gestattet und ihm erlaubt, auf Meldungen zu warten, die aus dem untergeordneten Objekt stammen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     
+      Überprüft, ob das übergeordnete Element Zugriff auf die Anzeigeobjekte des untergeordneten Elements hat oder auf Meldungen warten darf, die ihren Ursprung im untergeordneten Element haben. <codeph>true</codeph>, wenn Zugriff erlaubt ist, wenn nicht, <codeph>false</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:contentHeight:get"><apiName>contentHeight</apiName><shortdesc>
+      Höhe des skalierten Inhalts in Pixeln, der vom Steuerelement geladen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Höhe des skalierten Inhalts in Pixeln, der vom Steuerelement geladen wurde. Beachten Sie, dass dies nicht die Höhe des Steuerelements ist, sondern lediglich die des Inhalts. Verwenden Sie die <codeph>height</codeph>-Eigenschaft des Steuerelements, um dessen Höhe zu beziehen.
+     
+      <p>Der Wert dieser Eigenschaft steht noch nicht fest, wenn das <codeph>complete</codeph>-Ereignis ausgelöst wird. Sie können den Wert abrufen, nachdem das <codeph>updateComplete</codeph>-Ereignis ausgelöst wurde.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:contentWidth:get"><apiName>contentWidth</apiName><shortdesc>
+      Breite des skalierten Inhalts in Pixeln, der von dem Steuerelement geladen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Breite des skalierten Inhalts in Pixeln, der von dem Steuerelement geladen wurde. Beachten Sie, dass dies nicht die Breite des Steuerelements ist, sondern die des geladenen Inhalts. Verwenden Sie die <codeph>width</codeph>-Eigenschaft des Steuerelements, um die Breite zu beziehen.
+     
+      <p>Der Wert dieser Eigenschaft steht noch nicht fest, wenn das <codeph>complete</codeph>-Ereignis ausgelöst wird. Sie können den Wert abrufen, nachdem das <codeph>updateComplete</codeph>-Ereignis ausgelöst wurde.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:content:get"><apiName>content</apiName><shortdesc>
+      Diese Eigenschaft enthält das Objekt, das den Inhalt darstellt, der in das SWFLoader-Steuerelement geladen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><helpid>3134
+      
+      </helpid></asCustoms></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObject"/><apiTipTexts><apiTipText>Gibt den Inhalt des SWFLoader zurück.
+      </apiTipText></apiTipTexts></apiValueDef><apiDesc>
+      Diese Eigenschaft enthält das Objekt, das den Inhalt darstellt, der in das SWFLoader-Steuerelement geladen wurde. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:loadForCompatibility:get"><apiName>loadForCompatibility</apiName><shortdesc>
+      Ein Flag, das anzeigt, ob der Inhalt geladen ist, sodass er mit Anwendungen verwendet werden kann, die mit einer anderen Version des Flex-Compilers erstellt wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="loadForCompatibilityChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das anzeigt, ob der Inhalt geladen ist, sodass er mit Anwendungen verwendet werden kann, die mit einer anderen Version des Flex Compilers erstellt wurden. Die Kompatibilität mit anderen Flex-Anwendungen wird durch das Laden der Anwendung in eine gleichgeordnete (Peer) ApplicationDomain erreicht. Das Flag wird ignoriert, wenn der Inhalt in eine andere SecurityDomain geladen werden muss. Wenn <codeph>true</codeph>, wird der Inhalt in eine gleichgeordnete ApplicationDomain geladen. Wenn <codeph>false</codeph>, wird der Inhalt in eine untergeordnete ApplicationDomain geladen.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:loaderContext:get"><apiName>loaderContext</apiName><shortdesc>
+      Ein LoaderContext-Objekt, mit welchem das Laden des Inhalts gesteuert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="loaderContextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.system:LoaderContext"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein LoaderContext-Objekt, mit welchem das Laden des Inhalts gesteuert wird. Dies ist eine erweiterte Eigenschaft. In den meisten Fällen können Sie die <codeph>trustContent</codeph>-Eigenschaft verwenden.
+     
+      <p>Der Standardwert ist <codeph>null</codeph>. Dies veranlasst das Steuerelement, die <codeph>trustContent</codeph>-Eigenschaft zu verwenden, um ein LoaderContext-Objekt zu erzeugen, das Sie abrufen können, nachdem das Laden begonnen hat.</p>
+     
+      <p>Um das LoaderContext-Objekt verwenden zu können, müssen Sie die Funktionsweise der SecurityDomain- und ApplicationDomain-Klassen verstehen. Das Festlegen dieser Eigenschaft startet keinen Ladevorgang; Sie müssen diese festlegen, bevor der Ladevorgang startet. Dies bedeutet nicht, dass Sie die <codeph>autoLoad</codeph>-Eigenschaft auf <codeph>false</codeph> setzen müssen, weil der Ladevorgang nicht unmittelbar erfolgt, aber darauf zu warten, dass das <codeph>creationComplete</codeph>-Ereignis dies tut, dauert zu lange.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.LoaderContext.xml"><linktext>flash.system.LoaderContext</linktext></link><link href="" invalidHref="flash.system.ApplicationDomain.xml"><linktext>flash.system.ApplicationDomain</linktext></link><link href="" invalidHref="flash.system.SecurityDomain.xml"><linktext>flash.system.SecurityDomain</linktext></link></related-links></apiValue><apiValue id="mx.controls:SWFLoader:maintainAspectRatio:get"><apiName>maintainAspectRatio</apiName><shortdesc>
+      Ein Flag, welches anzeigt, ob das Seitenverhältnis des geladenen Inhalts beibehalten werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maintainAspectRatioChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, welches anzeigt, ob das Seitenverhältnis des geladenen Inhalts beibehalten werden soll. Wenn <codeph>true</codeph>, wird festgelegt, dass das Bild mit demselben Verhältnis von Breite zu Höhe angezeigt werden soll wie das Original.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:parentAllowsChild:get"><apiName>parentAllowsChild</apiName><shortdesc>
+     
+      Testet, ob das übergeordnete Element dem untergeordneten Element Zugriff auf seine Anzeigeobjekte gestattet und ihm erlaubt, auf Meldungen zu warten, die aus dem übergeordneten Objekt stammen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     
+      Überprüft, ob das untergeordnete Element Zugriff auf die Anzeigeobjekte des übergeordneten Elements hat oder auf Meldungen warten darf, die ihren Ursprung im übergeordneten Element haben. <codeph>true</codeph>, wenn Zugriff erlaubt ist, wenn nicht, <codeph>false</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:percentLoaded:get"><apiName>percentLoaded</apiName><shortdesc>
+      Ladestatus der Bild- oder SWF-Datei in Prozent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="progress"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ladestatus der Bild- oder SWF-Datei in Prozent.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:scaleContent:get"><apiName>scaleContent</apiName><shortdesc>
+      Ein Flag, welches anzeigt, ob der Inhalt skaliert werden soll, um in das Steuerelement zu passen oder ungekehrt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="scaleContentChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, welches anzeigt, ob der Inhalt skaliert werden soll, um in das Steuerelement zu passen oder ungekehrt. Wenn <codeph>true</codeph>, wird der Inhalt skaliert, sodass er sich dem SWFLoader-Steuerelement anpasst. Wenn <codeph>false</codeph>, wird das SWFLoader-Steuerelement skaliert, sodass es sich dem Inhalt anpasst. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+      Ein Flag, welches anzeigt, ob ein Aktiv-Cursor während des Ladens angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, welches anzeigt, ob ein Aktiv-Cursor während des Ladevorgangs angezeigt wird. Wenn <codeph>true</codeph>, wird ein Aktiv-Cursor während des Ladevorgangs angezeigt. Der Standardcursor für Aktivitäten ist mx.skins.halo.BusyCursor, wie in der <codeph>busyCursor</codeph>-Eigenschaft der CursorManager-Klasse festgelegt.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.managers.xml#CursorManager"><linktext>mx.managers.CursorManager</linktext></link></related-links></apiValue><apiValue id="mx.controls:SWFLoader:smoothBitmapContent:get"><apiName>smoothBitmapContent</apiName><shortdesc>
+      Ein Flag, das anzeigt, ob der Inhalt bei seiner Skalierung geglättet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="smoothBitmapContentChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das anzeigt, ob der Inhalt bei seiner Skalierung geglättet werden soll. Nur Bitmapinhalte können geglättet werden. Ist der Wert <codeph>true</codeph> und der Inhalt ein Bitmap, wird die Glättungseigenschaft des Inhalts auf <codeph>true</codeph> gesetzt. Ist der Wert <codeph>false</codeph>, wird der Inhalt nicht geglättet. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:source:get"><apiName>source</apiName><shortdesc>
+      Der URL-, Objekt-, Klassen- oder Stringname einer Klasse, der als Inhalt zu laden ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sourceChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der URL-, Objekt-, Klassen- oder Stringname einer Klasse, der als Inhalt zu laden sind. Die <codeph>source</codeph>-Eigenschaft nimmt die folgende Form an:
+     
+      <p><pre>
+      <codeph>source="<i>URLOrPathOrClass</i>"</codeph></pre></p>
+     
+      <p><pre>
+      <codeph>source="@Embed(source='<i>PathOrClass</i>')"</codeph></pre></p>
+     
+      <p>Der Wert der <codeph>source</codeph>-Eigenschaft stellt eine relative oder absolute URL dar; ein ByteArray, welches eine SWF-, GIF-, JPEG- oder PNG-Datei darstellt; ein Objekt, welches IFlexDisplayObject implementiert; eine Klasse, deren Typ IFlexDisplayObject implementiert; oder einen String, der eine Klasse darstellt. </p> 
+     
+      <p>Wenn Sie einen Pfad zu einer SWF-, GIF-, JPEG-, PNG- oder SVG-Datei festlegen, konvertiert Flex die Datei automatisch in den richtigen Datentyp für das SWFLoader-Steuerelement um.</p> 
+     
+      <p>Wenn Sie den Embed-Ausdruck weglassen, lädt Flex die referenzierte Datei zur Laufzeit; sie wird nicht als Teil der generierten SWF-Datei verpackt. Die <codeph>source</codeph>-Eigenschaft unterstützt nur das Laden von GIF-, JPEG-, PNG-Bildern oder SWF-Dateien zur Laufzeit.</p>
+     
+      <p>Benutzer von Flex Data Services können das SWFLoader-Steuerelement verwenden, um eine Flex-Anwendung mithilfe des folgenden Strings zu laden.</p>
+     
+      <p><pre>
+      <codeph>source="<i>MXMLPath</i>.mxml.swf"</codeph></pre></p>
+     
+      <p>Flex Data Services kompiliert die MXML-Datei und gibt eine SWF-Datei an die Hauptanwendung zurück. Dieses Verfahren funktioniert sehr gut für SWF-Dateien, die Grafiken und Animationen zu einer Anwendung hinzufügen, aber nicht für intensive Benutzerinteraktion bestimmt sind. Wenn Sie SWF-Dateien importieren, die für intensive Benutzerinteraktion gedacht sind, sollten Sie diese als benutzerdefinierte Komponenten gestalten. </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:swfBridge:get"><apiName>swfBridge</apiName><shortdesc>
+     
+      Eine Brücke zur Anwendung, die mit dem Implementor der Schnittstelle verknüpft ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.events:IEventDispatcher"/></apiValueDef><apiDesc>
+     
+      Eine Brücke zur Anwendung, die mit dem Implementor dieser Schnittstelle verknüpft ist. Der IEventDispatcher, der verwendet werden kann, um Ereignisse an eine Anwendung in einer anderen ApplicationDomain oder einer anderen Sandbox zu senden.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:SWFLoader:trustContent:get"><apiName>trustContent</apiName><shortdesc>
+      Wenn „true“, wird der Inhalt in Ihre Sicherheitsdomäne geladen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="trustContentChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Wenn <codeph>true</codeph>, wird der Inhalt in Ihre Sicherheitsdomäne geladen. Das heißt, der Ladevorgang scheitert, wenn sich der Inhalt in einer anderen Domäne befindet und diese Domäne keine crossdomain.xml-Datei besitzt, welche Ihrer Domäne den Zugriff erlaubt. Diese Eigenschaft hat nur Auswirkungen auf den nächsten Ladevorgang, sie startet keinen neuen Ladevorgang für bereits geladene Inhalte.
+     
+      <p>Der Standardwert ist <codeph>false</codeph>, das heißt, dass jede Art Inhalt ohne Fehler geladen wird, auf den Inhalt aber kein Zugriff möglich ist. Wichtig ist, dass der geladene Inhalt nicht auf Ihre Objekte und Ihren Code zugreifen kann. Dies ist das sicherste Verfahren. Setzen Sie diese Eigenschaft nicht auf <codeph>true</codeph>, solange Sie nicht absolut sicher sind, dass Sie dem geladenen Inhalt vertrauen können. Dies betrifft besonders aktive Inhalte wie SWF-Dateien.</p>
+     
+      <p>Sie können auch die <codeph>loaderContext</codeph>-Eigenschaft verwenden, um die Art und Weise des Ladevorgangs zu bestimmen, wenn die <codeph>trustContent</codeph>-Einstellung Ihren Bedürfnissen nicht gerecht wird. Die <codeph>loaderContext</codeph>-Eigenschaft veranlasst den SWFLoader, den Wert der <codeph>trustContent</codeph>-Eigenschaft zu ignorieren. Sie sollten sich jedoch mit SecurityDomain- und ApplicationDomain-Klassen auskennen, wenn Sie die <codeph>loaderContext</codeph>-Eigenschaft verwenden.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.SecurityDomain.xml"><linktext>flash.system.SecurityDomain</linktext></link><link href="" invalidHref="flash.system.ApplicationDomain.xml"><linktext>flash.system.ApplicationDomain</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls:ToolTip"><apiName>ToolTip</apiName><shortdesc>
+  Mithilfe des QuickInfo-Steuerelements können Sie für die Benutzer hilfreiche Informationen bereitstellen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="mx.controls:ToolTip">
+<description>
+ Da diese Komponente keine Skin für das Mobile-Design definiert, wird empfohlen, dass Sie sie nicht in einer Mobilanwendung verwenden. Sie können auch eine eigene Mobile-Skin für die Komponente definieren. Weitere Informationen finden Sie unter <xref href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html">Spark-Skinning</xref>.
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><styles><style format="Length" inherit="no" name="paddingTop" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Anzahl von Pixeln zwischen der oberen Rahmenlinie des Containers und seinem Inhaltsbereich. Der Standardwert ist -1 und daher überlagert die obere Rahmenlinie der ersten Überschrift die obere Rahmenlinie des Accordion-Containers.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingBottom" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Anzahl von Pixeln zwischen der unteren Rahmenlinie des Containers und seinem Inhaltsbereich. Der Standardwert ist -1 und daher überlagert die untere Rahmenlinie der letzten Überschrift die untere Rahmenlinie des Accordion-Containers.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="cornerRadius" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo, spark, mobile" type="Number">
+<description>
+  Radius von Komponentenecken.
+  
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="textIndent" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Offset der ersten Textzeile von der linken Seite des Containers in Pixeln.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls:ToolTip" playerVersion="Flash10" type="Class">
+<description>
+  Die Klasse, die IUITextField implementiert, das von dieser Komponente für die Darstellung von Text verwendet wird.
+ 
+  <p>Sie kann auf die mx.core.UITextField-Klasse (zur Verwendung der in Flash Player integrierten klassischen TextField-Klasse) oder die mx.core.UIFTETextField-Klasse (zur Verwendung des Text Layout Frameworks, um verbesserte Textdarstellungen, einschließlich bidirektionalem Layout, zu erhalten) eingestellt werden.</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  Bestimmt, ob der Text unterstrichen wird. Mögliche Werte sind <codeph>"none"</codeph> und <codeph>"underline"</codeph>.
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  Ausrichtung von Text in einem Container. Mögliche Werte sind <codeph>"left"</codeph>, <codeph>"right"</codeph> oder <codeph>"center"</codeph>.
+ 
+  <p>Der Standardwert für die meisten Steuerelemente ist <codeph>„left“</codeph>. Für die FormItem-Komponente ist der Standardwert <codeph>„right“</codeph>. Für die Button-, LinkButton- und AccordionHeader-Komponenten ist der Standardwert <codeph>„center“</codeph>, und diese Eigenschaft wird nur erkannt, wenn die <codeph>labelPlacement</codeph>-Eigenschaft auf <codeph>„left“</codeph> oder <codeph>„right“</codeph> eingestellt ist. Wenn <codeph>labelPlacement</codeph> auf <codeph>"top"</codeph> oder <codeph>"bottom"</codeph> gesetzt wird, werden der Text und eventuell vorhandene Symbole zentriert.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls:ToolTip" playerVersion="Flash10" type="String">
+<description>
+  Das Gebietsschema des von dieser Komponente angezeigten Texts.
+ 
+  <p>FTE und TLF verwenden dieses Gebietsschema für die Zuordnung von Unicode-Schriftarten zu Schriftartglyphen und für die Suche nach Ausweichschriftarten.</p>
+ 
+  <p>Hinweis: Dieser Stil gilt nur, wenn eine MX-Komponente UIFTETextField als ihre <codeph>textFieldClass</codeph> festlegt.</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Die Anzahl der zusätzlichen Pixel, die zwischen den Zeichen angezeigt werden. Durch einen positiven Wert wird der Zeichenabstand über den normalen Abstand hinaus vergrößert und durch einen negativen Wert verkleinert.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Boolean">
+<description>
+  Ein boolescher Wert, der angibt, ob Kerning aktiviert (<codeph>true</codeph>) oder deaktiviert (<codeph>false</codeph>) ist. Kerning reduziert den Abstand zwischen bestimmten Zeichenpaaren, um die Lesbarkeit zu verbessern, und sollte nur verwendet werden, wenn dies wirklich nötig ist, etwa bei Titeln mit großer Schrift. Kerning wird nur für eingebettete Schriftarten unterstützt. Bestimmte Schriftarten wie Verdana und Schriftarten mit fester Breite wie Courier New unterstützen Kerning nicht
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  Bestimmt, ob der Text fett formatiert wird. Gültige Werte sind <codeph>normal</codeph> und <codeph>bold</codeph>. Der Standardwert für die Button-Steuerelemente ist <codeph>bold</codeph>. Der Standardwert für alle anderen Steuerelemente ist <codeph>normal</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Legt die <codeph>thickness</codeph>-Eigenschaft von internen TextFields-Elementen fest, die Text in Flex-Steuerelementen darstellen. Diese Eigenschaft gibt die Stärke der Glyphenkanten an. Die möglichen Werte sind Zahlen von -200 bis 200. 
+  
+  <p>Diese Eigenschaft kommt nur zur Anwendung, wenn Sie eine eingebettete Schriftart verwenden und die <codeph>fontAntiAliasType</codeph>-Eigenschaft auf <codeph>„advanced“</codeph> eingestellt ist.</p>
+  
+  <p>Dieser Stil hat keine Auswirkung auf Systemschriftarten.</p>
+ 
+  <p>Dieser Stil wird auf den gesamten Text eines untergeordneten TextField-Steuerelements angewendet. Sie können ihn nicht auf einige Zeichen anwenden und auf andere nicht.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  Bestimmt, ob der Text kursiv formatiert wird. Gültige Werte sind <codeph>"normal"</codeph> und <codeph>"italic"</codeph>.
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Die Höhe des Texts in Pixeln. Beim Halo-Design lautet der Standardwert für alle Steuerelemente mit Ausnahme des ColorPicker-Steuerelements 10. Für das ColorPicker-Steuerelement des Halo-Designs lautet der Standardwert 11. Beim Spark-Design lautet der Standardwert für alle Steuerelemente mit Ausnahme des ColorPicker-Steuerelements 12. Für das ColorPicker-Steuerelement des Spark-Designs lautet der Standardwert 11.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Legt die Eigenschaft <codeph>sharpness</codeph> von internen Textfeldern fest, die Text in Flex-Steuerelementen darstellen. Diese Eigenschaft gibt die Schärfe der Glyphenkanten an. Die möglichen Werte sind Zahlen von -400 bis 400. 
+  
+  <p>Diese Eigenschaft kommt nur zur Anwendung, wenn Sie eine eingebettete Schriftart verwenden und die <codeph>fontAntiAliasType</codeph>-Eigenschaft auf <codeph>„advanced“</codeph> eingestellt ist.</p>
+  
+  <p>Dieser Stil hat keine Auswirkungen auf Systemschriftarten.</p>
+ 
+  <p>Dieser Stil wird auf den gesamten Text eines untergeordneten TextField-Steuerelements angewendet. Sie können ihn nicht auf einige Zeichen anwenden und auf andere nicht.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  Legt die Eigenschaft <codeph>gridFitType</codeph> von internen Textfeldern fest, die Text in Flex-Steuerelementen darstellen. Die möglichen Werte sind <codeph>"none"</codeph> (<codeph>flash.text.GridFitType.NONE</codeph>), <codeph>"pixel"</codeph> (<codeph>flash.text.GridFitType.PIXEL</codeph>) und <codeph>"subpixel"</codeph> (<codeph>flash.text.GridFitType.SUBPIXEL</codeph>). 
+  
+  <p>Diese Eigenschaft kommt nur zur Anwendung, wenn Sie eine eingebettete Schriftart verwenden und die <codeph>fontAntiAliasType</codeph>-Eigenschaft auf <codeph>„advanced“</codeph> eingestellt ist.</p>
+  
+  <p>Dieser Stil hat keine Auswirkungen auf Systemschriftarten.</p>
+ 
+  <p>Dieser Stil wird auf den gesamten Text eines untergeordneten TextField-Steuerelements angewendet. Sie können ihn nicht auf einige Zeichen anwenden und auf andere nicht.</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  Der Name der zu verwendenden Schriftart. Anders als in einer vollständigen CSS-Implementierung werden durch Kommas getrennte Listen nicht unterstützt. Sie können den Namen einer beliebigen Schriftartfamilie verwenden. Wenn Sie eine generische Schriftartbezeichnung wählen, wird diese in eine entsprechende Geräteschriftart konvertiert. Die Standardschriftart für das Halo-Design ist <codeph>"Verdana"</codeph>. Die Standardschriftart für das Spark-Design ist <codeph>"Arial"</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  Legt die Eigenschaft <codeph>antiAliasType</codeph> von internen Textfeldern fest. Die möglichen Werte sind <codeph>"normal"</codeph> (<codeph>flash.text.AntiAliasType.NORMAL</codeph>) und <codeph>"advanced"</codeph> (<codeph>flash.text.AntiAliasType.ADVANCED</codeph>). 
+  
+  <p>Der Standardwert ist <codeph>„advanced“</codeph>, wodurch ein Anti-Aliasing für die Schriftart aktiviert wird. Auf <codeph>„normal“</codeph> eingestellt, um das erweiterte Anti-Aliasing zu deaktivieren.</p>
+  
+  <p>Dieser Stil hat keine Auswirkungen auf Systemschriftarten.</p>
+  
+  <p>Dieser Stil wird auf alle Texte in einem TextField-Substeuerelement angewendet. Es ist nicht möglich, ihn selektiv auf einzelne Zeichen anzuwenden.</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls:ToolTip" playerVersion="Flash9" type="uint">
+<description>
+  Farbe des Texts in der Komponente, wenn deaktiviert.
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls:ToolTip" playerVersion="Flash10" type="String">
+<description>
+  Die Laufrichtung des von dieser Komponente angezeigten Texts.
+ 
+  <p>Zulässige Werte sind <codeph>"ltr"</codeph> für den von links nach rechts verlaufenden Text lateinischer Schriften und <codeph>"rtl"</codeph> für den von rechts nach links laufenden Text z. B. des Arabischen oder Hebräischen.</p>
+ 
+  <p>FTE und TLF verwenden diesen Wert in ihrem bidirektionalen Textlayoutalgorithmus, der die Unicode-Zeichenfolge der Glyphenfolge zuordnet.</p>
+ 
+  <p>Hinweis: Dieser Stil gilt nur, wenn eine MX-Komponente UIFTETextField als ihre <codeph>textFieldClass</codeph> festlegt.</p>
+ 
+  <p>Die <codeph>direction</codeph> wirkt sich auch auf die Ausrichtung des Texts an den Grenzen des TLFTextField aus. Sie beeinflusst jedoch nicht die Platzierung des TLFTextField innerhalb der Komponente.</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls:ToolTip" playerVersion="Flash9" type="uint">
+<description>
+  Farbe des Texts in der Komponente, einschließlich der Komponentenbeschriftung. Der Standardwert für das Halo-Design ist <codeph>0x0B333C</codeph>. Der Standardwert für das Spark-Design ist <codeph>0x000000</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingRight" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Anzahl der Pixel zwischen der rechten Rahmenlinie der Komponente und dem rechten Rand ihres Inhaltsbereichs.
+  <p>Der Standardwert ist 0.</p>
+  <p>Der Standardwert für ein Schaltflächensteuerelement im Halo-Design beträgt 10 und im Spark-Design 6.</p>
+  <p>Der Standardwert für das ComboBox-Steuerelement ist 5.</p>
+  <p>Der Standardwert für den Form-Container ist 16.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Anzahl der Pixel zwischen der linken Rahmenlinie der Komponente und dem linken Rand ihres Inhaltsbereichs.
+  <p>Der Standardwert ist 0.</p>
+  <p>Der Standardwert für ein Schaltflächensteuerelement im Halo-Design beträgt 10 und im Spark-Design 6.</p>
+  <p>Der Standardwert für das ComboBox-Steuerelement ist 5.</p>
+  <p>Der Standardwert für den Form-Container ist 16.</p>
+  <p>Der Standardwert für das Tree-Steuerelement ist 2.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="leading" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Number">
+<description>
+  Zusätzlicher vertikaler Abstand zwischen Textzeilen.
+ 
+  <p>Der Standardwert ist 2.</p>
+  <p>Der Standardwert für das ComboBox-Steuerelement ist 0.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="shadowDistance" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  Abstand des Schlagschattens. Wenn für eine Eigenschaft ein negativer Wert eingestellt ist, erscheint über der Komponente ein Schatten.
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="no" name="shadowDirection" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  Richtung des Schlagschattens. Mögliche Werte sind <codeph>"left"</codeph>, <codeph>"center"</codeph> und <codeph>"right"</codeph>.
+ 
+  </description>
+<default>"center"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="dropShadowColor" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  Farbe des Schlagschattens.
+ 
+  </description>
+<default>0x000000
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropShadowVisible" owner="mx.controls:ToolTip" playerVersion="Flash10" theme="spark" type="Boolean">
+<description>
+  Boolesche Eigenschaft, die festlegt, ob die Komponente über einen sichtbaren Schlagschatten verfügt. Der Standardwert ist <codeph>false</codeph>.
+ 
+  <p><b>Hinweis:</b> Um Schlagschatten für Container anzuzeigen, legen Sie die <codeph>contentBackgroundColor</codeph>-Eigenschaft fest. Andernfalls wird der Schatten hinter dem Container angezeigt, weil der Standardhintergrund eines Containers transparent ist.</p>
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dropShadowEnabled" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="Boolean">
+<description>
+  Boolesche Eigenschaft, die festlegt, ob die Komponente über einen sichtbaren Schlagschatten verfügt. Dieser Stil wird mit <codeph>borderStyle="solid"</codeph> verwendet. Der Standardwert lautet <codeph>false</codeph>.
+ 
+  <p><b>Hinweis:</b> Um Schlagschatten für Container anzuzeigen, legen Sie die Eigenschaften <codeph>backgroundColor</codeph> oder <codeph>backgroundImage</codeph> fest. Andernfalls wird der Schatten hinter dem Container angezeigt, weil der Standardhintergrund eines Containers transparent ist.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderVisible" owner="mx.controls:ToolTip" playerVersion="Flash10" theme="spark" type="Boolean">
+<description>
+  Sichtbarkeit des Rahmens.
+ 
+  </description>
+<default>true
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="borderThickness" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="Number">
+<description>
+  Stärke des Begrenzungsrahmens. Wird nur verwendet, wenn <codeph>borderStyle</codeph> auf <codeph>"solid"</codeph> gesetzt ist.
+ 
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="inset,outset,solid,none" inherit="no" name="borderStyle" owner="mx.controls:ToolTip" playerVersion="Flash9" type="String">
+<description>
+  Stil des Begrenzungsrahmens. Mögliche Werte sind <codeph>"none"</codeph>, <codeph>"solid"</codeph>, <codeph>"inset"</codeph> und <codeph>"outset"</codeph>. Der Standardwert hängt von der Komponentenklasse ab. Wenn er für diese Klasse nicht außer Kraft gesetzt wird, ist er <codeph>"inset"</codeph>. Der Standardwert für die meisten Container ist <codeph>"none"</codeph>. Die <codeph>"inset"</codeph>- und <codeph>"outset"</codeph>-Werte sind nur beim Halo-Thema gültig.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderSkin" owner="mx.controls:ToolTip" playerVersion="Flash9" type="Class">
+<description>
+  Klasse für die Rahmenskin einer Komponente. Der Standardwert aller Komponenten, die den Standardwert nicht selbst explizit festlegen, lautet für das Halo-Design <codeph>mx.skins.halo.HaloBorder</codeph> und für das Spark-Design <codeph>mx.skins.spark.BorderSkin</codeph>. Der Panel-Container hat für das Halo-Design einen Standardwert von <codeph>mx.skins.halo.PanelSkin</codeph> und für das Spark-Design von <codeph>mx.skins.spark.BorderSkin</codeph>. Um den Standardwert für eine Komponente festzustellen, sehen Sie in der Standard-CSS-Datei nach.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderSides" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  Seiten des Begrenzungsrahmens. Ein String mit Leerzeichen als Trennzeichen, der festlegt, welche Seiten des Rahmens angezeigt werden sollen. Der String kann <codeph>"left"</codeph>, <codeph>"top"</codeph>, <codeph>"right"</codeph> und <codeph>"bottom"</codeph> in beliebiger Reihenfolge enthalten. Der Standardwert ist <codeph>"left top right bottom"</codeph>, wodurch alle vier Seiten angezeigt werden. Dieser Stil wird nur verwendet, wenn borderStyle <codeph>"solid"</codeph> ist.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo, spark, mobile" type="uint">
+<description>
+  Farbe des Rahmens. Der Standardwert hängt von der Komponentenklasse ab. Wenn er für diese Klasse nicht überschrieben wird, lautet er für das Halo-Design <codeph>0xB7BABC</codeph> und für das Spark-Design <codeph>0x696969</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="borderAlpha" owner="mx.controls:ToolTip" playerVersion="Flash10" theme="spark" type="Number">
+<description>
+  Alpha des Rahmens.
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundSize" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="String">
+<description>
+  Skaliert das von <codeph>backgroundImage</codeph> festgelegte Bild auf verschiedene prozentuale Größen. Ein Wert von <codeph>"100%"</codeph> streckt das Bild über die gesamte Komponente. Um einen Prozentwert festzulegen, müssen Sie das Prozentzeichen (%) angeben. Der Standardwert des Application-Containers ist <codeph>100%</codeph>. Der Standardwert für alle anderen Container ist <codeph>auto</codeph>, wodurch die Originalgröße des Bilds beibehalten wird.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="File" inherit="no" name="backgroundImage" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="Object">
+<description>
+  Das Hintergrundbild einer Komponente. Es kann eine absolute oder relative URL oder Klasse sein. Sie können entweder <codeph>backgroundColor</codeph> oder <codeph>backgroundImage</codeph> festlegen. Das Hintergrundbild wird über der Hintergrundfarbe angezeigt. Der Standardwert ist <codeph>undefined</codeph>, also 
+„nicht festgesetzt“. Wenn dieser Stil und der <codeph>backgroundColor</codeph>-Stil nicht definiert sind, hat die Komponente einen transparenten Hintergrund.
+ 
+  <p>Die Standardskins für die meisten Flex-Steuerelemente sind teilweise transparent. Als Folge davon scheint das Hintergrundbild eines Containers teilweise auf die Steuerelemente im Container durch. Das kann vermieden werden, indem die Alphawerte der <codeph>fillAlphas</codeph>-Eigenschaft des Steuerelements auf 1 gesetzt werden, wie es im nachfolgenden Beispiel zu sehen ist:
+  <pre>
+  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/>
+      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/>
+  &lt;/mx:<i>Container</i>></pre>
+  </p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="backgroundDisabledColor" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  Hintergrundfarbe der Komponente, wenn sie deaktiviert ist. Der globale Standardwert ist <codeph>undefined</codeph>. Der Standardwert für List-Steuerelemente ist <codeph>0xDDDDDD</codeph> (hellgrau). Ist ein Container deaktiviert, erscheint der Hintergrund abgeblendet; der Abblendungsgrad wird durch den <codeph>disabledOverlayAlpha</codeph>-Stil bestimmt.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo, spark, mobile" type="uint">
+<description>
+  Die Hintergrundfarbe einer Komponente. Sie können <codeph>backgroundColor</codeph> und <codeph>backgroundImage</codeph> oder beides gleichzeitig festlegen. Manche Komponenten haben keinen Hintergrund. Das DataGrid-Steuerelement ignoriert diesen Stil. Der Standardwert ist <codeph>undefined</codeph>. Das heißt, dass er nicht eingestellt ist. Wenn dieser Stil und der <codeph>backgroundImage</codeph>-Stil <codeph>undefined</codeph> sind, hat die Komponente einen transparenten Hintergrund.
+ 
+  <p>Beim Application-Container definiert dieser Stil die Hintergrundfarbe während des Ladens der Anwendung und den Farbverlauf des Hintergrunds bei laufender Anwendung. Flex berechnet das Verlaufsmuster zwischen einer etwas dunkleren und einer etwas helleren als der festgelegten Farbe.</p>
+ 
+  <p>Die Standardskins für die meisten Flex-Steuerelemente sind teilweise transparent. Als Folge davon scheint die Hintergrundfarbe eines Containers teilweise auf die Steuerelemente im Container durch. Das kann vermieden werden, indem die Alphawerte der <codeph>fillAlphas</codeph>-Eigenschaft des Steuerelements auf 1 gesetzt werden, wie es im nachfolgenden Beispiel zu sehen ist:
+  <pre>
+  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/>
+      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/>
+  &lt;/mx:<i>Container</i>></pre>
+  </p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="mx.controls:ToolTip" playerVersion="Flash9" theme="halo, spark, mobile" type="Number">
+<description>
+  Die Alphaebene der Farbe wird durch die <codeph>backgroundColor</codeph>-Eigenschaft festgelegt, die des Bilds oder der SWF-Datei durch den <codeph>backgroundImage</codeph>-Stil. Gültige Werte sind 0,0 bis 1,0. Bei den meisten Steuerelementen ist der Standardwert 1,0, aber bei den Quickinfo-Steuerelementen beträgt er 0,95 und bei den Alert-Steuerelementen 0,9.
+  
+  </description>
+<default>1.0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IToolTip</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Mithilfe des QuickInfo-Steuerelements können Sie für die Benutzer hilfreiche Informationen bereitstellen. Bewegt der Benutzer den Mauszeiger über eine Grafikkomponente, wird das QuickControl-Steuerelement eingeblendet, welches einen Informationstext zur Komponente anzeigt. Die QuickInfos können zur Anleitung der Benutzer beim Arbeiten mit der Anwendung eingesetzt werden; die QuickInfo-Steuerelemente können auch angepasst und mit zusätzlichen Funktionen ausgestattet werden.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.managers.xml#ToolTipManager"><linktext>mx.managers.ToolTipManager</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiConstructor id="mx.controls:ToolTip:ToolTip"><apiName>ToolTip</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls:ToolTip:maxWidth"><apiName>maxWidth</apiName><shortdesc>
+      Maximale Breite neuer QuickInfo-Steuerelemente in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiData>300</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Maximale Breite neuer QuickInfo-Steuerelemente in Pixeln.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ToolTip:protected:textField"><apiName>textField</apiName><shortdesc>
+      Das interne UITextField stellt den Text dieses QuickInfos dar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:IUITextField</apiValueClassifier></apiValueDef><apiDesc>
+      Das interne UITextField stellt den Text dieses QuickInfos dar.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ToolTip:text:get"><apiName>text</apiName><shortdesc>
+      Der vom QuickInfo angezeigte Text.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der vom QuickInfo angezeigte Text.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:ProgressBarLabelPlacement"><apiName>ProgressBarLabelPlacement</apiName><shortdesc>
+  Die ProgressBarLabelPlacement-Klasse definiert die Werte für die labelPlacement-Eigenschaft der ProgressBar-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ProgressBarLabelPlacement-Klasse definiert die Werte für die <codeph>labelPlacement</codeph>-Eigenschaft der ProgressBar-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ProgressBar.xml"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiValue id="mx.controls:ProgressBarLabelPlacement:BOTTOM"><apiName>BOTTOM</apiName><shortdesc>
+	  Legt fest, dass die Beschriftung unterhalb der Fortschrittsleiste angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bottom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Beschriftung unterhalb der Fortschrittsleiste angezeigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarLabelPlacement:CENTER"><apiName>CENTER</apiName><shortdesc>
+	  Legt fest, dass die Beschriftung innerhalb der Fortschrittsleiste angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>center</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Beschriftung innerhalb der Fortschrittsleiste angezeigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarLabelPlacement:LEFT"><apiName>LEFT</apiName><shortdesc>
+	  Legt fest, dass die Beschriftung links neben der Fortschrittsleiste angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Beschriftung links neben der Fortschrittsleiste angezeigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarLabelPlacement:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+	  Legt fest, dass die Beschriftung rechts neben der Fortschrittsleiste angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Beschriftung rechts neben der Fortschrittsleiste angezeigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarLabelPlacement:TOP"><apiName>TOP</apiName><shortdesc>
+	  Legt fest, dass die Beschriftung oberhalb der Fortschrittsleiste angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Beschriftung oberhalb der Fortschrittsleiste angezeigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:ProgressBarMode"><apiName>ProgressBarMode</apiName><shortdesc>
+  Die ProgressBarMode-Klasse definiert die Werte für die mode-Eigenschaft der ProgressBar-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ProgressBarMode-Klasse definiert die Werte für die <codeph>mode</codeph>-Eigenschaft der ProgressBar-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ProgressBar.xml"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiValue id="mx.controls:ProgressBarMode:EVENT"><apiName>EVENT</apiName><shortdesc>
+	  Das von der source-Eigenschaft angegebene Steuerelement muss progress- und complete-Ereignisse auslösen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>event</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Das von der <codeph>source</codeph>-Eigenschaft angegebene Steuerelement muss <codeph>progress</codeph>- und <codeph>complete</codeph>-Ereignisse auslösen. Die Fortschrittsleiste verwendet diese Ereignisse, um ihren Status zu aktualisieren.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarMode:MANUAL"><apiName>MANUAL</apiName><shortdesc>
+	  Der ProgressBar-Status wird manuell aktualisiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>manual</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Der ProgressBar-Status wird manuell aktualisiert. In diesem Modus geben Sie die <codeph>minimum</codeph>- und <codeph>maximum</codeph>-Eigenschaften an und verwenden die <codeph>setProgress()</codeph>-Methode, um den Status festzulegen. Dieser Modus wird oft verwendet, wenn die <codeph>indeterminate</codeph>-Eigenschaft <codeph>true</codeph> ist.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarMode:POLLED"><apiName>POLLED</apiName><shortdesc>
+	  Die source-Eigenschaft muss ein Objekt angeben, das die getBytesLoaded()- und getBytesTotal()-Methoden verfügbar macht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>polled</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Die <codeph>source</codeph>-Eigenschaft muss ein Objekt angeben, das die Methoden <codeph>getBytesLoaded()</codeph> und <codeph>getBytesTotal()</codeph> verfügbar macht. Das ProgressBar-Steuerelement ruft diese Methoden auf, um seinen Status zu aktualisieren.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:IFlexContextMenu"><apiName>IFlexContextMenu</apiName><shortdesc>
+  Die IFlexContextMenu-Schnittstelle definiert die Schnittstelle für ein Flex-Kontextmenü.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Die IFlexContextMenu-Schnittstelle definiert die Schnittstelle für ein Flex-Kontextmenü.  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#UIComponent/flexContextMenu"><linktext>mx.core.UIComponent.flexContextMenu</linktext></link></related-links><apiOperation id="mx.controls:IFlexContextMenu:mx.controls:IFlexContextMenu:setContextMenu"><apiName>setContextMenu</apiName><shortdesc>
+      Stellt das Kontextmenü eines InteractiveObject ein.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="flash.display:InteractiveObject"/><apiDesc>InteractiveObject, dessen Kontextmenü einzustellen ist.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Stellt das Kontextmenü eines InteractiveObject ein. Dies führt alle notwendigen Schritte, z. B. Listener hinzufügen, durch, um das InteractiveObject als Kontextmenü zu diesem InteractiveObject hinzuzufügen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:IFlexContextMenu:mx.controls:IFlexContextMenu:unsetContextMenu"><apiName>unsetContextMenu</apiName><shortdesc>
+      Deaktiviert das Kontextmenü eines InteractiveObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="flash.display:InteractiveObject"/><apiDesc>InteractiveObject, dessen Kontextmenü zu deaktivieren ist.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Deaktiviert das Kontextmenü eines InteractiveObject. Dies führt alle notwendigen Schritte, z. B. Listener entfernen, durch, um das InteractiveObject als Kontextmenü von diesem InteractiveObject zu entfernen.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls:ButtonLabelPlacement"><apiName>ButtonLabelPlacement</apiName><shortdesc>
+  Die ButtonLabelPlacement-Klasse definiert die Konstanten für die zulässigen Werte der labelPlacement-Eigenschaft für ein Button-, CheckBox- oder RadioButton-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ButtonLabelPlacement-Klasse definiert die Konstanten für die zulässigen Werte der <codeph>labelPlacement</codeph>-Eigenschaft für ein Button-, CheckBox- oder RadioButton-Steuerelement.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.Button.xml"><linktext>mx.controls.Button</linktext></link><link href="" invalidHref="mx.controls.CheckBox.xml"><linktext>mx.controls.CheckBox</linktext></link><link href="" invalidHref="mx.controls.LinkButton.xml"><linktext>mx.controls.LinkButton</linktext></link><link href="" invalidHref="mx.controls.RadioButton.xml"><linktext>mx.controls.RadioButton</linktext></link></related-links><apiValue id="mx.controls:ButtonLabelPlacement:BOTTOM"><apiName>BOTTOM</apiName><shortdesc>
+	  Legt fest, dass die Beschriftung unter dem Symbol angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bottom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Beschriftung unter dem Symbol angezeigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ButtonLabelPlacement:LEFT"><apiName>LEFT</apiName><shortdesc>
+	  Legt fest, dass die Beschriftung links neben dem Symbol angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Beschriftung links neben dem Symbol angezeigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ButtonLabelPlacement:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+	  Legt fest, dass die Beschriftung rechts neben dem Symbol angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Beschriftung rechts neben dem Symbol angezeigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ButtonLabelPlacement:TOP"><apiName>TOP</apiName><shortdesc>
+	  Legt fest, dass die Beschriftung über dem Symbol angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Beschriftung über dem Symbol angezeigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:Spacer"><apiName>Spacer</apiName><shortdesc>
+  Das Spacer-Steuerelement hilft ihnen untergeordnete Elemente innerhalb eines übergeordneten Containers anzuordnen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The <code>&lt;mx:Spacer&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds no new tag attributes.</p>
+  
+  <pre>
+  &lt;mx:Spacer/&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Das Spacer-Steuerelement hilft ihnen untergeordnete Elemente innerhalb eines übergeordneten Containers anzuordnen. Obwohl das Spacer-Steuerelement nichts zeichnet, beansprucht es einen gewissen Raum innerhalb des Containers. 
+  
+  <p>Im folgenden Beispiel wird ein bewegliches Spacer-Steuerelement verwendet, um ein Button-Steuerelement nach rechts zu drücken, sodass das Button-Steuerelement sich an der rechten Ecke des HBox-Containers ausrichtet.</p>
+ 
+  <pre>
+  &lt;mx:HBox>
+      &lt;mx:Image source="Logo.jpg"/>
+      &lt;mx:Label text="Company XYZ"/>
+      &lt;mx:Spacer width="100%"/>
+      &lt;mx:Button label="Close"/>
+  &lt;/mx:HBox>
+  </pre>
+ 
+  </apiDesc><example conref="SpacerExample.mxml"><swfblock conref="examples/SpacerExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.controls:Spacer:Spacer"><apiName>Spacer</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls:ProgressBarDirection"><apiName>ProgressBarDirection</apiName><shortdesc>
+  Die ProgressBarDirection-Klasse definiert die Werte für die direction-Eigenschaft der ProgressBar-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ProgressBarDirection-Klasse definiert die Werte für die <codeph>direction</codeph>-Eigenschaft der ProgressBar-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.ProgressBar.xml"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiValue id="mx.controls:ProgressBarDirection:LEFT"><apiName>LEFT</apiName><shortdesc>
+	  Legt fest, dass die Fortschrittsleiste von rechts nach links gefüllt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Fortschrittsleiste von rechts nach links gefüllt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:ProgressBarDirection:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+	  Legt fest, dass die Fortschrittsleiste von links nach rechts gefüllt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt fest, dass die Fortschrittsleiste von links nach rechts gefüllt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:MovieClipSWFLoader"><apiName>MovieClipSWFLoader</apiName><shortdesc>
+  Das MovieClipSWFLoader-Steuerelement erweitert SWFLoader, um Convenience-Methoden zum Bearbeiten einer SWF bereitzustellen, deren Stamminhalt ein MovieClip ist. Dieser MovieClip darf jedoch keine Flex-Anwendung sein.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:SWFLoader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Das MovieClipSWFLoader-Steuerelement erweitert SWFLoader, um Convenience-Methoden zum Bearbeiten einer SWF bereitzustellen, deren Stamminhalt ein MovieClip ist. Dieser MovieClip darf jedoch keine Flex-Anwendung sein. Beachten Sie, dass diese Klasse bei allen anderen SWF-Inhaltstypen für die movieClip-Get-Funktion „null“ zurückgibt und für Funktionsaufrufe einen Leerbefehl zur Folge hat.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls:MovieClipSWFLoader:MovieClipSWFLoader"><apiName>MovieClipSWFLoader</apiName><shortdesc>
+      Konstruktor 
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:MovieClipSWFLoader:gotoAndPlay"><apiName>gotoAndPlay</apiName><shortdesc>
+      Startet die Wiedergabe der SWF-Datei beim angegebenen Bild.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>frame</apiItemName><apiType value="Object"/><apiDesc>Eine Zahl für die Bildnummer oder ein String zur Bezeichnung des Bilds, zu dem der Abspielkopf springen soll. Wenn Sie eine Zahl angeben, ist diese relativ zur angegebenen Szene zu verstehen. Wenn Sie keine Szene angeben, bestimmt die aktuelle Szene die globale Nummer des abzuspielenden Bildes. Haben Sie eine Szene angegeben, springt der Abspielkopf in dieser Szene zum Bild mit der angegebenen Nummer. 
+           </apiDesc></apiParam><apiParam><apiItemName>scene</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Der Name der abzuspielenden Szene. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Startet die Wiedergabe der SWF-Datei beim angegebenen Bild. Wenn der Inhalt kein MovieClip ist, hat dies einen Leerbefehl zur Folge.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/gotoAndPlay"><linktext>flash.display.MovieClip.gotoAndPlay</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:gotoAndStop"><apiName>gotoAndStop</apiName><shortdesc>
+      Beendet die Wiedergabe der SWF und setzt den Abspielkopf zum angegebenen Bild zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>frame</apiItemName><apiType value="Object"/><apiDesc>Eine Zahl für die Bildnummer oder ein String zur Bezeichnung des Bilds, zu dem der Abspielkopf springen soll. Wenn Sie eine Zahl angeben, ist diese relativ zur angegebenen Szene zu verstehen. Wenn Sie keine Szene angeben, bestimmt die aktuelle Szene die globale Nummer des abzuspielenden Bildes. Haben Sie eine Szene angegeben, springt der Abspielkopf in dieser Szene zum Bild mit der angegebenen Nummer. 
+           </apiDesc></apiParam><apiParam><apiItemName>scene</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Der Name der abzuspielenden Szene. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Beendet die Wiedergabe der SWF und setzt den Abspielkopf zum angegebenen Bild zurück. Wenn der Inhalt kein MovieClip ist, hat dies einen Leerbefehl zur Folge.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/gotoAndStop"><linktext>flash.display.MovieClip.gotoAndStop</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:gotoFirstFrameAndStop"><apiName>gotoFirstFrameAndStop</apiName><shortdesc>
+      Setzt den Abspielkopf zum ersten Bild der ersten Szene zurück und beendet den MovieClip.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Setzt den Abspielkopf zum ersten Bild der ersten Szene zurück und beendet den MovieClip. Wenn der Inhalt kein MovieClip ist, hat dies einen Leerbefehl zur Folge.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:nextFrame"><apiName>nextFrame</apiName><shortdesc>
+      Geht zum nächsten Bild.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Geht zum nächsten Bild. Leerbefehl, wenn Inhalt kein MovieClip ist.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/nextFrame"><linktext>flash.display.MovieClip.nextFrame</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:nextScene"><apiName>nextScene</apiName><shortdesc>
+      Geht zur nächsten Szene.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Geht zur nächsten Szene. Leerbefehl, wenn Inhalt kein MovieClip ist.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/nextScene"><linktext>flash.display.MovieClip.nextScene</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:play"><apiName>play</apiName><shortdesc>
+      Startet die Wiedergabe des SWF-Inhalts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Startet die Wiedergabe des SWF-Inhalts. Wenn der Inhalt kein MovieClip ist, hat dies einen Leerbefehl zur Folge. 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/play"><linktext>flash.display.MovieClip.play</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:prevFrame"><apiName>prevFrame</apiName><shortdesc>
+      Geht zum vorherigen Bild.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Geht zum vorherigen Bild. Leerbefehl, wenn Inhalt kein MovieClip ist.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/prevFrame"><linktext>flash.display.MovieClip.prevFrame</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:prevScene"><apiName>prevScene</apiName><shortdesc>
+      Geht zur vorherigen Szene.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Geht zur vorherigen Szene. Leerbefehl, wenn Inhalt kein MovieClip ist.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/prevScene"><linktext>flash.display.MovieClip.prevScene</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:MovieClipSWFLoader:stop"><apiName>stop</apiName><shortdesc>
+      Beendet die Wiedergabe des SWF-Inhalts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Beendet die Wiedergabe des SWF-Inhalts. Wenn der Inhalt kein MovieClip ist, hat dies einen Leerbefehl zur Folge.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#MovieClip/stop"><linktext>flash.display.MovieClip.stop</linktext></link></related-links></apiOperation><apiValue id="mx.controls:MovieClipSWFLoader:autoStop"><apiName>autoStop</apiName><shortdesc>
+      Wenn der Inhalt der SWF ein MovieClip ist und für autoStop „true“ festgelegt ist, wird der MovieClip direkt nach dem Laden angehalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Wenn der Inhalt der SWF ein MovieClip ist und für autoStop „true“ festgelegt ist, wird der MovieClip direkt nach dem Laden angehalten.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:MovieClipSWFLoader:movieClip:get"><apiName>movieClip</apiName><shortdesc>
+      Handle für den zugrundeliegenden MovieClip der geladenen SWF.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:MovieClip"/></apiValueDef><apiDesc>
+      Handle für den zugrundeliegenden MovieClip der geladenen SWF. Wenn die SWF nicht auf einem MovieClip beruht, hat diese Eigenschaft den Wert „null“.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

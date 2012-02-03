@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.olap.aggregators"><apiName>mx.olap.aggregators</apiName><apiDetail/><apiClassifier id="mx.olap.aggregators:MinAggregator"><apiName>MinAggregator</apiName><shortdesc>
+  MinAggregator クラスは、最小値集計関数を実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MinAggregator クラスは、最小値集計関数を実装します。 最小値集計関数は、すべての測定値の最小値を返します。 この集計関数は、<codeph>OLAPMeasure.aggregator</codeph> プロパティを <codeph>"MIN"</codeph> に設定するときに使用されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:MinAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeLoop()</codeph> および <codeph>computeEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>分析する行データを表すオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeObjectLoop()</codeph> および <codeph>computeObjectEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。 平均のグループの平均値の計算は、集計された値の集計の例です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>集計結果を格納するために使用する <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc><codeph>computeObjectBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:AverageAggregator"><apiName>AverageAggregator</apiName><shortdesc>
+  AverageAggregator クラスは、平均値集計関数を実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AverageAggregator クラスは、平均値集計関数を実装します。 平均値集計関数は、測定値の平均値を返します。 この集計関数は、<codeph>OLAPMeasure.aggregator</codeph> プロパティを <codeph>"AVG"</codeph> に設定するときに使用されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:AverageAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeLoop()</codeph> および <codeph>computeEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>分析する行データを表すオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeObjectLoop()</codeph> および <codeph>computeObjectEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。 平均のグループの平均値の計算は、集計された値の集計の例です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>集計結果を格納するために使用する <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc><codeph>computeObjectBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:MaxAggregator"><apiName>MaxAggregator</apiName><shortdesc>
+  MaxAggregator クラスは、最大値集計関数を実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MaxAggregator クラスは、最大値集計関数を実装します。 最大値集計関数は、すべての測定値の最大値を返します。 この集計関数は、<codeph>OLAPMeasure.aggregator</codeph> プロパティを <codeph>"MAX"</codeph> に設定するときに使用されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:MaxAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeLoop()</codeph> および <codeph>computeEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>分析する行データを表すオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeObjectLoop()</codeph> および <codeph>computeObjectEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。 平均のグループの平均値の計算は、集計された値の集計の例です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>集計結果を格納するために使用する <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc><codeph>computeObjectBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:SumAggregator"><apiName>SumAggregator</apiName><shortdesc>
+  SumAggregator クラスは、合計値集計関数を実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SumAggregator クラスは、合計値集計関数を実装します。 合計値集計関数は、すべての測定値の合計値を返します。 この集計関数は、<codeph>OLAPMeasure.aggregator</codeph> プロパティを <codeph>"SUM"</codeph> に設定するときに使用されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:SumAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeLoop()</codeph> および <codeph>computeEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>分析する行データを表すオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeObjectLoop()</codeph> および <codeph>computeObjectEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。 平均のグループの平均値の計算は、集計された値の集計の例です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>集計結果を格納するために使用する <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc><codeph>computeObjectBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:CountAggregator"><apiName>CountAggregator</apiName><shortdesc>
+  CountAggregator クラスは、カウント値集計関数を実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CountAggregator クラスは、カウント値集計関数を実装します。 カウント値集計関数は、測定値のカウント値を返します。 この集計関数は、<codeph>OLAPMeasure.aggregator</codeph> プロパティを <codeph>"COUNT"</codeph> に設定するときに使用されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:CountAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeLoop()</codeph> および <codeph>computeEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を開始します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計値の計算を終了します。 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc><codeph>computeBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>分析する行データを表すオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計用に初期化されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。 このオブジェクトを後続の <codeph>computeObjectLoop()</codeph> および <codeph>computeObjectEnd()</codeph> メソッドの呼び出しに渡します。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このオブジェクトを使用して、集計を実行するために必要な情報を保持します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して集計された値の集計を開始します。 平均のグループの平均値の計算は、集計された値の集計の例です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>集計された値です。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>集計結果を格納するために使用する <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>集計する測定の <codeph>OLAPMeasure.dataField</codeph> プロパティの名前です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、このメソッドを呼び出して計算を終了します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc><codeph>computeObjectBegin()</codeph> メソッドの呼び出しによって返されたか、前の <codeph>computeObjectLoop()</codeph> メソッドの呼び出しによって計算されたオブジェクトです。 このメソッドはこのオブジェクトを変更します。値を返すことはありません。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>前の集計で <codeph>computeEnd()</codeph> メソッドの呼び出しによって返されたオブジェクトです。 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex は、新しい集計値を集計に追加する必要があるときにこのメソッドを呼び出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

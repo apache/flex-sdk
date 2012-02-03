@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.errors"><apiName>mx.messaging.errors</apiName><apiDetail/><apiClassifier id="mx.messaging.errors:InvalidChannelError"><apiName>InvalidChannelError</apiName><shortdesc>
+  Эта ошибка возникает в случае, если доступ к каналу невозможен, либо если канал не является допустимым для текущего адреса назначения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:ChannelError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эта ошибка возникает в случае, если доступ к каналу невозможен, либо если канал не является допустимым для текущего адреса назначения. Эта ошибка возникает при использовании следующих методов/свойств в инфраструктуре:
+  <ul>
+    <li><codeph>ServerConfig.getChannel()</codeph>, если не удается обнаружить канал по идентификатору.</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:InvalidChannelError:InvalidChannelError"><apiName>InvalidChannelError</apiName><shortdesc>
+      Создает новый экземпляр InvalidChannelError с указанным сообщением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Строка с сообщением, которое описывает данный InvalidChannelError.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает новый экземпляр InvalidChannelError с указанным сообщением.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:InvalidDestinationError"><apiName>InvalidDestinationError</apiName><shortdesc>
+  Эта ошибка возникает в случае, если доступ к адресу назначения невозможен, либо если адрес назначения является недопустимым.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:ChannelError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эта ошибка возникает в случае, если доступ к адресу назначения невозможен, либо если адрес назначения является недопустимым. Эта ошибка возникает при использовании следующих методов/свойств в инфраструктуре:
+  <ul>
+    <li><codeph>ServerConfig.getChannelSet()</codeph>, если указан недопустимый адрес назначения.</li>
+    <li><codeph>ServerConfig.getProperties()</codeph>, если указан недопустимый адрес назначения.</li>
+    <li><codeph>Channel.send()</codeph>, если для сообщения, которое требуется передать, не указан адрес назначения.</li>
+    <li>Установщик <codeph>MessageAgent.destination</codeph>, если указан адрес назначения, равный null или zero.</li>
+    <li><codeph>Producer.send()</codeph>, если адрес назначения для отправителя или сообщения не указан.</li>
+    <li><codeph>Consumer.subscribe()</codeph> если адреса назначения для получателя не указан.</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:InvalidDestinationError:InvalidDestinationError"><apiName>InvalidDestinationError</apiName><shortdesc>
+      Создает новый экземпляр InvalidDestinationError с указанным сообщением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Строка с сообщением, которое описывает данный InvalidDestinationError.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает новый экземпляр InvalidDestinationError с указанным сообщением.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:MessageSerializationError"><apiName>MessageSerializationError</apiName><shortdesc>
+  Эта ошибка означает, что возникла проблема при преобразовании сообщения в канале в последовательность.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:MessagingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эта ошибка означает, что возникла проблема при преобразовании сообщения в канале в последовательность. Предоставляет свойство ошибки, соответствующее сообщению ErrorMessage, созданному при возникновении этой ошибки.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:MessageSerializationError:MessageSerializationError"><apiName>MessageSerializationError</apiName><shortdesc>
+	  Создает новый экземпляр MessageSerializationError с указанным сообщением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Строка с сообщением, которое описывает ошибку.
+	  </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>Предоставляет определенную информацию об ошибке, возникшей для конкретного сообщения.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Создает новый экземпляр MessageSerializationError с указанным сообщением.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.errors:MessageSerializationError:fault"><apiName>fault</apiName><shortdesc>
+      Предоставляет определенную информацию о возникшей ошибке для конкретного сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:ErrorMessage</apiValueClassifier></apiValueDef><apiDesc>
+      Предоставляет определенную информацию о возникшей ошибке для конкретного сообщения.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.errors:ChannelError"><apiName>ChannelError</apiName><shortdesc>
+  Это базовый класс для ошибок, связанных с любым каналом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:MessagingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Это базовый класс для ошибок, связанных с любым каналом. Он предоставляет возможность использования кода catch с более низким уровнем структурирования. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:ChannelError:ChannelError"><apiName>ChannelError</apiName><shortdesc>
+	  Создает новый экземпляр ChannelError с указанным сообщением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Строка с сообщением, которое описывает ошибку.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Создает новый экземпляр ChannelError с указанным сообщением.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:NoChannelAvailableError"><apiName>NoChannelAvailableError</apiName><shortdesc>
+  Эта ошибка возникает в случае, если ни один канал недоступен для передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:MessagingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Эта ошибка возникает в случае, если ни один канал недоступен для передачи сообщений. Эта ошибка возникает при использовании следующих методов в инфраструктуре:
+  <ul>
+    <li><codeph>ChannelSet.send()</codeph>, если для ChannelSet каналы отсутствуют.</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:NoChannelAvailableError:NoChannelAvailableError"><apiName>NoChannelAvailableError</apiName><shortdesc>
+      Создает новый экземпляр NoChannelAvailableError с указанным сообщением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Строка с сообщением, которое описывает данный NoChannelAvailableError.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает новый экземпляр NoChannelAvailableError с указанным сообщением.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:MessagingError"><apiName>MessagingError</apiName><shortdesc>
+  Это базовый класс для любых ошибок, связанных с передачей сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Это базовый класс для любых ошибок, связанных с передачей сообщений. Он предоставляет возможность использования кода catch с более низким уровнем структурирования.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:MessagingError:MessagingError"><apiName>MessagingError</apiName><shortdesc>
+	  Создает новый экземпляр MessagingError с указанным сообщением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Строка с сообщением, которое описывает ошибку.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Создает новый экземпляр MessagingError с указанным сообщением.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.errors:MessagingError:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает строку [MessagingError] по умолчанию и включают свойство сообщения, если оно определено.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Строковое представление для MessagingError.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает строку [MessagingError] по умолчанию и включают свойство сообщения, если оно определено.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

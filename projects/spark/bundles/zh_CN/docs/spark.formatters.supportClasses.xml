@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.formatters.supportClasses"><apiName>spark.formatters.supportClasses</apiName><apiDetail/><apiClassifier id="spark.formatters.supportClasses:NumberFormatterBase"><apiName>NumberFormatterBase</apiName><shortdesc>
+  NumberFormatterBase 类是 NumberFormatter 和 CurrencyFormatter 类的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:NumberFormatterBase&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberFormatterBase 
+    <strong>Properties</strong>
+    decimalSeparator="<i>locale and OS dependent</i>"
+    digitsType="<i>locale and OS dependent</i>"
+    errorText="null"
+    fractionalDigits="<i>locale and OS dependent</i>"
+    groupingPattern="<i>locale and OS dependent</i>"
+    groupingSeparator="<i>locale and OS dependent</i>"
+    leadingZero="<i>locale and OS dependent</i>"
+    negativeSymbol="<i>locale and OS dependent</i>"
+    trailingZeros="<i>locale and OS dependent</i>"
+    useGrouping="<i>locale and OS dependent</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberFormatterBase 类是 NumberFormatter 和 CurrencyFormatter 类的基类。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter"><linktext>spark.formatters.CurrencyFormatter</linktext></link><link href="spark.formatters.xml#NumberFormatter"><linktext>spark.formatters.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters.supportClasses:NumberFormatterBase:NumberFormatterBase"><apiName>NumberFormatterBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:decimalSeparator:get"><apiName>decimalSeparator</apiName><shortdesc>
+      为包含小数部分的数字设置格式或对其进行解析时使用的小数分隔符字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果为此属性分配 null 值。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      为包含小数部分的数字设置格式或对其进行解析时使用的小数分隔符字符。
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:digitsType:get"><apiName>digitsType</apiName><shortdesc>
+      定义为数字设置格式时使用的数字字符集。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      定义为数字设置格式时使用的数字字符集。
+     
+      <p>不同语言和区域使用不同的字符集表示数字 0 到 9。此属性定义要使用的数字集。</p>
+     
+      <p>此属性值表示十进制数字集中数字 0 的 Unicode 值。在 <codeph>NationalDigitsType</codeph> 类中定义此属性的有效值。</p>
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:errorText:get"><apiName>errorText</apiName><shortdesc>
+      当发生错误时，由 format() 方法返回的替换字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当发生错误时，由 <codeph>format()</codeph> 方法返回的替换字符串。
+     
+      <p>如果 <codeph>errorText</codeph> 为非 null，并且在设置数字或货币金额的格式时发生了错误，则 format 方法将返回指定给此属性的字符串。</p>
+     
+      例如：
+      <codeblock rev="3.0">
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale", "en-US");
+      nf.errorText = "###"
+      trace(nf.format("abc"));  // ###
+      </codeblock>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:fractionalDigits:get"><apiName>fractionalDigits</apiName><shortdesc>
+      小数分隔符后可以显示的最大位数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      小数分隔符后可以显示的最大位数。
+     
+      <p>数字舍入为由此属性指定的数字位数。舍入方案根据应用程序用户的操作系统不同而有所不同。</p>
+     
+      <p>当 <codeph>trailingZeros</codeph> 属性设置为 <codeph>true</codeph> 时，用尾随零来填充数字的小数部分（小数分隔符之后），直到数字长度与此 <codeph>fractionalDigits</codeph> 属性的值相匹配。</p>
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/trailingZeros"><linktext>trailingZeros</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:groupingPattern:get"><apiName>groupingPattern</apiName><shortdesc>
+      描述分组分隔符在设置了格式的数字字符串中的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果为此属性分配 null 值。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      描述分组分隔符在设置了格式的数字字符串中的位置。
+     
+      <p>将 <codeph>useGrouping</codeph> 属性设置为 true 时，<codeph>groupingPattern</codeph> 属性用于定义分组分隔符所用的位置和模式。</p>
+     
+      <p>分组模式定义为包含由分号分隔并可能以星号结尾的数字的字符串。例如：“<codeph>3;2;*</codeph>”。字符串中的每个数字表示组中数字位数。分组分隔符置于每个数字组之前。字符串结尾的星号表示应在设置了格式的字符串的其余部分重复包含这一数字位数的组。如果没有星号，则在设置了格式的字符串的其余部分不会有其他组或分隔符。 </p>
+     
+      <p>字符串中的第一个数字对应于小数分隔符左边的第一组数字。随后的数字定义左边随后组中的数字位数。因此，字符串 <codeph>"3;2;*"</codeph> 指示分组分隔符置于具有 3 位数的第一组之后，后跟具有 2 位数的组。例如：<codeph>98,76,54,321</codeph></p>
+     
+      <p>下表提供了使用多种分组模式为数字 123456789.12 设置格式的示例。分组分隔符为逗号，小数分隔符为句点。
+      </p>
+        <adobetable class="innertable">
+              
+              
+              
+              
+        <tgroup cols="2"><tbody><row>
+                    <entry>分组模式</entry>
+                    <entry>示例格式</entry>
+              </row><row>
+                    <entry><codeph>3;*</codeph></entry>
+                    <entry>123,456,789.12</entry>
+              </row><row>
+                    <entry><codeph>3;2;*</codeph></entry>
+                    <entry>12,34,56,789.12</entry>
+              </row><row>
+                    <entry><codeph>3</codeph></entry>
+                    <entry>123456,789.12</entry>
+              </row></tbody></tgroup></adobetable>
+     
+      <p>仅可以定义有限的分组数字个数。在某些操作系统上，分组模式只能包含两个数字加一个星号。其他操作系统最多可以支持四个数字加一个星号。对于不含星号的模式，某些操作系统只支持一个数字，而其它操作系统最多支持三个数字。如果超过最大的分组模式元素数，则忽略多余的元素，且设置 <codeph>lastOperationStatus</codeph> 属性以指示正在使用回退值。
+      </p>
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingSeparator"><linktext>groupingSeparator</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/useGrouping"><linktext>useGrouping</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:groupingSeparator:get"><apiName>groupingSeparator</apiName><shortdesc>
+      用于分组分隔符的字符或字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果为此属性分配 null 值。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      用于分组分隔符的字符或字符串。
+     
+      <p>当 <codeph>useGrouping</codeph> 属性设置为 <codeph>true</codeph> 时，在设置数字格式时此属性的值用作分组分隔符。基于在构造格式程序对象时选择的区域设置对此属性进行最初设置。</p>
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/useGrouping"><linktext>useGrouping</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingPattern"><linktext>groupingPattern</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      此类对象执行的最近操作的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      此类对象执行的最近操作的状态。只要调用构造函数或此类的一个方法，或设置一个属性，都会设置 <codeph>lastOperationStatus</codeph>。有关可能值的信息，请参阅每种方法下的说明。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:leadingZero:get"><apiName>leadingZero</apiName><shortdesc>
+      指定当小数分隔符左侧没有整数位时，设置了格式的数字中是否包括前导零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiException><apiDesc>如果为此属性分配 null 值。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      指定当小数分隔符左侧没有整数位时，设置了格式的数字中是否包括前导零。
+     
+      <p>如果此属性设置为 <codeph>true</codeph>，则设置 -1.0 到 1.0 之间的数值的格式时小数分隔符左侧包括前导零。如果此属性设置为 <codeph>false</codeph>，则不包括前导零。</p>
+     
+      <p>例如，如果数字是 0.321，并且此属性设置为 <codeph>true</codeph>，则在设置了格式的字符串中包括前导零。如果将此属性设置为 <codeph>false</codeph>，则不包括前导零。在这种情况下，字符串将只包括小数分隔符以及后面的十进制数字，如 <codeph>.321</codeph>。</p>
+     
+      <p>下表提供了几个示例，显示如何基于此属性以及相关的 <codeph>fractionalDigits</codeph> 和 <codeph>trailingZeros</codeph> 属性的值来设置数字的格式。
+      </p>
+     
+         <adobetable class="innertable">
+             
+             
+             
+             
+             
+      <tgroup cols="5"><tbody><row>
+                 <entry>trailingZeros</entry>
+                 <entry><b>leadingZero</b></entry>
+                 <entry>fractionalDigits</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+              </row><row>
+                 <entry>true</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.120</entry>
+                 <entry>0.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+             </row><row>
+                 <entry>true</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.120</entry>
+                 <entry>.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.12</entry>
+                 <entry>0</entry>
+             </row></tbody></tgroup></adobetable>
+     
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>spark.formatters.CurrencyFormatter.format()</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>spark.formatters.NumberFormatter.format()</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/trailingZeros"><linktext>trailingZeros</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:negativeSymbol:get"><apiName>negativeSymbol</apiName><shortdesc>
+      设置负值的格式时使用的负号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      设置负值的格式时使用的负号。
+     
+      <p>为小于零的数字设置格式时，将此符号与负数格式一同使用。在不包括负号的负数格式中不使用它（例如，使用圆括号括起的负数）。 </p>
+     
+      <p>此属性设置为构造此格式程序时选择的实际区域。可以使用某个值设置它以覆盖默认设置。</p>
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/negativeNumberFormat"><linktext>negativeNumberFormat</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:trailingZeros:get"><apiName>trailingZeros</apiName><shortdesc>
+      指定设置了格式的数字中是否包括尾随零。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiException><apiDesc>如果为此属性分配 null 值。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      指定设置了格式的数字中是否包括尾随零。
+     
+      <p>当此属性设置为 <codeph>true</codeph> 时，设置了格式的数字的小数部分包括尾随零，并且位数限制为 <codeph>fractionalDigits</codeph> 属性指定的值。当此属性设置为 <codeph>false</codeph> 时，则不显示尾随零。</p>
+     
+      <p>例如，如果数值是 123.4，并且此属性设置为 true，<codeph>fractionalDigits</codeph> 属性设置为 3，则设置了格式的字符串将显示尾随零，例如 <codeph>123.400</codeph>。如果此属性为 <codeph>false</codeph>，则不包括尾随零，并且字符串只显示小数分隔符以及后面的非零十进制数字，例如 <codeph>123.4</codeph>。</p>
+     
+      <p>下表提供了几个示例，显示如何基于此属性以及相关的 <codeph>fractionalDigits</codeph> 和 <codeph>leadingZero</codeph> 属性的值来设置数值的格式。
+      </p>
+     
+         <adobetable class="innertable">
+             
+             
+             
+             
+             
+      <tgroup cols="5"><tbody><row>
+                 <entry><b>trailingZeros</b></entry>
+                 <entry>leadingZero</entry>
+                 <entry>fractionalDigits</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+              </row><row>
+                 <entry>true</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.120</entry>
+                 <entry>0.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>true</entry>
+                 <entry>3</entry>
+                 <entry>0.12</entry>
+                 <entry>0</entry>
+             </row><row>
+                 <entry>true</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.120</entry>
+                 <entry>.000</entry>
+             </row><row>
+                 <entry>false</entry>
+                 <entry>false</entry>
+                 <entry>3</entry>
+                 <entry>.12</entry>
+                 <entry>0</entry>
+             </row></tbody></tgroup></adobetable>
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/leadingZero"><linktext>leadingZero</linktext></link></related-links></apiValue><apiValue id="spark.formatters.supportClasses:NumberFormatterBase:useGrouping:get"><apiName>useGrouping</apiName><shortdesc>
+      当设置数字格式时，启用分组分隔符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      当设置数字格式时，启用分组分隔符。
+     
+      <p>当 <codeph>useGrouping</codeph> 属性设置为 <codeph>true</codeph> 时，数字进行分组并且使用分组分隔符字符进行分隔。例如：<codeph>123,456,789.22</codeph></p>
+     
+      <p>当 <codeph>useGrouping</codeph> 属性设置为 <codeph>false</codeph> 时，数字不进行分组或分隔。例如：<codeph>123456789.22</codeph></p>
+
+      <p>用作组分隔符的符号由 <codeph>groupingSeparator</codeph> 属性定义。分组分隔符之间的数字位数由 <codeph>groupingPattern</codeph> 属性定义。</p>
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingPattern"><linktext>groupingPattern</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/groupingSeparator"><linktext>groupingSeparator</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

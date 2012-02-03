@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging"><apiName>mx.messaging</apiName><apiDetail/><apiClassifier id="mx.messaging:FlexClient"><apiName>FlexClient</apiName><shortdesc>
+  クライアントのサーバーへの初期接続の際にサーバーにより割り当てられた、この Player インスタンスのグローバル ID を保持するシングルトンクラス。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  クライアントのサーバーへの初期接続の際にサーバーにより割り当てられた、この Player インスタンスのグローバル ID を保持するシングルトンクラス。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:FlexClient_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  FlexClient のシングルトンのプロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  FlexClient のシングルトンのプロパティが変更されたときに送出されます。FlexClient.getInstance().addEventListener(...) を使用してリスナーを追加する必要があります。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.messaging:FlexClient:getInstance"><apiName>getInstance</apiName><shortdesc>
+	  このシングルトンクラスの唯一のインスタンスを返します。インスタンスが存在しない場合は、作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>このシングルトンクラスの唯一のインスタンスを返します。インスタンスが存在しない場合は、作成します。
+	  
+	  </apiDesc><apiOperationClassifier>mx.messaging:FlexClient</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+	  このシングルトンクラスの唯一のインスタンスを返します。インスタンスが存在しない場合は、作成します。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:FlexClient:id:get"><apiName>id</apiName><shortdesc>
+      この Player インスタンスのグローバル FlexClient ID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      この Player インスタンスのグローバル FlexClient ID です。この値はサーバーにより割り当てられ、チャンネルの接続処理の一部として設定されます。 一度設定されると、Player インスタンスの存続中は変更されません。サーバーにチャンネルが接続されていない場合、この値は null です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:AbstractProducer"><apiName>AbstractProducer</apiName><shortdesc>
+  AbstractProducer は、プロデューサクラスと MultiTopicConsumer クラスの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:MessageAgent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AbstractProducer は、プロデューサクラスと MultiTopicConsumer クラスの基本クラスです。これらのクラスを使用してメッセージをサーバーにプッシュします。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging:AbstractProducer:connect"><apiName>connect</apiName><shortdesc>
+      プロデューサをターゲットの宛先に接続します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc> 宛先が設定されていない場合。
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      プロデューサをターゲットの宛先に接続します。接続が確立すると、<codeph>connected</codeph> プロパティが <codeph>true</codeph> に変更されます。このプロパティはバインド可能であり、<codeph>PropertyChangeEvent</codeph> を生成します。送信される内部 TRIGGER_CONNECT_OPERATION CommandMessage は、基本チャンネルが接続を確立しているかどうかに応じて、応答またはフォールトイベントになります。
+     
+      </apiDesc><example>
+      <pre>
+         var producer:Producer = new Producer();
+         producer.destination = "TestTopic";
+         producer.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, handleConnect);
+         producer.connect();
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractProducer:disconnect"><apiName>disconnect</apiName><shortdesc>
+      プロデューサをリモート宛先から切断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      プロデューサをリモート宛先から切断します。このメソッドは、未処理のネットワーク操作が完了するまで待つことはしません。<codeph>disconnect()</codeph> を呼び出した後、プロデューサは、接続されておらず、未処理のメッセージ応答またはフォルトを受信しないことを報告します。切断すると、実行している自動再接続試行が停止します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractProducer:send"><apiName>send</apiName><shortdesc>
+      指定されたメッセージを宛先に送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc> 宛先が設定されていない場合。
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>送信するメッセージです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたメッセージを宛先に送信します。プロデューサがパブリッシュまたはサブスクライブメッセージングに使用されている場合は、AsyncMessage タイプのメッセージのみが送信されます。ただし、カスタムメッセージタイプが使用されていて、サーバー上のメッセージ宛先がカスタムメッセージタイプを処理するように設定されている場合は、この限りではありません。
+     
+      </apiDesc><example>
+      <pre>
+         var producer:Producer = new Producer();
+         producer.destination = "TestTopic";
+         var msg:AsyncMessage = new AsyncMessage();
+         msg.body = "test message";
+         producer.send(msg);
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation><apiValue id="mx.messaging:AbstractProducer:autoConnect:get"><apiName>autoConnect</apiName><shortdesc>
+      true の場合、send() メソッドが初めて呼び出されると、プロデューサは自動的に宛先に接続します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合、<codeph>send()</codeph> メソッドが初めて呼び出されると、プロデューサは自動的に宛先に接続します。<codeph>false</codeph> の場合、<codeph>connect()</codeph> メソッドを明示的に呼び出して宛先への接続を確立する必要があります。デフォルトでは、このプロパティは <codeph>true</codeph> ですが、オフラインモードで動作する必要があるアプリケーションは、このプロパティを <codeph>false</codeph> に設定して <codeph>send()</codeph> メソッドが暗黙的に接続されないようにすることがあります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:defaultHeaders:get"><apiName>defaultHeaders</apiName><shortdesc>
+      プロデューサで送信されるメッセージに適用するデフォルトヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      プロデューサで送信されるメッセージに適用するデフォルトヘッダーです。メッセージ内にデフォルトヘッダーが存在しない場合は、デフォルトヘッダーが作成されます。メッセージ内に一致するヘッダーが既に存在する場合は、メッセージ内の値が優先されて、デフォルトのヘッダー値は無視されます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:priority:get"><apiName>priority</apiName><shortdesc>
+      プロデューサが送信するメッセージのデフォルトメッセージ優先度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      プロデューサが送信するメッセージのデフォルトメッセージ優先度です。有効な値は 0 ～ 9 （0 が最小）です。-1 の場合、プロデューサには優先度が設定されません。メッセージに優先度が定義済みの場合は、その優先度がプロデューサの優先度より優先されることに注意してください。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:reconnectAttempts:get"><apiName>reconnectAttempts</apiName><shortdesc>
+      宛先が利用できない場合、または宛先への接続が閉じられた場合に、プロデューサが再接続を試行する回数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      宛先が利用できない場合、または宛先への接続が閉じられた場合に、プロデューサが再接続を試行する回数です。値 -1 を指定すると、無限の回数で試行できます。0 の値を指定すると再接続試行を無効にします。
+      
+      <p>再接続試行は、再接続間隔値に従って一定の割合で行われます。再接続試行が行われるときに、プロデューサの基本チャンネルが接続されていない、または接続しようとしている場合、チャンネルが接続試行を開始します。基本チャンネルの接続試行が未処理の間にプロデューサの再接続試行が続いて行われても、未処理のチャンネル接続試行が成功または失敗するまで、事実上無視されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Producer/reconnectInterval"><linktext>mx.messaging.Producer.reconnectInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractProducer:reconnectInterval:get"><apiName>reconnectInterval</apiName><shortdesc>
+      再接続を試行する間隔 (ミリ秒数) です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiException><apiDesc>負の値が割り当てられた場合。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      再接続を試行する間隔 (ミリ秒数) です。プロデューサが接続試行に対する応答を受け取らなかった場合、指定されたミリ秒数待ってから以降の再接続を試みます。値を 0 に設定すると再接続試行が無効になります。
+      
+      <p>再接続試行は、この値に従って一定の割合で行われます。再接続試行が行われるときに、プロデューサの基本チャンネルが接続されていない、または接続しようとしている場合、チャンネルが接続試行を開始します。基本チャンネルの接続試行が未処理の間にプロデューサの再接続試行が続いて行われても、未処理のチャンネル接続試行が成功または失敗するまで、事実上無視されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Producer/reconnectInterval"><linktext>mx.messaging.Producer.reconnectInterval</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging:ChannelSet"><apiName>ChannelSet</apiName><shortdesc>
+  ChannelSet は、ターゲット宛先へのメッセージ送信に使用されるチャンネルのセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion><DefaultProperty name="channels"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChannelSet は、ターゲット宛先へのメッセージ送信に使用されるチャンネルのセットです。ChannelSet は、ネットワーク障害や個々のチャンネルの問題が発生したときに、セット内のチャンネルを最大限活用してメッセージを送信することで、クライアントのサービスの質を向上させます。
+   </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:ChannelSet_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  ChannelSet のプロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ChannelSet のプロパティが変更されたときに送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ fault イベントは、ログインまたはログアウト呼び出しが失敗すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ fault イベントは、ログインまたはログアウト呼び出しが失敗すると送出されます。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ result イベントは、ログインまたはログアウト呼び出しが正常に返されると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ result イベントは、ログインまたはログアウト呼び出しが正常に返されると送出されます。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  ChannelSet 内のチャンネルでフォルトが発生した後で送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ChannelSet 内のチャンネルでフォルトが発生した後で送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  ChannelSet 内のチャンネルがエンドポイントから切断された後で送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ChannelSet 内のチャンネルがエンドポイントから切断された後で送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  ChannelSet 内のチャンネルがエンドポイントに接続された後で送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ChannelSet 内のチャンネルがエンドポイントに接続された後で送出されます。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:ChannelSet:ChannelSet"><apiName>ChannelSet</apiName><shortdesc>
+      ChannelSet を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>channelIds</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>この ChannelSet が使用する、ServerConfig から取得した設定済みのチャンネルの ID です。null の場合は、チャンネルを手動で ChannelSet に追加する必要があります。
+           </apiDesc></apiParam><apiParam><apiItemName>clusteredWithURLLoadBalancing</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>URL ロードバランシングを使用して ChannelSet 内のチャンネルがクラスタ化されている場合は true になります。
+           </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      ChannelSet を作成します。<codeph>channelIds</codeph> パラメーターが指定されている場合、ChannelSet は <codeph>ServerConfig.getChannel()</codeph> で取得された自動設定済みのチャンネルを使って宛先に接続します。 設定済みのチャンネルを使用する ChannelSet にチャンネルを手動で割り当てることはできません。
+           <p><codeph>channelIds</codeph> パラメーターが指定されていない場合、または null の場合は、接続してメッセージを送信するために、チャンネルを手動で作成して ChannelSet に追加する必要があります。</p>
+           <p>ChannelSet が URL ロードバランシングを使用してクラスタ化されている場合、各サーバーは固有の RTMP または HTTP URL を宣言し、クライアントは URL から次の URL にフェイルオーバーします。この場合、ChannelSet 内のチャンネルが最初に接続に成功すると、ChannelSet はクラスタ内にあるすべてのメンバーチャンネルのすべてのエンドポイントに対するリクエストを自動的に作成し、これらのフェイルオーバー URL を対応する各チャンネルに割り当てます。 これにより、ChannelSet 内のチャンネルは個別にフェイルオーバーできるようになり、特定のチャンネルのフェイルオーバーオプションがすべて使用できない場合、ChannelSet はセット内の次のチャンネルを使用して再接続を試みます。</p>
+           <p>クラスタ化とは関係なく、チャンネルが接続を確立できない場合、または接続が失われた場合は、ChannelSet は次の使用可能なチャンネルを使用して再接続を試みます。これにより、ChannelSet は様々なプロトコル、ポートなどを使用するチャンネルの中から、エンドポイントに正常に接続できるチャンネルを取得することができます。</p>
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:ChannelSet:addChannel"><apiName>addChannel</apiName><shortdesc>
+      ChannelSet にチャンネルを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>ChannelSet が <codeph>configured</codeph> の場合、チャンネルの追加はサポートされません。 このエラーは、ChannelSet の <codeph>clustered</codeph> プロパティが <codeph>true</codeph> でチャンネルの ID が null の場合にもスローされます。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>追加するチャンネルです。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ChannelSet にチャンネルを追加します。ChannelSet がクラスタ化された宛先をターゲットにしている場合、ID が null のチャンネルを ChannelSet に追加することはできません。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelConnectHandler"><apiName>channelConnectHandler</apiName><shortdesc>
+      CONNECT ChannelEvent を処理してイベントを再送出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      CONNECT ChannelEvent を処理してイベントを再送出します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelDisconnectHandler"><apiName>channelDisconnectHandler</apiName><shortdesc>
+      DISCONNECT ChannelEvent を処理してイベントを再送出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      DISCONNECT ChannelEvent を処理してイベントを再送出します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelFaultHandler"><apiName>channelFaultHandler</apiName><shortdesc>
+      ChannelFaultEvent イベントを処理し、そのイベントを再送出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>ChannelFaultEvent です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ChannelFaultEvent イベントを処理し、そのイベントを再送出します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:connect"><apiName>connect</apiName><shortdesc>
+      MessageAgent を ChannelSet に接続します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>接続する MessageAgent です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      MessageAgent を ChannelSet に接続します。ChannelSet に接続されると、エージェントが ChannelSet を使ってメッセージを送信できます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:disconnectAll"><apiName>disconnectAll</apiName><shortdesc>
+      すべての関連する MessageAgents と、接続されている基本チャンネルを切断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      すべての関連する MessageAgents と、接続されている基本チャンネルを切断します。特定のサービスコンポーネントの切断の実装によって呼び出される <codeph>disconnect(MessageAgent)</codeph> とは異なり、このメソッドはクライアントとサーバー間の接続を終了するために役立つ単一ポイントをもたらします。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:disconnect"><apiName>disconnect</apiName><shortdesc>
+      特定の MessageAgent を ChannelSet から切断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>切断する MessageAgent です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      特定の MessageAgent を ChannelSet から切断します。これが ChannelSet を使用する最後の MessageAgent であり、セット内の現在のチャンネルに接続している場合、チャンネルはサーバーから物理的に切断します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:login"><apiName>login</apiName><shortdesc>
+      提供される資格情報を使用してサーバーで ChannelSet を認証します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>ChannelSet が既に認証されている場合、またはログインまたはログアウト操作が現在進行中である場合の 2 つの状況があります。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>クライアントコードが成功または失敗を直接処理するために応答側を追加できるトークンを返します。
+           </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>ユーザー名です。
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>パスワードです。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>資格情報をエンコードする際に使用する文字セットエンコーディングです。デフォルトは null で、旧式文字セットの ISO-Latin-1 を示します。 サポートされているその他の文字セットは "UTF-8" のみです。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      提供される資格情報を使用してサーバーで ChannelSet を認証します。 チャンネルおよび ChannelSet でのほかの処理とは異なり、この処理は、成功または失敗を直接扱うためにクライアントコードで応答側を追加できる AsyncToken を返します。このメソッドが呼び出されたときに ChannelSet がサーバーに接続していない場合、接続試行がトリガーされます。試行が成功した場合、ログインコマンドをサーバーに送信します。 一度に 1 つのログインまたはログアウト操作だけを保留にでき、呼び出しが重複すると IllegalOperationError が生成されます。ChannelSet が既に認証されているときにログインを呼び出した場合にも、IllegalOperationError が生成されます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:logout"><apiName>logout</apiName><shortdesc>
+      サーバーから ChannelSet をログアウトします。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>ログインまたはログアウト処理が現在進行中の場合。
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>クライアントコードが成功または失敗を直接処理するために応答側を追加できるトークンを返します。
+           </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiData>null</apiData><apiDesc>古い引数。ログアウトを開始する MessageAgent です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      サーバーから ChannelSet をログアウトします。 チャンネルおよび ChannelSet でのほかの処理とは異なり、この処理は、成功または失敗を直接扱うためにクライアントコードで応答側を追加できる AsyncToken を返します。ログアウトが成功すると、自動再接続用にキャッシュされている資格情報が ChannelSet に対してクリアされ、そのチャンネルと認証状態が false に設定されます。このメソッドが呼び出されたときに ChannelSet がサーバーに接続していない場合、接続試行がトリガーされます。試行が成功した場合、ログアウトコマンドをサーバーに送信します。
+           <p>MessageAgent 引数は古いログアウト動作をサポートするために存在しており、このメソッドを呼び出すクライアントコードは MessageAgent 参照を渡しません。単に <codeph>logout()</codeph> を呼び出すだけで、引数は渡しません。</p>
+           <p>また、このメソッドは <codeph>logout()</codeph> メソッドからサービスコンポーネントによって呼び出されます。これらのコンポーネントは、ログアウトするときに MessageAgent 参照をこのメソッドに渡します。この引数が存在すると、上記の新しい動作とは異なる古いログアウト動作が実行されます。古い動作は、クライアントが接続および認証された場合にログアウト要求をサーバーに送信するだけです。 これらの条件が満たされない場合、このメソッドの古い動作は、自動再接続用にキャッシュされた資格情報をクリアするだけです。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:protected:messageHandler"><apiName>messageHandler</apiName><shortdesc>
+      現在接続中のチャンネルからメッセージイベントを再送出します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:MessageEvent</apiOperationClassifier><apiDesc>チャンネルの MessageEvent。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      現在接続中のチャンネルからメッセージイベントを再送出します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:removeChannel"><apiName>removeChannel</apiName><shortdesc>
+      ChannelSet からチャンネルを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>ChannelSet が <codeph>configured</codeph> の場合、チャンネルの削除はサポートされません。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>削除するチャンネルです。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ChannelSet からチャンネルを削除します。削除するチャンネルが現在接続中で ChannelSet がこれを使用している場合、チャンネルは削除されると共に切断されます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:send"><apiName>send</apiName><shortdesc>
+      現在接続中のチャンネルを通じて MessageAgent からメッセージを送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>ChannelSet が使用する内部チャンネルがない場合。
+           </apiDesc><apiItemName>NoChannelAvailableError</apiItemName><apiOperationClassifier>mx.messaging.errors:NoChannelAvailableError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>メッセージを送信する MessageAgent です。
+           </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>送信するメッセージです。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      現在接続中のチャンネルを通じて MessageAgent からメッセージを送信します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      資格情報を保存し、接続中のすべてのチャンネルに送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>2 つの状況：資格情報が既に設定済みでリモートの宛先の認証が進行中である場合、または指定した認証済みの資格情報が現在の認証済みの資格情報と一致しない場合。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>credentials</apiItemName><apiType value="String"/><apiDesc>MessageAgent の証明書です。
+      </apiDesc></apiParam><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>証明書を設定する MessageAgent です。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>資格情報をエンコードする際に使用された文字セットエンコーディングです。デフォルトは null で、旧式エンコーディングの ISO-Latin-1 を示します。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      資格情報を保存し、接続中のすべてのチャンネルに送信します。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:toString"><apiName>toString</apiName><shortdesc>
+      ChannelSet 内のチャンネルの ID を含むストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>ChannelSet のストリング表現です。
+           </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      ChannelSet 内のチャンネルの ID を含むストリングを返します。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:ChannelSet:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      ChannelSet に、エンドポイントで正常に認証された基本チャンネルがあるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ChannelSet に、エンドポイントで正常に認証された基本チャンネルがあるかどうかを示します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:channelIds:get"><apiName>channelIds</apiName><shortdesc>
+      ChannelSet で使用されるチャンネルの ID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      ChannelSet で使用されるチャンネルの ID です。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:channels:get"><apiName>channels</apiName><shortdesc>
+      ChannelSet 内のチャンネルへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiException><apiDesc>ChannelSet が <codeph>configured</codeph> の場合、このプロパティへの割り当てはできません。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      ChannelSet 内のチャンネルへのアクセスを提供します。 チャンネルのセットを一度に割り当てるために、このプロパティを使用することができます。または、addChannel() 経由で複数のチャンネルを個別に ChannelSet に直接追加することもできます。 この ChannelSet が自動的に <codeph>configured</codeph> に設定されている場合、個々のチャンネルは非効率的に作成され、必要に応じてこのプロパティに追加されます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:clustered:get"><apiName>clustered</apiName><shortdesc>
+      ChannelSet がクラスタ化された宛先をターゲットにしているかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ChannelSet がクラスタ化された宛先をターゲットにしているかどうかを示します。true の場合、接続が成功すると ChannelSet はチャンネルのクラスタ化されたすべてのエンドポイントの宛先を照会し、failoverURI をそれぞれのチャンネルに割り当てます。チャンネル ID は、failoverURI を適切なチャンネルインスタンスに割り当てるのに使用されます。このため、ChannelSet 内のすべてのチャンネルは null 以外の ID を保持する必要があります。そうでない場合にこのプロパティが true に設定されると、エラーがスローされます。ChannelSet のクライアントで URL ロードバランシングが使用されていない場合は、このプロパティを true に設定しないでください。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:connected:get"><apiName>connected</apiName><shortdesc>
+      ChannelSet が接続されているかどうかを示します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ChannelSet が接続されているかどうかを示します。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:currentChannel:get"><apiName>currentChannel</apiName><shortdesc>
+      ChannelSet に現在のチャンネルを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      ChannelSet に現在のチャンネルを返します。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:heartbeatInterval:get"><apiName>heartbeatInterval</apiName><shortdesc>
+      この ChannelSet がアクティブに接続されているがアイドルである間にリモートホストに送信されるハートビートの間隔（ミリ秒）。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      この ChannelSet がアクティブに接続されているがアイドルである間にリモートホストに送信されるハートビートの間隔（ミリ秒）。送信メッセージのトラフィックによって、ハートビートが一時的に遅延します（最後のメッセージが送信されてから、次のハートビートが発行されるまでに、この時間（ミリ秒）だけ経過します）。
+      <p>
+      このプロパティは、次のようなアプリケーションで便利です。プッシュされた更新を受信するためにリモートホストに接続して、メッセージをアクティブに送信していないが、接続の切断の通知を受け取るアプリケーションで便利です（ネットワークレイヤーがそうした通知を直接提供していない場合でも）。ハートビートを定期的に発行することにより、クライアントは、基になる接続が通知なしで切断されても、ネットワークレイヤーにタイムアウトを報告させることができます。また、アプリケーションは、切断に適切に対処することができます。
+      </p>
+      <p>
+      値が正でない場合は、リモートホストへのハートビートが無効になります。デフォルト値は 0 であり、ハートビートは無効です。アプリケーションでこの値を設定する場合は、リモートホストに不要な負荷をかけないために、短い間隔より長い間隔が推奨されます。実例として、通常、下位レベルの TCP ソケットのキープアライブは、デフォルトで 2 時間の間隔に設定されます。これは、ハートビートが有効なほとんどのアプリケーションが使用するよりも長い間隔ですが、短い間隔より長い間隔が推奨される分かりやすい例です。
+      </p>
+      <p>
+      現在接続している基になるチャネルがポーリング要求をホストに発行する場合は、ハートビートが抑止されます。それは、定期的なポーリング要求は、ハートビートの代わりとして有効に働くからです。</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:initialDestinationId:get"><apiName>initialDestinationId</apiName><shortdesc>
+      この ChannelSet がアクセスするために使用される最初の宛先へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      この ChannelSet がアクセスするために使用される最初の宛先へのアクセスを提供します。clustered プロパティが true の場合、この値は、宛先のために構成されたチャンネルで使用可能なフェイルオーバー URI を要求するために使用されます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:messageAgents:get"><apiName>messageAgents</apiName><shortdesc>
+      この ChannelSet を使用する MessageAgents のセットへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      この ChannelSet を使用する MessageAgents のセットへのアクセスを提供します。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MultiTopicProducer"><apiName>MultiTopicProducer</apiName><shortdesc>
+  MultiTopicProducer は、0 個以上のサブトピックを持つ宛先にメッセージを送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractProducer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MultiTopicProducer は、0 個以上のサブトピックを持つ宛先にメッセージを送信します。通常のプロデューサと似ていますが、多数のサブトピックのいずれかにサブスクライブしているコンシューマにメッセージをダイレクトできます。コンシューマが MultiTopicConsumer であり、プロデューサが使用するサブトピックの一覧内の複数のサブトピックに、このコンシューマがサブスクライブした場合、コンシューマはメッセージを 1 度だけ受信します。
+  <p>
+  MultiTopicProducer は、出力メッセージが送信されてその処理が成功したかどうかに従って、送信するメッセージごとに MessageAckEvent または MessageFaultEvent イベントを送出します。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:MultiTopicProducer:MultiTopicProducer"><apiName>MultiTopicProducer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function sendMessage():void
+       {
+           var producer:MultiTopicProducer = new MultiTopicProducer();
+           producer.destination = "NASDAQ";
+           var msg:AsyncMessage = new AsyncMessage();
+           msg.headers.operation = "UPDATE";
+           msg.body = {"SYMBOL":50.00};
+           // only send to subscribers to subtopic "SYMBOL" and "ALLSTOCKS"
+           msg.addSubtopic("SYMBOL");
+           msg.addSubtopic("ALLSTOCKS");
+           producer.send(msg);
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MultiTopicProducer:addSubtopic"><apiName>addSubtopic</apiName><shortdesc>
+     このプロデューサが送信するメッセージのサブトピックの現在の一覧にサブトピックを追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiDesc>このプロデューサが送信するサブトピックの現在の一覧に追加されるサブトピックです。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     このプロデューサが送信するメッセージのサブトピックの現在の一覧にサブトピックを追加します。これは、このサブトピックをサブトピックプロパティに追加するための簡単な方法です。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicProducer:removeSubtopic"><apiName>removeSubtopic</apiName><shortdesc>
+     サブトピックプロパティからサブトピックを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiDesc>サブトピックプロパティから削除されるサブトピックです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     サブトピックプロパティからサブトピックを削除します。サブトピックが一覧にない場合、エラーをスローします。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MultiTopicProducer:subtopics:get"><apiName>subtopics</apiName><shortdesc>
+      メッセージのパブリッシュに使用されるサブトピックの一覧へのアクセスを提供します。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:ArrayCollection"/></apiValueDef><apiDesc>
+      メッセージのパブリッシュに使用されるサブトピックの一覧へのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MultiTopicConsumer"><apiName>MultiTopicConsumer</apiName><shortdesc>
+      コンシューマと同様に、MultiTopicConsumer は、単一の clientId を持つ宛先にサブスクライブし、単一のイベントハンドラーにメッセージを配信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+      <p>
+      The &lt;mx:MultiTopicConsumer&gt; tag has these properties:
+      </p>
+      <pre>
+       &lt;mx:Consumer
+        <b>Properties</b>
+        subscriptions="<i>"an empty ArrayCollection of SubscriptionInfo objects</i>"
+        resubscribeAttempts="<i>5</i>"
+        resubscribeInterval="<i>5000</i>"
+        timestamp="<i>No default.</i>"
+      /&gt;
+      </pre>
+     
+      ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractConsumer</apiBaseClassifier></apiClassifierDef><apiDesc>
+      コンシューマと同様に、MultiTopicConsumer は、単一の clientId を持つ宛先にサブスクライブし、単一のイベントハンドラーにメッセージを配信します。 コンシューマとは異なり、単一のメッセージハンドラーから同時にサブトピックおよびセレクター式の一覧のサブスクリプションを登録できます。 コンシューマにサブトピックおよびセレクタープロパティがある場合、このコンポーネントには、既存のサブスクリプションセットに新しいサブスクリプションを追加するために使用する addSubscription（サブトピック、セレクター）メソッドがあります。 または、この宛先のサブスクリプションを定義する SubscriptionInfo インスタンスの一覧を、サブスクリプションプロパティに設定できます。
+      <p>
+      通常のコンシューマと同様に、MultiTopicConsumer は、処理が成功したかどうかによって MessageAckEvent または MessageFaultEvent を生成する、サブスクライブおよびアンサブスクライブのメッセージを送信します。サブスクライブすると、MultiTopicConsumer は受信したメッセージごとに MessageEvent を送出します。</p>
+      </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:MultiTopicConsumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+      コンシューマがメッセージを受信したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+      コンシューマがメッセージを受信したときに送出されます。
+     
+      </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:MultiTopicConsumer:MultiTopicConsumer"><apiName>MultiTopicConsumer</apiName><shortdesc>
+          コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+          コンストラクターです。
+         
+         
+          </apiDesc><example>
+          <codeblock rev="3.0">
+           function initConsumer():void
+           {
+               var consumer:Consumer = new MultiTopicConsumer();
+               consumer.destination = "NASDAQ";
+               consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+               consumer.addSubscription("myStock1", "operation IN ('BID', 'Ask')");
+               consumer.addSubscription("myStock2", "operation IN ('BID', 'Ask')");
+               consumer.subscribe();
+           }
+         
+           function messageHandler(event:MessageEvent):void
+           {
+               var msg:IMessage = event.message;
+               var info:Object = msg.body;
+               trace("-App recieved message: " + msg.toString());
+           }
+           </codeblock>
+         
+          </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MultiTopicConsumer:addSubscription"><apiName>addSubscription</apiName><shortdesc>
+         これは、新しいサブスクリプションを追加する場合に便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>新しいサブスクリプションのサブトピックです。
+         
+         </apiDesc></apiParam><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>新しいサブスクリプションのセレクターです。
+         
+         </apiDesc></apiParam><apiParam><apiItemName>maxFrequency</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>コンシューマがサブスクリプションの受信を希望する毎秒の最大メッセージ数。この値はコンシューマ全体の maxFrequency を上書きすることに注意してください。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         これは、新しいサブスクリプションを追加する場合に便利なメソッドです。単に、新しい SubscriptionInfo オブジェクトを作成し、サブスクリプションプロパティに追加するだけです。このメソッドを呼び出すには、新しいサブスクリプションにサブトピックおよびセレクターストリングを提供します。 サブトピックが null の場合、プロデューサでサブトピックを設定していないメッセージに、サブスクリプションが適用されます。セレクターストリングが null の場合、サブトピックストリングに一致するすべての送信メッセージは、このコンシューマが受信します。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:protected:buildSubscribeMessage"><apiName>buildSubscribeMessage</apiName><shortdesc>
+         サブスクライブメッセージを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>サブスクライブ CommandMessage です。
+         
+          </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+         サブスクライブメッセージを返します。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:protected:buildUnsubscribeMessage"><apiName>buildUnsubscribeMessage</apiName><shortdesc>
+         アンサブスクライブメッセージを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>アンサブスクライブ CommandMessage です。
+         
+          </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiDesc>true の場合、持続性のある JMS サブスクリプションは破棄されず、コンシューマは失われたメッセージを後から再サブスクライブおよび受信できます。
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+         アンサブスクライブメッセージを返します。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:removeSubscription"><apiName>removeSubscription</apiName><shortdesc>
+         このメソッドは、サブトピックおよびセレクターによって指定されたサブスクリプションを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>サブスクリプションのサブトピックです。
+         
+         </apiDesc></apiParam><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>サブスクリプションのセレクターです。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         このメソッドは、サブトピックおよびセレクターによって指定されたサブスクリプションを削除します。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MultiTopicConsumer:subscriptions:get"><apiName>subscriptions</apiName><shortdesc>
+          SubscriptionInfo オブジェクトの配列を格納します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:ArrayCollection"/></apiValueDef><apiDesc>
+          SubscriptionInfo オブジェクトの配列を格納します。それぞれのサブスクリプションには、サブトピックおよびセレクターが含まれ、それぞれ null に設定できます。 サブスクリプションのサブトピックが null 以外の場合、サブスクリプションは、そのサブトピックだけと共に配信されるメッセージに制限されます。サブトピックが null の場合、サブトピックのないセレクターを使用します。 セレクターおよびサブトピックが null の場合、サブスクリプションはサブトピックのない宛先に向けたメッセージを受信します。 サブトピックにはワイルドカード仕様を含めることができます。
+         
+          <p><codeph>subscribe()</codeph> メソッドを呼び出す前に、このプロパティを副次的な影響を与えずに設定することができます。 MultiTopicConsumer がその宛先にサブスクライブした後でこの値を変更すると、MultiTopicConsumer のサブスクリプションが更新されることで新しいサブスクリプションが含まれ、ArrayCollection から削除したサブスクリプションすべてを削除するという副次的な影響が発生します。</p>
+         
+          <p>リモート宛先がセレクターの式の値を理解できる必要があります。</p>
+         
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Consumer"><apiName>Consumer</apiName><shortdesc>
+  コンシューマはメッセージを受信するために宛先にサブスクライブします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The &lt;mx:Consumer&gt; tag inherits all the tag attributes of its superclass, and adds the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:Consumer
+    <b>Properties</b>
+    resubscribeAttempts="<i>5</i>"
+    resubscribeInterval="<i>5000</i>"
+    selector="<i>No default.</i>"
+    timestamp="<i>No default.</i>"
+  /&gt;
+  </pre> 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractConsumer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  コンシューマはメッセージを受信するために宛先にサブスクライブします。コンシューマがサブスクライブおよびアンサブスクライブのメッセージを送信すると、処理が成功したかどうかによって MessageAckEvent または MessageFaultEvent が生成されます。サブスクライブすると、コンシューマは受信した各メッセージについて MessageEvent を送出します。コンシューマはセレクターを使ってメッセージをフィルターする機能を提供します。 このセレクターは、宛先で理解可能でなければなりません。
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:Consumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  コンシューマがメッセージを受信したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンシューマがメッセージを受信したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:Consumer:Consumer"><apiName>Consumer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>messageType</apiItemName><apiType value="String"/><apiData>flex.messaging.messages.AsyncMessage</apiData><apiDesc>コンシューマがサブスクライブするリモート宛先をホストしているサービスで処理されるメッセージタイプのエイリアスです。このパラメーターは推奨されておらず、コンストラクターによって無視されます。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function initConsumer():void
+       {
+           var consumer:Consumer = new Consumer();
+           consumer.destination = "NASDAQ";
+           consumer.selector = "operation IN ('Bid','Ask')";
+           consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+           consumer.subscribe();
+       }
+     
+       function messageHandler(event:MessageEvent):void
+       {
+           var msg:IMessage = event.message;
+           var info:Object = msg.body;
+           trace("-App recieved message: " + msg.toString());
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:Consumer:selector:get"><apiName>selector</apiName><shortdesc>
+	  コンシューマのセレクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  コンシューマのセレクターです。 これは宛先に渡される式で、宛先はこれを使用してコンシューマに配信するメッセージをフィルターします。
+	 
+	  <p><codeph>subscribe()</codeph> メソッドを呼び出す前に、このプロパティを副次的な影響を与えずに設定することができます。 コンシューマが宛先にサブスクライブした後でこの値を変更すると、コンシューマのサブスクリプションが更新されて新しいセレクターの式がすぐに使用されるという副次的な影響が発生します。</p>
+	 
+	  <p>リモート宛先がセレクターの式の値を理解できる必要があります。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Consumer:subtopic:get"><apiName>subtopic</apiName><shortdesc>
+      MessageAgent が使用するリモート宛先のサブトピックへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      MessageAgent が使用するリモート宛先のサブトピックへのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MessageAgent"><apiName>MessageAgent</apiName><shortdesc>
+  MessageAgent クラスは、宛先に対するメッセージ処理に共通する基本的な低レベル機能を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  All message agent classes, including the Producer and Consumer classes, extend
+  MessageAgent and inherit the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:<i>tagname</i><br>
+    <b>Properties</b>
+    channelSet="<i>No default.</i>"
+    clientId="<i>No default.</i>"
+    connected="<i>false</i>"
+    destination="<i>No default.</i>"
+    requestTimeout="<i>-1</i>"
+    subtopic="<i>No default.</i>"
+ 
+ 
+   <b>Events</b>
+    acknowledge="<i>No default.</i>"
+    channelConnect="<i>No default.</i>"
+    channelDisconnect="<i>No default.</i>"
+    channelFault="<i>No default.</i>"
+    fault="<i>No default.</i>"
+    propertyChange="<i>No default.</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MessageAgent クラスは、宛先に対するメッセージ処理に共通する基本的な低レベル機能を提供します。
+ 
+  <p><b>メモ：</b>高度な使用のみを目的としています。このクラスは、既存のプロデューサクラスやコンシューマクラスなどのカスタムエージェントを作成する場合に使用します。</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:MessageAgent_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  MessageAgent の connected プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  MessageAgent の <codeph>connected</codeph> プロパティが変更されたときに送出されます。 また、コンシューマの <codeph>subscribed</codeph> が変更されたときにも送出されます。
+  </apiDesc></adobeApiEventDetail><related-links><link href="mx.messaging.xml#Consumer"><linktext>mx.messaging.Consumer</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  MessageAgent が使用中の基本チャンネルでエラーが発生したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  MessageAgent が使用中の基本チャンネルでエラーが発生したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  MessageAgent が使用中の基本チャンネルが切断されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  MessageAgent が使用中の基本チャンネルが切断されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  MessageAgent が使用中の基本チャンネルが接続されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  MessageAgent が使用中の基本チャンネルが接続されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.MessageFaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  メッセージエラーが発生したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  メッセージエラーが発生したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.MessageAckEvent.ACKNOWLEDGE_acknowledge"><apiName>acknowledge</apiName><shortdesc>
+  送信したメッセージに対する応答メッセージを受信したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageAckEvent.ACKNOWLEDGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageAckEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  送信したメッセージに対する応答メッセージを受信したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:MessageAgent:MessageAgent"><apiName>MessageAgent</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MessageAgent:acknowledge"><apiName>acknowledge</apiName><shortdesc>
+      送信されたメッセージの結果を受信したときに MessageResponder によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>ackMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiDesc>返される AcknowledgMessage です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>元の送信メッセージです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      送信されたメッセージの結果を受信したときに MessageResponder によって呼び出されます。サブクラスでカスタム応答処理を実行する必要がある場合、このメソッドをサブクラスでオーバーライドすることができますが、<codeph>super.acknowledge()</codeph> も呼び出す必要があります。このメソッドにより、MessageAckEvent が送出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelConnectHandler"><apiName>channelConnectHandler</apiName><shortdesc>
+      CONNECT ChannelEvent を処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      CONNECT ChannelEvent を処理します。 カスタム処理の実行が必要なサブクラスでこのメソッドをオーバーライドし、<codeph>super.channelConnectHandler()</codeph> を呼び出す必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelDisconnectHandler"><apiName>channelDisconnectHandler</apiName><shortdesc>
+      DISCONNECT ChannelEvent を処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      DISCONNECT ChannelEvent を処理します。 カスタム処理の実行が必要なサブクラスでこのメソッドをオーバーライドし、<codeph>super.channelDisconnectHandler()</codeph> を呼び出す必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelFaultHandler"><apiName>channelFaultHandler</apiName><shortdesc>
+      ChannelFaultEvent を処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>ChannelFaultEvent
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ChannelFaultEvent を処理します。 カスタム処理の実行が必要なサブクラスでこのメソッドをオーバーライドし、<codeph>super.channelFaultHandler()</codeph> を呼び出す必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:disconnect"><apiName>disconnect</apiName><shortdesc>
+      MessageAgent のネットワーク接続を切断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      MessageAgent のネットワーク接続を切断します。このメソッドは、未処理のネットワーク操作が完了するまで待つことはしません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:fault"><apiName>fault</apiName><shortdesc>
+      送信されたメッセージの失敗を受信したときに、MessageResponder によって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>errMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>ErrorMessage です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>このエラーの原因となった元の送信メッセージです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      送信されたメッセージの失敗を受信したときに、MessageResponder によって呼び出されます。サブクラスでカスタム失敗処理を実行する必要がある場合、このメソッドをサブクラスでオーバーライドすることができますが、<codeph>super.fault()</codeph> も呼び出す必要があります。このメソッドにより、MessageFaultEvent が送出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:handleAuthenticationFault"><apiName>handleAuthenticationFault</apiName><shortdesc>
+     サーバー上の認証エラーを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>errMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>エラーメッセージです。
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>エラーの原因となったメッセージです。再認証による切断または接続の後、再度送信する必要があります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     サーバー上の認証エラーを処理します。authenticated フラグが true の場合、認証エラーはサーバー上のセッション期限切れが原因です。authenticated 状態を false に設定し、loginAfterDisconnect フラグが有効の場合は、一度切断してからメッセージを再送信する方法でサーバーに資格情報を再送します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:hasPendingRequestForMessage"><apiName>hasPendingRequestForMessage</apiName><shortdesc>
+    メッセージで渡されたものに対する保留中の要求がある場合は、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>メッセージで渡されたものに対する保留中の要求がある場合は、<codeph>true</codeph> を返します。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>保留中の要求の存在が確認されるメッセージです。
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    渡されたメッセージに対し保留の要求がある場合、true を返します。このメソッドはサブクラスでオーバーライドされる必要があります。
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:initChannelSet"><apiName>initChannelSet</apiName><shortdesc>
+      MessageAgent の初回の接続前に MessageAgent の channelSet プロパティを自動的に初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>送信の必要があるメッセージです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      MessageAgent の初回の接続前に MessageAgent の <codeph>channelSet</codeph> プロパティを自動的に初期化します。カスタムの初期化を実行するために、サブタイプによってオーバーライドされることがあります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:initialized"><apiName>initialized</apiName><shortdesc>
+      実装オブジェクトが作成され、タグに指定されたすべてのプロパティが割り当てられた後に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>このオブジェクトを作成した MXML ドキュメントです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>ドキュメントがこのオブジェクトを参照するために使用する ID です。オブジェクトがドキュメントの deep プロパティである場合、ID は null になります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      実装オブジェクトが作成され、タグに指定されたすべてのプロパティが割り当てられた後に呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:internalSend"><apiName>internalSend</apiName><shortdesc>
+      エージェントの ChannelSet を使って、MessageAgent から宛先にメッセージを送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiException><apiDesc>宛先が設定されていない場合。
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>送信するメッセージです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>waitForClientId</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>true の場合、clientId がエージェントに割り当てられるまでメッセージはキューに置かれることがあります。通常、これは必要な動作です。自動再接続、自動再サブスクライブなどの特別な動作の場合、エージェントは false を渡してデフォルトのキューイング動作をオーバーライドすることがあります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      エージェントの ChannelSet を使って、MessageAgent から宛先にメッセージを送信します。MessageAgent のサブクラスは、このメソッドを使ってメッセージを送信する必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:logout"><apiName>logout</apiName><shortdesc>
+      MessageAgent をリモート宛先からログアウトします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      MessageAgent をリモート宛先からログアウトします。宛先からのログアウトは、サーバー設定で指定されているものと同じ ChannelSet を使用して接続されているあらゆるものに適用されます。例えば、RTMP チャンネルで複数の DataService コンポーネントが接続されており、そのうち 1 つで <codeph>logout()</codeph> が呼び出された場合、同じ ChannelSet を使用して接続しているその他すべてのクライアントコンポーネントもログアウトされます。
+     
+      <p><b>メモ：</b>このメソッドではなく mx.messaging.ChannelSet.logout() メソッドを使用することをお勧めします。 </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:reAuthorize"><apiName>reAuthorize</apiName><shortdesc>
+     この関数をサブクラスでオーバーライドして、サブクラス固有のサーバーセッションタイムアウト動作による再認証を実装する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>エラーの原因となったメッセージです。切断および接続による再認証の後、再度送信する必要があります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     この関数をサブクラスでオーバーライドして、サブクラス固有のサーバーセッションタイムアウト動作による再認証を実装する必要があります。通常は、切断、接続、メッセージ再送信のパターンとします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      MessageAgent が宛先の認証に使用する証明書を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>2 つの状況：資格情報が既に設定済みでリモートの宛先の認証が進行中である場合、または指定した認証済みの資格情報が現在の認証済みの資格情報と一致しない場合。
+     
+      </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>ユーザー名です。
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>パスワードです。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>資格情報をエンコードする際に使用する文字セットエンコーディングです。デフォルトは null で、旧式文字セットの ISO-Latin-1 を示します。 サポートされているその他の文字セットは "UTF-8" のみです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      MessageAgent が宛先の認証に使用する証明書を設定します。証明書は、同じ ChannelSet 上で接続されているすべてのサービスに適用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+      セカンダリシステムへの認証のためにリモート宛先に渡すリモート資格情報を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>ユーザー名です。
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>パスワードです。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>リモート資格情報をエンコードする際に使用する文字セットエンコーディングです。デフォルトは null で、旧式文字セットの ISO-Latin-1 を示します。 現在サポートされているその他のオプションは "UTF-8" のみです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      セカンダリシステムへの認証のためにリモート宛先に渡すリモート資格情報を設定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MessageAgent:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      この MessageAgent が宛先への接続に認証を使用するかどうかを示します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      この MessageAgent が宛先への接続に認証を使用するかどうかを示します。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      MessageAgent が使用する ChannelSet へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      MessageAgent が使用する ChannelSet へのアクセスを提供します。ChannelSet は手動で作成して割り当てることができます。また、この MessageAgent の宛先に対して設定済みのチャンネルを使って、動的に初期化することもできます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:clientId:get"><apiName>clientId</apiName><shortdesc>
+      MessageAgent のクライアント ID へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      MessageAgent のクライアント ID へのアクセスを提供します。MessageAgent はリモート宛先によってクライアント ID を割り当てられます。この値は、メッセージをリモート宛先から適切な MessageAgent へとルーティングするために使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:connected:get"><apiName>connected</apiName><shortdesc>
+      この MessageAgent が現在、ChannelSet を介して宛先に接続されているかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      この MessageAgent が現在、ChannelSet を介して宛先に接続されているかどうかを示します。 このプロパティが変更されると、<codeph>propertyChange</codeph> イベントが送出されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:destination:get"><apiName>destination</apiName><shortdesc>
+      MessageAgent の宛先へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>宛先が null または長さが 0 の場合。
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      MessageAgent の宛先へのアクセスを提供します。MessageAgent が現在接続されている場合、宛先を変更すると切断されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      送信メッセージの要求タイムアウト時間（秒単位）に対するアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      送信メッセージの要求タイムアウト時間（秒単位）に対するアクセスを提供します。 タイムアウトに達する前にリモート宛先から応答または失敗を受信しなかった場合、メッセージはクライアント側で失敗となります。ゼロ以下の値を設定すると、要求はタイムアウトになりません。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Producer"><apiName>Producer</apiName><shortdesc>
+  プロデューサが宛先にメッセージを送信します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The &lt;mx:Producer&gt; tag inherits all the tag attributes of its superclass, and adds the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:Producer
+    <b>Properties</b>
+    defaultHeaders="<i>No default.</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractProducer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  プロデューサが宛先にメッセージを送信します。プロデューサは、出力メッセージが送信されてその処理が成功したかどうかに従って、送信するメッセージごとに MessageAckEvent または MessageFaultEvent イベントを送出します。
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:Producer:Producer"><apiName>Producer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc><example>
+      <pre>
+       function sendMessage():void
+       {
+           var producer:Producer = new Producer();
+           producer.destination = "NASDAQ";
+           var msg:AsyncMessage = new AsyncMessage();
+           msg.headers.operation = "UPDATE";
+           msg.body = {"SYMBOL":50.00};
+           producer.send(msg);
+       }
+       </pre>
+      
+      </example></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:Producer:DEFAULT_PRIORITY"><apiName>DEFAULT_PRIORITY</apiName><shortdesc>
+      デフォルトのメッセージ優先度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      デフォルトのメッセージ優先度です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Producer:subtopic:get"><apiName>subtopic</apiName><shortdesc>
+      MessageAgent が使用するリモート宛先のサブトピックへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      MessageAgent が使用するリモート宛先のサブトピックへのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:AbstractConsumer"><apiName>AbstractConsumer</apiName><shortdesc>
+  AbstractConsumer は、コンシューマクラスと MultiTopicConsumer クラスの両方の基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:MessageAgent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AbstractConsumer は、コンシューマクラスと MultiTopicConsumer クラスの両方の基本クラスです。これらのクラスを使用して、サーバーからプッシュされたメッセージを受信します。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:AbstractConsumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  コンシューマがメッセージを受信したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  コンシューマがメッセージを受信したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:AbstractConsumer:AbstractConsumer"><apiName>AbstractConsumer</apiName><shortdesc>
+      コンシューマを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンシューマを作成します。
+     
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function initConsumer():void
+       {
+           var consumer:Consumer = new Consumer();
+           consumer.destination = "NASDAQ";
+           consumer.selector = "operation IN ('Bid','Ask')";
+           consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+           consumer.subscribe();
+       }
+     
+       function messageHandler(event:MessageEvent):void
+       {
+           var msg:IMessage = event.message;
+           var info:Object = msg.body;
+           trace("-App recieved message: " + msg.toString());
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:AbstractConsumer:protected:buildSubscribeMessage"><apiName>buildSubscribeMessage</apiName><shortdesc>
+      サブスクライブメッセージを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>サブスクライブ CommandMessage です。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      サブスクライブメッセージを返します。サブクラスがカスタムのサブスクライブメッセージを必要とする場合、このメソッドをサブクラスでオーバーライドする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:protected:buildUnsubscribeMessage"><apiName>buildUnsubscribeMessage</apiName><shortdesc>
+      アンサブスクライブメッセージを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>アンサブスクライブ CommandMessage です。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiDesc>- true の場合、持続性のある JMS サブスクリプションは破棄されず、コンシューマは失われたメッセージを後から再サブスクライブおよび受信できます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アンサブスクライブメッセージを返します。サブクラスがカスタムのアンサブスクライブメッセージを必要とする場合、このメソッドをサブクラスでオーバーライドする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:disconnect"><apiName>disconnect</apiName><shortdesc>
+      コンシューマをリモート宛先から切断します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      コンシューマをリモート宛先から切断します。このメソッドは、アンサブスクライブ後にアプリケーションで不要となったコンシューマに対して呼び出す必要があります。このメソッドは未完了のネットワーク処理が完了するまで待たず、サーバーにアンサブスクライブメッセージも送信しません。 disconnect() を呼び出した後、コンシューマは切断およびアンサブスクライブ状態であることを報告します。これは、コンシューマが再接続して再サブスクライブするまでメッセージを受信しないためです。切断すると、実行している自動再サブスクリプション試行が停止します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:receive"><apiName>receive</apiName><shortdesc>
+      サーバー上のこのコンシューマに対してキューに置かれているメッセージを要求します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>timestamp</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>この引数は推奨されていないので、無視されます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      サーバー上のこのコンシューマに対してキューに置かれているメッセージを要求します。 このメソッドは、非リアルタイムの非ポーリングチャンネルでサブスクライブするコンシューマにのみ使用します。このメソッドは、コンシューマがサブスクライブされない場合、no-op です。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:subscribe"><apiName>subscribe</apiName><shortdesc>
+      リモート宛先にサブスクライブします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>宛先が設定されていない場合。
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>clientId</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>サブスクライブに使用するクライアント ID。持続性のないコンシューマには null を使用します。サブスクリプションに持続性がある場合、コンシューマがサブスクライブするたびにリモート宛先の正しい持続性サブスクリプションに再接続できるよう、毎回一貫した値を入力する必要があります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      リモート宛先にサブスクライブします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:unsubscribe"><apiName>unsubscribe</apiName><shortdesc>
+      リモート宛先からサブスクライブ解除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>- true の場合、持続性のある JMS サブスクリプションは破棄されず、コンシューマは失われたメッセージを後から再サブスクライブおよび受信できます。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      リモート宛先からサブスクライブ解除します。持続性のある JMS サブスクリプションの場合、これを実行すると JMS サーバーの持続性サブスクリプションが破棄されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:AbstractConsumer:protected:_shouldBeSubscribed"><apiName>_shouldBeSubscribed</apiName><shortdesc>
+      このコンシューマをサブスクライブするかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このコンシューマをサブスクライブするかどうかを示すフラグです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:maxFrequency:get"><apiName>maxFrequency</apiName><shortdesc>
+      コンシューマが毎秒受信を希望する最大メッセージ数を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      コンシューマが毎秒受信を希望する最大メッセージ数を決定します。この値を理解するサーバーは、これを入力として使用し、コンシューマへのメッセージ送信速度を決定します。デフォルトは 0 です。つまり、コンシューマにはメッセージ速度に関する環境設定がありません。コンシューマがサブスクラブする前にこのプロパティを設定する必要があること、コンシューマのサブスクリプション後の変更はコンシューマがサブスクライブを解除し再サブスクライブするまで効果がないことに注意してください。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:resubscribeAttempts:get"><apiName>resubscribeAttempts</apiName><shortdesc>
+      宛先が利用できない場合、または宛先への接続が失敗した場合に、コンシューマが再サブスクライブを試行する回数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      宛先が利用できない場合、または宛先への接続が失敗した場合に、コンシューマが再サブスクライブを試行する回数です。値 -1 を指定すると、無限の回数で試行できます。0 の値を指定すると再サブスクライブ試行を無効にします。
+      <p>
+      再サブスクライブ試行は、再サブスクライブ間隔値に従って一定の割合で行われます。再サブスクライブ試行が行われるときに、コンシューマの基本チャンネルが接続されていない、または接続しようとしている場合、チャンネルが接続試行を開始します。基本チャンネルの接続試行が未処理の間にコンシューマの再サブスクライブ試行が続いて行われても、未処理のチャンネル接続試行が成功または失敗するまで、事実上無視されます。
+      </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Consumer/resubscribeInterval"><linktext>mx.messaging.Consumer.resubscribeInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractConsumer:resubscribeInterval:get"><apiName>resubscribeInterval</apiName><shortdesc>
+      再サブスクライブを試行する間隔（ミリ秒数）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiException><apiDesc>負の値が割り当てられた場合。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      再サブスクライブを試行する間隔（ミリ秒数）です。コンシューマがサブスクリプション要求に対する応答を受け取らなかった場合、指定されたミリ秒数待ってから再サブスクライブを試みます。値を 0 に設定すると再サブスクリプションが無効になります。
+      <p>
+      再サブスクライブ試行は、この値に従って一定の割合で行われます。再サブスクライブ試行が行われるときに、コンシューマの基本チャンネルが接続されていない、または接続しようとしている場合、チャンネルが接続試行を開始します。基本チャンネルの接続試行が未処理の間にコンシューマの再サブスクライブ試行が続いて行われても、未処理のチャンネル接続試行が成功または失敗するまで、事実上無視されます。
+      </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Consumer/resubscribeInterval"><linktext>mx.messaging.Consumer.resubscribeInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractConsumer:subscribed:get"><apiName>subscribed</apiName><shortdesc>
+      コンシューマが現在サブスクライブされているかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      コンシューマが現在サブスクライブされているかどうかを示します。 このプロパティが変更されると、<codeph>propertyChange</codeph> イベントが送出されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      このコンシューマが受信した最新のメッセージのタイムスタンプが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      このコンシューマが受信した最新のメッセージのタイムスタンプが含まれます。 この値は <codeph>receive()</codeph> 呼び出しで宛先に渡され、宛先に、このタイムスタンプ以降のコンシューマに対するメッセージを配信するように要求します。 ポーリング処理時に、<codeph>timestamp</codeph> 値より大きいタイムスタンプ値を持つすべてのメッセージが返されます。 この値を -1 に設定すると、宛先からすべてのキャッシュされたメッセージが取得されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Channel"><apiName>Channel</apiName><shortdesc>
+  Channel クラスは、メッセージングシステム内のすべてのチャンネルで拡張する必要がある基本メッセージチャンネルクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Channel クラスは、メッセージングシステム内のすべてのチャンネルで拡張する必要がある基本メッセージチャンネルクラスです。
+ 
+  <p>チャンネルは、MessageAgents とリモート宛先間で送信されるメッセージにとって、特定プロトコルベースのパイプとなります。 <codeph>ServerConfig.getChannel()</codeph> メソッドで、フレームワーク内の設定済みチャンネルが取得されます。 <codeph>new</codeph> 演算子を使って直接チャンネルを作成し、ChannelSet に直接追加することもできます。</p>
+ 
+  <p>
+  チャンネルは、リモートエンドポイントへの物理接続を表します。 デフォルトでは、複数の宛先の間でチャンネルが共有されます。 つまり、複数の宛先をターゲットとしているクライアントでは、それらの宛先との通信に同一のチャンネルを使用することがあります。
+  </p>
+ 
+  <p><b>メモ：</b>このクラスは高度な使用のみを目的としています。既存の RTMPChannel、AMFChannel、および HTTPChannel などのカスタムチャンネルを作成する場合に、このクラスを使用します。</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:Channel_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  チャンネルのプロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  チャンネルのプロパティが変更されたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  チャンネルがエンドポイントからメッセージを受信したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  チャンネルがエンドポイントからメッセージを受信したときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  チャンネルに障害が発生した後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  チャンネルに障害が発生した後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  チャンネルがエンドポイントから切断された後で送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  チャンネルがエンドポイントから切断された後で送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  チャンネルがエンドポイントから切断された後で送出されます。</shortdesc><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  チャンネルがエンドポイントから切断された後で送出されます。
+ <p>チャネルがリモート宛先に接続を試みて問題が発生すると常に、Channel およびそのサブクラスは Channel.Connect.Failed コードを発行します。AMFChannel オブジェクトは、既に接続されているチャネルが基になる NetConnection から Call.Failed コードを受け取ると、Channel.Call.Failed コードを発行します。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:Channel:Channel"><apiName>Channel</apiName><shortdesc>
+      指定されたエンドポイント URI に接続する汎用チャンネルのインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルの ID です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>このチャンネルのエンドポイント URI です。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      指定されたエンドポイント URI に接続する汎用チャンネルのインスタンスを作成します。 <b>メモ</b>：チャンネルのタイプは直接作成しないでください。 代わりに、プロトコル固有のサブクラス（RTMPChannel や AMFChannel など）のインスタンスを作成します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:Channel:protected:applyClientLoadBalancingSettings"><apiName>applyClientLoadBalancingSettings</apiName><shortdesc>
+      クライアントのロードバランシング URL が存在する場合はそれらの URL を適用します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>props</apiItemName><apiType value="XML"/><apiDesc>このチャンネルに対する services-config.xml ファイルの XML フラグメントのプロパティセクションです。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      クライアントのロードバランシング URL が存在する場合はそれらの URL を適用します。クライアントのロードバランシング URL のセットから URL をランダムに選択して、チャンネルのメイン URL として設定します。次に、残りの URL をチャンネルの <codeph>failoverURI</codeph> として割り当てます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:applySettings"><apiName>applySettings</apiName><shortdesc>
+      個々のチャンネルに必要な設定を適用するには常に、サブクラスでこのメソッドをオーバーライドする必要があります。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>settings</apiItemName><apiType value="XML"/><apiDesc>このチャンネルの services-config.xml ファイルの XML フラグメントです。
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+      個々のチャンネルに必要な設定を適用するには常に、サブクラスでこのメソッドをオーバーライドする必要があります。必ず <codeph>super.applySettings()</codeph> を呼び出して、チャンネルに一般的な設定を適用してください。このメソッドは、主に Channel サブクラスで使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectFailed"><apiName>connectFailed</apiName><shortdesc>
+      失敗した内部接続を処理し、チャンネルの FAULT イベントを送出します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>失敗した接続の ChannelFaultEvent です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      失敗した内部接続を処理し、チャンネルの <codeph>FAULT</codeph> イベントを送出します。チャンネルに <codeph>failoverURI</codeph> 値がある場合は、その URI 値を順に使用して、接続が確立されるまでまたは使用可能な値がなくなるまで、自動的に再接続を試みます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectSuccess"><apiName>connectSuccess</apiName><shortdesc>
+      成功した内部接続を処理し、チャンネルの CONNECT イベントを送出します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      成功した内部接続を処理し、チャンネルの <codeph>CONNECT</codeph> イベントを送出します。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectTimeoutHandler"><apiName>connectTimeoutHandler</apiName><shortdesc>
+      ChannelFaultEvent を送出して接続タイムアウトを処理します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:TimerEvent"/><apiDesc>接続タイムアウト時間に達したことを示すタイマーイベントです。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ChannelFaultEvent を送出して接続タイムアウトを処理します。 現在の接続試行を停止するために、サブタイプによってオーバーライドされることがありますが、<codeph>super.connectTimeoutHandler(event)</codeph> を呼び出す必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:connect"><apiName>connect</apiName><shortdesc>
+      ChannelSet をチャンネルに接続します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channelSet</apiItemName><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier><apiDesc>チャンネルに接続する ChannelSet です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ChannelSet をチャンネルに接続します。チャンネルがまだエンドポイントに接続されていない場合は、接続を試みます。チャンネルのサブクラスで <codeph>internalConnect()</codeph> メソッドをオーバーライドし、基になる接続が確立されたら <codeph>connectSuccess()</codeph> メソッドを呼び出す必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:disconnectFailed"><apiName>disconnectFailed</apiName><shortdesc>
+      失敗した内部切断を処理し、チャンネルの FAULT イベントを送出します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>失敗した切断の ChannelFaultEvent です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      失敗した内部切断を処理し、チャンネルの <codeph>FAULT</codeph> イベントを送出します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:disconnectSuccess"><apiName>disconnectSuccess</apiName><shortdesc>
+      成功した内部切断を処理して、チャンネルの DISCONNECT イベントを送出します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>スキップしない限り試行されるフェイルオーバー処理を切断時にすべてスキップする必要がある場合は、true です。フェイルオーバー処理の実行を許可する必要のある場合は、false です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      成功した内部切断を処理して、チャンネルの <codeph>DISCONNECT</codeph> イベントを送出します。切断の原因がネットワーク障害で、チャンネルに <codeph>failoverURI</codeph> 値がある場合は、その URI 値を順に使用して、接続が確立されるまでまたは使用可能な値がなくなるまで、自動的に再接続を試みます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:disconnect"><apiName>disconnect</apiName><shortdesc>
+      ChannelSet をチャンネルから切断します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channelSet</apiItemName><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier><apiDesc>チャンネルから切断する ChannelSet です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ChannelSet をチャンネルから切断します。チャンネルがエンドポイントに接続されていて、接続されている ChannelSet がそれ以上ない場合、ChannelSet は内部的に切断されます。
+     
+      <p>チャンネルのサブクラスで <codeph>internalDisconnect()</codeph> メソッドをオーバーライドし、基となる接続が終了している場合は <codeph>disconnectSuccess()</codeph> メソッドを呼び出す必要があります。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:flexClientWaitHandler"><apiName>flexClientWaitHandler</apiName><shortdesc>
+      アプリケーションへの初回チャンネル接続を管理するためのガード条件への変更を処理します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:PropertyChangeEvent"/><apiDesc>FlexClient シングルトンにより送出された PropertyChangeEvent です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      アプリケーションへの初回チャンネル接続を管理するためのガード条件への変更を処理します。この呼び出しは、このチャンネルが接続の試行を待っている状態であることを意味します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:getMessageResponder"><apiName>getMessageResponder</apiName><shortdesc>
+      チャンネルの send() メソッドに適切な MessageResponder を返します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiException><apiDesc>チャンネルのサブクラスでこのメソッドをオーバーライドしない場合。
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>結果またはエラーを処理するための MessageResponder です。
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:MessageResponder</apiOperationClassifier></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>メッセージを送信する MessageAgent です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>送信するメッセージです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      チャンネルの <codeph>send()</codeph> メソッドに適切な MessageResponder を返します。オーバーライドする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalConnect"><apiName>internalConnect</apiName><shortdesc>
+      チャンネルをエンドポイントに接続します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      チャンネルをエンドポイントに接続します。オーバーライドする必要があります。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalDisconnect"><apiName>internalDisconnect</apiName><shortdesc>
+      チャンネルをエンドポイントから切断します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>接続拒否またはタイムアウトが原因で切断され、再接続を自動的に試行する必要がない場合は true で、それ以外の場合は false です。 
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      チャンネルをエンドポイントから切断します。オーバーライドする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalSend"><apiName>internalSend</apiName><shortdesc>
+      チャンネルを通じてメッセージを送信し、応答を応答側に転送します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>messageResponder</apiItemName><apiOperationClassifier>mx.messaging:MessageResponder</apiOperationClassifier><apiDesc>応答を処理するための MessageResponder です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      チャンネルを通じてメッセージを送信し、応答を応答側に転送します。オーバーライドする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:logout"><apiName>logout</apiName><shortdesc>
+      チャンネルが接続されていれば、CommandMessage をサーバーに送信してログアウトします。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>ログアウトするための MessageAgent です。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      チャンネルが接続されていれば、CommandMessage をサーバーに送信してログアウトします。現在の証明書はクリアされます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:send"><apiName>send</apiName><shortdesc>
+      指定されたメッセージをターゲットの宛先に送信します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>MessageAgent とメッセージのいずれにも宛先が指定されていない場合。
+     </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>メッセージを送信している MessageAgent です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>送信するメッセージです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたメッセージをターゲットの宛先に送信します。 実際の送信を実行するには、サブクラスで <codeph>internalSend()</codeph> メソッドをオーバーライドする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      資格情報を指定の値に設定します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>2 つの状況：資格情報が既に設定済みでリモートの宛先の認証が進行中である場合、または指定した認証済みの資格情報が現在の認証済みの資格情報と一致しない場合。
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>credentials</apiItemName><apiType value="String"/><apiDesc>資格情報はストリングです。
+      </apiDesc></apiParam><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiData>null</apiData><apiDesc>ログインするための MessageAgent です。ログイン結果を処理します。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>資格情報をエンコードする際に使用された文字セットエンコーディングです。デフォルトは null で、旧式文字セットの ISO-Latin-1 を示します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      資格情報を指定の値に設定します。資格情報が null でなく、チャンネルが接続されている場合、このメソッドは資格情報を使用してログインするようにとの CommandMessage もサーバーに送信します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:Channel:protected:CONNECT_TIMEOUT_SECONDS"><apiName>CONNECT_TIMEOUT_SECONDS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>connect-timeout-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:ENABLE_SMALL_MESSAGES"><apiName>ENABLE_SMALL_MESSAGES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>enable-small-messages</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:FALSE"><apiName>FALSE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>false</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:RECORD_MESSAGE_SIZES"><apiName>RECORD_MESSAGE_SIZES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>record-message-sizes</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:RECORD_MESSAGE_TIMES"><apiName>RECORD_MESSAGE_TIMES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>record-message-times</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:REQUEST_TIMEOUT_SECONDS"><apiName>REQUEST_TIMEOUT_SECONDS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>request-timeout-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:SERIALIZATION"><apiName>SERIALIZATION</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>serialization</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:TRUE"><apiName>TRUE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>true</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      このチャンネルを認証するかどうかを示します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このチャンネルを認証するかどうかを示します。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:channelSets:get"><apiName>channelSets</apiName><shortdesc>
+      チャンネルに接続された ChannelSet へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      チャンネルに接続された ChannelSet へのアクセスを提供します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:connectTimeout:get"><apiName>connectTimeout</apiName><shortdesc>
+      チャンネルに対する接続タイムアウト時間（秒単位）へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      チャンネルに対する接続タイムアウト時間（秒単位）へのアクセスを提供します。値が 0 以下の場合は、接続の試行はクライアントでタイムアウトになりません。フェイルオーバーするように設定されているチャンネルの場合、この値は接続が確立されるまでの待ち時間の合計になります。この値は、チャンネルが接続を試行するフェイルオーバー URI ごとにリセットされません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:connected:get"><apiName>connected</apiName><shortdesc>
+      このチャンネルがリモート宛先との接続を確立しているかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このチャンネルがリモート宛先との接続を確立しているかどうかを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:endpoint:get"><apiName>endpoint</apiName><shortdesc>
+      このチャンネルのエンドポイントへのアクセスを提供します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このチャンネルのエンドポイントへのアクセスを提供します。 この値は、<codeph>uri</codeph> プロパティの値に基づいて算出されます。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:failoverURIs:get"><apiName>failoverURIs</apiName><shortdesc>
+      エンドポイントがクラスタ化されている場合に、このチャンネルがフェイルオーバーを試行できるエンドポイント URI のセットへのアクセスを提供します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      エンドポイントがクラスタ化されている場合に、このチャンネルがフェイルオーバーを試行できるエンドポイント URI のセットへのアクセスを提供します。
+     
+      <p>このプロパティは、クラスタ化が有効のときは自動的に設定されます。クラスタ化を使用しない場合は、独自の値を設定できます。</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:id:get"><apiName>id</apiName><shortdesc>
+      このチャンネルの ID へのアクセスを提供します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このチャンネルの ID へのアクセスを提供します。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      チャンネルが使用するプロトコルへのアクセスを提供します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      チャンネルが使用するプロトコルへのアクセスを提供します。
+     
+      <p><b>メモ：</b>チャンネルのサブクラスでこのメソッドをオーバーライドし、サポートされるプロトコルを表すストリングを返す必要があります。サポートされるプロトコルのストリングの例として、"rtmp"、"http"、"https" などがあります。
+     </p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:reconnecting:get"><apiName>reconnecting</apiName><shortdesc>
+      このチャンネルが代替エンドポイントへの再接続を実行中であるかどうかを示します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このチャンネルが代替エンドポイントへの再接続を実行中であるかどうかを示します。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:recordMessageSizes:get"><apiName>recordMessageSizes</apiName><shortdesc>
+     Channel プロパティは、パフォーマンス情報のインジェクションレベル (メッセージのサイズをインジェクトするかどうか) を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Channel プロパティは、パフォーマンス情報のインジェクションレベル (メッセージのサイズをインジェクトするかどうか) を決定します。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:recordMessageTimes:get"><apiName>recordMessageTimes</apiName><shortdesc>
+     Channel プロパティは、パフォーマンス情報のインジェクションレベル (タイムスタンプをインジェクトするかどうか) を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Channel プロパティは、パフォーマンス情報のインジェクションレベル (タイムスタンプをインジェクトするかどうか) を決定します。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      チャンネルに対するデフォルト要求タイムアウト（秒単位）へのアクセスを提供します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      チャンネルに対するデフォルト要求タイムアウト（秒単位）へのアクセスを提供します。値が 0 以下の場合は、送信要求はクライアント上でタイムアウトになりません。
+      <p>要求タイムアウトは、リモート宛先からの応答を必要とする RPC スタイルのメッセージングで特に便利です。</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:shouldBeConnected:get"><apiName>shouldBeConnected</apiName><shortdesc>
+      このチャンネルをエンドポイントに接続する必要があるかどうかを示します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このチャンネルをエンドポイントに接続する必要があるかどうかを示します。このフラグを使用するのは、いつフェイルオーバを試みる必要があるか、および切断またはフォルト時にいつ切断通知をリモートエンドポイントに送信するかを制御する場合です。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:uri:get"><apiName>uri</apiName><shortdesc>
+      このチャンネルに対するエンドポイント URI 全体を作成するのに使用される URI へのアクセスを提供します。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このチャンネルに対するエンドポイント URI 全体を作成するのに使用される URI へのアクセスを提供します。URI は部分パスにすることができ、その場合は必要に応じて完全なエンドポイント URI が計算されます。
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:SubscriptionInfo"><apiName>SubscriptionInfo</apiName><shortdesc>
+ これは、MultiTopicConsumer プロパティの ArrayCollection サブスクリプションプロパティの要素に使用されるクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ これは、MultiTopicConsumer プロパティの ArrayCollection サブスクリプションプロパティの要素に使用されるクラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:SubscriptionInfo:SubscriptionInfo"><apiName>SubscriptionInfo</apiName><shortdesc> 指定のサブトピックおよびセレクターで新しい SubscriptionInfo を構築します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>st</apiItemName><apiType value="String"/><apiDesc>サブスクリプションのサブトピックです。null の場合、サブトピックのない宛先にダイレクトされるメッセージのサブスクリプションを表します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>sel</apiItemName><apiType value="String"/><apiDesc>セレクター。 null の場合、すべてのメッセージを送信する必要があることを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>mf</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>サブスクリプションが毎秒受信を希望する最大メッセージ数です。0 の場合は環境設定はありません。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc> 指定のサブトピックおよびセレクターで新しい SubscriptionInfo を構築します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:SubscriptionInfo:maxFrequency"><apiName>maxFrequency</apiName><shortdesc>
+     サブスクリプションが毎秒受信を希望する最大メッセージ数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+     サブスクリプションが毎秒受信を希望する最大メッセージ数です。0 の場合、サブスクリプションには受信するメッセージについて環境設定がありません。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:SubscriptionInfo:selector"><apiName>selector</apiName><shortdesc>
+     セレクター。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     セレクター。 null の場合、すべてのメッセージを送信する必要があることを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:SubscriptionInfo:subtopic"><apiName>subtopic</apiName><shortdesc> 
+     サブトピックです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     サブトピックです。null の場合、サブトピックのない宛先にダイレクトされるメッセージのサブスクリプションを表します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MessageResponder"><apiName>MessageResponder</apiName><shortdesc>
+  MessageResponder クラスは、メッセージの宛先から返された正常な結果またはフォルトを処理します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.net:Responder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MessageResponder クラスは、メッセージの宛先から返された正常な結果またはフォルトを処理します。チャンネルは送信するメッセージごとに、結果を処理するための MessageResponder を作成します。 応答時に、チャンネルは MessageResponder で <codeph>result()</codeph> または <codeph>status()</codeph> コールバックのいずれかを呼び出します。 必要な処理をすべて実行するために、MessageResponder サブクラスでこれらのメソッドをオーバーライドする必要があります。 成功結果であるかエラーであるかにかかわらず、応答ごとに MessageResponder はエージェントに対して <codeph>acknowledge()</codeph> を呼び出す必要があります。 応答がエラーの場合、MessageResponder はエージェントで <codeph>fault()</codeph> も呼び出す必要があります。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:MessageResponder:MessageResponder"><apiName>MessageResponder</apiName><shortdesc>
+      指定された MessageAgent の指定されたメッセージに対する応答を処理するための MessageResponder を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>メッセージを送信する MessageAgent です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>送信中のメッセージです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>送信に使用されたチャンネルです。 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      指定された MessageAgent の指定されたメッセージに対する応答を処理するための MessageResponder を作成します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MessageResponder:protected:createRequestTimeoutErrorMessage"><apiName>createRequestTimeoutErrorMessage</apiName><shortdesc>
+      要求タイムアウト時に関連付けられた MessageAgent のコールバックに渡すことのできる ErrorMessage を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>要求タイムアウト時に関連付けられた MessageAgent のコールバックに渡すことのできる ErrorMessage を返します。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      要求タイムアウト時に関連付けられた MessageAgent のコールバックに渡すことのできる ErrorMessage を作成します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:requestTimedOut"><apiName>requestTimedOut</apiName><shortdesc>
+      要求タイムアウトを処理して、関連付けられた MessageAgent で適切なコールバックを呼び出すために、サブクラスでこのメソッドをオーバーライドする必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      要求タイムアウトを処理して、関連付けられた MessageAgent で適切なコールバックを呼び出すために、サブクラスでこのメソッドをオーバーライドする必要があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:resultHandler"><apiName>resultHandler</apiName><shortdesc>
+      結果のカスタム処理を実行して、関連付けられた MessageAgent で適切なコールバックを呼び出すために、サブクラスでこのメソッドをオーバーライドする必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>宛先から返される結果メッセージです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      結果のカスタム処理を実行して、関連付けられた MessageAgent で適切なコールバックを呼び出すために、サブクラスでこのメソッドをオーバーライドする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:result"><apiName>result</apiName><shortdesc>
+      宛先から応答が返ってきたときに、この MessageResponder を作成したチャンネルによって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>宛先から返される結果メッセージです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      宛先から応答が返ってきたときに、この MessageResponder を作成したチャンネルによって呼び出されます。このメソッドは基本的な結果処理を実行してから、<codeph>resultHandler()</codeph> メソッドを呼び出します。このメソッドは、必要なカスタム処理を実行するためにサブクラスでオーバーライドできます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:statusHandler"><apiName>statusHandler</apiName><shortdesc>
+      ステータスのカスタム処理を実行して、関連付けられた MessageAgent で適切なコールバックを呼び出すために、サブクラスでこのメソッドをオーバーライドする必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>宛先から返される失敗メッセージです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ステータスのカスタム処理を実行して、関連付けられた MessageAgent で適切なコールバックを呼び出すために、サブクラスでこのメソッドをオーバーライドする必要があります。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:status"><apiName>status</apiName><shortdesc>
+      宛先からフォルト応答が返されたときに、この MessageResponder を作成したチャンネルから呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>宛先から返される失敗メッセージです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      宛先からフォルト応答が返されたときに、この MessageResponder を作成したチャンネルから呼び出されます。このメソッドは基本的な結果処理を実行してから、<codeph>statusHandler()</codeph> メソッドを呼び出します。このメソッドは、必要なカスタム処理を実行するためにサブクラスでオーバーライドできます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MessageResponder:agent:get"><apiName>agent</apiName><shortdesc>
+      メッセージを送信した MessageAgent へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:MessageAgent</apiValueClassifier></apiValueDef><apiDesc>
+      メッセージを送信した MessageAgent へのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageResponder:channel:get"><apiName>channel</apiName><shortdesc>
+      メッセージの送信に使用したチャンネルへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      メッセージの送信に使用したチャンネルへのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageResponder:message:get"><apiName>message</apiName><shortdesc>
+      送信されたメッセージへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      送信されたメッセージへのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

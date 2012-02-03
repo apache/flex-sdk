@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" viewHeight= "43" viewWidth= "146"
+	scaleGridLeft="10" scaleGridTop="10" scaleGridRight="136" scaleGridBottom="33">
+	<!-- Border -->
+	<Path data="M 6 1 C 6 1 140 1 140 1 C 143 1 145 3 145 6 C 145 6 145 37 145 37 C 145 40 143 42 140 42 C 140 42 6 42 6 42 C 3 42 1 40 1 37 C 1 37 1 6 1 6 C 1 3 3 1 6 1 Z M 6 0 C 3 0 0 3 0 6 C 0 6 0 37 0 37 C 0 40 3 43 6 43 C 6 43 140 43 140 43 C 143 43 146 40 146 37 C 146 37 146 6 146 6 C 146 3 143 0 140 0 C 140 0 6 0 6 0 Z ">
+		<fill>
+			<SolidColor color="#464646"/>
+		</fill>
+	</Path>
+	<!-- Fill Shadow -->
+	<Path data="M 6 1 C 6 1 140 1 140 1 C 143 1 145 3 145 6 C 145 6 145 37 145 37 C 145 40 143 42 140 42 C 140 42 6 42 6 42 C 3 42 1 40 1 37 C 1 37 1 6 1 6 C 1 3 3 1 6 1 Z ">
+		<fill>
+			<LinearGradient x = "73" y = "1" scaleX = "41" rotation = "90">
+				<GradientEntry color="#000000" ratio="0" alpha="0.05"/>
+				<GradientEntry color="#000000" ratio="1" alpha="0.25"/>
+			</LinearGradient>
+		</fill>
+	</Path>
+	<!-- Inner Shadow -->
+	<Path data="M 2 6 C 2 4 4 2 6 2 C 6 2 140 2 140 2 C 142 2 144 4 144 6 C 144 6 144 37 144 37 C 144 39 142 41 140 41 C 140 41 6 41 6 41 C 4 41 2 39 2 37 C 2 37 2 6 2 6 Z M 6 1 C 3 1 1 3 1 6 C 1 6 1 37 1 37 C 1 40 3 42 6 42 C 6 42 140 42 140 42 C 143 42 145 40 145 37 C 145 37 145 6 145 6 C 145 3 143 1 140 1 C 140 1 6 1 6 1 Z ">
+		<fill>
+			<SolidColor color="#000000" alpha="0.2"/>
+		</fill>
+	</Path>
+	<!-- Inner Inner Shadow -->
+	<Path data="M 3 6 C 3 4 4 3 6 3 C 6 3 140 3 140 3 C 142 3 143 4 143 6 C 143 6 143 37 143 37 C 143 39 142 40 140 40 C 140 40 6 40 6 40 C 4 40 3 39 3 37 C 3 37 3 6 3 6 Z M 2 6 C 2 6 2 37 2 37 C 2 39 4 41 6 41 C 6 41 140 41 140 41 C 142 41 144 39 144 37 C 144 37 144 6 144 6 C 144 4 142 2 140 2 C 140 2 6 2 6 2 C 4 2 2 4 2 6 Z ">
+		<fill>
+			<SolidColor color="#646464" alpha="0.1"/>
+		</fill>
+	</Path>
+</Graphic>

@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.sampler" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.sampler</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.sampler:StackFrame" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">StackFrame</apiName><shortdesc class="- topic/shortdesc ">
+     Die StackFrame-Klasse ermöglicht den Zugriff auf die Eigenschaften eines Datenblocks, der eine Funktion enthält.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame
+     </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Die StackFrame-Klasse ermöglicht den Zugriff auf die Eigenschaften eines Datenblocks, der eine Funktion enthält. Nur für Flash Player-Debugger-Version.
+     </apiDesc></apiClassifierDetail><apiOperation id="flash.sampler:StackFrame:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+         Konvertiert den StackFrame in einen String seiner Eigenschaften.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.toString, toString
+         </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Ein String, der die <codeph class="+ topic/ph pr-d/codeph ">name</codeph>-Eigenschaft enthält und optional die Eigenschaften <codeph class="+ topic/ph pr-d/codeph ">file</codeph> und <codeph class="+ topic/ph pr-d/codeph ">line</codeph> (falls Debugging für eine SWF-Datei ausgeführt wird) des StackFrame-Objekts. Nur für Flash Player-Debugger-Version.
+         </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Konvertiert den StackFrame in einen String seiner Eigenschaften.
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sampler:StackFrame:file" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">file</apiName><shortdesc class="- topic/shortdesc ">
+         Der Dateiname der SWF-Datei, für die ein Debugging ausgeführt wird.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.file, file
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Der Dateiname der SWF-Datei, für die ein Debugging ausgeführt wird. Nur für Flash Player-Debugger-Version.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:StackFrame:line" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">line</apiName><shortdesc class="- topic/shortdesc ">
+         Die Zeilennummer für die Funktion in der SWF-Datei, für ein Debugging ausgeführt wird.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.line, line
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Die Zeilennummer für die Funktion in der SWF-Datei, für ein Debugging ausgeführt wird. Nur für Flash Player-Debugger-Version.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:StackFrame:name" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">name</apiName><shortdesc class="- topic/shortdesc ">
+         Der Funktionsname im Stack-Frame.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.name, name
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Der Funktionsname im Stack-Frame. Nur für Flash Player-Debugger-Version.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:StackFrame:scriptID" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">scriptID</apiName><shortdesc class="- topic/shortdesc ">
+         Der Bezeichner für die Skriptfunktion in der Anwendung, für die ein Profil erstellt wird.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">StackFrame.scriptID, scriptID
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Der Bezeichner für die Skriptfunktion in der Anwendung, für die ein Profil erstellt wird.
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.sampler:NewObjectSample" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">NewObjectSample</apiName><shortdesc class="- topic/shortdesc ">
+    Die NewObjectSample-Klasse repräsentiert Objekte, die innerhalb eines getSamples()-Streams erstellt werden.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">NewObjectSample
+    </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.sampler:Sample</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    Die NewObjectSample-Klasse repräsentiert Objekte, die innerhalb eines <codeph class="+ topic/ph pr-d/codeph ">getSamples()</codeph>-Streams erstellt werden. Nur für Flash Player-Debugger-Version.
+    </apiDesc><example conref="examples\SampleTypesExample.as" class="- topic/example "> Im folgenden Beispiel werden mit den <codeph class="+ topic/ph pr-d/codeph ">stack</codeph>- und <codeph class="+ topic/ph pr-d/codeph ">time</codeph>-Eigenschaft eines Sample-Objekts <codeph class="+ topic/ph pr-d/codeph ">s</codeph> Speicher-Samples gesammelt. Die Samples enthalten NewObjectSample-Objekte (das <codeph class="+ topic/ph pr-d/codeph ">newSamples</codeph>-Array), DeleteObjectSample-Objekte (das <codeph class="+ topic/ph pr-d/codeph ">delSamples</codeph>-Array) und CPU-Speicher-Sample-Objekte (das <codeph class="+ topic/ph pr-d/codeph ">cpuSamples</codeph>-Array). Um den Speicherprofiler zu verwenden, muss die Flash Player-Debugger-Version 9.0.115.0 oder höher installiert sein.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.sampler.*
+    import flash.system.*
+    import flash.utils.*
+    import flash.display.Sprite
+    public class sampleTypes extends Sprite
+    {
+      var b:Boolean = true
+        public function sampleTypes() {
+            flash.sampler.startSampling();
+            for(var i:int=0;i&lt;10000;i++)
+              new Object();
+
+            var cpuSamples:Array=[];
+            var newSamples:Array=[];
+            var delSamples:Array=[];
+            var ids:Array=[]
+
+            var lastTime:Number=0;
+            for each(var s:Sample in getSamples()) {
+              
+              assert(s.time > 0); // positive
+              assert(Math.floor(s.time) == s.time, s.time); // integral
+              assert(s.time >= lastTime, s.time + ":" + lastTime); // ascending
+              assert(s.stack == null || s.stack is Array)
+              if(s.stack) {
+                assert(s.stack[0] is StackFrame);
+                assert(s.stack[0].name is String);
+            }
+              
+              if(s is NewObjectSample) {
+                var nos = NewObjectSample(s);
+                assert(s.id > 0, s.id);
+                assert(s.type is Class, getQualifiedClassName(s.type));
+                newSamples.push(s);
+                ids[s.id] = "got one";
+              } else if(s is DeleteObjectSample) {
+                var dos = DeleteObjectSample(s);
+                delSamples.push(s);
+                assert(ids[dos.id] == "got one");
+              } else if(s is Sample)
+                cpuSamples.push(s);
+              else {
+                assert(false);
+              }
+              lastTime = s.time;
+            }
+
+            trace(b)
+            trace(newSamples.length > 0)
+            trace(cpuSamples.length > 0)
+            trace(delSamples.length > 0)
+
+        }
+
+        private function assert(e:Boolean, mess:String=null):void {
+          b = e &amp;&amp; b;
+          if(true &amp;&amp; !e) {
+            if(mess) trace(mess);
+            trace(new Error().getStackTrace());
+          }     
+        }         
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="package.html#getSamples()" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.getSamples()</linktext></link></related-links><apiValue id="flash.sampler:NewObjectSample:type" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">type</apiName><shortdesc class="- topic/shortdesc ">
+         Das Class-Objekt, das dem Objekt entspricht, das innerhalb eines getSamples()-Streams erstellt wurde.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">NewObjectSample, NewObjectSample.type, type
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Class</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Das Class-Objekt, das dem Objekt entspricht, das innerhalb eines <codeph class="+ topic/ph pr-d/codeph ">getSamples()</codeph>-Streams erstellt wurde. Nur für Flash Player-Debugger-Version.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:NewObjectSample:object:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">object</apiName><shortdesc class="- topic/shortdesc ">
+         Das NewObjectSample-Objekt, falls es immer noch vorhanden ist.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">NewObjectSample, NewObjectSample.object, object
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiType value="any" name="type" class="- topic/state reference/state apiRef/apiType "/></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Das NewObjectSample-Objekt, falls es immer noch vorhanden ist. Wenn das Objekt vom Speichermanagement gelöscht wurde (Garbagekollektor), ist diese Eigenschaft undefiniert und ein entsprechendes DeleteObjectSample ist vorhanden. Nur für Flash Player-Debugger-Version.
+         </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#DeleteObjectSample" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.DeleteObjectSample</linktext></link></related-links></apiValue><apiValue id="flash.sampler:NewObjectSample:size:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">size</apiName><shortdesc class="- topic/shortdesc ">
+         Die Größe des NewObjectSample-Objekts.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">NewObjectSample, NewObjectSample.size, size
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Die Größe des NewObjectSample-Objekts. Wenn das Objekt vom Speichermanagement gelöscht wurde (Garbage Collection), ist diese Eigenschaft undefiniert und ein entsprechendes DeleteObjectSample ist vorhanden. Nur für die Debugger-Version von Flash Player.
+         </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#DeleteObjectSample" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.DeleteObjectSample</linktext></link></related-links></apiValue></apiClassifier><apiOperation id="globalOperation:flash.sampler:clearSamples" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">clearSamples</apiName><shortdesc class="- topic/shortdesc ">
+     Löscht den aktuellen Satz von Sample-Objekten.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">clearSamples
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Löscht den aktuellen Satz von Sample-Objekten. Diese Methode wird normalerweise aufgerufen, nachdem <codeph class="+ topic/ph pr-d/codeph ">getSamples()</codeph> aufgerufen wurde und die Sample-Objekte durchlaufen hat. Nur für Flash Player-Debugger-Version.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#getSamples()" class="- topic/link "><linktext class="- topic/linktext ">getSamples()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getGetterInvocationCount" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getGetterInvocationCount</apiName><shortdesc class="- topic/shortdesc ">
+     Gibt die Anzahl der Ausführungen einer get-Funktion zurück.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getInvocationCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Die Anzahl der Ausführungen einer get-Methode.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Eine Methodeninstanz oder eine Klasse.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">qname</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">QName</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Wenn qname den Wert <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph> aufweist, wird die Anzahl der Iterationen der Konstruktorfunktion zurückgegeben.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gibt die Anzahl der Ausführungen einer get-Funktion zurück. Überprüfen Sie mit <codeph class="+ topic/ph pr-d/codeph ">isGetterSetter()</codeph>, dass Sie über eine get/set-Funktion verfügen, bevor Sie <codeph class="+ topic/ph pr-d/codeph ">getGetterInvocationCount()</codeph> verwenden. Nur für Flash Player-Debugger-Version.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#isGetterSetter()" class="- topic/link "><linktext class="- topic/linktext ">isGetterSetter()</linktext></link><link href="package.html#getInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getInvocationCount()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getInvocationCount" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getInvocationCount</apiName><shortdesc class="- topic/shortdesc ">
+     Gibt die Anzahl der Ausführungen der Methode zurück.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getInvocationCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Die Anzahl der Ausführungen der Methode.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Eine Methodeninstanz oder eine Klasse. Wenn keine Methodeninstanz verfügbar ist, kann die Anzahl der Aufrufe von Instanzfunktionen mithilfe einer Klasse abgerufen werden. Wenn <codeph class="+ topic/ph pr-d/codeph ">obj</codeph> den Wert <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph> hat, gibt diese Methode die Anzahl der für das Paket gültigen Funktion zurück, die von <codeph class="+ topic/ph pr-d/codeph ">qname</codeph> benannt wird.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">qname</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">QName</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Wenn qname den Wert <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph> aufweist, wird die Anzahl der Iterationen der Konstruktorfunktion zurückgegeben.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gibt die Anzahl der Ausführungen der Methode zurück. Wenn der <codeph class="+ topic/ph pr-d/codeph ">obj</codeph>-Parameter eine Klasse ist und der <codeph class="+ topic/ph pr-d/codeph ">qname</codeph>-Parameter den Wert <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph> hat, gibt diese Methode die Anzahl der Iterationen der Konstruktorfunktion zurück. Nur für Flash Player-Debugger-Version.
+     </apiDesc><example conref="examples\GetInvocationCountExample.as" class="- topic/example "> 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ package 
+{
+  public function exec3() {}
+
+  import flash.sampler.*;
+  import flash.system.*;
+  import flash.display.Sprite;
+  import flash.utils.*;
+  public class getInvocationCountTest extends Sprite
+    {
+      public function getInvocationCountTest()
+    {
+      for(var i:int=0;i&lt;10;i++)
+        exec();
+      for(var i:int=0;i&lt;10;i++)
+        exec2();
+      for(var i:int=0;i&lt;10;i++)
+        exec3();
+
+      // get exec QName
+      var execName:QName;
+          var name:QName;
+      var fooName:QName;
+      for each(name in getMemberNames(this)) {
+          if(name.localName == "exec")
+          execName = name;
+          if(name.localName == "foo")
+          fooName = name;
+      }
+
+      var exec2Name:QName;
+      for each(name in getMemberNames(getInvocationCountTest)) {
+          if(name.localName == "exec2")
+          exec2Name = name;
+      }
+
+      // execute get/set
+      foo = "bar";
+
+      trace(isGetterSetter(this, fooName));
+      trace(getSetterInvocationCount(this, fooName) == 1);
+      trace(getGetterInvocationCount(this, fooName) == 0);
+
+      foo;
+      
+      trace(getSetterInvocationCount(getInvocationCountTest, fooName) == 1);
+      trace(getGetterInvocationCount(getInvocationCountTest, fooName) == 1);
+
+      trace(getInvocationCount(this, execName) == 10);
+      trace(getInvocationCount(getInvocationCountTest, execName) == 10);
+      trace(getInvocationCount(getInvocationCountTest, exec2Name) == 10);
+      trace(getInvocationCount(getInvocationCountTest, undefined) == 1);
+    
+      getTimer();
+      getTimer();
+
+      trace(getInvocationCount(undefined, new QName("", "trace")) == 9);
+      trace(getInvocationCount(undefined, new QName("flash.utils", "getTimer")) == 2);
+      trace(getInvocationCount(undefined, new QName("", "exec3")) == 10);
+
+    }
+
+      private function exec():void {}
+      private static function exec2():void {}
+
+      private function get foo():String { return "fo"; }
+      private function set foo(s:String) { }
+      
+    }
+}
+</codeblock></example></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:getLexicalScopes" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getLexicalScopes</apiName><shortdesc class="- topic/shortdesc ">
+     Gibt den lexikalischen Umfang einer Funktion an, sodass erfasste scope-Objekte (einschließlich activation-Objekte und mit Umfang) vom Profiler als von der Function-Instanz zurückgehalten erkannt werden.</shortdesc><prolog class="- topic/prolog "/><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Ein Array, das alle Elemente des lexikalischen Umfangs enthält
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Array</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Function</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Eine Funktion
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gibt den lexikalischen Umfang einer Funktion an, sodass erfasste scope-Objekte (einschließlich activation-Objekte und mit Umfang) vom Profiler als von der Function-Instanz zurückgehalten erkannt werden.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:getMasterString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getMasterString</apiName><shortdesc class="- topic/shortdesc ">
+     Gibt den Master-String zurück, von dem dieser String abhängig ist, oder null, wenn dieser String von keinem anderen String abhängig ist.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Der String, von dem der übergebene String abhängig ist, oder null, wenn der übergebene String von keinem anderen String abhängig ist
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">str</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Ein String
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gibt den Master-String zurück, von dem dieser String abhängig ist, oder null, wenn dieser String von keinem anderen String abhängig ist. Wenn Sie zum Beispiel <codeph class="+ topic/ph pr-d/codeph ">String.substr()</codeph> aufrufen, wird der zurückgegebene String aus Effizienzgründen oft nur als Verweis in den Originalstring implementiert. Im normalen Einsatz ist dies ein Implementierungsdetail, das vom Benutzer nicht bemerkt wird. Es kann jedoch verwirrend sein, wenn ein Profiler zur Analyse der Speichernutzung Ihres Programms verwendet wird, da der String möglicherweise laut Anzeige weniger Speicher benötigt als tatsächlich für den Wert des Strings erforderlich. Des Weiteren kann ein String allein deshalb im Speicher verbleiben, weil er als Master für andere Strings fungiert. Mit <codeph class="+ topic/ph pr-d/codeph ">getMasterString()</codeph> können Profiler dem Benutzer ein genaues Diagramm der Stringabhängigkeiten anzeigen.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:getMemberNames" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getMemberNames</apiName><shortdesc class="- topic/shortdesc ">
+     Gibt ein Objekt zurück, das alle Mitglieder eines angegebenen Objekts einschließlich privater Mitglieder enthält.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getMemberNames
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Ein Objekt, das Sie mit einer <codeph class="+ topic/ph pr-d/codeph ">for each..in</codeph>-Schleife durchlaufen müssen, um die QNames für jede Eigenschaft zu erhalten.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">o</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Das zu analysierende Objekt.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">instanceNames</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Wenn das Objekt eine Klasse ist und instanceNames den Wert „true“ hat, melden Sie anstatt der Namen der Klassenmitglieder die Instanznamen, als ob das Objekt eine Instanz der Klasse wäre.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gibt ein Objekt zurück, das alle Mitglieder eines angegebenen Objekts einschließlich privater Mitglieder enthält. Sie können das zurückgegebene Objekt dann durchlaufen, um alle Werte zu sehen. Diese Methode ähnelt der flash.utils.describeType()-Methode, ermöglicht Ihnen jedoch auch, private Member zu sehen und überspringt den Zwischenschritt der XML-Objekterstellung. Nur für Flash Player-Debugger-Version.
+     
+     </apiDesc><example conref="examples\GetMemberNamesExample.as" class="- topic/example "> Das folgende Beispiel verwendet die <codeph class="+ topic/ph pr-d/codeph ">getMemberNames()</codeph>-Methode, um ein Objekt zu analysieren und die <codeph class="+ topic/ph pr-d/codeph ">buttonMode</codeph>-, <codeph class="+ topic/ph pr-d/codeph ">filters</codeph>- und <codeph class="+ topic/ph pr-d/codeph ">dispatchEvent</codeph>-Eigenschaft ihrer Mitglieder anzuzeigen. Um den Speicherprofiler zu verwenden, muss die Flash Player-Debugger-Version 9.0.115.0 oder höher installiert sein.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ package 
+{
+  import flash.sampler.*;
+  import flash.system.*;
+  import flash.display.Sprite;
+  public class getMemberNamesTest extends Sprite
+    {
+      public function getMemberNamesTest()
+    {
+      var name_iter = getMemberNames(this);
+      var o={};
+      for each(var name:QName in name_iter) {
+        o[name.localName] = "got it";
+      }
+
+      name_iter = getMemberNames(this);
+      var count=0;
+      for(var dum in name_iter) {
+        count++;
+      }
+      trace(count == 1);
+
+      // my member
+      trace("buttonMode" in o);
+      // inherited member
+      trace("filters" in o);
+      // inherited function
+      trace("dispatchEvent" in o);
+
+      var name_iter = getMemberNames(getMemberNamesTest, true);
+      var o={};
+      for each(var name:QName in name_iter) {
+        o[name.localName] = "got it";
+      }
+
+      // my member
+      trace("buttonMode" in o);
+      // inherited member
+      trace("filters" in o);
+      // inherited function
+      trace("dispatchEvent" in o);
+
+    }
+    }
+}
+</codeblock></example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.utils.xml#/describeType()" class="- topic/link "><linktext class="- topic/linktext ">flash.utils.describeType()</linktext></link><link href="../../statements.html#for_each..in" class="- topic/link "><linktext class="- topic/linktext ">for each..in</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getSampleCount" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSampleCount</apiName><shortdesc class="- topic/shortdesc ">
+     Gibt die Anzahl der gesammelten Samples zurück.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getSampleCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Ein Iterator von Sample-Instanzen.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gibt die Anzahl der gesammelten Samples zurück. Nur für Flash Player-Debugger-Version.
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#Sample" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.Sample</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getSamples" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSamples</apiName><shortdesc class="- topic/shortdesc ">
+     Gibt ein Objekt von Speichernutzungs-Sample-Instanzen aus der letzten Sampling-Sitzung zurück.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getSamples
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Ein Iterator von Sample-Instanzen.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gibt ein Objekt von Speichernutzungs-Sample-Instanzen aus der letzten Sampling-Sitzung zurück. Nur für Flash Player-Debugger-Version.
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#Sample" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.Sample</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getSavedThis" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSavedThis</apiName><shortdesc class="- topic/shortdesc ">
+     Gibt das gespeicherte "this" von einem Methodenabschluss zurück, das sie normalerweise nicht in AS sehen können.</shortdesc><prolog class="- topic/prolog "/><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Ein Objekt, das das "this" der MethodClosure ist
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Function</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Eine MethodClosure-Instanz
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gibt das gespeicherte "this" von einem Methodenabschluss zurück, das sie normalerweise nicht in AS sehen können.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:getSetterInvocationCount" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSetterInvocationCount</apiName><shortdesc class="- topic/shortdesc ">
+     Gibt die Anzahl der Ausführungen einer set-Funktion zurück.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getInvocationCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Die Anzahl der Ausführungen einer set-Methode.
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Eine Methodeninstanz oder eine Klasse.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">qname</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">QName</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Wenn qname den Wert <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph> aufweist, wird die Anzahl der Iterationen der Konstruktorfunktion zurückgegeben.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gibt die Anzahl der Ausführungen einer set-Funktion zurück. Überprüfen Sie mit <codeph class="+ topic/ph pr-d/codeph ">isGetterSetter()</codeph>, dass Sie über eine get/set-Funktion verfügen, bevor Sie <codeph class="+ topic/ph pr-d/codeph ">getSetterInvocationCount()</codeph> verwenden. Nur für Flash Player-Debugger-Version.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#isGetterSetter()" class="- topic/link "><linktext class="- topic/linktext ">isGetterSetter()</linktext></link><link href="package.html#getInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getInvocationCount()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:getSize" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getSize</apiName><shortdesc class="- topic/shortdesc ">
+    Gibt die Größe eines angegebenen Objekts im Speicher zurück, wenn die Debugger-Version von Flash Player 9.0.115.0 oder höher verwendet wird.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getSize
+    </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Die Bytezählung des vom angegebenen Objekt verwendeten Speichers.
+    </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">o</apiItemName><apiType value="any" name="type" class="- topic/state reference/state apiRef/apiType "/><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Das für die Speichernutzung zu analysierende Objekt.
+    </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    Gibt die Größe eines angegebenen Objekts im Speicher zurück, wenn die Debugger-Version von Flash Player 9.0.115.0 oder höher verwendet wird. Wenn diese Methode mit einer anderen Flash Player-Version als der Debugger-Version verwendet wird, gibt sie <codeph class="+ topic/ph pr-d/codeph ">0</codeph> zurück.
+    </apiDesc><example conref="examples\DeletedObjectSizeExample.as" class="- topic/example "> Im folgenden Beispiel werden <codeph class="+ topic/ph pr-d/codeph ">startSampling()</codeph> und <codeph class="+ topic/ph pr-d/codeph ">pauseSampling</codeph> verwendet, um Sample-Objekte zu sammeln. Dann werden die Sample-Objekte nach <codeph class="+ topic/ph pr-d/codeph ">id</codeph>-Werten und Größen durchlaufen. Nach dem Aufruf von <codeph class="+ topic/ph pr-d/codeph ">System.gc()</codeph> zum Stoppen des aktuellen Prozesses werden die deletedObjectSample-Objekte mit den ursprünglichen <codeph class="+ topic/ph pr-d/codeph ">id</codeph>-Werten verglichen und ihre Größe wird angezeigt. Um den Speicherprofiler zu verwenden, muss die Flash Player-Debugger-Version 9.0.115.0 oder höher installiert sein.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ package {
+  import flash.sampler.*;
+  import flash.system.*;
+  import flash.display.Sprite;
+  import flash.utils.Dictionary;
+  public class deletedObjectSize extends Sprite {
+    public function deletedObjectSize() {
+
+      startSampling();
+      var obj = {};
+      pauseSampling();
+
+      var id:Number;
+      var sampleIter = getSamples();
+      for each(var s:Sample in sampleIter) {
+    id = s.id;
+      }
+      
+      sampleIter = getSamples();
+      var count=0;
+      for(var dum in sampleIter) {
+    count++;
+      }
+      trace(count == 1);
+
+      var size:Number = getSize(obj);
+      obj = undefined;
+
+      startSampling();
+
+      // force DRC
+      for(var i:int=0;i&lt;1000;i++)
+    new Object();
+      
+      System.gc();
+
+      pauseSampling();
+      
+      var sampleIter = getSamples();
+      for each(var s:Sample in sampleIter) {
+    //    trace(s);
+    if(s is DeleteObjectSample &amp;&amp; s.id == id) {
+      trace(s.size == size);
+    }      
+      }       
+
+    }
+  }
+}
+</codeblock></example></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:isGetterSetter" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">isGetterSetter</apiName><shortdesc class="- topic/shortdesc ">
+     Überprüft, ob eine Eigenschaft durch eine get/set-Funktion definiert wird.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">getInvocationCount
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Ein boolescher Wert, der angibt, ob die Eigenschaft durch eine get/set-Funktion definiert wird (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) oder nicht (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>).
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">obj</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Object</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Eine Methodeninstanz oder eine Klasse.
+     </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">qname</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">QName</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Wenn qname den Wert <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph> aufweist, wird die Anzahl der Iterationen der Konstruktorfunktion zurückgegeben.
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Überprüft, ob eine Eigenschaft durch eine get/set-Funktion definiert wird. Wenn Sie <codeph class="+ topic/ph pr-d/codeph ">getInvocationCount()</codeph> mit einer get/set-Funktion für eine Eigenschaft verwenden möchten, rufen Sie zuerst <codeph class="+ topic/ph pr-d/codeph ">isGetterSetter()</codeph> auf, um zu überprüfen, ob es sich um eine get/set-Funktion handelt, und rufen Sie die entsprechende Anzahl dann mit <codeph class="+ topic/ph pr-d/codeph ">getSetterInvocationCount</codeph> oder <codeph class="+ topic/ph pr-d/codeph ">getGetterInvocationCount</codeph> ab. Nur für Flash Player-Debugger-Version.
+     </apiDesc><example conref="examples\GetInvocationCountExample.as" class="- topic/example "> 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+ package 
+{
+  public function exec3() {}
+
+  import flash.sampler.*;
+  import flash.system.*;
+  import flash.display.Sprite;
+  import flash.utils.*;
+  public class getInvocationCountTest extends Sprite
+    {
+      public function getInvocationCountTest()
+    {
+      for(var i:int=0;i&lt;10;i++)
+        exec();
+      for(var i:int=0;i&lt;10;i++)
+        exec2();
+      for(var i:int=0;i&lt;10;i++)
+        exec3();
+
+      // get exec QName
+      var execName:QName;
+          var name:QName;
+      var fooName:QName;
+      for each(name in getMemberNames(this)) {
+          if(name.localName == "exec")
+          execName = name;
+          if(name.localName == "foo")
+          fooName = name;
+      }
+
+      var exec2Name:QName;
+      for each(name in getMemberNames(getInvocationCountTest)) {
+          if(name.localName == "exec2")
+          exec2Name = name;
+      }
+
+      // execute get/set
+      foo = "bar";
+
+      trace(isGetterSetter(this, fooName));
+      trace(getSetterInvocationCount(this, fooName) == 1);
+      trace(getGetterInvocationCount(this, fooName) == 0);
+
+      foo;
+      
+      trace(getSetterInvocationCount(getInvocationCountTest, fooName) == 1);
+      trace(getGetterInvocationCount(getInvocationCountTest, fooName) == 1);
+
+      trace(getInvocationCount(this, execName) == 10);
+      trace(getInvocationCount(getInvocationCountTest, execName) == 10);
+      trace(getInvocationCount(getInvocationCountTest, exec2Name) == 10);
+      trace(getInvocationCount(getInvocationCountTest, undefined) == 1);
+    
+      getTimer();
+      getTimer();
+
+      trace(getInvocationCount(undefined, new QName("", "trace")) == 9);
+      trace(getInvocationCount(undefined, new QName("flash.utils", "getTimer")) == 2);
+      trace(getInvocationCount(undefined, new QName("", "exec3")) == 10);
+
+    }
+
+      private function exec():void {}
+      private static function exec2():void {}
+
+      private function get foo():String { return "fo"; }
+      private function set foo(s:String) { }
+      
+    }
+}
+</codeblock></example></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#getInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getInvocationCount()</linktext></link><link href="package.html#getSetterInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getSetterInvocationCount()</linktext></link><link href="package.html#getGetterInvocationCount()" class="- topic/link "><linktext class="- topic/linktext ">getGetterInvocationCount()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:pauseSampling" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">pauseSampling</apiName><shortdesc class="- topic/shortdesc ">
+     Beendet den Sammelvorgang vorübergehend.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">pauseSampling
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Beendet den Sammelvorgang vorübergehend. Starten Sie den Sampling-Prozess mit <codeph class="+ topic/ph pr-d/codeph ">startSampling()</codeph> neu. Nur für Flash Player-Debugger-Version.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="package.html#startSampling()" class="- topic/link "><linktext class="- topic/linktext ">startSampling()</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:sampleInternalAllocs" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">sampleInternalAllocs</apiName><shortdesc class="- topic/shortdesc ">
+     Teilt dem Sampler mit, ob NewObjectSamples für interne Zuordnungen aus dem Flash Player erstellt werden sollen.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">sampleInternalAllocs
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">b</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Teilt dem Sampler mit, ob NewObjectSamples für interne Zuordnungen aus dem Flash Player erstellt werden sollen. Wenn hierfür der Wert „true“ eingestellt wird, generiert jede Zuordnung ein NewObjectSample. Diese internen Zuordnungen haben keinen Typ oder einen Verweis auf das Objekt. Sie haben den ActionScript-Stacktrace, der die Zuordnung ausgelöst hat. Der Standardwert ist „false“, wodurch nur Zuordnungen für ActionScript-Objekte gesammelt werden.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:setSamplerCallback" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setSamplerCallback</apiName><shortdesc class="- topic/shortdesc ">
+     Legt eine Rückruffunktion für den Sampler fest - diese Funktion wird aufgerufen, wenn der Samplestream beinahe leer ist.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">sampleInternalAllocs
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">f</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Function</apiOperationClassifier></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Legt eine Rückruffunktion für den Sampler fest - diese Funktion wird aufgerufen, wenn der Samplestream beinahe leer ist. Diese sollte verwendet werden, um Samples zu verarbeiten, bevor der Samplepuffer voll ist. pauseSampling wird aufgerufen, bevor der Rückruf aufgerufen wird, und startSampling wird aufgerufen, bevor der Rückruf ausgeführt wurde.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="globalOperation:flash.sampler:startSampling" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">startSampling</apiName><shortdesc class="- topic/shortdesc ">
+     Beginnt mit dem Sammeln von Speichernutzungs-Sample-Objekten.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">startSampling
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Beginnt mit dem Sammeln von Speichernutzungs-Sample-Objekten. Nur für Flash Player-Debugger-Version.
+     </apiDesc><example conref="examples\StartSamplingExample.as" class="- topic/example "> Im folgenden Beispiel wird der Sampling-Prozess eingeleitet und durchläuft die gesammelten Objekte. Um den Speicherprofiler zu verwenden, muss die Flash Player-Debugger-Version 9.0.115.0 oder höher installiert sein.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.sampler.*
+    import flash.system.*
+    import flash.display.Sprite
+    public class startSampling extends Sprite
+    {
+        public function startSampling()
+        {
+            flash.sampler.startSampling();
+            for(var i:int=0;i&lt;1000;i++)
+                new Object()
+            trace(getSampleCount() > 0)
+        }
+    }
+}
+</codeblock></example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#Sample" class="- topic/link "><linktext class="- topic/linktext ">Sample-Klasse</linktext></link></related-links></apiOperation><apiOperation id="globalOperation:flash.sampler:stopSampling" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">stopSampling</apiName><shortdesc class="- topic/shortdesc ">
+     Beendet das Sammeln von Speichernutzungs-Sample-Objekten und macht Ressourcen frei, die für das Sammeln verwendet wurden.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">stopSampling
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Beendet das Sammeln von Speichernutzungs-Sample-Objekten und macht Ressourcen frei, die für das Sammeln verwendet wurden. Sie starten den Sampling-Prozess mit <codeph class="+ topic/ph pr-d/codeph ">startSampling()</codeph>. Nur für Flash Player-Debugger-Version.
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#Sample" class="- topic/link "><linktext class="- topic/linktext ">Sample-Klasse</linktext></link></related-links></apiOperation><apiClassifier languages="" id="flash.sampler:Sample" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Sample</apiName><shortdesc class="- topic/shortdesc ">
+     Die Sample-Klasse erstellt Objekte, die Speicheranalyseinformationen für einen bestimmten Zeitraum enthalten.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Sample
+     </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Die Sample-Klasse erstellt Objekte, die Speicheranalyseinformationen für einen bestimmten Zeitraum enthalten. Nur für Flash Player-Debugger-Version.
+     
+     </apiDesc><example conref="examples\SampleTypesExample.as" class="- topic/example "> Im folgenden Beispiel werden mit den <codeph class="+ topic/ph pr-d/codeph ">stack</codeph>- und <codeph class="+ topic/ph pr-d/codeph ">time</codeph>-Eigenschaft eines Sample-Objekts <codeph class="+ topic/ph pr-d/codeph ">s</codeph> Speicher-Samples gesammelt. Die Samples enthalten NewObjectSample-Objekte (das <codeph class="+ topic/ph pr-d/codeph ">newSamples</codeph>-Array), DeleteObjectSample-Objekte (das <codeph class="+ topic/ph pr-d/codeph ">delSamples</codeph>-Array) und CPU-Speicher-Sample-Objekte (das <codeph class="+ topic/ph pr-d/codeph ">cpuSamples</codeph>-Array). Um den Speicherprofiler zu verwenden, muss die Flash Player-Debugger-Version 9.0.115.0 oder höher installiert sein.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.sampler.*
+    import flash.system.*
+    import flash.utils.*
+    import flash.display.Sprite
+    public class sampleTypes extends Sprite
+    {
+      var b:Boolean = true
+        public function sampleTypes() {
+            flash.sampler.startSampling();
+            for(var i:int=0;i&lt;10000;i++)
+              new Object();
+
+            var cpuSamples:Array=[];
+            var newSamples:Array=[];
+            var delSamples:Array=[];
+            var ids:Array=[]
+
+            var lastTime:Number=0;
+            for each(var s:Sample in getSamples()) {
+              
+              assert(s.time > 0); // positive
+              assert(Math.floor(s.time) == s.time, s.time); // integral
+              assert(s.time >= lastTime, s.time + ":" + lastTime); // ascending
+              assert(s.stack == null || s.stack is Array)
+              if(s.stack) {
+                assert(s.stack[0] is StackFrame);
+                assert(s.stack[0].name is String);
+            }
+              
+              if(s is NewObjectSample) {
+                var nos = NewObjectSample(s);
+                assert(s.id > 0, s.id);
+                assert(s.type is Class, getQualifiedClassName(s.type));
+                newSamples.push(s);
+                ids[s.id] = "got one";
+              } else if(s is DeleteObjectSample) {
+                var dos = DeleteObjectSample(s);
+                delSamples.push(s);
+                assert(ids[dos.id] == "got one");
+              } else if(s is Sample)
+                cpuSamples.push(s);
+              else {
+                assert(false);
+              }
+              lastTime = s.time;
+            }
+
+            trace(b)
+            trace(newSamples.length > 0)
+            trace(cpuSamples.length > 0)
+            trace(delSamples.length > 0)
+
+        }
+
+        private function assert(e:Boolean, mess:String=null):void {
+          b = e &amp;&amp; b;
+          if(true &amp;&amp; !e) {
+            if(mess) trace(mess);
+            trace(new Error().getStackTrace());
+          }     
+        }         
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="package.html#getSamples()" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.getSamples()</linktext></link></related-links><apiValue id="flash.sampler:Sample:stack" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">stack</apiName><shortdesc class="- topic/shortdesc ">
+         Enthält Informationen zu den Methoden, die in einem bestimmten Zeitraum vom Flash Player ausgeführt wurden.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Sample, Sample.stack, stack
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Enthält Informationen zu den Methoden, die in einem bestimmten Zeitraum vom Flash Player ausgeführt wurden. Das Format der Stack-Trace ähnelt dem Inhalt, der im Ausnahme-Dialogfeld der Debugger-Version des Flash Player angezeigt wird. Nur für Flash Player-Debugger-Version.
+         </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sampler:Sample:time" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">time</apiName><shortdesc class="- topic/shortdesc ">
+         Die Mikrosekunden, die die Dauer der Sample-Instanz definieren.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Sample, Sample.time, time
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Die Mikrosekunden, die die Dauer der Sample-Instanz definieren. Nur für Flash Player-Debugger-Version.
+         
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.sampler:DeleteObjectSample" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">DeleteObjectSample</apiName><shortdesc class="- topic/shortdesc ">
+    Die DeleteObjectSample-Klasse repräsentiert Objekte, die innerhalb eines getSamples()-Streams erstellt werden; jedes DeleteObjectSample-Objekt entspricht einem NewObjectSample-Objekt.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">DeleteObjectSample
+    </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.sampler:Sample</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    Die DeleteObjectSample-Klasse repräsentiert Objekte, die innerhalb eines <codeph class="+ topic/ph pr-d/codeph ">getSamples()</codeph>-Streams erstellt werden; jedes DeleteObjectSample-Objekt entspricht einem NewObjectSample-Objekt. Nur für Flash Player-Debugger-Version.
+    </apiDesc><example conref="examples\SampleTypesExample.as" class="- topic/example "> Im folgenden Beispiel werden mit den <codeph class="+ topic/ph pr-d/codeph ">stack</codeph>- und <codeph class="+ topic/ph pr-d/codeph ">time</codeph>-Eigenschaft eines Sample-Objekts <codeph class="+ topic/ph pr-d/codeph ">s</codeph> Speicher-Samples gesammelt. Die Samples enthalten NewObjectSample-Objekte (das <codeph class="+ topic/ph pr-d/codeph ">newSamples</codeph>-Array), DeleteObjectSample-Objekte (das <codeph class="+ topic/ph pr-d/codeph ">delSamples</codeph>-Array) und CPU-Speicher-Sample-Objekte (das <codeph class="+ topic/ph pr-d/codeph ">cpuSamples</codeph>-Array). Um den Speicherprofiler zu verwenden, muss die Flash Player-Debugger-Version 9.0.115.0 oder höher installiert sein.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.sampler.*
+    import flash.system.*
+    import flash.utils.*
+    import flash.display.Sprite
+    public class sampleTypes extends Sprite
+    {
+      var b:Boolean = true
+        public function sampleTypes() {
+            flash.sampler.startSampling();
+            for(var i:int=0;i&lt;10000;i++)
+              new Object();
+
+            var cpuSamples:Array=[];
+            var newSamples:Array=[];
+            var delSamples:Array=[];
+            var ids:Array=[]
+
+            var lastTime:Number=0;
+            for each(var s:Sample in getSamples()) {
+              
+              assert(s.time > 0); // positive
+              assert(Math.floor(s.time) == s.time, s.time); // integral
+              assert(s.time >= lastTime, s.time + ":" + lastTime); // ascending
+              assert(s.stack == null || s.stack is Array)
+              if(s.stack) {
+                assert(s.stack[0] is StackFrame);
+                assert(s.stack[0].name is String);
+            }
+              
+              if(s is NewObjectSample) {
+                var nos = NewObjectSample(s);
+                assert(s.id > 0, s.id);
+                assert(s.type is Class, getQualifiedClassName(s.type));
+                newSamples.push(s);
+                ids[s.id] = "got one";
+              } else if(s is DeleteObjectSample) {
+                var dos = DeleteObjectSample(s);
+                delSamples.push(s);
+                assert(ids[dos.id] == "got one");
+              } else if(s is Sample)
+                cpuSamples.push(s);
+              else {
+                assert(false);
+              }
+              lastTime = s.time;
+            }
+
+            trace(b)
+            trace(newSamples.length > 0)
+            trace(cpuSamples.length > 0)
+            trace(delSamples.length > 0)
+
+        }
+
+        private function assert(e:Boolean, mess:String=null):void {
+          b = e &amp;&amp; b;
+          if(true &amp;&amp; !e) {
+            if(mess) trace(mess);
+            trace(new Error().getStackTrace());
+          }     
+        }         
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="package.html#getSamples()" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.getSamples()</linktext></link></related-links><apiValue id="flash.sampler:DeleteObjectSample:id" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">id</apiName><shortdesc class="- topic/shortdesc ">
+         Die eindeutige Identifikationsnummer, die mit der Identifikationsnummer eines NewObjectSample abgeglichen wird.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">DeleteObjectSample, DeleteObjectSample.id, id
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Die eindeutige Identifikationsnummer, die mit der Identifikationsnummer eines NewObjectSample abgeglichen wird. Nur für Flash Player-Debugger-Version.
+         </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#NewObjectSample/id" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.NewObjectSample.id</linktext></link></related-links></apiValue><apiValue id="flash.sampler:DeleteObjectSample:size" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">size</apiName><shortdesc class="- topic/shortdesc ">
+         Die Größe des DeleteObjectSample-Objekts vor dem Löschen.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9.0.115.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">DeleteObjectSample, DeleteObjectSample.size, size
+         </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+         Die Größe des DeleteObjectSample-Objekts vor dem Löschen. Nur für Flash Player-Debugger-Version.
+         </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sampler.xml#NewObjectSample/id" class="- topic/link "><linktext class="- topic/linktext ">flash.sampler.NewObjectSample.id</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

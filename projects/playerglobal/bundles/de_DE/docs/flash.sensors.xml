@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.sensors" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.sensors</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.sensors:Accelerometer" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Accelerometer</apiName><shortdesc class="- topic/shortdesc ">
+ 	Die Accelerometer-Klasse setzt Ereignisse ab, die auf einer vom Bewegungssensor des Geräts erkannten Aktivität basieren.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Accelerometer-Klasse
+	
+	</apiTipText></apiTipTexts><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Die Accelerometer-Klasse setzt Ereignisse ab, die auf einer vom Bewegungssensor des Geräts erkannten Aktivität basieren. Diese Daten repräsentieren die Position des Geräts oder die Bewegung entlang einer dreidimensionalen Achse. Wenn das Gerät bewegt wird, erkennt der Sensor diese Bewegung und gibt Beschleunigungsdaten zurück. Die Accelerometer-Klasse bietet Methoden zum Abfragen, ob ein Beschleunigungssensor unterstützt wird oder nicht, und zum Festlegen der Rate, mit der Beschleunigungsereignisse abgesetzt werden.
+	<p class="- topic/p "><b class="+ topic/ph hi-d/b ">Hinweis:</b> Verwenden Sie die <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph>-Eigenschaft, um zu testen, ob die Laufzeitumgebung die Verwendung dieses Features unterstützt. Während die Accelerometer-Klasse und ihre Mitglieder für die Laufzeitumgebungen, die für jeden API-Eintrag aufgeführt sind, zugänglich sind, bestimmt die aktuelle Umgebung für die Laufzeit die Verfügbarkeit dieser Funktion. Sie können zum Beispiel Code mit den Eigenschaften der Accelerometer-Klasse für Flash Player 10.1 kompilieren, Sie müssen jedoch die <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph>-Eigenschaft verwenden, um die Verfügbarkeit der Accelerometer-Funktion in der aktuellen Entwicklungsumgebung für die Flash Player-Laufzeitumgebung zu testen. Wenn <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph> zur Laufzeit den Wert <codeph class="+ topic/ph pr-d/codeph ">true</codeph> hat, wird Accelerometer zurzeit unterstützt.</p>
+	
+	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">AIR-Profilunterstützung:</i> Diese Funktion wird nur auf mobilen Geräten unterstützt. Auf Desktopgeräten oder Geräten mit AIR für TV wird sie nicht unterstützt. Weitere Informationen zum AIR-Support über mehrere Profile finden Sie unter <xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">Unterstützung von AIR-Profilen</xref>.   
+    </p>
+	
+ 	</apiDesc><example conref="examples\AccelerometerExample.as" class="- topic/example "> Im folgenden Beispiel bewegt die Anwendung ein Sprite basierend auf <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignissen für den Beschleunigungssensor. Die <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignisse des Beschleunigungssensors zeigen die Bewegung des Geräts an.    
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+    import flash.display.Sprite;
+    import flash.display.StageAlign;
+    import flash.display.StageScaleMode;
+    import flash.events.Event;
+    import flash.events.AccelerometerEvent;
+    import flash.sensors.Accelerometer;
+
+    public class AccelerometerTest extends Sprite
+    {
+        private var ball:Sprite;
+        private var accelerometer:Accelerometer;        
+        private var xSpeed:Number = 0;
+        private var ySpeed:Number = 0;
+        private const RADIUS = 20;
+        
+        public final function AccelerometerTest()
+        {
+            stage.scaleMode = StageScaleMode.NO_SCALE;
+            stage.align = StageAlign.TOP_LEFT;
+            
+            createBall();
+                                    
+            if (Accelerometer.isSupported)
+            {
+                accelerometer = new Accelerometer();
+                accelerometer.addEventListener(AccelerometerEvent.UPDATE, accUpdateHandler);
+                stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+            }
+        }
+        
+        private final function createBall():void
+        {
+             ball = new Sprite();
+             ball.graphics.beginFill(0xFF0000);
+             ball.graphics.drawCircle(0, 0, RADIUS);
+             ball.cacheAsBitmap = true;
+             ball.x = stage.stageWidth / 2;
+             ball.y = stage.stageHeight / 2;
+             addChild(ball);
+        }
+
+        private final function enterFrameHandler(event:Event):void
+        {
+            event.stopPropagation();
+            moveBall();
+        }
+        private final function moveBall():void
+        {
+            var newX:Number = ball.x + xSpeed;
+            var newY:Number = ball.y + ySpeed;
+            if (newX &lt; 20)
+            {
+                ball.x = RADIUS;
+                xSpeed = 0;
+            }
+            else if (newX > stage.stageWidth - RADIUS)
+            {
+                ball.x = stage.stageWidth - RADIUS;
+                xSpeed = 0;
+            }
+            else
+            {
+                ball.x += xSpeed;
+            }
+            
+            if (newY &lt; RADIUS)
+            {
+                ball.y = RADIUS;
+                ySpeed = 0;
+            }
+            else if (newY > stage.stageHeight - RADIUS)
+            {
+                ball.y = stage.stageHeight - RADIUS;
+                ySpeed = 0;
+            }
+            else
+            {
+                ball.y += ySpeed;
+            }
+        }
+
+        private final function accUpdateHandler(event:AccelerometerEvent):void
+        {
+            xSpeed -= event.accelerationX * 2;
+            ySpeed += event.accelerationY * 2;
+        }
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Accelerometer/isSupported" class="- topic/link "><linktext class="- topic/linktext ">isSupported</linktext></link><link href="flash.events.xml#AccelerometerEvent" class="- topic/link "><linktext class="- topic/linktext ">flash.events.AccelerometerEvent</linktext></link><link href="http://www.riagora.com/2010/04/air-and-the-accelerometer/" class="- topic/link "><linktext class="- topic/linktext ">Michael Chaize: AIR and the Accelerometer</linktext></link><link href="http://www.riagora.com/2010/05/become-an-air-pilot/" class="- topic/link "><linktext class="- topic/linktext ">Michael Chaize: Become an AIR Pilot</linktext></link></related-links><adobeApiEvent id="flash.sensors:Accelerometer_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+	Wird abgesetzt, wenn ein Beschleunigungssensor seinen Status ändert.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Wird abgesetzt, wenn ein Beschleunigungssensor seinen Status ändert. 
+	
+	<p class="- topic/p "><b class="+ topic/ph hi-d/b ">Hinweis:</b> Bei einigen Geräten ist der Beschleunigungssensor immer verfügbar. Bei derartigen Geräten setzt ein Accelerometer-Objekt niemals <codeph class="+ topic/ph pr-d/codeph ">status</codeph>-Ereignisse ab.</p>
+	
+	</apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="flash.sensors:Accelerometer_flash.events.AccelerometerEvent.UPDATE_update" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">update</apiName><shortdesc class="- topic/shortdesc ">
+ 	Das update-Ereignis wird in Reaktion auf Updates vom Beschleunigungssensor abgesetzt.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.AccelerometerEvent.UPDATE</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.AccelerometerEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Das <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignis wird in Reaktion auf Updates vom Beschleunigungssensor abgesetzt. Das Ereignis wird unter den folgenden Umständen abgesetzt:
+	
+ 	<p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">Wenn eine neue Listener-Funktion mit <codeph class="+ topic/ph pr-d/codeph ">addEventListener()</codeph> hinzugefügt wird, wird dieses Ereignis einmalig allen registrierten Listenern für die Bereitstellung des aktuellen Werts des Beschleunigungssensors zugestellt.</li><li class="- topic/li ">Wenn Aktualisierungen vom Beschleunigungssensor in vom Gerät bestimmten Intervallen von der Plattform empfangen werden.</li><li class="- topic/li ">Wenn die Anwendung eine Änderung des Beschleunigungssensors verpasst (zum Beispiel die Wiederaufnahme der Laufzeitumgebung nach einer Zeit der Inaktivität).</li></ul></p>
+ 	
+ 	</apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="flash.sensors:Accelerometer:Accelerometer" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">Accelerometer</apiName><shortdesc class="- topic/shortdesc ">
+		Erstellt eine neue Accelerometer-Instanz.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		Erstellt eine neue Accelerometer-Instanz. 
+		
+		</apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="flash.sensors:Accelerometer:setRequestedUpdateInterval" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setRequestedUpdateInterval</apiName><shortdesc class="- topic/shortdesc ">
+		 Mit der setRequestedUpdateInterval-Methode wird das gewünschte Zeitintervall für Aktualisierungen festgelegt.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Das angegebene <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> ist kleiner als null.
+		  
+		  </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">interval</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Das angeforderte Aktualisierungsintervall. Wenn <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> auf 0 gesetzt ist, wird das unterstützte Mindestaktualisierungsintervall verwendet.
+ 		 
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Mit der <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval</codeph>-Methode wird das gewünschte Zeitintervall für Aktualisierungen festgelegt. Das Zeitintervall wird in Millisekunden gemessen. Das Aktualisierungsintervall wird zur Schonung der Akkuenergie nur als Näherungswert verwendet. Die tatsächliche Zeitspanne zwischen Beschleunigungsaktualisierungen kann größer oder kleiner als dieser Wert sein. Änderungen am Aktualisierungsintervall betreffen alle registrierten Listener. Sie können die Accelerometer-Klasse verwenden, ohne die <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval()</codeph>-Methode aufzurufen. In diesem Fall empfängt die Anwendung Aktualisierungen entsprechend dem Standardintervall des Geräts.  
+		 
+ 		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sensors:Accelerometer:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+	Die isSupported-Eigenschaft ist auf „true“ gesetzt, wenn der Beschleunigungssensor im Gerät verfügbar ist, andernfalls hat sie den Wert „false“.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Die <codeph class="+ topic/ph pr-d/codeph ">isSupported</codeph>-Eigenschaft ist auf <codeph class="+ topic/ph pr-d/codeph ">true</codeph> gesetzt, wenn der Beschleunigungssensor im Gerät verfügbar ist, andernfalls hat sie den Wert <codeph class="+ topic/ph pr-d/codeph ">false</codeph>. 
+	
+ 	</apiDesc><example conref="examples\Accelerometer_isSupported.as" class="- topic/example "> Im folgenden Beispiel wird mit der <codeph class="+ topic/ph pr-d/codeph ">Accelerometer.isSupported</codeph>-Eigenschaft getestet, ob Accelerometer zur Laufzeit unterstützt wird. Wenn die aktuelle Umgebung die Accelerometer-Funktion unterstützt, wird dem Accelerometer-Objekt ein Ereignis-Listener hinzugefügt und die dazugehörige Prozedur füllt das Textfeld mit dem Zeitstempel und den Werten des Beschleunigungssensors aus. Andernfalls gibt das Textfeld an, dass die Funktion in der aktuellen Umgebung nicht unterstützt wird.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+var myTextField:TextField = new TextField();
+myTextField.width = 200;
+addChild(myTextField);
+var acc1:Accelerometer = new Accelerometer();
+var isSupported:Boolean = Accelerometer.isSupported;
+checksupport();
+
+function checksupport():void {
+    if (isSupported) {
+        myTextField.text = "Accelerometer feature supported";
+        acc1.addEventListener(AccelerometerEvent.UPDATE, updateHandler);
+    } else {
+        myTextField.text = "Accelerometer feature not supported";
+    }
+}
+
+function updateHandler(evt:AccelerometerEvent):void {
+    myTextField.text = String("at: " + evt.timestamp + "\n" + "acceleration X: " + evt.accelerationX + "\n" + "acceleration Y: " + evt.accelerationY + "\n" + "acceleration Z: " + evt.accelerationZ);
+
+}
+</codeblock></example></apiValueDetail></apiValue><apiValue id="flash.sensors:Accelerometer:muted:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">muted</apiName><shortdesc class="- topic/shortdesc "> 
+		 Gibt an, ob der Benutzer den Zugriff auf den Beschleunigungssensor verweigert (true) oder gewährt hat (false).</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Accelerometer, Accelerometer.muted, muted
+		 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 Gibt an, ob der Benutzer den Zugriff auf den Beschleunigungssensor verweigert (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) oder gewährt hat (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>). Wenn sich dieser Wert ändert, wird ein <codeph class="+ topic/ph pr-d/codeph ">status</codeph>-Ereignis ausgelöst.
+		 
+		 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Accelerometer/event:status" class="- topic/link "><linktext class="- topic/linktext ">status</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.sensors:Geolocation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Geolocation</apiName><shortdesc class="- topic/shortdesc ">
+ 	Die Geolocation-Klasse setzt Ereignisse in Reaktion auf den Positionssensor des Geräts ab.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Die Geolocation-Klasse setzt Ereignisse in Reaktion auf den Positionssensor des Geräts ab. 
+	
+	<p class="- topic/p ">Wenn ein Gerät die Geolokalisierung unterstützt, können Sie diese Klasse verwenden, um die aktuelle geografische Position des Geräts abzurufen. Die geografische Position wird auf dem Gerät mit Breitengrad- und Längengrad-Koordinaten angegeben (im WGS-84-Standardformat). Wenn sich die Position des Geräts ändert, können Sie Aktualisierungen zu den Änderungen empfangen. Wenn das Gerät diese Funktion unterstützt, können Sie Informationen zu Höhe, Genauigkeit, Richtung und Geschwindigkeit sowie den Zeitstempel der letzten Positionsänderungen abrufen.</p>
+ 	
+	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">AIR-Profilunterstützung:</i> Diese Funktion wird nur auf mobilen Geräten unterstützt. Auf Desktopgeräten oder Geräten mit AIR für TV wird sie nicht unterstützt. Mit der <codeph class="+ topic/ph pr-d/codeph ">Geolocation.isSupported</codeph>-Eigenschaft können Sie testen, ob zur Laufzeit Unterstützung gegeben ist. Weitere Informationen zum AIR-Support über mehrere Profile finden Sie unter <xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">Unterstützung von AIR-Profilen</xref>.  
+    </p>	
+	
+ 	</apiDesc><example conref="examples\GeolocationExample.as" class="- topic/example "> Im folgenden Beispiel zeigt die Anwendung den Breitengrad, den Längengrad und die horizontale Genauigkeit von <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Geolokalisierungsereignissen an, wenn sie empfangen werden.    
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{
+   import flash.display.Sprite;
+   import flash.display.StageAlign;
+   import flash.display.StageScaleMode;
+   import flash.events.GeolocationEvent;
+   import flash.sensors.Geolocation;
+   import flash.text.TextField;
+   import flash.text.TextFormat;
+
+   public class GeolocationTest extends Sprite
+   {
+      private var geo:Geolocation;
+      private var log:TextField;
+      
+      public function GeolocationTest()
+      {
+         stage.scaleMode = StageScaleMode.NO_SCALE;
+         stage.align = StageAlign.TOP_LEFT;
+         setUpTextField();
+                                    
+         if (Geolocation.isSupported)
+         {
+            geo = new Geolocation();
+            geo.setRequestedUpdateInterval(100);
+            geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
+         }
+         else
+         {
+            log.text =  "No geolocation support.";
+         }
+      }
+      
+      private function geolocationUpdateHandler(event:GeolocationEvent):void
+      {
+         log.text = "latitude:" + event.latitude.toString() + "°\n";
+         log.appendText("longitude:" + event.longitude.toString() + "°\n");
+         log.appendText("horizontal accuracy:" + event.horizontalAccuracy.toString() + " m");
+      }
+      private function setUpTextField():void
+      {
+         log = new TextField();
+         var format:TextFormat = new TextFormat("_sans", 24);
+         log.defaultTextFormat = format;
+         log.border = true;
+         log.wordWrap = true;
+         log.multiline = true;
+         log.x = 10;
+         log.y = 10;
+         log.height = stage.stageHeight - 20;
+         log.width = stage.stageWidth - 20;
+         addChild(log);
+      }
+   }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="http://coenraets.org/blog/2010/08/multi-user-google-map-collaboration-on-android/" class="- topic/link "><linktext class="- topic/linktext ">Cristophe Coenraets: Multi-user Google Maps Collaboration</linktext></link></related-links><adobeApiEvent id="flash.sensors:Geolocation_flash.events.StatusEvent.STATUS_status" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">status</apiName><shortdesc class="- topic/shortdesc ">
+  	Das Geolocation-Objekt setzt Statusereignisse ab, wenn der Benutzer den Zugriff auf den Lokalisierungssensor ändert.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.StatusEvent.STATUS</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.StatusEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+  	Das Geolocation-Objekt setzt <codeph class="+ topic/ph pr-d/codeph ">status</codeph>-Ereignisse ab, wenn der Benutzer den Zugriff auf den Lokalisierungssensor ändert. Wenn zum Beispiel der Benutzer in Reaktion auf eine Geräteaufforderung verhindert, dass die Anwendung auf Standortdaten zugreift, setzt das Geolocation-Objekt ein <codeph class="+ topic/ph pr-d/codeph ">status</codeph>-Ereignis ab. Wenn sich der Status zu einem Zustand ändert, in dem der Standortsensor nicht verfügbar ist, wird die <codeph class="+ topic/ph pr-d/codeph ">muted</codeph>-Eigenschaft der Geolocation-Instanz auf <codeph class="+ topic/ph pr-d/codeph ">true</codeph> gesetzt.
+	
+ 	</apiDesc></adobeApiEventDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Geolocation/muted" class="- topic/link "><linktext class="- topic/linktext ">muted</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="flash.sensors:Geolocation_flash.events.GeolocationEvent.UPDATE_update" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef adobeApiEvent/adobeApiEvent "><apiName class="- topic/title reference/title apiRef/apiName ">update</apiName><shortdesc class="- topic/shortdesc ">
+ 	Das update-Ereignis wird in Reaktion auf Updates vom Positionssensor abgesetzt.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><adobeApiEventDetail class="- topic/body reference/refbody apiRef/apiDetail adobeApiEvent/adobeApiEventDetail "><adobeApiEventDef class="- topic/section reference/section apiRef/apiDef adobeApiEvent/adobeApiEventDef "><apiEventType class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiEventType ">flash.events.GeolocationEvent.UPDATE</apiEventType><adobeApiEventClassifier class="- topic/xref reference/xref apiRef/apiRelation adobeApiEvent/adobeApiEventClassifier ">flash.events.GeolocationEvent</adobeApiEventClassifier><apiGeneratedEvent class="- topic/state reference/state apiRef/apiQualifier adobeApiEvent/apiGeneratedEvent "/></adobeApiEventDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	Das <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignis wird in Reaktion auf Updates vom Positionssensor abgesetzt. Das Ereignis wird unter den folgenden Umständen abgesetzt:
+	
+ 	<p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">Wenn eine neue Listener-Funktion mit <codeph class="+ topic/ph pr-d/codeph ">addEventListener()</codeph> hinzugefügt wird, wird dieses Ereignis einmalig allen registrierten Listenern zugestellt, um den aktuellen Wert des Beschleunigungssensors bereitzustellen.</li><li class="- topic/li ">Wenn Aktualisierungen der Position in vom Gerät bestimmten Intervallen von der Plattform empfangen werden.</li><li class="- topic/li ">Wenn die Anwendung eine Änderung der Position verpasst (zum Beispiel, wenn die Anwendung aus dem Standby reaktiviert wird).</li></ul></p>
+ 	
+ 	<p class="- topic/p "><i class="+ topic/ph hi-d/i ">Hinweis:</i> iPhones der ersten Generation, die kein GPS-Modul enthalten, setzen nur gelegentlich <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignisse ab. Bei diesen Geräten setzt ein Geolocation-Objekt anfänglich ein oder zwei <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignisse ab. Danach werden <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignisse abgesetzt, wenn sich Informationen deutlich ändern.</p>
+ 	
+ 	</apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="flash.sensors:Geolocation:Geolocation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">Geolocation</apiName><shortdesc class="- topic/shortdesc ">
+		 Erstellt eine neue Geolocation-Instanz.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Erstellt eine neue Geolocation-Instanz. 
+ 		 
+ 		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="flash.sensors:Geolocation:setRequestedUpdateInterval" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">setRequestedUpdateInterval</apiName><shortdesc class="- topic/shortdesc ">
+		 Legt das Zeitintervall für Aktualisierungen in Millisekunden fest.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Das angegebene <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> ist kleiner als null.
+		  
+		  </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">interval</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Number</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">angefordertes Aktualisierungsintervall. Wenn <codeph class="+ topic/ph pr-d/codeph ">interval</codeph> kleiner oder gleich 0 ist, hat ein Aufruf dieser Methode keine Auswirkungen.
+ 		 
+ 		 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Legt das Zeitintervall für Aktualisierungen in Millisekunden fest. Das Aktualisierungsintervall wird zur Schonung der Akkuenergie nur als Näherungswert verwendet. Die tatsächliche Zeitspanne zwischen Positionsaktualisierungen kann größer oder kleiner als dieser Wert sein. Änderungen am Aktualisierungsintervall mit dieser Methode betreffen alle registrierten <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignis-Listener. Die Geolocation-Klasse kann ohne Aufruf der <codeph class="+ topic/ph pr-d/codeph ">setRequestedUpdateInterval</codeph>-Methode verwendet werden. In diesem Fall gibt die Plattform Aktualisierungen basierend auf ihrem Standardintervall zurück.  
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">Hinweis:</i> iPhones der ersten Generation, die kein GPS-Modul enthalten, setzen nur gelegentlich <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignisse ab. Bei diesen Geräten setzt ein Geolocation-Objekt anfänglich ein oder zwei <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignisse ab. Danach werden <codeph class="+ topic/ph pr-d/codeph ">update</codeph>-Ereignisse abgesetzt, wenn sich Informationen deutlich ändern.</p>
+		 
+ 		 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.sensors:Geolocation:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+ 		 „true“, wenn im Gerät ein Positionssensor verfügbar ist, andernfalls „false“.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 		 <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, wenn im Gerät ein Positionssensor verfügbar ist, andernfalls <codeph class="+ topic/ph pr-d/codeph ">false</codeph>.
+ 		 
+ 		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.sensors:Geolocation:muted:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">muted</apiName><shortdesc class="- topic/shortdesc "> 
+		 Gibt an, ob der Benutzer den Zugriff auf den Positionssensor verweigert (true) oder gewährt hat (false).</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Geolocation, Geolocation.muted, muted
+		 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 Gibt an, ob der Benutzer den Zugriff auf den Positionssensor verweigert (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) oder gewährt hat (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>). Wenn sich dieser Wert ändert, wird ein <codeph class="+ topic/ph pr-d/codeph ">status</codeph>-Ereignis ausgelöst.
+		 
+ 		 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.sensors.xml#Geolocation/event:status" class="- topic/link "><linktext class="- topic/linktext ">status</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

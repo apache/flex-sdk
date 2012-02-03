@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core.windowClasses"><apiName>mx.core.windowClasses</apiName><apiDetail/><apiClassifier id="mx.core.windowClasses:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+  Barre de titre par défaut d’une application WindowedApplication ou Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Barre de titre par défaut d’une application WindowedApplication ou Window.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:TitleBar:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core.windowClasses:TitleBar:protected:doubleClickHandler"><apiName>doubleClickHandler</apiName><shortdesc>
+      Gère un événement doubleClick d’une manière appropriée à la plateforme.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/></apiParam></apiOperationDef><apiDesc>
+      Gère un événement <codeph>doubleClick</codeph> d’une manière appropriée à la plateforme.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeButtons"><apiName>placeButtons</apiName><shortdesc>
+      Détermine l’emplacement des boutons dans la barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>align</apiItemName><apiType value="String"/><apiDesc>Alignement des boutons
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Largeur de la barre de titre
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Hauteur de la barre de titre
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>Quantité d’espace à réserver sur la gauche pour les angles, etc.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>Quantité d’espace à réserver sur la droite pour les angles, etc.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cornerOffset</apiItemName><apiType value="Number"/><apiDesc>Quantité d’éléments à mettre en retrait pour la prise en compte du rayon des angles.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Détermine l’emplacement des boutons dans la barre de titre.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeTitle"><apiName>placeTitle</apiName><shortdesc>
+      Détermine l’alignement du titre dans la barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>titleAlign</apiItemName><apiType value="String"/><apiDesc>Procédure d’alignement du titre.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>Quantité d’espace à réserver sur la gauche pour les angles, etc.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>Quantité d’espace à réserver sur la droite pour les angles, etc.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>buttonAlign</apiItemName><apiType value="String"/><apiDesc>Mode d’alignement des boutons
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Détermine l’alignement du titre dans la barre de titre.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      Appelé par le gestionnaire StyleManager lorsqu’un style change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Nom du style modifié. Dans certains cas, il peut être null, généralement lors de la modification du style global ou du nom styleName.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé par le gestionnaire StyleManager lorsqu’un style change.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core.windowClasses:TitleBar:closeButton"><apiName>closeButton</apiName><shortdesc>
+      Objet bouton qui définit le bouton Fermer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      Objet bouton qui définit le bouton Fermer.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:maximizeButton"><apiName>maximizeButton</apiName><shortdesc>
+      Objet bouton qui définit le bouton Agrandir.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      Objet bouton qui définit le bouton Agrandir.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:minimizeButton"><apiName>minimizeButton</apiName><shortdesc>
+      Objet bouton qui définit le bouton Réduire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      Objet bouton qui définit le bouton Réduire.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleTextField"><apiName>titleTextField</apiName><shortdesc>
+      Champ UITextField dans la barre de titre qui affiche le titre de l’application. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Champ UITextField dans la barre de titre qui affiche le titre de l’application. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:title:get"><apiName>title</apiName><shortdesc>
+      Titre qui s’affiche dans la barre de titre de la fenêtre et de la station d’ancrage ou la barre de tâches.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Titre affiché dans la barre de titre de la fenêtre ainsi que dans le dock ou la barre des tâches.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Icône affichée dans la barre de titre.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Icône affichée dans la barre de titre.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core.windowClasses:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+  Barre d’état par défaut d’une application WindowedApplication ou Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Barre d’état par défaut d’une application WindowedApplication ou Window.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:StatusBar:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.core.windowClasses:StatusBar:statusTextField"><apiName>statusTextField</apiName><shortdesc>
+      Référence au champ UITextField qui affiche le texte de la barre d’état.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Référence au champ UITextField qui affiche le texte de la barre d’état.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:StatusBar:status:get"><apiName>status</apiName><shortdesc>
+      Chaîne qui s’affiche dans la barre d’état, si elle est visible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Chaîne qui s’affiche dans la barre d’état, si elle est visible.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

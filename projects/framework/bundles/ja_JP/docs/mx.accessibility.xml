@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.accessibility"><apiName>mx.accessibility</apiName><apiDetail/><apiClassifier id="mx.accessibility:AccConst"><apiName>AccConst</apiName><shortdesc>
+  AccConst クラスは、Microsoft Active Accessibility（MSAA）仕様で定義されている定数を定義しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AccConst クラスは、Microsoft Active Accessibility（MSAA）仕様で定義されている定数を定義しています。これらの定数は、AccessibilityImplementation のサブクラスを実装するために使用されます。
+ 
+  <p>Flash Player は MSAA を使用してアクセシビリティを提供するので、このファイルに含まれる定数の名前は Microsoft の MSAA SDK と全く同一です。定数の説明は若干変更されています。説明を読む際には、SWF の DisplayObject は IAccessible という名前の COM インターフェイスを介してスクリーンリーダーなどの MSAA クライアントに MSAA 情報を提供するので、Flash Player は「MSAA サーバーアプリケーション」と見なされることに注意してください。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_ACCELERATORCHANGE"><apiName>EVENT_OBJECT_ACCELERATORCHANGE</apiName><shortdesc>
+      オブジェクトの MSAA KeyboardShortcut プロパティが変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8012</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの MSAA KeyboardShortcut プロパティが変化したことを示す MSAA イベントです。
+     
+      <p>MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_CONTENTSCROLLED"><apiName>EVENT_OBJECT_CONTENTSCROLLED</apiName><shortdesc>
+      ウィンドウオブジェクトのスクロールが終了したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8015</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ウィンドウオブジェクトのスクロールが終了したことを示す MSAA イベントです。（MSAA 2.0）
+     
+      <p>類似する EVENT_SYSTEM_SCROLLEND イベントとは異なり、このイベントはスクロールするウィンドウ自体に関連付けられています。水平スクロールと垂直スクロールの間に違いはありません。</p>
+     
+      <p>スクロールの手段（スクロールバー、マウスホイール、キーボードナビゲーションなど）に関係なく、スクロールアクションが完了したときには必ずこのイベントが送信されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_CREATE"><apiName>EVENT_OBJECT_CREATE</apiName><shortdesc>
+      オブジェクトが作成されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトが作成されたことを示す MSAA イベントです。
+     
+      <p>このイベントは、キャレット、ヘッダーコントロール、リストビューコントロール、タブコントロール、ツールバーコントロール、ツリービューコントロール、ウィンドウオブジェクトの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。サーバーは、すべての子オブジェクトに関してこのイベントを送信した後に、親オブジェクトに関してこのイベントを送信する必要があります。サーバーは、親オブジェクトからこのイベントが送信された時点で、すべての子オブジェクトが完全に作成され、クライアントからの IAccessible 呼び出しを受け入れられる状態になっているようにする必要があります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DEFACTIONCHANGE"><apiName>EVENT_OBJECT_DEFACTIONCHANGE</apiName><shortdesc>
+      オブジェクトの MSAA DefaultAction プロパティが変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8011</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの MSAA DefaultAction プロパティが変化したことを示す MSAA イベントです。
+     
+      <p>このイベントはダイアログボックスで変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DESCRIPTIONCHANGE"><apiName>EVENT_OBJECT_DESCRIPTIONCHANGE</apiName><shortdesc>
+      オブジェクトの MSAA Description プロパティが変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの MSAA Description プロパティが変化したことを示す MSAA イベントです。
+     
+      <p>MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DESTROY"><apiName>EVENT_OBJECT_DESTROY</apiName><shortdesc>
+      オブジェクトが破棄されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトが破棄されたことを示す MSAA イベントです。
+     
+      <p>このイベントは、キャレット、ヘッダーコントロール、リストビューコントロール、タブコントロール、ツールバーコントロール、ツリービューコントロール、ウィンドウオブジェクトの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。子オブジェクトで関連するこのイベントは、送信されない場合もあります。ただし、クライアント側では、親オブジェクトからこのイベントが送信された時点で、すべての子が破棄されたものと想定することができます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_FOCUS"><apiName>EVENT_OBJECT_FOCUS</apiName><shortdesc>
+      オブジェクトがキーボードフォーカスを取得したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトがキーボードフォーカスを取得したことを示す MSAA イベントです。
+     
+      <p>このイベントは、リストビューコントロール、メニューバー、ポップアップメニュー、切り替えウィンドウ、タブコントロール、ツリービューコントロール、ウィンドウオブジェクトの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_HELPCHANGE"><apiName>EVENT_OBJECT_HELPCHANGE</apiName><shortdesc>
+      オブジェクトの MSAA Help プロパティが変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8010</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの MSAA Help プロパティが変化したことを示す MSAA イベントです。
+     
+      <p>MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_HIDE"><apiName>EVENT_OBJECT_HIDE</apiName><shortdesc>
+      オブジェクトが非表示になっていることを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトが非表示になっていることを示す MSAA イベントです。
+     
+      <p>このイベントは、キャレットとカーソルの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。親オブジェクトに関してこのイベントが生成された場合、すべての子オブジェクトは既に非表示になっています。したがって、サーバーアプリケーションは子オブジェクトに関してこのイベントを送信する必要はありません。非表示になっているオブジェクトには STATE_SYSTEM_INVISIBLE フラグが含まれ、表示されているオブジェクトにはこのフラグが含まれません。EVENT_OBJECT_HIDE イベントは、STATE_SYSTEM_INVISIBLE フラグが設定されたことも示します。したがって、この場合はサーバーから EVENT_STATE_CHANGE イベントを送信する必要はありません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_INVOKED"><apiName>EVENT_OBJECT_INVOKED</apiName><shortdesc>
+      オブジェクトが呼び出されたことを示す MSAA イベントです。例えば、ユーザーがボタンをクリックしたような場合です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8013</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトが呼び出されたことを示す MSAA イベントです。例えば、ユーザーがボタンをクリックしたような場合です。（MSAA 2.0）
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_LOCATIONCHANGE"><apiName>EVENT_OBJECT_LOCATIONCHANGE</apiName><shortdesc>
+      オブジェクトの位置、シェイプ、またはサイズが変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの位置、シェイプ、またはサイズが変化したことを示す MSAA イベントです。
+     
+      <p>このイベントは、キャレットとウィンドウオブジェクトの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。このイベントは、オブジェクト階層内の最上位オブジェクトが変更された場合に生成されますが、最上位オブジェクトの子が変更された場合には生成されません。例えば、ユーザーがウィンドウのサイズを変更した場合、そのウィンドウに関してはこの通知が送信されますが、一緒に変更されたメニューバー、タイトルバー、スクロールバーなどのオブジェクトに関しては送信されません。非フローティングウィンドウの場合は、親が移動しても、このイベントは送信されません。ただし、アプリケーション本体のサイズが変更される結果として子ウィンドウのサイズが明示的に変更される場合は、変更されるそれぞれの子に関して複数のイベントが送信されます。オブジェクトの State プロパティが STATE_SYSTEM_FLOATING に設定されている場合、サーバーはそのオブジェクトの位置が変化するたびに EVENT_OBJECT_LOCATIONCHANGE を送信する必要があります。オブジェクトがこれ以外の状態に設定されている場合、サーバーは親オブジェクトの移動に伴って子オブジェクトが移動した場合にのみ、このイベントを送信する必要があります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_NAMECHANGE"><apiName>EVENT_OBJECT_NAMECHANGE</apiName><shortdesc>
+      オブジェクトの MSAA Name プロパティが変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの MSAA Name プロパティが変化したことを示す MSAA イベントです。
+     
+      <p>このイベントは、チェックボックス、カーソル、リストビューコントロール、プッシュボタン、ラジオボタン、ステータスバーコントロール、ツリービューコントロール、ウィンドウオブジェクトの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_PARENTCHANGE"><apiName>EVENT_OBJECT_PARENTCHANGE</apiName><shortdesc>
+      オブジェクトの親オブジェクトが変更されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの親オブジェクトが変更されたことを示す MSAA イベントです。
+     
+      <p>MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_REORDER"><apiName>EVENT_OBJECT_REORDER</apiName><shortdesc>
+      コンテナオブジェクトで子の追加、削除、または順序変更が行われたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      コンテナオブジェクトで子の追加、削除、または順序変更が行われたことを示す MSAA イベントです。
+     
+      <p>このイベントは、ヘッダーコントロール、リストビューコントロール、ツールバーコントロール、ウィンドウオブジェクトの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトで変更が発生した場合に、必要に応じてこのイベントを送信します。例えば、リストビューオブジェクトで子要素の数や順序が変更されると、このイベントが生成されます。また、子ウィンドウの z 順序が変更された場合も、親ウィンドウからこのイベントが送信されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONADD"><apiName>EVENT_OBJECT_SELECTIONADD</apiName><shortdesc>
+      コンテナオブジェクト内のアイテムが選択範囲に追加されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      コンテナオブジェクト内のアイテムが選択範囲に追加されたことを示す MSAA イベントです。
+     
+      <p>このイベントは、リストボックス、リストビューコントロール、ツリービューコントロールの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。このイベントは、既存の選択範囲に子が追加されたことを示します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONREMOVE"><apiName>EVENT_OBJECT_SELECTIONREMOVE</apiName><shortdesc>
+      コンテナオブジェクト内のアイテムが選択解除されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8008</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      コンテナオブジェクト内のアイテムが選択解除されたことを示す MSAA イベントです。
+     
+      <p>このイベントは、リストボックス、リストビューコントロール、ツリービューコントロールの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。このイベントは、既存の選択範囲から子が除外されたことを示します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONWITHIN"><apiName>EVENT_OBJECT_SELECTIONWITHIN</apiName><shortdesc>
+      コンテナオブジェクト内で選択の大幅な変更が発生したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8009</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      コンテナオブジェクト内で選択の大幅な変更が発生したことを示す MSAA イベントです。
+     
+      <p>このイベントはリストボックスで変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。このイベントは、コントロール内で選択されているアイテムが大幅に変更されたときに送信されることがあります。このイベントは、（複数の EVENT_OBJECT_SELECTIONADD イベントまたは EVENT_OBJECT_SELECTIONREMOVE イベントを送信する代わりに）選択の大幅な変更が発生したことをクライアントに通知します。クライアントは、コンテナオブジェクトの IAccessible::get_accSelection メソッドを呼び出し、選択されているアイテムを列挙することで、現在選択されているアイテムを問い合わせることができます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTION"><apiName>EVENT_OBJECT_SELECTION</apiName><shortdesc>
+      コンテナオブジェクト内の選択範囲が変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      コンテナオブジェクト内の選択範囲が変化したことを示す MSAA イベントです。
+     
+      <p>このイベントは、リストビューコントロール、タブコントロール、ツリービューコントロール、ウィンドウオブジェクトの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。このイベントは単一の選択を示します。つまり、それまで何も選択されていなかったコンテナで 1 つの子が選択された場合、または既存の選択対象が別の子に変更された場合に発生します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SHOW"><apiName>EVENT_OBJECT_SHOW</apiName><shortdesc>
+      非表示になっていたオブジェクトが表示状態に変更されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      非表示になっていたオブジェクトが表示状態に変更されたことを示す MSAA イベントです。
+     
+      <p>このイベントは、キャレット、カーソル、ウィンドウオブジェクトの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。クライアント側では、親オブジェクトからこのイベントが送信された時点で、すべての子オブジェクトが既に表示されているものと想定することができます。したがって、サーバーアプリケーションは子オブジェクトに関してこのイベントを送信する必要はありません。非表示になっているオブジェクトには STATE_SYSTEM_INVISIBLE フラグが含まれ、表示されているオブジェクトにはこのフラグが含まれません。EVENT_OBJECT_SHOW イベントは、STATE_SYSTEM_INVISIBLE フラグがクリアされたことも示します。したがって、この場合はサーバーから EVENT_STATE_CHANGE イベントを送信する必要はありません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_STATECHANGE"><apiName>EVENT_OBJECT_STATECHANGE</apiName><shortdesc>
+      オブジェクトの状態が変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの状態が変化したことを示す MSAA イベントです。
+     
+      <p>このイベントは、チェックボックス、コンボボックス、ヘッダーコントロール、プッシュボタン、ラジオボタン、スクロールバー、ツールバーコントロール、ツリービューコントロール、アップダウンコントロール、ウィンドウオブジェクトの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。状態の変化は、例えば、ボタンオブジェクトが押されたり放されたりしたときや、オブジェクトが有効化されたり無効化されたときに発生します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_TEXTSELECTIONCHANGED"><apiName>EVENT_OBJECT_TEXTSELECTIONCHANGED</apiName><shortdesc>
+      オブジェクトのテキスト選択範囲が変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8014</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトのテキスト選択範囲が変化したことを示す MSAA イベントです。（MSAA 2.0）
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_VALUECHANGE"><apiName>EVENT_OBJECT_VALUECHANGE</apiName><shortdesc>
+      オブジェクトの MSAA Value プロパティが変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの MSAA Value プロパティが変化したことを示す MSAA イベントです。
+     
+      <p>このイベントは、編集コントロール、ヘッダーコントロール、ホットキーコントロール、プログレスバーコントロール、スクロールバー、スライダーコントロール、アップダウンコントロールの各ユーザーインターフェイス要素で変更が発生した場合にシステムから送信されます。MSAA サーバーアプリケーションは、アクセス可能なオブジェクトにこのイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_ALERT"><apiName>EVENT_SYSTEM_ALERT</apiName><shortdesc>
+      警告が生成されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      警告が生成されたことを示す MSAA イベントです。
+     
+      <p>MSAA サーバーアプリケーションは、ユーザーに通知する必要があるユーザーインターフェイスの重要な変更が発生するたびに、このイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CAPTUREEND"><apiName>EVENT_SYSTEM_CAPTUREEND</apiName><shortdesc>
+      ウィンドウがマウスキャプチャを失ったことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0009</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ウィンドウがマウスキャプチャを失ったことを示す MSAA イベントです。
+     
+      <p>このイベントはシステムから送信され、MSAA サーバーアプリケーションからは送信されません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CAPTURESTART"><apiName>EVENT_SYSTEM_CAPTURESTART</apiName><shortdesc>
+      ウィンドウがマウスキャプチャを取得したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0008</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ウィンドウがマウスキャプチャを取得したことを示す MSAA イベントです。
+     
+      <p>このイベントはシステムから送信され、MSAA サーバーアプリケーションからは送信されません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CONTEXTHELPEND"><apiName>EVENT_SYSTEM_CONTEXTHELPEND</apiName><shortdesc>
+      ウィンドウで状況依存型ヘルプモードが終了したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ウィンドウで状況依存型ヘルプモードが終了したことを示す MSAA イベントです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CONTEXTHELPSTART"><apiName>EVENT_SYSTEM_CONTEXTHELPSTART</apiName><shortdesc>
+      ウィンドウで状況依存型ヘルプモードが開始したことを示す MSAA イベントです。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ウィンドウで状況依存型ヘルプモードが開始したことを示す MSAA イベントです。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DIALOGEND"><apiName>EVENT_SYSTEM_DIALOGEND</apiName><shortdesc>
+      ダイアログボックスが閉じられたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0011</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ダイアログボックスが閉じられたことを示す MSAA イベントです。
+     
+      <p>標準ダイアログボックスの場合は、システムからこのイベントが送信されます。カスタムダイアログボックスの場合は、MSAA サーバーアプリケーションからこのイベントが送信されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DIALOGSTART"><apiName>EVENT_SYSTEM_DIALOGSTART</apiName><shortdesc>
+      ダイアログボックスが表示されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0010</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ダイアログボックスが表示されたことを示す MSAA イベントです。
+     
+      <p>標準ダイアログボックスの場合は、システムからこのイベントが送信されます。カスタムダイアログボックス（標準的な方法で作成されたものではないが、ダイアログボックスとして機能するウィンドウ）の場合は、MSAA サーバーアプリケーションからこのイベントが送信されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DRAGDROPEND"><apiName>EVENT_SYSTEM_DRAGDROPEND</apiName><shortdesc>
+      アプリケーションでドラッグ＆ドロップモードが終了しようとしていることを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      アプリケーションでドラッグ＆ドロップモードが終了しようとしていることを示す MSAA イベントです。
+     
+      <p>このイベントは、ドラッグ＆ドロップ操作をサポートするアプリケーションから送信する必要があります。システムからは送信されません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DRAGDROPSTART"><apiName>EVENT_SYSTEM_DRAGDROPSTART</apiName><shortdesc>
+      アプリケーションでドラッグ＆ドロップモードが開始しようとしていることを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      アプリケーションでドラッグ＆ドロップモードが開始しようとしていることを示す MSAA イベントです。
+     
+      <p>このイベントは、ドラッグ＆ドロップ操作をサポートするアプリケーションから送信する必要があります。システムからは送信されません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_FOREGROUND"><apiName>EVENT_SYSTEM_FOREGROUND</apiName><shortdesc>
+      最前面のウィンドウが変化したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      最前面のウィンドウが変化したことを示す MSAA イベントです。
+     
+      <p>このイベントは、最前面のウィンドウが同じスレッド内の別のウィンドウに変更された場合でも、システムから送信されます。MSAA サーバーアプリケーションはこのイベントを送信しません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUEND"><apiName>EVENT_SYSTEM_MENUEND</apiName><shortdesc>
+      メニューバーのメニューが閉じられたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      メニューバーのメニューが閉じられたことを示す MSAA イベントです。
+     
+      <p>標準メニューの場合は、システムからこのイベントが送信されます。カスタムメニューの場合は、MSAA サーバーアプリケーションからこのイベントが送信されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUPOPUPEND"><apiName>EVENT_SYSTEM_MENUPOPUPEND</apiName><shortdesc>
+      ポップアップメニューが閉じられたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ポップアップメニューが閉じられたことを示す MSAA イベントです。
+     
+      <p>標準メニューの場合は、システムからこのイベントが送信されます。カスタムメニューの場合は、MSAA サーバーアプリケーションからこのイベントが送信されます。ポップアップメニューが閉じられると、クライアントは、このメッセージの直後に EVENT_SYSTEM_MENUEND イベントを受け取ります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUPOPUPSTART"><apiName>EVENT_SYSTEM_MENUPOPUPSTART</apiName><shortdesc>
+      ポップアップメニューが表示されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ポップアップメニューが表示されたことを示す MSAA イベントです。
+     
+      <p>標準メニューの場合は、システムからこのイベントが送信されます。カスタムメニュー（標準的な方法で作成されたものではないが、メニューとして機能するユーザーインターフェイス要素）の場合は、MSAA サーバーアプリケーションからこのイベントが送信されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUSTART"><apiName>EVENT_SYSTEM_MENUSTART</apiName><shortdesc>
+      メニューバーのメニューアイテムが選択されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      メニューバーのメニューアイテムが選択されたことを示す MSAA イベントです。
+     
+      <p>標準メニューの場合は、システムからこのイベントが送信されます。カスタムメニュー（標準的な方法で作成されたものではないが、メニューとして機能するユーザーインターフェイス要素）の場合は、MSAA サーバーアプリケーションからこのイベントが送信されます。システムからは複数の EVENT_SYSTEM_MENUSTART イベントが送信されることがありますが、それに対応する EVENT_SYSTEM_MENUEND イベントは送信されない場合もあります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MINIMIZEEND"><apiName>EVENT_SYSTEM_MINIMIZEEND</apiName><shortdesc>
+      ウィンドウオブジェクトが最小化または最大化されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0017</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ウィンドウオブジェクトが最小化または最大化されたことを示す MSAA イベントです。
+     
+      <p>このイベントはシステムから送信され、MSAA サーバーアプリケーションからは送信されません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MINIMIZESTART"><apiName>EVENT_SYSTEM_MINIMIZESTART</apiName><shortdesc>
+      ウィンドウオブジェクトが最小化または最大化されようとしていることを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0016</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ウィンドウオブジェクトが最小化または最大化されようとしていることを示す MSAA イベントです。
+     
+      <p>このイベントはシステムから送信され、MSAA サーバーアプリケーションからは送信されません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MOVESIZEEND"><apiName>EVENT_SYSTEM_MOVESIZEEND</apiName><shortdesc>
+      ウィンドウの移動またはサイズ変更が終了したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ウィンドウの移動またはサイズ変更が終了したことを示す MSAA イベントです。
+     
+      <p>このイベントはシステムから送信され、MSAA サーバーアプリケーションからは送信されません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MOVESIZESTART"><apiName>EVENT_SYSTEM_MOVESIZESTART</apiName><shortdesc>
+      ウィンドウの移動またはサイズ変更が開始したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ウィンドウの移動またはサイズ変更が開始したことを示す MSAA イベントです。
+     
+      <p>このイベントはシステムから送信され、MSAA サーバーアプリケーションからは送信されません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SCROLLINGEND"><apiName>EVENT_SYSTEM_SCROLLINGEND</apiName><shortdesc>
+      スクロールバーでスクロールが終了したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0013</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      スクロールバーでスクロールが終了したことを示す MSAA イベントです。
+     
+      <p>ウィンドウに付随するスクロールバーおよび標準のスクロールバーコントロールの場合は、システムからこのイベントが送信されます。カスタムスクロールバーの場合は、MSAA サーバーアプリケーションからこのイベントが送信されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SCROLLINGSTART"><apiName>EVENT_SYSTEM_SCROLLINGSTART</apiName><shortdesc>
+      スクロールバーでスクロールが開始したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0012</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      スクロールバーでスクロールが開始したことを示す MSAA イベントです。
+     
+      <p>ウィンドウに付随するスクロールバーおよび標準のスクロールバーコントロールの場合は、システムからこのイベントが送信されます。カスタムスクロールバー（標準的な方法で作成されたものではないが、スクロールバーとして機能するユーザーインターフェイス要素）の場合は、MSAA サーバーアプリケーションからこのイベントが送信されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SOUND"><apiName>EVENT_SYSTEM_SOUND</apiName><shortdesc>
+      サウンドが再生されたことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      サウンドが再生されたことを示す MSAA イベントです。
+     
+      <p>このイベントは、（サウンドファイルやサウンドカードが存在しないなどの理由で）実際には音が鳴らない場合でも、（メニューなどの）システムサウンドが再生されるたびに、システムから送信されます。カスタムユーザーインターフェイス要素によってサウンドが生成された場合は、MSAA サーバーアプリケーションからこのイベントが送信されます。</p> 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SWITCHEND"><apiName>EVENT_SYSTEM_SWITCHEND</apiName><shortdesc>
+      ユーザーが Alt + Tab キーを放したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0015</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ユーザーが Alt + Tab キーを放したことを示す MSAA イベントです。
+     
+      <p>このイベントはシステムから送信され、MSAA サーバーアプリケーションからは送信されません。実行中のアプリケーションが 1 つだけの場合、ユーザーが Alt + Tab キーを押すと、システムは、対応する EVENT_SYSTEM_SWITCHSTART イベントを送信せずに、このイベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SWITCHSTART"><apiName>EVENT_SYSTEM_SWITCHSTART</apiName><shortdesc>
+      ユーザーが Alt + Tab キーを押して切り替えウィンドウを表示したことを示す MSAA イベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0014</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      ユーザーが Alt + Tab キーを押して切り替えウィンドウを表示したことを示す MSAA イベントです。
+     
+      <p>このイベントはシステムから送信され、MSAA サーバーアプリケーションからは送信されません。実行中のアプリケーションが 1 つだけの場合、ユーザーが Alt + Tab キーを押すと、システムは、対応する EVENT_SYSTEM_SWITCHSTART イベントを送信せずに、EVENT_SYSTEM_SWITCHEND イベントを送信します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ALERT"><apiName>ROLE_SYSTEM_ALERT</apiName><shortdesc>
+      そのオブジェクトが、ユーザーに通知する必要のある警告または状況を表していることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、ユーザーに通知する必要のある警告または状況を表していることを示す MSAA ロールです。
+     
+      <p>このロールは、警告を表し、他のユーザーインターフェイス要素に関連付けられていないオブジェクト（メッセージボックス、グラフィック、テキスト、サウンドなど）のみに適用する必要があります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ANIMATION"><apiName>ROLE_SYSTEM_ANIMATION</apiName><shortdesc>
+      そのオブジェクトが、時間とともに変化するコンテンツを含むアニメーションコントロール（フィルムストリップのように一連のビットマップフレームを表示するコントロールなど）であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x36</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、時間とともに変化するコンテンツを含むアニメーションコントロール（フィルムストリップのように一連のビットマップフレームを表示するコントロールなど）であることを示す MSAA ロールです。
+     
+      <p>アニメーションコントロールは、ファイルのコピー中や、時間がかかる処理の実行中などに表示されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_APPLICATION"><apiName>ROLE_SYSTEM_APPLICATION</apiName><shortdesc>
+      そのオブジェクトがアプリケーションのメインウィンドウであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xE</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがアプリケーションのメインウィンドウであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BORDER"><apiName>ROLE_SYSTEM_BORDER</apiName><shortdesc>
+      そのオブジェクトがウィンドウのボーダーであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x13</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがウィンドウのボーダーであることを示す MSAA ロールです。
+     
+      <p>各辺が別個のオブジェクトで表されるのではなく、ボーダー全体が 1 つのオブジェクトで表されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONDROPDOWNGRID"><apiName>ROLE_SYSTEM_BUTTONDROPDOWNGRID</apiName><shortdesc>
+      そのオブジェクトが、グリッドをドロップダウンするボタンであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、グリッドをドロップダウンするボタンであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONDROPDOWN"><apiName>ROLE_SYSTEM_BUTTONDROPDOWN</apiName><shortdesc>
+      そのオブジェクトが、アイテムのリストをドロップダウンするボタンであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x38</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、アイテムのリストをドロップダウンするボタンであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONMENU"><apiName>ROLE_SYSTEM_BUTTONMENU</apiName><shortdesc>
+      そのオブジェクトが、メニューをドロップダウンするボタンであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x39</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、メニューをドロップダウンするボタンであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CARET"><apiName>ROLE_SYSTEM_CARET</apiName><shortdesc>
+      そのオブジェクトがシステムキャレットであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x7</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがシステムキャレットであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CELL"><apiName>ROLE_SYSTEM_CELL</apiName><shortdesc>
+      そのオブジェクトが表内のセルであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが表内のセルであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHARACTER"><apiName>ROLE_SYSTEM_CHARACTER</apiName><shortdesc>
+      そのオブジェクトが、Microsoft Office アシスタントのように、アプリケーションのヘルプ情報などをユーザーに提供する漫画的なグラフィックオブジェクトであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、Microsoft Office アシスタントのように、アプリケーションのヘルプ情報などをユーザーに提供する漫画的なグラフィックオブジェクトであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHART"><apiName>ROLE_SYSTEM_CHART</apiName><shortdesc>
+      そのオブジェクトが、データを表現するために使用されるグラフィックイメージであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x11</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、データを表現するために使用されるグラフィックイメージであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHECKBUTTON"><apiName>ROLE_SYSTEM_CHECKBUTTON</apiName><shortdesc>
+      そのオブジェクトがチェックボックスコントロール（他のオプションとは無関係にオンまたはオフに設定できるオプション）であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがチェックボックスコントロール（他のオプションとは無関係にオンまたはオフに設定できるオプション）であることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CLIENT"><apiName>ROLE_SYSTEM_CLIENT</apiName><shortdesc>
+      そのオブジェクトがウィンドウのクライアント領域であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xA</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがウィンドウのクライアント領域であることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CLOCK"><apiName>ROLE_SYSTEM_CLOCK</apiName><shortdesc>
+      そのオブジェクトが時刻を表示するコントロールであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが時刻を表示するコントロールであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COLUMNHEADER"><apiName>ROLE_SYSTEM_COLUMNHEADER</apiName><shortdesc>
+      そのオブジェクトが、表の列のラベルを表示する列ヘッダーであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x19</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、表の列のラベルを表示する列ヘッダーであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COLUMN"><apiName>ROLE_SYSTEM_COLUMN</apiName><shortdesc>
+      そのオブジェクトが表内のセルの列であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが表内のセルの列であることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COMBOBOX"><apiName>ROLE_SYSTEM_COMBOBOX</apiName><shortdesc>
+      そのオブジェクトがコンボボックス（定義済みの選択肢を提示するリストボックスを含んだ編集コントロール）であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがコンボボックス（定義済みの選択肢を提示するリストボックスを含んだ編集コントロール）であることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CURSOR"><apiName>ROLE_SYSTEM_CURSOR</apiName><shortdesc>
+      そのオブジェクトがシステムマウスポインターであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x6</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがシステムマウスポインターであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIAGRAM"><apiName>ROLE_SYSTEM_DIAGRAM</apiName><shortdesc>
+      そのオブジェクトがデータを図示するために使用されるグラフィックイメージであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x35</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがデータを図示するために使用されるグラフィックイメージであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIALOG"><apiName>ROLE_SYSTEM_DIALOG</apiName><shortdesc>
+      そのオブジェクトがダイアログボックスまたはメッセージボックスであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x12</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがダイアログボックスまたはメッセージボックスであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIAL"><apiName>ROLE_SYSTEM_DIAL</apiName><shortdesc>
+      そのオブジェクトがダイヤルまたはノブであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x31</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがダイヤルまたはノブであることを示す MSAA ロールです。
+     
+      <p>これには速度計のような読み取り専用オブジェクトも含まれます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DOCUMENT"><apiName>ROLE_SYSTEM_DOCUMENT</apiName><shortdesc>
+      そのオブジェクトがドキュメントウィンドウであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがドキュメントウィンドウであることを示す MSAA ロールです。
+     
+      <p>ドキュメントウィンドウは常にアプリケーションウィンドウ内に含まれています。このロールは複数ドキュメントインターフェイス（MDI）ウィンドウのみに適用され、MDI のタイトルバーを含むオブジェクトを参照します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DROPLIST"><apiName>ROLE_SYSTEM_DROPLIST</apiName><shortdesc>
+      そのオブジェクトがドロップダウンリストボックスであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがドロップダウンリストボックスであることを示す MSAA ロールです。
+     
+      <p>このコントロールには 1 つのアイテムが表示され、ユーザーは値のリストを表示して別のアイテムを選択できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_EQUATION"><apiName>ROLE_SYSTEM_EQUATION</apiName><shortdesc>
+      そのオブジェクトが数式であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x37</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが数式であることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GRAPHIC"><apiName>ROLE_SYSTEM_GRAPHIC</apiName><shortdesc>
+      そのオブジェクトが画像であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x28</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが画像であることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GRIP"><apiName>ROLE_SYSTEM_GRIP</apiName><shortdesc>
+      そのオブジェクトが、ウィンドウなどのユーザーインターフェイス要素を操作するために使用される特殊なマウスポインターであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、ウィンドウなどのユーザーインターフェイス要素を操作するために使用される特殊なマウスポインターであることを示す MSAA ロールです。
+     
+      <p>例えば、ユーザーはウィンドウの右下隅にあるサイズ変更グリップをクリックしてドラッグすることでウィンドウのサイズを変更できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GROUPING"><apiName>ROLE_SYSTEM_GROUPING</apiName><shortdesc>
+      そのオブジェクトが他のオブジェクトを論理的にグループ化していることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x14</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが他のオブジェクトを論理的にグループ化していることを示す MSAA ロールです。
+     
+      <p>グループ化しているオブジェクトとそれに含まれるオブジェクトの間には、必ずしも親子関係がなくてもかまいません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_HELPBALLOON"><apiName>ROLE_SYSTEM_HELPBALLOON</apiName><shortdesc>
+      そのオブジェクトがツールヒント形式またはヘルプバルーン形式でヘルプを表示することを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがツールヒント形式またはヘルプバルーン形式でヘルプを表示することを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_HOTKEYFIELD"><apiName>ROLE_SYSTEM_HOTKEYFIELD</apiName><shortdesc>
+      そのオブジェクトが、キーストロークの組み合わせまたはシーケンスを入力するためのホットキーフィールドであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x32</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、キーストロークの組み合わせまたはシーケンスを入力するためのホットキーフィールドであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_INDICATOR"><apiName>ROLE_SYSTEM_INDICATOR</apiName><shortdesc>
+      そのオブジェクトが、現在のアイテムを指し示すポインターグラフィックなどのインジケーターであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x27</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、現在のアイテムを指し示すポインターグラフィックなどのインジケーターであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_IPADDRESS"><apiName>ROLE_SYSTEM_IPADDRESS</apiName><shortdesc>
+      そのオブジェクトが、インターネットプロトコル（IP）アドレス用の編集コントロールであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、インターネットプロトコル（IP）アドレス用の編集コントロールであることを示す MSAA ロールです。この編集コントロールは、IP アドレスの部分ごとに複数のセクションに分かれています。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LINK"><apiName>ROLE_SYSTEM_LINK</apiName><shortdesc>
+      そのオブジェクトが他のものへのリンクであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが他のものへのリンクであることを示す MSAA ロールです。
+     
+      <p>このオブジェクトはテキストやグラフィックと同じように見えますが、機能的にはボタンに似ています。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LISTITEM"><apiName>ROLE_SYSTEM_LISTITEM</apiName><shortdesc>
+      そのオブジェクトが、リストボックス、またはコンボボックス、ドロップダウンリストボックス、ドロップダウンコンボボックスのリスト部分に含まれるアイテムであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x22</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、リストボックス、またはコンボボックス、ドロップダウンリストボックス、ドロップダウンコンボボックスのリスト部分に含まれるアイテムであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LIST"><apiName>ROLE_SYSTEM_LIST</apiName><shortdesc>
+      そのオブジェクトが、1 つまたは複数のアイテムを選択できるリストボックスであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x21</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、1 つまたは複数のアイテムを選択できるリストボックスであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUBAR"><apiName>ROLE_SYSTEM_MENUBAR</apiName><shortdesc>
+      そのオブジェクトがメニューバーであることを示す MSAA ロールです。通常、メニューバーはウィンドウのタイトルバーの次（下）にあり、ユーザーはそこからメニューを選択できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがメニューバーであることを示す MSAA ロールです。通常、メニューバーはウィンドウのタイトルバーの次（下）にあり、ユーザーはそこからメニューを選択できます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUITEM"><apiName>ROLE_SYSTEM_MENUITEM</apiName><shortdesc>
+      そのオブジェクトがメニューアイテムであることを示す MSAA ロールです。メニューアイテムとは、コマンドを実行したり、オプションを選択したり、別のメニューを表示するためにユーザーが選択するメニューの項目です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xC</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがメニューアイテムであることを示す MSAA ロールです。メニューアイテムとは、コマンドを実行したり、オプションを選択したり、別のメニューを表示するためにユーザーが選択するメニューの項目です。
+     
+      <p>メニューアイテムは機能的にプッシュボタン、ラジオボタン、チェックボックス、メニューなどに相当する場合があります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUPOPUP"><apiName>ROLE_SYSTEM_MENUPOPUP</apiName><shortdesc>
+      そのオブジェクトがメニューであることを示す MSAA ロールです。メニューとは、アクションを実行するためにユーザーが選択するオプションのリストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xB</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがメニューであることを示す MSAA ロールです。メニューとは、アクションを実行するためにユーザーが選択するオプションのリストです。
+     
+      <p>メニューバーからの選択によって表示されるドロップダウンメニューや、右マウスボタンがクリックされたときに表示されるショートカットメニューなど、すべての種類のメニューにこのロールを割り当てる必要があります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINEBUTTON"><apiName>ROLE_SYSTEM_OUTLINEBUTTON</apiName><shortdesc>
+      そのオブジェクトが、アウトラインアイテムのように移動するアイテムであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、アウトラインアイテムのように移動するアイテムであることを示す MSAA ロールです。アウトライン内の移動には上下の矢印を使用できます。ただし、メニューを展開したり折りたたんだりするには、左右の矢印キーを使用するのではなく、アイテムにフォーカスを合わせた状態でスペースバーまたは Enter キーを押します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINEITEM"><apiName>ROLE_SYSTEM_OUTLINEITEM</apiName><shortdesc>
+      そのオブジェクトがアウトラインまたはツリー構造内のアイテムであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x24</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがアウトラインまたはツリー構造内のアイテムであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINE"><apiName>ROLE_SYSTEM_OUTLINE</apiName><shortdesc>
+      そのオブジェクトが、階層型のリストを表示するアウトラインまたはツリー構造（ツリービューコントロールなど）であることを示す MSAA ロールです。通常、ユーザーは階層の各ブランチを展開または折りたたむことができます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x23</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、階層型のリストを表示するアウトラインまたはツリー構造（ツリービューコントロールなど）であることを示す MSAA ロールです。通常、ユーザーは階層の各ブランチを展開または折りたたむことができます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PAGETABLIST"><apiName>ROLE_SYSTEM_PAGETABLIST</apiName><shortdesc>
+      そのオブジェクトがページタブコントロールのコンテナであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがページタブコントロールのコンテナであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PAGETAB"><apiName>ROLE_SYSTEM_PAGETAB</apiName><shortdesc>
+      そのオブジェクトがページタブであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x25</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがページタブであることを示す MSAA ロールです。通常、ページタブコントロールの子は、関連付けられているページのコンテンツを含む ROLE_SYSTEM_GROUPING オブジェクトのみです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PANE"><apiName>ROLE_SYSTEM_PANE</apiName><shortdesc>
+      そのオブジェクトがフレームまたはドキュメントウィンドウ内のペインであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがフレームまたはドキュメントウィンドウ内のペインであることを示す MSAA ロールです。
+     
+      <p>ユーザーは、ペイン間および現在のペインのコンテンツ内を移動することはできますが、異なるペインのアイテム間を移動することはできません。つまり、ペインによるグループ化は、フレームウィンドウおよびドキュメントよりは低く、個々のコントロールよりは高いレベルに位置付けられます。通常、ペイン間を移動するには、コンテキストに応じて、Tab キー、F6 キー、または Ctrl + Tab キーを押します。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PROGRESSBAR"><apiName>ROLE_SYSTEM_PROGRESSBAR</apiName><shortdesc>
+      そのオブジェクトがプログレスバーであることを示す MSAA ロールです。プログレスバーは、進行中の操作の完了率を動的に表示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x30</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがプログレスバーであることを示す MSAA ロールです。プログレスバーは、進行中の操作の完了率を動的に表示します。
+     
+      <p>通常、このコントロールはユーザーの入力を受け付けません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PROPERTYPAGE"><apiName>ROLE_SYSTEM_PROPERTYPAGE</apiName><shortdesc>
+      そのオブジェクトがプロパティシートであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x26</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがプロパティシートであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PUSHBUTTON"><apiName>ROLE_SYSTEM_PUSHBUTTON</apiName><shortdesc>
+      そのオブジェクトがプッシュボタンコントロールであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがプッシュボタンコントロールであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_RADIOBUTTON"><apiName>ROLE_SYSTEM_RADIOBUTTON</apiName><shortdesc>
+      そのオブジェクトがオプションボタン（ラジオボタン）であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがオプションボタン（ラジオボタン）であることを示す MSAA ロールです。
+     
+      <p>これは相互排他的なオプションのグループの 1 つです。この属性を持つ 1 つの親を共有するすべてのオブジェクトは、単一の相互排他的グループの一部であると見なされます。ROLE_SYSTEM_GROUPING オブジェクトを使用すると、必要に応じて複数のグループに分割できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ROWHEADER"><apiName>ROLE_SYSTEM_ROWHEADER</apiName><shortdesc>
+      そのオブジェクトが、表の行のラベルを表示する行ヘッダーであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、表の行のラベルを表示する行ヘッダーであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ROW"><apiName>ROLE_SYSTEM_ROW</apiName><shortdesc>
+      そのオブジェクトが表内のセルの行であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが表内のセルの行であることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SCROLLBAR"><apiName>ROLE_SYSTEM_SCROLLBAR</apiName><shortdesc>
+      そのオブジェクトが垂直スクロールバーまたは水平スクロールバーであることを示す MSAA ロールです。スクロールバーは、クライアント領域の一部として使用することも、コントロール内で使用することもできます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが垂直スクロールバーまたは水平スクロールバーであることを示す MSAA ロールです。スクロールバーは、クライアント領域の一部として使用することも、コントロール内で使用することもできます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SEPARATOR"><apiName>ROLE_SYSTEM_SEPARATOR</apiName><shortdesc>
+      そのオブジェクトが、空間を視覚的に 2 つの領域に分割するために使用されていることを示す MSAA ロールです（メニューの区切り線や、ウィンドウ内のペインを分割するバーなど）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x15</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、空間を視覚的に 2 つの領域に分割するために使用されていることを示す MSAA ロールです（メニューの区切り線や、ウィンドウ内のペインを分割するバーなど）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SLIDER"><apiName>ROLE_SYSTEM_SLIDER</apiName><shortdesc>
+      そのオブジェクトがスライダーであることを示す MSAA ロールです。スライダーは、最小値から最大値までの範囲内で、設定値を一定の刻み幅で調整するためのコントロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x33</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがスライダーであることを示す MSAA ロールです。スライダーは、最小値から最大値までの範囲内で、設定値を一定の刻み幅で調整するためのコントロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SOUND"><apiName>ROLE_SYSTEM_SOUND</apiName><shortdesc>
+      そのオブジェクトが各種のシステムイベントに関連付けられたシステムサウンドであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x5</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが各種のシステムイベントに関連付けられたシステムサウンドであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SPINBUTTON"><apiName>ROLE_SYSTEM_SPINBUTTON</apiName><shortdesc>
+      そのオブジェクトがスピンボックスであることを示す MSAA ロールです。スピンボックスとは、スピンボックスに関連付けられた別の「バディ」コントロールに表示される値を増減できるコントロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x34</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがスピンボックスであることを示す MSAA ロールです。スピンボックスとは、スピンボックスに関連付けられた別の「バディ」コントロールに表示される値を増減できるコントロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SPLITBUTTON"><apiName>ROLE_SYSTEM_SPLITBUTTON</apiName><shortdesc>
+      そのオブジェクトがドロップダウンリストアイコン付きのツールバーボタンであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがドロップダウンリストアイコン付きのツールバーボタンであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_STATICTEXT"><apiName>ROLE_SYSTEM_STATICTEXT</apiName><shortdesc>
+      そのオブジェクトが読み取り専用テキスト（他のコントロールのラベルや、ダイアログボックス内の説明文などの）であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x29</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが読み取り専用テキスト（他のコントロールのラベルや、ダイアログボックス内の説明文などの）であることを示す MSAA ロールです。
+     
+      <p>静的テキストを変更したり選択することはできません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_STATUSBAR"><apiName>ROLE_SYSTEM_STATUSBAR</apiName><shortdesc>
+      そのオブジェクトがステータスバーであることを示す MSAA ロールです。通常、ステータスバーはウィンドウの最下部にあり、現在の操作、アプリケーションの状態、選択されているオブジェクトなどに関する情報が表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x17</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがステータスバーであることを示す MSAA ロールです。通常、ステータスバーはウィンドウの最下部にあり、現在の操作、アプリケーションの状態、選択されているオブジェクトなどに関する情報が表示されます。
+     
+      <p>ステータスバーには、異なる種類の情報を表示する複数のフィールドが含まれる場合があります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TABLE"><apiName>ROLE_SYSTEM_TABLE</apiName><shortdesc>
+      そのオブジェクトが、セルの行と列を含む表であることを示す MSAA ロールです（行ヘッダーおよび列ヘッダーは含まれていなくてもかまいません）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x18</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、セルの行と列を含む表であることを示す MSAA ロールです（行ヘッダーおよび列ヘッダーは含まれていなくてもかまいません）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TEXT"><apiName>ROLE_SYSTEM_TEXT</apiName><shortdesc>
+      そのオブジェクトが選択可能なテキスト（編集可能または読み取り専用）であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが選択可能なテキスト（編集可能または読み取り専用）であることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TITLEBAR"><apiName>ROLE_SYSTEM_TITLEBAR</apiName><shortdesc>
+      そのオブジェクトがウィンドウのタイトルバーまたはキャプションバーであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがウィンドウのタイトルバーまたはキャプションバーであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TOOLBAR"><apiName>ROLE_SYSTEM_TOOLBAR</apiName><shortdesc>
+      そのオブジェクトがツールバーであることを示す MSAA ロールです。ツールバーとは、よく使用する機能へ簡単にアクセスできるようにまとめられたコントロールの集合です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x16</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがツールバーであることを示す MSAA ロールです。ツールバーとは、よく使用する機能へ簡単にアクセスできるようにまとめられたコントロールの集合です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TOOLTIP"><apiName>ROLE_SYSTEM_TOOLTIP</apiName><shortdesc>
+      そのオブジェクトが、有用なヒントを提供するツールヒントであることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xD</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、有用なヒントを提供するツールヒントであることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_WHITESPACE"><apiName>ROLE_SYSTEM_WHITESPACE</apiName><shortdesc>
+      そのオブジェクトが他のオブジェクト間の空白領域であることを示す MSAA ロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが他のオブジェクト間の空白領域であることを示す MSAA ロールです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_WINDOW"><apiName>ROLE_SYSTEM_WINDOW</apiName><shortdesc>
+      そのオブジェクトがウィンドウフレームであることを示す MSAA ロールです。通常、ウィンドウフレームには、タイトルバー、クライアント、および一般的にウィンドウ内に含まれる他のオブジェクトなどの子オブジェクトが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x9</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがウィンドウフレームであることを示す MSAA ロールです。通常、ウィンドウフレームには、タイトルバー、クライアント、および一般的にウィンドウ内に含まれる他のオブジェクトなどの子オブジェクトが含まれます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_ADDSELECTION"><apiName>SELFLAG_ADDSELECTION</apiName><shortdesc>
+      そのオブジェクトを現在の選択範囲に追加する MSAA 選択フラグです。この結果、選択範囲が不連続になる場合があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトを現在の選択範囲に追加する MSAA 選択フラグです。この結果、選択範囲が不連続になる場合があります。
+     
+      <p>同時に SELFLAG_TAKEFOCUS が使用されていない限り、このフラグによってフォーカスおよび選択アンカーが変更されることはありません。SELFLAG_ADDSELECTION | SELFLAG_TAKEFOCUS の動作は、Windows エクスプローラーで Ctrl キーを押しながら未選択のオブジェクトをクリックすることにより、そのアイテムを選択範囲に手動で追加するのと同じです。</p>
+     
+      <p>このフラグと同時に SELFLAG_REMOVESELECTION または SELFLAG_TAKESELECTION を使用することはできません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_EXTENDSELECTION"><apiName>SELFLAG_EXTENDSELECTION</apiName><shortdesc>
+      選択アンカーとこのオブジェクトの間にあるすべてのオブジェクトがアンカーオブジェクトと同じ選択状態になるように選択範囲を変更する MSAA 選択フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      選択アンカーとこのオブジェクトの間にあるすべてのオブジェクトがアンカーオブジェクトと同じ選択状態になるように選択範囲を変更する MSAA 選択フラグです。
+     
+      <p>つまり、アンカーオブジェクトが選択されていない場合は、これらのオブジェクトが選択解除され、アンカーオブジェクトが選択されている場合は、そのオブジェクトと中間にあるすべてのオブジェクトが選択範囲に追加されます。このフラグと同時に SELFLAG_ADDSELECTION または SELFLAG_REMOVESELECTION を使用することで、選択状態を設定できます。</p>
+     
+      <p>同時に SELFLAG_TAKEFOCUS が使用されていない限り、このフラグによってフォーカスおよび選択アンカーが変更されることはありません。SELFLAG_EXTENDSELECTION | SELFLAG_TAKEFOCUS の動作は、Windows エクスプローラーで Shift キーを押しながら未選択のオブジェクトをクリックすることにより、そのアイテムを選択範囲に手動で追加するのと同じです。</p>
+     
+      <p>このフラグと同時に SELFLAG_TAKESELECTION を使用することはできません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_NONE"><apiName>SELFLAG_NONE</apiName><shortdesc>
+      MSAA 選択フラグが存在しないことを示す定数です。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      MSAA 選択フラグが存在しないことを示す定数です。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_REMOVESELECTION"><apiName>SELFLAG_REMOVESELECTION</apiName><shortdesc>
+      そのオブジェクトを現在の選択範囲から除外する MSAA 選択フラグです。この結果、選択範囲が不連続になる場合があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトを現在の選択範囲から除外する MSAA 選択フラグです。この結果、選択範囲が不連続になる場合があります。
+     
+      <p>同時に SELFLAG_TAKEFOCUS が使用されていない限り、このフラグによってフォーカスおよび選択アンカーが変更されることはありません。SELFLAG_REMOVESELECTION | SELFLAG_TAKEFOCUS の動作は、Windows エクスプローラーで Ctrl キーを押しながら既に選択されているオブジェクトをクリックすることにより、そのアイテムを手動で選択解除するのと同じです。</p>
+     
+      <p>このフラグと同時に SELFLAG_ADDSELECTION または SELFLAG_TAKESELECTION を使用することはできません。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_TAKEFOCUS"><apiName>SELFLAG_TAKEFOCUS</apiName><shortdesc>
+      そのオブジェクトにフォーカスを設定して選択アンカーにする MSAA 選択フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトにフォーカスを設定して選択アンカーにする MSAA 選択フラグです。
+     
+      <p>このフラグを単独で使用しても選択範囲は変更されません。このフラグの動作は、Windows エクスプローラーまたは複数選択リストボックスで Ctrl キーを押しながら矢印キーを押すことにより、手動でフォーカスを移動するのと同じです。</p>
+     
+      <p>オブジェクトの状態が STATE_SYSTEM_MULTISELECTABLE に設定されている場合は、SELFLAG_TAKEFOCUS と同時に次の値を使用できます。
+      <ul>
+        <li>SELFLAG_TAKESELECTION</li>
+        <li>SELFLAG_EXTENDSELECTION</li>
+        <li>SELFLAG_ADDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION</li>
+        <li>SELFLAG_ADDSELECTION | SELFLAG_EXTENDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION | SELFLAG_EXTENDSELECTION</li>
+      </ul></p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_TAKESELECTION"><apiName>SELFLAG_TAKESELECTION</apiName><shortdesc>
+      そのオブジェクトを選択し、コンテナ内の他のすべてのオブジェクトを選択解除する MSAA 選択フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトを選択し、コンテナ内の他のすべてのオブジェクトを選択解除する MSAA 選択フラグです。
+     
+      <p>同時に SELFLAG_TAKEFOCUS が使用されていない限り、このフラグによってフォーカスおよび選択アンカーが変更されることはありません。SELFLAG_TAKESELECTION | SELFLAG_TAKEFOCUS の動作は、Windows エクスプローラーでアイテムをシングルクリックするのと同じです。</p>
+     
+      <p>このフラグと同時に次のフラグを使用することはできません。
+      <ul>
+        <li>SELFLAG_ADDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION</li>
+        <li>SELFLAG_EXTENDSELECTION</li>
+      </ul></p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_VALID"><apiName>SELFLAG_VALID</apiName><shortdesc>
+      すべての有効な MSAA 選択フラグを表すビットマスクです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      すべての有効な MSAA 選択フラグを表すビットマスクです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_HIGH"><apiName>STATE_SYSTEM_ALERT_HIGH</apiName><shortdesc>
+      そのオブジェクトが、ユーザーに直ちに伝達する必要がある重要な情報を表示していることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、ユーザーに直ちに伝達する必要がある重要な情報を表示していることを示す MSAA 状態フラグです。
+     
+      <p>例えば、バッテリレベルインジケーターが非常に低いレベルに近付いたときに、この状態に移行するようになっている場合、視覚障害者用アクセスユーティリティを使用して直ちにその情報を音声でユーザーに通知し、画面拡大プログラムを使用してバッテリインジケーターが見やすくなるように画面をスクロールできます。この状態は、次の段階へ進む前に完了する必要がある操作やプロンプトをユーザーに提示する場合にも適しています。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_LOW"><apiName>STATE_SYSTEM_ALERT_LOW</apiName><shortdesc>
+      そのオブジェクトが、ユーザーにとって必ずしも重要ではない、優先度の低い情報を表示していることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、ユーザーにとって必ずしも重要ではない、優先度の低い情報を表示していることを示す MSAA 状態フラグです。
+     
+      <p>この状態は、ユーザー向けのヒントがあることを示すために Word のツールバーでヒントウィザードボタンの外観が変更されるような場合に使用できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_MEDIUM"><apiName>STATE_SYSTEM_ALERT_MEDIUM</apiName><shortdesc>
+      そのオブジェクトが、ユーザーに直ちに伝達する必要のない重要な情報を表示していることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが、ユーザーに直ちに伝達する必要のない重要な情報を表示していることを示す MSAA 状態フラグです。
+     
+      <p>例えば、バッテリレベルインジケーターが低いレベルに近付き始めたときに、中レベルの警告を生成できます。このような場合は、ユーザーの作業を実際に中断しなくても、視覚障害者用アクセスユーティリティからサウンドを再生して重要な情報があることを通知できます。ユーザーは都合のよいときに警告情報を確認できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ANIMATED"><apiName>STATE_SYSTEM_ANIMATED</apiName><shortdesc>
+      オブジェクトの外観が急速に、または常に変化していることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      オブジェクトの外観が急速に、または常に変化していることを示す MSAA 状態フラグです。
+     
+      <p>常にではなく時折変化するアニメーショングラフィックの場合は、State プロパティを STATE_SYSTEM_ANIMATED に設定した ROLE_SYSTEM_GRAPHIC として記述する必要があります。この状態は、オブジェクトの位置が変化していることを示す目的には使用しないでください。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_BUSY"><apiName>STATE_SYSTEM_BUSY</apiName><shortdesc>
+      そのオブジェクトが現時点で入力を受け入れられないことを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが現時点で入力を受け入れられないことを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_CHECKED"><apiName>STATE_SYSTEM_CHECKED</apiName><shortdesc>
+      そのオブジェクトのチェックボックスが選択されていることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトのチェックボックスが選択されていることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_COLLAPSED"><apiName>STATE_SYSTEM_COLLAPSED</apiName><shortdesc>
+      そのオブジェクトの ROLE_SYSTEM_OUTLINEITEM ロールを持つ子が非表示になっていることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x400</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトの ROLE_SYSTEM_OUTLINEITEM ロールを持つ子が非表示になっていることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_DEFAULT"><apiName>STATE_SYSTEM_DEFAULT</apiName><shortdesc>
+      デフォルトのボタンまたはメニューアイテムを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x100</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      デフォルトのボタンまたはメニューアイテムを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_EXPANDED"><apiName>STATE_SYSTEM_EXPANDED</apiName><shortdesc>
+      そのオブジェクトの ROLE_SYSTEM_OUTLINEITEM ロールを持つ子が表示されていることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x200</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトの ROLE_SYSTEM_OUTLINEITEM ロールを持つ子が表示されていることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_EXTSELECTABLE"><apiName>STATE_SYSTEM_EXTSELECTABLE</apiName><shortdesc>
+      そのオブジェクトが IAccessible::accSelect メソッドで SELFLAG_EXTENDSELECTION を使用して選択範囲を拡大できることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが IAccessible::accSelect メソッドで SELFLAG_EXTENDSELECTION を使用して選択範囲を拡大できることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FLOATING"><apiName>STATE_SYSTEM_FLOATING</apiName><shortdesc>
+      そのオブジェクトが親オブジェクトの境界に固定されず、親が移動したときに自動的に移動しないことを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが親オブジェクトの境界に固定されず、親が移動したときに自動的に移動しないことを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FOCUSABLE"><apiName>STATE_SYSTEM_FOCUSABLE</apiName><shortdesc>
+      そのオブジェクトがアクティブウィンドウ上にあり、キーボードフォーカスを取得できることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x100000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがアクティブウィンドウ上にあり、キーボードフォーカスを取得できることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FOCUSED"><apiName>STATE_SYSTEM_FOCUSED</apiName><shortdesc>
+      そのオブジェクトが現在キーボードフォーカスを持っていることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが現在キーボードフォーカスを持っていることを示す MSAA 状態フラグです。
+     
+      <p>オブジェクトフォーカスとオブジェクト選択を混同しないでください。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_HASPOPUP"><apiName>STATE_SYSTEM_HASPOPUP</apiName><shortdesc>
+      そのオブジェクトにポップアップメニューがあることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトにポップアップメニューがあることを示す MSAA 状態フラグです。（MSAA 2.0）
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_HOTTRACKED"><apiName>STATE_SYSTEM_HOTTRACKED</apiName><shortdesc>
+      そのオブジェクトが現在マウスによってホットトラッキングされていることを示す MSAA 状態フラグです。この場合は、マウスポインターが上に置かれていることを示すためにオブジェクトの外観が変化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x80</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが現在マウスによってホットトラッキングされていることを示す MSAA 状態フラグです。この場合は、マウスポインターが上に置かれていることを示すためにオブジェクトの外観が変化します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_INVISIBLE"><apiName>STATE_SYSTEM_INVISIBLE</apiName><shortdesc>
+      そのオブジェクトが非表示になっているか、表示不可能であることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが非表示になっているか、表示不可能であることを示す MSAA 状態フラグです。
+     
+      <p>例えば、リストボックスに数百個のファイル名が含まれている場合、ユーザーに表示されるのは一部の項目のみです。残りの項目は親により切り詰められ、STATE_SYSTEM_INVISIBLE 状態に設定されます。</p>
+      <p>表示されることのないオブジェクトは、STATE_SYSTEM_OFFSCREEN 状態に設定する必要があります。ただし、他のアプリケーションの下に隠れていてユーザーに見えないオブジェクトは、表示されているものと見なされることに注意してください（つまり、STATE_SYSTEM_INVISIBLE フラグは設定されません）。例えば、アプリケーションのメインウィンドウに表示されるオブジェクトは、ダイアログボックスの下に隠れていても、表示されているものと見なされます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_LINKED"><apiName>STATE_SYSTEM_LINKED</apiName><shortdesc>
+      そのオブジェクトがリンクされていることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x400000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがリンクされていることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MARQUEED"><apiName>STATE_SYSTEM_MARQUEED</apiName><shortdesc>
+      そのオブジェクトにスクロールまたは移動するテキストやグラフィックが表示されていることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトにスクロールまたは移動するテキストやグラフィックが表示されていることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MIXED"><apiName>STATE_SYSTEM_MIXED</apiName><shortdesc>
+      3 状態チェックボックスまたはツールバーボタンの状態が未決定であることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      3 状態チェックボックスまたはツールバーボタンの状態が未決定であることを示す MSAA 状態フラグです。
+     
+      <p>このチェックボックスは、選択も選択解除もされていないため、第 3 の中間状態です。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MOVEABLE"><apiName>STATE_SYSTEM_MOVEABLE</apiName><shortdesc>
+      そのオブジェクトが移動可能であることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが移動可能であることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MULTISELECTABLE"><apiName>STATE_SYSTEM_MULTISELECTABLE</apiName><shortdesc>
+      そのオブジェクトが複数の選択アイテムを受け入れることができる（つまり、IAccessible::accSelect メソッドの SELFLAG_ADDSELECTION が有効である）ことを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが複数の選択アイテムを受け入れることができる（つまり、IAccessible::accSelect メソッドの SELFLAG_ADDSELECTION が有効である）ことを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_NORMAL"><apiName>STATE_SYSTEM_NORMAL</apiName><shortdesc>
+      MSAA 状態フラグが存在しないことを示す定数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      MSAA 状態フラグが存在しないことを示す定数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_OFFSCREEN"><apiName>STATE_SYSTEM_OFFSCREEN</apiName><shortdesc>
+      そのオブジェクトに画面上の表現がないことを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトに画面上の表現がないことを示す MSAA 状態フラグです。
+     
+      <p>サウンド、警告オブジェクト、または画面上に表示されることがない非表示ウィンドウは、この状態になります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_PRESSED"><apiName>STATE_SYSTEM_PRESSED</apiName><shortdesc>
+      そのオブジェクトが押されていることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが押されていることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_PROTECTED"><apiName>STATE_SYSTEM_PROTECTED</apiName><shortdesc>
+      そのオブジェクトがパスワードで保護された編集コントロールであることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがパスワードで保護された編集コントロールであることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_READONLY"><apiName>STATE_SYSTEM_READONLY</apiName><shortdesc>
+      そのオブジェクトが読み取り専用であることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが読み取り専用であることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELECTABLE"><apiName>STATE_SYSTEM_SELECTABLE</apiName><shortdesc>
+      そのオブジェクトが選択を受け入れることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x200000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが選択を受け入れることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELECTED"><apiName>STATE_SYSTEM_SELECTED</apiName><shortdesc>
+      そのオブジェクトが選択されていることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが選択されていることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELFVOICING"><apiName>STATE_SYSTEM_SELFVOICING</apiName><shortdesc>
+      そのオブジェクトが音声変換（TTS）を使用して自分自身を説明できることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x80000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが音声変換（TTS）を使用して自分自身を説明できることを示す MSAA 状態フラグです。
+     
+      <p>この状態のオブジェクトは自分自身に関する情報を自動的に読み上げるので、これらのオブジェクトにフォーカスが移動したときに音声ベースのアクセシビリティ支援機能によって情報が読み上げられないようにする必要があります。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SIZEABLE"><apiName>STATE_SYSTEM_SIZEABLE</apiName><shortdesc>
+      そのオブジェクトがサイズ変更可能であることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトがサイズ変更可能であることを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_TRAVERSED"><apiName>STATE_SYSTEM_TRAVERSED</apiName><shortdesc>
+      そのオブジェクトが通過されたことを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが通過されたことを示す MSAA 状態フラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_UNAVAILABLE"><apiName>STATE_SYSTEM_UNAVAILABLE</apiName><shortdesc>
+      そのオブジェクトが使用不可能であることを示す MSAA 状態フラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      そのオブジェクトが使用不可能であることを示す MSAA 状態フラグです。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_VALID"><apiName>STATE_SYSTEM_VALID</apiName><shortdesc>
+      すべての有効な MSAA 状態フラグを表すビットマスクです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x7FFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      すべての有効な MSAA 状態フラグを表すビットマスクです。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.accessibility:UIComponentAccProps"><apiName>UIComponentAccProps</apiName><shortdesc>
+  UIComponentAccProps は、さまざまな UIComponent で使用される AccessibilityProperties のサブクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.accessibility:AccessibilityProperties</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UIComponentAccProps は、さまざまな UIComponent で使用される AccessibilityProperties のサブクラスです。フォーム、ツールヒント、エラーツールヒントに対するアクセシビリティを提供するために使用されます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:UIComponentAccProps:UIComponentAccProps"><apiName>UIComponentAccProps</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>この AccessibilityProperties インスタンスによってアクセス可能になる UIComponent インスタンスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:UIComponentAccProps:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      UIComponent クラスでアクセシビリティを有効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      UIComponent クラスでアクセシビリティを有効にします。
+     
+      <p>このメソッドは、MXML コンパイラーによって自動生成されるアプリケーション起動コードから呼び出されます。その後、UIComponent のインスタンスが初期化されると、<codeph>accessibilityProperties</codeph> プロパティがこのクラスのインスタンスに設定されます。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:UIComponentAccProps:protected:eventHandler"><apiName>eventHandler</apiName><shortdesc>
+      汎用イベントハンドラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      汎用イベントハンドラーです。UIComponentAccProps のすべてのサブクラスでは、マスターコンポーネントからイベントを受け取るために、これを実装する必要があります。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.accessibility:UIComponentAccProps:protected:master"><apiName>master</apiName><shortdesc>
+      UIComponent 自体への参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      UIComponent 自体への参照です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.accessibility:AccImpl"><apiName>AccImpl</apiName><shortdesc>
+  AccImpl は、MX および Spark コンポーネントに対して使用される Flex の基本アクセシビリティ実装クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.accessibility:AccessibilityImplementation</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AccImpl は、MX および Spark コンポーネントに対して使用される Flex の基本アクセシビリティ実装クラスです。
+ 
+  <p>Flash Player の AccessibilityImplementation クラスのサブクラスです。</p>
+ 
+  <p>MX または Spark コンポーネントが作成されると、そのコンポーネントの <codeph>accessibilityImplementation</codeph> プロパティがこのクラスのサブクラスのインスタンスに設定されます。その後、Flash Player でこのオブジェクトを使用することにより、スクリーンリーダーなどの MSAA クライアントでコンポーネントの表示と操作が可能になります。アクセシビリティ実装クラスおよび MSAA について詳しくは、flash.accessibility.AccessibilityImplementation クラスを参照してください。</p>
+ 
+  <p><b>子</b></p>
+ 
+  <p>Flash Player は、アクセス可能なオブジェクトの厳密な階層をサポートしていません。DisplayObject に <codeph>accessibilityImplementation</codeph> オブジェクトがある場合、その子の <codeph>accessibilityImplementation</codeph> オブジェクトは無視されます。ただし、Player では、コンポーネントのアクセシビリティ実装クラスで、その内部パーツの MSAA 情報を公開できます。例えば、List はその内部アイテムに関する MSAA 情報を公開します。</p>
+ 
+  <p>子（内部パーツ）の数と、識別に使用される子 ID は、<codeph>getChildIDArray()</codeph> メソッドにより判定されます。Player の AccessibilityImplementation 基本クラスでは、このメソッドを使用すると、単に <codeph>null</codeph> が返されます。Flex の AccImpl クラスは、このメソッドをオーバーライドして空の配列を返します。また、<codeph>createChildIDArray()</codeph> という保護されたユーティリティメソッドもあり、内部パーツを持つサブクラスのオーバーライドで使用できます。</p>
+ 
+  <p><b>役割</b></p>
+ 
+  <p>コンポーネントとその内部パーツの MSAA Role は、<codeph>get_accRole()</codeph> メソッドにより判定されます。Player の AccessibilityImplementation 基本クラスでは、サブクラスによりオーバーライドされることが予期されるため、このメソッドを使用するとランタイムエラーがスローされます。Flex の AccImpl クラスには <codeph>role</codeph> という名前の保護されたプロパティがあります。通常、サブクラスは、このプロパティをそれぞれのコンストラクターで設定し、<codeph>get_accRole()</codeph> をオーバーライドして、このプロパティを返します。</p>
+ 
+  <p><b>名前</b></p>
+ 
+  <p>コンポーネントとその内部パーツの MSAA Name は、<codeph>get_accName()</codeph> メソッドにより判定されます。Player の AccessibilityImplementation 基本クラスでは、このメソッドを使用すると、単に <codeph>null</codeph> が返されます。Flex の AccImpl クラスは、このメソッドをオーバーライドし、次のように、空の文字列から始まり、追加される各部分を単一のスペースで区切った名前を作成します。
+  <ul>
+    <li>単純な子（コンボボックスやリストボックスのアイテムなど）が要求されている場合は、子のデフォルト名のみが返されます。以下に示す残りの手順は、コンポーネント本体（childID 0）のみに適用されます。</li>
+   <li>コンポーネントが Form の内部にある場合 
+     <ul>
+       <li>Form に FormHeading があり、コンポーネントが FormItem の内部にある場合は、見出しテキストが追加されます。 これを回避するには、FormHeading の <codeph>accessibilityName</codeph> をスペース（" "）に設定する必要があります。</li>
+       <li>フィールドが必須の場合は、ロケールに応じて「必須フィールド」を意味する文字列が追加されます。</li>
+       <li>コンポーネントが FormItem の内部にある場合は、FormItem のラベルテキストが追加されます。これを回避するには、FormItem の <codeph>accessibilityName</codeph> をスペース（" "）に設定する必要があります。</li>
+    </ul></li>
+  <li>コンポーネントの名前は次のように決定されます。
+    <ul>
+      <li>コンポーネントの <codeph>accessibilityName</codeph>（つまり、<codeph>accessibilityProperties.name</codeph>）がスペースの場合、コンポーネント名は追加されません。</li>
+      <li>コンポーネント名が指定されている場合（つまり、null でも空でもない場合）は、指定されたコンポーネント名が追加されます。</li>
+      <li>それ以外の場合は、AccImpl で定義され各サブクラスで実装される、保護されたメソッド <codeph>getName()</codeph> が呼び出されて、デフォルト名が設定されます。例えば、ButtonAccImpl では、Button のデフォルト名がボタンに表示されるラベルであることを指定ために、<codeph>getName()</codeph> が実装されます。空でない場合、<codeph>getName()</codeph> の戻り値が追加されます。</li>
+      <li><codeph>getName()</codeph> で空の値が返された場合、コンポーネントの <codeph>toolTip</codeph> プロパティが設定されているときは、その String が追加されます。</li>
+      <li>コンポーネントの <codeph>errorString</codeph> プロパティが設定されている場合は、その String が追加されます。</li>
+    </ul></li>
+  </ul></p>
+ 
+  <p><b>説明</b></p>
+ 
+  <p>MSAA Description は、コンポーネントの <codeph>accessibilityImplementation</codeph> オブジェクトではなく、<codeph>accessibilityProperties</codeph> オブジェクトのみに基づいて決定されます。したがって、AccessibilityImplementation、AccImpl、および説明に関連する AccImpl のサブクラスにはロジックがありません。通常、Flex で説明を設定するには、UIComponent の <codeph>accessibilityDescription</codeph> プロパティを使用して、単純に <codeph>accessibilityProperties.description</codeph> を設定します。</p>
+ 
+  <p><b>状態</b></p>
+ 
+  <p>コンポーネントとその内部パーツの MSAA State は、<codeph>get_accState()</codeph> メソッドにより判定されます。Player の AccessibilityImplementation 基本クラスでは、サブクラスによりオーバーライドされることが予期されるため、このメソッドを使用するとランタイムエラーがスローされます。Flex の AccImpl クラスはこのメソッドをオーバーライドしませんが、サブクラスでオーバーライドできるように、<codeph>getState()</codeph> という保護されたユーティリティメソッドが用意されています。<codeph>getState()</codeph> メソッドを使用すると、次の値の組み合わせによって状態が示されます。
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（このコンポーネントまたはいずれかの上位要素で enabled が false になっている場合）</li>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED（コンポーネント自身にフォーカスが設定されており、コンポーネントにある可能性があるどのサブパートに対しても設定されていない場合）</li>
+  </ul>
+  デフォルトではすべてのコンポーネントがフォーカス可能であると見なされるので、フォーカス可能でないコンポーネント（Label など）のアクセシビリティ実装クラスではこの状態フラグをクリアする必要があります。コンポーネントの状態が UNAVAILABLE になっている場合は、アクセシビリティ実装クラスにより FOCUSABLE 状態が削除されます。</p>
+ 
+  <p><b>値</b></p>
+ 
+  <p>コンポーネントとその内部パーツの MSAA Value は、<codeph>get_accValue()</codeph> メソッドにより判定されます。Player の AccessibilityImplementation 基本クラスでは、このメソッドを使用すると、単に <codeph>null</codeph> が返されます。Flex の AccImpl クラスはこのメソッドをオーバーライドしませんが、TextInput などのコンポーネントのサブクラスはこのメソッドをオーバーライドします。</p>
+ 
+  <p><b>場所</b></p>
+ 
+  <p>コンポーネント本体ではなく、コンポーネントの内部パーツの MSAA Location は、<codeph>get_accLocation()</codeph> メソッドにより判定されます。このメソッドが childID 0 に対して呼び出されることはありません。Flash Player では、<codeph>getBounds()</codeph> から返された境界矩形に基づいてコンポーネントの MSAA Location を判定します。Flex の AccImpl クラスはこのメソッドをオーバーライドしませんが、内部パーツを持つコンポーネントのサブクラスはこのメソッドをオーバーライドします。</p>
+ 
+  <p><b>デフォルトアクション</b></p>
+ 
+  <p>コンポーネントとその内部パーツの MSAA DefaultAction は、<codeph>get_accDefaultAction()</codeph> により判定されます。Player の AccessibilityImplementation 基本クラスでは、このメソッドを使用すると、単に <codeph>null</codeph> が返されます。Flex の AccImpl クラスはこのメソッドをオーバーライドしませんが、デフォルトアクションを持つサブクラスはこのメソッドをオーバーライドします。これらのサブクラスは、AccessibilityImplementation の <codeph>accDoDefaultAction()</codeph> メソッドもオーバーライドして、それぞれのデフォルトアクションを実行します。</p>
+ 
+  <p><b>その他</b></p>
+ 
+  <p>オブジェクトの表示 / 非表示が切り替えられると、EVENT_OBJECT_SHOW および EVENT_OBJECT_HIDE と呼ばれる MSAA イベントが送信されます。Flash Player では、これらに対応する状態がサポートされ、非表示になっている MSAA コンポーネントはレンダリングされません。コンポーネントが表示されている場合は、AccImpl に関連して説明されている状態が使用されます。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AccImpl:AccImpl"><apiName>AccImpl</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AccImpl:protected:eventHandler"><apiName>eventHandler</apiName><shortdesc>
+      汎用イベントハンドラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      汎用イベントハンドラーです。AccImpl のすべてのサブクラスでは、マスターコンポーネントからイベントを受け取るために、これを実装する必要があります。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:getFormName"><apiName>getFormName</apiName><shortdesc>
+      フォームアクセシビリティをサポートするためのメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier></apiParam></apiOperationDef><apiDesc>
+      フォームアクセシビリティをサポートするためのメソッドです。この AccImpl クラスの get_accName() から呼び出されます。 UIComponentAccProps コンストラクターからも呼び出されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:protected:getName"><apiName>getName</apiName><shortdesc>
+      アクセス可能なコンポーネントの名前を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+      アクセス可能なコンポーネントの名前を返します。すべてのサブクラスでは、get_accName() を実装するのではなく、これを実装する必要があります。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:protected:getState"><apiName>getState</apiName><shortdesc>
+      アクセス可能なコンポーネントの状態を判別するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+      アクセス可能なコンポーネントの状態を判別するためのユーティリティメソッドです。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:isAncestorDisabled"><apiName>isAncestorDisabled</apiName><shortdesc>
+      コンポーネントの上位要素で enabled が false に設定されている場合は true を返します。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントに無効な上位要素がある場合は、true になります。
+     </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>無効な上位要素をチェックする UIComponent。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントの上位要素で enabled が false に設定されている場合は true を返します。指定されたコンポーネント自身はチェックされません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.accessibility:AccImpl:protected:master"><apiName>master</apiName><shortdesc>
+      この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      この AccImpl インスタンスによってアクセス可能になる UIComponent インスタンスへの参照です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccImpl:protected:role"><apiName>role</apiName><shortdesc>
+      アクセス可能になるコンポーネントのアクセシビリティロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      アクセス可能になるコンポーネントのアクセシビリティロールです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccImpl:protected:eventsToHandle:get"><apiName>eventsToHandle</apiName><shortdesc>
+      すべてのサブクラスは、受け取るイベントの文字列の配列を返すことにより、この関数をオーバーライドする必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      すべてのサブクラスは、受け取るイベントの文字列の配列を返すことにより、この関数をオーバーライドする必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

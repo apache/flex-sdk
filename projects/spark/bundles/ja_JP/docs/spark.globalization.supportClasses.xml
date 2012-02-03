@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.globalization.supportClasses"><apiName>spark.globalization.supportClasses</apiName><apiDetail/><apiClassifier id="spark.globalization.supportClasses:CollatorBase"><apiName>CollatorBase</apiName><shortdesc>
+     CollatorBase は SortingCollator および MatchingCollator クラスの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+     <codeph>CollatorBase</codeph> は SortingCollator および MatchingCollator クラスの基本クラスです。
+          <p>このクラスは <codeph>flash.globalization.Collator</codeph> のラッパークラスです。 したがって、ロケール固有のストリングの比較が <codeph>flash.globalization.Collator</codeph> クラスによって提供されます。 ただし、このクラスを基本クラスとして使用することによって、<codeph>SortingCollator</codeph> および <codeph>MatchingCollator</codeph> クラスを MXML 宣言で使用できます。 これらのクラスでは、要求されたロケール ID 名に <codeph>locale</codeph> スタイルが使用され、バインド可能なメソッドおよびプロパティを持ちます。
+     </p>
+          <p>flash.globalization.Collator クラスでは、フォーマット機能と、ロケール固有データの提供用に、基盤となるオペレーティングシステムを使用します。 一部のオペレーティングシステムでは、flash.globalization クラスがサポートされていません。 これらのシステムでは、ラッパークラスがストリング比較の代替機能を提供します。</p>
+          </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links><apiConstructor id="spark.globalization.supportClasses:CollatorBase:CollatorBase"><apiName>CollatorBase</apiName><shortdesc>
+          指定されたロケールの規則に従ってストリング比較を提供する新しい CollatorBase オブジェクトを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>initialMode</apiItemName><apiType value="String"/><apiDesc>ソートおよび照合という 2 つの使用例の初期照合オプションを設定します。
+                   </apiDesc></apiParam></apiConstructorDef><apiDesc>
+          指定されたロケールの規則に従ってストリング比較を提供する新しい CollatorBase オブジェクトを作成します。
+                   <p><codeph>initialMode</codeph> パラメーターは、ソートおよび照合という 2 つの使用例の初期照合オプションを設定します。 これは次の 2 つのいずれかの値に設定できます。</p>
+                   <ul>
+           <li><codeph>CollatorMode.SORTING</codeph>：エンドユーザーに表示されるテキストストリングのリストをソートするなどの汎用の言語的なソートを使用するための照合オプションを設定します。 このモードでは、ストリングの比較を行うときに、大文字と小文字の違いやアクセント付き文字など、ロケール固有の違いが考慮されます。</li>
+           <li><codeph>CollatorMode.MATCHING</codeph>：2 つのストリングが等しいかどうかの判断などに使用するための照合オプションを設定します。 このモードでは、ストリングの比較を行うときに、大文字と小文字の違い、アクセント付き文字などが無視されます。</li>
+          </ul>
+                   <p>これらの 2 つのモードの使用の詳細および例については、<codeph>flash.globalization.Collator</codeph> クラスのマニュアルを参照してください。</p>
+                   <p>このクラスのロケールは <codeph>locale</codeph> スタイルによって提供されます。 <codeph>locale</codeph> スタイルは、次のいくつかの方法で設定できます。</p>
+                   <ul>
+              <li>UIComponent の <codeph>addStyleClient</codeph> メソッドを呼び出すことによって <codeph>UIComponent</codeph> からスタイルを継承する（このオブジェクトのインスタンスをパラメーターとして使用する）。</li>
+              <li>MXML 宣言内でクラスを使用し、宣言を格納するドキュメントから <codeph>locale</codeph> スタイルを継承する。
+          <pre>
+          &lt;fx:Declarations>
+                 &lt;s:SortingCollator id="collator" />
+          &lt;/fx:Declarations>
+          </pre>
+          </li>
+              <li>MXML 宣言を使用し、代入のリスト内で <codeph>locale</codeph> 値を指定する。
+          <pre>
+          &lt;fx:Declarations>
+              &lt;s:SortingCollator id="collator_german" locale="de-DE" />
+          &lt;/fx:Declarations>
+          </pre>
+          </li>
+              <li>setStyle メソッド（<codeph>collator.setStyle("locale", "de-DE")</codeph> など）を呼び出す。</li>
+          </ul>
+                   <p>上記のいずれかの手法によって <codeph>locale</codeph> スタイルが設定されない場合、<codeph>locale</codeph> に依存するこのクラスのメソッドは、lastOperationStatus プロパティを <codeph>spark.globalization.LastOperationStatus.LOCALE_UNDEFINED_ERROR</codeph> に設定します。</p>
+                   </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.globalization.supportClasses:CollatorBase:compare"><apiName>compare</apiName><shortdesc>
+          2 つの文字列を比較して、1 番目の文字列が 2 番目の文字列と比べて小さいか、等しいか、大きいかを示す整数値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>1 番目の文字列が 2 番目の文字列と比べて小さいか、等しいか、大きいかを示す整数値。
+                 <ul>
+                     <li>戻り値が負の場合、<codeph>string1</codeph> が <codeph>string2</codeph> 未満か、<codeph>string2</codeph> が <codeph>null</codeph> であることを示します。</li>
+                     <li>戻り値が 0 の場合、<codeph>string1</codeph> は <codeph>string2</codeph> と等しいことを示します。</li>
+                     <li>戻り値が正の場合、<codeph>string1</codeph> が <codeph>string2</codeph> より大きいか、<codeph>string1</codeph> が <codeph>null</codeph> であることを示します。</li>
+                 </ul>
+                   </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>string1</apiItemName><apiType value="String"/><apiDesc>最初の比較ストリング。
+          </apiDesc></apiParam><apiParam><apiItemName>string2</apiItemName><apiType value="String"/><apiDesc>2 番目の比較ストリング。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          2 つの文字列を比較して、1 番目の文字列が 2 番目の文字列と比べて小さいか、等しいか、大きいかを示す整数値を返します。この比較では、compare メソッドが呼び出されるときに有効になる <codeph>locale</codeph> スタイルのソート順ルールを使用します。
+                   </apiDesc></apiOperationDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/CollatorBase()"><linktext>CollatorBase()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiOperation><apiOperation id="spark.globalization.supportClasses:CollatorBase:equals"><apiName>equals</apiName><shortdesc>
+          2 つの文字列を比較して、文字列が等しいかどうかを示すブール値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>文字列が等しい（<codeph>true</codeph>）か等しくない（<codeph>false</codeph>）かを示すブール値。
+                   </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>string1</apiItemName><apiType value="String"/><apiDesc>最初の比較ストリング。
+          </apiDesc></apiParam><apiParam><apiItemName>string2</apiItemName><apiType value="String"/><apiDesc>2 番目の比較ストリング。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          2 つの文字列を比較して、文字列が等しいかどうかを示すブール値を返します。この比較では、<codeph>CollatorBase()</codeph> コンストラクターで指定されたロケール ID のソート順ルールを使用します。
+                   </apiDesc></apiOperationDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/CollatorBase()"><linktext>CollatorBase()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/compare"><linktext>compare</linktext></link></related-links></apiOperation><apiOperation id="spark.globalization.supportClasses:CollatorBase:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+          このクラスでサポートされているすべてのロケール ID 名のリストが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>このクラスおよびオペレーティングシステムでサポートされているすべてのロケール ID 名を含む文字列のベクトル。
+                   </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+          このクラスでサポートされているすべてのロケール ID 名のリストが表示されます。
+                   </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.globalization.supportClasses:CollatorBase:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+          
+      このクラスオブジェクトで使用される実際のロケール ID の名前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+          
+      このクラスオブジェクトで使用される実際のロケール ID の名前。これはフォーマットするデータと機能にオペレーティングシステムからアクセスするために使用されるロケールです。
+     
+      <p><codeph>locale</codeph> スタイルによって設定されたロケールが使用できない場合、<codeph>actualLocaleIDName</codeph> の値は <codeph>locale</codeph> スタイルの値とは異なります。 この値は使用中の代替ロケールを示します。 locale スタイルが <codeph>LocaleID.DEFAULT</codeph> に設定された場合、ユーザーのオペレーティングシステムによって指定されたロケールの名前が使用されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.Collator.actualLocaleIDName.xml"><linktext>flash.globalization.Collator.actualLocaleIDName</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/CollatorBase()"><linktext>CollatorBase()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreCase:get"><apiName>ignoreCase</apiName><shortdesc>
+          このプロパティが true に設定されている場合、同一のストリングおよび大文字と小文字の区別だけが違うストリングが、等しいストリングとして評価されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          このプロパティが true に設定されている場合、同一のストリングおよび大文字と小文字の区別だけが違うストリングが、等しいストリングとして評価されます。
+                   <p><codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.MATCHING</codeph> に設定されるとき、デフォルト値は <codeph>true</codeph> です。 <codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.SORTING</codeph> に設定されるときは <codeph>false</codeph> です。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreCharacterWidth:get"><apiName>ignoreCharacterWidth</apiName><shortdesc>
+          このプロパティが true に設定されている場合、一部の中国語および日本語の文字の全角と半角の形が、等しい形として評価されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          このプロパティが true に設定されている場合、一部の中国語および日本語の文字の全角と半角の形が、等しい形として評価されます。
+                   <p>中国語と日本語の文字セットの既存の標準との互換性を保つために、Unicode では、一部の文字の全角と半角の両方に対応する文字コードを提供しています。例えば、<codeph>ignoreCharacterWidth</codeph> プロパティが <codeph>true</codeph> に設定されている場合、<codeph>compare("Ａｱ", "Aア")</codeph> は <codeph>true</codeph> を返します。</p>
+                   <p><codeph>ignoreCharacterWidth</codeph> プロパティが <codeph>false</codeph> に設定されている場合、全角文字と半角文字はそれぞれ異なります。</p>
+                   <p><codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.MATCHING</codeph> に設定されるとき、デフォルト値は <codeph>true</codeph> です。 <codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.SORTING</codeph> に設定されるときは <codeph>false</codeph> です。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreDiacritics:get"><apiName>ignoreDiacritics</apiName><shortdesc>
+          このプロパティが true に設定されている場合、ストリングで使用されている基本文字が同じであれば、アクセントやその他の識別記号の違いがあっても、同じストリングと評価されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          このプロパティが true に設定されている場合、ストリングで使用されている基本文字が同じであれば、アクセントやその他の識別記号の違いがあっても、同じストリングと評価されます。例えば、<codeph>ignoreDiacritics</codeph> プロパティが <codeph>true</codeph> に設定されている場合、<codeph>compare("coté", "côte")</codeph> は <codeph>true</codeph> を返します。
+                   <p><codeph>ignoreDiacritics</codeph> が <codeph>false</codeph> に設定されている場合、アクセントやその他の識別記号の違いがある基本文字は同じとは見なされません。</p>
+                            <p><codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.MATCHING</codeph> に設定されるとき、デフォルト値は <codeph>true</codeph> です。 <codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.SORTING</codeph> に設定されるときは <codeph>false</codeph> です。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreKanaType:get"><apiName>ignoreKanaType</apiName><shortdesc>
+          このプロパティが true に設定されている場合、カナ文字の種類のみが異なる文字列は、等しい文字列として扱われます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          このプロパティが true に設定されている場合、カナ文字の種類のみが異なる文字列は、等しい文字列として扱われます。例えば、<codeph>ignoreKanaType</codeph> プロパティが <codeph>true</codeph> に設定されている場合、<codeph>compare("カナ", "かな")</codeph> は <codeph>true</codeph> を返します。
+                   <p><codeph>ignoreKanaType</codeph> が <codeph>false</codeph> に設定されている場合、同じ音節のひらがな文字とカタカナ文字とは同じものになりません。</p>
+                   <p><codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.MATCHING</codeph> に設定されるとき、デフォルト値は <codeph>true</codeph> です。 <codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.SORTING</codeph> に設定されるときは <codeph>false</codeph> です。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:ignoreSymbols:get"><apiName>ignoreSymbols</apiName><shortdesc>
+          このプロパティが true に設定されている場合、スペース、通貨記号、数学記号およびその他の種類の記号などの記号文字はソート時または照合時に無視されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+          このプロパティが true に設定されている場合、スペース、通貨記号、数学記号およびその他の種類の記号などの記号文字はソート時または照合時に無視されます。例えば、「OBrian」、「O'Brian」および「O Brian」などの文字列は、<codeph>ignoreSymbols</codeph> プロパティが <codeph>true</codeph> に設定されている場合、同じ文字列として扱われます。
+                   <p><codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.MATCHING</codeph> に設定されるとき、デフォルト値は <codeph>true</codeph> です。 <codeph>CollatorBase()</codeph> コンストラクターの <codeph>initialMode</codeph> パラメーターが <codeph>Collator.SORTING</codeph> に設定されるときは <codeph>false</codeph> です。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+          
+      このクラスオブジェクトが実行した最新の操作のステータス。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+          
+      このクラスオブジェクトが実行した最新の操作のステータス。コンストラクターまたはこのクラスのメソッドが呼び出されたり、プロパティが設定されたりすると、必ず <codeph>lastOperationStatus</codeph> が設定されます。有効な値については、各メソッドの説明を参照してください。
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.globalization.supportClasses:CollatorBase:numericComparison:get"><apiName>numericComparison</apiName><shortdesc>
+          ストリングに埋め込まれた数値の、ストリングの比較時の取扱方法を制御します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>&lt;code>false&lt;/code>
+                   </apiDefaultValue></apiValueDef><apiDesc>
+          ストリングに埋め込まれた数値の、ストリングの比較時の取扱方法を制御します。
+                   <p><codeph>numericComparison</codeph> プロパティが <codeph>true</codeph> に設定されている場合、compare メソッドはストリング中の数字を比較用の数値に変換します。</p>
+                   <p>このプロパティが <codeph>false</codeph> に設定されている場合、比較は数字を文字コードとして扱い、指定された <codeph>locale</codeph> の文字ソートのルールに従ってソートします。</p>
+                   <p>例えば、このプロパティがロケール ID「en-US」に対して true の場合、ストリング「version1」、「version10」および「version2」は version1 &lt; version2 &lt; version10 の順でソートされます。</p>
+                   <p>このプロパティが「en-US」に対して false の場合、同じストリングが version1 &lt; version10 &lt; version2 の順でソートされます。</p>
+                   </apiDesc></apiValueDetail><related-links><link href="spark.globalization.supportClasses.xml#CollatorBase/compare()"><linktext>compare()</linktext></link><link href="spark.globalization.supportClasses.xml#CollatorBase/equals()"><linktext>equals()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.globalization.supportClasses:GlobalizationBase"><apiName>GlobalizationBase</apiName><shortdesc>
+  これは、日付、時刻、数値および通貨額の言語および地域固有のフォーマット、ストリングの比較および大文字と小文字の変換機能のための flash.globalization クラスを利用する、ラッパークラス用に使用される基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><styles><style inherit="yes" name="locale" owner="spark.globalization.supportClasses:GlobalizationBase" playerVersion="Flash10.1" type="String">
+<description>
+  言語、地域、スクリプトおよびオプションで他の関連するタグおよびキーを指定するロケール識別子です。 この識別子のシンタックスは、Unicode Technical Standard #35（en-US、de-DE、zh-Hans-CN など）で定義されている構文に従う必要があります。
+ 
+  </description>
+
+<playerversion>AIR 2.5
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog><related-links><link href="http://www.unicode.org/reports/tr35/"><linktext>http://www.unicode.org/reports/tr35/</linktext></link></related-links></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.styles:AdvancedStyleClient</apiBaseClassifier></apiClassifierDef><apiDesc>
+  これは、日付、時刻、数値および通貨額の言語および地域固有のフォーマット、ストリングの比較および大文字と小文字の変換機能のための flash.globalization クラスを利用する、ラッパークラス用に使用される基本クラスです。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter"><linktext>spark.formatters.CurrencyFormatter</linktext></link><link href="spark.formatters.xml#DateTimeFormatter"><linktext>spark.formatters.DateTimeFormatter</linktext></link><link href="spark.formatters.xml#NumberFormatter"><linktext>spark.formatters.NumberFormatter</linktext></link><link href="spark.globalization.xml#MatchingCollator"><linktext>spark.globalization.MatchingCollator</linktext></link><link href="spark.globalization.xml#SortingCollator"><linktext>spark.globalization.SortingCollator</linktext></link><link href="spark.globalization.xml#StringTools"><linktext>spark.globalization.StringTools</linktext></link></related-links><adobeApiEvent id="spark.globalization.supportClasses:GlobalizationBase_flash.events.Event.CHANGE_change"><apiName>change</apiName><shortdesc>
+  変更イベントは、ロケールスタイルが変更された場合、および、別のプロパティが設定されたことによって、数値のフォーマットが変更されたり、このクラスを通じて使用可能な他の値が更新されたりした場合に、常に生成されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  変更イベントは、<codeph>locale</codeph> スタイルが変更された場合、および、別のプロパティが設定されたことによって、数値のフォーマットが変更されたり、このクラスを通じて使用可能な他の値が更新されたりした場合に、常に生成されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.globalization.supportClasses:GlobalizationBase:GlobalizationBase"><apiName>GlobalizationBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.globalization.supportClasses:GlobalizationBase:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.globalization.supportClasses:GlobalizationBase:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      このクラスオブジェクトで使用される実際のロケール ID の名前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このクラスオブジェクトで使用される実際のロケール ID の名前。これはフォーマットするデータと機能にオペレーティングシステムからアクセスするために使用されるロケールです。
+     
+      <p><codeph>locale</codeph> スタイルによって設定されたロケールが使用できない場合、<codeph>actualLocaleIDName</codeph> の値は <codeph>locale</codeph> スタイルの値とは異なります。 この値は使用中の代替ロケールを示します。 locale スタイルが <codeph>LocaleID.DEFAULT</codeph> に設定された場合、ユーザーのオペレーティングシステムによって指定されたロケールの名前が使用されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.globalization.supportClasses:GlobalizationBase:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      このクラスオブジェクトが実行した最新の操作のステータス。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      このクラスオブジェクトが実行した最新の操作のステータス。コンストラクターまたはこのクラスのメソッドが呼び出されたり、プロパティが設定されたりすると、必ず <codeph>lastOperationStatus</codeph> が設定されます。有効な値については、各メソッドの説明を参照してください。
+     
+     </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.xml"><linktext>flash.globalization.LastOperationStatus</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

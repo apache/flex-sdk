@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.primitives"><apiName>spark.primitives</apiName><apiDetail/><apiClassifier id="spark.primitives:Graphic"><apiName>Graphic</apiName><shortdesc>
+  Le contrôle Graphic affiche un jeu de commandes de traçage graphique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusSkin"/><Exclude kind="style" name="focusBlendMode"/><Exclude kind="property" name="tabEnabled"/><Exclude kind="property" name="mouseFocusEnabled"/><Exclude kind="property" name="layout"/><Exclude kind="property" name="focusPane"/><Exclude kind="property" name="focusEnabled"/><Exclude kind="method" name="setFocus"/><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Graphic&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Graphic
+    <b>Properties</b>
+    version
+    viewHeight
+    viewWidth
+    &nbsp;
+  /&gt;
+  </pre>
+ 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Le contrôle Graphic affiche un jeu de commandes de traçage graphique. 
+ 
+  <p>La classe Graphic est la balise racine de tous les éléments graphiques. Cette balise est également la racine des documents FXG. Elle ne peut pas apparaître ailleurs dans un document FXG. </p>
+  
+  <p>Vous ajoutez une série de balises d’éléments (par exemple, <codeph>&lt;Rect></codeph>, <codeph>&lt;Path></codeph> et <codeph>&lt;Ellipse></codeph>) au tableau d’éléments du graphique pour définir le contenu du graphique.</p>
+ 
+  <p>Les contrôles Graphic ne comportent pas d’arrière-plans ou de bordures et ne peuvent pas être mis en focus.</p>
+  
+  <p>Lorsqu’il est placé dans un conteneur, un graphique est positionné par les règles du conteneur. Toutefois, les graphiques dans le contrôle Graphic sont toujours dimensionnés et positionnés par rapport au coin supérieur gauche du contrôle Graphic. </p>
+  
+  <p>L’élément Graphic peut éventuellement contenir un élément <codeph>&lt;Group></codeph>. </p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.primitives.xml#Ellipse"><linktext>spark.primitives.Ellipse</linktext></link><link href="spark.primitives.xml#Line"><linktext>spark.primitives.Line</linktext></link><link href="spark.primitives.xml#Path"><linktext>spark.primitives.Path</linktext></link><link href="spark.primitives.xml#Rect"><linktext>spark.primitives.Rect</linktext></link><link href="spark.components.xml#Group"><linktext>spark.components.Group</linktext></link></related-links><apiConstructor id="spark.primitives:Graphic:Graphic"><apiName>Graphic</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Graphic:protected:measure"><apiName>measure</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.primitives:Graphic:version"><apiName>version</apiName><shortdesc>
+        Spécifie la version FXG que cette balise Graphic cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1.0</apiData><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+        Spécifie la version FXG que cette balise Graphic cible.  
+     
+        </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Graphic:viewHeight:get"><apiName>viewHeight</apiName><shortdesc>
+      Définit l’espace vertical que le graphique utilise dans la présentation. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Définit l’espace vertical que le graphique utilise dans la présentation. Lorsque vous définissez cette valeur, le contenu n’est pas mis à l’échelle. Mais si vous spécifiez la valeur de la propriété <codeph>height</codeph>, le contenu est mis à l’échelle. 
+      
+      <p>Il existe deux cas où ceci peut être utile : 1) Vous spécifiez une hauteur <codeph>viewHeight</codeph> supérieure à la taille naturelle du contenu. Vous pouvez effectuer cela afin que le graphique occupe plus d’espace que sa taille visuelle. 2) Vous spécifiez une hauteur <codeph>viewHeight</codeph> inférieure à la taille naturelle du contenu. Vous pouvez effectuer cette opération si votre graphique comporte du chrome supplémentaire ou une bordure qui s’étend au-delà du contour du graphique. Dans ce cas de figure, assurez-vous de désactiver l’écrêtage dans votre présentation. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Graphic:viewWidth:get"><apiName>viewWidth</apiName><shortdesc>
+      Définit l’espace horizontal que le graphique utilise dans la présentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Définit l’espace horizontal que le graphique utilise dans la présentation. Lorsque vous définissez cette valeur, le contenu n’est pas mis à l’échelle. Mais si vous spécifiez la valeur de la propriété <codeph>width</codeph>, le contenu est mis à l’échelle. 
+      
+      <p>Il existe deux cas où ceci peut être utile : 1) Vous spécifiez une largeur <codeph>viewWidth</codeph> supérieure à la taille naturelle du contenu. Vous pouvez effectuer cela afin que le graphique occupe plus d’espace que sa taille visuelle. 2) Vous spécifiez une largeur <codeph>viewWidth</codeph> inférieure à la taille naturelle du contenu. Vous pouvez effectuer cette opération si votre graphique comporte du chrome supplémentaire ou une bordure qui s’étend au-delà du contour du graphique. Dans ce cas de figure, assurez-vous de désactiver l’écrêtage dans votre présentation. </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:Rect"><apiName>Rect</apiName><shortdesc>
+  La classe Rect est un élément graphique rempli qui trace un rectangle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:FilledElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Rect est un élément graphique rempli qui trace un rectangle. Les angles du rectangle peuvent être arrondis. La méthode <codeph>drawElement()</codeph> appelle les méthodes <codeph>Graphics.drawRect()</codeph> et <codeph>Graphics.drawRoundRect()</codeph>.
+ 
+  <p><b>Remarque : </b>par défaut, le trait de la bordure est arrondi. Si vous ne souhaitez pas de coins arrondis, définissez la propriété <codeph>joints</codeph> du trait sur <codeph>JointStyle.MITER</codeph>.  </p>
+  
+  </apiDesc><example conref="RectExample.mxml"><swfblock conref="examples/RectExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="spark.primitives:Rect:Rect"><apiName>Rect</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Rect:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      Tracer l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique à dessiner. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Tracer l’élément. Il s’agit de la seconde étape parmi les trois étapes effectuées pendant le processus de traçage. Remplacez cette méthode pour implémenter votre dessin. Le trait (et le remplissage, le cas échéant) ont été définis dans la méthode <codeph>beginDraw()</codeph>. Votre remplacement ne doit contenir que des appels à des méthodes de traçage, telles que<codeph>moveTo()</codeph>, <codeph>curveTo()</codeph> et <codeph>drawRect()</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Rect:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Rect:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:Rect:bottomLeftRadiusX:get"><apiName>bottomLeftRadiusX</apiName><shortdesc>
+      Le rayon x de l’angle inférieur gauche du rectangle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le rayon x de l’angle inférieur gauche du rectangle. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:bottomLeftRadiusY:get"><apiName>bottomLeftRadiusY</apiName><shortdesc>
+      Le rayon y de l’angle inférieur gauche du rectangle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le rayon y de l’angle inférieur gauche du rectangle. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:bottomRightRadiusX:get"><apiName>bottomRightRadiusX</apiName><shortdesc>
+      Le rayon x de l’angle inférieur droit du rectangle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le rayon x de l’angle inférieur droit du rectangle. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:bottomRightRadiusY:get"><apiName>bottomRightRadiusY</apiName><shortdesc>
+      Le rayon y de l’angle inférieur droit du rectangle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le rayon y de l’angle inférieur droit du rectangle. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:radiusX:get"><apiName>radiusX</apiName><shortdesc>
+      Le rayon d’arrondi par défaut à utiliser pour l’axe des x sur tous les angles. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Le rayon d’arrondi par défaut à utiliser pour l’axe des x sur tous les angles. Les propriétés <codeph>topLeftRadiusX</codeph>, <codeph>topRightRadiusX</codeph>, <codeph>bottomLeftRadiusX</codeph> et <codeph>bottomRightRadiusX</codeph> ont la priorité sur cette propriété. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:radiusY:get"><apiName>radiusY</apiName><shortdesc>
+      Le rayon d’arrondi par défaut à utiliser pour l’axe des y sur tous les angles. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Le rayon d’arrondi par défaut à utiliser pour l’axe des y sur tous les angles. Les propriétés <codeph>topLeftRadiusY</codeph>, <codeph>topRightRadiusY</codeph>, <codeph>bottomLeftRadiusY</codeph> et <codeph>bottomRightRadiusY</codeph> ont la priorité sur cette propriété. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topLeftRadiusX:get"><apiName>topLeftRadiusX</apiName><shortdesc>
+      Le rayon x de l’angle supérieur gauche du rectangle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le rayon x de l’angle supérieur gauche du rectangle. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topLeftRadiusY:get"><apiName>topLeftRadiusY</apiName><shortdesc>
+      Le rayon y de l’angle supérieur gauche du rectangle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le rayon y de l’angle supérieur gauche du rectangle. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topRightRadiusX:get"><apiName>topRightRadiusX</apiName><shortdesc>
+      Le rayon x de l’angle supérieur droit du rectangle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le rayon x de l’angle supérieur droit du rectangle. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topRightRadiusY:get"><apiName>topRightRadiusY</apiName><shortdesc>
+      Le rayon y de l’angle supérieur droit du rectangle. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Le rayon y de l’angle supérieur droit du rectangle. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+      Cette classe optimise les ombres portées dans la plupart des cas.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+      <p>Cette classe optimise les ombres portées dans la plupart des cas. Si vous appliquez un effet d’ombre portée à un objet rectangulaire dont les bords tombent sur les limites des pixels, il faut choisir cette classe au lieu d’utiliser le filtre DropShadowFilter directement. </p>
+     
+      <p>Cette classe accepte les quatre premiers paramètres qui sont transmis au filtre DropShadowFilter : <codeph>alpha</codeph>, <codeph>angle</codeph>, <codeph>color</codeph> et <codeph>distance</codeph>. En outre, cette classe accepte les rayons des angles pour chacun des quatre coins de l’objet rectangulaire qui projette une ombre. </p>
+     
+      <p>Une fois ces 8 valeurs définies, cette classe précalcule l’ombre portée dans une image bitmap hors écran. Lorsque la méthode <codeph>drawShadow()</codeph>est appelée, des morceaux de l’ombre portée précalculée sont copiés sur l’objet Graphics transmis. </p>
+      
+      </apiDesc><example conref="RectangularDropShadowExample.mxml"><swfblock conref="examples/RectangularDropShadowExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#DropShadowFilter"><linktext>spark.filters.DropShadowFilter</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="spark.primitives:RectangularDropShadow:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+          Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+          Constructeur.
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.primitives:RectangularDropShadow:alpha:get"><apiName>alpha</apiName><shortdesc conref="spark.filters.DropShadowFilter#alpha">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.filters.DropShadowFilter#alpha">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:angle:get"><apiName>angle</apiName><shortdesc conref="spark.filters.DropShadowFilter#angle">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.filters.DropShadowFilter#angle">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:blRadius:get"><apiName>blRadius</apiName><shortdesc>
+          Rayon d’angle du coin inférieur gauche du rectangle arrondi projetant l’ombre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          Rayon d’angle du coin inférieur gauche du rectangle arrondi projetant l’ombre. Peut être zéro pour des rectangles non arrondis. 
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:blurX:get"><apiName>blurX</apiName><shortdesc>
+          Quantité de flou horizontal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Quantité de flou horizontal.
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:blurY:get"><apiName>blurY</apiName><shortdesc>
+          Quantité de flou vertical.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          Quantité de flou vertical.
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:brRadius:get"><apiName>brRadius</apiName><shortdesc>
+          Rayon d’angle du coin inférieur droit du rectangle arrondi projetant l’ombre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          Rayon d’angle du coin inférieur droit du rectangle arrondi projetant l’ombre. Peut être zéro pour des rectangles non arrondis. 
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:color:get"><apiName>color</apiName><shortdesc conref="spark.filters.DropShadowFilter#color">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="spark.filters.DropShadowFilter#color">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:distance:get"><apiName>distance</apiName><shortdesc conref="flash.filters.DropShadowFilter#distance">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#distance">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:tlRadius:get"><apiName>tlRadius</apiName><shortdesc>
+          Rayon d’angle du coin supérieur gauche du rectangle arrondi projetant l’ombre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          Rayon d’angle du coin supérieur gauche du rectangle arrondi projetant l’ombre. Peut être zéro pour des rectangles non arrondis. 
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:trRadius:get"><apiName>trRadius</apiName><shortdesc>
+          Rayon d’angle du coin supérieur droit du rectangle arrondi projetant l’ombre. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          Rayon d’angle du coin supérieur droit du rectangle arrondi projetant l’ombre. Peut être zéro pour des rectangles non arrondis. 
+          
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:Line"><apiName>Line</apiName><shortdesc>
+  La classe Line est un élément graphique qui trace une ligne entre deux points.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:StrokedElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Line est un élément graphique qui trace une ligne entre deux points.
+  
+  <p>Le trait par défaut d’une ligne n’étant pas défini, si vous ne spécifiez pas le trait, la ligne est invisible. </p>
+  
+  </apiDesc><example conref="LineExample.mxml"><swfblock conref="examples/LineExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.graphics.Stroke.xml"><linktext>mx.graphics.Stroke</linktext></link></related-links><apiConstructor id="spark.primitives:Line:Line"><apiName>Line</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Line:protected:canSkipMeasurement"><apiName>canSkipMeasurement</apiName><shortdesc>
+      
+      Détermine si l’appel à la méthode measure() peut être ignoré. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> lorsque la méthode <codeph>measureSizes()</codeph> peut ignorer l’appel à la méthode <codeph>measure()</codeph>. Par exemple, la valeur est généralement la valeur <codeph>true</codeph> lorsque les propriétés <codeph>explicitWidth</codeph> et <codeph>explicitHeight</codeph> sont défini. Pour les chemins, la valeur est <codeph>true</codeph> lorsque les limites du chemin n’ont pas changé.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Détermine si l’appel à la méthode <codeph>measure()</codeph> peut être ignoré.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Line:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      Tracer l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique à dessiner. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Tracer l’élément. Il s’agit de la seconde étape parmi les trois étapes effectuées pendant le processus de traçage. Remplacez cette méthode pour implémenter votre dessin. Le trait (et le remplissage, le cas échéant) ont été définis dans la méthode <codeph>beginDraw()</codeph>. Votre remplacement ne doit contenir que des appels à des méthodes de traçage, telles que<codeph>moveTo()</codeph>, <codeph>curveTo()</codeph> et <codeph>drawRect()</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Line:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      Calcule la taille par défaut de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Calcule la taille par défaut de l’élément. Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe de l’objet GraphicElement.
+     
+      <p>Vous n’appelez pas cette méthode directement. Flex appelle la méthode <codeph>measure()</codeph> lorsque l'élément est ajouté à un conteneur <codeph>IGraphicElementContainer</codeph> tel que Group par le biais de la méthode <codeph>addElement()</codeph> et lorsque la méthode <codeph>invalidateSize()</codeph> de l’élément est appelée. </p>
+     
+      <p>Par défaut, vous définissez une hauteur et une largeur explicites d’un élément, et Flex n’appelle pas la méthode <codeph>measure()</codeph>, même si vous appelez explicitement la méthode <codeph>invalidateSize()</codeph>. Pour remplacer ce comportement, remplacez la méthode <codeph>skipMeasure()</codeph>.</p>
+     
+      <p>Dans votre remplacement de cette méthode, vous devez définir les propriétés <codeph>measuredWidth</codeph> et <codeph>measuredHeight</codeph> pour définir la taille par défaut. Si vous le souhaitez, vous pouvez définir les propriétés <codeph>measuredX</codeph> et <codeph>measuredY</codeph> pour définir le coin supérieur gauche des limites mesurées par défaut par rapport à l’origine de l’élément.</p>
+     
+      <p>Le point de mesure conceptuel de la méthode <codeph>measure()</codeph> permet à l’élément de fournir ses propres limites naturelles ou intrinsèques comme valeur par défaut. Par conséquent, les propriétés <codeph>measuredWidth</codeph> et <codeph>measuredHeight</codeph> doivent être déterminées par des facteurs comme :</p>
+      <ul>
+         <li>La quantité de texte que le composant doit afficher.</li>
+         <li>La taille d’une image JPEG affichée par le composant.</li>
+      </ul>
+     
+      <p>Dans certains cas, aucune méthode intrinsèque ne permet de déterminer les valeurs par défaut. Par exemple, la méthode <codeph>measure()</codeph> d’un élément GreenCircle simple peut simplement définir measuredWidth = 100 et measuredHeight = 100 pour indiquer une taille par défaut raisonnable. Dans d’autres cas, comme le contrôle TextArea, un calcul approprié (comme rechercher la hauteur et la largeur correctes qui permettront d’afficher tout le texte et respecteront les proportions d’un rectangle d’or) peut s’avérer trop long pour que cela en vaille la peine.</p>
+     
+      <p>L’implémentation par défaut de <codeph>measure()</codeph> définit les valeurs des propriétés <codeph>measuredWidth</codeph>, <codeph>measuredHeight</codeph>, <codeph>measuredX</codeph> et <codeph>measuredY</codeph> sur <codeph>0</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:Line:xFrom:get"><apiName>xFrom</apiName><shortdesc>
+     Position x de début de la ligne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     Position x de début de la ligne. 
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Line:xTo:get"><apiName>xTo</apiName><shortdesc>
+     Position x de fin de la ligne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     Position x de fin de la ligne. 
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Line:yFrom:get"><apiName>yFrom</apiName><shortdesc>
+     Position y de début de la ligne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     Position y de début de la ligne. 
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Line:yTo:get"><apiName>yTo</apiName><shortdesc>
+     Position y de fin de la ligne. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     Position y de fin de la ligne. 
+    
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:BitmapImage"><apiName>BitmapImage</apiName><shortdesc>
+  Un élément BitmapImage définit une région rectangulaire dans l’espace de coordonnées de son élément parent, rempli de données de bitmap tracées depuis un fichier source ou d'une URL source. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.0"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:GraphicElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Un élément BitmapImage définit une région rectangulaire dans l’espace de coordonnées de son élément parent, rempli de données de bitmap tracées depuis un fichier source ou d'une URL source. 
+   </apiDesc><example conref="BitmapImageExample.mxml"><swfblock conref="examples/BitmapImageExample.swf"/></example></apiClassifierDetail><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.SecurityErrorEvent.SECURITY_ERROR_securityError"><apiName>securityError</apiName><shortdesc>
+  Distribué lorsqu’une erreur de sécurité se produit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SecurityErrorEvent.SECURITY_ERROR</apiEventType><adobeApiEventClassifier>flash.events.SecurityErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une erreur de sécurité se produit.
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.SecurityErrorEvent.xml"><linktext>flash.events.SecurityErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_mx.events.FlexEvent.READY_ready"><apiName>ready</apiName><shortdesc>
+  Distribué lorsque le chargement du contenu est terminé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.READY</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque le chargement du contenu est terminé. Contrairement à l'événement <codeph>complete</codeph>, cet événement est distribué pour tous les type de source.
+   <p>Notez que, pour le contenu chargé à l'aide du Loader, les événements <codeph>ready</codeph> et <codeph>complete</codeph> sont distribués.</p>  Pour d'autres types de source tels que les incrustations seul <codeph>ready</codeph> est distribué.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.ProgressEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  Distribué lors du chargement de contenu. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.ProgressEvent.PROGRESS</apiEventType><adobeApiEventClassifier>flash.events.ProgressEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lors du chargement de contenu d’un contenu. 
+   <p><b>Remarque :</b> il n’est pas assuré que l’événement <codeph>progress</codeph> soit distribué. L’événement <codeph>complete</codeph> peut être reçu sans qu’aucun événement <codeph>progress</codeph> ne soit distribué. Ceci peut se produire si le contenu chargé est un fichier local.</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.IOErrorEvent.IO_ERROR_ioError"><apiName>ioError</apiName><shortdesc>
+  Distribué lorsqu’une erreur d’entrée/sortie se produit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.IOErrorEvent.IO_ERROR</apiEventType><adobeApiEventClassifier>flash.events.IOErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une erreur d’entrée/sortie se produit.
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.IOErrorEvent.xml"><linktext>flash.events.IOErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.HTTPStatusEvent.HTTP_STATUS_httpStatus"><apiName>httpStatus</apiName><shortdesc>
+  Distribué lorsqu’une requête réseau est envoyée via le protocole HTTP et que Flash Player ou AIR peut détecter le code d’état HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.HTTPStatusEvent.HTTP_STATUS</apiEventType><adobeApiEventClassifier>flash.events.HTTPStatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une requête réseau est envoyée via le protocole HTTP et que Flash Player ou AIR peut détecter le code d’état HTTP.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.Event.COMPLETE_complete"><apiName>complete</apiName><shortdesc>
+  Distribué lorsque le chargement du contenu est terminé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.COMPLETE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque le chargement du contenu est terminé. Cet événement n'est distribué que pour les sources basées sur des URL et des ByteArray (ces sources nécessitent un Loader).
+   <p>Notez que, pour le contenu chargé à l'aide du Loader, les événements <codeph>ready</codeph> et <codeph>complete</codeph> sont distribués.</p>  Pour d'autres types de source tels que les incrustations seul <codeph>ready</codeph> est distribué.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.primitives:BitmapImage:BitmapImage"><apiName>BitmapImage</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:BitmapImage:protected:commitProperties"><apiName>commitProperties</apiName><shortdesc>
+      
+      Traite le jeu de propriétés sur l’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Traite le jeu de propriétés sur l’élément. Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe.
+     
+      <p>Vous n’appelez pas cette méthode directement. Flex appelle la méthode <codeph>commitProperties()</codeph> lorsque vous utilisez la méthode <codeph>addElement()</codeph> pour ajouter un élément à un conteneur <codeph>IGraphicElementContainer</codeph> tel que Group, ou lorsque vous appelez la méthode <codeph>invalidateProperties()</codeph> de l’élément. Les appels de la méthode <codeph>commitProperties()</codeph> sont réalisés avant les appels de la méthode <codeph>measure()</codeph>. Ainsi, vous pouvez définir des valeurs de propriété susceptibles d’être utilisées par la méthode <codeph>measure()</codeph>.</p>
+     
+      <p>Certains éléments possèdent des propriétés qui interagissent entre elles. En règle générale, il est préférable de traiter toutes ces propriétés en même temps au démarrage pour éviter d’avoir à réaliser plusieurs fois les mêmes opérations.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:BitmapImage:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      Calcule la taille par défaut de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Calcule la taille par défaut de l’élément. Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe de l’objet GraphicElement.
+     
+      <p>Vous n’appelez pas cette méthode directement. Flex appelle la méthode <codeph>measure()</codeph> lorsque l'élément est ajouté à un conteneur <codeph>IGraphicElementContainer</codeph> tel que Group par le biais de la méthode <codeph>addElement()</codeph> et lorsque la méthode <codeph>invalidateSize()</codeph> de l’élément est appelée. </p>
+     
+      <p>Par défaut, vous définissez une hauteur et une largeur explicites d’un élément, et Flex n’appelle pas la méthode <codeph>measure()</codeph>, même si vous appelez explicitement la méthode <codeph>invalidateSize()</codeph>. Pour remplacer ce comportement, remplacez la méthode <codeph>skipMeasure()</codeph>.</p>
+     
+      <p>Dans votre remplacement de cette méthode, vous devez définir les propriétés <codeph>measuredWidth</codeph> et <codeph>measuredHeight</codeph> pour définir la taille par défaut. Si vous le souhaitez, vous pouvez définir les propriétés <codeph>measuredX</codeph> et <codeph>measuredY</codeph> pour définir le coin supérieur gauche des limites mesurées par défaut par rapport à l’origine de l’élément.</p>
+     
+      <p>Le point de mesure conceptuel de la méthode <codeph>measure()</codeph> permet à l’élément de fournir ses propres limites naturelles ou intrinsèques comme valeur par défaut. Par conséquent, les propriétés <codeph>measuredWidth</codeph> et <codeph>measuredHeight</codeph> doivent être déterminées par des facteurs comme :</p>
+      <ul>
+         <li>La quantité de texte que le composant doit afficher.</li>
+         <li>La taille d’une image JPEG affichée par le composant.</li>
+      </ul>
+     
+      <p>Dans certains cas, aucune méthode intrinsèque ne permet de déterminer les valeurs par défaut. Par exemple, la méthode <codeph>measure()</codeph> d’un élément GreenCircle simple peut simplement définir measuredWidth = 100 et measuredHeight = 100 pour indiquer une taille par défaut raisonnable. Dans d’autres cas, comme le contrôle TextArea, un calcul approprié (comme rechercher la hauteur et la largeur correctes qui permettront d’afficher tout le texte et respecteront les proportions d’un rectangle d’or) peut s’avérer trop long pour que cela en vaille la peine.</p>
+     
+      <p>L’implémentation par défaut de <codeph>measure()</codeph> définit les valeurs des propriétés <codeph>measuredWidth</codeph>, <codeph>measuredHeight</codeph>, <codeph>measuredX</codeph> et <codeph>measuredY</codeph> sur <codeph>0</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:BitmapImage:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      
+      Trace l’élément et/ou dimensionne et positionne son contenu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Indique la largeur du composant, en pixels, des coordonnées du composant, quelle que soit la valeur de la propriété <codeph>scaleX</codeph> du composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Indique la hauteur du composant, en pixels, des coordonnées du composant, quelle que soit la valeur de la propriété <codeph>scaleY</codeph> du composant.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Trace l’élément et/ou dimensionne et positionne son contenu. Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe de l’objet GraphicElement.
+     
+      <p>Vous n’appelez pas cette méthode directement. Flex appelle la méthode <codeph>updateDisplayList()</codeph> lorsque le composant est ajouté à un conteneur <codeph>IGraphicElementContainer</codeph> tel que Group par le biais de la méthode <codeph>addElement()</codeph> et lorsque la méthode <codeph>invalidateDisplayList()</codeph> de l’élément est appelée. </p>
+     
+      <p>Cette méthode est celle où vous procéderiez au traçage par programmation à l’aide des méthodes sur l’objet displayObject de l’élément telles que <codeph>graphics.drawRect()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:BitmapImage:bitmapData:get"><apiName>bitmapData</apiName><shortdesc>
+      Renvoie une copie de l'objet BitmapData représentant le contenu d'image actuellement chargé (non redimensionné).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:BitmapData"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Renvoie une copie de l'objet BitmapData représentant le contenu d'image actuellement chargé (non redimensionné). Cette propriété est <codeph>null</codeph> pour le contenu non fiable interdomaines.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:bytesLoaded:get"><apiName>bytesLoaded</apiName><shortdesc>
+      Le nombre d’octets de l'image déjà chargée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Le nombre d’octets de l'image déjà chargée. Concerne uniquement les images chargées par une URL de requête.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:bytesTotal:get"><apiName>bytesTotal</apiName><shortdesc>
+      Les données d'image totales en octets chargés ou en attente de chargement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Les données d'image totales en octets chargés ou en attente de chargement. Concerne uniquement les images chargées par une URL de requête.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:clearOnLoad:get"><apiName>clearOnLoad</apiName><shortdesc>
+      Indique si le contenu de l’image précédente doit ou non être effacé avant le chargement d’un nouveau contenu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si le contenu de l'image précédente doit ou non être effacé avant le chargement d'un nouveau contenu.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:contentLoaderGrouping:get"><apiName>contentLoaderGrouping</apiName><shortdesc>
+      Identifiant de regroupement de contenu facultatif à transmettre à la méthode load() d'une instance de iContentLoader associée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Identifiant de regroupement de contenu facultatif à transmettre à la méthode load() d'une instance de iContentLoader associée. Cette propriété n'est prise en compte que lorsqu'un contentLoader valide est chargé.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:contentLoader:get"><apiName>contentLoader</apiName><shortdesc>
+      Loader d'image personnalisée facultatif (par exemple :</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.core:IContentLoader</apiValueClassifier><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Loader d'image personnalisée facultatif (par exemple mémoire cache ou file d'attente d'images) à associer au client loader de contenu.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:fillMode:get"><apiName>fillMode</apiName><shortdesc>
+      Détermine la manière dont l’image bitmap remplit les dimensions.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapFillMode.SCALE&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Détermine la manière dont l’image bitmap remplit les dimensions. Si vous définissez la valeur de cette propriété dans une balise, utilisez la chaîne (par exemple, « repeat »). Si vous définissez la valeur de cette propriété dans ActionScript, utilisez la constante (par exemple, <codeph>mx.graphics.BitmapFillMode.CLIP</codeph>).
+           <p>Lorsque cette valeur est définie sur <codeph>BitmapFillMode.CLIP</codeph> (« clip »), le bitmap se termine sur le bord de la région. </p>
+           <p>Lorsque cette valeur est définie sur <codeph>BitmapFillMode.REPEAT</codeph> (« repeat »), l’image bitmap se répète pour remplir la région. </p>
+           <p>Lorsque cette valeur est définie sur <codeph>BitmapFillMode.SCALE</codeph> (« scale »), l’image bitmap s’étire pour remplir la région.</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc>
+      Alignement horizontal du contenu lorsqu’il ne présente pas de proportions 1/1 en pixels et que scaleMode est défini sur mx.graphics.BitmapScaleMode.LETTERBOX.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>HorizontalAlign.CENTER&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Alignement horizontal du contenu lorsqu’il ne présente pas de proportions 1/1 en pixels et que <codeph>scaleMode</codeph> est défini sur <codeph>mx.graphics.BitmapScaleMode.LETTERBOX</codeph>.
+           <p>Peut être <codeph>HorizontalAlign.LEFT</codeph> (« gauche »), <codeph>HorizontalAlign.RIGHT</codeph> (« droite ») ou <codeph>HorizontalAlign.CENTER</codeph> (« centre »).</p>
+           <p>Cette propriété s’applique uniquement lorsque <codeph>fillMode</codeph> est défini sur <codeph>mx.graphics.BitmapFillMode.SCALE</codeph> ("scale").</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link><link href="" invalidHref="mx.graphics.BitmapScaleMode.xml"><linktext>mx.graphics.BitmapScaleMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:preliminaryHeight:get"><apiName>preliminaryHeight</apiName><shortdesc>
+      Fournit une estimation à utiliser pour la hauteur lorsque les limites « mesurées » de l'image sont demandées par la mise en page, mais que le chargement des données d'image n'est pas terminé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Fournit une estimation à utiliser pour la hauteur lorsque les limites « mesurées » de l'image sont demandées par la mise en page, mais que le chargement des données d'image n'est pas terminé. Lorsque NaN la hauteur mesurée est de 0 jusqu'à ce que le chargement de l'image soit terminé.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:preliminaryWidth:get"><apiName>preliminaryWidth</apiName><shortdesc>
+      Fournit une estimation à utiliser pour la largeur lorsque les limites « mesurées » de l'image sont demandées par la mise en page, mais que le chargement des données d'image n'est pas terminé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Fournit une estimation à utiliser pour la largeur lorsque les limites « mesurées » de l'image sont demandées par la mise en page, mais que le chargement des données d'image n'est pas terminé. Quand NaN, la largeur mesurée est de 0 jusqu'à ce que le chargement de l'image soit terminé.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      Détermine comment l’image est redimensionnée lorsque fillMode est défini sur mx.graphics.BitmapFillMode.SCALE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapScaleMode.STRETCH&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Détermine comment l’image est redimensionnée lorsque <codeph>fillMode</codeph> est défini sur <codeph>mx.graphics.BitmapFillMode.SCALE</codeph>.
+           <p>Lorsque ce paramètre est défini sur <codeph>mx.graphics.BitmapScaleMode.STRETCH</codeph> ("stretch"), l’image est étirée pour adapter sa taille.</p>
+           <p>Lorsque ce paramètre est défini sur <codeph>BitmapScaleMode.Letterbox</codeph> (« letterbox »), l'image est redimensionnée selon les proportions de l'image non redimensionnée d’origine.</p>
+           <p>Lorsque ce paramètre est défini sur <codeph>BitmapScaleMode.ZOOM</codeph> ("zoom"), l’image est mise à l’échelle en respectant les proportions d’origine. Ceci entraîne un recadrage sur un seul axe.</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link><link href="" invalidHref="mx.graphics.BitmapScaleMode.xml"><linktext>mx.graphics.BitmapScaleMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:sourceHeight:get"><apiName>sourceHeight</apiName><shortdesc>
+      Fournit la hauteur non redimensionnée des données d’image d’origine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Fournit la hauteur non redimensionnée des données d'image d'origine.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:sourceWidth:get"><apiName>sourceWidth</apiName><shortdesc>
+      Fournit la largeur non redimensionnée des données d'image d'origine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Fournit la largeur non redimensionnée des données d’image d’origine.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:source:get"><apiName>source</apiName><shortdesc>
+      Source utilisée pour le remplissage bitmap. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sourceChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Source utilisée pour le remplissage de bitmap. Le remplissage peut effectuer le rendu à partir de diverses sources graphiques, y compris les suivantes : 
+      <ul>
+       <li>Une occurrence Bitmap ou BitmapData.</li>
+       <li>Une classe représentant une sous-classe de DisplayObject. La classe BitmapFill instancie la classe et en crée un rendu de bitmap. </li>
+       <li>Une occurrence d’un objet DisplayObject. La classe BitmapFill la copie dans un bitmap en vue du remplissage. </li>
+       <li>Le nom d’un fichier d’image externe.  </li>
+      </ul>
+           <p>Si vous utilisez un fichier image pour la source, il peut être de type PNG, GIF ou JPG. </p>
+           <p>Pour spécifier une image incrustée en tant que source, vous pouvez utiliser la directive @Embed, comme l’illustre l’exemple suivant : 
+      <pre>
+      source="@Embed('&lt;i>image_location&lt;/i>')"
+      </pre>
+      </p>
+           <p>L’emplacement de l’image peut être spécifié via une URL, une URLRequest ou une référence de fichier. S’il s’agit d’une référence de fichier, son emplacement est relatif à l’emplacement du fichier en cours de compilation. </p>
+           <p>La classe BitmapImage est conçue pour utiliser des images incorporées ou des images chargées lors de l’exécution.</p>
+           <p>Si la source est une occurrence Bitmap ou BitmapData ou est un fichiers d’image externe, il incombe à l’appelant de supprimer la source une fois qu’elle n’est plus nécessaire. Si ImageLoader a créé l’occurrence de BitmapData, il supprimera cette dernière une fois la source modifiée. </p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Bitmap.xml"><linktext>flash.display.Bitmap</linktext></link><link href="" invalidHref="flash.display.BitmapData.xml"><linktext>flash.display.BitmapData</linktext></link><link href="" invalidHref="mx.graphics.BitmapFill.xml"><linktext>mx.graphics.BitmapFill</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:trustedSource:get"><apiName>trustedSource</apiName><shortdesc>
+      Lecture seule indiquant si l'indicateur actuellement contenu chargé est considéré comme chargé forment une source dont la sécurité permet d'accéder aux images entre différents domaines.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Lecture seule indiquant si l'indicateur actuellement contenu chargé est considéré comme chargé forment une source dont la sécurité permet d'accéder aux images entre différents domaines. Quand la valeur est <codeph>false</codeph>, les opérations bitmap avancées, telles que la mise à l’échelle de qualité supérieure et la juxtaposition, ne sont pas autorisées. Cet indicateur est défini une fois l'image entièrement chargée.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc>
+      Alignement vertical du contenu lorsqu’il n’a pas de proportions 1/1 en pixels et que scaleMode est défini sur mx.graphics.BitmapScaleMode.LETTERBOX.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>VerticalAlign.MIDDLE&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Alignement vertical du contenu lorsqu’il n’a pas de proportions 1/1 en pixels et que scaleMode est défini sur <codeph>mx.graphics.BitmapScaleMode.LETTERBOX</codeph>.
+           <p>Peut être <codeph>VerticalAlign.TOP</codeph> (« haut »), <codeph>VerticalAlign.BOTTOM</codeph> (« bas ») ou <codeph>VerticalAlign.MIDDLE</codeph> (« milieu »).</p>
+           <p>Cette propriété s'applique uniquement lorsque la propriété scaleMode est définie sur <codeph>BitmapFillMode.scale</codeph> (« échelle »).</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link><link href="" invalidHref="mx.graphics.BitmapScaleMode.xml"><linktext>mx.graphics.BitmapScaleMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:smooth:set"><apiName>smooth</apiName><shortdesc conref="flash.display.GraphicsBitmapFill#smooth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+           </apiDefaultValue></apiValueDef><apiDesc conref="flash.display.GraphicsBitmapFill#smooth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:smoothingQuality:set"><apiName>smoothingQuality</apiName><shortdesc>
+      Détermine la réduction de l'image.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapSmoothingQuality.DEFAULT&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Détermine la réduction de l'image. Lorsqu’elle est définie sur <codeph>BitmapSmoothingQuality.HIGH</codeph>, l’image est rééchantillonnée (si les données proviennent d’une source fiable) pour obtenir un résultat de qualité supérieure. Si défini sur <codeph>BitmapSmoothingQuality.DEFAULT</codeph>, la qualité d'image par défaut pour le fichier bitmap redimensionné est utilisée.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:Path"><apiName>Path</apiName><shortdesc>
+  La classe Path est un élément graphique rempli qui trace une série de segments de chemin.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:FilledElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Path est un élément graphique rempli qui trace une série de segments de chemin. Dans les images vectorielles, un chemin est une série de points reliés par des segments de ligne droits ou courbes. Ensemble, les lignes constituent une image. Dans Flex, vous utilisez la classe Path pour définir une forme vectorielle complexe construite à partir d’un ensemble de segments de ligne.  
+ 
+  <p>En règle générale, le premier élément d’une définition de chemin est un segment Move spécifiant la position de départ de la plume du graphique. Vous pouvez ensuite utiliser les segments Line, CubicBezier et QuadraticBezier pour tracer les lignes du graphique. Lorsque vous utilisez ces classes, vous spécifiez uniquement les coordonnées x et y du point de fin de la ligne. Les coordonnées x et y du point de départ sont définies par la position courante de la plume. </p>
+  
+  <p>Après avoir tracé un segment de ligne, la position courante de la plume devient les coordonnées x et y du point de fin de la ligne. Vous pouvez utiliser plusieurs segments Move dans la définition de chemin pour repositionner la plume. </p>
+  
+  <p>La syntaxe utilisée par la classe Path pour définir la forme est la même que la syntaxe de chemin SVG, qui rend aisée la conversion de chemins SVG en chemins Flex. </p>
+  
+  </apiDesc><example conref="ArrowExample.mxml"><swfblock conref="examples/ArrowExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.primitives:Path:Path"><apiName>Path</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Path:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      Tracer l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique à dessiner. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Tracer l’élément. Il s’agit de la seconde étape parmi les trois étapes effectuées pendant le processus de traçage. Remplacez cette méthode pour implémenter votre dessin. Le trait (et le remplissage, le cas échéant) ont été définis dans la méthode <codeph>beginDraw()</codeph>. Votre remplacement ne doit contenir que des appels à des méthodes de traçage, telles que<codeph>moveTo()</codeph>, <codeph>curveTo()</codeph> et <codeph>drawRect()</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:protected:endDraw"><apiName>endDraw</apiName><shortdesc>
+     
+      
+      Finalisez le traçage de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique pour terminer le traçage. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      
+      Finalisez le traçage de cet élément. Il s’agit de la dernière étape parmi les trois étapes effectuées pendant le processus de traçage. Dans cette étape, les remplissages sont fermés. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:protected:invalidateDisplayObjectSharing"><apiName>invalidateDisplayObjectSharing</apiName><shortdesc>
+      
+      Méthode d’utilitaire qui avertit l’hôte que cet élément a changé et que son calque doit être mis à jour. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Méthode d’utilitaire qui avertit l’hôte que cet élément a changé et que son calque doit être mis à jour. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      Calcule la taille par défaut de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Calcule la taille par défaut de l’élément. Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe de l’objet GraphicElement.
+     
+      <p>Vous n’appelez pas cette méthode directement. Flex appelle la méthode <codeph>measure()</codeph> lorsque l'élément est ajouté à un conteneur <codeph>IGraphicElementContainer</codeph> tel que Group par le biais de la méthode <codeph>addElement()</codeph> et lorsque la méthode <codeph>invalidateSize()</codeph> de l’élément est appelée. </p>
+     
+      <p>Par défaut, vous définissez une hauteur et une largeur explicites d’un élément, et Flex n’appelle pas la méthode <codeph>measure()</codeph>, même si vous appelez explicitement la méthode <codeph>invalidateSize()</codeph>. Pour remplacer ce comportement, remplacez la méthode <codeph>skipMeasure()</codeph>.</p>
+     
+      <p>Dans votre remplacement de cette méthode, vous devez définir les propriétés <codeph>measuredWidth</codeph> et <codeph>measuredHeight</codeph> pour définir la taille par défaut. Si vous le souhaitez, vous pouvez définir les propriétés <codeph>measuredX</codeph> et <codeph>measuredY</codeph> pour définir le coin supérieur gauche des limites mesurées par défaut par rapport à l’origine de l’élément.</p>
+     
+      <p>Le point de mesure conceptuel de la méthode <codeph>measure()</codeph> permet à l’élément de fournir ses propres limites naturelles ou intrinsèques comme valeur par défaut. Par conséquent, les propriétés <codeph>measuredWidth</codeph> et <codeph>measuredHeight</codeph> doivent être déterminées par des facteurs comme :</p>
+      <ul>
+         <li>La quantité de texte que le composant doit afficher.</li>
+         <li>La taille d’une image JPEG affichée par le composant.</li>
+      </ul>
+     
+      <p>Dans certains cas, aucune méthode intrinsèque ne permet de déterminer les valeurs par défaut. Par exemple, la méthode <codeph>measure()</codeph> d’un élément GreenCircle simple peut simplement définir measuredWidth = 100 et measuredHeight = 100 pour indiquer une taille par défaut raisonnable. Dans d’autres cas, comme le contrôle TextArea, un calcul approprié (comme rechercher la hauteur et la largeur correctes qui permettront d’afficher tout le texte et respecteront les proportions d’un rectangle d’or) peut s’avérer trop long pour que cela en vaille la peine.</p>
+     
+      <p>L’implémentation par défaut de <codeph>measure()</codeph> définit les valeurs des propriétés <codeph>measuredWidth</codeph>, <codeph>measuredHeight</codeph>, <codeph>measuredX</codeph> et <codeph>measuredY</codeph> sur <codeph>0</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:Path:data:set"><apiName>data</apiName><shortdesc>
+      Chaîne contenant une représentation compacte des segments de chemin. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Chaîne contenant une représentation compacte des segments de chemin. Il s’agit d’une autre méthode permettant de définir la propriété segments. La définition de cette propriété remplace les valeurs stockées dans la propriété de tableau de segments. 
+     
+      <p>La valeur est une chaîne séparée par des espaces décrivant chaque segment de chemin. Chaque entrée de segment possède un seul caractère qui indique le type de segment et deux ou plusieurs paramètres de segment. </p>
+     
+      <p>Si la commande de segment est en majuscules, les paramètres sont des valeurs absolues. Si la commande de segment est en minuscules, les paramètres sont des valeurs relatives. </p>
+     
+      <p>Le tableau suivant présente la syntaxe des segments : 
+      
+      
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+      <tgroup cols="4"><thead><row><entry>Type de segment </entry><entry>Commande</entry><entry>Paramètres</entry><entry>Exemple</entry></row></thead><tbody><row>
+          <entry>Move</entry>
+          <entry>M/m</entry>
+          <entry>x y</entry>
+          <entry><codeph>M 10 20</codeph> - Déplace la ligne sur 10, 20.</entry>
+        </row><row>
+          <entry>Ligne</entry>
+          <entry>L/l</entry>
+          <entry>x y</entry>
+          <entry><codeph>L 50 30</codeph> - Ligne sur 50, 30.</entry>
+        </row><row>
+          <entry>Ligne horizontale </entry>
+          <entry>H/h</entry>
+          <entry>x</entry>
+          <entry><codeph>H 40</codeph> = Ligne horizontale sur 40.</entry>
+        </row><row>
+          <entry>Ligne verticale </entry>
+          <entry>V/v</entry>
+          <entry>y</entry>
+          <entry><codeph>V 100</codeph> - Ligne verticale sur 100.</entry>
+        </row><row>
+          <entry>QuadraticBezier</entry>
+          <entry>Q/q</entry>
+          <entry>controlX controlY x y</entry>
+          <entry><codeph>Q 110 45 90 30</codeph> - Courbe sur 90, 30 avec le point de contrôle sur 110, 45.</entry>
+        </row><row>
+          <entry>CubicBezier</entry>
+          <entry>C/c</entry>
+          <entry>control1X control1Y control2X control2Y x y</entry>
+          <entry><codeph>C 45 50 20 30 10 20</codeph> - Courbe sur 10, 20 avec le premier point de contrôle sur 45, 50 et le second point de contrôle sur 20, 30.</entry>
+        </row><row>
+          <entry>Fermer le chemin</entry>
+          <entry>Z/z</entry>
+          <entry>sans objet</entry>
+          <entry>Ferme le chemin. </entry>
+        </row></tbody></tgroup></adobetable>
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Path:winding:set"><apiName>winding</apiName><shortdesc>
+      Règle de remplissage d’intersection ou de chevauchement de segments de chemin. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>evenOdd
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Règle de remplissage d’intersection ou de chevauchement de segments de chemin. Les valeurs possibles sont <codeph>GraphicsPathWinding.EVEN_ODD</codeph> ou <codeph>GraphicsPathWinding.NON_ZERO</codeph>.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.GraphicsPathWinding.xml"><linktext>flash.display.GraphicsPathWinding</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.primitives:Ellipse"><apiName>Ellipse</apiName><shortdesc>
+  La classe Ellipse est un élément graphique rempli qui trace une ellipse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:FilledElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Ellipse est un élément graphique rempli qui trace une ellipse. Pour tracer l’ellipse, cette classe appelle la méthode <codeph>Graphics.drawEllipse()</codeph>.
+  
+  </apiDesc><example conref="EllipseExample.mxml"><swfblock conref="examples/EllipseExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="spark.primitives:Ellipse:Ellipse"><apiName>Ellipse</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Ellipse:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      Tracer l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique à dessiner. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Tracer l’élément. Il s’agit de la seconde étape parmi les trois étapes effectuées pendant le processus de traçage. Remplacez cette méthode pour implémenter votre dessin. Le trait (et le remplissage, le cas échéant) ont été définis dans la méthode <codeph>beginDraw()</codeph>. Votre remplacement ne doit contenir que des appels à des méthodes de traçage, telles que<codeph>moveTo()</codeph>, <codeph>curveTo()</codeph> et <codeph>drawRect()</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Ellipse:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Ellipse:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

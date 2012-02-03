@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.styles"><apiName>mx.styles</apiName><apiDetail/><apiClassifier id="mx.styles:IStyleManager"><apiName>IStyleManager</apiName><shortdesc>
+  IStyleManager 类管理以下内容：该类继承哪些 CSS 样式属性；哪些样式属性是颜色，因此获得特殊处理；用作颜色值别名的字符串列表；Flex 2.0.1 使用此接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="2.0.1"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IStyleManager 类管理以下内容：
+  <ul>
+    <li>该类继承哪些 CSS 样式属性</li>
+    <li>哪些样式属性是颜色，因此获得特殊处理</li>
+    <li>一组用作颜色值别名的字符串</li>
+  </ul>
+ 
+  Flex 2.0.1 使用此接口。Flex 3 现在改用 IStyleManager2。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:clearStyleDeclaration"><apiName>clearStyleDeclaration</apiName><shortdesc>
+      清除存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>要清除的 CSS 选择器的名称。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>设置为 <codeph>true</codeph> 以强制立即更新样式。设置为 <codeph>false</codeph> 以避免立即更新应用程序中的样式。有关该方法的详细信息，请参阅 <codeph>setStyleDeclaration()</codeph> 方法中的说明。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      清除存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。
+     
+      <p>如果指定的选择器是一个类选择器（例如，“.bigMargins”或“.myStyle”），则必须确保 <codeph>selector</codeph> 属性以英文句号 (.) 开头。</p>
+     
+      <p>如果指定的选择器是一个类型选择器（例如，“Button”），则不要让 <codeph>selector</codeph> 属性以英文句号开头。</p>
+     
+      <p><codeph>global</codeph> 选择器和类型选择器相似，不以英文句号开头。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#IStyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:getColorName"><apiName>getColorName</apiName><shortdesc>
+      返回对应于指定颜色字符串的数字 RGB 颜色值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回一个表示颜色值的 uint；如果 <codeph>colorName</codeph> 属性的值不是颜色的别名，则返回 <codeph>NOT_A_COLOR</codeph>。
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="Object"/><apiDesc>颜色名。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回对应于指定颜色字符串的数字 RGB 颜色值。颜色字符串可以是不区分大小写的颜色名（如 <codeph>"red"</codeph>、<codeph>"Blue"</codeph> 或 <codeph>"haloGreen"</codeph>）、十六进制值（如 0xFF0000）或 #-十六进制值字符串（如 <codeph>"#FF0000"</codeph>）。
+     
+      <p>该方法返回一个表示颜色的 uint，如 4521830。通过将基数（此例中为 16 ）传递给 uint 类的 <codeph>toString()</codeph> 方法，可将该 uint 转换为一个十六进制值，如下例所示：</p>
+      <pre>
+      import mx.styles.StyleManager;
+      private function getNewColorName():void {
+          StyleManager.registerColorName("soylentGreen",0x44FF66);
+          trace(StyleManager.getColorName("soylentGreen").toString(16));
+      }
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:getColorNames"><apiName>getColorNames</apiName><shortdesc>
+      将颜色数组中的每个元素从颜色名转换为数字 RGB 颜色值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiDesc>颜色名数组。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将颜色数组中的每个元素从颜色名转换为数字 RGB 颜色值。每个颜色字符串可以是不区分大小写的颜色名称（如 <codeph>"red"</codeph>、<codeph>"Blue"</codeph> 或 <codeph>"haloGreen"</codeph>）、十六进制值（如 0xFF0000）或 #-十六进制值字符串（如 <codeph>"#FF0000"</codeph>）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:getStyleDeclaration"><apiName>getStyleDeclaration</apiName><shortdesc>
+      获取存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>其名称和 <codeph>selector</codeph> 属性匹配的样式声明。
+      
+      </apiDesc><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS 选择器的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。
+     
+      <p>如果 <codeph>selector</codeph> 参数以英文句号 (.) 开头，则返回的 CSSStyleDeclaration 是一个类选择器，只适用于那些其 <codeph>styleName</codeph> 属性指定了该选择器（不包括英文句号）的实例。例如，类选择器 <codeph>".bigMargins"</codeph> 适用于任何 <codeph>styleName</codeph> 为 <codeph>"bigMargins"</codeph> 的 UIComponent。</p>
+     
+      <p>如果 <codeph>selector</codeph> 参数不以英文句号开头，则返回的 CSSStyleDeclaration 是一个类型选择器，适用于该类型的所有实例。例如，类型选择器 <codeph>"Button"</codeph> 适用于 Button 及其子类的所有实例。</p>
+     
+      <p><codeph>global</codeph> 选择器和类型选择器相似，不以英文句号开头。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isColorName"><apiName>isColorName</apiName><shortdesc>
+      测试以查看给定的字符串是否为颜色值的别名。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>colorName</codeph> 为颜色的别名，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>要测试的颜色名。该参数不区分大小写。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      测试以查看给定的字符串是否为颜色值的别名。例如，默认情况下，字符串“blue”是 0x0000FF 的别名。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isInheritingStyle"><apiName>isInheritingStyle</apiName><shortdesc>
+      测试以查看样式是否为继承。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果指定的样式为继承，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>测试以查看其是否为继承的样式的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      测试以查看样式是否为继承。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isInheritingTextFormatStyle"><apiName>isInheritingTextFormatStyle</apiName><shortdesc>
+      测试以查看 TextFormat 样式是否为继承。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果指定的 TextFormat 样式为继承，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>测试以查看其是否为继承的样式的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      测试以查看 TextFormat 样式是否为继承。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isParentDisplayListInvalidatingStyle"><apiName>isParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      测试以查看该样式是否影响组件的父容器，如当该样式更改时要求父容器重绘自身。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果指定的样式可能影响组件父容器的外观或布局，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要测试的样式的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      测试以查看该样式是否影响组件的父容器，如当该样式更改时要求父容器重绘自身。
+     
+      <p>当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件的父容器自动调用 <codeph>invalidateDisplayList()</codeph> 方法，以使其重绘和/或重新布局其子项。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isParentSizeInvalidatingStyle"><apiName>isParentSizeInvalidatingStyle</apiName><shortdesc>
+      测试以查看样式是否更改组件父容器的大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果指定的样式可能影响组件父容器的测量大小，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要测试的样式的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      测试以查看样式是否更改组件父容器的大小。
+     
+      <p>当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件的父容器自动调用 <codeph>invalidateSize()</codeph> 方法，以便在以后重新计算其测量大小。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isSizeInvalidatingStyle"><apiName>isSizeInvalidatingStyle</apiName><shortdesc>
+      测试以查看样式是否更改组件的大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果指定的样式可能影响组件的测量大小，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要测试的样式的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      测试以查看样式是否更改组件的大小。
+     
+      <p>当使用 <codeph>setStyle()</codeph> 方法设置这些样式之一时，将对该组件自动调用 <codeph>invalidateSize()</codeph> 方法，以便在以后重新计算其测量大小。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:isValidStyleValue"><apiName>isValidStyleValue</apiName><shortdesc>
+      确定指定的参数是否为有效的样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果将由 <codeph>getStyle()</codeph> 方法调用返回的值传递给该方法，则若设置了样式，将返回 <codeph>true</codeph>，若未设置样式，将返回 <codeph>false</codeph>。
+     
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>要测试的样式属性。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定指定的参数是否为有效的样式属性。例如：
+     
+      <pre>
+      trace(StyleManager.isValidStyleValue(myButton.getStyle("color")).toString());
+      </pre>
+     
+      <p>这将非常有用，因为某些样式的值可以设置为如 0、<codeph>NaN</codeph>、空字符串 (<codeph>""</codeph>) 或 <codeph>null</codeph> 之类的值，这会导致 <codeph>if (value)</codeph> 测试失败。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:loadStyleDeclarations"><apiName>loadStyleDeclarations</apiName><shortdesc>
+      加载样式 SWF。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>支持 StyleEvent.PROGRESS、StyleEvent.COMPLETE 和 StyleEvent.ERROR 的 IEventDispatcher 实现。
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>样式 SWF 的位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>设置为 <codeph>true</codeph> 以强制立即更新样式。设置为 <codeph>false</codeph> 以避免立即更新应用程序中的样式。此参数可选并且默认值为 <codeph>true</codeph>。有关此参数的详细信息，请参阅 <codeph>setStyleDeclaration()</codeph> 方法中的说明。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>trustContent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>废除，不再使用。该参数可选，默认值为 <codeph>false</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>传递给加载样式 SWF 的·IModuleInfo 的 <codeph>load()</codeph> 方法的 ApplicationDomain。此参数是可选的，默认值为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>传递给加载样式 SWF 的·IModuleInfo 的 <codeph>load()</codeph> 方法的 SecurityDomain。此参数是可选的，默认值为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      加载样式 SWF。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#IStyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerColorName"><apiName>registerColorName</apiName><shortdesc>
+      将颜色名添加到颜色别名列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>要添加到列表的颜色的名称，如“blue”。如果以后访问该颜色名，该值不区分大小写。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorValue</apiItemName><apiType value="uint"/><apiDesc>颜色值，例如 0x0000FF。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将颜色名添加到颜色别名列表。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerInheritingStyle"><apiName>registerInheritingStyle</apiName><shortdesc>
+      添加到可从其父级中继承值的样式列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>添加到可继承值的样式列表中的样式名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      添加到可从其父级中继承值的样式列表。
+     
+      <p><b>注意：</b>请确保避免使用重复的样式名称，因为如果已使用的样式变为继承，命名冲突将导致性能降低。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerParentDisplayListInvalidatingStyle"><apiName>registerParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      添加到可能影响组件父容器的外观或布局的样式列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要注册的样式的名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      添加到可能影响组件父容器的外观或布局的样式列表。当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件的父容器自动调用 <codeph>invalidateDisplayList()</codeph> 方法，以使其重绘和/或重新布局其子项。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerParentSizeInvalidatingStyle"><apiName>registerParentSizeInvalidatingStyle</apiName><shortdesc>
+      添加到可能影响组件父容器的测量大小的样式列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要注册的样式的名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      添加到可能影响组件父容器的测量大小的样式列表。
+      <p>当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件的父容器自动调用 <codeph>invalidateSize()</codeph> 方法，以便在以后重新计算其测量大小。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:registerSizeInvalidatingStyle"><apiName>registerSizeInvalidatingStyle</apiName><shortdesc>
+      添加到可能影响组件的测量大小的样式列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>添加到列表的样式的名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      添加到可能影响组件的测量大小的样式列表。当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件自动调用 <codeph>invalidateSize()</codeph> 方法，以便在以后重新计算其测量大小。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:setStyleDeclaration"><apiName>setStyleDeclaration</apiName><shortdesc>
+      设置存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS 选择器的名称。
+      </apiDesc></apiParam><apiParam><apiItemName>styleDeclaration</apiItemName><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier><apiDesc>新样式声明。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>设置为 <codeph>true</codeph> 以强制立即更新样式；在内部，Flex 调用 UIComponent 的 <codeph>styleChanged()</codeph> 方法。设置为 <codeph>false</codeph> 以避免立即更新应用程序中的样式。
+     
+      <p>样式将在下一次调用以下方法之一并且 <codeph>update</codeph> 属性设置为 <codeph>true</codeph> 时更新。
+      <ul>
+       <li><codeph>clearStyleDeclaration()</codeph></li>
+       <li><codeph>loadStyleDeclarations()</codeph></li>
+       <li><codeph>setStyleDeclaration()</codeph></li>
+       <li><codeph>unloadStyleDeclarations()</codeph></li>
+      </ul>
+      </p>
+     
+      <p>通常，如果多次调用这些方法中的一种，只需在最后一次调用时将该属性设置为 <codeph>true</codeph>，以便 Flex 不会多次调用 <codeph>styleChanged()</codeph> 方法。</p>
+     
+      <p>如果调用 <codeph>getStyle()</codeph> 方法，Flex 将返回通过调用 <codeph>styleChanged()</codeph> 方法最后一次应用到 UIComponent 中的样式值。组件的外观可能不反映由 <codeph>getStyle()</codeph> 方法返回的值。这是因为这些样式声明方法中的一种可能未在 <codeph>update</codeph> 属性设置为 <codeph>true</codeph> 时被调用。</p>
+      
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。
+     
+      <p>如果 <codeph>selector</codeph> 参数以英文句号 (.) 开头，则指定的选择器是一个“类选择器”，只适用于那些其 <codeph>styleName</codeph> 属性指定了该选择器（不包括英文句号）的实例。例如，类选择器 <codeph>".bigMargins"</codeph> 适用于任何 <codeph>styleName</codeph> 为 <codeph>"bigMargins"</codeph> 的 UIComponent。</p>
+     
+      <p>如果 <codeph>selector</codeph> 参数不以英文句号开头，则指定的选择器是一个“类型选择器”，适用于该类型的所有实例。例如，类型选择器 <codeph>"Button"</codeph> 适用于 Button 及其子类的所有实例。</p>
+     
+      <p><codeph>global</codeph> 选择器和类型选择器相似，不以英文句号开头。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleManager:mx.styles:IStyleManager:unloadStyleDeclarations"><apiName>unloadStyleDeclarations</apiName><shortdesc>
+      卸载样式 SWF。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>样式 SWF 的位置。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>设置为 <codeph>true</codeph> 以强制立即更新样式。设置为 <codeph>false</codeph> 以避免立即更新应用程序中的样式。有关该方法的详细信息，请参阅 <codeph>setStyleDeclaration()</codeph> 方法中的说明。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      卸载样式 SWF。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#IStyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation></apiClassifier><apiClassifier id="mx.styles:CSSCondition"><apiName>CSSCondition</apiName><shortdesc>
+  表示用于根据特定的属性与组件子集匹配的 CSSSelector 的条件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示用于根据特定的属性与组件子集匹配的 CSSSelector 的条件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSConditionKind"><linktext>mx.styles.CSSConditionKind</linktext></link></related-links><apiConstructor id="mx.styles:CSSCondition:CSSCondition"><apiName>CSSCondition</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>kind</apiItemName><apiType value="String"/><apiDesc>条件的种类。有关有效值，请参阅 CSSConditionKind 枚举。
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>条件值（不包含 CSS 语法）。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:CSSCondition:matchesStyleClient"><apiName>matchesStyleClient</apiName><shortdesc>
+      确定此条件是否与给定的组件匹配。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果组件匹配，则为 true，否则为 false。 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiOperationClassifier>mx.styles:IAdvancedStyleClient</apiOperationClassifier><apiDesc>可以应用条件的组件。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定此条件是否与给定的组件匹配。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSCondition:toString"><apiName>toString</apiName><shortdesc>
+     返回此条件的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>此条件的字符串表示形式，包含 CSS 语法。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     返回此条件的字符串表示形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:CSSCondition:kind:get"><apiName>kind</apiName><shortdesc>
+      此实例表示的条件的种类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      此实例表示的条件的种类。选项有 class、id 和 pseudo。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#CSSConditionKind"><linktext>mx.styles.CSSConditionKind</linktext></link></related-links></apiValue><apiValue id="mx.styles:CSSCondition:specificity:get"><apiName>specificity</apiName><shortdesc>
+      计算选择器链中条件选择器的特异性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      计算选择器链中条件选择器的特异性。总特异性用于在应用多个匹配的样式声明时确定优先级。id 条件贡献 100 点，pseudo 和 class 条件各贡献 10 点。特异性较高的选择器会覆盖特异性较低的选择器。如果选择器的特异性相等，则声明顺序将决定优先级（即，最后一个选择器优先）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSCondition:value:get"><apiName>value</apiName><shortdesc>
+      此条件的值，不包含任何 CSS 语法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      此条件的值，不包含任何 CSS 语法。要获取包含 CSS 语法的字符串表示形式，请调用 <codeph>toString()</codeph> 方法。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:IStyleModule"><apiName>IStyleModule</apiName><shortdesc>
+ 用于操纵样式模块的简单接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 用于操纵样式模块的简单接口。可以将对象转换为 IStyleModule 类型，从而对加载应用程序中的 StyleModule 类型无依赖。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.styles:IStyleModule:mx.styles:IStyleModule:setStyleDeclarations"><apiName>setStyleDeclarations</apiName><shortdesc>
+      从样式模块创建样式声明，并将其设置到给定的样式管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleManager</apiItemName><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier><apiDesc>样式声明将加载到的样式管理器。将相对于此样式管理器创建样式声明。unload() 函数将从此样式管理器卸载样式。如果传递 null，则将使用顶级样式管理器。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从样式模块创建样式声明，并将其设置到给定的样式管理器。应在创建样式模块后调用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleModule:mx.styles:IStyleModule:unload"><apiName>unload</apiName><shortdesc>
+      卸载样式模块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      卸载样式模块。
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.styles:CSSSelector"><apiName>CSSSelector</apiName><shortdesc>
+  表示可能的选择器链中用来将 CSS 样式声明与组件进行匹配的选择器节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示可能的选择器链中用来将 CSS 样式声明与组件进行匹配的选择器节点。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.styles:CSSSelector:CSSSelector"><apiName>CSSSelector</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>subject</apiItemName><apiType value="String"/><apiDesc>此选择器的纯表示形式，不包含条件或始祖。这通常是一个完全限定类名；例如，"spark.components.Button"。可以使用 " 来匹配所有组件，或者为全局选择器使用 "global"。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>conditions</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc> 用于匹配组件实例子集的类型 CSSCondition 的对象的可选 Array。当前仅支持单一条件或一对条件。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ancestor</apiItemName><apiOperationClassifier>mx.styles:CSSSelector</apiOperationClassifier><apiData>null</apiData><apiDesc>对源自任意祖代的组件进行匹配的可选选择器。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:CSSSelector:matchesStyleClient"><apiName>matchesStyleClient</apiName><shortdesc>
+      确定此选择器是否与给定的组件匹配。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果组件匹配，则为 true；否则为 false。 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiOperationClassifier>mx.styles:IAdvancedStyleClient</apiOperationClassifier><apiDesc>可以应用选择器的组件。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定此选择器是否与给定的组件匹配。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSSelector:toString"><apiName>toString</apiName><shortdesc>
+      返回此选择器的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>此选择器的字符串表示形式，包含其所有语法、条件和祖代。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回此选择器的字符串表示形式。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:CSSSelector:ancestor:get"><apiName>ancestor</apiName><shortdesc>
+      如果此选择器是后代选择器的一部分，则它可能会有另外一个为任意始祖定义的选择器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.styles:CSSSelector</apiValueClassifier></apiValueDef><apiDesc>
+      如果此选择器是后代选择器的一部分，则它可能会有另外一个为任意始祖定义的选择器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSSelector:conditions:get"><apiName>conditions</apiName><shortdesc>
+      通过指定进一步的条件，此选择器可以与组件的子集相匹配，例如，匹配的组件必须具有特定的 id、styleName（等效于 CSS 中的“class”条件）或状态（等效于 CSS 中的“pseudo”条件）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      通过指定进一步的条件，此选择器可以与组件的子集相匹配，例如，匹配的组件必须具有特定的 id、styleName（等效于 CSS 中的“class”条件）或状态（等效于 CSS 中的“pseudo”条件）。
+      
+      <p>如果未指定条件，则此属性为 null。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSSelector:specificity:get"><apiName>specificity</apiName><shortdesc>
+      计算选择器链的特异性以便在应用多个匹配的样式声明时确定优先级。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      计算选择器链的特异性以便在应用多个匹配的样式声明时确定优先级。请注意，id 条件贡献 100 点，pseudo 和 class 条件各贡献 10 点，type（包括选择器链中的后代）贡献 1 点。通用选择器 (") 不贡献任何点数。结果是这些贡献的总和。特异性较高的选择器会覆盖特异性较低的选择器。如果选择器的特异性相等，则声明顺序将决定优先级（即，最后一个选择器优先）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSSelector:subject:get"><apiName>subject</apiName><shortdesc>
+      此选择器节点的主题 (only)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      此选择器节点的主题 (only)。要获取此选择器的所有条件和后代的字符串表示形式，请调用 <codeph>toString()</codeph> 方法。
+     
+      <p>如果此选择器表示可能的选择器链的根节点，则其主题也表示整个选择器表达式的主题。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:ISimpleStyleClient"><apiName>ISimpleStyleClient</apiName><shortdesc>
+  该接口描述对象要参与样式子系统所必须实现的属性和方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  该接口描述对象要参与样式子系统所必须实现的属性和方法。该接口旨在由从其他对象（而非通过本地设置值和类型选择器）获取其样式值的类使用。该接口由 ProgrammaticSkin 实现。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#IStyleClient"><linktext>mx.styles.IStyleClient</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:ISimpleStyleClient:mx.styles:ISimpleStyleClient:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      当样式属性的值发生更改时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>所更改的样式属性的名称。    
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当样式属性的值发生更改时调用。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:ISimpleStyleClient:mx.styles:ISimpleStyleClient:styleName:get"><apiName>styleName</apiName><shortdesc>
+      该对象的样式值的源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      该对象的样式值的源。<codeph>styleName</codeph> 属性的值可以是以下三种可能类型之一：
+     
+      <ul>
+        <li>字符串，如“headerStyle”。该字符串命名了一个在 CSS 样式表中定义的类选择器。</li>
+     
+        <li>CSSStyleDeclaration，如 <codeph>StyleManager.getStyleDeclaration(".headerStyle")</codeph>。</li>
+     
+        <li>UIComponent。实现该接口的对象从引用的 UIComponent 中继承所有样式值。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:IAdvancedStyleClient"><apiName>IAdvancedStyleClient</apiName><shortdesc>
+  该接口描述组件要完全参与高级样式子系统所必须实现的高级属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  该接口描述组件要完全参与高级样式子系统所必须实现的高级属性。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:hasCSSState"><apiName>hasCSSState</apiName><shortdesc>
+      如果 currentCSSState 不为 null，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>currentCSSState</codeph> 不为 <codeph>null</codeph>，则返回 <codeph>true</codeph>。默认情况下，<codeph>currentCSSState</codeph> 与 <codeph>currentState</codeph> 相同。如果状态不存在，则返回 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      如果 <codeph>currentCSSState</codeph> 不为 <codeph>null</codeph>，则返回 <codeph>true</codeph>。通常，您无需直接调用此方法。而是由 <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> 方法进行调用。
+           <p>请注意，Spark 组件将其外观状态用作伪状态。Halo 组件使用 <codeph>currentState</codeph> 属性。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:matchesCSSState"><apiName>matchesCSSState</apiName><shortdesc>
+      如果 cssState 与 currentCSSState 匹配，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>cssState</codeph> 与 <codeph>currentCSSState</codeph> 匹配，则返回 <codeph>true</codeph>。默认情况下，<codeph>currentCSSState</codeph> 与 <codeph>currentState</codeph> 相同。如果不存在任何状态，则返回 null。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssState</apiItemName><apiType value="String"/><apiDesc><codeph>CSSCondition.value</codeph> 的可能值。该值表示此组件用于与 CSS 伪选择器匹配的当前状态。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 <codeph>cssState</codeph> 与 <codeph>currentCSSState</codeph> 匹配，则返回 <codeph>true</codeph>。通常，您无需直接调用此方法。而是由 <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> 方法进行调用。
+           <p>请注意，Spark 组件将其外观状态用作伪状态。Halo 组件使用 <codeph>currentState</codeph> 属性。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:matchesCSSType"><apiName>matchesCSSType</apiName><shortdesc>
+      确定此实例与给定类型相同，还是属于给定类型的子类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>cssType</codeph> 位于限定的类型选择器的层次结构中，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssType</apiItemName><apiType value="String"/><apiDesc>一个 CSSSelector 对象。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定此实例与给定类型相同，还是属于给定类型的子类。通常，您无需直接调用此方法。而是由 <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> 方法进行调用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:stylesInitialized"><apiName>stylesInitialized</apiName><shortdesc>
+      首次初始化组件样式时，Flex 会调用 stylesInitialized() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      首次初始化组件样式时，Flex 会调用 <codeph>stylesInitialized()</codeph> 方法。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:id:get"><apiName>id</apiName><shortdesc>
+      组件的标识。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      组件的标识。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IAdvancedStyleClient:mx.styles:IAdvancedStyleClient:styleParent:get"><apiName>styleParent</apiName><shortdesc>
+      该 IAdvancedStyleClient 的父代。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IAdvancedStyleClient</apiValueClassifier></apiValueDef><apiDesc>
+      该 <codeph>IAdvancedStyleClient</codeph> 的父代。通常，您不直接指定此属性。它通过 <codeph>flash.display.DisplayObjectContainer</codeph> 的 <codeph>addChild、addChildAt、removeChild 和 removeChildAt</codeph> 方法以及 <codeph>mx.core.UIComponent.addStyleClient()</codeph> 和 <codeph>mx.core.UIComponent.removeStyleClient()</codeph> 方法进行设置。如果直接指定值，而不调用上述方法之一，则实现该接口的类的实例将不从 UIComponent 或 DisplayObject 继承样式。另外，如果直接指定值，而未首先使用上述列出的删除方法从当前父代删除对象，则可能发生内存泄漏。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:StyleProxy"><apiName>StyleProxy</apiName><shortdesc>
+  包装实现 IAdvancedStyleClient 接口的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IAdvancedStyleClient</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  包装实现 IAdvancedStyleClient 接口的对象。此接口支持 <codeph>filterMap</codeph> 属性，该属性包含样式-源对/样式-目标对。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#IAdvancedStyleClient"><linktext>mx.styles.IAdvancedStyleClient</linktext></link></related-links><apiConstructor id="mx.styles:StyleProxy:StyleProxy"><apiName>StyleProxy</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>source</apiItemName><apiOperationClassifier>mx.styles:IStyleClient</apiOperationClassifier><apiDesc>实现 IStyleClient 接口的对象。
+      </apiDesc></apiParam><apiParam><apiItemName>filterMap</apiItemName><apiType value="Object"/><apiDesc>从源传递到子组件的一组样式。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:StyleProxy:clearStyle"><apiName>clearStyle</apiName><shortdesc conref="mx.styles.IStyleClient#clearStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#clearStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc conref="mx.styles.IStyleClient#getClassStyleDeclarations()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/><apiDesc>CSSStyleDeclaration 对象数组。
+      
+      </apiDesc></apiReturn></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#getClassStyleDeclarations()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.styles.IStyleClient#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="any"/><apiDesc>样式值。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:hasCSSState"><apiName>hasCSSState</apiName><shortdesc>
+      
+      如果 currentCSSState 不为 null，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>currentCSSState</codeph> 不为 <codeph>null</codeph>，则返回 <codeph>true</codeph>。默认情况下，<codeph>currentCSSState</codeph> 与 <codeph>currentState</codeph> 相同。如果状态不存在，则返回 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      如果 <codeph>currentCSSState</codeph> 不为 <codeph>null</codeph>，则返回 <codeph>true</codeph>。通常，您无需直接调用此方法。而是由 <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> 方法进行调用。
+           <p>请注意，Spark 组件将其外观状态用作伪状态。Halo 组件使用 <codeph>currentState</codeph> 属性。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:matchesCSSState"><apiName>matchesCSSState</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#matchesCSSState()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/><apiDesc>如果 <codeph>cssState</codeph> 与 <codeph>currentCSSState</codeph> 匹配，则返回 <codeph>true</codeph>。默认情况下，<codeph>currentCSSState</codeph> 与 <codeph>currentState</codeph> 相同。如果不存在任何状态，则返回 null。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>cssState</apiItemName><apiType value="String"/><apiDesc><codeph>CSSCondition.value</codeph> 的可能值。该值表示此组件用于与 CSS 伪选择器匹配的当前状态。
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IAdvancedStyleClient#matchesCSSState()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:matchesCSSType"><apiName>matchesCSSType</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#matchesCSSType()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/><apiDesc>如果 <codeph>cssType</codeph> 位于限定的类型选择器的层次结构中，则为 <codeph>true</codeph>。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>cssType</apiItemName><apiType value="String"/><apiDesc>一个 CSSSelector 对象。
+           </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IAdvancedStyleClient#matchesCSSType()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc conref="mx.styles.IStyleClient#notifyStyleChangeInChildren()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>是否将样式更改传播到子项的子项。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#notifyStyleChangeInChildren()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc conref="mx.styles.IStyleClient#regenerateStyleCache()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>重新生成子项的原始链。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#regenerateStyleCache()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:registerEffects"><apiName>registerEffects</apiName><shortdesc conref="mx.styles.IStyleClient#registerEffects()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>效果名称的字符串 Array。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#registerEffects()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.styles.IStyleClient#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>样式的新值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.IStyleClient#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:styleChanged"><apiName>styleChanged</apiName><shortdesc conref="mx.styles.ISimpleStyleClient#styleChanged()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>所更改的样式属性的名称。    
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.styles.ISimpleStyleClient#styleChanged()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleProxy:stylesInitialized"><apiName>stylesInitialized</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#stylesInitialized()">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.styles.IAdvancedStyleClient#stylesInitialized()">
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:StyleProxy:className:get"><apiName>className</apiName><shortdesc conref="mx.styles.IStyleClient#className">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.styles.IStyleClient#className">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:filterMap:get"><apiName>filterMap</apiName><shortdesc>
+      一组字符串对。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      一组字符串对。字符串对的第一项是源组件中样式的名称。字符串对的第二项是子组件中样式的名称。使用该对象，可以将父组件中的特定样式映射到子组件中的不同样式。如果父组件和子组件共享同一个样式，这将非常有用。但是，您可能希望单独控制这些值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:id:get"><apiName>id</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#id">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.styles.IAdvancedStyleClient#id">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc conref="mx.styles.IStyleClient#inheritingStyles">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.styles.IStyleClient#inheritingStyles">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc conref="mx.styles.IStyleClient#nonInheritingStyles">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.styles.IStyleClient#nonInheritingStyles">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:source:get"><apiName>source</apiName><shortdesc>
+      实现 IStyleClient 接口的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IStyleClient</apiValueClassifier></apiValueDef><apiDesc>
+      实现 IStyleClient 接口的对象。这是被代理的对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc conref="mx.styles.IStyleClient#styleDeclaration">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc conref="mx.styles.IStyleClient#styleDeclaration">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:styleName:get"><apiName>styleName</apiName><shortdesc conref="mx.styles.ISimpleStyleClient#styleName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.styles.ISimpleStyleClient#styleName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleProxy:styleParent:get"><apiName>styleParent</apiName><shortdesc conref="mx.styles.IAdvancedStyleClient#styleParent">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IAdvancedStyleClient</apiValueClassifier></apiValueDef><apiDesc conref="mx.styles.IAdvancedStyleClient#styleParent">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:StyleManager"><apiName>StyleManager</apiName><shortdesc>
+  StyleManager 类管理以下内容：该类继承哪些 CSS 样式属性；哪些样式属性是颜色，因此获得特殊处理；一组用作颜色值别名的字符串。
+  
+ 
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  StyleManager 类管理以下内容：
+  <ul>
+    <li>该类继承哪些 CSS 样式属性</li>
+    <li>哪些样式属性是颜色，因此获得特殊处理</li>
+    <li>一组用作颜色值别名的字符串</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:StyleManager:clearStyleDeclaration"><apiName>clearStyleDeclaration</apiName><shortdesc>
+      清除存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>要清除的 CSS 选择器的名称。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>设置为 <codeph>true</codeph> 以强制立即更新样式。设置为 <codeph>false</codeph> 以避免立即更新应用程序中的样式。有关该方法的详细信息，请参阅 <codeph>setStyleDeclaration()</codeph> 方法中的说明。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.clearStyleDeclaration on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      清除存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。
+     
+      <p>如果指定的选择器是一个类选择器（例如，“.bigMargins”或“.myStyle”），则必须确保 <codeph>selector</codeph> 属性以英文句号 (.) 开头。</p>
+     
+      <p>如果指定的选择器是一个类型选择器（例如，“Button”），则不要让 <codeph>selector</codeph> 属性以英文句号开头。</p>
+     
+      <p><codeph>global</codeph> 选择器和类型选择器相似，不以英文句号开头。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#StyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:StyleManager:getColorNames"><apiName>getColorNames</apiName><shortdesc>
+      将颜色数组中的每个元素从颜色名转换为数字 RGB 颜色值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiDesc>颜色名数组。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.getColorNames on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      将颜色数组中的每个元素从颜色名转换为数字 RGB 颜色值。每个颜色字符串可以是不区分大小写的颜色名称（如 <codeph>"red"</codeph>、<codeph>"Blue"</codeph> 或 <codeph>"haloGreen"</codeph>）、十六进制值（如 0xFF0000）或 #-十六进制值字符串（如 <codeph>"#FF0000"</codeph>）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:getColorName"><apiName>getColorName</apiName><shortdesc>
+      返回对应于指定颜色字符串的数字 RGB 颜色值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>返回一个表示颜色值的 uint；如果 <codeph>colorName</codeph> 属性的值不是颜色的别名，则返回 <codeph>NOT_A_COLOR</codeph>。
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="Object"/><apiDesc>颜色名。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.getColorName on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      返回对应于指定颜色字符串的数字 RGB 颜色值。颜色字符串可以是不区分大小写的颜色名（如 <codeph>"red"</codeph>、<codeph>"Blue"</codeph> 或 <codeph>"haloGreen"</codeph>）、十六进制值（如 0xFF0000）或 #-十六进制值字符串（如 <codeph>"#FF0000"</codeph>）。
+     
+      <p>该方法返回一个表示颜色的 uint，如 4521830。通过将基数（此例中为 16 ）传递给 uint 类的 <codeph>toString()</codeph> 方法，可将该 uint 转换为一个十六进制值，如下例所示：</p>
+      <pre>
+      import mx.styles.StyleManager;
+      private function getNewColorName():void {
+          StyleManager.registerColorName("soylentGreen",0x44FF66);
+          trace(StyleManager.getColorName("soylentGreen").toString(16));
+      }
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:getStyleDeclaration"><apiName>getStyleDeclaration</apiName><shortdesc>
+      获取存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>其名称和 <codeph>selector</codeph> 属性匹配的样式声明。
+      
+      </apiDesc><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS 选择器的名称。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.getStyleDeclaration on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      获取存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。
+     
+      <p>如果 <codeph>selector</codeph> 参数以英文句号 (.) 开头，则返回的 CSSStyleDeclaration 是一个类选择器，只适用于那些其 <codeph>styleName</codeph> 属性指定了该选择器（不包括英文句号）的实例。例如，类选择器 <codeph>".bigMargins"</codeph> 适用于任何 <codeph>styleName</codeph> 为 <codeph>"bigMargins"</codeph> 的 UIComponent。</p>
+     
+      <p>如果 <codeph>selector</codeph> 参数不以英文句号开头，则返回的 CSSStyleDeclaration 是一个类型选择器，适用于该类型的所有实例。例如，类型选择器 <codeph>"Button"</codeph> 适用于 Button 及其子类的所有实例。</p>
+     
+      <p><codeph>global</codeph> 选择器和类型选择器相似，不以英文句号开头。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:getStyleManager"><apiName>getStyleManager</apiName><shortdesc>
+      返回对象的样式管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>给定模块工厂的样式管理器。
+      
+      </apiDesc><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier></apiReturn><apiParam><apiItemName>moduleFactory</apiItemName><apiOperationClassifier>mx.core:IFlexModuleFactory</apiOperationClassifier><apiDesc>您希望为其管理样式的对象的模块工厂。若为 null，将返回顶级样式管理器。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回对象的样式管理器。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isColorName"><apiName>isColorName</apiName><shortdesc>
+      测试以查看给定的字符串是否为颜色值的别名。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果 <codeph>colorName</codeph> 为颜色的别名，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>要测试的颜色名。该参数不区分大小写。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isColorName on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      测试以查看给定的字符串是否为颜色值的别名。例如，默认情况下，字符串“blue”是 0x0000FF 的别名。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isInheritingStyle"><apiName>isInheritingStyle</apiName><shortdesc>
+      测试以查看样式是否为继承。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果指定的样式为继承，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>测试以查看其是否为继承的样式的名称。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isInheritingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      测试以查看样式是否为继承。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isInheritingTextFormatStyle"><apiName>isInheritingTextFormatStyle</apiName><shortdesc>
+      测试以查看 TextFormat 样式是否为继承。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果指定的 TextFormat 样式为继承，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>测试以查看其是否为继承的样式的名称。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isInheritingTextFormatStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      测试以查看 TextFormat 样式是否为继承。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isParentDisplayListInvalidatingStyle"><apiName>isParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      测试以查看该样式是否影响组件的父容器，如当该样式更改时要求父容器重绘自身。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果指定的样式可能影响组件父容器的外观或布局，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要测试的样式的名称。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isParentDisplayListInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      测试以查看该样式是否影响组件的父容器，如当该样式更改时要求父容器重绘自身。
+     
+      <p>当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件的父容器自动调用 <codeph>invalidateDisplayList()</codeph> 方法，以使其重绘和/或重新布局其子项。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isParentSizeInvalidatingStyle"><apiName>isParentSizeInvalidatingStyle</apiName><shortdesc>
+      测试以查看样式是否更改组件父容器的大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果指定的样式可能影响组件父容器的测量大小，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要测试的样式的名称。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isParentSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      测试以查看样式是否更改组件父容器的大小。
+     
+      <p>当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件的父容器自动调用 <codeph>invalidateSize()</codeph> 方法，以便在以后重新计算其测量大小。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isSizeInvalidatingStyle"><apiName>isSizeInvalidatingStyle</apiName><shortdesc>
+      测试以查看样式是否更改组件的大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果指定的样式可能影响组件的测量大小，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要测试的样式的名称。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      测试以查看样式是否更改组件的大小。
+     
+      <p>当使用 <codeph>setStyle()</codeph> 方法设置这些样式之一时，将对该组件自动调用 <codeph>invalidateSize()</codeph> 方法，以便在以后重新计算其测量大小。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:isValidStyleValue"><apiName>isValidStyleValue</apiName><shortdesc>
+      确定指定的参数是否为有效的样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果将由 <codeph>getStyle()</codeph> 方法调用返回的值传递给该方法，则若设置了样式，将返回 <codeph>true</codeph>，若未设置样式，将返回 <codeph>false</codeph>。
+     
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>要测试的样式属性。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.isValidStyleValue on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      确定指定的参数是否为有效的样式属性。例如：
+     
+      <pre>
+      trace(StyleManager.isValidStyleValue(myButton.getStyle("color")).toString());
+      </pre>
+     
+      <p>这将非常有用，因为某些样式的值可以设置为如 0、<codeph>NaN</codeph>、空字符串 (<codeph>""</codeph>) 或 <codeph>null</codeph> 之类的值，这会导致 <codeph>if (value)</codeph> 测试失败。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:loadStyleDeclarations"><apiName>loadStyleDeclarations</apiName><shortdesc>
+      加载样式 SWF。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>支持 StyleEvent.PROGRESS、StyleEvent.COMPLETE 和 StyleEvent.ERROR 的 IEventDispatcher 实现。
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>样式 SWF 的位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>设置为 <codeph>true</codeph> 以强制立即更新样式。设置为 <codeph>false</codeph> 以避免立即更新应用程序中的样式。此参数可选并且默认值为 <codeph>true</codeph>。有关此参数的详细信息，请参阅 <codeph>setStyleDeclaration()</codeph> 方法中的说明。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>trustContent</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>废除，不再使用。该参数可选，默认值为 <codeph>false</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>传递给加载样式 SWF 的·IModuleInfo 的 <codeph>load()</codeph> 方法的 ApplicationDomain。此参数是可选的，默认值为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>传递给加载样式 SWF 的·IModuleInfo 的 <codeph>load()</codeph> 方法的 SecurityDomain。此参数是可选的，默认值为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.loadStyleDeclarations on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      加载样式 SWF。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#StyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiOperation id="mx.styles:StyleManager:registerColorName"><apiName>registerColorName</apiName><shortdesc>
+      将颜色名添加到颜色别名列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colorName</apiItemName><apiType value="String"/><apiDesc>要添加到列表的颜色的名称，如“blue”。如果以后访问该颜色名，该值不区分大小写。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorValue</apiItemName><apiType value="uint"/><apiDesc>颜色值，例如 0x0000FF。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerColorName on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      将颜色名添加到颜色别名列表。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerInheritingStyle"><apiName>registerInheritingStyle</apiName><shortdesc>
+      添加到可从其父级中继承值的样式列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>添加到可继承值的样式列表中的样式名称。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerInheritingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      添加到可从其父级中继承值的样式列表。
+     
+      <p><b>注意：</b>请确保避免使用重复的样式名称，因为如果已使用的样式变为继承，命名冲突将导致性能降低。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerParentDisplayListInvalidatingStyle"><apiName>registerParentDisplayListInvalidatingStyle</apiName><shortdesc>
+      添加到可能影响组件父容器的外观或布局的样式列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要注册的样式的名称。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerParentDisplayListInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      添加到可能影响组件父容器的外观或布局的样式列表。当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件的父容器自动调用 <codeph>invalidateDisplayList()</codeph> 方法，以使其重绘和/或重新布局其子项。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerParentSizeInvalidatingStyle"><apiName>registerParentSizeInvalidatingStyle</apiName><shortdesc>
+      添加到可能影响组件父容器的测量大小的样式列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>要注册的样式的名称。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerParentSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      添加到可能影响组件父容器的测量大小的样式列表。
+      <p>当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件的父容器自动调用 <codeph>invalidateSize()</codeph> 方法，以便在以后重新计算其测量大小。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:registerSizeInvalidatingStyle"><apiName>registerSizeInvalidatingStyle</apiName><shortdesc>
+      添加到可能影响组件的测量大小的样式列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleName</apiItemName><apiType value="String"/><apiDesc>添加到列表的样式的名称。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.registerSizeInvalidatingStyle on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      添加到可能影响组件的测量大小的样式列表。当使用 <codeph>setStyle()</codeph> 设置这些样式之一时，将对该组件自动调用 <codeph>invalidateSize()</codeph> 方法，以便在以后重新计算其测量大小。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:setStyleDeclaration"><apiName>setStyleDeclaration</apiName><shortdesc>
+      设置存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS 选择器的名称。
+      </apiDesc></apiParam><apiParam><apiItemName>styleDeclaration</apiItemName><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier><apiDesc>新样式声明。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiDesc>设置为 <codeph>true</codeph> 以强制立即更新样式；在内部，Flex 调用 UIComponent 的 <codeph>styleChanged()</codeph> 方法。设置为 <codeph>false</codeph> 以避免立即更新应用程序中的样式。
+     
+      <p>样式将在下一次调用以下方法之一并且 <codeph>update</codeph> 属性设置为 <codeph>true</codeph> 时更新。
+      <ul>
+       <li><codeph>clearStyleDeclaration()</codeph></li>
+       <li><codeph>loadStyleDeclarations()</codeph></li>
+       <li><codeph>setStyleDeclaration()</codeph></li>
+       <li><codeph>unloadStyleDeclarations()</codeph></li>
+      </ul>
+      </p>
+     
+      <p>通常，如果多次调用这些方法中的一种，只需在最后一次调用时将该属性设置为 <codeph>true</codeph>，以便 Flex 不会多次调用 <codeph>styleChanged()</codeph> 方法。</p>
+     
+      <p>如果调用 <codeph>getStyle()</codeph> 方法，Flex 将返回通过调用 <codeph>styleChanged()</codeph> 方法最后一次应用到 UIComponent 中的样式值。组件的外观可能不反映由 <codeph>getStyle()</codeph> 方法返回的值。这是因为这些样式声明方法中的一种可能未在 <codeph>update</codeph> 属性设置为 <codeph>true</codeph> 时被调用。</p>
+      
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.setStyleDeclaration on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      设置存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。
+     
+      <p>如果 <codeph>selector</codeph> 参数以英文句号 (.) 开头，则指定的选择器是一个“类选择器”，只适用于那些其 <codeph>styleName</codeph> 属性指定了该选择器（不包括英文句号）的实例。例如，类选择器 <codeph>".bigMargins"</codeph> 适用于任何 <codeph>styleName</codeph> 为 <codeph>"bigMargins"</codeph> 的 UIComponent。</p>
+     
+      <p>如果 <codeph>selector</codeph> 参数不以英文句号开头，则指定的选择器是一个“类型选择器”，适用于该类型的所有实例。例如，类型选择器 <codeph>"Button"</codeph> 适用于 Button 及其子类的所有实例。</p>
+     
+      <p><codeph>global</codeph> 选择器和类型选择器相似，不以英文句号开头。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:StyleManager:unloadStyleDeclarations"><apiName>unloadStyleDeclarations</apiName><shortdesc>
+      卸载样式 SWF。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>样式 SWF 的位置。
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>设置为 <codeph>true</codeph> 以强制立即更新样式。设置为 <codeph>false</codeph> 以避免立即更新应用程序中的样式。有关该方法的详细信息，请参阅 <codeph>setStyleDeclaration()</codeph> 方法中的说明。
+      
+      </apiDesc></apiParam><apiDeprecated replacement="IStyleManager2.unloadStyleDeclarations on a style manager instance" sinceVersion="4.0"/></apiOperationDef><apiDesc>
+      卸载样式 SWF。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.styles.xml#StyleManager/setStyleDeclaration()"><linktext>setStyleDeclaration()</linktext></link></related-links></apiOperation><apiValue id="mx.styles:StyleManager:NOT_A_COLOR"><apiName>NOT_A_COLOR</apiName><shortdesc>
+      如果传入的字符串不是合法的颜色名，getColorName() 方法将返回该值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xFFFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      如果传入的字符串不是合法的颜色名，<codeph>getColorName()</codeph> 方法将返回该值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:StyleManager:selectors:get"><apiName>selectors</apiName><shortdesc>
+      返回所有在 StyleManager 中注册的 CSS 选择器的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiType value="Array"/><apiDeprecated replacement="IStyleManager2.selectors on a style manager instance" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      返回所有在 StyleManager 中注册的 CSS 选择器的数组。可将该数组中的项传递给 <codeph>getStyleDeclaration()</codeph> 方法，以获取相应的 CSSStyleDeclaration 对象。类选择器以英文句号开头。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:CSSStyleDeclaration"><apiName>CSSStyleDeclaration</apiName><shortdesc>
+  CSSStyleDeclaration 类表示一组 CSS 样式规则。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CSSStyleDeclaration 类表示一组 CSS 样式规则。MXML 编译器在和 Flex 应用程序关联的 CSS 文件中为每个选择器自动生成一个 CSSStyleDeclaration 对象。
+  
+  <p>CSS 规则，如
+  <pre>
+      Button { color: #FF0000 }
+  </pre>
+  影响 Button 类的每个实例；如 <codeph>Button</codeph> 之类的选择器称为类型选择器，不能以点开头。</p>
+   <p>CSS 规则，如
+  <pre>
+      .redButton { color: #FF0000 }
+  </pre>
+  只影响其 <codeph>styleName</codeph> 属性设置为<codeph>“.redButton”</codeph>的组件；如 <codeph>.redButton</codeph> 之类的选择器称为类选择器，必须以点开头。</p>
+   <p>可以使用 <codeph>StyleManager.getStyleDeclaration()</codeph> 方法访问自动生成的 CSSStyleDeclaration 对象，向其传递类型选择器
+  <pre>
+  var buttonDeclaration:CSSStyleDeclaration =
+      StyleManager.getStyleDeclaration("Button");
+  </pre>
+  或类选择器。
+  <pre>
+  var redButtonStyleDeclaration:CSSStyleDeclaration =
+      StyleManager.getStyleDeclaration(".redButton");
+  </pre>
+  </p>
+   <p>可使用 <codeph>getStyle()</codeph>、<codeph>setStyle()</codeph> 和 <codeph>clearStyle()</codeph> 方法获取、设置和清除 CSSStyleDeclaration 上的样式属性。</p>
+   <p>还可以使用 <codeph>StyleManager.setStyleDeclaration()</codeph> 方法在运行时创建和安装 CSSStyleDeclaration。
+  <pre>
+  var newStyleDeclaration:CSSStyleDeclaration = new CSSStyleDeclaration(".bigMargins");
+  newStyleDeclaration.defaultFactory = function():void
+  {
+      leftMargin = 50;
+      rightMargin = 50;
+  }
+  StyleManager.setStyleDeclaration(".bigMargins", newStyleDeclaration, true);
+  </pre>
+  </p>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#UIComponent"><linktext>mx.core.UIComponent</linktext></link><link href="mx.styles.xml#StyleManager"><linktext>mx.styles.StyleManager</linktext></link></related-links><apiConstructor id="mx.styles:CSSStyleDeclaration:CSSStyleDeclaration"><apiName>CSSStyleDeclaration</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>selector</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>- 如果选择器为 CSSSelector，则支持高级 CSS 选择器。如果对选择器使用了字符串表示形式，则仅支持简单 CSS 选择器。如果 String 以点开头，则它将解释为通用类选择器，否则它必定表示简单类型的选择器。如果非 null，则此 CSSStyleDeclaration 将使用 StyleManager 注册。 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>styleManager</apiItemName><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier><apiData>null</apiData><apiDesc>- 要将此声明设置到其中的样式管理器。如果 styleManager 为 null，则将使用顶级样式管理器。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>autoRegisterWithStyleManager</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>- 如果为 true，则在 styleManager 中设置选择器。只有 <codeph>selector</codeph> 和 <codeph>styleManager</codeph> 都为非 null 时，才可设置选择器。
+           </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:CSSStyleDeclaration:clearStyle"><apiName>clearStyle</apiName><shortdesc>
+      清除该 CSSStyleDeclaration 上的样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      清除该 CSSStyleDeclaration 上的样式属性。这和将样式值设置为 <codeph>undefined</codeph> 相同。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSStyleDeclaration:getStyle"><apiName>getStyle</apiName><shortdesc>
+      获取指定样式属性的值，它完全由该 CSSStyleDeclaration 确定。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定样式属性的值（如果设置），或 <codeph>undefined</codeph>（如果未设置）。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取指定样式属性的值，它完全由该 CSSStyleDeclaration 确定。
+           <p>返回值可以为任何类型。</p>
+           <p>值 <codeph>null</codeph>、<codeph>""</codeph>、<codeph>false</codeph>、<codeph>NaN</codeph> 和 <codeph>0</codeph> 都是有效的样式值，而<codeph>undefined</codeph> 不是有效值；它指示该 CSSStyleDeclaration 上未设置指定样式。可以使用 <codeph>StyleManager.isValidStyleValue()</codeph> 方法来测试返回的值。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSStyleDeclaration:matchesStyleClient"><apiName>matchesStyleClient</apiName><shortdesc>
+      确定此样式声明是否基于选择器链的匹配性而应用于给定的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果此样式声明适用于该组件，则为 true，否则为 false。 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiOperationClassifier>mx.styles:IAdvancedStyleClient</apiOperationClassifier><apiDesc>与样式声明相匹配的组件。     
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定此样式声明是否基于选择器链的匹配性而应用于给定的组件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:CSSStyleDeclaration:setStyle"><apiName>setStyle</apiName><shortdesc>
+      在该 CSSStyleDeclaration 上设置样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+           </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>样式属性的值。该值可以为任何类型。值 <codeph>null</codeph>、<codeph>""</codeph>、<codeph>false</codeph>、<codeph>NaN</codeph> 和<codeph>0</codeph> 都是有效的样式值，而值 <codeph>undefined</codeph> 不是有效值。将样式属性设置为值 <codeph>undefined</codeph> 和调用 <codeph>clearStyle()</codeph> 方法相同。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在该 CSSStyleDeclaration 上设置样式属性。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:CSSStyleDeclaration:selectorIndex"><apiName>selectorIndex</apiName><shortdesc>
+      此 CSSStyleDeclaration 添加到其 StyleManager 的顺序。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      此 CSSStyleDeclaration 添加到其 StyleManager 的顺序。MatchStyleDeclarations 必须按其声明顺序返回这些声明
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:defaultFactory:get"><apiName>defaultFactory</apiName><shortdesc>
+      此函数（如果不是 null）通常由 MXML 编译器自动生成。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      此函数（如果不是 <codeph>null</codeph>）通常由 MXML 编译器自动生成。它生成 plain 对象（如 <codeph>{ leftMargin: 10, rightMargin: 10 }</codeph>）的副本，包含样式属性的名称/值对；该对象用于构建原型链的一个节点以查找样式属性。
+           <p>如果该 CSSStyleDeclaration 由使用 MXML 编写的 UIComponent 所有，该函数将对在组件定义的根标签上指定的样式属性进行编码。</p>
+           <p>如果 UIComponent 以 ActionScript 编写，则该属性为 <codeph>null</codeph>。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:factory:get"><apiName>factory</apiName><shortdesc>
+      此函数（如果不是 null）通常由 MXML 编译器自动生成。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      此函数（如果不是 <codeph>null</codeph>）通常由 MXML 编译器自动生成。它生成 plain 对象（如 <codeph>{ leftMargin: 10, rightMargin: 10 }</codeph>）的副本，包含样式属性的名称/值对；该对象用于构建原型链的一个节点以查找样式属性。
+           <p>如果该 CSSStyleDeclaration 由 UIComponent 所有，该函数将对使用 MXML 为该组件的一个实例指定的样式属性进行编码。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:overrides:get"><apiName>overrides</apiName><shortdesc>
+      如果运行时在 UIComponent 或 CSSStyleDeclaration 上调用 setStyle() 方法，该对象将存储已设置的名称/值对；它们将覆盖由 defaultFactory 和 factory 属性指定的方法所生成的对象中的名称/值对。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      如果运行时在 UIComponent 或 CSSStyleDeclaration 上调用 <codeph>setStyle()</codeph> 方法，该对象将存储已设置的名称/值对；它们将覆盖由 <codeph>defaultFactory</codeph> 和 <codeph>factory</codeph> 属性指定的方法所生成的对象中的名称/值对。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:selector:get"><apiName>selector</apiName><shortdesc>
+      此属性是用于将 CSS 样式声明与组件进行匹配的可能选择器链和条件的基本选择器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSSelector</apiValueClassifier></apiValueDef><apiDesc>
+      此属性是用于将 CSS 样式声明与组件进行匹配的可能选择器链和条件的基本选择器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:specificity:get"><apiName>specificity</apiName><shortdesc>
+      确定将多个样式声明应用于组件时的优先顺序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      确定将多个样式声明应用于组件时的优先顺序。如果样式声明的优先顺序相同，则最后一个优先。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSStyleDeclaration:subject:get"><apiName>subject</apiName><shortdesc>
+      主题描述了可能是此样式声明的匹配项的组件的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      主题描述了可能是此样式声明的匹配项的组件的名称。主题将确定为可能选择器链中最简单类型的选择器。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:IStyleClient"><apiName>IStyleClient</apiName><shortdesc>
+  该接口描述了对象要完全参与样式子系统所必须实现的属性和方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  该接口描述了对象要完全参与样式子系统所必须实现的属性和方法。该接口由 UIComponent 实现。
+ 
+  <p>如果对象不需要在本地存储样式值，则该对象可改为实现 <codeph>ISimpleStyleClient</codeph> 接口。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#ISimpleStyleClient"><linktext>mx.styles.ISimpleStyleClient</linktext></link><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:clearStyle"><apiName>clearStyle</apiName><shortdesc>
+      删除此组件实例的样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除此组件实例的样式属性。
+     
+      <p>此操作不一定会使 <codeph>getStyle()</codeph> 方法返回 <codeph>undefined</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      为应用于该组件的类型选择器返回 CSSStyleDeclaration 对象数组，如果不存在则返回 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>CSSStyleDeclaration 对象数组。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      为应用于该组件的类型选择器返回 CSSStyleDeclaration 对象数组，如果不存在则返回 <codeph>null</codeph>。
+     
+      <p>例如，假定组件 MyButton 扩展了 Button。该方法首先查找 MyButton 选择器；然后查找 Button 类型选择器；最后查找 UIComponent 类型选择器。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:getStyle"><apiName>getStyle</apiName><shortdesc>
+      获取已在此组件的样式查找链中的某个位置设置过的样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>样式值。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取已在此组件的样式查找链中的某个位置设置过的样式属性。
+     
+      <p>因为此方法同样可用于获取任何类型的样式属性，所以返回值可能是 Boolean、String、Number、int、uint（用于 RGB 颜色）、Class（用于外观）或任何类型的对象。因此，返回类型被指定为 ~~。</p>
+     
+      <p>如果要获取特定的样式属性，您需要了解其类型，而且通常希望将结果存储在该类型的某个变量中。可以使用 <codeph>as</codeph> 运算符或强制来完成。例如：</p>
+     
+      <pre>
+      var backgroundColor:uint = getStyle("backgroundColor") as int;
+      
+      or
+      
+      var backgroundColor:uint = int(getStyle("backgroundColor"));
+      </pre>
+     
+      <p>如果在样式查找链中的任何位置都未设置样式属性，则 <codeph>getStyle()</codeph> 方法的返回值为 <codeph>undefined</codeph>。请注意，<codeph>undefined</codeph> 是一个特殊值，它与 <codeph>false</codeph>、空字符串 (<codeph>""</codeph>)、<codeph>NaN</codeph>、0 或 <codeph>null</codeph>不同。如果没有有效的样式值，则总是 <codeph>undefined</codeph>。可以使用静态方法 <codeph>StyleManager.isValidStyleValue()</codeph> 来测试是否设置了值。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      向该组件的子项传送样式更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>是否将样式更改传播到子项的子项。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      向该组件的子项传送样式更改。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      设置内部样式缓存值，以便 getStyle() 方法可以起作用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>重新生成子项的原始链。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置内部样式缓存值，以便 <codeph>getStyle()</codeph> 方法可以起作用。如果该对象已有子项，则重新初始化子项的样式缓存。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      将 EffectManager 注册为每个效果事件的事件侦听器之一。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>效果名称的字符串 Array。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 EffectManager 注册为每个效果事件的事件侦听器之一。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:IStyleClient:mx.styles:IStyleClient:setStyle"><apiName>setStyle</apiName><shortdesc>
+      对此组件实例设置样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>样式的新值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      对此组件实例设置样式属性。
+     
+      <p>这可能会覆盖以全局方式设置的样式。</p>
+     
+      <p>调用 <codeph>setStyle()</codeph> 方法会降低性能。仅在必要时才使用它。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:className:get"><apiName>className</apiName><shortdesc>
+      组件类的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      组件类的名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc>
+      包含此组件的可继承样式的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      包含此组件的可继承样式的对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc>
+      包含此组件的不可继承样式的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      包含此组件的不可继承样式的对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleClient:mx.styles:IStyleClient:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      具有此对象声明的内嵌样式的样式声明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc>
+      具有此对象声明的内嵌样式的样式声明。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.styles:IStyleManager2"><apiName>IStyleManager2</apiName><shortdesc>
+  IStyleManager2 类管理以下内容：该类继承哪些 CSS 样式属性；哪些样式属性是颜色，因此获得特殊处理；用作颜色值别名的字符串列表
+  
+   </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IStyleManager</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IStyleManager2 类管理以下内容：
+  <ul>
+    <li>该类继承哪些 CSS 样式属性</li>
+    <li>哪些样式属性是颜色，因此获得特殊处理</li>
+    <li>一组用作颜色值别名的字符串</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiOperation id="mx.styles:IStyleManager2:mx.styles:IStyleManager2:getMergedStyleDeclaration"><apiName>getMergedStyleDeclaration</apiName><shortdesc> 
+     获取存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>其名称和 <codeph>selector</codeph> 属性匹配的样式声明。 
+      
+     </apiDesc><apiOperationClassifier>mx.styles:CSSStyleDeclaration</apiOperationClassifier></apiReturn><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiDesc>CSS 选择器的名称。 
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc> 
+     获取存储指定 CSS 选择器规则的 CSSStyleDeclaration 对象。CSSStyleDeclaration 对象是通过以下方法创建的：将此样式管理器中指定 CSS 选择器的属性与任何父样式管理器的属性合并。
+     
+     <p>如果 <codeph>selector</codeph> 参数以英文句号 (.) 开头，则返回的 CSSStyleDeclaration 是一个类选择器，只适用于那些其 <codeph>styleName</codeph> 属性指定了该选择器（不包括英文句号）的实例。例如，类选择器 <codeph>".bigMargins"</codeph> 适用于任何 <codeph>styleName</codeph> 为 <codeph>"bigMargins"</codeph> 的 UIComponent。</p> 
+     
+     <p>如果 <codeph>selector</codeph> 参数不以英文句号开头，则返回的 CSSStyleDeclaration 是一个类型选择器，适用于该类型的所有实例。例如，类型选择器 <codeph>"Button"</codeph> 适用于 Button 及其子类的所有实例。</p> 
+     
+     <p><codeph>global</codeph> 选择器和类型选择器相似，不以英文句号开头。</p> 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:IStyleManager2:mx.styles:IStyleManager2:parent:get"><apiName>parent</apiName><shortdesc>
+      此 StyleManager 的父样式管理器。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.styles:IStyleManager2</apiValueClassifier></apiValueDef><apiDesc>
+      此 StyleManager 的父样式管理器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:IStyleManager2:mx.styles:IStyleManager2:selectors:get"><apiName>selectors</apiName><shortdesc>
+      返回所有在 StyleManager 中注册的 CSS 选择器的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      返回所有在 StyleManager 中注册的 CSS 选择器的数组。可将该数组中的项传递给 <codeph>getStyleDeclaration()</codeph> 方法，以获取相应的 CSSStyleDeclaration 对象。类选择器以英文句号开头。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:CSSConditionKind"><apiName>CSSConditionKind</apiName><shortdesc>
+  CSSCondition 种类的枚举。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CSSCondition 种类的枚举。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#CSSCondition"><linktext>mx.styles.CSSCondition</linktext></link><link href="mx.styles.xml#CSSSelector"><linktext>mx.styles.CSSSelector</linktext></link></related-links><apiValue id="mx.styles:CSSConditionKind:CLASS"><apiName>CLASS</apiName><shortdesc>
+      按照 styleName 与组件匹配的选择器条件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>class</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      按照 styleName 与组件匹配的选择器条件。示例：Button.special { ... } .special { ... }
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSConditionKind:ID"><apiName>ID</apiName><shortdesc>
+      按照 id 与组件匹配的选择器条件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>id</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      按照 id 与组件匹配的选择器条件。示例：Button#special { ... } #special { ... }
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:CSSConditionKind:PSEUDO"><apiName>PSEUDO</apiName><shortdesc>
+      按照状态（可以为动态，随时间更改）与组件匹配的选择器条件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>pseudo</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      按照状态（可以为动态，随时间更改）与组件匹配的选择器条件。示例：Button:special { ... } :special { ... }
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.styles:AdvancedStyleClient"><apiName>AdvancedStyleClient</apiName><shortdesc>
+  一个基类，可用于实现使用 IAdvancedStyleClient 接口的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IAdvancedStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IFlexModule</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  一个基类，可用于实现使用 <codeph>IAdvancedStyleClient</codeph> 接口的对象。该基类提供对象参与样式子系统时所需的方法和属性的实现。
+   <p>除了 <codeph>IAdvancedStyleClient</codeph> 接口之外，该对象还实现 <codeph>IFlexModule</codeph> 和 <codeph>IMXMLObject</codeph> 接口。<codeph>IMXMLObject</codeph> 接口包含使用 MXML 声明实例化该类时调用的 <codeph>initialized</codeph> 方法。该基类提供的 <codeph>initialized</codeph> 方法的实现会将该类实例添加到包含 MXML 声明的文档对象。有关详细信息，请参阅 <codeph>initilized</codeph> 方法的描述。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.styles.xml#IAdvancedStyleClient"><linktext>mx.styles.IAdvancedStyleClient</linktext></link><link href="mx.styles.xml#AdvancedStyleClient/initialized"><linktext>initialized</linktext></link></related-links><apiConstructor id="mx.styles:AdvancedStyleClient:AdvancedStyleClient"><apiName>AdvancedStyleClient</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.styles:AdvancedStyleClient:clearStyle"><apiName>clearStyle</apiName><shortdesc>
+      
+      删除此组件实例的样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      删除此组件实例的样式属性。
+     
+      <p>此操作不一定会使 <codeph>getStyle()</codeph> 方法返回 <codeph>undefined</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      
+      为应用于该组件的类型选择器返回 CSSStyleDeclaration 对象数组，如果不存在则返回 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>CSSStyleDeclaration 对象数组。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      
+      为应用于该组件的类型选择器返回 CSSStyleDeclaration 对象数组，如果不存在则返回 <codeph>null</codeph>。
+     
+      <p>例如，假定组件 MyButton 扩展了 Button。该方法首先查找 MyButton 选择器；然后查找 Button 类型选择器；最后查找 UIComponent 类型选择器。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:getStyle"><apiName>getStyle</apiName><shortdesc>
+      
+      获取已在此组件的样式查找链中的某个位置设置过的样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>样式值。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      获取已在此组件的样式查找链中的某个位置设置过的样式属性。
+     
+      <p>因为此方法同样可用于获取任何类型的样式属性，所以返回值可能是 Boolean、String、Number、int、uint（用于 RGB 颜色）、Class（用于外观）或任何类型的对象。因此，返回类型被指定为 ~~。</p>
+     
+      <p>如果要获取特定的样式属性，您需要了解其类型，而且通常希望将结果存储在该类型的某个变量中。可以使用 <codeph>as</codeph> 运算符或强制来完成。例如：</p>
+     
+      <pre>
+      var backgroundColor:uint = getStyle("backgroundColor") as int;
+      
+      or
+      
+      var backgroundColor:uint = int(getStyle("backgroundColor"));
+      </pre>
+     
+      <p>如果在样式查找链中的任何位置都未设置样式属性，则 <codeph>getStyle()</codeph> 方法的返回值为 <codeph>undefined</codeph>。请注意，<codeph>undefined</codeph> 是一个特殊值，它与 <codeph>false</codeph>、空字符串 (<codeph>""</codeph>)、<codeph>NaN</codeph>、0 或 <codeph>null</codeph>不同。如果没有有效的样式值，则总是 <codeph>undefined</codeph>。可以使用静态方法 <codeph>StyleManager.isValidStyleValue()</codeph> 来测试是否设置了值。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:hasCSSState"><apiName>hasCSSState</apiName><shortdesc>
+      
+      如果 currentCSSState 不为 null，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>currentCSSState</codeph> 不为 <codeph>null</codeph>，则返回 <codeph>true</codeph>。默认情况下，<codeph>currentCSSState</codeph> 与 <codeph>currentState</codeph> 相同。如果状态不存在，则返回 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      如果 <codeph>currentCSSState</codeph> 不为 <codeph>null</codeph>，则返回 <codeph>true</codeph>。通常，您无需直接调用此方法。而是由 <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> 方法进行调用。
+           <p>请注意，Spark 组件将其外观状态用作伪状态。Halo 组件使用 <codeph>currentState</codeph> 属性。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:initialized"><apiName>initialized</apiName><shortdesc>
+      该类或扩展该类的类在 MXML 声明中使用时，调用 initialized 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>创建此对象的 MXML 文档。
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>文档对象用来引用此对象的标识符。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      该类或扩展该类的类在 MXML 声明中使用时，调用 initialized 方法。它在创建实现对象且初始化在 MXML 标签上指定的所有组件属性后调用。
+      <p>
+      如果创建该对象的文档是 <codeph>UIComponent</codeph>（例如，应用程序、模块等），则将调用 UIComponent 的 <codeph>addStyleClient</codeph> 方法以将该对象添加到 UIComponent 的非可视样式客户端列表。这允许对象从文档继承样式。 </p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:matchesCSSState"><apiName>matchesCSSState</apiName><shortdesc>
+      
+      如果 cssState 与 currentCSSState 匹配，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>cssState</codeph> 与 <codeph>currentCSSState</codeph> 匹配，则返回 <codeph>true</codeph>。默认情况下，<codeph>currentCSSState</codeph> 与 <codeph>currentState</codeph> 相同。如果不存在任何状态，则返回 null。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssState</apiItemName><apiType value="String"/><apiDesc><codeph>CSSCondition.value</codeph> 的可能值。该值表示此组件用于与 CSS 伪选择器匹配的当前状态。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      如果 <codeph>cssState</codeph> 与 <codeph>currentCSSState</codeph> 匹配，则返回 <codeph>true</codeph>。通常，您无需直接调用此方法。而是由 <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> 方法进行调用。
+           <p>请注意，Spark 组件将其外观状态用作伪状态。Halo 组件使用 <codeph>currentState</codeph> 属性。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:matchesCSSType"><apiName>matchesCSSType</apiName><shortdesc>
+      
+      确定此实例与给定类型相同，还是属于给定类型的子类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>cssType</codeph> 位于限定的类型选择器的层次结构中，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>cssType</apiItemName><apiType value="String"/><apiDesc>一个 CSSSelector 对象。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      确定此实例与给定类型相同，还是属于给定类型的子类。通常，您无需直接调用此方法。而是由 <codeph>mx.styles.CSSCondition.matchesStyleClient()</codeph> 方法进行调用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      将样式更改传播到此样式客户端实例的子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+           </apiDesc></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>是否将样式更改传播到子项的子项。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将样式更改传播到此样式客户端实例的子项。非可视样式客户端（即，不是 DisplayObject 的样式客户端）没有子项，因此该方法不针对非可视样式客户端执行任何操作。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      设置内部样式缓存值，以便 getStyle() 方法可以起作用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiDesc>重新生成子项的原始链。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置内部样式缓存值，以便 <codeph>getStyle()</codeph> 方法可以起作用。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      将 EffectManager 注册为每个效果事件的事件侦听器之一。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/><apiDesc>效果名称的字符串 Array。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 EffectManager 注册为每个效果事件的事件侦听器之一。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:setStyle"><apiName>setStyle</apiName><shortdesc>
+      
+      对此组件实例设置样式属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/><apiDesc>样式的新值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      对此组件实例设置样式属性。
+     
+      <p>这可能会覆盖以全局方式设置的样式。</p>
+     
+      <p>调用 <codeph>setStyle()</codeph> 方法会降低性能。仅在必要时才使用它。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      检测对样式属性的更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称；如果此样式客户端的所有样式均已更改，则为 null。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      检测对样式属性的更改。设置任何样式属性后，Flex 将调用 <codeph>styleChanged()</codeph> 方法，向其传递所设置样式的名称。
+           <p>此方法是一种高级方法，可在创建 <codeph>AdvancedStyleClient</codeph> 的子类时覆盖。创建自定义类时，可以覆盖 <codeph>styleChanged()</codeph> 方法，以检查传递给它的样式名称，并对更改进行相应处理。这允许您覆盖现有样式的默认行为或添加自己的自定义样式属性。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.styles:AdvancedStyleClient:stylesInitialized"><apiName>stylesInitialized</apiName><shortdesc>
+      
+      首次初始化组件样式时，Flex 会调用 stylesInitialized() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      首次初始化组件样式时，Flex 会调用 <codeph>stylesInitialized()</codeph> 方法。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.styles:AdvancedStyleClient:className:get"><apiName>className</apiName><shortdesc>
+      组件类的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      组件类的名称。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:id:get"><apiName>id</apiName><shortdesc>
+      
+      组件的标识。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      组件的标识。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:inheritingStyles:get"><apiName>inheritingStyles</apiName><shortdesc>
+      包含该非可视样式客户端实例的可继承样式的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      包含该非可视样式客户端实例的可继承样式的对象。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:moduleFactory:get"><apiName>moduleFactory</apiName><shortdesc>
+      模块工厂作为用于查找样式管理器（控制此非可视样式客户端实例的样式）的上下文使用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IFlexModuleFactory</apiValueClassifier></apiValueDef><apiDesc>
+      模块工厂作为用于查找样式管理器（控制此非可视样式客户端实例的样式）的上下文使用。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:nonInheritingStyles:get"><apiName>nonInheritingStyles</apiName><shortdesc>
+      此组件的非继承样式链的开头内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      此组件的非继承样式链的开头内容。<codeph>getStyle()</codeph> 方法只需访问 <codeph>nonInheritingStyles[styleName]</codeph>，即可搜索整个与原型链接的链。此对象由 <codeph>initProtoChain()</codeph> 设置。开发人员通常不需要直接访问此属性。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      具有此对象声明的内嵌样式的样式声明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:CSSStyleDeclaration</apiValueClassifier></apiValueDef><apiDesc>
+      具有此对象声明的内嵌样式的样式声明。
+           </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#CSSStyleDeclaration"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleManager:get"><apiName>styleManager</apiName><shortdesc>
+      返回此组件使用的 StyleManager 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.styles:IStyleManager2</apiValueClassifier></apiValueDef><apiDesc>
+      返回此组件使用的 StyleManager 实例。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleName:get"><apiName>styleName</apiName><shortdesc>
+      
+      该对象的样式值的源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      该对象的样式值的源。<codeph>styleName</codeph> 属性的值可以是以下三种可能类型之一：
+     
+      <ul>
+        <li>字符串，如“headerStyle”。该字符串命名了一个在 CSS 样式表中定义的类选择器。</li>
+     
+        <li>CSSStyleDeclaration，如 <codeph>StyleManager.getStyleDeclaration(".headerStyle")</codeph>。</li>
+     
+        <li>UIComponent。实现该接口的对象从引用的 UIComponent 中继承所有样式值。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.styles:AdvancedStyleClient:styleParent:get"><apiName>styleParent</apiName><shortdesc>
+      组件的父项用于评估后代选择器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.styles:IAdvancedStyleClient</apiValueClassifier></apiValueDef><apiDesc>
+      组件的父项用于评估后代选择器。父项也必须是要参加高级样式声明的 IAdvancedStyleClient。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

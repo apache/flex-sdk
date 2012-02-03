@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.mediaClasses"><apiName>spark.components.mediaClasses</apiName><apiDetail/><apiClassifier id="spark.components.mediaClasses:DynamicStreamingVideoItem"><apiName>DynamicStreamingVideoItem</apiName><shortdesc>
+  DynamicStreamingVideoItem クラスは、サーバー上のビデオストリームとそのストリームのビットレートを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:DynamicStreamingVideoItem&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DynamicStreamingVideoItem 
+    <strong>Properties</strong>
+    bitrate="0"
+    streamName=""
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DynamicStreamingVideoItem クラスは、サーバー上のビデオストリームとそのストリームのビットレートを表します。このクラスは、DynamicStreamingVideoSource クラスの <codeph>streamItems</codeph> プロパティの値を定義するときに使用します。DynamicStreamingVideoSource クラスはストリーミングビデオソースを表し、事前にレコーディングされたストリーミングビデオまたはライブストリーミングビデオに使用できます。  
+ 
+  </apiDesc><example conref="DynamicStreamingVideoSourceExample.mxml"><swfblock conref="examples/DynamicStreamingVideoSourceExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link><link href="spark.components.xml#VideoDisplay"><linktext>spark.components.VideoDisplay</linktext></link><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoSource"><linktext>spark.components.mediaClasses.DynamicStreamingVideoSource</linktext></link></related-links><apiConstructor id="spark.components.mediaClasses:DynamicStreamingVideoItem:DynamicStreamingVideoItem"><apiName>DynamicStreamingVideoItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoItem:bitrate:get"><apiName>bitrate</apiName><shortdesc>
+      ビデオストリームのビットレートです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ビデオストリームのビットレートです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoItem:streamName:get"><apiName>streamName</apiName><shortdesc>
+      サーバー上のストリームの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      サーバー上のストリームの名前です。サーバーの URI を指定するには、DynamicStreamingVideoSource クラスの <codeph>host</codeph> プロパティを使用します。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoSource/host"><linktext>spark.components.mediaClasses.DynamicStreamingVideoSource.host</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:MuteButton"><apiName>MuteButton</apiName><shortdesc>
+  MuteButton クラスは VideoPlayer コントロールで使用されるミュートボタンを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="label"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MuteButton クラスは VideoPlayer コントロールで使用されるミュートボタンを定義します。ボタンをクリックすると、ミュートが有効または無効になります。  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link></related-links><adobeApiEvent id="spark.components.mediaClasses:MuteButton_mx.events.FlexEvent.MUTED_CHANGE_mutedChange"><apiName>mutedChange</apiName><shortdesc>
+  ユーザーがビデオのミュートを有効または無効にしたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.MUTED_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーがビデオのミュートを有効または無効にしたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.mediaClasses:MuteButton:MuteButton"><apiName>MuteButton</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.mediaClasses:MuteButton:muted:get"><apiName>muted</apiName><shortdesc>
+      ビデオのミュートが有効になっている場合は true、無効になっている場合は false です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="mutedChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ビデオのミュートが有効になっている場合は <codeph>true</codeph>、無効になっている場合は <codeph>false</codeph> です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:MuteButton:volume:get"><apiName>volume</apiName><shortdesc>
+      ビデオプレーヤーのボリュームです。0 から 1 の範囲の値で指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ビデオプレーヤーのボリュームです。0 から 1 の範囲の値で指定します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:VolumeBar"><apiName>VolumeBar</apiName><shortdesc>
+  VolumeBar クラスは、VideoDisplay コントロールのボリュームを制御するドロップダウンスライダーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><skinStates><SkinState name="open" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10">
+<description>
+  ドロップダウンスライダーが開いている状態です。
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><styles><style inherit="no" name="rollOverOpenDelay" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10" type="Number">
+<description>
+  ユーザーが VideoDisplay コントロールのボリュームアイコン上にマウスポインターを移動してから、ボリュームスライダーが開くまでの遅延時間（ミリ秒単位）です。
+  
+  </description>
+<default>200
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style></styles><skinParts><SkinPart name="muteButton" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10" required="false" var_type="spark.components.mediaClasses:MuteButton">
+<description>
+      ミュートまたはミュート解除ボタンを定義するスキンパーツです。  
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      A skin part that defines the mute/unmute button.</shortdesc></SkinPart><SkinPart name="dropDown" owner="spark.components.mediaClasses:VolumeBar" playerVersion="Flash10" required="false" var_type="flash.display:DisplayObject">
+<description>
+      ボリュームドロップダウンスライダーのドロップダウン領域を定義するスキンパーツです。ボリュームスライダードロップダウンが開いているときに <codeph>dropDown</codeph> スキンパーツの外をクリックすると、ドロップダウンスライダーが閉じます。 
+     
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      A skin part that defines the drop-down area of the volume drop-down slider.</shortdesc></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:VSlider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VolumeBar クラスは、VideoDisplay コントロールのボリュームを制御するドロップダウンスライダーを定義します。デフォルトでは、ユーザーが VideoDisplay コントロールのボリュームアイコン上にマウスポインターを移動すると、ドロップダウンスライダーが開きます。<codeph>rollOverOpenDelay</codeph> スタイルは、ドロップダウンスライダーが開くまでの遅延時間（200 ミリ秒）を定義します。  
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#VideoDisplay"><linktext>spark.components.VideoDisplay</linktext></link></related-links><adobeApiEvent id="spark.components.mediaClasses:VolumeBar_mx.events.FlexEvent.MUTED_CHANGE_mutedChange"><apiName>mutedChange</apiName><shortdesc>
+  ユーザーがミュートを有効または無効にしたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.MUTED_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーがミュートを有効または無効にしたときに送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.mediaClasses:VolumeBar_spark.events.DropDownEvent.OPEN_open"><apiName>open</apiName><shortdesc>
+  ユーザーがドロップダウンスライダー上にマウスポインターを移動してドロップダウンスライダーを開いたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events.DropDownEvent.OPEN</apiEventType><adobeApiEventClassifier>spark.events.DropDownEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーがドロップダウンスライダー上にマウスポインターを移動してドロップダウンスライダーを開いたときに送出されます。これは、ユーザーがキーボードで Ctrl キーを押しながら下矢印キーを押してドロップダウンスライダーを開いた場合にも送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components.mediaClasses:VolumeBar_spark.events.DropDownEvent.CLOSE_close"><apiName>close</apiName><shortdesc>
+  ユーザーがボリュームドロップダウンスライダー内のアイテムを選択した場合や、ドロップダウンスライダーの外をクリックした場合など、何らかの理由でボリュームドロップダウンスライダーが閉じたときに送出されます。
+  
+ 
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events.DropDownEvent.CLOSE</apiEventType><adobeApiEventClassifier>spark.events.DropDownEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ユーザーが次の操作を実行した場合など、何らかの理由でボリュームドロップダウンスライダーが閉じたときに送出されます。
+  <ul>
+      <li>ドロップダウンスライダー内のアイテムを選択する</li>
+      <li>ドロップダウンスライダーの外をクリックする</li>
+  </ul>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.mediaClasses:VolumeBar:VolumeBar"><apiName>VolumeBar</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.mediaClasses:VolumeBar:closeDropDown"><apiName>closeDropDown</apiName><shortdesc>
+      ドロップダウンスライダーを閉じます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>commit</apiItemName><apiType value="Boolean"/><apiDesc>ドロップダウンスライダーの値をコミットする場合は、<codeph>true</codeph> に設定します。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ドロップダウンスライダーを閉じます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.mediaClasses:VolumeBar:openDropDown"><apiName>openDropDown</apiName><shortdesc>
+      ドロップダウンスライダーを開きます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ドロップダウンスライダーを開きます。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.mediaClasses:VolumeBar:protected:dropDownController:get"><apiName>dropDownController</apiName><shortdesc>
+      マウス、キーボード、およびフォーカスに関するすべてのユーザー操作を処理する DropDownController クラスのインスタンスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:DropDownController</apiValueClassifier></apiValueDef><apiDesc>
+      マウス、キーボード、およびフォーカスに関するすべてのユーザー操作を処理する DropDownController クラスのインスタンスです。  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:VolumeBar:isDropDownOpen:get"><apiName>isDropDownOpen</apiName><shortdesc conref="spark.components.supportClasses.DropDownController#isOpen">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="spark.components.supportClasses.DropDownController#isOpen">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:VolumeBar:muted:get"><apiName>muted</apiName><shortdesc>
+      ビデオのミュートが有効になっている場合は true、無効になっている場合は false です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="mutedChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      ビデオのミュートが有効になっている場合は <codeph>true</codeph>、無効になっている場合は <codeph>false</codeph> です。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:DynamicStreamingVideoSource"><apiName>DynamicStreamingVideoSource</apiName><shortdesc>
+  DynamicStreamingVideoSource クラスはストリーミングビデオソースを表し、事前にレコーディングされたストリーミングビデオまたはライブストリーミングビデオに使用できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="streamItems"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:DynamicStreamingVideoSource&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DynamicStreamingVideoSource 
+    <strong>Properties</strong>
+    host=""
+    initialIndex="0"
+    streamType="any"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DynamicStreamingVideoSource クラスはストリーミングビデオソースを表し、事前にレコーディングされたストリーミングビデオまたはライブストリーミングビデオに使用できます。このクラスは、VideoPlayer および VideoDisplay コントロールのビデオストリームを定義するときに使用します。
+ 
+  <p>このクラスは、様々なビットレートに関連付けられた単一のストリームまたは複数のストリームをサポートします。<codeph>VideoPlayer</codeph> クラスおよび <codeph>VideoDisplay</codeph> クラスは、DynamicStreamingVideoSource インスタンスをその <codeph>source</codeph> プロパティとして受け取ることができます。</p>
+ 
+  </apiDesc><example conref="DynamicStreamingVideoSourceExample.mxml"><swfblock conref="examples/DynamicStreamingVideoSourceExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link><link href="spark.components.xml#VideoDisplay"><linktext>spark.components.VideoDisplay</linktext></link><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoItem"><linktext>spark.components.mediaClasses.DynamicStreamingVideoItem</linktext></link></related-links><apiConstructor id="spark.components.mediaClasses:DynamicStreamingVideoSource:DynamicStreamingVideoSource"><apiName>DynamicStreamingVideoSource</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:host:get"><apiName>host</apiName><shortdesc>
+      ビデオサーバーの場所を示す URI です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      ビデオサーバーの場所を示す URI です。このプロパティは Object 型ですが、URI は String として渡す必要があります。 
+     
+      <p>サーバー上のストリーム名を指定するには、DynamicStreamingVideoItem クラスの <codeph>streamName</codeph> プロパティを使用します。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.mediaClasses.xml#DynamicStreamingVideoItem/streamName"><linktext>spark.components.mediaClasses.DynamicStreamingVideoItem.streamName</linktext></link></related-links></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:initialIndex:get"><apiName>initialIndex</apiName><shortdesc>
+      推奨開始インデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      推奨開始インデックスです。これは、まず最初に試行するストリームアイテムに対応しています。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:streamItems:get"><apiName>streamItems</apiName><shortdesc>
+      FLB ファイルを記述するプロパティを持つメタデータ情報オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$spark.components.mediaClasses:DynamicStreamingVideoItem"/></apiValueDef><apiDesc>
+      FLB ファイルを記述するプロパティを持つメタデータ情報オブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.mediaClasses:DynamicStreamingVideoSource:streamType:get"><apiName>streamType</apiName><shortdesc>
+      接続するストリームのタイプです（any、live、または recorded）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>any
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      接続するストリームのタイプです（any、live、または recorded）。
+     
+      <p>streamType が <codeph>any</codeph> の場合は、まずライブストリームに接続を試みます。ライブストリームが見つからない場合は、レコーディングされたストリームに接続を試みます。レコーディングされたストリームが見つからない場合は、ライブストリームが作成されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="org.osmf.net.StreamType.xml"><linktext>org.osmf.net.StreamType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.components.mediaClasses:ScrubBar"><apiName>ScrubBar</apiName><shortdesc>
+  VideoScrubBar クラスは、ビデオのタイムラインを定義します。タイムラインには、ビデオの現在の再生ヘッド位置、再生済みの量、読み込み済みの部分が表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><skinParts><SkinPart name="playedArea" owner="spark.components.mediaClasses:ScrubBar" playerVersion="Flash10" required="false" var_type="mx.core:IVisualElement">
+<description>
+      再生されたビデオを表すトラック上の領域を表示する、オプションのスキンパーツです。
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      An optional skin part for the area on the track 
+      representing the video that's been played.</shortdesc></SkinPart><SkinPart name="loadedRangeArea" owner="spark.components.mediaClasses:ScrubBar" playerVersion="Flash10" required="false" var_type="mx.core:IVisualElement">
+<description>
+      ビデオの読み込み済み部分を表すトラック上の領域を表示する、オプションのスキンパーツです。
+     
+      <p>プログレッシブダウンロードビデオの場合、これはダウンロード済みのバイト数に対応します。ストリーミングビデオの場合は、ビデオ内のあらゆる位置をすばやくシークできるように、ビデオ全体が読み込まれます。</p>
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog><shortdesc>
+      An optional skin part for the area on the track 
+      representing the currently loaded in part of the video.</shortdesc></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:HSlider</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VideoScrubBar クラスは、ビデオのタイムラインを定義します。タイムラインには、ビデオの現在の再生ヘッド位置、再生済みの量、読み込み済みの部分が表示されます。タイムラインは VideoPlayer コントロールの下部に表示されます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#VideoPlayer"><linktext>spark.components.VideoPlayer</linktext></link></related-links><apiConstructor id="spark.components.mediaClasses:ScrubBar:ScrubBar"><apiName>ScrubBar</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.mediaClasses:ScrubBar:protected:sizeLoadedRangeArea"><apiName>sizeLoadedRangeArea</apiName><shortdesc>
+      読み込み済み範囲の領域のサイズを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>loadedRangeAreaSize</apiItemName><apiType value="Number"/><apiDesc>読み込み済み範囲の領域の新しいサイズです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      読み込み済み範囲の領域のサイズを設定します。読み込み済み範囲の領域は、ビデオの読み込み済み部分を表す、タイムライン上の領域を定義します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.mediaClasses:ScrubBar:protected:sizePlayedArea"><apiName>sizePlayedArea</apiName><shortdesc>
+      再生済み領域のサイズを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>playedAreaSize</apiItemName><apiType value="Number"/><apiDesc>再生済み領域の新しいサイズです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      再生済み領域のサイズを設定します。再生済み領域は、既に再生されたビデオの部分を表す、タイムライン上の領域を定義します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.mediaClasses:ScrubBar:loadedRangeEnd:get"><apiName>loadedRangeEnd</apiName><shortdesc>
+      読み込み済み範囲の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      読み込み済み範囲の値です。このプロパティは、その範囲の末尾に対応します。
+     
+      <p>プログレッシブダウンロードビデオの場合、これはダウンロード済みのバイト数に対応します。ストリーミングビデオの場合は、ビデオ内のあらゆる位置をすばやくシークできるように、ビデオ全体が読み込まれます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

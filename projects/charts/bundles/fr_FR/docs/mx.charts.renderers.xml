@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.renderers"><apiName>mx.charts.renderers</apiName><apiDetail/><apiClassifier id="mx.charts.renderers:LineRenderer"><apiName>LineRenderer</apiName><shortdesc>
+  Implémentation simple d’une fonctionnalité de rendu de segment de ligne utilisée par des objets LineSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Implémentation simple d’une fonctionnalité de rendu de segment de ligne utilisée par des objets LineSeries. Cette classe rend une ligne à l’écran en utilisant le trait et la forme définis respectivement par les styles <codeph>lineStroke</codeph> et <codeph>form</codeph> de la série propriétaire.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:LineRenderer:LineRenderer"><apiName>LineRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:LineRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément de graphique représenté par cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément de graphique représenté par cette fonctionnalité de rendu. Les classes LineRenderer supposent que cette valeur est une occurrence de la classe LineSeriesItem. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:AreaRenderer"><apiName>AreaRenderer</apiName><shortdesc>
+  Classe par défaut utilisée pour rendre la zone située sous les points dataPoint d’un objet AreaSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe par défaut utilisée pour rendre la zone située sous les points dataPoint d’un objet AreaSeries. Cette classe rend la zone en utilisant les paramètres de remplissage, de trait et de type de ligne spécifiés respectivement par les styles <codeph>areaFill</codeph>, <codeph>areaStroke</codeph> et <codeph>form</codeph> de l’objet AreaSeries.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:AreaRenderer:AreaRenderer"><apiName>AreaRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:AreaRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Données rendues par la classe AreaRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Données rendues par la classe AreaRenderer. La classe AreaRenderer suppose qu’une occurrence de mx.charts.series.renderData.AreaRenderData est affectée à cette propriété.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:ShadowBoxItemRenderer"><apiName>ShadowBoxItemRenderer</apiName><shortdesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant une zone rectangulaire et l’entourant d’une ombre portée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant une zone rectangulaire et l’entourant d’une ombre portée. Cette classe peut être utilisée comme fonctionnalité de rendu itemRenderer pour les objets ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries et BubbleSeries. Elle rend sa zone à l’écran en utilisant les styles <codeph>fill</codeph> et <codeph>stroke</codeph> de la série associée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:ShadowBoxItemRenderer:ShadowBoxItemRenderer"><apiName>ShadowBoxItemRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:ShadowBoxItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:DiamondItemRenderer"><apiName>DiamondItemRenderer</apiName><shortdesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant un losange dans la zone qui lui est affectée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant un losange dans la zone qui lui est affectée. Cette classe peut être utilisée comme fonctionnalité de rendu itemRenderer pour les objets ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries et BubbleSeries. Elle rend sa zone à l’écran en utilisant les styles <codeph>fill</codeph> et <codeph>stroke</codeph> de la série associée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:DiamondItemRenderer:DiamondItemRenderer"><apiName>DiamondItemRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:DiamondItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CrossItemRenderer"><apiName>CrossItemRenderer</apiName><shortdesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant une croix dans la zone qui lui est affectée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant une croix dans la zone qui lui est affectée. Cette classe peut être utilisée comme fonctionnalité de rendu itemRenderer pour les objets ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries et BubbleSeries. Elle rend sa zone à l’écran en utilisant les styles <codeph>fill</codeph> et <codeph>stroke</codeph> de la série associée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CrossItemRenderer:CrossItemRenderer"><apiName>CrossItemRenderer</apiName><shortdesc>
+	  Constructeur
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CrossItemRenderer:thickness"><apiName>thickness</apiName><shortdesc>
+	  Epaisseur de la croix rendue, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>3</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  Epaisseur de la croix rendue, en pixels. Pour créer des rendus de croix d’autres épaisseurs, les développeurs doivent étendre cette classe et modifier cette valeur dans le constructeur de la classe dérivée.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.renderers:CrossItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:ShadowLineRenderer"><apiName>ShadowLineRenderer</apiName><shortdesc>
+  Implémentation d’une fonctionnalité de rendu de segment de ligne utilisée par des objets LineSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Implémentation d’une fonctionnalité de rendu de segment de ligne utilisée par des objets LineSeries. Cette classe rend une ligne avec ombre portée à l’écran en utilisant le trait et la forme définis respectivement par les styles <codeph>lineStroke</codeph> et <codeph>form</codeph> de la série propriétaire.
+  <p>ShadowLineRenderer est la fonctionnalité de rendu lineSegmentRenderer par défaut de la classe LineSeries.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:ShadowLineRenderer:ShadowLineRenderer"><apiName>ShadowLineRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:ShadowLineRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément de graphique représenté par cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément de graphique représenté par cette fonctionnalité de rendu. Les classes ShadowLineRenderer supposent que cette valeur est une occurrence de la classe LineSeriesItem. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:WedgeItemRenderer"><apiName>WedgeItemRenderer</apiName><shortdesc>
+  Fonctionnalité de rendu itemRenderer par défaut d’un objet PieSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Fonctionnalité de rendu itemRenderer par défaut d’un objet PieSeries. Cette classe rend un secteur en utilisant les styles <codeph>stroke</codeph> et <codeph>radialStroke</codeph> de la série propriétaire pour tracer respectivement les extrémités interne et externe du secteur. Le secteur est rempli en utilisant la valeur de la propriété <codeph>fill</codeph> de l’élément de graphique associé.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:WedgeItemRenderer:WedgeItemRenderer"><apiName>WedgeItemRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:WedgeItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément de graphique représenté par cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément de graphique représenté par cette fonctionnalité de rendu. Les classes WedgeItemRenderer supposent que cette valeur est une occurrence de la classe PieSeriesItem. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:TriangleItemRenderer"><apiName>TriangleItemRenderer</apiName><shortdesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer insérant un triangle dirigé vers le haut dans la zone qui lui est affectée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer insérant un triangle dirigé vers le haut dans la zone qui lui est affectée. Cette classe peut être utilisée comme fonctionnalité de rendu itemRenderer pour les objets ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries et BubbleSeries. Elle rend sa zone à l’écran en utilisant les styles <codeph>fill</codeph> et <codeph>stroke</codeph> de la série associée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:TriangleItemRenderer:TriangleItemRenderer"><apiName>TriangleItemRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:TriangleItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:HLOCItemRenderer"><apiName>HLOCItemRenderer</apiName><shortdesc>
+  Fonctionnalité de rendu d’élément par défaut d’un objet HLOCSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Fonctionnalité de rendu d’élément par défaut d’un objet HLOCSeries. Cette classe rend une ligne verticale entre les valeurs supérieure et inférieure et insère des graduations au niveau des points d’ouverture et de fermeture de l’élément de graphique.
+  
+  <p>La ligne verticale est rendue en utilisant la valeur du style <codeph>stroke</codeph> de la série propriétaire. Les graduations d’ouverture et de fermeture sont rendues en utilisant respectivement les styles <codeph>openTickStroke</codeph> et <codeph>closeTickStroke</codeph> de la série propriétaire. Les longueurs des graduations d’ouverture et de fermeture sont déterminées respectivement par les styles <codeph>openTickLength</codeph> et <codeph>closeTickLength</codeph> de la série propriétaire.</p>
+ 
+  <p>Les valeurs des graduations d’ouverture et de fermeture sont toutes deux facultatives. La classe HLOCItemRenderer rend les graduations uniquement si les valeurs d’ouverture et de fermeture de l’élément de graphique associé sont différentes de <codeph>NaN</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.series.xml#HLOCSeries"><linktext>mx.charts.series.HLOCSeries</linktext></link><link href="" invalidHref="mx.charts.series.HLOCSeriesItem.xml"><linktext>mx.charts.series.HLOCSeriesItem</linktext></link></related-links><apiConstructor id="mx.charts.renderers:HLOCItemRenderer:HLOCItemRenderer"><apiName>HLOCItemRenderer</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:HLOCItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Elément de graphique représenté par cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Elément de graphique représenté par cette fonctionnalité de rendu. Les classes HLOCItemRenderer supposent que cette valeur est une occurrence de la classe HLOCSeriesItem. Cette valeur est affectée par la série propriétaire.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CandlestickItemRenderer"><apiName>CandlestickItemRenderer</apiName><shortdesc>
+  Fonctionnalité de rendu itemRenderer par défaut d’un objet CandlestickSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Fonctionnalité de rendu itemRenderer par défaut d’un objet CandlestickSeries. Cette classe rend un élément CandlestickChart standard en utilisant les styles <codeph>stroke</codeph>, <codeph>boxStroke</codeph>, <codeph>fill</codeph> et <codeph>declineFill</codeph> de la série associée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CandlestickItemRenderer:CandlestickItemRenderer"><apiName>CandlestickItemRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CandlestickItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément de graphique représenté par cette fonctionnalité de rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément de graphique représenté par cette fonctionnalité de rendu. Les classes CandlestickItemRenderer supposent que cette valeur est une occurrence de la classe HLOCSeriesItem. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:BoxItemRenderer"><apiName>BoxItemRenderer</apiName><shortdesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant une zone rectangulaire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant une zone rectangulaire. Cette classe est la fonctionnalité de rendu itemRenderer par défaut des objets ColumnSeries et BarSeries. Elle peut être utilisée comme fonctionnalité de rendu itemRenderer pour les objets ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries et BubbleSeries. Cette classe rend sa zone à l’écran en utilisant les styles <codeph>fill</codeph> et <codeph>stroke</codeph> de la série associée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:BoxItemRenderer:BoxItemRenderer"><apiName>BoxItemRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:BoxItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.renderers:CircleItemRenderer"><apiName>CircleItemRenderer</apiName><shortdesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant une zone elliptique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Implémentation simple d’une fonctionnalité de rendu de graphique itemRenderer remplissant une zone elliptique. Cette classe peut être utilisée comme fonctionnalité de rendu itemRenderer pour les objets ColumnSeries, BarSeries, AreaSeries, LineSeries, PlotSeries et BubbleSeries. Elle rend sa zone à l’écran en utilisant les styles <codeph>fill</codeph> et <codeph>stroke</codeph> de la série associée.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.renderers:CircleItemRenderer:CircleItemRenderer"><apiName>CircleItemRenderer</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.renderers:CircleItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Elément chartItem affiché par cette fonctionnalité de rendu itemRenderer. Cette valeur est affectée par la série propriétaire.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

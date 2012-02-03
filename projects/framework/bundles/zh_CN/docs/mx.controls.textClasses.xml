@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.textClasses"><apiName>mx.controls.textClasses</apiName><apiDetail/><apiClassifier id="mx.controls.textClasses:TextRange"><apiName>TextRange</apiName><shortdesc>
+  TextRange 类提供在 Label、Text、TextArea、TextEditor 和 RichTextEditor 控件中选择和格式化文本范围的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TextRange 类提供在 Label、Text、TextArea、TextEditor 和 RichTextEditor 控件中选择和格式化文本范围的属性。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Label"><linktext>mx.controls.Label</linktext></link><link href="mx.controls.xml#RichTextEditor"><linktext>mx.controls.RichTextEditor</linktext></link><link href="mx.controls.xml#Text"><linktext>mx.controls.Text</linktext></link><link href="mx.controls.xml#TextArea"><linktext>mx.controls.TextArea</linktext></link><link href="mx.controls.xml#TextInput"><linktext>mx.controls.TextInput</linktext></link><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links><apiConstructor id="mx.controls.textClasses:TextRange:TextRange"><apiName>TextRange</apiName><shortdesc>
+	  创建提供文本控件内容子集的新 TextRange Object，包括格式化信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含文本的控件。此控件必须包含 <codeph>textField</codeph> 属性，或者像 RichTextEditor 控件一样包含 <codeph>textArea</codeph> 属性。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>modifiesSelection</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>是否选择范围中的文本。如果将此参数设置为 <codeph>true</codeph> 并且不指定与控件中文本相对应的起始或结束索引，则 Flex 将使用当前文本选项的起始或结束索引。如果此参数为 <codeph>true</codeph>，您省略了 <codeph>beginIndex</codeph> 和 <codeph>endIndex</codeph> 参数，并且不存在任何选项，则 TextRange 对象为空。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>范围中第一个字符从零开始的索引。如果 <codeph>modifiesSelection</codeph> 参数为 <codeph>false</codeph>，并且您省略此参数或指定了一个负值，则范围将从第一个文本字符开始。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>范围中最后一个字符<i>后</i>的位置从零开始的索引。如果 <codeph>modifiesSelection</codeph> 参数为 <codeph>false</codeph>，并且您省略此参数、指定了一个负值或指定的值超出文本结束范围，则范围将以最后一个文本字符结束。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  创建提供文本控件内容子集的新 TextRange Object，包括格式化信息。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.textClasses:TextRange:beginIndex:get"><apiName>beginIndex</apiName><shortdesc>
+	  范围中第一个字符的控件文本字段中从零开始的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  范围中第一个字符的控件文本字段中从零开始的索引。如果文本中的第五个字符是范围中的第一个字符，则此属性的值为 4。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:bullet:get"><apiName>bullet</apiName><shortdesc>
+	  范围中的文本是否位于带项目符合的列表中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  范围中的文本是否位于带项目符合的列表中。如果带项目符号的列表中仅包含此范围的一部分，则此值为 <codeph>false</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:color:get"><apiName>color</apiName><shortdesc>
+	  范围中文本的颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  范围中文本的颜色。您可以使用任何有效的颜色标识符设置此值。属性将以数值形式返回此值。如果范围包含多种颜色，则此值为 <codeph>null</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:endIndex:get"><apiName>endIndex</apiName><shortdesc>
+	  紧随范围中最后一个字符位置的控件文本字段中从零开始的索引；等效于最后一个字符从一开始的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  紧随范围中最后一个字符位置的控件文本字段中从零开始的索引；等效于最后一个字符从一开始的索引。如果文本中的第五个字符是范围中的最后一个字符，则此属性的值为 5。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontFamily:get"><apiName>fontFamily</apiName><shortdesc>
+	  范围中文本的字体名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  范围中文本的字体名称。如果范围包含多种字体，则此值为 <codeph>null</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontSize:get"><apiName>fontSize</apiName><shortdesc>
+	  范围中文本的磅值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  范围中文本的磅值。如果范围有多种大小，则此值为 0。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontStyle:get"><apiName>fontStyle</apiName><shortdesc>
+	  范围中的字体样式，例如“italic”或“normal”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  范围中的字体样式，例如“italic”或“normal”。将属性设置为其它任何字符串都会生成正常样式。如果范围包含多种样式，则此值为 <codeph>null</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontWeight:get"><apiName>fontWeight</apiName><shortdesc>
+	  范围中字体的粗细，例如“bold”或“normal”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  范围中字体的粗细，例如“bold”或“normal”。将属性设置为其它任何字符串都会生成正常粗细。如果范围包含多种粗细，则此值为 <codeph>null</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:htmlText:get"><apiName>htmlText</apiName><shortdesc>
+	  HTML 格式文本范围的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  HTML 格式文本范围的内容。此属性返回范围内的所有 HTML 标签，包括 Flex 所应用的格式设置标签，而不仅是使用 <codeph>htmlText</codeph> 属性指定的 HTML。因此，此属性将出现在控件中，是文本完整的 HTML 表示形式。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:kerning:get"><apiName>kerning</apiName><shortdesc>
+	  一个布尔值，指示是启用 (true) 还是禁用 (false) 字距调整。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  一个布尔值，指示是启用 (<codeph>true</codeph>) 还是禁用 (<codeph>false</codeph>) 字距调整。通过字距调整可为了提高可读性而调整某些字符对之间的像素，并且只在需要时（如使用大字体标题时）使用字距调整。仅嵌入字体支持字距调整。某些字体（如宋体）和等宽字体（如 Courier New）不支持字距调整。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:letterSpacing:get"><apiName>letterSpacing</apiName><shortdesc>
+	  各字符之间显示的附加像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  各字符之间显示的附加像素数。如果为正值，则会在正常间距的基础上增加字符间距；如果为负值，则减小此间距。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:modifiesSelection:get"><apiName>modifiesSelection</apiName><shortdesc>
+	  TextRange 是否修改当前所选的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  TextRange 是否修改当前所选的文本。由构造函数设置。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:owner:get"><apiName>owner</apiName><shortdesc>
+	  包含文本的控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+	  包含文本的控件。所有者控件必须包含 <codeph>textField</codeph> 属性，或者像 RichTextEditor 控件一样包含 <codeph>textArea</codeph> 属性。RichTextEditor 控件中文本的所有者是 RichTextEditor 控件，而非其 TextArea 子控件。最初由构造函数设置。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:textAlign:get"><apiName>textAlign</apiName><shortdesc>
+	  范围中文本的对齐方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  范围中文本的对齐方式。Flash.text.TextFormatAlign 常量将指定有效值。将此属性设置为其它任何值都不会产生影响。如果范围包含多种对齐方式，则此值为 <codeph>null</codeph>。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links></apiValue><apiValue id="mx.controls.textClasses:TextRange:textDecoration:get"><apiName>textDecoration</apiName><shortdesc>
+	  范围中字体的效果，例如“underline”或“normal”。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  范围中字体的效果，例如“underline”或“normal”。将属性设置为其它任何字符串都会生成正常文本。如果范围包含多种效果设置，则此值为 <codeph>null</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:text:get"><apiName>text</apiName><shortdesc>
+	  范围的纯文本内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  范围的纯文本内容。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:url:get"><apiName>url</apiName><shortdesc>
+	  范围中超文本链接的 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  范围中超文本链接的 URL。如果范围不包括链接，则此值是空字符串。如果范围包括多个链接，则此值为 <codeph>null</codeph>。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.series.items"><apiName>mx.charts.series.items</apiName><apiDetail/><apiClassifier id="mx.charts.series.items:AreaSeriesItem"><apiName>AreaSeriesItem</apiName><shortdesc>
+  アイテムを AreaSeries の一部としてレンダリングするために必要な情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  アイテムを AreaSeries の一部としてレンダリングするために必要な情報を表します。 AreaSeries クラスは、レンダリングする際に、これらのアイテムをその itemRenderer に渡します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:AreaSeriesItem:AreaSeriesItem"><apiName>AreaSeriesItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:AreaSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>所有している系列です。
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   この ChartItem が表す dataProvider のアイテムです。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  系列の dataProvider のアイテムのインデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:AreaSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      アイテムの塗りのカラーを保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      アイテムの塗りのカラーを保持します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:minFilter"><apiName>minFilter</apiName><shortdesc>
+      このアイテムの最小値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> に設定されます。 このフィールドの値が <codeph>undefined</codeph> になるのは、AreaSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:minNumber"><apiName>minNumber</apiName><shortdesc>
+      このアイテムの最小値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。チャートの垂直軸に基づいて数値に変換されます。 このフィールドの値が <codeph>undefined</codeph> になるのは、AreaSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:minValue"><apiName>minValue</apiName><shortdesc>
+      このアイテムの最小値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。 このフィールドの値が <codeph>undefined</codeph> になるのは、AreaSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:min"><apiName>min</apiName><shortdesc>
+      このアイテムの最小値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。スクリーン座標に変換されます。 このフィールドの値が <codeph>undefined</codeph> になるのは、AreaSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値表現に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値表現に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      このアイテムの x 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:x"><apiName>x</apiName><shortdesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値表現に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値表現に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      このアイテムの y 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:AreaSeriesItem:y"><apiName>y</apiName><shortdesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:BubbleSeriesItem"><apiName>BubbleSeriesItem</apiName><shortdesc>
+  アイテムを BubbleSeries の一部としてレンダリングするために必要な情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  アイテムを BubbleSeries の一部としてレンダリングするために必要な情報を表します。 BubbleSeries クラスは、レンダリングする際に、これらのアイテムをその itemRenderer に渡します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:BubbleSeriesItem:BubbleSeriesItem"><apiName>BubbleSeriesItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:BubbleSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>所有している系列です。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   この ChartItem が表す dataProvider のアイテムです。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  系列の dataProvider のアイテムのインデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:BubbleSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      アイテムの塗りのカラーを保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      アイテムの塗りのカラーを保持します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      このアイテムの x 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:x"><apiName>x</apiName><shortdesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      このアイテムの y 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:y"><apiName>y</apiName><shortdesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:zFilter"><apiName>zFilter</apiName><shortdesc>
+      このアイテムの z 値です。チャートの半径軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの z 値です。チャートの半径軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:zNumber"><apiName>zNumber</apiName><shortdesc>
+      このアイテムの z 値です。チャートの半径軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの z 値です。チャートの半径軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:zValue"><apiName>zValue</apiName><shortdesc>
+      このアイテムの z 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの z 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BubbleSeriesItem:z"><apiName>z</apiName><shortdesc>
+      このアイテムの z 値です。ピクセル単位の半径に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの z 値です。ピクセル単位の半径に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:HLOCSeriesItem"><apiName>HLOCSeriesItem</apiName><shortdesc>
+  アイテムを HLOCSeries の一部としてレンダリングするために必要な情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  アイテムを HLOCSeries の一部としてレンダリングするために必要な情報を表します。 HLOCSeries クラスは、レンダリングする際に、これらのアイテムをその itemRenderer に渡します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:HLOCSeriesItem:HLOCSeriesItem"><apiName>HLOCSeriesItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.chartClasses:HLOCSeriesBase</apiOperationClassifier><apiData>null</apiData><apiDesc>所有している系列です。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   この ChartItem が表す dataProvider のアイテムです。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  系列の dataProvider のアイテムのインデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:HLOCSeriesItem:closeFilter"><apiName>closeFilter</apiName><shortdesc>
+      このアイテムの終値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの終値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:closeNumber"><apiName>closeNumber</apiName><shortdesc>
+      このアイテムの終値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの終値です。チャートの垂直軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:closeValue"><apiName>closeValue</apiName><shortdesc>
+      このアイテムの終値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの終値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:close"><apiName>close</apiName><shortdesc>
+      このアイテムの終値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの終値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+     アイテムの塗りのカラーを保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+     アイテムの塗りのカラーを保持します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:highFilter"><apiName>highFilter</apiName><shortdesc>
+      このアイテムの高値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの高値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:highNumber"><apiName>highNumber</apiName><shortdesc>
+      このアイテムの高値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの高値です。チャートの垂直軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:highValue"><apiName>highValue</apiName><shortdesc>
+      このアイテムの高値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの高値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:high"><apiName>high</apiName><shortdesc>
+      このアイテムの高値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの高値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:lowFilter"><apiName>lowFilter</apiName><shortdesc>
+      このアイテムの安値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの安値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:lowNumber"><apiName>lowNumber</apiName><shortdesc>
+      このアイテムの安値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの安値です。チャートの垂直軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:lowValue"><apiName>lowValue</apiName><shortdesc>
+      このアイテムの安値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの安値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:low"><apiName>low</apiName><shortdesc>
+      このアイテムの安値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの安値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:openFilter"><apiName>openFilter</apiName><shortdesc>
+      このアイテムの始値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの始値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:openNumber"><apiName>openNumber</apiName><shortdesc>
+      このアイテムの始値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの始値です。チャートの垂直軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:openValue"><apiName>openValue</apiName><shortdesc>
+      このアイテムの始値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの始値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:open"><apiName>open</apiName><shortdesc>
+      このアイテムの始値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの始値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      このアイテムの x 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:HLOCSeriesItem:x"><apiName>x</apiName><shortdesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:LineSeriesItem"><apiName>LineSeriesItem</apiName><shortdesc>
+  アイテムを LineSeries の一部としてレンダリングするために必要な情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  アイテムを LineSeries の一部としてレンダリングするために必要な情報を表します。 LineSeries クラスは、レンダリングする際に、これらのアイテムをその itemRenderer に渡します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:LineSeriesItem:LineSeriesItem"><apiName>LineSeriesItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:LineSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>所有している系列です。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   この ChartItem が表す dataProvider のアイテムです。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  系列の dataProvider のアイテムのインデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:LineSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      アイテムの塗りのカラーを保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      アイテムの塗りのカラーを保持します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      このアイテムの x 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:x"><apiName>x</apiName><shortdesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      このアイテムの y 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesItem:y"><apiName>y</apiName><shortdesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:ColumnSeriesItem"><apiName>ColumnSeriesItem</apiName><shortdesc>
+  アイテムを ColumnSeries の一部としてレンダリングするために必要な情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  アイテムを ColumnSeries の一部としてレンダリングするために必要な情報を表します。 ColumnSeries クラスは、レンダリングする際に、これらのアイテムをその itemRenderer に渡します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:ColumnSeriesItem:ColumnSeriesItem"><apiName>ColumnSeriesItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:ColumnSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>所有している系列です。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   この ChartItem が表す dataProvider のアイテムです。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  系列の dataProvider のアイテムのインデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:ColumnSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      アイテムの塗りのカラーを保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      アイテムの塗りのカラーを保持します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:minFilter"><apiName>minFilter</apiName><shortdesc>
+      このアイテムの最小値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。 このフィールドの値が <codeph>undefined</codeph> になるのは、ColumnSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:minNumber"><apiName>minNumber</apiName><shortdesc>
+      このアイテムの最小値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。チャートの垂直軸に基づいて数値に変換されます。 このフィールドの値が <codeph>undefined</codeph> になるのは、ColumnSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:minValue"><apiName>minValue</apiName><shortdesc>
+      このアイテムの最小値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。 このフィールドの値が <codeph>undefined</codeph> になるのは、ColumnSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:min"><apiName>min</apiName><shortdesc>
+      このアイテムの最小値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。スクリーン座標に変換されます。 このフィールドの値が <codeph>undefined</codeph> になるのは、ColumnSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      このアイテムの x 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:x"><apiName>x</apiName><shortdesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      このアイテムの y 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:ColumnSeriesItem:y"><apiName>y</apiName><shortdesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:BarSeriesItem"><apiName>BarSeriesItem</apiName><shortdesc>
+  アイテムを BarSeries の一部としてレンダリングするために必要な情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  アイテムを BarSeries の一部としてレンダリングするために必要な情報を表します。 BarSeries クラスは、レンダリングする際に、これらのアイテムをその itemRenderer に渡します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:BarSeriesItem:BarSeriesItem"><apiName>BarSeriesItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:BarSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>所有している系列です。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>   この ChartItem が表す dataProvider のアイテムです。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>  系列の dataProvider のアイテムのインデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:BarSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      アイテムの塗りのカラーを保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      アイテムの塗りのカラーを保持します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:minFilter"><apiName>minFilter</apiName><shortdesc>
+      このアイテムの最小値です。チャートの水平軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。チャートの水平軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。 このフィールドの値が <codeph>undefined</codeph> になるのは、BarSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:minNumber"><apiName>minNumber</apiName><shortdesc>
+      このアイテムの最小値です。チャートの水平軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。チャートの水平軸に基づいて数値に変換されます。 このフィールドの値が <codeph>undefined</codeph> になるのは、BarSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:minValue"><apiName>minValue</apiName><shortdesc>
+      このアイテムの最小値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。 このフィールドの値が <codeph>undefined</codeph> になるのは、BarSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:min"><apiName>min</apiName><shortdesc>
+      このアイテムの最小値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの最小値です。スクリーン座標に変換されます。 このフィールドの値が <codeph>undefined</codeph> になるのは、BarSeries が積み上げられておらず、<codeph>minField</codeph> プロパティが設定されていない場合です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      このアイテムの x 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:x"><apiName>x</apiName><shortdesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      このアイテムの y 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:BarSeriesItem:y"><apiName>y</apiName><shortdesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:PlotSeriesItem"><apiName>PlotSeriesItem</apiName><shortdesc>
+  アイテムを PlotSeries の一部としてレンダリングするために必要な情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  アイテムを PlotSeries の一部としてレンダリングするために必要な情報を表します。 PlotSeries クラスは、レンダリングする際に、これらのアイテムをその itemRenderer に渡します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:PlotSeriesItem:PlotSeriesItem"><apiName>PlotSeriesItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:PlotSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>所有している系列です。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>この ChartItem が表す dataProvider のアイテムです。
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>系列の dataProvider のアイテムのインデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:PlotSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      アイテムの塗りのカラーを保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      アイテムの塗りのカラーを保持します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:radius"><apiName>radius</apiName><shortdesc>
+      このアイテムの半径です（ピクセル単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの半径です（ピクセル単位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:xFilter"><apiName>xFilter</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:xNumber"><apiName>xNumber</apiName><shortdesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。チャートの水平軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:xValue"><apiName>xValue</apiName><shortdesc>
+      このアイテムの x 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:x"><apiName>x</apiName><shortdesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの x 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:yFilter"><apiName>yFilter</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に対するフィルターが適用されます。 軸の範囲外にある場合、この値は <codeph>NaN</codeph> になります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:yNumber"><apiName>yNumber</apiName><shortdesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。チャートの垂直軸に基づいて数値に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:yValue"><apiName>yValue</apiName><shortdesc>
+      このアイテムの y 値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PlotSeriesItem:y"><apiName>y</apiName><shortdesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      このアイテムの y 値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:LineSeriesSegment"><apiName>LineSeriesSegment</apiName><shortdesc>
+  LineSeries のセグメントをレンダリングするために必要な情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LineSeries のセグメントをレンダリングするために必要な情報を表します。 LineSeries クラスは、レンダリングする際に、LineSeriesSegment をその lineRenderer に渡します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:LineSeriesSegment:LineSeriesSegment"><apiName>LineSeriesSegment</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:LineSeries</apiOperationClassifier><apiDesc>所有している系列です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiDesc>線系列を表すセグメントの配列内にあるセグメントのインデックスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>items</apiItemName><apiType value="Array"/><apiDesc>実線系列を表す LineSeriesItems の配列です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>start</apiItemName><apiType value="uint"/><apiDesc>このセグメントの最初のアイテムのアイテム配列内にあるインデックスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>end</apiItemName><apiType value="uint"/><apiDesc>このセグメントの最後のアイテムのアイテム配列内にあるインデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.charts.series.items:LineSeriesSegment:clone"><apiName>clone</apiName><shortdesc>
+      このセグメントのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>このセグメントのコピーです。
+     
+      </apiDesc><apiOperationClassifier>mx.charts.series.items:LineSeriesSegment</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      このセグメントのコピーを返します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.charts.series.items:LineSeriesSegment:element"><apiName>element</apiName><shortdesc>
+      このセグメントを所有する系列またはエレメントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts.series:LineSeries</apiValueClassifier></apiValueDef><apiDesc>
+      このセグメントを所有する系列またはエレメントです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:end"><apiName>end</apiName><shortdesc>
+      このセグメントの最後のアイテムのアイテム配列へのインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      このセグメントの最後のアイテムのアイテム配列へのインデックスです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:index"><apiName>index</apiName><shortdesc>
+      線系列を表すセグメントの配列内にあるこのセグメントのインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      線系列を表すセグメントの配列内にあるこのセグメントのインデックスです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:items"><apiName>items</apiName><shortdesc>
+      このセグメントを所有する実線系列を表す chartItems の配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      このセグメントを所有する実線系列を表す chartItems の配列です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:LineSeriesSegment:start"><apiName>start</apiName><shortdesc>
+      このセグメントの最初のアイテムのアイテム配列へのインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      このセグメントの最初のアイテムのアイテム配列へのインデックスです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.items:PieSeriesItem"><apiName>PieSeriesItem</apiName><shortdesc>
+  単一の区分を PieSeries の一部としてレンダリングするために必要な情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts:ChartItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+  単一の区分を PieSeries の一部としてレンダリングするために必要な情報を表します。 PieSeries クラスは、レンダリングする際に、これらのアイテムをその itemRenderer に渡します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.items:PieSeriesItem:PieSeriesItem"><apiName>PieSeriesItem</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:PieSeries</apiOperationClassifier><apiData>null</apiData><apiDesc>所有している系列です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>この ChartItem が表す dataProvider のアイテムです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>系列の dataProvider のアイテムのインデックスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.items:PieSeriesItem:angle"><apiName>angle</apiName><shortdesc>
+      この区分の範囲を決定する角度（ラジアン）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      この区分の範囲を決定する角度（ラジアン）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:fill"><apiName>fill</apiName><shortdesc>
+      PieChart コントロールのこの区分に関連する塗りの値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.graphics:IFill"/></apiValueDef><apiDesc>
+      PieChart コントロールのこの区分に関連する塗りの値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:innerRadius"><apiName>innerRadius</apiName><shortdesc>
+      原点からこの区分の内側の縁までの距離です（ピクセル単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      原点からこの区分の内側の縁までの距離です（ピクセル単位）。 0 の場合、区分は原点からになります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:labelAngle"><apiName>labelAngle</apiName><shortdesc>
+      この区分のラベルの角度（ラジアン）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      この区分のラベルの角度（ラジアン）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:number"><apiName>number</apiName><shortdesc>
+      この区分が表す値です。スクリーン座標に変換されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      この区分が表す値です。スクリーン座標に変換されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:origin"><apiName>origin</apiName><shortdesc>
+      PieSeries の座標系を基準にしたこの区分の原点です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Point"/></apiValueDef><apiDesc>
+      PieSeries の座標系を基準にしたこの区分の原点です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:outerRadius"><apiName>outerRadius</apiName><shortdesc>
+      原点からこの区分の外側の縁までの距離です（ピクセル単位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      原点からこの区分の外側の縁までの距離です（ピクセル単位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:percentValue"><apiName>percentValue</apiName><shortdesc>
+      この値が表す円周に対するパーセンテージです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      この値が表す円周に対するパーセンテージです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:startAngle"><apiName>startAngle</apiName><shortdesc>
+      この区分の開始角度（ラジアン）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      この区分の開始角度（ラジアン）です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.items:PieSeriesItem:value"><apiName>value</apiName><shortdesc>
+      この区分が表す PieSeries の dataProvider の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      この区分が表す PieSeries の dataProvider の値です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

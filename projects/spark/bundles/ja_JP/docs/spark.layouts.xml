@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts"><apiName>spark.layouts</apiName><apiDetail/><apiClassifier id="spark.layouts:VerticalAlign"><apiName>VerticalAlign</apiName><shortdesc>
+  VerticalAlign クラスでは、HorizontalLayout クラスの verticalAlign プロパティで使用できる値が定義されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VerticalAlign クラスでは、HorizontalLayout クラスの <codeph>verticalAlign</codeph> プロパティで使用できる値が定義されています。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/verticalAlign"><linktext>HorizontalLayout.verticalAlign</linktext></link></related-links><apiValue id="spark.layouts:VerticalAlign:BASELINE"><apiName>BASELINE</apiName><shortdesc>
+      子のテキストがコンテナのベースラインに沿って整列するように、子を垂直方向に配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>baseline</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      子のテキストがコンテナのベースラインに沿って整列するように、子を垂直方向に配置します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:BOTTOM"><apiName>BOTTOM</apiName><shortdesc>
+      コンテナの下部に対して、子を垂直方向に整列させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bottom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナの下部に対して、子を垂直方向に整列させます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:CONTENT_JUSTIFY"><apiName>CONTENT_JUSTIFY</apiName><shortdesc>
+      コンテナを基準にして子をコンテンツに揃えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>contentJustify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナを基準にして子をコンテンツに揃えます。これにより、すべての子がコンテナのコンテンツの高さになるように均等にサイズ設定されます。コンテナのコンテンツの高さは、最大の子のサイズです。すべての子がコンテナの高さより小さい場合、すべての子は、コンテナの高さになるようにサイズ設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:JUSTIFY"><apiName>JUSTIFY</apiName><shortdesc>
+      コンテナを基準にして子を揃えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナを基準にして子を揃えます。これにより、すべての子がコンテナと同じ高さになるように均等にサイズ設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:MIDDLE"><apiName>MIDDLE</apiName><shortdesc>
+      コンテナの中央で子を垂直方向に整列させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>middle</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナの中央で子を垂直方向に整列させます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:TOP"><apiName>TOP</apiName><shortdesc>
+      コンテナの上部に対して、子を垂直方向に整列させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナの上部に対して、子を垂直方向に整列させます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:ColumnAlign"><apiName>ColumnAlign</apiName><shortdesc>
+  ColumnAlign クラスでは、TileLayout クラスの columnAlign プロパティで使用できる値が定義されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColumnAlign クラスでは、TileLayout クラスの <codeph>columnAlign</codeph> プロパティで使用できる値が定義されています。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>TileLayout.columnAlign</linktext></link></related-links><apiValue id="spark.layouts:ColumnAlign:JUSTIFY_USING_GAP"><apiName>JUSTIFY_USING_GAP</apiName><shortdesc>
+      垂直方向の間隔を大きくして、行を揃えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingGap</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      垂直方向の間隔を大きくして、行を揃えます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ColumnAlign:JUSTIFY_USING_WIDTH"><apiName>JUSTIFY_USING_WIDTH</apiName><shortdesc>
+      行の高さを大きくして、行を揃えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingWidth</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      行の高さを大きくして、行を揃えます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ColumnAlign:LEFT"><apiName>LEFT</apiName><shortdesc>
+      行を揃えません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      行を揃えません。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:FormLayout"><apiName>FormLayout</apiName><shortdesc>
+  FormLayout クラスは Spark の Form スキンのデフォルトレイアウトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts:VerticalLayout</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FormLayout クラスは Spark の Form スキンのデフォルトレイアウトを定義します。FormLayout は、Form の子である FormItem コンテナの垂直方向のレイアウトを指定します。子コンテナのいずれかが FormItemLayout を使用している場合、FormLayout は各子の ConstraintColumns を整列します。 子全体で列の数は同じである必要があり、列の幅の設定も同じタイプである必要があります。例えば、最初の子の 2 番目の列がパーセント値の幅の場合は、2 番目の子の 2 番目の列もパーセント値の幅である必要があります。
+   <p><b>注意</b>：FormLayout クラスは、Spark Form コンテナのみで使用してください。他のコンテナのコンテンツのレイアウトには使用しないでください。</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#Form"><linktext>spark.components.Form</linktext></link><link href="spark.components.xml#FormHeading"><linktext>spark.components.FormHeading</linktext></link><link href="spark.components.xml#FormItem"><linktext>spark.components.FormItem</linktext></link><link href="spark.layouts.xml#FormItemLayout"><linktext>spark.layouts.FormItemLayout</linktext></link></related-links><apiConstructor id="spark.layouts:FormLayout:FormLayout"><apiName>FormLayout</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.layouts:FormItemLayout"><apiName>FormItemLayout</apiName><shortdesc>
+  FormItemLayout は、制約ベースのレイアウトを実現するために FormItems によって使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts:ConstraintLayout</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FormItemLayout は、制約ベースのレイアウトを実現するために FormItems によって使用されます。FormLayout 内の FormItemLayout を使用するエレメントは列に沿って配置されます。  
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:FormItemLayout:FormItemLayout"><apiName>FormItemLayout</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.layouts:ConstraintLayout"><apiName>ConstraintLayout</apiName><shortdesc>
+  ConstraintLayout クラスは、レイアウトエレメントの個々の設定、および制約列と制約行によって定義された制約領域のセットに基づいてレイアウトエレメントを配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ConstraintLayout クラスは、レイアウトエレメントの個々の設定、および制約列と制約行によって定義された制約領域のセットに基づいてレイアウトエレメントを配置します。エレメントの位置とサイズを設定するのに BasicLayout のすべてのプロパティおよび制約を使用できますが、ConstraintLayout を使用すると、エレメントを指定の列および行に制約することにより、兄弟との相対レイアウトを作成できます。 
+ 
+  <p><b>注意：</b>Spark のリストベースのコントロール（Spark の List コントロールと、そのサブクラスである ButtonBar、ComboBox、DropDownList、TabBar）では、ConstraintLayout クラスがサポートされていません。 Spark のリストベースのコントロールでは、ConstraintLayout を使用しないでください。</p>
+ 
+  <p>エレメントごとにサポートされる制約は、<codeph>left</codeph>、<codeph>right</codeph>、<codeph>top</codeph>、<codeph>bottom</codeph>、<codeph>baseline</codeph>、<codeph>percentWidth</codeph>、<codeph>percentHeight</codeph> です。 エレメントの最小サイズと最大サイズは、必ず順守されます。</p>
+ 
+  <p>列および行に対して明示的にサイズを設定することも、（明示的にサイズを設定せずに）コンテンツのサイズに設定することもできます。コンテンツのサイズに設定された領域は、その領域に制約される要素がちょうど収まるように伸縮しますが、明示的にサイズが設定された領域は指定のサイズに固定されます。コンテンツのサイズに設定された複数の領域にエレメントがまたがっている場合、スペースはコンテンツのサイズに設定された領域間で均等に配分されます。</p>
+ 
+  <p>コンテナの測定サイズは、エレメント、その制約、推奨サイズ、および行と列のサイズから計算されます。各行および列のサイズは、すべてのエレメントを制約を満たしながら推奨サイズのままに制約しておくのに十分な大きさです。コンテナの測定サイズは、すべての列と行、および他の要素を制約を満たしながら推奨サイズのままにしておくのに十分な大きさです。 </p>
+ 
+  <p><codeph>updateDisplayList()</codeph> メソッドの呼び出しでは、エレメントのサイズは、次のルール（優先順に記載）に従って決定されます（エレメントの最小サイズと最大サイズは、必ず順守されます）。</p>
+  <ul>
+    <li>エレメントに <codeph>percentWidth</codeph> または <codeph>percentHeight</codeph> が設定されている場合、そのサイズは、使用可能なサイズの割合として計算されます。使用可能なサイズは、領域またはコンテナのサイズから <codeph>left</codeph>、<codeph>right</codeph>、<codeph>top</codeph>、<codeph>bottom</codeph> の各制約を引いた値です。</li>
+ 
+    <li>エレメントに left と right の両方の制約がある場合、その幅には、領域またはコンテナの幅から <codeph>left</codeph> と <codeph>right</codeph> の制約を引いた値が設定されます。</li>
+ 
+    <li>エレメントに <codeph>top</codeph> と <codeph>bottom</codeph> の両方の制約がある場合、その高さには、コンテナの高さから <codeph>top</codeph> と <codeph>bottom</codeph> の制約を引いた値が設定されます。</li>
+ 
+    <li>エレメントには、その推奨幅と推奨高さ（またはそのいずれか）が設定されます。</li>
+  </ul>
+ 
+  <p>エレメントの位置は、次のルール（優先順に記載）に従って決定されます。</p>
+  <ul>
+    <li>エレメントのベースラインが指定されている場合、エレメントは、その <codeph>baselinePosition</codeph>（通常は、テキストの先頭行のベースライン）が <codeph>baseline</codeph> 制約に揃えられるように垂直方向に配置されます。</li>
+ 
+    <li>エレメントの <codeph>top</codeph> または <codeph>left</codeph> 制約が指定されている場合、エレメントは、そのレイアウト境界の左上隅がコンテナの左上隅から指定値だけオフセットされるように配置されます。</li>
+ 
+    <li>エレメントの <codeph>bottom</codeph> または <codeph>right</codeph> 制約が指定されている場合、エレメントは、そのレイアウト境界の右下隅がコンテナの右下隅から指定値だけオフセットされるように配置されます。</li>
+ 
+    <li>制約によって水平または垂直方向の位置が決定されない場合、エレメントは、自身の x および y 座標に従って配置されます。</li>
+  </ul>
+ 
+  <p>コンテナのコンテンツのサイズは、すべてのレイアウトエレメントおよび制約領域の右下隅の座標の最大値として計算されます。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:ConstraintLayout:ConstraintLayout"><apiName>ConstraintLayout</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:ConstraintLayout:protected:layoutContent"><apiName>layoutContent</apiName><shortdesc>
+      列および行の現在の幅と高さを使用してレイアウトターゲットのエレメントをレイアウトします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleX</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位によりコンポーネントの幅を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの <codeph>scaleY</codeph> プロパティの値にかかわらず、コンポーネントの座標内でピクセル単位でコンポーネントの高さを指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      列および行の現在の幅と高さを使用してレイアウトターゲットのエレメントをレイアウトします。新しい列の幅を設定した後に、設定された新しい幅を使用してエレメントを配置するために FormItemLayout によって使用されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts:ConstraintLayout:protected:measureAndPositionColumnsAndRows"><apiName>measureAndPositionColumnsAndRows</apiName><shortdesc>
+      要素をレイアウトする前に、新しい列幅と行の高さを測定および設定するために FormItemLayout によって使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>constrainedWidth</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>パーセントによる列の幅を拡大または縮小するために使用できる、列の合計幅です。NaN の場合は、パーセントによる列の幅は制限されず、コンテンツに合わせて調整されます。
+      </apiDesc></apiParam><apiParam><apiItemName>constrainedHeight</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>パーセントによる行の高さを拡大または縮小するために使用できる、行の合計の高さです。NaN の場合は、パーセントによる行の高さは制限されず、コンテンツに合わせて調整されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      要素をレイアウトする前に、新しい列幅と行の高さを測定および設定するために FormItemLayout によって使用されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:ConstraintLayout:constraintColumns:get"><apiName>constraintColumns</apiName><shortdesc>
+      ターゲットコンテナを分割する、ConstraintColumn インスタンスのベクトルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$mx.containers.utilityClasses:ConstraintColumn"/></apiValueDef><apiDesc>
+      ターゲットコンテナを分割する、ConstraintColumn インスタンスのベクトルです。インデックス 0 の ConstraintColumn インスタンスは一番左の列です。インデックスは左から右へ行くほど大きくなります。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ConstraintLayout:constraintRows:get"><apiName>constraintRows</apiName><shortdesc>
+      ターゲットコンテナを分割する、ConstraintRow インスタンスのベクトルです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$mx.containers.utilityClasses:ConstraintRow"/></apiValueDef><apiDesc>
+      ターゲットコンテナを分割する、ConstraintRow インスタンスのベクトルです。インデックス 0 の ConstraintRow インスタンスは一番上の列です。インデックスは上から下へ行くほど大きくなります。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:TileLayout"><apiName>TileLayout</apiName><shortdesc>
+  TileLayout クラスは、同じサイズのセルの列と行にレイアウトエレメントを配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:TileLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:TileLayout 
+    <strong>Properties</strong>
+    columnAlign="left"
+    columnWidth="NaN"
+    horizontalAlign="justify"
+    horizontalGap="6"
+    orientation="rows"
+    requestedColumnCount="-1"
+    requestedRowCount="-1"
+    rowAlign="top"
+    rowCount="-1"
+    rowHeight="NaN"
+    verticalAlign="justify"
+    verticalGap="6"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TileLayout クラスは、同じサイズのセルの列と行にレイアウトエレメントを配置します。TileLayout クラスには、列と行の方向、数、サイズ、間隔、位置揃え、およびセル内のエレメント配置を制御する多数のプロパティがあります。
+   <p>エレメントごとにサポートされる制約は、<codeph>percentWidth</codeph> と <codeph>percentHeight</codeph> です。エレメントの最小サイズと最大サイズは、必ず順守されます。可能な場合、エレメントのサイズは、セルのサイズ以下に制限されます。</p>
+   <p>明示的に設定しない場合、<codeph>columnWidth</codeph> プロパティは、すべてのエレメントの最大推奨境界幅として計算され、<codeph>columnHeight</codeph> プロパティは、すべてのエレメントの最大推奨境界高さとして計算されます。</p>
+   <p>明示的に設定しない場合、<codeph>columnCount</codeph> プロパティと <codeph>rowCount</codeph> プロパティは、レイアウトターゲットの明示的な幅と高さの設定と、<codeph>columnWidth</codeph> および <codeph>columnHeight</codeph> から計算されます。何も指定しない場合は、<codeph>columnCount</codeph> と <codeph>rowCount</codeph> の値が選択され、生成されるピクセル領域が可能なかぎり正方形になります。</p>
+ 
+ <p> 測定サイズは、<codeph>columnCount</codeph>、<codeph>rowCount</codeph>、<codeph>columnWidth</codeph>、<codeph>rowHeight</codeph> プロパティおよび間隔のサイズから計算されます。</p>
+   <p>プロパティが明示的に設定されていない場合、デフォルトの測定サイズは、可能なかぎり正方形に近く、すべてのエレメントを収めるのに十分な大きさになります。</p>
+   <p>場合によっては、測定サイズの大きさが不十分で、すべてのエレメントが収まらないことがあります。例えば、<codeph>columnCount</codeph> と <codeph>rowCount</codeph> の両方に明示的に値が設定されていて、<codeph>columnCount</codeph> に <codeph>rowCount</codeph> を乗算した値がエレメント数より小さい場合です。</p>
+   <p>最小の測定サイズは、測定サイズと同様に計算されます。ただし、短軸に沿って行と列が十分に含まれているので、すべてのエレメントが収まることが保証されます。</p>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:TileLayout:TileLayout"><apiName>TileLayout</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:TileLayout:protected:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      
+      ドラッグ＆ドロップ動作中にユーザーが指定された座標でマウスを離した場合に、新しいアイテムを挿入するインデックスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ドロップインデックスです。指定された座標でドロップ操作を使用できない場合は -1 です。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>ローカル座標系における、ドラッグ＆ドロップ動作の x 座標です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>ドロップターゲットのローカル座標系における、ドラッグ＆ドロップ動作の y 座標です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ドラッグ＆ドロップ動作中にユーザーが指定された座標でマウスを離した場合に、新しいアイテムを挿入するインデックスを返します。<codeph>calculatedDropLocation()</codeph> メソッドによって呼び出されます。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts:TileLayout:protected:calculateDropIndicatorBounds"><apiName>calculateDropIndicatorBounds</apiName><shortdesc>
+      
+      ドラッグ＆ドロップ動作の終了時にアイテムが挿入される位置をユーザーに対して視覚的にフィードバックするドロップインジケーターの境界を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>ドロップインジケーターの境界、または null です。
+     
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc><codeph>calculateDropLocation()</codeph> メソッドによって以前に返された有効な DropLocation オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      ドラッグ＆ドロップ動作の終了時にアイテムが挿入される位置をユーザーに対して視覚的にフィードバックするドロップインジケーター の境界を計算します。<codeph>showDropIndicator()</codeph> メソッドによって呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:TileLayout:columnAlign:get"><apiName>columnAlign</apiName><shortdesc>
+      列を完全に表示させた状態でコンテナの幅に揃える方法を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ColumnAlign.LEFT
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列を完全に表示させた状態でコンテナの幅に揃える方法を指定します。ActionScript の値には、<codeph>ColumnAlign.LEFT</codeph>、<codeph>ColumnAlign.JUSTIFY_USING_GAP</codeph> および <codeph>ColumnAlign.JUSTIFY_USING_WIDTH</codeph> を指定できます。MXML の値には、<codeph>"left"</codeph>、<codeph>"justifyUsingGap"</codeph> および <codeph>"justifyUsingWidth"</codeph> を指定できます。
+           <p><codeph>ColumnAlign.LEFT</codeph> に設定すると、列の位置揃えがオフになります。その場合、列の一部が表示されないことや、最後の列とコンテナの右端の間に空白ができることがあります。これがデフォルト値です。</p>
+           <p><codeph>ColumnAlign.JUSTIFY_USING_GAP</codeph> に設定した場合は、<codeph>horizontalGap</codeph> の実際の値が増加し、最後の列の右端が完全に表示された状態でコンテナの右端に揃えられます。完全に表示できる列が 1 つしかない場合は、<codeph>horizontalGap</codeph> の実際の値が増加し、部分的にしか表示されないすべての列はコンテナの右端からはみ出します。<codeph>horizontalGap</codeph> プロパティを明示的に設定しても、位置揃えはオフになりません。間隔の初期値のみが決定されます。位置揃えによってこの値が大きくなる場合があります。</p>
+           <p><codeph>ColumnAlign.JUSTIFY_USING_WIDTH</codeph> に設定した場合は、<codeph>columnWidth</codeph> の実際の値が増加し、最後の列の右端が完全に表示された状態でコンテナの右端に揃えられます。<codeph>columnWidth</codeph> プロパティを明示的に設定しても、位置揃えはオフになりません。列幅の初期値のみが決定されます。位置揃えによってこの値が大きくなる場合があります。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/horizontalGap"><linktext>horizontalGap</linktext></link><link href="spark.layouts.xml#TileLayout/columnWidth"><linktext>columnWidth</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      列の実際の数を含みます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列の実際の数を含みます。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowCount"><linktext>rowCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      列の実際の幅（ピクセル単位）を含みます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列の実際の幅（ピクセル単位）を含みます。
+           <p>明示的に設定しない場合、列の幅は最も広いエレメントの幅に基づいて決定されます。 </p>
+           <p><codeph>columnAlign</codeph> プロパティを「<codeph>justifyUsingWidth</codeph>」に設定すると、列の幅が大きくなり、列が完全に表示された状態でコンテナの幅に揃えられます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowHeight"><linktext>rowHeight</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc>
+      セル内のエレメントを水平方向に整列させる方法を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>HorizontalAlign.JUSTIFY&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      セル内のエレメントを水平方向に整列させる方法を指定します。サポートされる値は、<codeph>HorizontalAlign.LEFT</codeph>、<codeph>HorizontalAlign.CENTER</codeph>、<codeph>HorizontalAlign.RIGHT</codeph>、<codeph>HorizontalAlign.JUSTIFY</codeph> です。
+           <p><codeph>HorizontalAlign.JUSTIFY</codeph> を設定すると、各エレメントの幅は、<codeph>columnWidth</codeph> に設定されます。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:horizontalGap:get"><apiName>horizontalGap</apiName><shortdesc>
+      列間の水平方向の間隔（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列間の水平方向の間隔（ピクセル単位）です。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/verticalGap"><linktext>verticalGap</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:orientation:get"><apiName>orientation</apiName><shortdesc>
+      エレメントを行ごとに配置するのか、列ごとに配置するのかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>TileOrientation.ROWS
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      エレメントを行ごとに配置するのか、列ごとに配置するのかを指定します。ActionScript の値には、<codeph>TileOrientation.ROWS</codeph> と <codeph>TileOrientation.COLUMNS</codeph> を指定できます。MXML の値には、<codeph>"rows"</codeph> と <codeph>"columns"</codeph> を指定できます。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      コンテナの下端と最後のレイアウトエレメントの下端との間にあるピクセルの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの下端と最後のレイアウトエレメントの下端との間にあるピクセルの数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      コンテナの左端とレイアウトエレメントの左端との間にあるピクセルの最少数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの左端とレイアウトエレメントの左端との間にあるピクセルの最少数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      コンテナの右端とレイアウトエレメントの右端との間にあるピクセルの最少数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの右端とレイアウトエレメントの右端との間にあるピクセルの最少数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      コンテナの上端と最初のレイアウトエレメントの上端との間にあるピクセルの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの上端と最初のレイアウトエレメントの上端との間にあるピクセルの数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:requestedColumnCount:get"><apiName>requestedColumnCount</apiName><shortdesc>
+      表示する列数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示する列数です。
+     
+      <p>-1 を設定すると、TileLayout で自動的に列数が決定されます。</p>
+           <p><codeph>orientation</codeph> プロパティを <codeph>TileOrientation.ROWS</codeph> に設定すると、このプロパティの設定は無視されます。その場合は、<codeph>rowCount</codeph> およびコンテナの幅が明示的に設定されます。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/columnCount"><linktext>columnCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:requestedRowCount:get"><apiName>requestedRowCount</apiName><shortdesc>
+      表示する行の数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示する行の数です。
+     
+      <p>-1 を設定すると、明示的なオーバーライドが削除され、TileLayout で自動的に行数が決定されます。</p>
+           <p><codeph>orientation</codeph> プロパティを <codeph>TileOrientation.COLUMNS</codeph> に設定すると、このプロパティの設定は無視されます。その場合は、<codeph>columnCount</codeph> およびコンテナの高さが明示的に設定されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowCount"><linktext>rowCount</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowAlign:get"><apiName>rowAlign</apiName><shortdesc>
+      行を完全に表示させた状態でコンテナの高さに揃える方法を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RowAlign.TOP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行を完全に表示させた状態でコンテナの高さに揃える方法を指定します。ActionScript の値には、<codeph>RowAlign.TOP</codeph>、<codeph>RowAlign.JUSTIFY_USING_GAP</codeph> および <codeph>RowAlign.JUSTIFY_USING_HEIGHT</codeph> を指定できます。MXML の値には、<codeph>"top"</codeph>、<codeph>"justifyUsingGap"</codeph> および <codeph>"justifyUsingHeight"</codeph> を指定できます。
+           <p><codeph>RowAlign.TOP</codeph> に設定すると、列の位置揃えがオフになります。その場合、行の一部が表示されないことや、最後の行とコンテナの下端の間に空白ができることがあります。これがデフォルト値です。</p>
+           <p><codeph>RowAlign.JUSTIFY_USING_GAP</codeph> を設定した場合は、<codeph>verticalGap</codeph> の実際の値が増加し、最後の行の下端が完全に表示された状態でコンテナの下端に揃えられます。完全に表示できる行が 1 つしかない場合は、<codeph>verticalGap</codeph> の値が増加し、部分的にしか表示されないすべての行はコンテナの下端からはみ出します。<codeph>verticalGap</codeph> を明示的に設定しても、位置揃えはオフにならず、間隔の初期値のみが決定されます。位置揃えによってこの値が大きくなる場合があります。</p>
+           <p><codeph>RowAlign.JUSTIFY_USING_HEIGHT</codeph> を設定すると、<codeph>rowHeight</codeph> の実際の値が増加し、最後の行の下端が完全に表示された状態でコンテナの下端に揃えられます。<codeph>rowHeight</codeph> を明示的に設定しても、位置揃えはオフにならず、行の高さの初期値のみが決定されます。位置揃えによってこの値が大きくなる場合があります。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/verticalGap"><linktext>verticalGap</linktext></link><link href="spark.layouts.xml#TileLayout/rowHeight"><linktext>rowHeight</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      行数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行数です。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnCount"><linktext>columnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      ピクセル単位で表した行の高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ピクセル単位で表した行の高さです。
+           <p>明示的に設定しない場合、行の高さは、エレメントの高さの最大値から決定されます。</p>
+           <codeph>rowAlign</codeph> に「justifyUsingHeight」を設定した場合は、実際の行の高さが大きくなり、行が完全に表示された状態でコンテナの高さに揃えられます。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/columnWidth"><linktext>columnWidth</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc>
+      セル内のエレメントを垂直方向に整列させる方法を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>VerticalAlign.JUSTIFY&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      セル内のエレメントを垂直方向に整列させる方法を指定します。サポートされる値は、<codeph>VerticalAlign.TOP</codeph>、<codeph>VerticalAlign.MIDDLE</codeph>、<codeph>VerticalAlign.BOTTOM</codeph>、<codeph>VerticalAlign.JUSTIFY</codeph> です。
+           <p><codeph>VerticalAlign.JUSTIFY</codeph> を設定すると、各エレメントの高さは、<codeph>rowHeight</codeph> に設定されます。</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:verticalGap:get"><apiName>verticalGap</apiName><shortdesc>
+      行間の垂直方向の間隔（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      行間の垂直方向の間隔（ピクセル単位）です。
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/horizontalGap"><linktext>horizontalGap</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.layouts:VerticalLayout"><apiName>VerticalLayout</apiName><shortdesc>
+  VerticalLayout クラスは、レイアウトエレメントを垂直方向に上から下の順序で配置します。必要な場合は、各エレメント間の間隔および一連のエレメントの周囲にパディングを設定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:VerticalLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:VerticalLayout 
+    <strong>Properties</strong>
+    gap="6"
+    horizontalAlign="left"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+    requestedMaxRowCount="-1"
+    requestedMinRowCount="-1"
+    requestedRowCount="-1"
+    rowHeight="<i>calculated</i>"
+    variableRowHeight="true"
+    verticalAlign="top"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VerticalLayout クラスは、レイアウトエレメントを垂直方向に上から下の順序で配置します。必要な場合は、各エレメント間の間隔および一連のエレメントの周囲にパディングを設定できます。
+   <p>エレメントの垂直位置は、最初のエレメントの前のパディングと各エレメント間の間隔を考慮して、垂直方向に上から下の順序でエレメントを配置することにより決定されます。</p>
+   <p>エレメントの水平位置は、レイアウトの <codeph>horizontalAlign</codeph> プロパティによって決定されます。</p>
+   <p><codeph>measure()</codeph> メソッドの実行中に、コンテナのデフォルトサイズは、エレメントの推奨サイズ（間隔とパディングを含む）を収集することにより計算されます。<codeph>requestedRowCount</codeph> を設定すると、最初のエレメントから始めて、指定した数のエレメントのスペースのみが測定されます。</p>
+   <p><codeph>updateDisplayList()</codeph> メソッドの実行中に、各エレメントの高さは、次のルールに従って計算されます。これらの各ルールは、優先順にリストされています（エレメントの最小高さと最大高さは、必ず順守されます）。</p>
+  <ul>
+    <li><codeph>variableRowHeight</codeph> が <codeph>false</codeph> の場合は、エレメントの高さを <codeph>rowHeight</codeph> プロパティの値に設定します。</li>
+     <li>エレメントの <codeph>percentHeight</codeph> が設定されている場合は、<codeph>percentHeight</codeph> 設定を使用して、使用可能なコンテナの高さをすべてのエレメント間で分配し、エレメントの高さを計算します。使用可能なコンテナの高さは、間隔、パディング、および残りのエレメントが占有しているスペースをコンテナの高さから引いた値に等しくなります。レイアウトが仮想化されている場合は、エレメントの <codeph>precentHeight</codeph> プロパティが無視されます。</li>
+     <li>エレメントの高さにその推奨高さを設定します。</li>
+  </ul>
+   <p>各エレメントの幅は、次のルールに従って計算されます。これらの各ルールは、優先順にリストされています（エレメントの最小幅と最大幅は、必ず順守されます）。</p>
+  <ul>
+    <li><codeph>horizontalAlign</codeph> が「<codeph>justify</codeph>」の場合は、エレメントの幅をコンテナの幅に設定します。</li>
+     <li><codeph>horizontalAlign</codeph> が「<codeph>contentJustify</codeph>」の場合は、コンテナの幅とすべてのエレメントの推奨幅の間の最大値をエレメントの幅に設定します。</li>
+     <li>エレメントの <codeph>percentWidth</codeph> が設定されている場合は、エレメントの幅をコンテナの幅に対する割合として計算します。</li>
+     <li>エレメントの幅にその推奨幅を設定します。</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:VerticalLayout:VerticalLayout"><apiName>VerticalLayout</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:VerticalLayout:fractionOfElementInView"><apiName>fractionOfElementInView</apiName><shortdesc>
+      指定したインデックスが完全に表示されている場合は 1.0、表示されていない場合は 0.0、部分的に表示されている場合はその割合を表す 0.0 ～ 1.0 の範囲の値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ビュー内にある指定したエレメントの割合です。指定したインデックスが無効の場合、または指定したインデックスが null エレメント、または <codeph>includeInLayout</codeph> プロパティが <codeph>false</codeph> である ILayoutElement に対応している場合は、0.0 を返します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>行のインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したインデックスが完全に表示されている場合は 1.0、表示されていない場合は 0.0、部分的に表示されている場合はその割合を表す 0.0 ～ 1.0 の範囲の値を返します。
+     
+      <p>対応する null 以外のレイアウトエレメントがコンテナの <codeph>scrollRect</codeph> の垂直方向の制限内にあり、レイアウトに含まれている場合、インデックスは「ビュー内」にあります。</p>
+      
+      <p>指定したインデックスが部分的にビュー内に存在する場合、戻り値は、表示可能な対応するレイアウトエレメントに対する割合になります。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:VerticalLayout:firstIndexInView:get"><apiName>firstIndexInView</apiName><shortdesc>
+      レイアウトの一部であり、レイアウトターゲットのスクロール矩形内にある最初のレイアウトエレメントのインデックスです。まだ何も表示されていない場合は -1 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      レイアウトの一部であり、レイアウトターゲットのスクロール矩形内にある最初のレイアウトエレメントのインデックスです。まだ何も表示されていない場合は -1 です。
+      
+      <p>「レイアウトの一部」とは、エレメントが null 以外であり、その <codeph>includeInLayout</codeph> プロパティが <codeph>true</codeph> であることを意味します。</p>
+     
+      <p>レイアウトエレメントは部分的にビューに含まれているだけの場合があることに注意してください。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.fractionOfElementInView().xml"><linktext>fractionOfElementInView()</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:gap:get"><apiName>gap</apiName><shortdesc>
+      レイアウトエレメント間の垂直方向の間隔（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      レイアウトエレメント間の垂直方向の間隔（ピクセル単位）です。この間隔はレイアウトエレメント間にのみ適用されることに注意してください。そのため、エレメントが 1 つしかないと、この間隔はレイアウトに影響を与えません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc> 
+      レイアウトエレメントの水平方向の配置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      レイアウトエレメントの水平方向の配置です。値が「<codeph>left</codeph>」、「<codeph>right</codeph>」、または「<codeph>center</codeph>」の場合、レイアウトエレメントはコンテナの <codeph>contentWidth</codeph> プロパティを基準にして配置されます。
+     
+      <p>値が「<codeph>contentJustify</codeph>」の場合、レイアウトエレメントの実際の幅はコンテナの <codeph>contentWidth</codeph> に設定されます。コンテナの <codeph>contentWidth</codeph> は、最も大きいレイアウトエレメントの幅です。すべてのレイアウトエレメントがコンテナの幅より小さい場合は、すべてのレイアウトエレメントの幅をコンテナの幅に設定します。</p>
+     
+      <p>値が「<codeph>justify</codeph>」の場合、レイアウトエレメントの実際の幅は、コンテナの幅に設定されます。</p>
+           <p>このプロパティは、レイアウトの測定サイズに影響を及ぼしません。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:lastIndexInView:get"><apiName>lastIndexInView</apiName><shortdesc>
+      レイアウトの一部であり、コンテナのスクロール矩形内にある最後の行のインデックスです。まだ何も表示されていない場合は -1 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      レイアウトの一部であり、コンテナのスクロール矩形内にある最後の行のインデックスです。まだ何も表示されていない場合は -1 です。
+     
+      <p>「レイアウトの一部」とは、子が null 以外であり、その <codeph>includeInLayout</codeph> プロパティが <codeph>true</codeph> であることを意味します。</p>
+     
+      <p>行は部分的にビューに含まれているだけの場合があることに注意してください。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.firstIndexInView.xml"><linktext>firstIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      コンテナの下端と最後のレイアウトエレメントの下端との間にあるピクセルの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの下端と最後のレイアウトエレメントの下端との間にあるピクセルの数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      コンテナの左端とレイアウトエレメントの左端との間にあるピクセルの最少数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの左端とレイアウトエレメントの左端との間にあるピクセルの最少数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      コンテナの右端とレイアウトエレメントの右端との間にあるピクセルの最少数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの右端とレイアウトエレメントの右端との間にあるピクセルの最少数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      コンテナの上端と最初のレイアウトエレメントの上端との間にあるピクセルの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの上端と最初のレイアウトエレメントの上端との間にあるピクセルの数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedMaxRowCount:get"><apiName>requestedMaxRowCount</apiName><shortdesc>
+      このレイアウトの測定された高さは、少なくとも requestedMaxRowCount レイアウトエレメントを表示できるだけの高さになります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このレイアウトの測定された高さは、少なくとも <codeph>requestedMaxRowCount</codeph> レイアウトエレメントを表示できるだけの高さになります。 
+     
+      <p><codeph>requestedRowCount</codeph> が設定されている場合、このプロパティは無視されます。</p>
+           <p>コンテナの実際のサイズが明示的に設定されている場合、このプロパティは無視されます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMinRowCount"><linktext>requestedMinRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedMinRowCount:get"><apiName>requestedMinRowCount</apiName><shortdesc>
+      このレイアウトの測定された高さは、少なくとも requestedMinRowCount レイアウトエレメントを表示できるだけの高さになります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このレイアウトの測定された高さは、少なくとも <codeph>requestedMinRowCount</codeph> レイアウトエレメントを表示できるだけの高さになります。 
+     
+      <p><codeph>requestedRowCount</codeph> が設定されている場合、このプロパティは無視されます。</p>
+           <p>コンテナの実際のサイズが明示的に設定されている場合、このプロパティは無視されます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMaxRowCount"><linktext>requestedMaxRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedRowCount:get"><apiName>requestedRowCount</apiName><shortdesc>
+      このレイアウトの測定サイズは、最初の requestedRowCount レイアウトエレメントを表示するのに十分な高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このレイアウトの測定サイズは、最初の <codeph>requestedRowCount</codeph> レイアウトエレメントを表示するのに十分な高さです。 
+     
+      <p><codeph>requestedRowCount</codeph> が -1 の場合、測定サイズは、すべてのレイアウトエレメントに対して十分な大きさになります。</p>
+     
+      <p>コンテナの実際のサイズが明示的に設定されている場合、このプロパティは無視されます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedMinRowCount"><linktext>requestedMinRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMaxRowCount"><linktext>requestedMaxRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      現在表示されているエレメントの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      現在表示されているエレメントの数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      variableRowHeight が false の場合、このプロパティは、それぞれの子の実際の高さ（ピクセル単位）を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      <codeph>variableRowHeight</codeph> が <codeph>false</codeph> の場合、このプロパティは、それぞれの子の実際の高さ（ピクセル単位）を指定します。
+     
+      <p><codeph>variableRowHeight</codeph> が <codeph>true</codeph>（デフォルト）の場合、このプロパティは無視されます。</p>
+     
+      <p>このプロパティのデフォルト値は、<codeph>typicalLayoutElement</codeph> の推奨高さです。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:variableRowHeight:get"><apiName>variableRowHeight</apiName><shortdesc>
+      レイアウトエレメントに推奨高さを割り当てるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      レイアウトエレメントに推奨高さを割り当てるかどうかを示します。このプロパティを <codeph>false</codeph> に設定すると、行の高さが固定されます。
+     
+      <p><codeph>false</codeph> の場合、各レイアウトエレメントの実際の高さは、<codeph>rowHeight</codeph> の値になります。このプロパティを <codeph>false</codeph> に設定すると、レイアウトエレメントの <codeph>percentHeight</codeph> プロパティがレイアウトで無視されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc> 
+      コンテナの高さを基準にしたコンテンツの垂直方向の配置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"top"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      コンテナの高さを基準にしたコンテンツの垂直方向の配置です。
+     
+      <p>値が「<codeph>bottom</codeph>」、「<codeph>middle</codeph>」、または「<codeph>top</codeph>」の場合、レイアウトエレメントはコンテナの <codeph>contentHeight</codeph> プロパティを基準にして配置されます。</p>
+           <p><codeph>clipAndEnableScrolling</codeph> が true であり、<codeph>contentHeight</codeph> がコンテナの高さより大きい場合、このプロパティは無視されます。</p>
+           <p>このプロパティは、レイアウトの測定サイズに影響を及ぼしません。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:HorizontalLayout"><apiName>HorizontalLayout</apiName><shortdesc>
+  HorizontalLayout クラスは、レイアウトエレメントを水平方向に左から右の順序で配置します。必要な場合は、各エレメント間の間隔およびエレメントの周囲にパディングを設定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:HorizontalLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:HorizontalLayout 
+    <strong>Properties</strong>
+    columnWidth="<i>calculated</i>"
+    gap="6"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+    requestedColumnCount="-1"
+    requestedMaxColumnCount="-1"
+    requestedMinColumnCount="-1"
+    variableColumnWidth="true"
+    verticalAlign="top"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HorizontalLayout クラスは、レイアウトエレメントを水平方向に左から右の順序で配置します。必要な場合は、各エレメント間の間隔およびエレメントの周囲にパディングを設定できます。
+   <p>エレメントの水平位置は、最初のエレメントの前のパディングと各エレメント間の間隔を考慮して、水平方向に左から右の順序でエレメントを配置することにより決定されます。</p>
+   <p>エレメントの垂直位置は、レイアウトの <codeph>verticalAlign</codeph> プロパティによって決定されます。</p>
+   <p><codeph>measure()</codeph> メソッドの実行中に、コンテナのデフォルトサイズは、エレメントの推奨サイズ（間隔とパディングを含む）を収集することにより計算されます。<codeph>requestedColumnCount</codeph> プロパティが -1 以外の値に設定されている場合は、最初のエレメントから始めて、指定した数のエレメントのスペースのみが測定されます。</p>
+   <p><codeph>updateDisplayList()</codeph> メソッドの実行中に、各エレメントの幅は、次のルールに従って計算されます。これらの各ルールは、優先順にリストされています（エレメントの最小幅と最大幅は、必ず順守されます）。</p>
+  <ul>
+    <li><codeph>variableColumnWidth</codeph> が <codeph>false</codeph> の場合は、エレメントの幅を <codeph>columnWidth</codeph> プロパティの値に設定します。</li>
+     <li>エレメントの <codeph>percentWidth</codeph> が設定されている場合は、<codeph>percentWidth</codeph> の設定を使用して、使用可能なコンテナの幅をすべてのエレメント間で分配し、エレメントの幅を計算します。使用可能なコンテナの幅は、間隔、パディング、および残りのエレメントが占有しているスペースをコンテナの幅から引いた値に等しくなります。レイアウトが仮想化されている場合は、エレメントの <codeph>precentWidth</codeph> プロパティが無視されます。</li>
+     <li>エレメントの幅にその推奨幅を設定します。</li>
+  </ul>
+   <p>各エレメントの高さは、次のルールに従って計算されます。これらの各ルールは、優先順にリストされています（エレメントの最小高さと最大高さは、必ず順守されます）。</p>
+  <ul>
+    <li><codeph>verticalAlign</codeph> プロパティが「<codeph>justify</codeph>」の場合は、エレメントの高さをコンテナの高さに設定します。</li>
+     <li><codeph>verticalAlign</codeph> プロパティが「<codeph>contentJustify</codeph>」の場合は、コンテナの高さとすべてのエレメントの推奨高さの間の最大値をエレメントの高さに設定します。</li>
+     <li>エレメントの <codeph>percentHeight</codeph> プロパティが設定されている場合は、エレメントの高さをコンテナの高さに対する割合として計算します。</li>
+     <li>エレメントの高さにその推奨高さを設定します。</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:HorizontalLayout:HorizontalLayout"><apiName>HorizontalLayout</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:HorizontalLayout:fractionOfElementInView"><apiName>fractionOfElementInView</apiName><shortdesc>
+      指定したインデックスが完全に表示されている場合は 1.0、表示されていない場合は 0.0、部分的に表示されている場合はその割合を表す 0.0 ～ 1.0 の範囲の値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ビュー内にある指定したエレメントの割合です。指定したインデックスが無効の場合、または指定したインデックスが null エレメント、または <codeph>includeInLayout</codeph> プロパティが <codeph>false</codeph> である ILayoutElement に対応している場合は、0.0 を返します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>列のインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したインデックスが完全に表示されている場合は 1.0、表示されていない場合は 0.0、部分的に表示されている場合はその割合を表す 0.0 ～ 1.0 の範囲の値を返します。
+     
+      <p>対応する null 以外のレイアウトエレメントがコンテナの <codeph>scrollRect</codeph> の水平方向の制限内にあり、レイアウトに含まれている場合、インデックスは「ビュー内」にあります。</p>
+      
+      <p>指定したインデックスが部分的にビュー内に存在する場合、戻り値は、表示可能な対応するレイアウトエレメントに対する割合になります。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:HorizontalLayout:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      ビュー内の現在のエレメント数を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ビュー内の現在のエレメント数を返します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      variableColumnWidth プロパティが false の場合、このプロパティは、各レイアウトエレメントの実際の幅（ピクセル単位）を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      <codeph>variableColumnWidth</codeph> プロパティが <codeph>false</codeph> の場合、このプロパティは、各レイアウトエレメントの実際の幅（ピクセル単位）を指定します。
+     
+      <p><codeph>variableColumnWidth</codeph> プロパティが <codeph>true</codeph>（デフォルト）の場合、このプロパティは無視されます。</p>
+     
+      <p>このプロパティのデフォルト値は、<codeph>typicalLayoutElement</codeph> プロパティで指定されているアイテムの推奨幅です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:firstIndexInView:get"><apiName>firstIndexInView</apiName><shortdesc>
+      レイアウトの一部であり、レイアウトターゲットのスクロール矩形内にある最初の列のインデックスです。まだ何も表示されていない場合は -1 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      レイアウトの一部であり、レイアウトターゲットのスクロール矩形内にある最初の列のインデックスです。まだ何も表示されていない場合は -1 です。列は部分的にビューに含まれているだけの場合があることに注意してください。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.lastIndexInView.xml"><linktext>lastIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:gap:get"><apiName>gap</apiName><shortdesc>
+      レイアウトエレメント間の水平方向の間隔（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      レイアウトエレメント間の水平方向の間隔（ピクセル単位）です。この間隔はレイアウトエレメント間にのみ適用されることに注意してください。そのため、エレメントが 1 つしかないと、この間隔はレイアウトに影響を与えません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc> 
+      コンテナの幅を基準にしたコンテンツの水平方向の配置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      コンテナの幅を基準にしたコンテンツの水平方向の配置です。値が「<codeph>left</codeph>」、「<codeph>right</codeph>」、または「<codeph>center</codeph>」の場合、レイアウトエレメントはコンテナの <codeph>contentWidth</codeph> プロパティを基準にして配置されます。
+           <p><codeph>clipAndEnableScrolling</codeph> が true であり、<codeph>contentWidth</codeph> がコンテナの幅より大きい場合、このプロパティは無視されます。</p>
+           <p>このプロパティは、レイアウトの測定サイズに影響を及ぼしません。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:lastIndexInView:get"><apiName>lastIndexInView</apiName><shortdesc>
+      レイアウトの一部であり、レイアウトターゲットのスクロール矩形内にある最後の列のインデックスです。まだ何も表示されていない場合は -1 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      レイアウトの一部であり、レイアウトターゲットのスクロール矩形内にある最後の列のインデックスです。まだ何も表示されていない場合は -1 です。列は部分的にビューに含まれているだけの場合があることに注意してください。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.firstIndexInView.xml"><linktext>firstIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      コンテナの下端とコンテナのすべてのレイアウトエレメントの下端との間にあるピクセルの最少数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの下端とコンテナのすべてのレイアウトエレメントの下端との間にあるピクセルの最少数です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      コンテナの左端と最初のレイアウトエレメントの左端との間にあるピクセルの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの左端と最初のレイアウトエレメントの左端との間にあるピクセルの数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      コンテナの右端と最後のレイアウトエレメントの右端との間にあるピクセルの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの右端と最後のレイアウトエレメントの右端との間にあるピクセルの数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      コンテナの上端とコンテナのすべてのレイアウトエレメントの上端との間にあるピクセルの最少数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      コンテナの上端とコンテナのすべてのレイアウトエレメントの上端との間にあるピクセルの最少数です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedColumnCount:get"><apiName>requestedColumnCount</apiName><shortdesc>
+      このレイアウトの測定サイズは、最初の requestedColumnCount レイアウトエレメントを表示するのに十分な幅になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このレイアウトの測定サイズは、最初の <codeph>requestedColumnCount</codeph> レイアウトエレメントを表示するのに十分な幅になります。<codeph>requestedColumnCount</codeph> が -1 の場合、測定サイズは、すべてのレイアウトエレメントに対して十分な大きさになります。
+     
+      <p>このレイアウトを使用するコンテナの実際のサイズが明示的に設定されている場合、このプロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedMinColumnCount"><linktext>requestedMinColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMaxColumnCount"><linktext>requestedMaxColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedMaxColumnCount:get"><apiName>requestedMaxColumnCount</apiName><shortdesc>
+      このレイアウトの測定された幅は、少なくとも requestedMaxColumnCount レイアウトエレメントを表示できるだけの幅になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このレイアウトの測定された幅は、少なくとも <codeph>requestedMaxColumnCount</codeph> レイアウトエレメントを表示できるだけの幅になります。 
+     
+      <p><codeph>requestedColumnCount</codeph> が設定されている場合、このプロパティは無視されます。</p>
+           <p>このレイアウトを使用するコンテナの実際のサイズが明示的に設定されている場合、このプロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedColumnCount"><linktext>requestedColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMinColumnCount"><linktext>requestedMinColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedMinColumnCount:get"><apiName>requestedMinColumnCount</apiName><shortdesc>
+      このレイアウトの測定された幅は、少なくとも requestedMinColumnCount レイアウトエレメントを表示できるだけの幅になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このレイアウトの測定された幅は、少なくとも <codeph>requestedMinColumnCount</codeph> レイアウトエレメントを表示できるだけの幅になります。 
+     
+      <p><codeph>requestedColumnCount</codeph> が設定されている場合、このプロパティは無視されます。</p>
+           <p>このレイアウトを使用するコンテナの実際のサイズが明示的に設定されている場合、このプロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedColumnCount"><linktext>requestedColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMaxColumnCount"><linktext>requestedMaxColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:variableColumnWidth:get"><apiName>variableColumnWidth</apiName><shortdesc>
+      true の場合は、レイアウトエレメントにその推奨幅が割り当てられることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>true</codeph> の場合は、レイアウトエレメントにその推奨幅が割り当てられることを示します。
+           <p>このプロパティを <codeph>false</codeph> に設定すると、列の幅が固定されます。各レイアウトエレメントの実際の幅は <codeph>columnWidth</codeph> プロパティの値であり、レイアウトエレメントの <codeph>percentWidth</codeph> プロパティは無視されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc> 
+      レイアウトエレメントの垂直方向の配置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"top"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      レイアウトエレメントの垂直方向の配置です。
+     
+      <p>値が「<codeph>bottom</codeph>」、「<codeph>middle</codeph>」、または「<codeph>top</codeph>」の場合、レイアウトエレメントはコンテナの <codeph>contentHeight</codeph> プロパティを基準にして配置されます。</p>
+     
+      <p>値が「<codeph>contentJustify</codeph>」の場合、レイアウトエレメントの実際の高さはコンテナの <codeph>contentHeight</codeph> プロパティに設定されます。コンテナのコンテンツの高さは、最も大きいレイアウトエレメントの高さです。すべてのレイアウトエレメントがコンテナの高さより小さい場合は、すべてのレイアウトエレメントの高さをコンテナの高さに設定します。</p>
+     
+      <p>値が「<codeph>justify</codeph>」の場合、レイアウトエレメントの実際の高さはコンテナの高さに設定されます。</p>
+           <p>値が「<codeph>baseline</codeph>」の場合、エレメントは、エレメントのテキストがエレメントのテキストアセントの最大値に整列されるように配置されます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:TileOrientation"><apiName>TileOrientation</apiName><shortdesc>
+  TileOrientation クラスでは、TileLayout クラスの orientation プロパティで使用できる値が定義されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TileOrientation クラスでは、TileLayout クラスの <codeph>orientation</codeph> プロパティで使用できる値が定義されています。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/orientation"><linktext>TileLayout.orientation</linktext></link></related-links><apiValue id="spark.layouts:TileOrientation:COLUMNS"><apiName>COLUMNS</apiName><shortdesc>
+      エレメントを列ごとに配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>columns</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      エレメントを列ごとに配置します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileOrientation:ROWS"><apiName>ROWS</apiName><shortdesc>
+      エレメントを行ごとに配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>rows</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      エレメントを行ごとに配置します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:RowAlign"><apiName>RowAlign</apiName><shortdesc>
+  RowAlign クラスでは、TileLayout クラスの rowAlign プロパティで使用できる値が定義されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RowAlign クラスでは、TileLayout クラスの <codeph>rowAlign</codeph> プロパティで使用できる値が定義されています。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>TileLayout.rowAlign</linktext></link></related-links><apiValue id="spark.layouts:RowAlign:JUSTIFY_USING_GAP"><apiName>JUSTIFY_USING_GAP</apiName><shortdesc>
+      垂直方向の間隔を大きくして、行を揃えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingGap</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      垂直方向の間隔を大きくして、行を揃えます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:RowAlign:JUSTIFY_USING_HEIGHT"><apiName>JUSTIFY_USING_HEIGHT</apiName><shortdesc>
+      行の高さを大きくして、行を揃えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingHeight</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      行の高さを大きくして、行を揃えます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:RowAlign:TOP"><apiName>TOP</apiName><shortdesc>
+      行を揃えません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      行を揃えません。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:HorizontalAlign"><apiName>HorizontalAlign</apiName><shortdesc>
+  HorizontalAlign クラスでは、VerticalLayout クラスの horizontalAlign プロパティで使用できる値が定義されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HorizontalAlign クラスでは、VerticalLayout クラスの <codeph>horizontalAlign</codeph> プロパティで使用できる値が定義されています。
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#VerticalLayout/horizontalAlign"><linktext>VerticalLayout.horizontalAlign</linktext></link></related-links><apiValue id="spark.layouts:HorizontalAlign:CENTER"><apiName>CENTER</apiName><shortdesc>
+      コンテナの中央に子を整列させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>center</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナの中央に子を整列させます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:CONTENT_JUSTIFY"><apiName>CONTENT_JUSTIFY</apiName><shortdesc>
+      コンテナを基準にして子をコンテンツに揃えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>contentJustify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナを基準にして子をコンテンツに揃えます。これにより、すべての子がコンテナのコンテンツの幅になるように均等にサイズ設定されます。コンテナのコンテンツの幅さは、最大の子のサイズです。すべての子がコンテナの幅より小さい場合、すべての子は、コンテナの幅になるようにサイズ設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:JUSTIFY"><apiName>JUSTIFY</apiName><shortdesc>
+      コンテナを基準にして子を揃えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナを基準にして子を揃えます。これにより、すべての子がコンテナと同じ幅になるように均等にサイズ設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:LEFT"><apiName>LEFT</apiName><shortdesc>
+      コンテナの左側に子を整列させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナの左側に子を整列させます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      コンテナの右側に子を整列させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンテナの右側に子を整列させます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:BasicLayout"><apiName>BasicLayout</apiName><shortdesc>
+  BasicLayout クラスは、各レイアウトエレメントを、それぞれの設定に従い相互に独立して配置します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BasicLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no additional tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BasicLayout/&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BasicLayout クラスは、各レイアウトエレメントを、それぞれの設定に従い相互に独立して配置します。BasicLayout（絶対レイアウト）では、コンテナのそれぞれの子の位置を明示的に指定する必要があります。この位置を指定するには、子の <codeph>x</codeph> プロパティと <codeph>y</codeph> プロパティ、または制約を使用します。
+ 
+  <p><b>メモ：</b>Spark のリストベースのコントロール（Spark の List コントロールと、そのサブクラスである ButtonBar、ComboBox、DropDownList、TabBar）では、BasicLayout クラスがサポートされていません。Spark のリストベースのコントロールでは、BasicLayout を使用しないでください。</p>
+ 
+  <p>エレメントごとにサポートされる制約は、<codeph>left</codeph>、<codeph>right</codeph>、<codeph>top</codeph>、<codeph>bottom</codeph>、<codeph>horizontalCenter</codeph>、<codeph>verticalCenter</codeph>、<codeph>baseline</codeph>、<codeph>percentWidth</codeph>、<codeph>percentHeight</codeph> です。エレメントの最小サイズと最大サイズは、必ず順守されます。</p>
+ 
+  <p>コンテナの測定サイズは、エレメント、その制約および推奨サイズから計算されます。コンテナの測定サイズは、すべてのエレメントを、制約を満たしながら推奨サイズで収めるのに十分な大きさです。 </p>
+ 
+  <p>測定サイズの計算方法の例を示します。
+  <ul>
+    <li>コンテナに <codeph>left</codeph> 制約を指定された 1 つのエレメントが含まれる場合、コンテナの測定幅は、エレメントの推奨される幅に <codeph>left</codeph> 制約の値を加えたものと等しくなります。</li>
+ 
+    <li>コンテナに <codeph>percentWidth</codeph> を指定された 1 つのエレメントが含まれる場合、コンテナの測定幅は、エレメントの推奨される幅と等しくなります。エレメントの <codeph>percentWidth</codeph> が計算に直接反映されることはありませんが、<codeph>updateDisplayList()</codeph> メソッドの呼び出しでは考慮されます。</li>
+ 
+    <li>コンテナに <codeph>baseline</codeph> 制約を指定された 1 つのエレメントが含まれる場合、コンテナの測定高さは、エレメントの推奨される高さに <codeph>baseline</codeph> を加え、そこからエレメントの <codeph>baselinePosition</codeph> プロパティの値を引いたものと等しくなります。</li>
+ 
+    <li>コンテナに <codeph>verticalCenter</codeph> 制約を指定された 1 つのエレメントが含まれる場合、コンテナの測定高さは、エレメントの推奨される高さに、<codeph>verticalCenter</codeph> 制約の値の 2 倍を加えたものと等しくなります。</li>
+  </ul>
+ </p>
+ 
+  <p><codeph>updateDisplayList()</codeph> メソッドの呼び出しでは、エレメントのサイズは、次のルール（優先順に記載）に従って決定されます（エレメントの最小サイズと最大サイズは、必ず順守されます）。</p>
+  <ul>
+    <li>エレメントに <codeph>percentWidth</codeph> または <codeph>percentHeight</codeph> が設定されている場合、そのサイズは、使用可能なサイズの割合として計算されます。使用可能なサイズは、コンテナのサイズから <codeph>left</codeph>、<codeph>right</codeph>、<codeph>top</codeph>、<codeph>bottom</codeph> の各制約を引いた値です。</li>
+ 
+    <li>エレメントに <codeph>left</codeph> と <codeph>right</codeph> の両方の制約がある場合、その幅には、コンテナの幅から left と right の制約を引いた値が設定されます。</li>
+ 
+    <li>エレメントに <codeph>top</codeph> と <codeph>bottom</codeph> の両方の制約がある場合、その高さには、コンテナの高さから <codeph>top</codeph> と <codeph>bottom</codeph> の制約を引いた値が設定されます。</li>
+ 
+    <li>エレメントには、その推奨幅と推奨高さ（またはそのいずれか）が設定されます。</li>
+  </ul>
+ 
+  <p>BasicLayout クラスは、最小の子のサイズの中の最大値として、最小サイズを計算します。</p>
+ 
+  <ol>
+    <li>コンテナ内の子ごとに、子を縮小できる最小サイズを決定します。
+        <ul>
+          <li>子が親の幅または高さに制限されている場合、子は子の最小の幅または高さに縮小できます。子の最小サイズを使用します。</li>
+          <li>子が親に制限されていない場合、子は子の推奨サイズのままになります。子の推奨サイズを使用します。  </li>
+        </ul></li>
+     <li>手順 1 からサイズの最大値を見つけます。 </li>
+  </ol>
+ 
+  <p>そのため、子が親に制限されている場合、子の最小サイズがレイアウトで使用されます。それ以外の場合は、子の推奨サイズを使用して、コンテナの最小サイズが計算されます。</p>
+ 
+  <p>エレメントの位置は、次のルール（優先順に記載）に従って決定されます。</p>
+  <ul>
+    <li><codeph>horizontalCenter</codeph> または <codeph>verticalCenter</codeph> 制約は、コンテナの中心とエレメントの中心の間の距離を指定します。エレメントをコンテナ内で水平方向または垂直方向の中心に配置するには、<codeph>horizontalCenter</codeph> または <codeph>verticalCenter</codeph> 制約をゼロに設定します。</li>
+ 
+    <li>エレメントのベースラインが指定されている場合、エレメントは、その <codeph>baselinePosition</codeph>（通常は、テキストの先頭行のベースライン）が <codeph>baseline</codeph> 制約に揃えられるように垂直方向に配置されます。</li>
+ 
+    <li>エレメントの <codeph>top</codeph> または <codeph>left</codeph> 制約が指定されている場合、エレメントは、そのレイアウト境界の左上隅がコンテナの左上隅から指定値だけオフセットされるように配置されます。</li>
+ 
+    <li>エレメントの <codeph>bottom</codeph> または <codeph>right</codeph> 制約が指定されている場合、エレメントは、そのレイアウト境界の右下隅がコンテナの右下隅から指定値だけオフセットされるように配置されます。</li>
+ 
+    <li>制約によって水平または垂直方向の位置が決定されない場合、エレメントは、自身の x および y 座標に従って配置されます。</li>
+  </ul>
+ 
+  <p>コンテナのコンテンツのサイズは、すべてのレイアウトエレメントの右下隅の座標の最大値として計算されます。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:BasicLayout:BasicLayout"><apiName>BasicLayout</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

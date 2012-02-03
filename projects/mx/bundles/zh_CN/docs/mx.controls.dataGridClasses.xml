@@ -1,0 +1,1142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.dataGridClasses"><apiName>mx.controls.dataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.dataGridClasses:DataGridHeader"><apiName>DataGridHeader</apiName><shortdesc> 
+  DataGridHeader 类定义 DataGrid 控件的默认标题呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  DataGridHeader 类定义 DataGrid 控件的默认标题呈示器。默认情况下，标题呈示器将绘制与列表中每个标题相关联的文本；如果按该列排序，还将绘制可选排序箭头。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridHeader:DataGridHeader"><apiName>DataGridHeader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:clearSeparators"><apiName>clearSeparators</apiName><shortdesc>
+      移除用户通常用于调整列大小的列标题分隔符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      移除用户通常用于调整列大小的列标题分隔符。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawColumnDragOverlay"><apiName>drawColumnDragOverlay</apiName><shortdesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度在拖动列上绘制叠加层。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite，其中应包含指示正在拖动某列的图形。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 x 位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 y 位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>建议的指示符宽度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>建议的指示符高度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>正在拖动的项呈示器。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度在拖动列上绘制叠加层。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawHeaderBackground"><apiName>drawHeaderBackground</apiName><shortdesc>
+      在给定的 UIComponent 中绘制标题的背景。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>headerBG</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>将包含标题背景图形的 UIComponent。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在给定的 UIComponent 中绘制标题的背景。如果组件的宽度发生更改，则绘制的图形可能会水平缩放；或再次调用此方法以使用不同的宽度/高度重新绘制。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawHeaderIndicator"><apiName>drawHeaderIndicator</apiName><shortdesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制加亮指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite，其中应该包含使呈示器显示加亮状态的图形。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 x 位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 y 位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>建议的指示符宽度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>建议的指示符高度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>加亮的项呈示器。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制加亮指示符。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawSelectionIndicator"><apiName>drawSelectionIndicator</apiName><shortdesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制选择指示符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>一个 Sprite，其中应该包含使呈示器显示选中状态的图形。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 x 位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>建议的指示符 y 位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>建议的指示符宽度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>建议的指示符高度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>建议的指示符颜色。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>选中的项呈示器。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用指定的颜色在给定的 Sprite 中采用指定的位置、宽度和高度绘制选择指示符。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawSeparators"><apiName>drawSeparators</apiName><shortdesc>
+      创建用户通常用于调整列大小的列标题分隔符并将其显示出来。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      创建用户通常用于调整列大小的列标题分隔符并将其显示出来。此实现使用相同的 Sprite 作为行和列背景，并添加了 <codeph>headerSeparatorSkin</codeph> 实例，另外还附加了鼠标侦听器，以了解用户何时想要调整列。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:measure"><apiName>measure</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:placeSortArrow"><apiName>placeSortArrow</apiName><shortdesc>
+      在作为当前排序键的列上绘制排序箭头图形。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在作为当前排序键的列上绘制排序箭头图形。此实现将创建或重用由 <codeph>sortArrowSkin</codeph> 样式属性指定的外观实例，并将其放置在合适的列标题中。如果排序箭头遮挡了标题中的文本，它还将缩小列标题的尺寸。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridHeader:bottomOffset"><apiName>bottomOffset</apiName><shortdesc>
+      与呈示器内容底部的偏移量（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      与呈示器内容底部的偏移量（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedHeaderHeight"><apiName>cachedHeaderHeight</apiName><shortdesc>
+      缓存的标题高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      缓存的标题高度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedPaddingBottom"><apiName>cachedPaddingBottom</apiName><shortdesc>
+      缓存的呈示器底部的填充（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      缓存的呈示器底部的填充（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedPaddingTop"><apiName>cachedPaddingTop</apiName><shortdesc>
+	  缓存的呈示器顶部的填充（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  缓存的呈示器顶部的填充（以像素为单位）。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:dataGrid"><apiName>dataGrid</apiName><shortdesc>
+      与此呈示器相关的 DataGrid 控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      与此呈示器相关的 DataGrid 控件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:headerItems"><apiName>headerItems</apiName><shortdesc>
+      一个标题呈示器实例 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      一个标题呈示器实例 Array。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:leftOffset"><apiName>leftOffset</apiName><shortdesc>
+      与呈示器内容左侧的偏移量（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      与呈示器内容左侧的偏移量（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:needRightSeparatorEvents"><apiName>needRightSeparatorEvents</apiName><shortdesc>
+	  是否需要在最右端使用分隔符事件
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  是否需要在最右端使用分隔符事件
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:needRightSeparator"><apiName>needRightSeparator</apiName><shortdesc>
+	  是否需要在最右端使用分隔符
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  是否需要在最右端使用分隔符
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:rightOffset"><apiName>rightOffset</apiName><shortdesc>
+      与呈示器内容右侧的偏移量（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      与呈示器内容右侧的偏移量（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:topOffset"><apiName>topOffset</apiName><shortdesc>
+      与呈示器内容顶部的偏移量（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      与呈示器内容顶部的偏移量（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:enabled:set"><apiName>enabled</apiName><shortdesc conref="mx.core.IUIComponent#enabled">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.IUIComponent#enabled">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridDragProxy"><apiName>DataGridDragProxy</apiName><shortdesc>
+  DataGridDragProxy 类定义默认拖动代理，从 DataGrid 控件中拖动数据时将使用此代理。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridDragProxy 类定义默认拖动代理，从 DataGrid 控件中拖动数据时将使用此代理。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridDragProxy:DataGridDragProxy"><apiName>DataGridDragProxy</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridBase"><apiName>DataGridBase</apiName><shortdesc>
+  DataGridBase 类是可显示项目（位于多个列中）列表的控件的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The DataGridBase class inherits all the properties of its parent classes
+  and adds the following properties:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    headerHeight="depends on styles and header renderer"
+    showHeaders="true|false"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.controls.listClasses:ListBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridBase 类是可显示项目（位于多个列中）列表的控件的基类。此类不直接应用于应用程序。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridBase:DataGridBase"><apiName>DataGridBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:adjustRow"><apiName>adjustRow</apiName><shortdesc> 
+      针对给定的 rowNum、行位置和行高调整呈示器的大小和位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行的集合（被锁定行、常规行）。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行号。
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>行的 y 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>行高。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      针对给定的 rowNum、行位置和行高调整呈示器的大小和位置。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:calculateRowHeight"><apiName>calculateRowHeight</apiName><shortdesc>
+      计算一行中列的行高。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>行高（以像素为单位）。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>此行的数据提供程序项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>当前行高。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>skipVisible</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>true</codeph>，则不需要测量可见列中的项呈示器。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      计算一行中列的行高。如果 <codeph>skipVisible</codeph> 为 <codeph>true</codeph>，则 DataGridBase 已经知道完全适合显示区域的列呈示器的高度，所以此方法只需对下面这种项呈示器进行计算：显示区域中有该行的其它列时就会存在这种项呈示器。需要进行此计算，以便用户在水平滚动时，行高不会随着不同列的出现或消失而进行调整。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:clearRow"><apiName>clearRow</apiName><shortdesc> 
+      从对于给定 rowNum 应为空的行中删除呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行的集合（被锁定行、常规行）。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行号。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      从对于给定 rowNum 应为空的行中删除呈示器。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:createColumnItemRenderer"><apiName>createColumnItemRenderer</apiName><shortdesc>
+      返回列单元格或列标题的项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>项呈示器。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>项呈示器的 DataGridColumn 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>forHeader</apiItemName><apiType value="Boolean"/><apiDesc>如果为 <codeph>true</codeph>，则返回标题的项呈示器；如果为 <codeph>false</codeph>，则返回列单元格的项呈示器。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>如果将 <codeph>forHeader</codeph> 设置为 <codeph>false</codeph>，则为项呈示器的 <codeph>data</codeph> Object。如果将 <codeph>forHeader</codeph> 设置为 <codeph>true</codeph>，则为 DataGridColumn 实例。  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回列单元格或列标题的项呈示器。如果没有为列分配自定义呈示器，则此方法返回默认项呈示器。
+     
+      <p>此方法为公用方法，因此可供 DataGridHeader 类访问，主要应用于 DataGrid 控件的子类。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:drawVisibleItem"><apiName>drawVisibleItem</apiName><shortdesc>
+      绘制可见的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>用于查找呈示器的 uid。
+      </apiDesc></apiParam><apiParam><apiItemName>selected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应将呈示器绘制为选中状态，则为 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>highlighted</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应将呈示器绘制为加亮状态，则为 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>caret</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应将呈示器绘制为选择尖号，则为 <codeph>true</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果应借助效果将选择状态进行淡入处理，则为 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      绘制可见的项目。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:finishKeySelection"><apiName>finishKeySelection</apiName><shortdesc>
+      基于 caretIndex 和 anchorIndex 属性设置所选项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      基于 <codeph>caretIndex</codeph> 和 <codeph>anchorIndex</codeph> 属性设置所选项目。如果键盘选择处理函数在滚动以获得更多项目时发生页面错误，则键盘选择处理函数和 <codeph>updateDisplayList()</codeph> 方法将调用此方法。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:itemRendererToIndices"><apiName>itemRendererToIndices</apiName><shortdesc>
+      返回一个 Point 对象，用于定义项呈示器的 columnIndex 和 rowIndex 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>一个 Point 对象。<codeph>x</codeph> 属性为 <codeph>columnIndex</codeph>，<codeph>y</codeph> 属性为 <codeph>rowIndex</codeph>。
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>项呈示器。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回一个 Point 对象，用于定义项呈示器的 <codeph>columnIndex</codeph> 和 <codeph>rowIndex</codeph> 属性。由于只为可查看行组中的项目创建项呈示器，因此您无法使用此方法获得不可见项目的索引。此外，项呈示器可循环使用，因此如果重用某个项呈示器来显示其它项目，则对该项目得到的索引可能会发生变化。通常都是在项呈示器所显示的数据集尚未更改时，在处理鼠标和键盘输入的过程中调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:layoutColumnItemRenderer"><apiName>layoutColumnItemRenderer</apiName><shortdesc>
+      针对某列确定 itemRenderer 的大小和临时位置，同时以 Point 的形式返回其大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>将呈示器大小设置为点。
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>呈示器的 DataGridColumn。
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>呈示器。
+      </apiDesc></apiParam><apiParam><apiItemName>xx</apiItemName><apiType value="Number"/><apiDesc>x 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>y 位置。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      针对某列确定 itemRenderer 的大小和临时位置，同时以 Point 的形式返回其大小。以后可能会因对齐设置而调整最终位置。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:makeListData"><apiName>makeListData</apiName><shortdesc>
+      创建新 DataGridListData 实例，并基于输入数据提供程序项目来填充字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>新构建的 ListData 对象。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:BaseListData"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>用于填充 ListData 的数据提供程序项目。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>该项目的 UID。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>数据提供程序中项目的索引。
+      </apiDesc></apiParam><apiParam><apiItemName>columnNum</apiItemName><apiType value="int"/><apiDesc>与此项目相关的 columnIndex。 
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>与此项相关的列。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      创建新 DataGridListData 实例，并基于输入数据提供程序项目来填充字段。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:makeRow"><apiName>makeRow</apiName><shortdesc> 
+      针对给定的 rowNum、dataObject 和 uid 创建呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>行高。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行的集合（被锁定行、常规行）。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行号。
+      </apiDesc></apiParam><apiParam><apiItemName>left</apiItemName><apiType value="Number"/><apiDesc>与第一列左侧的偏移量。
+      </apiDesc></apiParam><apiParam><apiItemName>right</apiItemName><apiType value="Number"/><apiDesc>与最后一列右侧的偏移量。
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>行的 y 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>行的数据。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>数据的 uid。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      针对给定的 rowNum、dataObject 和 uid 创建呈示器。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:moveSelectionVertically"><apiName>moveSelectionVertically</apiName><shortdesc>
+      沿垂直方向移动所选项目，以响应用户用向上键或向下键以及功能键（如 Shift 和 Ctrl 键）选择项目的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>code</apiItemName><apiType value="uint"/><apiDesc>按下的键（例如 <codeph>Keyboard.DOWN</codeph>）。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在按住 Shift 键的同时按下某个键，则为 <codeph>true</codeph>。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc>如果在按住 Ctrl 键的同时按下某个键，则为 <codeph>true</codeph>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      沿垂直方向移动所选项目，以响应用户用向上键或向下键以及功能键（如 Shift 和 Ctrl 键）选择项目的操作。这种方法可能会更改 <codeph>horizontalScrollPosition</codeph>、<codeph>verticalScrollPosition</codeph> 和 <codeph>caretIndex</codeph> 属性，并调用 <codeph>finishKeySelection()</codeph> 方法来更新选项。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:prepareRowArray"><apiName>prepareRowArray</apiName><shortdesc> 
+      确保行数组中有一个槽对应给定的行号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行的集合（被锁定行、常规行）。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行号。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      确保行数组中有一个槽对应给定的行号。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:removeExtraRow"><apiName>removeExtraRow</apiName><shortdesc> 
+      从 contentHolder 的末尾删除额外行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行的集合（被锁定行、常规行）。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      从 contentHolder 的末尾删除额外行。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:setRowInfo"><apiName>setRowInfo</apiName><shortdesc> 
+      针对给定的 rowNum、行位置和行高设置 rowInfo。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行的集合（被锁定行、常规行）。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行号。
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>行的 y 位置。
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>行高。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>数据的 UID。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      针对给定的 rowNum、行位置和行高设置 rowInfo。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:setupColumnItemRenderer"><apiName>setupColumnItemRenderer</apiName><shortdesc>
+      为某列设置项呈示器，并将其放置在 listItems 数组中所请求的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>此列和行的呈示器。
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>呈示器的 DataGridColumn。
+      </apiDesc></apiParam><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>行的集合（被锁定行、常规行）。
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>行号。
+      </apiDesc></apiParam><apiParam><apiItemName>colNum</apiItemName><apiType value="int"/><apiDesc>列编号。
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>行的数据。
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>数据的 uid。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      为某列设置项呈示器，并将其放置在 listItems 数组中所请求的位置。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:updateRendererDisplayList"><apiName>updateRendererDisplayList</apiName><shortdesc>
+      同步重绘呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>r</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>呈示器;
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      同步重绘呈示器。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnCaretIndicator"><apiName>columnCaretIndicator</apiName><shortdesc>
+      包含图形的 DisplayObject，该图形指示哪个呈示器是 lockedColumns 的尖号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      包含图形的 DisplayObject，该图形指示哪个呈示器是 lockedColumns 的尖号。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnHighlightIndicator"><apiName>columnHighlightIndicator</apiName><shortdesc>
+      包含图形的 DisplayObject，该图形指示为 lockedColumns 加亮哪个呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      包含图形的 DisplayObject，该图形指示为 lockedColumns 加亮哪个呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnMap"><apiName>columnMap</apiName><shortdesc>
+      项呈示器到列的映射。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      项呈示器到列的映射。与 <codeph>ListBase.rowMap</codeph> 相同，此属性包含项呈示器与其所属列的哈希映射。项呈示器按其 DisplayObject 名称编制索引。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.listClasses.xml#ListBase/rowMap"><linktext>mx.controls.listClasses.ListBase.rowMap</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:freeItemRenderersTable"><apiName>freeItemRenderersTable</apiName><shortdesc>
+      未使用的项呈示器的每列表格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Dictionary"/></apiValueDef><apiDesc>
+      未使用的项呈示器的每列表格。大部分列表类都会在滚离屏幕时回收已经创建的项呈示器。重复使用的呈示器都存储在该位置。此表格是一个 Dictionary，其中的条目是一些按实际 DataGridColumn（而不是列的 dataField 或其它属性）编制了索引的数组，并且每个数组都是当前未用呈示器的堆栈。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:headerMask"><apiName>headerMask</apiName><shortdesc>
+      标题遮罩。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shape"/></apiValueDef><apiDesc>
+      标题遮罩。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:header"><apiName>header</apiName><shortdesc>
+      标题子组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiValueClassifier></apiValueDef><apiDesc>
+      标题子组件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnAndRowContent"><apiName>lockedColumnAndRowContent</apiName><shortdesc>
+      包含锁定列的锁定行的子组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridLockedRowContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      包含锁定列的锁定行的子组件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnContent"><apiName>lockedColumnContent</apiName><shortdesc>
+      包含锁定列的子组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.listClasses:ListBaseContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      包含锁定列的子组件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnHeader"><apiName>lockedColumnHeader</apiName><shortdesc>
+      锁定的列的标题子组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiValueClassifier></apiValueDef><apiDesc>
+      锁定的列的标题子组件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedRowContent"><apiName>lockedRowContent</apiName><shortdesc>
+      包含锁定行的子组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridLockedRowContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      包含锁定行的子组件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:fontContext:get"><apiName>fontContext</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:headerHeight:get"><apiName>headerHeight</apiName><shortdesc>
+      列的标题单元格的高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resize"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      列的标题单元格的高度（以像素为单位）。如果已显式设置，则此高度将用于所有的标题。如果未显式进行设置，则此高度将基于样式设置和标题呈示器。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:lockedColumnCount:get"><apiName>lockedColumnCount</apiName><shortdesc>
+      滚动的控件中第一列的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滚动的控件中第一列的索引。索引低于此值的列在视图中保持固定。并非所有列表类都支持。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:lockedRowCount:get"><apiName>lockedRowCount</apiName><shortdesc>
+      滚动的控件中第一行的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      滚动的控件中第一行的索引。此行上方的行在视图中保持固定。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:showHeaders:get"><apiName>showHeaders</apiName><shortdesc>
+      指示控件是否应显示列标题的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showHeadersChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示控件是否应显示列标题的标志。如果为 <codeph>true</codeph>，则控件显示列标题。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridListData"><apiName>DataGridListData</apiName><shortdesc>
+  DataGridListData 类定义 listData 属性的数据类型，此属性由 DataGrid 控件的嵌入式项呈示器或嵌入式项目编辑器实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:BaseListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridListData 类定义 <codeph>listData</codeph> 属性的数据类型，此属性由 DataGrid 控件的嵌入式项呈示器或嵌入式项目编辑器实现。所有嵌入式项呈示器和嵌入式项目编辑器必须实现 IDropInListItemRenderer 接口，此接口定义了 <codeph>listData</codeph> 属性。
+ 
+  <p>尽管此类的属性是可写的，但应将其视为只读。它们由 DataGrid 类进行初始化，并由项呈示器或项目编辑器读取。更改这些值可能导致意外结果。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridListData:DataGridListData"><apiName>DataGridListData</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>项目数据的文本表示。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>与列相关联的数据提供程序中的字段或属性名称。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>项目在 DataGrid 控件的列中的列索引。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>项目的唯一标识符。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>对 DataGrid 控件的引用。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>项目在 DataGrid 控件的数据提供程序中的索引。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:DataGridListData:dataField"><apiName>dataField</apiName><shortdesc>
+	  与列相关联的数据提供程序中的字段或属性名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  与列相关联的数据提供程序中的字段或属性名称。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder"><apiName>DataGridLockedRowContentHolder</apiName><shortdesc>
+  DataGridLockedRowContentHolder 类在 DataGrid 控件中定义一个容器，该容器容纳控件的所有项呈示器和项目编辑器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:ListBaseContentHolder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridLockedRowContentHolder 类在 DataGrid 控件中定义一个容器，该容器容纳控件的所有项呈示器和项目编辑器。Flex 使用该容器为扩展到控件之外的呈示器区域设置遮罩，并阻止特定样式（如 <codeph>backgroundColor</codeph>）传播到呈示器，以便在整个控件内显示加亮效果和交替行颜色。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder:DataGridLockedRowContentHolder"><apiName>DataGridLockedRowContentHolder</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>parentList</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBase</apiOperationClassifier><apiDesc>DataGrid 控件。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+     DataGrid 控件的度量高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+     DataGrid 控件的度量高度。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridHeaderBase"><apiName>DataGridHeaderBase</apiName><shortdesc>
+  DataGridHeaderBase 类定义 DataGridHeader 类（用于定义 DataGrid 控件的项呈示器）的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridHeaderBase 类定义 DataGridHeader 类（用于定义 DataGrid 控件的项呈示器）的基类。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridHeaderBase:DataGridHeaderBase"><apiName>DataGridHeaderBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridColumn"><apiName>DataGridColumn</apiName><shortdesc>
+  DataGridColumn 类描述 DataGrid 控件中的列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="no" name="paddingRight" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  容器的右边界与其内容区域之间的像素数目。
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  容器的左边界与其内容区域之间的像素数目。
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerStyleName" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  用于控制列标题外观其他方面的 CSS 样式声明的名称。默认值为 <codeph>undefined</codeph>，表示它使用关联 DataGrid 控件的 <codeph>headerStyleName</codeph> 样式值。DataGrid 控件的默认值为 <codeph>".dataGridStyles"</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  列的背景颜色。默认值为 <codeph>undefined</codeph>，表示它使用关联 DataGrid 控件的 <codeph>backgroundColor</codeph> 样式值。DataGrid 控件的默认值为 <codeph>0xFFFFFF</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="textIndent" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  文本第一行偏离容器左侧的距离（以像素为单位）。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="Class">
+<description>
+  实现此组件用来呈示文本的 IUITextField 的类。
+ 
+  <p>它可以设置为 mx.core.UITextField 类（以使用 Flash Player 内置经典 TextField 类）或 mx.core.UIFTETextField 类（以使用 Text Layout Framework 改进文本呈示，包括双向布局）。</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否加下划线。可能值有：<codeph>"none"</codeph> 和 <codeph>"underline"</codeph>。
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  容器内文本的对齐方式。可能值有：<codeph>"left"</codeph>、<codeph>"right"</codeph> 或 <codeph>"center"</codeph>。
+ 
+  <p>大多数组件的默认值为 <codeph>"left"</codeph>。对于 FormItem 组件，默认值为 <codeph>"right"</codeph>。对于 Button、LinkButton 和 AccordionHeader 组件，默认值为 <codeph>"center"</codeph>，且仅当将 <codeph>labelPlacement</codeph> 属性设置为 <codeph>"left"</codeph> 或 <codeph>"right"</codeph> 时，才能识别此属性。如果将 <codeph>labelPlacement</codeph> 设置为 <codeph>"top"</codeph> 或 <codeph>"bottom"</codeph>，将居中文本及所有图标。</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="String">
+<description>
+  此组件显示的文本的区域设置。
+ 
+  <p>FTE 和 TLF 使用此区域设置将 Unicode 字符映射到字体字型并查找后备字体。</p>
+ 
+  <p>注意：仅当 MX 组件将 UIFTETextField 指定为其 <codeph>textFieldClass</codeph> 时此样式才适用。</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  各字符之间显示的附加像素数。如果为正值，则会在正常间距的基础上增加字符间距；如果为负值，则减小此间距。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Boolean">
+<description>
+  一个布尔值，表示是启用 (<codeph>true</codeph>) 还是禁用 (<codeph>false</codeph>) 字距调整。字距调整会调整某些字符对之间的间隔以提高可读性，并应只在必要时（例如使用大字体标题时）使用。仅嵌入字体支持字距调整。某些字体（如宋体）和等宽字体（如 Courier New）不支持字距调整。
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否使用粗体。可识别的值为 <codeph>normal</codeph> 和 <codeph>bold</codeph>。Button 控件的默认值为 <codeph>bold</codeph>。所有其它控件的默认值为 <codeph>normal</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>thickness</codeph> 属性。此属性指定字型边缘的粗细。可能值为从 -200 到 200 之间的数字。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  确定文本是否使用斜体。可识别的值为 <codeph>"normal"</codeph> 和 <codeph>"italic"</codeph>。
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  文本的高度，以像素为单位。在 Halo 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 10。对于 Halo 主题的 ColorPicker 控件，默认值为 11。在 Spark 主题中，除 ColorPicker 控件外，所有其它控件的默认值均为 12。对于 Spark 主题的 ColorPicker 控件，默认值为 11。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>sharpness</codeph> 属性。此属性指定字型边缘的清晰度。可能值为从 -400 到 400 之间的数字。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  设置用于表示 Flex 控件文本的内部 TextField 的 <codeph>gridFitType</codeph> 属性。可能值为 <codeph>"none"</codeph> (<codeph>flash.text.GridFitType.NONE</codeph>)、<codeph>"pixel"</codeph> (<codeph>flash.text.GridFitType.PIXEL</codeph>) 和<codeph>"subpixel"</codeph> (<codeph>flash.text.GridFitType.SUBPIXEL</codeph>)。 
+  
+  <p>仅当使用嵌入字体并将 <codeph>fontAntiAliasType</codeph> 属性设置为 <codeph>"advanced"</codeph> 时，才应用此属性。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+ 
+  <p>此样式适用于 TextField 子控件中的所有文本；但不适用于部分字符。</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  使用的字体的名称。与在完全 CSS 实现中不同，这里不支持逗号分隔的列表。您可以使用任何字体系列名称。如果您指定通用字体名称，它将转换为相应的设备字体。Halo 主题的默认字体为 <codeph>"Verdana"</codeph>。Spark 主题的默认字体为 <codeph>"Arial"</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  设置内部 TextField 的 <codeph>antiAliasType</codeph> 属性。可能值为 <codeph>"normal"</codeph> (<codeph>flash.text.AntiAliasType.NORMAL</codeph>) 和 <codeph>"advanced"</codeph> (<codeph>flash.text.AntiAliasType.ADVANCED</codeph>)。 
+  
+  <p>默认值为 <codeph>"advanced"</codeph>，该值将启用字体的高级消除锯齿功能。设置为 <codeph>"normal"</codeph> 可禁用高级消除锯齿功能。</p>
+  
+  <p>此样式对系统字体不起作用。</p>
+  
+  <p>此样式适用于 TextField 子控件中的所有文本；但不能将其应用于部分字符。</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  禁用时组件中文本的颜色。
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="String">
+<description>
+  此组件显示的文本的方向性。
+ 
+  <p>允许的值为<codeph>“ltr”</codeph>（适用于从左到右文本，就像在拉丁样式脚本中一样）和<codeph>“rtl”</codeph>（适用于从右到左文本，就像在阿拉伯语和希伯来语中一样）。</p>
+ 
+  <p>FTE 和 TLF 在其双向文本布局算法中使用此值，该算法会将 Unicode 字符顺序映射到字型顺序。</p>
+ 
+  <p>注意：仅当 MX 组件将 UIFTETextField 指定为其 <codeph>textFieldClass</codeph> 时此样式才适用。</p>
+ 
+  <p><codeph>direction</codeph> 还影响在 TLFTextField 的范围内的文本的对齐。但是，它不会影响组件内 TLFTextField 的位置。</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  组件中文本（包括组件标签）的颜色。Halo 主题的默认值为 <codeph>0x0B333C</codeph>。Spark 主题的默认值为 <codeph>0x000000</codeph>。
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>You use the <code>&lt;mx.DataGridColumn&gt;</code> tag to configure a column
+  of a DataGrid control.
+  You specify the <code>&lt;mx.DataGridColumn&gt;</code> tag as a child
+  of the columns property in MXML.
+  The <code>&lt;mx.DataGridColumn&gt;</code> tag inherits all of the 
+  tag attributes of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:DataGridColumn
+  <b>Properties </b>
+    dataField="<i>No default</i>"
+    dataTipField="<i>No default</i>"
+    dataTipFunction="<i>No default</i>"
+    editable="true|false"
+    editorDataField="text"
+    editorHeightOffset="0"
+    editorUsesEnterKey="false|true"
+    editorWidthOffset="0"
+    editorXOffset="0"
+    editorYOffset="0"
+    headerRenderer="DataGridItemRenderer"
+    headerText="<i>No default</i>"
+    headerWordWrap="undefined"
+    imeMode="null"
+    itemEditor="TextInput"
+    itemRenderer="DataGridItemRenderer"
+    labelFunction="<i>No default</i>"
+    minWidth="20"
+    rendererIsEditor="false|true"
+    resizable="true|false"
+    showDataTips="false|true"
+    sortable="true|false"
+    sortCompareFunction="<i>No default</i>"
+    sortDescending="false|true"
+    visible="true|false"
+    width="100"
+    wordWrap="false|true"
+ 
+  <b>Styles</b>
+    backgroundColor="0xFFFFFF"
+    color="<i>No default.</i>"
+    disabledColor="0xAAB3B3"
+    fontAntiAliasType="advanced"
+    fontFamily="<i>No default</i>"
+    fontGridFitType="pixel"
+    fontSharpness="0"
+    fontSize="<i>No default</i>"
+    fontStyle="normal|italic"
+    fontThickness="0"
+    fontWeight="normal|bold"
+    headerStyleName="<i>No default</i>"
+    paddingLeft="0"
+    paddingRight="0"
+    textAlign="right|center|left"
+    textDecoration="none|underline"
+    textIndent="0"
+  /&gt;
+  </pre>
+  </p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier>mx.styles:CSSStyleDeclaration</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridColumn 类描述 DataGrid 控件中的列。每个可显示的列都有一个 DataGridColumn，即使该列被隐藏或不在屏幕范围内。DataGrid 控件的数据提供程序项目可以包含不显示的属性，因此无需 DataGridColumn。DataGridColumn 允许指定以下方面的内容：列中文本的颜色和字体；显示列中数据的组件类型；是否可对列进行编辑、排序或调整大小；以及列标题的文本。
+ 
+  <p><b>注意：</b><ul>
+  <li>DataGridColumn 只包含列的相关信息，它不是列中项呈示器的父项。</li>
+  <li>如果指定的 DataGridColumn 类没有 <codeph>dataField</codeph> 属性，则必须指定 <codeph>sortCompareFunction</codeph> 属性。否则，排序操作可能导致运行时错误。</li></ul> 
+  </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link><link href="" invalidHref="mx.styles.CSSStyleDeclaration.xml"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridColumn:DataGridColumn"><apiName>DataGridColumn</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>与列相关联的数据提供程序中的字段名称以及此列标题单元格的文本。这等效于设置 <codeph>dataField</codeph> 和 <codeph>headerText</codeph> 属性。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:getItemRendererFactory"><apiName>getItemRendererFactory</apiName><shortdesc>
+      返回相应的工厂；如果尚未指定，则使用默认工厂。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>data</codeph> 为空，则返回默认的项呈示器；否则，返回自定义的项呈示器。
+      
+      </apiDesc><apiType value="mx.core:IFactory"/></apiReturn><apiParam><apiItemName>forHeader</apiItemName><apiType value="Boolean"/><apiDesc>如果是标题呈示器，则为 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>供项呈示器显示的数据。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回相应的工厂；如果尚未指定，则使用默认工厂。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      返回 String，表示项呈示器基于 dataTipField 和 dataTipFunction 属性显示的给定数据对象的数据提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>基于数据的可显示 String。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>要呈示的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回 String，表示项呈示器基于 <codeph>dataTipField</codeph> 和 <codeph>dataTipFunction</codeph> 属性显示的给定数据对象的数据提示。如果该方法无法将参数转换为 String，则会返回一个空格。
+     
+      <p>此方法供创建 DataGridColumn 类的子类的开发人员使用。它不适用于应用程序开发人员。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      返回项呈示器针对给定数据对象显示的 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>基于数据的可显示 String。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>要呈示的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回项呈示器针对给定数据对象显示的 String。如果 DataGridColumn 或其 DataGrid 控件具有非空 <codeph>labelFunction</codeph> 属性，则它会将该函数应用于数据对象。否则，此方法会提取由 <codeph>dataField</codeph> 属性指定的字段的内容，或者获取数据对象的字符串值。如果该方法无法将参数转换为 String，则会返回一个空格。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridColumn:draggable"><apiName>draggable</apiName><shortdesc>
+      一个标志，指示是否允许用户将列拖动到新位置。如果为 true，则用户可以将列标题拖动到新位置
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示是否允许用户将列拖动到新位置。如果为 <codeph>true</codeph>，则用户可以将列标题拖动到新位置
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorDataField"><apiName>editorDataField</apiName><shortdesc>
+      项目编辑器的属性名称，其中包含列表项目的新数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>text</apiData><apiType value="String"/><apiDefaultValue>"text"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      项目编辑器的属性名称，其中包含列表项目的新数据。例如，默认的 <codeph>itemEditor</codeph> 为 TextInput，因此，<codeph>editorDataField</codeph> 属性的默认值为 <codeph>"text"</codeph>，此值指定 TextInput 控件的 <codeph>text</codeph> 属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorHeightOffset"><apiName>editorHeightOffset</apiName><shortdesc>
+      项目编辑器相对于项呈示器大小的高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      项目编辑器相对于项呈示器大小的高度（以像素为单位）。使用此属性可以使编辑器与项呈示器产生几个像素的重叠，以补偿编辑器周围的边框。请注意，在显示编辑器时，更改这些值不会对当前编辑器产生任何作用，但会影响下一个打开编辑器的项呈示器。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorUsesEnterKey"><apiName>editorUsesEnterKey</apiName><shortdesc>
+      指示项目编辑器是否使用 Enter 键的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false.
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示项目编辑器是否使用 Enter 键的标志。如果为 <codeph>true</codeph>，则项目编辑器将使用 Enter 键，而 DataGrid 不会相应地查找 Enter 键和移动编辑器。请注意，在显示编辑器时，更改此值不会对当前编辑器产生任何作用，但将影响下一个打开编辑器的项呈示器。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorWidthOffset"><apiName>editorWidthOffset</apiName><shortdesc>
+      项目编辑器相对于项呈示器大小的宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      项目编辑器相对于项呈示器大小的宽度（以像素为单位）。使用此属性可以使编辑器与项呈示器产生几个像素的重叠，以补偿编辑器周围的边框。请注意，在显示编辑器时，更改这些值不会对当前编辑器产生任何作用，但会影响下一个打开编辑器的项呈示器。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorXOffset"><apiName>editorXOffset</apiName><shortdesc>
+      项目编辑器左上角相对于项目左上角的 x 位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      项目编辑器左上角相对于项目左上角的 x 位置（以像素为单位）。使用此属性可以使编辑器与项呈示器产生几个像素的重叠，以补偿编辑器周围的边框。请注意，在显示编辑器时，更改这些值不会对当前编辑器产生任何作用，但会影响下一个打开编辑器的项呈示器。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorYOffset"><apiName>editorYOffset</apiName><shortdesc>
+      项目编辑器左上角相对于项目左上角的 y 位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      项目编辑器左上角相对于项目左上角的 y 位置（以像素为单位）。使用此属性可以使编辑器与项呈示器产生几个像素的重叠，以补偿编辑器周围的边框。请注意，在显示编辑器时，更改这些值不会对当前编辑器产生任何作用，但会影响下一个打开编辑器的项呈示器。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:itemEditor"><apiName>itemEditor</apiName><shortdesc>
+      列可编辑时，用于列的项目编辑器实例的类工厂。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IFactory"/><apiDefaultValue>new ClassFactory(mx.controls.TextInput)
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列可编辑时，用于列的项目编辑器实例的类工厂。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:rendererIsEditor"><apiName>rendererIsEditor</apiName><shortdesc>
+      指示项呈示器也是项目编辑器的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示项呈示器也是项目编辑器的标志。如果此属性为 <codeph>true</codeph>，则 Flex 将忽略 <codeph>itemEditor</codeph> 属性并使用该项目的项呈示器作为编辑器。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:resizable"><apiName>resizable</apiName><shortdesc>
+      一个标志，指示是否允许用户调整列的宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示是否允许用户调整列的宽度。如果为 <codeph>true</codeph>，则用户可以拖动列标题之间的网格线以调整列大小。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortDescending"><apiName>sortDescending</apiName><shortdesc>
+      指示列排序是按升序排序（设置为 false），还是按降序排序（设置为 true）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false;
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示列排序是按升序排序（设置为 <codeph>false</codeph>），还是按 <codeph>descending</codeph> 排序（设置为 true）。
+     
+      <p>设置此属性不会开始进行排序；这只是在设置排序方向。单击列标题执行排序。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortable"><apiName>sortable</apiName><shortdesc>
+      一个标志，指示用户是否能够通过单击此列的标题对数据提供程序进行排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示用户是否能够通过单击此列的标题对数据提供程序进行排序。如果此属性和 DataGrid<codeph>sortableColumns</codeph> 属性均为 <codeph>true</codeph>，则当用户在列标题上释放鼠标按键时，DataGrid 控件将分派 <codeph>headerRelease</codeph> 事件。如果没有其他处理函数调用 <codeph>headerRelease</codeph> 事件的 <codeph>preventDefault()</codeph> 方法，则列中的 <codeph>dataField</codeph> 属性或 <codeph>sortCompareFunction</codeph> 将用于重新排序 dataProvider 中的项目。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataField:get"><apiName>dataField</apiName><shortdesc>
+      与列关联的数据提供程序项目中字段或属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      与列关联的数据提供程序项目中字段或属性的名称。需要对每个 DataGridColumn 控件设置此属性和/或 <codeph>labelFunction</codeph> 属性以计算项呈示器的可显示文本。如果设置了 <codeph>dataField</codeph> 和 <codeph>labelFunction</codeph> 属性，则使用 <codeph>labelFunction</codeph> 显示数据并使用 <codeph>dataField</codeph> 对数据排序。如果名为 <codeph>dataField</codeph> 的属性不存在，则必须设置 <codeph>sortCompareFunction</codeph> 以正确进行排序。
+     
+      <p>此属性的值不一定是列标题中显示的 String。此属性只用于访问数据提供程序中的数据。有关详细信息，请参阅 <codeph>headerText</codeph> 属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.dataGridClasses.xml#DataGridColumn/headerText"><linktext>headerText</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      数据提供程序中显示为数据提示的字段名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      数据提供程序中显示为数据提示的字段名称。默认情况下，DataGrid 控件在每个数据提供程序项目上查找命名为 <codeph>label</codeph> 的属性，然后显示该属性。然而，如果数据提供程序不包含 <codeph>label</codeph> 属性，您可以设置 <codeph>dataTipField</codeph> 属性来指定其他属性。例如，在用户查看数据库中包含的一组用户名时，可以将值设置为“FullName”。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      指定在数据提供程序每个项目上运行的回调函数，以确定其数据提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      指定在数据提供程序每个项目上运行的回调函数，以确定其数据提示。此属性由 <codeph>itemToDataTip</codeph> 方法使用。
+     
+      <p>默认情况下，该控件将在每个数据提供程序项目上查找名为 <codeph>label</codeph> 的属性，然后将其显示为它的数据提示。不过，某些数据提供程序没有 <codeph>label</codeph> 属性或其他可用于显示行中数据的属性。例如，您可能具有包含 lastName 和 firstName 字段的数据提供程序，但您希望将全名显示为数据提示。可以为 <codeph>dataTipFunction</codeph> 属性指定一个函数，该函数返回包含这两个字段值的单个 String。还可以使用 <codeph>dataTipFunction</codeph> 属性来处理格式和本地化。</p>
+     
+      <p>此函数必须采用一个 Object 参数（包含数据提供程序元素）并返回一个 String。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editable:get"><apiName>editable</apiName><shortdesc>
+      指示列中的项目是否可进行编辑的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示列中的项目是否可进行编辑的标志。如果为 <codeph>true</codeph>，并且 DataGrid 的 <codeph>editable</codeph> 属性也为 <codeph>true</codeph>，则列中的项目是可编辑的且可以编辑单个项目，具体方法是：单击某个项目或使用 Tab 和箭头键导航到该项目。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。如果编辑器已启动，它将相应地设置 enableIME。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerRenderer:get"><apiName>headerRenderer</apiName><shortdesc>
+      显示列标题的项呈示器实例的类工厂。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      显示列标题的项呈示器实例的类工厂。您可以指定嵌入式项呈示器、内嵌项呈示器或自定义项呈示器组件作为此属性的值。
+     
+      <p>默认项呈示器为 DataGridItemRenderer 类，用于将项目数据显示为文本。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerText:get"><apiName>headerText</apiName><shortdesc>
+      此列的标题文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerTextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      此列的标题文本。默认情况下，DataGrid 控件使用 <codeph>dataField</codeph> 属性的值作为标题文本。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerWordWrap:get"><apiName>headerWordWrap</apiName><shortdesc>
+      一个标志，指示当标题中的文本不能在一行中显示时，是否能够自动换行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示当标题中的文本不能在一行中显示时，是否能够自动换行。如果为 <codeph>undefined</codeph>，则使用 DataGrid 控件的 <codeph>wordWrap</codeph> 属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      指定 IME（输入法编辑器）模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指定 IME（输入法编辑器）模式。IME 使用户能够用中文、日文和韩文输入文本。发生 <codeph>itemFocusIn</codeph> 事件时，Flex 将设置 IME 模式；发生 <codeph>itemFocusOut</codeph> 事件时，将它重新设置回先前的值。flash.system.IMEConversionMode 类定义此属性的有效值的常量。  
+     
+      <p>默认值为空，在这种情况下，它将使用 DataGrid 控件的 <codeph>imeMode</codeph> 属性值。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      显示列中每个项目数据的项呈示器实例的类工厂。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      显示列中每个项目数据的项呈示器实例的类工厂。您可以指定嵌入式项呈示器、内嵌项呈示器或自定义项呈示器组件作为此属性的值。
+     
+      <p>默认项呈示器为 DataGridItemRenderer 类，用于将项目数据显示为文本。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      确定此列中显示文本的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      确定此列中显示文本的函数。默认情况下，列显示与列名称匹配的数据字段的文本。不过，有时您希望显示基于多个数据字段的文本，或显示不具备自己想要格式的文本。在这种情况下，可使用 <codeph>labelFunction</codeph> 指定一个回调函数。
+     
+      <p>对于 DataGrid 控件，方法签名具有以下格式：</p>
+     
+      <pre>labelFunction(item:Object, column:DataGridColumn):String</pre>
+     
+      <p>其中，<codeph>item</codeph> 包含 DataGrid 项目对象，并且 <codeph>column</codeph> 指定 DataGrid 列。</p>
+     
+      <p>回调函数可能会连接数据中的 firstName 和 lastName 字段，或者对 Date 设置某些自定义格式，也可能将月的数字形式转换为字符串形式。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      列的最小宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>20
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列的最小宽度。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:nullItemRenderer:get"><apiName>nullItemRenderer</apiName><shortdesc>
+      显示列中每个项目数据的项呈示器实例的类工厂。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nullItemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      显示列中每个项目数据的项呈示器实例的类工厂。您可以指定嵌入式项呈示器、内嵌项呈示器或自定义项呈示器组件作为此属性的值。
+     
+      <p>默认项呈示器为 DataGridItemRenderer 类，用于将项目数据显示为文本。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      一个标志，指示是否在列中显示数据提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示是否在列中显示数据提示。如果为 <codeph>true</codeph>，则显示行中文本的数据提示。数据提示是一些工具提示，用于显示对行而言过长的文本。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortCompareFunction:get"><apiName>sortCompareFunction</apiName><shortdesc>
+     
+      对列中的数据进行排序时调用的回调函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortCompareFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     
+      对列中的数据进行排序时调用的回调函数。如果未指定此属性，则排序将尝试按基本字符串或数字顺序对数据排序。如果数据不是字符串或数字，或者 <codeph>dataField</codeph> 属性不是数据提供程序的有效属性，则排序将不起作用或将生成异常。如果指定 <codeph>labelFunction</codeph> 属性的值，通常还会为 <codeph>sortCompareFunction</codeph> 属性提供一个函数，否则不允许对此列排序。这意味着当列的 <codeph>dataField</codeph> 中的值的排序方式与 <codeph>labelFunction</codeph> 属性中的计算值的排序方式不相同时指定一个函数。
+     
+      <p>DataGrid 控件使用此函数对数据提供程序集合的元素排序。回调函数的函数签名采用两个参数并具有以下格式：</p>
+     
+      <pre>mySortCompareFunction(obj1:Object, obj2:Object):int </pre>
+     
+      <p><codeph>obj1</codeph> — 要比较的数据元素。</p>
+     
+      <p><codeph>obj2</codeph> － 与 obj1 比较的另一个数据元素。</p>
+     
+      <p>函数应该基于对象比较结果返回值： </p>
+      <ul>
+        <li>如果按升序顺序 obj1 应出现在 obj2 前面，则返回 -1。 </li>
+        <li>如果 obj1 = obj2，则返回 0。 </li>
+        <li>如果按升序顺序 obj1 应出现在 obj2 后面，则返回 1。</li>
+      </ul>
+     
+      <p><b>注意：</b><codeph>obj1</codeph> 和 <codeph>obj2</codeph> 参数是整个数据提供程序元素，而不只是项目数据。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:visible:get"><apiName>visible</apiName><shortdesc>
+      一个标志，指示列是否可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示列是否可见。如果为 <codeph>true</codeph>，则列可见。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:width:get"><apiName>width</apiName><shortdesc>
+      列的宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>100
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      列的宽度（以像素为单位）。如果 DataGrid 的 <codeph>horizontalScrollPolicy</codeph> 属性为 <codeph>false</codeph>，则所有可见列必须适合可显示区域；如果列的总宽度对于可显示区域而言太小或太大，则 DataGrid 将不会始终保持列的宽度。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:wordWrap:get"><apiName>wordWrap</apiName><shortdesc>
+      一个标志，指示当此列中各行的文本不能在一行中显示时，是否能够自动换行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示当此列中各行的文本不能在一行中显示时，是否能够自动换行。如果为 <codeph>undefined</codeph>，则使用 DataGrid 控件的 <codeph>wordWrap</codeph> 属性。
+     
+      <p>仅当 <codeph>DataGrid.variableRowHeight</codeph> 也为 <codeph>true</codeph> 时才能生效。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridItemRenderer"><apiName>DataGridItemRenderer</apiName><shortdesc>
+  DataGridItemRenderer 类定义 DataGrid 控件的默认项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier>mx.core:UITextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridItemRenderer 类定义 DataGrid 控件的默认项呈示器。默认情况下，项呈示器绘制与网格中各项相关联的文本。
+ 
+  <p>通过创建自定义的项呈示器，您可以覆盖默认项呈示器。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.dataGridClasses:DataGridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  当 data 属性更改时进行分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>data</codeph> 属性更改时进行分派。
+ 
+  <p>当您使用组件作为项呈示器时，<codeph>data</codeph> 属性将包含要显示的数据。您可以侦听此事件，并在 <codeph>data</codeph> 属性更改时更新组件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.dataGridClasses:DataGridItemRenderer:DataGridItemRenderer"><apiName>DataGridItemRenderer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:clearStyle"><apiName>clearStyle</apiName><shortdesc conref="mx.core.UIComponent#clearStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#clearStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:initProtoChain"><apiName>initProtoChain</apiName><shortdesc>
+      设置 inheritingStyles 和 nonInheritingStyles 对象及其主要链，以便 getStyle() 方法起作用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      设置 <codeph>inheritingStyles</codeph> 和 <codeph>nonInheritingStyles</codeph> 对象及其主要链，以便 <codeph>getStyle()</codeph> 方法起作用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.core.UIComponent#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:protected:toolTipShowHandler"><apiName>toolTipShowHandler</apiName><shortdesc>
+      定位工具提示的事件处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:ToolTipEvent"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      定位工具提示的事件处理函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 LayoutManager.invalidateDisplayList() 方法，则在更新显示列表时将调用此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 <codeph>LayoutManager.invalidateDisplayList()</codeph> 方法，则在更新显示列表时将调用此函数。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 LayoutManager.invalidateProperties() 方法，则在提交属性值时将调用此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 <codeph>LayoutManager.invalidateProperties()</codeph> 方法，则在提交属性值时将调用此函数。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateSize"><apiName>validateSize</apiName><shortdesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 LayoutManager.invalidateSize() 方法，则在进行测量时会调用此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>true</codeph>，则调用对象子项的此方法。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 Flex 对此 ILayoutManagerClient 调用 <codeph>LayoutManager.invalidateSize()</codeph> 方法，则在进行测量时会调用此函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      由 IDataRenderer 接口定义的 data 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      由 IDataRenderer 接口定义的 <codeph>data</codeph> 属性实现。此值将被忽略。仅使用 listData 属性。
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      由 IDropInListItemRenderer 接口定义的 listData 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      由 IDropInListItemRenderer 接口定义的 <codeph>listData</codeph> 属性实现。将呈示器的文本设置为 listData 的 <codeph>label</codeph> 属性。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      存储此对象的内嵌继承样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.styles:CSSStyleDeclaration"/></apiValueDef><apiDesc>
+      存储此对象的内嵌继承样式。第一次调用该组件的 setStyle() 来设置继承样式时，将创建此 CSSStyleDeclaration。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

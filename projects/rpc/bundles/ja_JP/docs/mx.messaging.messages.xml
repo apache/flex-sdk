@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.messages"><apiName>mx.messaging.messages</apiName><apiDetail/><apiClassifier id="mx.messaging.messages:SOAPMessage"><apiName>SOAPMessage</apiName><shortdesc>
+  SOAPMessages は、HTTPRequestMessages に似ています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:HTTPRequestMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SOAPMessages は、HTTPRequestMessages に似ています。 ただし、常に HTTP POST を使って送信される SOAP XML エンベロープ要求の本体が必ず含まれています。 また、SOAP アクションを指定することもできます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:SOAPMessage:SOAPMessage"><apiName>SOAPMessage</apiName><shortdesc>
+      初期化されていない SOAPMessage を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      初期化されていない SOAPMessage を作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:SOAPMessage:getSOAPAction"><apiName>getSOAPAction</apiName><shortdesc>
+      呼び出し対象となるリモートのメソッドまたは操作の名前へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>呼び出し対象となるリモートのメソッドまたは操作の名前を返します。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      呼び出し対象となるリモートのメソッドまたは操作の名前へのアクセスを提供します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:SOAPMessage:SOAP_ACTION_HEADER"><apiName>SOAP_ACTION_HEADER</apiName><shortdesc>
+      SOAPMessage メッセージに対する SOAP アクションを格納する HTTP ヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>SOAPAction</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      SOAPMessage メッセージに対する SOAP アクションを格納する HTTP ヘッダーです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:ErrorMessage"><apiName>ErrorMessage</apiName><shortdesc>
+  ErrorMessage クラスは、メッセージングシステム内でエラーを報告するときに使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AcknowledgeMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ErrorMessage クラスは、メッセージングシステム内でエラーを報告するときに使用されます。 エラーメッセージは、システム内部で送信されたメッセージのみに応答して生成されます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:ErrorMessage:ErrorMessage"><apiName>ErrorMessage</apiName><shortdesc>
+      ErrorMessage インスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      ErrorMessage インスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:ErrorMessage:MESSAGE_DELIVERY_IN_DOUBT"><apiName>MESSAGE_DELIVERY_IN_DOUBT</apiName><shortdesc>
+      メッセージが配信されていない場合は、faultCode にこの定数が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.Error.DeliveryInDoubt</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      メッセージが配信されていない場合は、<codeph>faultCode</codeph> にこの定数が含まれます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:RETRYABLE_HINT_HEADER"><apiName>RETRYABLE_HINT_HEADER</apiName><shortdesc>
+      再試行可能ヒントヘッダーのヘッダー名。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRetryableErrorHint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      再試行可能ヒントヘッダーのヘッダー名。 これは、エラーが発生した操作が致命的なものではなく、再試行可能であることを示すために使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:extendedData"><apiName>extendedData</apiName><shortdesc>
+     クライアントでのカスタムエラー処理を容易にするために、リモート宛先でこのエラーに関連付けた拡張データです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     クライアントでのカスタムエラー処理を容易にするために、リモート宛先でこのエラーに関連付けた拡張データです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultCode"><apiName>faultCode</apiName><shortdesc>
+      エラーに対応するフォルトコードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      エラーに対応するフォルトコードです。 この値は通常、表記 "[outer_context].[inner_context].[issue]" に従います。 例えば、"Channel.Connect.Failed"、"Server.Call.Failed" などです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultDetail"><apiName>faultDetail</apiName><shortdesc>
+      エラーの原因についての詳しい説明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      エラーの原因についての詳しい説明。 これは通常、リモート宛先からのスタックトレースです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultString"><apiName>faultString</apiName><shortdesc>
+      エラーについての簡単な説明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      エラーについての簡単な説明。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:rootCause"><apiName>rootCause</apiName><shortdesc>
+      エラーの根本的な原因がある場合は、このプロパティにその詳細が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      エラーの根本的な原因がある場合は、このプロパティにその詳細が含まれます。 これは ErrorMessage、NetStatusEvent 情報オブジェクトまたは基になる Flash エラーイベント（ErrorEvent、IOErrorEvent または SecurityErrorEvent）の場合があります。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:RemotingMessage"><apiName>RemotingMessage</apiName><shortdesc>
+  RemotingMessages は、RPC 要求をリモートエンドポイントに送信するために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemotingMessages は、RPC 要求をリモートエンドポイントに送信するために使用されます。 このメッセージは <codeph>operation</codeph> プロパティを使って、リモートオブジェクトで呼び出すメソッドを指定します。 <codeph>destination</codeph> プロパティは、どのオブジェクトまたはサービスを使用するかを示します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:RemotingMessage:RemotingMessage"><apiName>RemotingMessage</apiName><shortdesc>
+      初期化されていない RemotingMessage を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      初期化されていない RemotingMessage を作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:RemotingMessage:operation"><apiName>operation</apiName><shortdesc>
+      呼び出す必要のあるリモートメソッドまたは操作の名前へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      呼び出す必要のあるリモートメソッドまたは操作の名前へのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:RemotingMessage:source"><apiName>source</apiName><shortdesc>
+      このプロパティは、後方互換性を維持するために提供されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      このプロパティは、後方互換性を維持するために提供されています。 ただし、クライアントで RemoteObject 宛先の基となるソースを公開するのではなく、宛先に対して 1 つのソースのみを公開することをお勧めします。 Remoting Services のタイプによっては、セキュリティ上の理由からこのプロパティが無視されることもあります。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AbstractMessage"><apiName>AbstractMessage</apiName><shortdesc>
+  すべてのメッセージの抽象基本クラス。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:IMessage</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  すべてのメッセージの抽象基本クラス。 メッセージには、2 つのカスタマイズ可能なセクション（ヘッダーおよび本文）があります。 <codeph>headers</codeph> プロパティは、特定のメッセージインスタンスの特化したメタ情報へのアクセスを提供します。 <codeph>headers</codeph> プロパティは、固有のヘッダー名をキーとして持つ結合配列です。
+  <p>
+  メッセージの本文には、リモート宛先によって配信および処理される必要があるインスタンス固有のデータが含まれます。 <codeph>body</codeph> はオブジェクトで、メッセージのペイロードとなります。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AbstractMessage:AbstractMessage"><apiName>AbstractMessage</apiName><shortdesc>
+      本文とヘッダーが空の AbstractMessage インスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      本文とヘッダーが空の AbstractMessage インスタンスを作成します。 このメッセージタイプは、直接インスタンス化したり使用したりしないでください。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:AbstractMessage:toString"><apiName>toString</apiName><shortdesc>
+      メッセージのストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>メッセージのストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      メッセージのストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:AbstractMessage:DESTINATION_CLIENT_ID_HEADER"><apiName>DESTINATION_CLIENT_ID_HEADER</apiName><shortdesc>
+      サーバーからプッシュされたメッセージがバッチとして到着したとき、そのバッチ内のメッセージが複数の異なるコンシューマインスタンスをターゲットにしている可能性があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSDstClientId</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      サーバーからプッシュされたメッセージがバッチとして到着したとき、そのバッチ内のメッセージが複数の異なるコンシューマインスタンスをターゲットにしている可能性があります。 各メッセージにはこのヘッダーが含まれており、メッセージを受信するコンシューマインスタンスが識別されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:ENDPOINT_HEADER"><apiName>ENDPOINT_HEADER</apiName><shortdesc>
+      メッセージには、メッセージが送信されるチャンネルのエンドポイント ID のタグが付与されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSEndpoint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      メッセージには、メッセージが送信されるチャンネルのエンドポイント ID のタグが付与されます。 各チャンネルではメッセージの送信時にこの値が自動的に設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:FLEX_CLIENT_ID_HEADER"><apiName>FLEX_CLIENT_ID_HEADER</apiName><shortdesc>
+	  サーバーによってグローバル FlexClient の ID 値が出力メッセージに割り当てられると、このヘッダーはその値の伝達に使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSId</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  サーバーによってグローバル FlexClient の ID 値が出力メッセージに割り当てられると、このヘッダーはその値の伝達に使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:PRIORITY_HEADER"><apiName>PRIORITY_HEADER</apiName><shortdesc>
+      MessageAgent が送信するメッセージには数値が 0 ～ 9（0 が最小）の優先度ヘッダーがある場合があります。サーバーはこの数値を使用して、クライアントへのメッセージに優先度を設定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPriority</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      MessageAgent が送信するメッセージには数値が 0 ～ 9（0 が最小）の優先度ヘッダーがある場合があります。サーバーはこの数値を使用して、クライアントへのメッセージに優先度を設定できます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REMOTE_CREDENTIALS_CHARSET_HEADER"><apiName>REMOTE_CREDENTIALS_CHARSET_HEADER</apiName><shortdesc>
+      宛先のリモート証明書を設定する必要があるメッセージは、このヘッダーを使用して、資格情報ストリングの作成に使用された文字セットエンコーディングも報告する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemoteCredentialsCharset</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      宛先のリモート証明書を設定する必要があるメッセージは、このヘッダーを使用して、資格情報ストリングの作成に使用された文字セットエンコーディングも報告する必要があります。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REMOTE_CREDENTIALS_HEADER"><apiName>REMOTE_CREDENTIALS_HEADER</apiName><shortdesc>
+      宛先のリモート証明書を設定する必要があるメッセージは、このヘッダー内に Base64 エンコードされた資格情報を保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemoteCredentials</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      宛先のリモート証明書を設定する必要があるメッセージは、このヘッダー内に Base64 エンコードされた資格情報を保持します。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REQUEST_TIMEOUT_HEADER"><apiName>REQUEST_TIMEOUT_HEADER</apiName><shortdesc>
+	  このヘッダーは、要求タイムアウトを定義して送信されるメッセージに使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRequestTimeout</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  このヘッダーは、要求タイムアウトを定義して送信されるメッセージに使用されます。 要求タイムアウトの値はサービスまたはチャンネルによって出力メッセージに設定され、対応する MessageResponder が要求をタイムアウトするまでに承認、結果、またはフォルトの応答を待つ時間を制御します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:STATUS_CODE_HEADER"><apiName>STATUS_CODE_HEADER</apiName><shortdesc>
+      ステータスコードは、応答メッセージの特徴に関するコンテキストを提供できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSStatusCode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ステータスコードは、応答メッセージの特徴に関するコンテキストを提供できます。例えば、HTTP ベースのチャネルから受信したメッセージは、HTTP 応答ステータスコード（使用できる場合）を報告する必要があることがあります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:body:get"><apiName>body</apiName><shortdesc>
+      メッセージの本文には、リモート宛先に配信する必要がある特定のデータが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      メッセージの本文には、リモート宛先に配信する必要がある特定のデータが含まれます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:clientId:get"><apiName>clientId</apiName><shortdesc>
+      clientId は、メッセージを送信した MessageAgent を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      clientId は、メッセージを送信した MessageAgent を示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:destination:get"><apiName>destination</apiName><shortdesc>
+      メッセージの宛先。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      メッセージの宛先。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:headers:get"><apiName>headers</apiName><shortdesc>
+      メッセージのヘッダーは、キーがヘッダー名、値がヘッダー値として格納される結合配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      メッセージのヘッダーは、キーがヘッダー名、値がヘッダー値として格納される結合配列です。 このプロパティは、特定のメッセージインスタンスの特化したメタ情報へのアクセスを提供します。 コアヘッダー名は 'DS' の接頭辞で始まります。 カスタムのヘッダー名は、名前の競合を避けるため、固有の接頭辞で始める必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:messageId:get"><apiName>messageId</apiName><shortdesc>
+      メッセージ固有の ID。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      メッセージ固有の ID。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:timeToLive:get"><apiName>timeToLive</apiName><shortdesc>
+      メッセージの有効期間の値は、メッセージが有効で配信可能であると見なされる期間を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      メッセージの有効期間の値は、メッセージが有効で配信可能であると見なされる期間を示します。 この値は、<codeph>timestamp</codeph> 値と組み合わせて使用します。 有効期間は、このメッセージが有効な状態を維持する、指定された <codeph>timestamp</codeph> 値からのミリ秒数です。 たとえば、<codeph>timestamp</codeph> 値が 04/05/05 1:30:45 PST で <codeph>timeToLive</codeph> 値が 5000 の場合、このメッセージは 04/05/05 1:30:50 PST で期限切れになります。 有効期限が切れたメッセージは、他のどのクライアントにも配信されません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      メッセージの日時スタンプへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      メッセージの日時スタンプへのアクセスを提供します。 日時スタンプは、メッセージが送信された日付と時間です。 日時スタンプは、システム内でメッセージを追跡し、サービスレベルの品質の保証およびメッセージの有効期限のメカニズムを提供するために使用されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#AbstractMessage/timeToLive"><linktext>timeToLive</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:MessagePerformanceUtils"><apiName>MessagePerformanceUtils</apiName><shortdesc> 
+     MessagePerformanceUtils ユーティリティクラスは、サーバーからクライアントにプッシュされるメッセージのほか、クライアントからサーバーに送信されるメッセージおよびその応答メッセージのサイズおよびタイミングに関する様々なメトリックの取得に使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc> 
+     MessagePerformanceUtils ユーティリティクラスは、サーバーからクライアントにプッシュされるメッセージのほか、クライアントからサーバーに送信されるメッセージおよびその応答メッセージのサイズおよびタイミングに関する様々なメトリックの取得に使用されます。 メトリックは、使用されるチャンネル上の対応するプロパティが有効な場合に収集されます。&lt;record-message-times> はタイミング情報のキャプチャを、&lt;record-message-sizes> はサイズ情報のキャプチャを表します。
+     
+     <p>その後、このユーティリティクラスのメソッドを使用して、受信したメッセージに関する様々なパフォーマンス情報を取得できます。</p>
+     
+     <p>これらのメトリックが有効な場合は、応答、応答確認、メッセージハンドラーなどから、例えば次のようなコードを使用して、このクラスのインスタンスが作成されます。 </p>
+     
+     <pre>
+          var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(event.message);
+     </pre> 
+          </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:MessagePerformanceUtils:MessagePerformanceUtils"><apiName>MessagePerformanceUtils</apiName><shortdesc>
+         メッセージの MPI ヘッダーの情報を使用して MPUtils インスタンスを作成するコンストラクター
+         
+         </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="Object"/><apiDesc>MPI ヘッダーが MPI 情報の取得に使用されるメッセージ
+                  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+         メッセージの MPI ヘッダーの情報を使用して MPUtils インスタンスを作成するコンストラクター
+         
+         </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:MessagePerformanceUtils:prettyPrint"><apiName>prettyPrint</apiName><shortdesc>
+          MPI で有効なすべての情報の概要を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>MPI で有効なすべての情報の概要が含まれたストリング
+                  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+          MPI で有効なすべての情報の概要を返します。次に実際の使用例を示します。
+         
+         <pre>
+              var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(message);                     
+              Alert.show(mpiutil.prettyPrint(), "MPI Output", Alert.NONMODAL);
+         </pre>            
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:MessagePerformanceUtils:clientReceiveTime:get"><apiName>clientReceiveTime</apiName><shortdesc>
+         クライアントがサーバーから応答メッセージを受信した基準時からのミリ秒単位のタイムスタンプ。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         クライアントがサーバーから応答メッセージを受信した基準時からのミリ秒単位のタイムスタンプ。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:messageSize:get"><apiName>messageSize</apiName><shortdesc>
+         サーバーエンドポイントでのシリアル化解除中に測定された、元のクライアントメッセージのサイズ。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+         サーバーエンドポイントでのシリアル化解除中に測定された、元のクライアントメッセージのサイズ。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:networkRTT:get"><apiName>networkRTT</apiName><shortdesc>
+         クライアントメッセージがネットワークラウンドトリップを開始してからサーバーが応答するまでの時間（総計時間とサーバー処理時間との差異から計算）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         クライアントメッセージがネットワークラウンドトリップを開始してからサーバーが応答するまでの時間（総計時間とサーバー処理時間との差異から計算）。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:originatingMessageSentTime:get"><apiName>originatingMessageSentTime</apiName><shortdesc>
+         プッシュされたメッセージである場合にのみ設定されます。メッセージのプッシュを実行したクライアントがメッセージを送信した基準時からのミリ秒単位のタイムスタンプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         プッシュされたメッセージである場合にのみ設定されます。メッセージのプッシュを実行したクライアントがメッセージを送信した基準時からのミリ秒単位のタイムスタンプです。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:originatingMessageSize:get"><apiName>originatingMessageSize</apiName><shortdesc>
+         プッシュされたメッセージである場合にのみ設定されます。このプッシュされたメッセージの元となるメッセージのバイト単位のサイズです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         プッシュされたメッセージである場合にのみ設定されます。このプッシュされたメッセージの元となるメッセージのバイト単位のサイズです。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:pushOneWayTime:get"><apiName>pushOneWayTime</apiName><shortdesc>
+         プッシュされたメッセージである場合にのみ設定されます。これは、サーバーがメッセージをプッシュしてから、それをクライアントが受信するまでのネットワーク時間です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         プッシュされたメッセージである場合にのみ設定されます。これは、サーバーがメッセージをプッシュしてから、それをクライアントが受信するまでのネットワーク時間です。 これを有効にするには、サーバーとクライアントの時計が同期している必要があります。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:pushedMessageFlag:get"><apiName>pushedMessageFlag</apiName><shortdesc>
+         クライアントが発行元であるメッセージへの応答でないメッセージがクライアントにプッシュされた場合、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+         クライアントが発行元であるメッセージへの応答でないメッセージがクライアントにプッシュされた場合、true を返します。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:responseMessageSize:get"><apiName>responseMessageSize</apiName><shortdesc>
+         サーバーエンドポイントでのシリアル化中に測定された、サーバーからクライアントに送信された応答メッセージのサイズ。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+         サーバーエンドポイントでのシリアル化中に測定された、サーバーからクライアントに送信された応答メッセージのサイズ。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverAdapterExternalTime:get"><apiName>serverAdapterExternalTime</apiName><shortdesc>
+         このメッセージへの応答準備、または受信側クライアントへのメッセージのプッシュ準備が整うまでに、メッセージの宛先に関連付けられてはいるがその外部であるアダプターから呼び出されたモジュールで費やされた時間</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         このメッセージへの応答準備、または受信側クライアントへのメッセージのプッシュ準備が整うまでに、メッセージの宛先に関連付けられてはいるがその外部であるアダプターから呼び出されたモジュールで費やされた時間  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverAdapterTime:get"><apiName>serverAdapterTime</apiName><shortdesc>
+         このメッセージへの応答準備、または受信側クライアントへのメッセージのプッシュ準備が整うまでに、メッセージの宛先に関連付けられたアダプターで費やされた時間</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         このメッセージへの応答準備、または受信側クライアントへのメッセージのプッシュ準備が整うまでに、メッセージの宛先に関連付けられたアダプターで費やされた時間  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverNonAdapterTime:get"><apiName>serverNonAdapterTime</apiName><shortdesc>
+         このメッセージの宛先に関連付けられているアダプターの外部で費やされたサーバー処理時間。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         このメッセージの宛先に関連付けられているアダプターの外部で費やされたサーバー処理時間。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverPollDelay:get"><apiName>serverPollDelay</apiName><shortdesc>
+         クライアントへのメッセージのプッシュ準備が整った後、まだポーリングされていないためにメッセージがサーバー上に留まっていた時間です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         クライアントへのメッセージのプッシュ準備が整った後、まだポーリングされていないためにメッセージがサーバー上に留まっていた時間です。
+                  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverPrePushTime:get"><apiName>serverPrePushTime</apiName><shortdesc>
+         サーバーがクライアントメッセージを受信してから、元のメッセージの結果として他のクライアントへメッセージのプッシュを開始するまでの時間</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         サーバーがクライアントメッセージを受信してから、元のメッセージの結果として他のクライアントへメッセージのプッシュを開始するまでの時間  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverProcessingTime:get"><apiName>serverProcessingTime</apiName><shortdesc>
+         サーバーがクライアントメッセージを受信してから、受信メッセージに応答するまで、または受信側のクライアントへの送信準備が整ったプッシュ対象のメッセージを保持するまでの時間</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         サーバーがクライアントメッセージを受信してから、受信メッセージに応答するまで、または受信側のクライアントへの送信準備が整ったプッシュ対象のメッセージを保持するまでの時間  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverSendTime:get"><apiName>serverSendTime</apiName><shortdesc>
+         サーバーがクライアントへの応答メッセージを送信した基準時からのミリ秒単位のタイムスタンプ。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         サーバーがクライアントへの応答メッセージを送信した基準時からのミリ秒単位のタイムスタンプ。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:totalPushTime:get"><apiName>totalPushTime</apiName><shortdesc>
+         プッシュされたメッセージである場合にのみ設定されます。これは、プッシュの実行によるクライアントのメッセージ送信から、それをクライアントが受信したという通知をプッシュが受信するまでの時間です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         プッシュされたメッセージである場合にのみ設定されます。これは、プッシュの実行によるクライアントのメッセージ送信から、それをクライアントが受信したという通知をプッシュが受信するまでの時間です。 これを有効にするには、2 つのクライアントの時計が同期している必要があります。
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:totalTime:get"><apiName>totalTime</apiName><shortdesc>
+         このクライアントがメッセージを送信してから、サーバーからの応答を受信するまでの時間
+         
+         </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         このクライアントがメッセージを送信してから、サーバーからの応答を受信するまでの時間
+         
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:HTTPRequestMessage"><apiName>HTTPRequestMessage</apiName><shortdesc>
+  HTTP 要求は、このメッセージタイプを使って HTTP エンドポイントに送信されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HTTP 要求は、このメッセージタイプを使って HTTP エンドポイントに送信されます。 HTTPRequestMessage には、ブラウザーが行う HTTP 要求に通常存在するコンテンツとヘッダー情報がカプセル化されています。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:HTTPRequestMessage:HTTPRequestMessage"><apiName>HTTPRequestMessage</apiName><shortdesc>
+      初期化されていない HTTP 要求を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      初期化されていない HTTP 要求を作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_FORM"><apiName>CONTENT_TYPE_FORM</apiName><shortdesc>
+      このメッセージのコンテンツがフォームであることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      このメッセージのコンテンツがフォームであることを示します。
+     
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_SOAP_XML"><apiName>CONTENT_TYPE_SOAP_XML</apiName><shortdesc>
+      このメッセージのコンテンツが、SOAP 要求に使用される XML であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text/xml; charset=utf-8</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      このメッセージのコンテンツが、SOAP 要求に使用される XML であることを示します。
+     
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_SOAP_XML;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_XML"><apiName>CONTENT_TYPE_XML</apiName><shortdesc>
+      このメッセージのコンテンツが XML であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      このメッセージのコンテンツが XML であることを示します。
+     
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_XML;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:DELETE_METHOD"><apiName>DELETE_METHOD</apiName><shortdesc>
+      この要求に使用されたメソッドは "delete" であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DELETE</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      この要求に使用されたメソッドは "delete" であることを示します。
+      
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.DELETE_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:GET_METHOD"><apiName>GET_METHOD</apiName><shortdesc>
+      この要求に使用されたメソッドは "get" であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GET</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      この要求に使用されたメソッドは "get" であることを示します。
+     
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.GET_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:HEAD_METHOD"><apiName>HEAD_METHOD</apiName><shortdesc>
+      この要求に使用されたメソッドは "head" であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>HEAD</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      この要求に使用されたメソッドは "head" であることを示します。
+     
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.HEAD_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:OPTIONS_METHOD"><apiName>OPTIONS_METHOD</apiName><shortdesc>
+      この要求に使用されたメソッドは "options" であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>OPTIONS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      この要求に使用されたメソッドは "options" であることを示します。
+     
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.OPTIONS_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:POST_METHOD"><apiName>POST_METHOD</apiName><shortdesc>
+      この要求に使用されたメソッドは "post" であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>POST</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      この要求に使用されたメソッドは "post" であることを示します。
+     
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:PUT_METHOD"><apiName>PUT_METHOD</apiName><shortdesc>
+      この要求に使用されたメソッドは "put" であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>PUT</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      この要求に使用されたメソッドは "put" であることを示します。
+     
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.PUT_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:TRACE_METHOD"><apiName>TRACE_METHOD</apiName><shortdesc>
+      この要求に使用されたメソッドは "trace" であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>TRACE</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      この要求に使用されたメソッドは "trace" であることを示します。
+     
+      <p>次の例では、この定数を使用しています。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.TRACE_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:contentType"><apiName>contentType</apiName><shortdesc>
+      このメッセージのコンテンツのタイプを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      このメッセージのコンテンツのタイプを示します。 この値は、この要求を送信する宛先が理解可能でなければなりません。
+     
+      <p>次の例では、<codeph>contentType</codeph> プロパティを設定します。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:httpHeaders"><apiName>httpHeaders</apiName><shortdesc>
+      宛先に対して行った要求に配置しなければならない特定の HTTP ヘッダーが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      宛先に対して行った要求に配置しなければならない特定の HTTP ヘッダーが含まれます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:recordHeaders"><apiName>recordHeaders</apiName><shortdesc>
+     プロキシがそれ自体が使用した要求ヘッダーと応答ヘッダーを返してきた場合、プロキシを通過するときにのみ使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     プロキシがそれ自体が使用した要求ヘッダーと応答ヘッダーを返してきた場合、プロキシを通過するときにのみ使用されます。 デフォルトは false です。 現在は、NetworkMonitor を使用するときにのみ設定されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:url"><apiName>url</apiName><shortdesc>
+      この要求の最終宛先が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      この要求の最終宛先が含まれます。 これは、<codeph>body</codeph> プロパティで検出されたメッセージのコンテンツの送信先となる URL です。このコンテンツは、指定されたメソッドで送信されます。
+     
+      <p>次の例では、<codeph>url</codeph> プロパティを設定します。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:method:get"><apiName>method</apiName><shortdesc>
+      要求にどのメソッドを使用するかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      要求にどのメソッドを使用するかを示します。 以下の値のみが有効です。
+      <ul>
+        <li><codeph>HTTPRequestMessage.DELETE_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.GET_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.HEAD_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.POST_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.OPTIONS_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.PUT_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.TRACE_METHOD</codeph></li>
+      </ul>
+     
+      <p>次の例では、<codeph>method</codeph> プロパティを設定します。</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AsyncMessage"><apiName>AsyncMessage</apiName><shortdesc>
+  AsyncMessage は、すべての非同期メッセージの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:ISmallMessage</apiBaseInterface><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AsyncMessage は、すべての非同期メッセージの基本クラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AsyncMessage:AsyncMessage"><apiName>AsyncMessage</apiName><shortdesc>
+      本文とヘッダーが空の AsyncMessage インスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>body</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>メッセージに割り当てるオプションの本文です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>headers</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>メッセージに割り当てるオプションのヘッダーです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      本文とヘッダーが空の AsyncMessage インスタンスを作成します。 このデフォルト動作に加え、便宜上の目的でメッセージの本文とヘッダーをコンストラクターに渡すこともできます。 この本文呼び出し方法の例は <codeph>var msg:AsyncMessage = new AsyncMessage("Body text");</codeph> です。本文とヘッダーの両方を提供する例は <codeph>var msg:AsyncMessage = new AsyncMessage("Body text", {"customerHeader":"customValue"});</codeph> です。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:AsyncMessage:SUBTOPIC_HEADER"><apiName>SUBTOPIC_HEADER</apiName><shortdesc>
+	  subtopic プロパティが定義された MessageAgent から送信されたメッセージでは、メッセージのターゲットとなるサブトピックがこのヘッダー内に示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSSubtopic</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  <codeph>subtopic</codeph> プロパティが定義された MessageAgent から送信されたメッセージでは、メッセージのターゲットとなるサブトピックがこのヘッダー内に示されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AsyncMessage:correlationId:get"><apiName>correlationId</apiName><shortdesc>
+      メッセージの相関 ID へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      メッセージの相関 ID へのアクセスを提供します。 メッセージの応答と分割に使用されます。 <codeph>correlationId</codeph> には、このメッセージが参照する前のメッセージの <codeph>messageId</codeph> が含まれます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#AbstractMessage/messageId"><linktext>mx.messaging.messages.AbstractMessage.messageId</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AcknowledgeMessage"><apiName>AcknowledgeMessage</apiName><shortdesc>
+  AcknowledgeMessage では、先に送信されたメッセージの受信を確認します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:ISmallMessage</apiBaseInterface><apiBaseClassifier>mx.messaging.messages:AsyncMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AcknowledgeMessage では、先に送信されたメッセージの受信を確認します。 メッセージングシステム内で送信されたすべてのメッセージは、応答を受信する必要があります。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AcknowledgeMessage:AcknowledgeMessage"><apiName>AcknowledgeMessage</apiName><shortdesc>
+      本文とヘッダーが空の AcknowledgeMessage インスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      本文とヘッダーが空の AcknowledgeMessage インスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:AcknowledgeMessage:ERROR_HINT_HEADER"><apiName>ERROR_HINT_HEADER</apiName><shortdesc>
+      エラーヒントヘッダーのヘッダー名。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSErrorHint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      エラーヒントヘッダーのヘッダー名。 エラーを生成したメッセージに対する応答であることを示すために使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:IMessage"><apiName>IMessage</apiName><shortdesc>
+  このインターフェイスは、メッセージオブジェクトの約束ごとを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  このインターフェイスは、メッセージオブジェクトの約束ごとを定義します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:toString"><apiName>toString</apiName><shortdesc>
+      このメソッドは、メッセージのストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>メッセージのストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      このメソッドは、メッセージのストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:body:get"><apiName>body</apiName><shortdesc>
+      メッセージの本文には、リモート宛先に配信する必要がある特定のデータが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      メッセージの本文には、リモート宛先に配信する必要がある特定のデータが含まれます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:clientId:get"><apiName>clientId</apiName><shortdesc>
+      clientId は、メッセージを送信したクライアントを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      clientId は、メッセージを送信したクライアントを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:destination:get"><apiName>destination</apiName><shortdesc>
+      メッセージの宛先。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      メッセージの宛先。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:headers:get"><apiName>headers</apiName><shortdesc>
+      メッセージのヘッダーへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      メッセージのヘッダーへのアクセスを提供します。 メッセージのヘッダーは、キーがヘッダー名となっている結合配列です。 このプロパティは、特定のメッセージインスタンスの特化したメタ情報へのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:messageId:get"><apiName>messageId</apiName><shortdesc>
+      メッセージ固有の ID。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      メッセージ固有の ID。 メッセージ ID を使用して、要求と応答のメッセージングシナリオで、応答を元の要求メッセージに関連付けることができます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:timeToLive:get"><apiName>timeToLive</apiName><shortdesc>
+      メッセージの有効期間の値は、メッセージが有効で配信可能であると見なされる期間を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      メッセージの有効期間の値は、メッセージが有効で配信可能であると見なされる期間を示します。 この値は、<codeph>timestamp</codeph> 値と組み合わせて使用します。 有効期間は、このメッセージが有効な状態を維持する、指定された <codeph>timestamp</codeph> 値からのミリ秒数です。 たとえば、<codeph>timestamp</codeph> 値が 04/05/05 1:30:45 PST で <codeph>timeToLive</codeph> 値が 5000 の場合、このメッセージは 04/05/05 1:30:50 PST で期限切れになります。 有効期限が切れたメッセージは、他のどのクライアントにも配信されません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      メッセージの日時スタンプへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      メッセージの日時スタンプへのアクセスを提供します。 日時スタンプは、メッセージが送信された日付と時間です。 日時スタンプは、システム内でメッセージを追跡し、サービスレベルの品質の保証および有効期限のメカニズムを提供するために使用されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#IMessage/timeToLive"><linktext>timeToLive</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:CommandMessage"><apiName>CommandMessage</apiName><shortdesc>
+  CommandMessage クラスは、サーバーインフラストラクチャにコマンドを送信するためのメカニズムを提供します。対象となるのは、メッセージングのパブリッシュ/サブスクライブ、ping 操作、クラスタ操作などに関連するコマンドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AsyncMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CommandMessage クラスは、サーバーインフラストラクチャにコマンドを送信するためのメカニズムを提供します。対象となるのは、メッセージングのパブリッシュ/サブスクライブ、ping 操作、クラスタ操作などに関連するコマンドです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:CommandMessage:CommandMessage"><apiName>CommandMessage</apiName><shortdesc>
+      本文とヘッダーが空で、デフォルトの operation として UNKNOWN_OPERATION が設定された CommandMessage インスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      本文とヘッダーが空で、デフォルトの <codeph>operation</codeph> として <codeph>UNKNOWN_OPERATION</codeph> が設定された CommandMessage インスタンスを作成します。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:CommandMessage:getOperationAsString"><apiName>getOperationAsString</apiName><shortdesc>
+      指定した操作の説明を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>操作の短い名前です。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>op</apiItemName><apiType value="uint"/><apiDesc>CommandMessage 操作の定数の 1 つです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定した操作の説明を設定します。 このメソッドは、このメッセージに対する <codeph>toString()</codeph> 操作で使用されます。
+     
+      </apiDesc><example>
+      <codeph><pre>
+         var msg:CommandMessage = CommandMessage(event.message);
+         trace("Current operation -'"+
+                CommandMessage.getOperationAsString(msg.operation)+ "'.");
+      </pre></codeph>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.messages:CommandMessage:toString"><apiName>toString</apiName><shortdesc>
+      メッセージのストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>メッセージのストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      メッセージのストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:CommandMessage:ADD_SUBSCRIPTIONS"><apiName>ADD_SUBSCRIPTIONS</apiName><shortdesc> 
+     既存のサブスクリプションのセットに追加するサブトピックとセレクターのペアの配列を指定するために、MULTI_SUBSCRIBE メッセージ内で使用されるヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSAddSub</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+     既存のサブスクリプションのセットに追加するサブトピックとセレクターのペアの配列を指定するために、MULTI_SUBSCRIBE メッセージ内で使用されるヘッダーです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:AUTHENTICATION_MESSAGE_REF_TYPE"><apiName>AUTHENTICATION_MESSAGE_REF_TYPE</apiName><shortdesc>
+      認証コマンドに対応するサーバーメッセージのタイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>flex.messaging.messages.AuthenticationMessage</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      認証コマンドに対応するサーバーメッセージのタイプです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLIENT_PING_OPERATION"><apiName>CLIENT_PING_OPERATION</apiName><shortdesc>
+      この操作は、現在のチャンネルを通じたリモートエンドポイントへの接続をテストするために使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>5</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      この操作は、現在のチャンネルを通じたリモートエンドポイントへの接続をテストするために使用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLIENT_SYNC_OPERATION"><apiName>CLIENT_SYNC_OPERATION</apiName><shortdesc>
+      この操作は、クライアントが発行したポーリングコマンドの結果として、失われたメッセージまたはキャッシュに入れられたメッセージをクライアントに同期するためにリモート宛先が使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      この操作は、クライアントが発行したポーリングコマンドの結果として、失われたメッセージまたはキャッシュに入れられたメッセージをクライアントに同期するためにリモート宛先が使用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLUSTER_REQUEST_OPERATION"><apiName>CLUSTER_REQUEST_OPERATION</apiName><shortdesc>
+      この操作は、クラスタメンバーシップに基づいてリモート宛先のフェイルオーバーエンドポイント URI の一覧を要求するために使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>7</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      この操作は、クラスタメンバーシップに基づいてリモート宛先のフェイルオーバーエンドポイント URI の一覧を要求するために使用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CREDENTIALS_CHARSET_HEADER"><apiName>CREDENTIALS_CHARSET_HEADER</apiName><shortdesc>
+     ログイン資格情報をエンコードする際に使用された文字セットエンコーディングを示すヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSCredentialsCharset</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     ログイン資格情報をエンコードする際に使用された文字セットエンコーディングを示すヘッダーです。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:DISCONNECT_OPERATION"><apiName>DISCONNECT_OPERATION</apiName><shortdesc>
+      この操作は、チャンネルが切断されたことを示すために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>12</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      この操作は、チャンネルが切断されたことを示すために使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:HEARTBEAT_HEADER"><apiName>HEARTBEAT_HEADER</apiName><shortdesc>
+     メッセージがハートビートであることを示すヘッダー。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DS&lt;3</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     メッセージがハートビートであることを示すヘッダー。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:LOGIN_OPERATION"><apiName>LOGIN_OPERATION</apiName><shortdesc>
+     この操作は、ユーザーが現在のチャンネルにログインできるように、エンドポイントに証明書を送信するために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     この操作は、ユーザーが現在のチャンネルにログインできるように、エンドポイントに証明書を送信するために使用されます。 証明書は、Base64 でエンコードし、メッセージの <codeph>body</codeph> に格納する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:LOGOUT_OPERATION"><apiName>LOGOUT_OPERATION</apiName><shortdesc>
+     この操作は、ユーザーを現在のチャンネルからログアウトするために使用され、チャンネルが HTTP ベースの場合にサーバーセッションを無効にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>9</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     この操作は、ユーザーを現在のチャンネルからログアウトするために使用され、チャンネルが HTTP ベースの場合にサーバーセッションを無効にします。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MAX_FREQUENCY_HEADER"><apiName>MAX_FREQUENCY_HEADER</apiName><shortdesc>
+     コンシューマが毎秒希望する最大メッセージ数を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSMaxFrequency</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     コンシューマが毎秒希望する最大メッセージ数を示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MESSAGING_VERSION"><apiName>MESSAGING_VERSION</apiName><shortdesc>
+     エンドポイントは、最初の ping CommandMessage のハンドシェイク中に利用可能な最新のメッセージングをレポートすることにより、サポート対象の機能を示唆することができます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSMessagingVersion</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     エンドポイントは、最初の ping CommandMessage のハンドシェイク中に利用可能な最新のメッセージングをレポートすることにより、サポート対象の機能を示唆することができます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MULTI_SUBSCRIBE_OPERATION"><apiName>MULTI_SUBSCRIBE_OPERATION</apiName><shortdesc>
+     MultiTopicConsumer が、同一メッセージ内の複数のトピックをサブスクライブまたはサブスクライブ解除するために使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>11</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     MultiTopicConsumer が、同一メッセージ内の複数のトピックをサブスクライブまたはサブスクライブ解除するために使用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:NEEDS_CONFIG_HEADER"><apiName>NEEDS_CONFIG_HEADER</apiName><shortdesc>
+     サーバーからの設定がチャンネルに必要であることを示すヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSNeedsConfig</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     サーバーからの設定がチャンネルに必要であることを示すヘッダーです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:NO_OP_POLL_HEADER"><apiName>NO_OP_POLL_HEADER</apiName><shortdesc>
+     ポーリング応答の処理を抑制するためのヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSNoOpPoll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     ポーリング応答の処理を抑制するためのヘッダーです。 サーバーに対するポーリングを長い間保留しているクライアントが別のポーリングを発行する場合、後者のポーリングに対する応答にはこのヘッダーをタグ付けする必要があります。その場合、この応答は no-op として扱われ、次のポーリングはスケジューリングされません。 これを行わないと、それ以降のポーリングによってチャンネルとエンドポイントはビジーポーリングのサイクルに入ります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:POLL_OPERATION"><apiName>POLL_OPERATION</apiName><shortdesc>
+      この操作は、リモート宛先で保留されている未送信のメッセージをポーリングするために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      この操作は、リモート宛先で保留されている未送信のメッセージをポーリングするために使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:POLL_WAIT_HEADER"><apiName>POLL_WAIT_HEADER</apiName><shortdesc>
+     次のクライアントポーリング要求までのアイドル状態の待機時間を制御するヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPollWait</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     次のクライアントポーリング要求までのアイドル状態の待機時間を制御するヘッダーです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:PRESERVE_DURABLE_HEADER"><apiName>PRESERVE_DURABLE_HEADER</apiName><shortdesc>
+      サブスクライブを解除するメッセージのヘッダーでこのパラメーターが true に設定されている場合、持続性のある JMS サブスクリプションは維持されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPreserveDurable</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      サブスクライブを解除するメッセージのヘッダーでこのパラメーターが true に設定されている場合、持続性のある JMS サブスクリプションは維持されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:REMOVE_SUBSCRIPTIONS"><apiName>REMOVE_SUBSCRIPTIONS</apiName><shortdesc>
+     上記と同様。ただし、削除するサブトピックとセレクターの配列を指定します。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemSub</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     上記と同様。ただし、削除するサブトピックとセレクターの配列を指定します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SELECTOR_HEADER"><apiName>SELECTOR_HEADER</apiName><shortdesc>
+      コンシューマによって発行されたサブスクライブコマンドでは、このヘッダーでコンシューマの selector 式を渡します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSSelector</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      コンシューマによって発行されたサブスクライブコマンドでは、このヘッダーでコンシューマの <codeph>selector</codeph> 式を渡します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBSCRIBE_OPERATION"><apiName>SUBSCRIBE_OPERATION</apiName><shortdesc>
+      この操作は、リモート宛先にサブスクライブするために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      この操作は、リモート宛先にサブスクライブするために使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBSCRIPTION_INVALIDATE_OPERATION"><apiName>SUBSCRIPTION_INVALIDATE_OPERATION</apiName><shortdesc>
+     この操作は、リモート宛先によるクライアントのサブスクリプションがタイムアウトしたことを示すために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     この操作は、リモート宛先によるクライアントのサブスクリプションがタイムアウトしたことを示すために使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBTOPIC_SEPARATOR"><apiName>SUBTOPIC_SEPARATOR</apiName><shortdesc>
+     サブスクリプションヘッダーの追加または削除の際に、サブトピックとセレクターを区切るのに使用される区切り文字です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>_;_</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     サブスクリプションヘッダーの追加または削除の際に、サブトピックとセレクターを区切るのに使用される区切り文字です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:TRIGGER_CONNECT_OPERATION"><apiName>TRIGGER_CONNECT_OPERATION</apiName><shortdesc>
+      この操作は、ChannelSet の接続のトリガーに使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>13</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      この操作は、ChannelSet の接続のトリガーに使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:UNKNOWN_OPERATION"><apiName>UNKNOWN_OPERATION</apiName><shortdesc>
+      これは、新規の CommandMessage インスタンスのデフォルトの操作です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>10000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      これは、新規の CommandMessage インスタンスのデフォルトの操作です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:UNSUBSCRIBE_OPERATION"><apiName>UNSUBSCRIBE_OPERATION</apiName><shortdesc>
+      この操作は、リモート宛先からのサブスクライブ解除に使用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      この操作は、リモート宛先からのサブスクライブ解除に使用します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:operation"><apiName>operation</apiName><shortdesc>
+      CommandMessage の操作またはコマンドへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      CommandMessage の操作またはコマンドへのアクセスを提供します。 操作は、リモート宛先でこのメッセージを処理する方法を示します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:ISmallMessage"><apiName>ISmallMessage</apiName><shortdesc>
+ IMessage に直列化用の小さい代替フォームがあることを示すために使用されるマーカーインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:IMessage</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ IMessage に直列化用の小さい代替フォームがあることを示すために使用されるマーカーインターフェイスです。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.messages:ISmallMessage:mx.messaging.messages:ISmallMessage:getSmallMessage"><apiName>getSmallMessage</apiName><shortdesc>
+     このメソッドは、「小さい」フォームを持つサブクラスによって実装される必要があり、通常は flash.utils.IExternalizable を使用することによって実現されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>直列化されたフォームが通常のメッセージより小さくなるように、flex.messaging.messages.IMessage の代替表現を返します。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+     このメソッドは、「小さい」フォームを持つサブクラスによって実装される必要があり、通常は <codeph>flash.utils.IExternalizable</codeph> を使用することによって実現されます。小さいフォームを使用できない場合、このメソッドは null を返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts"><apiName>spark.layouts</apiName><apiDetail/><apiClassifier id="spark.layouts:VerticalAlign"><apiName>VerticalAlign</apiName><shortdesc>
+  Die VerticalAlign-Klasse definiert die möglichen Werte für die verticalAlign-Eigenschaft der HorizontalLayout-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die VerticalAlign-Klasse definiert die möglichen Werte für die <codeph>verticalAlign</codeph>-Eigenschaft der HorizontalLayout-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/verticalAlign"><linktext>HorizontalLayout.verticalAlign</linktext></link></related-links><apiValue id="spark.layouts:VerticalAlign:BASELINE"><apiName>BASELINE</apiName><shortdesc>
+      Platziert die untergeordneten Elemente vertikal so, dass deren Text an der Grundlinie des Containers ausgerichtet ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>baseline</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Platziert die untergeordneten Elemente vertikal so, dass deren Text an der Grundlinie des Containers ausgerichtet ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:BOTTOM"><apiName>BOTTOM</apiName><shortdesc>
+      Untergeordnete Elemente an der Unterseite des Containers ausrichten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bottom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Untergeordnete Elemente an der Unterseite des Containers ausrichten.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:CONTENT_JUSTIFY"><apiName>CONTENT_JUSTIFY</apiName><shortdesc>
+      Den Inhalt der untergeordneten Elemente in Bezug auf den Container ausrichten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>contentJustify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Den Inhalt der untergeordneten Elemente in Bezug auf den Container ausrichten. Dadurch wird die Größe von allen untergeordneten Elementen gleichmäßig auf die Inhaltshöhe des Containers geändert. Die Inhaltshöhe des Containers entspricht der Größe des größten untergeordneten Elements. Wenn alle untergeordneten Elemente kleiner als die Höhe des Containers sind, wird die Größe von allen untergeordneten Elementen auf die Höhe des Containers geändert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:JUSTIFY"><apiName>JUSTIFY</apiName><shortdesc>
+      Richtet die untergeordneten Elemente in Bezug auf den Container aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet die untergeordneten Elemente in Bezug auf den Container aus. Dadurch wird die Größe von allen untergeordneten Elementen auf die Höhe des Containers geändert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:MIDDLE"><apiName>MIDDLE</apiName><shortdesc>
+      Richtet die untergeordneten Elemente in der Mitte des Containers vertikal aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>middle</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet die untergeordneten Elemente in der Mitte des Containers vertikal aus.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalAlign:TOP"><apiName>TOP</apiName><shortdesc>
+      Richtet die untergeordneten Elemente vertikal an der Oberseite des Containers aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet die untergeordneten Elemente vertikal an der Oberseite des Containers aus.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:ColumnAlign"><apiName>ColumnAlign</apiName><shortdesc>
+  Die ColumnAlign-Klasse definiert die möglichen Werte für die ColumnAlign-Eigenschaft der TileLayout-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ColumnAlign-Klasse definiert die möglichen Werte für die <codeph>ColumnAlign</codeph>-Eigenschaft der TileLayout-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>TileLayout.columnAlign</linktext></link></related-links><apiValue id="spark.layouts:ColumnAlign:JUSTIFY_USING_GAP"><apiName>JUSTIFY_USING_GAP</apiName><shortdesc>
+      Richtet die Zeilen durch Erhöhen der vertikalen Lücke aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingGap</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet die Zeilen durch Erhöhen der vertikalen Lücke aus.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ColumnAlign:JUSTIFY_USING_WIDTH"><apiName>JUSTIFY_USING_WIDTH</apiName><shortdesc>
+      Richtet die Zeilen durch Erhöhen der Zeilenhöhe aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingWidth</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet die Zeilen durch Erhöhen der Zeilenhöhe aus.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ColumnAlign:LEFT"><apiName>LEFT</apiName><shortdesc>
+      Richtet keine Zeilen aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet keine Zeilen aus.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:FormLayout"><apiName>FormLayout</apiName><shortdesc>
+  Die FormLayout-Klasse definiert das Standardlayout für die Spark-Form-Skins.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts:VerticalLayout</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die FormLayout-Klasse definiert das Standardlayout für die Spark-Form-Skins. FormLayout stellt für die untergeordneten FormItem-Container im Formular ein vertikales Layout zur Verfügung. Wenn einer der untergeordneten Container ein FormItemLayout verwendet, richtet FormLayout die ConstraintColumns jedes untergeordneten Elements aus. Die Anzahl von Spalten über untergeordnete Elemente hinweg sollte gleich sein und die Spalten müssen die gleiche Art Breiteneinstellung aufweisen. Beispiel: Wenn die zweite Spalte des ersten untergeordneten Elements eine prozentuale Breite aufweist, muss die zweite Spalte des zweiten untergeordneten Elements auch eine prozentuale Breite sein.
+   <p><b>Hinweis</b>: Verwenden Sie die FormLayout-Klasse nur mit dem Spark-Form-Container. Verwenden Sie sie nicht für das Anordnen der Inhalte eines anderen Containers.</p>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#Form"><linktext>spark.components.Form</linktext></link><link href="spark.components.xml#FormHeading"><linktext>spark.components.FormHeading</linktext></link><link href="spark.components.xml#FormItem"><linktext>spark.components.FormItem</linktext></link><link href="spark.layouts.xml#FormItemLayout"><linktext>spark.layouts.FormItemLayout</linktext></link></related-links><apiConstructor id="spark.layouts:FormLayout:FormLayout"><apiName>FormLayout</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.layouts:FormItemLayout"><apiName>FormItemLayout</apiName><shortdesc>
+  Das FormItemLayout stellt mithilfe von FormItems ein auf Beschränkungen basierendes Layout zur Verfügung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts:ConstraintLayout</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Das FormItemLayout stellt mithilfe von FormItems ein auf Beschränkungen basierendes Layout zur Verfügung. Elemente, die FormItemLayout innerhalb von FormLayout verwenden, werden entlang Spalten ausgerichtet.  
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:FormItemLayout:FormItemLayout"><apiName>FormItemLayout</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.layouts:ConstraintLayout"><apiName>ConstraintLayout</apiName><shortdesc>
+  Die ConstraintLayout-Klasse ordnet die Layoutelemente je nach individuellen Einstellungen und einer Reihe von durch Beschränkungsspalten und -zeilen definierten Beschränkungsbereichen an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ConstraintLayout-Klasse ordnet die Layoutelemente je nach individuellen Einstellungen und einer Reihe von durch Beschränkungsspalten und -zeilen definierten Beschränkungsbereichen an. Zwar können Sie mithilfe aller Eigenschaften und Beschränkungen von BasicLayout Elemente platzieren oder deren Größe ändern, jedoch gibt Ihnen ConstraintLayout die Möglichkeit, Layouts in Bezug auf gleichgeordnete Objekte durch Beschränkungselemente für die angegebenen Spalten und Zeilen zu erstellen. 
+ 
+  <p><b>Hinweis:</b> Die listenbasierten Spark-Steuerelemente (das Spark List-Steuerelement und seine Unterklassen wie ButtonBar, ComboBox, DropDownList und TabBar) unterstützen nicht die Verwendung der ConstraintLayout-Klasse. Verwenden Sie ConstraintLayout nicht für listenbasierte Spark-Steuerelemente.</p>
+ 
+  <p>Die pro Element unterstützten Beschränkungen umfassen: <codeph>left</codeph>, <codeph>right</codeph>, <codeph>top</codeph>, <codeph>bottom</codeph>, <codeph>baseline</codeph>, <codeph>percentWidth</codeph> und <codeph>percentHeight</codeph>. Die minimale und maximale Größe des Elements wird immer berücksichtigt.</p>
+ 
+  <p>Spalten und Zeilen haben möglicherweise eine explizite Größe oder eine Inhaltsgröße (keine explizite Größe). Bereiche mit expliziter Größe werden auf ihre jeweils angegebene Größe gesperrt. Dagegen werden Bereiche mit Inhaltsgröße so angepasst, dass sie nur an die Elemente angepasst werden, die auf sie beschränkt sind. Wenn ein Element sich über mehrere Bereiche mit Inhaltsgröße erstreckt, wird der Bereich gleichmäßig unter den Bereichen mit Inhaltsgröße aufgeteilt.</p>
+ 
+  <p>Die gemessene Größe des Containers wird auf Grundlage der Elemente, ihrer Beschränkungen, ihrer bevorzugten Größen sowie der Größe von Zeilen und Spalten berechnet. Die Größe einer jeden Zeile und Spalte reicht gerade aus, damit alle auf sie beschränkten Elemente in der jeweils bevorzugten Größe darin enthalten sein können. Die gemessene Größe des Containers reicht aus, damit alle Spalten und Zeilen sowie alle anderen Elemente in ihrer jeweils bevorzugten Größe und unter Erfüllung ihrer Beschränkungen darin enthalten sein können. </p>
+ 
+  <p>Während eines Aufrufs der <codeph>updateDisplayList()</codeph>-Methode wird die Größe von jedem Element wie folgt bestimmt, wobei die Regeln nach Priorität aufgeführt sind (die minimale und maximale Höhe des Elements werden immer berücksichtigt):</p>
+  <ul>
+    <li>Wenn für das Element <codeph>percentWidth</codeph> oder <codeph>percentHeight</codeph> festgelegt ist, wird die zugehörige Größe als Prozentsatz der verfügbaren Größe berechnet. Die verfügbare Größe entspricht der Größe des Bereichs oder Containers ggf. abzüglich der Beschränkungen für <codeph>left</codeph>, <codeph>right</codeph>, <codeph>top</codeph> oder <codeph>bottom</codeph>.</li>
+ 
+    <li>Wenn für das Element Beschränkungen für links und rechts eingestellt sind, wird dessen Breite auf die Breite des Containers bzw. des Bereichs abzüglich der Beschränkungen für <codeph>left</codeph> und <codeph>right</codeph> eingestellt.</li>
+ 
+    <li>Wenn für das Element Beschränkungen für <codeph>top</codeph> und <codeph>bottom</codeph> eingestellt sind, wird dessen Höhe auf die Höhe des Containers abzüglich der Beschränkungen für <codeph>top</codeph> und <codeph>bottom</codeph> eingestellt.</li>
+ 
+    <li>Das Element ist auf die bevorzugte Breite und/oder Höhe eingestellt.</li>
+  </ul>
+ 
+  <p>Die Position des Elements wird entsprechend der Regeln in der folgenden Prioritätsreihenfolge bestimmt:</p>
+  <ul>
+    <li>Wenn die Grundlinie eines Elements angegeben ist, wird das Element in der vertikalen Richtung platziert, sodass die zugehörige <codeph>baselinePosition</codeph> (normalerweise die Grundlinie der ersten Textzeile) an der Beschränkung für die <codeph>baseline</codeph> ausgerichtet ist.</li>
+ 
+    <li>Wenn Beschränkungen für <codeph>top</codeph> oder <codeph>left</codeph> für das Element angegeben sind, wird das Element so platziert, dass die linke obere Ecke der Layoutgrenzen des Elements von der linken oberen Ecke des Containers um den angegebenen Wert versetzt ist.</li>
+ 
+    <li>Wenn Beschränkungen für <codeph>bottom</codeph> oder <codeph>right</codeph> für das Element angegeben sind, wird das Element so platziert, dass die rechte untere Ecke der Layoutgrenzen des Elements von der rechten unteren Ecke des Containers um den angegebenen Wert versetzt ist.</li>
+ 
+    <li>Wenn die Position in horizontaler oder vertikaler Richtung durch keine Beschränkungen bestimmt wird, wird das Element entsprechend den x- und y-Koordinaten platziert.</li>
+  </ul>
+ 
+  <p>Die Inhaltsgröße des Containers wird als Höchstwert der Koordinaten der rechten unteren Ecke aller Layoutelemente und Beschränkungsbereiche berechnet.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:ConstraintLayout:ConstraintLayout"><apiName>ConstraintLayout</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:ConstraintLayout:protected:layoutContent"><apiName>layoutContent</apiName><shortdesc>
+      Erstellt ein Layout der Elemente für das Layoutziel unter Verwendung der aktuellen Breiten und Höhen der Spalten und Zeilen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Legt die Breite der Komponente in Pixeln und deren Koordinaten fest, unabhängig vom Wert der <codeph>scaleX</codeph>-Eigenschaft der Komponente.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Legt die Höhe der Komponente in Pixeln und deren Koordinaten fest, unabhängig vom Wert der <codeph>scaleY</codeph>-Eigenschaft der Komponente.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Erstellt ein Layout der Elemente für das Layoutziel unter Verwendung der aktuellen Breiten und Höhen der Spalten und Zeilen. Wird von FormItemLayout nach dem Festlegen neuer Spaltenbreiten verwendet, um Elemente mit diesen neuen Breiten anzuordnen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts:ConstraintLayout:protected:measureAndPositionColumnsAndRows"><apiName>measureAndPositionColumnsAndRows</apiName><shortdesc>
+      Wird von FormItemLayout verwendet, um neue Spaltenbreiten bzw. Zeilenhöhen abzumessen und festzulegen, bevor das Layout für die Elemente erstellt werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>constrainedWidth</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Die Gesamtbreite, die zum Dehnen oder Verkleinern von Spalten mit prozentualer Breite zur Verfügung steht. Bei NaN sind die Spalten mit prozentualer Breite uneingeschränkt und ihrem Inhalt angepasst.
+      </apiDesc></apiParam><apiParam><apiItemName>constrainedHeight</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Die Gesamthöhe, die zum Dehnen oder Verkleinern von Zeilen mit prozentualer Höhe zur Verfügung steht. Bei NaN sind die Zeilen mit prozentualer Höhe uneingeschränkt und ihrem Inhalt angepasst.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wird von FormItemLayout verwendet, um neue Spaltenbreiten bzw. Zeilenhöhen abzumessen und festzulegen, bevor das Layout für die Elemente erstellt werden kann.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:ConstraintLayout:constraintColumns:get"><apiName>constraintColumns</apiName><shortdesc>
+      Ein Vektor von ConstraintColumn-Instanzen, die diesen Zielcontainer partitionieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$mx.containers.utilityClasses:ConstraintColumn"/></apiValueDef><apiDesc>
+      Ein Vektor von ConstraintColumn-Instanzen, die diesen Zielcontainer partitionieren. Die ConstraintColumn-Instanz an Indexposition 0 ist die linke äußerste Spalte. Die Indexpositionen nehmen von links nach rechts zu. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:ConstraintLayout:constraintRows:get"><apiName>constraintRows</apiName><shortdesc>
+      Ein Vektor von ConstraintRow-Instanzen, die diesen Zielcontainer partitionieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$mx.containers.utilityClasses:ConstraintRow"/></apiValueDef><apiDesc>
+      Ein Vektor von ConstraintRow-Instanzen, die diesen Zielcontainer partitionieren. Die ConstraintRow-Instanz an Indexposition 0 ist die oberste Spalte. Die Indexpositionen nehmen von oben nach unten zu. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:TileLayout"><apiName>TileLayout</apiName><shortdesc>
+  Die TileLayout-Klasse ordnet die Layoutelemente in Spalten und Zeilen mit gleich großen Zellen an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:TileLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:TileLayout 
+    <strong>Properties</strong>
+    columnAlign="left"
+    columnWidth="NaN"
+    horizontalAlign="justify"
+    horizontalGap="6"
+    orientation="rows"
+    requestedColumnCount="-1"
+    requestedRowCount="-1"
+    rowAlign="top"
+    rowCount="-1"
+    rowHeight="NaN"
+    verticalAlign="justify"
+    verticalGap="6"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die TileLayout-Klasse ordnet die Layoutelemente in Spalten und Zeilen mit gleich großen Zellen an. Die TileLayout-Klasse verwendet eine Reihe von Eigenschaften, die die Ausrichtung, Anzahl, Größe, Lücke und Ausrichtung der Spalten und Zeilen sowie die Elementausrichtung in den Zellen steuern.
+   <p>Zu den pro Element unterstützten Beschränkungen gehören <codeph>percentWidth</codeph> und <codeph>percentHeight</codeph>. Die minimale und maximale Größe des Elements wird immer berücksichtigt, und die Größe des Elements wird darauf beschränkt, dass es maximal so groß wie die Zelle ist.</p>
+   <p>Wenn die <codeph>columnWidth</codeph>-Eigenschaft nicht explizit eingestellt ist, wird sie als die bevorzugte maximale Breite der Grenze aller Elemente berechnet. Außerdem wird die <codeph>columnHeight</codeph>-Eigenschaft als die bevorzugte maximale Höhe der Grenze aller Elemente berechnet.</p>
+   <p>Wenn die <codeph>columnCount</codeph>- und <codeph>rowCount</codeph>-Eigenschaften nicht explizit eingestellt sind, werden sie auf Grundlage expliziter width/height-Einstellungen für das Layoutziel und <codeph>columnWidth</codeph> und <codeph>columnHeight</codeph> berechnet. Wenn kein Wert angegeben ist, werden die Werte für <codeph>columnCount</codeph> und <codeph>rowCount</codeph> ausgewählt, sodass der resultierende Pixelbereich so quadratisch wie möglich ist.</p>
+ 
+ <p> Die gemessene Größe wird auf Grundlage der <codeph>columnCount</codeph>-, <codeph>rowCount</codeph>-, <codeph>columnWidth</codeph>- und <codeph>rowHeight</codeph>-Eigenschaften sowie der Größen der Lücken berechnet.</p>
+   <p>Wenn keine Eigenschaften explizit eingestellt sind, entspricht die gemessene Standardgröße einem Bereich, der so quadratisch wie möglich und für alle Elemente groß genug ist.</p>
+   <p>In anderen Fällen ist die gemessene Größe möglicherweise nicht groß genug für alle Elemente. Dies ist z. B. der Fall, wenn <codeph>columnCount</codeph> und <codeph>rowCount</codeph> explizit auf Werte eingestellt sind, wobei Folgendes gilt: <codeph>columnCount</codeph> * <codeph>rowCount</codeph> &lt; Elementanzahl.</p>
+   <p>Die gemessene Mindestgröße wird auf dieselbe Weise wie die gemessene Größe berechnet, wobei garantiert wird, dass sie genug Zeilen und Spalten entlang der kleinen Achse einschließt, damit alle Elemente hineinpassen.</p>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:TileLayout:TileLayout"><apiName>TileLayout</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:TileLayout:protected:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      
+      Gibt die Indexposition zurück, an der ein neues Objekt einzufügen ist, wenn der Benutzer die Maus an den angegebenen Koordinaten loslässt, während er einen Drag &amp; Drop-Vorgang ausführt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Die Ablageindexposition oder -1, wenn der Ablagevorgang an den angegebenen Koordinaten nicht verfügbar ist.
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Die x-Koordinate des Drag &amp; Drop-Vorgangs, in lokalen Koordinaten.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Die y-Koordinate des Drag &amp; Drop-Vorgangs, in den lokalen Koordinaten des Ablageziels.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Gibt die Indexposition zurück, an der ein neues Objekt einzufügen ist, wenn der Benutzer die Maus an den angegebenen Koordinaten loslässt, während er einen Drag &amp; Drop-Vorgang ausführt. Von der <codeph>calculatedDropLocation()</codeph>-Methode aufgerufen.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts:TileLayout:protected:calculateDropIndicatorBounds"><apiName>calculateDropIndicatorBounds</apiName><shortdesc>
+      
+      Berechnet die Grenzen des Dropindikators, der dem Benutzer anzeigt, wo die Objekte am Ende eines Drag &amp; Drop-Vorgangs eingefügt werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Die Grenzen für den Dropindikator oder null.
+     
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>Ein gültiges DropLocation-Objekt, das bereits vorher von der <codeph>calculateDropLocation()</codeph>-Methode zurückgegeben wurde.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Berechnet die Grenzen des Dropindikators, der dem Benutzer anzeigt, wo die Objekte am Ende eines Drag &amp; Drop-Vorgangs eingefügt werden. Von der <codeph>showDropIndicator()</codeph>-Methode aufgerufen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:TileLayout:columnAlign:get"><apiName>columnAlign</apiName><shortdesc>
+      Gibt an, wie die vollständig sichtbaren Spalten an der Containerbreite auszurichten sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ColumnAlign.LEFT
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt an, wie die vollständig sichtbaren Spalten an der Containerbreite auszurichten sind. Die ActionScript-Werte können <codeph>ColumnAlign.LEFT</codeph>, <codeph>ColumnAlign.JUSTIFY_USING_GAP</codeph> und <codeph>ColumnAlign.JUSTIFY_USING_WIDTH</codeph> lauten. Die MXML-Werte können <codeph>"left"</codeph>, <codeph>"justifyUsingGap"</codeph> und <codeph>"justifyUsingWidth"</codeph> lauten.
+           <p>Wenn <codeph>ColumnAlign.LEFT</codeph> festgelegt ist, wird die Spaltenausrichtung deaktiviert. Möglicherweise gibt es teilweise sichtbare Spalten oder Leerräume zwischen der letzten Spalte und der rechten Kante des Containers. Dies ist der Standardwert.</p>
+           <p>Bei Einstellung auf <codeph>ColumnAlign.JUSTIFY_USING_GAP</codeph> wird der tatsächliche Wert für <codeph>horizontalGap</codeph> erhöht, sodass die rechte Kante der letzten vollständig sichtbaren Spalte an der rechten Kante des Containers ausgerichtet wird. Wenn nur eine vollständig sichtbare Spalte vorhanden ist, wird der tatsächliche Wert für <codeph>horizontalGap</codeph> erhöht, sodass alle teilweise sichtbaren Spalten hinter die rechte Kante des Containers gedrückt werden. Durch explizites Festlegen der <codeph>horizontalGap</codeph>-Eigenschaft wird die Ausrichtung nicht deaktiviert. Es wird lediglich der Anfangswert der Lücke bestimmt. Durch Ausrichten kann er sich erhöhen.</p>
+           <p>Bei Einstellung auf <codeph>ColumnAlign.JUSTIFY_USING_WIDTH</codeph> wird der tatsächliche Wert für <codeph>columnWidth</codeph> erhöht, sodass die rechte Kante der letzten vollständig sichtbaren Spalte an der rechten Kante des Containers ausgerichtet wird. Durch explizites Festlegen der <codeph>columnWidth</codeph>-Eigenschaft wird die Ausrichtung nicht deaktiviert. Es wird lediglich der Anfangswert der Spaltenbreite bestimmt. Durch Ausrichten kann er sich erhöhen.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/horizontalGap"><linktext>horizontalGap</linktext></link><link href="spark.layouts.xml#TileLayout/columnWidth"><linktext>columnWidth</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      Enthält die tatsächliche Spaltenanzahl.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Enthält die tatsächliche Spaltenanzahl.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowCount"><linktext>rowCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      Enthält die tatsächliche Spaltenbreite, in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Enthält die tatsächliche Spaltenbreite, in Pixeln.
+           <p>Wenn sie nicht explizit eingestellt ist, wird die Zeilenhöhe auf Grundlage des Maximums für die Höhe des Elements bestimmt. </p>
+           <p>Wird die <codeph>columnAlign</codeph>-Eigenschaft auf <codeph>"justifyUsingWidth"</codeph> festgelegt, wird die Spaltenbreite auf die Containerbreite erhöht, um die vollständig sichtbaren Spalten auszurichten.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowHeight"><linktext>rowHeight</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc>
+      Gibt an, wie die Elemente in den Zellen in horizontaler Richtung auszurichten sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>HorizontalAlign.JUSTIFY&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt an, wie die Elemente in den Zellen in horizontaler Richtung auszurichten sind. Die zulässigen Werte lauten <codeph>HorizontalAlign.LEFT</codeph>, <codeph>HorizontalAlign.CENTER</codeph>, <codeph>HorizontalAlign.RIGHT</codeph>, <codeph>HorizontalAlign.JUSTIFY</codeph>.
+           <p>Bei <codeph>HorizontalAlign.JUSTIFY</codeph> wird die Breite eines jeden Elements auf <codeph>columnWidth</codeph> eingestellt.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:horizontalGap:get"><apiName>horizontalGap</apiName><shortdesc>
+      Der horizontale Raum (in Pixeln) zwischen Spalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der horizontale Raum (in Pixeln) zwischen Spalten.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/verticalGap"><linktext>verticalGap</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:orientation:get"><apiName>orientation</apiName><shortdesc>
+      Gibt an, ob Elemente Zeile für Zeile oder Spalte für Spalte angeordnet werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>TileOrientation.ROWS
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt an, ob Elemente Zeile für Zeile oder Spalte für Spalte angeordnet werden. Die ActionScript-Werte können <codeph>TileOrientation.ROWS</codeph> und <codeph>TileOrientation.COLUMNS</codeph> lauten. Die MXML-Werte können <codeph>"rows"</codeph> und <codeph>"columns"</codeph> lauten.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      Anzahl der Pixel zwischen dem unteren Rand des Containers und dem unteren Rand des letzten Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Anzahl der Pixel zwischen dem unteren Rand des Containers und dem unteren Rand des letzten Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      Die Mindestanzahl der Pixel zwischen dem linken Rand des Containers und dem linken Rand des Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Mindestanzahl der Pixel zwischen dem linken Rand des Containers und dem linken Rand des Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      Die Mindestanzahl der Pixel zwischen dem rechten Rand des Containers und dem rechten Rand des Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Mindestanzahl der Pixel zwischen dem rechten Rand des Containers und dem rechten Rand des Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      Anzahl der Pixel zwischen dem oberen Rand des Containers und dem oberen Rand des ersten Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Anzahl der Pixel zwischen dem oberen Rand des Containers und dem oberen Rand des ersten Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:requestedColumnCount:get"><apiName>requestedColumnCount</apiName><shortdesc>
+      Anzahl der anzuzeigenden Spalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Anzahl der anzuzeigenden Spalten.
+     
+      <p>Mit „-1“ lassen Sie zu, dass TileLayout die Spaltenanzahl automatisch ermittelt.</p>
+           <p>Wird die <codeph>orientation</codeph>-Eigenschaft auf <codeph>TileOrientation.ROWS</codeph> festgelegt, dann hat die Einstellung dieser Eigenschaft keine Auswirkungen. In diesem Fall wird <codeph>rowCount</codeph> explizit festgelegt und die Containerbreite ebenfalls. </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/columnCount"><linktext>columnCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:requestedRowCount:get"><apiName>requestedRowCount</apiName><shortdesc>
+      Anzahl der anzuzeigenden Zeilen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Anzahl der anzuzeigenden Zeilen.
+     
+      <p>Auf „-1“ eingestellt, um explizite Überschreibungen zu entfernen und zuzulassen, dass TileLayout die Zeilenanzahl automatisch bestimmt.</p>
+           <p>Wird die <codeph>orientation￼</codeph>-Eigenschaft auf <codeph>TileOrientation.COLUMNS</codeph>￼ festgelegt, dann hat die Einstellung dieser Eigenschaft keine Auswirkungen. In diesem Fall wird <codeph>columnCount</codeph> ausdrücklich festgelegt und die Containerhöhe ebenfalls.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/rowCount"><linktext>rowCount</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowAlign:get"><apiName>rowAlign</apiName><shortdesc>
+      Gibt an, wie die vollständig sichtbaren Zeilen an der Containerhöhe auszurichten sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RowAlign.TOP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt an, wie die vollständig sichtbaren Zeilen an der Containerhöhe auszurichten sind. Die ActionScript-Werte können <codeph>RowAlign.TOP</codeph>, <codeph>RowAlign.JUSTIFY_USING_GAP</codeph> und <codeph>RowAlign.JUSTIFY_USING_HEIGHT</codeph> lauten. Die MXML-Werte können <codeph>"top"</codeph>, <codeph>"justifyUsingGap"</codeph> und <codeph>"justifyUsingHeight"</codeph> lauten.
+           <p>Wenn <codeph>RowAlign.TOP</codeph> festgelegt ist, wird die Spaltenausrichtung deaktiviert. Möglicherweise gibt es teilweise sichtbare Zeilen oder Leerräume zwischen der letzten Zeile und der Unterkante des Containers. Dies ist der Standardwert.</p>
+           <p>Bei Einstellung auf <codeph>RowAlign.JUSTIFY_USING_GAP</codeph> wird der tatsächliche Wert für <codeph>verticalGap</codeph> erhöht, sodass die Unterkante der letzten vollständig sichtbaren Zeile an der Unterkante des Containers ausgerichtet wird. Wenn nur eine vollständig sichtbare Zeile vorhanden ist, wird der tatsächliche Wert für <codeph>verticalGap</codeph> erhöht, sodass alle teilweise sichtbaren Zeilen unter die Unterkante des Containers verschoben werden. Durch explizites Festlegen der <codeph>verticalGap</codeph>-Eigenschaft wird die Ausrichtung nicht deaktiviert, sondern nur der Anfangswert der Lücke bestimmt. Durch Ausrichten kann er sich dann erhöhen.</p>
+           <p>Bei Einstellung auf <codeph>RowAlign.JUSTIFY_USING_HEIGHT</codeph> wird der tatsächliche Wert für <codeph>rowHeight</codeph> erhöht, sodass die Unterkante der letzten vollständig sichtbaren Zeile an der Unterkante des Containers ausgerichtet wird. Durch explizites Festlegen der <codeph>rowHeight</codeph>-Eigenschaft wird die Ausrichtung nicht deaktiviert, sondern nur der Anfangswert der Zeilenhöhe bestimmt. Durch Ausrichten kann er dann erhöht werden.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/verticalGap"><linktext>verticalGap</linktext></link><link href="spark.layouts.xml#TileLayout/rowHeight"><linktext>rowHeight</linktext></link><link href="spark.layouts.xml#TileLayout/columnAlign"><linktext>columnAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      Die Zeilenanzahl.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Zeilenanzahl.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#TileLayout/columnCount"><linktext>columnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      Die Zeilenhöhe in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Zeilenhöhe in Pixeln.
+           <p>Wenn sie nicht explizit eingestellt ist, wird die Zeilenhöhe auf Grundlage des Maximums für die Höhe des Elements bestimmt.</p>
+           Wenn <codeph>rowAlign</codeph> auf „justifyUsingHeight“ eingestellt ist, wächst die tatsächliche Zeilenhöhe an, um die vollständig sichtbaren Zeilen an der Containerhöhe auszurichten.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/columnWidth"><linktext>columnWidth</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue><apiValue id="spark.layouts:TileLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc>
+      Gibt an, wie die Elemente in den Zellen in vertikaler Richtung ausgerichtet werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>VerticalAlign.JUSTIFY&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt an, wie die Elemente in den Zellen in vertikaler Richtung ausgerichtet werden. Die zulässigen Werte lauten <codeph>VerticalAlign.TOP</codeph>, <codeph>VerticalAlign.MIDDLE</codeph>, <codeph>VerticalAlign.BOTTOM</codeph>, <codeph>VerticalAlign.JUSTIFY</codeph>.
+           <p>Bei <codeph>VerticalAlign.JUSTIFY</codeph> wird die Höhe von jedem Element auf <codeph>rowHeight</codeph> eingestellt.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileLayout:verticalGap:get"><apiName>verticalGap</apiName><shortdesc>
+      Der vertikale Raum (in Pixeln) zwischen Zeilen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der vertikale Raum (in Pixeln) zwischen Zeilen.
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#TileLayout/horizontalGap"><linktext>horizontalGap</linktext></link><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>rowAlign</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.layouts:VerticalLayout"><apiName>VerticalLayout</apiName><shortdesc>
+  Die VerticalLayout-Klasse ordnet die Layoutelemente in einer vertikalen Sequenz von oben nach unten mit optionalen Lücken zwischen den Elementen und optionalen Auffüllungen um die Sequenz der Elemente an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:VerticalLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:VerticalLayout 
+    <strong>Properties</strong>
+    gap="6"
+    horizontalAlign="left"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+    requestedMaxRowCount="-1"
+    requestedMinRowCount="-1"
+    requestedRowCount="-1"
+    rowHeight="<i>calculated</i>"
+    variableRowHeight="true"
+    verticalAlign="top"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die VerticalLayout-Klasse ordnet die Layoutelemente in einer vertikalen Sequenz von oben nach unten mit optionalen Lücken zwischen den Elementen und optionalen Auffüllungen um die Sequenz der Elemente an.
+   <p>Die vertikale Position der Elemente wird bestimmt, indem sie in einer vertikalen Sequenz von oben nach unten angeordnet werden, wobei die Auffüllung vor dem ersten Element und die Lücken zwischen den Elementen berücksichtigt werden.</p>
+   <p>Die horizontale Position der Elemente wird durch die <codeph>horizontalAlign</codeph>-Eigenschaft des Layouts bestimmt.</p>
+   <p>Während die <codeph>measure()</codeph>-Methode ausgeführt wird, wird die Standardgröße des Containers berechnet, indem die bevorzugten Größen der Elemente, einschließlich Lücken und Auffüllungen, akkumuliert werden. Wenn <codeph>requestedRowCount</codeph> eingestellt ist, wird nur der Platz für die gezählten Elemente gemessen, und zwar ab dem ersten Element.</p>
+   <p>Während die <codeph>updateDisplayList()</codeph>-Methode ausgeführt wird, wird die Höhe von jedem Element wie folgt berechnet, wobei die Regeln nach Priorität aufgeführt sind (die minimale und maximale Höhe des Elements werden immer berücksichtigt):</p>
+  <ul>
+    <li>Wenn <codeph>variableRowHeight</codeph> auf <codeph>false</codeph> eingestellt ist, legen Sie die Höhe des Elements auf den Wert der <codeph>rowHeight</codeph>-Eigenschaft fest.</li>
+     <li>Wenn <codeph>percentHeight</codeph> des Elements eingestellt ist, berechnen Sie die Höhe des Elements, indem Sie die verfügbare Containerhöhe auf alle Elemente mit der <codeph>percentHeight</codeph>-Einstellung verteilen. Die verfügbare Containerhöhe entspricht der Containerhöhe abzüglich der Lücken, der Auffüllungen und dem Platz, der vom Rest der Elemente eingenommen wird. Die <codeph>percentHeight</codeph>-Eigenschaft des Elements wird ignoriert, wenn das Layout virtualisiert wird.</li>
+     <li>Setzen Sie die Höhe des Elements auf die bevorzugte Höhe.</li>
+  </ul>
+   <p>Die Breite von jedem Element wird wie folgt berechnet, wobei die Regeln nach Priorität aufgeführt sind (die minimale und maximale Breite des Elements werden immer berücksichtigt):</p>
+  <ul>
+    <li>Wenn <codeph>horizontalAlign</codeph> auf <codeph>"justify"</codeph> eingestellt ist, legen Sie die Breite des Elements auf die Containerbreite fest.</li>
+     <li>Wenn <codeph>horizontalAlign</codeph> auf <codeph>"contentJustify"</codeph> eingestellt ist, legen Sie die Breite des Elements auf den Maximalwert zwischen der Containerbreite und der bevorzugten Breite für alle Elemente fest.</li>
+     <li>Wenn <codeph>percentWidth</codeph> für das Element eingestellt ist, berechnen Sie die Breite des Elements als Prozentsatz der Breite des Containers.</li>
+     <li>Setzen Sie die Breite des Elements auf die bevorzugte Breite.</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:VerticalLayout:VerticalLayout"><apiName>VerticalLayout</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:VerticalLayout:fractionOfElementInView"><apiName>fractionOfElementInView</apiName><shortdesc>
+      Gibt 1,0 zurück, wenn sich die angegebene Indexposition vollständig in der Ansicht befindet, 0,0, wenn nicht, oder einen Wert zwischen 0,0 und 1,0, der den Prozentsatz der Indexposition darstellt, die sich teilweise in der Ansicht befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Prozentsatz des angegebenen Elements, das sich in der Ansicht befindet. Gibt 0,0 zurück, wenn die angegebene Indexposition ungültig ist oder keinem Element entspricht, oder ein ILayoutElement, für das <codeph>includeInLayout</codeph> auf <codeph>false</codeph> eingestellt ist.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die Indexposition der Zeile.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt 1,0 zurück, wenn sich die angegebene Indexposition vollständig in der Ansicht befindet, 0,0, wenn nicht, oder einen Wert zwischen 0,0 und 1,0, der den Prozentsatz der Indexposition darstellt, die sich teilweise in der Ansicht befindet.
+     
+      <p>Eine Indexposition befindet sich „in der Ansicht“, wenn sich das entsprechende Layoutelement, das ungleich null ist, innerhalb der vertikalen Grenzen des <codeph>scrollRect</codeph> des Containers befindet und in das Layout eingeschlossen ist.</p>
+      
+      <p>Wenn sich die angegebene Indexposition teilweise in der Ansicht befindet, entspricht der zurückgegebene Wert dem Prozentsatz des entsprechenden sichtbaren Layoutelements.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:VerticalLayout:firstIndexInView:get"><apiName>firstIndexInView</apiName><shortdesc>
+      Die Indexposition des ersten Layoutelements, die Teil des Layouts und innerhalb des scrollRect des Layoutziels ist, oder -1, wenn noch nichts angezeigt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Die Indexposition des ersten Layoutelements, die Teil des Layouts und innerhalb des scrollRect des Layoutziels ist, oder -1, wenn noch nichts angezeigt wurde.
+      
+      <p>„Teil des Layouts“ bedeutet, dass das Element ungleich null ist und dass dessen <codeph>includeInLayout</codeph>-Eigenschaft auf <codeph>true</codeph> eingestellt wird.</p>
+     
+      <p>Beachten Sie, dass das Layoutelement möglicherweise nur teilweise angezeigt wird.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.fractionOfElementInView().xml"><linktext>fractionOfElementInView()</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:gap:get"><apiName>gap</apiName><shortdesc>
+      Der vertikale Raum (in Pixeln) zwischen Layoutelementen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der vertikale Raum (in Pixeln) zwischen Layoutelementen. Beachten Sie, dass die Lücke nur zwischen Layoutelementen angewendet wird. Wenn also nur ein Element vorhanden ist, wirkt sich die Lücke nicht auf das Layout aus.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc> 
+      Die horizontale Ausrichtung von Layoutelementen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Die horizontale Ausrichtung von Layoutelementen. Lautet der Wert <codeph>"left"</codeph>, <codeph>"right"</codeph> oder <codeph>"center"</codeph>, dann wird das Layoutelement relativ zur <codeph>contentWidth</codeph>-Eigenschaft des Containers ausgerichtet.
+     
+      <p>Wenn der Wert <codeph>contentJustify</codeph> lautet, wird die tatsächliche Breite des Layoutelements auf die <codeph>contentWidth</codeph> des Containers eingestellt. Die <codeph>contentWidth</codeph> des Containers entspricht der Größe des größten Layoutelements. Wenn alle Layoutelemente kleiner als die Breite des Containers sind, dann stellen Sie die Breite von allen Layoutelementen auf die Breite des Containers ein.</p>
+     
+      <p>Wenn der Wert <codeph>justify</codeph> lautet, wird die tatsächliche Breite des Layoutelements auf die Breite des Containers eingestellt.</p>
+           <p>Diese Eigenschaft wirkt sich nicht auf die gemessene Größe des Layouts aus.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:lastIndexInView:get"><apiName>lastIndexInView</apiName><shortdesc>
+      Die Indexposition der letzten Zeile, die Teil des Layouts ist und sich innerhalb des Bildlaufrechtecks des Containers befindet, oder -1, wenn noch nichts angezeigt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Die Indexposition der letzten Zeile, die Teil des Layouts ist und sich innerhalb des Bildlaufrechtecks des Containers befindet, oder -1, wenn noch nichts angezeigt wurde.
+     
+      <p>„Teil des Layouts“ bedeutet, dass das untergeordnete Objekt ungleich null ist und dass dessen <codeph>includeInLayout</codeph>-Eigenschaft auf <codeph>true</codeph> eingestellt wird.</p>
+     
+      <p>Beachten Sie, dass die Zeile möglicherweise nur teilweise angezeigt wird.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.firstIndexInView.xml"><linktext>firstIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      Anzahl der Pixel zwischen dem unteren Rand des Containers und dem unteren Rand des letzten Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Anzahl der Pixel zwischen dem unteren Rand des Containers und dem unteren Rand des letzten Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      Die Mindestanzahl der Pixel zwischen dem linken Rand des Containers und dem linken Rand des Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Mindestanzahl der Pixel zwischen dem linken Rand des Containers und dem linken Rand des Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      Die Mindestanzahl der Pixel zwischen dem rechten Rand des Containers und dem rechten Rand des Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Mindestanzahl der Pixel zwischen dem rechten Rand des Containers und dem rechten Rand des Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      Anzahl der Pixel zwischen dem oberen Rand des Containers und dem oberen Rand des ersten Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Anzahl der Pixel zwischen dem oberen Rand des Containers und dem oberen Rand des ersten Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedMaxRowCount:get"><apiName>requestedMaxRowCount</apiName><shortdesc>
+      Die gemessene Höhe dieses Layouts reicht aus, um mindestens die requestedMaxRowCount-Layoutelemente anzuzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die gemessene Höhe dieses Layouts reicht aus, um höchstens <codeph>requestedMaxRowCount</codeph> Layoutelemente anzuzeigen. 
+     
+      <p>Wenn <codeph>requestedRowCount</codeph> festgelegt ist, hat diese Eigenschaft keine Auswirkungen.</p>
+           <p>Wenn die Originalgröße des Containers explizit eingestellt wurde, hat diese Eigenschaft keine Auswirkungen.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMinRowCount"><linktext>requestedMinRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedMinRowCount:get"><apiName>requestedMinRowCount</apiName><shortdesc>
+      Die gemessene Höhe dieses Layouts reicht aus, um mindestens requestedMinRowCount Layoutelemente anzuzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die gemessene Höhe dieses Layouts reicht aus, um mindestens <codeph>requestedMinRowCount</codeph> Layoutelemente anzuzeigen. 
+     
+      <p>Wenn <codeph>requestedRowCount</codeph> festgelegt ist, hat diese Eigenschaft keine Auswirkungen.</p>
+           <p>Wenn die Originalgröße des Containers explizit eingestellt wurde, hat diese Eigenschaft keine Auswirkungen.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedRowCount"><linktext>requestedRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMaxRowCount"><linktext>requestedMaxRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:requestedRowCount:get"><apiName>requestedRowCount</apiName><shortdesc>
+      Die gemessene Größe dieses Layouts ist groß genug, um die ersten requestedRowCount Layoutelemente anzuzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die gemessene Größe dieses Layouts ist groß genug, um die ersten <codeph>requestedRowCount</codeph> Layoutelemente anzuzeigen. 
+     
+      <p>Wenn <codeph>requestedRowCount</codeph> auf „-1“ eingestellt ist, ist die gemessene Größe groß genug für alle Layoutelemente. </p>
+     
+      <p>Wenn die Originalgröße des Containers explizit eingestellt wurde, hat diese Eigenschaft keine Auswirkungen.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#VerticalLayout/requestedMinRowCount"><linktext>requestedMinRowCount</linktext></link><link href="spark.layouts.xml#VerticalLayout/requestedMaxRowCount"><linktext>requestedMaxRowCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:VerticalLayout:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      Die aktuelle Anzahl an sichtbaren Elementen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die aktuelle Anzahl an sichtbaren Elementen.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:rowHeight:get"><apiName>rowHeight</apiName><shortdesc>
+      Wenn variableRowHeight den Wert „false“ hat, gibt diese Eigenschaft die tatsächliche Höhe (in Pixeln) für jedes untergeordnete Objekt an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Wenn <codeph>variableRowHeight</codeph> den Wert <codeph>false</codeph> hat, gibt diese Eigenschaft die tatsächliche Höhe (in Pixeln) für jedes untergeordnete Objekt an.
+     
+      <p>Wenn <codeph>variableRowHeight</codeph> den Wert <codeph>true</codeph> hat (Standardwert), hat diese Eigenschaft keine Auswirkungen.</p>
+     
+      <p>Der Standardwert für diese Eigenschaft ist die bevorzugte Höhe von <codeph>typicalLayoutElement</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:variableRowHeight:get"><apiName>variableRowHeight</apiName><shortdesc>
+      Gibt an, ob Layoutelementen deren bevorzugte Höhe zugewiesen wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt an, ob Layoutelementen deren bevorzugte Höhe zugewiesen wird. Das Einstellen dieser Eigenschaft auf <codeph>false</codeph> gibt an, dass die Zeilen eine feste Höhe aufweisen.
+     
+      <p>Wenn der Wert <codeph>false</codeph> ist, entspricht die tatsächliche Höhe jedes Layoutelements dem Wert der <codeph>rowHeight</codeph>. Das Einstellen dieser Eigenschaft auf <codeph>false</codeph> führt dazu, dass das Layout die <codeph>percentHeight</codeph>-Eigenschaft des Layoutelements ignoriert.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:VerticalLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc> 
+      Die vertikale Ausrichtung des Inhalts relativ zur Höhe des Containers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"top"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Die vertikale Ausrichtung des Inhalts relativ zur Höhe des Containers.
+     
+      <p>Lautet der Wert <codeph>"bottom"</codeph>, <codeph>"middle"</codeph> oder <codeph>"top"</codeph>, dann wird das Layoutelement relativ zur <codeph>contentWidth</codeph>-Eigenschaft des Containers ausgerichtet.</p>
+           <p>Diese Eigenschaft hat keine Auswirkung, wenn <codeph>clipAndEnableScrolling</codeph> den Wert „true“ hat und die <codeph>contentHeight</codeph> größer ist als die Höhe des Containers.</p>
+           <p>Diese Eigenschaft wirkt sich nicht auf die gemessene Größe des Layouts aus.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:HorizontalLayout"><apiName>HorizontalLayout</apiName><shortdesc>
+  Die HorizontalLayout-Klasse ordnet die Layoutelemente in einer horizontalen Sequenz von links nach rechts mit optionalen Lücken zwischen den Elementen und optionalen Auffüllungen um die Elemente an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:HorizontalLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:HorizontalLayout 
+    <strong>Properties</strong>
+    columnWidth="<i>calculated</i>"
+    gap="6"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+    requestedColumnCount="-1"
+    requestedMaxColumnCount="-1"
+    requestedMinColumnCount="-1"
+    variableColumnWidth="true"
+    verticalAlign="top"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die HorizontalLayout-Klasse ordnet die Layoutelemente in einer horizontalen Sequenz von links nach rechts mit optionalen Lücken zwischen den Elementen und optionalen Auffüllungen um die Elemente an.
+   <p>Die horizontale Position der Elemente wird bestimmt, indem sie in einer horizontalen Sequenz von links nach rechts angeordnet werden, wobei die Auffüllung vor dem ersten Element und die Lücken zwischen den Elementen berücksichtigt werden.</p>
+   <p>Die vertikale Position der Elemente wird durch die <codeph>verticalAlign</codeph>-Eigenschaft des Layouts bestimmt.</p>
+   <p>Während die <codeph>measure()</codeph>-Methode ausgeführt wird, wird die Standardgröße des Containers berechnet, indem die bevorzugten Größen der Elemente, einschließlich Lücken und Auffüllungen, akkumuliert werden. Wenn die <codeph>requestedRowCount</codeph>-Eigenschaft auf einen von -1 abweichenden Wert eingestellt ist, wird nur der Platz für die gezählten Elemente gemessen, und zwar ab dem ersten Element.</p>
+   <p>Während die <codeph>updateDisplayList()</codeph>-Methode ausgeführt wird, wird die Breite von jedem Element wie folgt berechnet, wobei die Regeln nach Priorität aufgeführt sind (die minimale und maximale Breite des Elements werden immer berücksichtigt):</p>
+  <ul>
+    <li>Wenn die <codeph>variableColumnWidth</codeph> auf <codeph>false</codeph> eingestellt ist, legen Sie die Breite des Elements auf den Wert der <codeph>columnWidth</codeph>-Eigenschaft fest.</li>
+     <li>Wenn die <codeph>percentWidth</codeph> des Elements eingestellt ist, berechnen Sie die Breite des Elements, indem Sie die verfügbare Containerbreite auf alle Elemente mit der <codeph>percentWidth</codeph>-Einstellung verteilen. Die verfügbare Containerbreite entspricht der Containerbreite abzüglich der Lücken, der Auffüllungen und dem Platz, der vom Rest der Elemente eingenommen wird. Die <codeph>percentWidth</codeph>-Eigenschaft des Elements wird ignoriert, wenn das Layout virtualisiert wird.</li>
+     <li>Setzen Sie die Breite des Elements auf die bevorzugte Breite.</li>
+  </ul>
+   <p>Die Höhe eines jeden Elements wird wie folgt berechnet, wobei die Regeln nach Priorität aufgeführt sind (die minimale und maximale Höhe des Elements werden immer berücksichtigt):</p>
+  <ul>
+    <li>Wenn die <codeph>verticalAlign</codeph>-Eigenschaft auf <codeph>justify</codeph> eingestellt ist, legen Sie die Höhe des Elements auf die Containerhöhe fest.</li>
+     <li>Wenn die <codeph>verticalAlign</codeph>-Eigenschaft auf <codeph>contentJustify</codeph> eingestellt ist, legen Sie die Höhe des Elements auf den Maximalwert zwischen der Containerhöhe und der bevorzugten Höhe für alle Elemente fest.</li>
+     <li>Wenn die <codeph>percentHeight</codeph>-Eigenschaft für das Element eingestellt ist, berechnen Sie die Höhe des Elements als Prozentsatz der Höhe des Containers.</li>
+     <li>Setzen Sie die Höhe des Elements auf die bevorzugte Höhe.</li>
+  </ul>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:HorizontalLayout:HorizontalLayout"><apiName>HorizontalLayout</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts:HorizontalLayout:fractionOfElementInView"><apiName>fractionOfElementInView</apiName><shortdesc>
+      Gibt 1,0 zurück, wenn sich die angegebene Indexposition vollständig in der Ansicht befindet, 0,0, wenn nicht, oder einen Wert zwischen 0,0 und 1,0, der den Prozentsatz der Indexposition darstellt, die sich teilweise in der Ansicht befindet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Prozentsatz des angegebenen Elements, das sich in der Ansicht befindet. Gibt 0,0 zurück, wenn die angegebene Indexposition ungültig ist oder keinem Element entspricht, oder ein ILayoutElement, für das <codeph>includeInLayout</codeph> auf <codeph>false</codeph> eingestellt ist.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die Indexposition der Spalte.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt 1,0 zurück, wenn sich die angegebene Indexposition vollständig in der Ansicht befindet, 0,0, wenn nicht, oder einen Wert zwischen 0,0 und 1,0, der den Prozentsatz der Indexposition darstellt, die sich teilweise in der Ansicht befindet.
+     
+      <p>Eine Indexposition befindet sich „in der Ansicht“, wenn sich das entsprechende Layoutelement, das ungleich null ist, innerhalb der horizontalen Grenzen des <codeph>scrollRect</codeph> des Containers befindet und in das Layout eingeschlossen ist.</p>
+      
+      <p>Wenn sich die angegebene Indexposition teilweise in der Ansicht befindet, entspricht der zurückgegebene Wert dem Prozentsatz des entsprechenden sichtbaren Layoutelements.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.layouts:HorizontalLayout:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      Gibt die aktuelle Anzahl an Elementen in der Ansicht zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt die aktuelle Anzahl an Elementen in der Ansicht zurück.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:columnWidth:get"><apiName>columnWidth</apiName><shortdesc>
+      Wenn die variableColumnWidth-Eigenschaft den Wert „false“ hat, gibt diese Eigenschaft die tatsächliche Breite (in Pixeln) für jedes Layoutelement an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Wenn die <codeph>variableColumnWidth</codeph>-Eigenschaft den Wert <codeph>false</codeph> hat, gibt diese Eigenschaft die tatsächliche Breite (in Pixeln) für jedes Layoutelement an.
+     
+      <p>Wenn die <codeph>variableColumnWidth</codeph>-Eigenschaft den Wert <codeph>true</codeph> hat (Standardwert), hat diese Eigenschaft keine Auswirkungen.</p>
+     
+      <p>Der Standardwert dieser Eigenschaft entspricht der bevorzugten Breite des von der <codeph>typicalLayoutElement</codeph>-Eigenschaft angegebenen Objekts.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:firstIndexInView:get"><apiName>firstIndexInView</apiName><shortdesc>
+      Die Indexposition der ersten Spalte, die Teil des Layouts und innerhalb des scrollRect des Layoutziels ist, oder -1, wenn noch nichts angezeigt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Die Indexposition der ersten Spalte, die Teil des Layouts und innerhalb des scrollRect des Layoutziels ist, oder -1, wenn noch nichts angezeigt wurde. Beachten Sie, dass die Spalte möglicherweise nur teilweise angezeigt wird.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.lastIndexInView.xml"><linktext>lastIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:gap:get"><apiName>gap</apiName><shortdesc>
+      Der horizontale Raum (in Pixeln) zwischen Layoutelementen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der horizontale Raum (in Pixeln) zwischen Layoutelementen. Beachten Sie, dass die Lücke nur zwischen Layoutelementen angewendet wird. Wenn also nur ein Element vorhanden ist, wirkt sich die Lücke nicht auf das Layout aus.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc> 
+      Die horizontale Ausrichtung des Inhalts relativ zur Breite des Containers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"left"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Die horizontale Ausrichtung des Inhalts relativ zur Breite des Containers. Lautet der Wert <codeph>"left"</codeph>, <codeph>"right"</codeph> oder <codeph>"center"</codeph>, dann wird das Layoutelement relativ zur <codeph>contentWidth</codeph>-Eigenschaft des Containers ausgerichtet.
+           <p>Diese Eigenschaft hat keine Auswirkung, wenn <codeph>clipAndEnableScrolling</codeph> den Wert „true“ hat und die <codeph>contentWidth</codeph> größer ist als die Breite des Containers.</p>
+           <p>Diese Eigenschaft wirkt sich nicht auf die gemessene Größe des Layouts aus.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:lastIndexInView:get"><apiName>lastIndexInView</apiName><shortdesc>
+      Die Indexposition der letzten Spalte, die Teil des Layouts und innerhalb des scrollRect des Layoutziels ist, oder -1, wenn noch nichts angezeigt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="indexInViewChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Die Indexposition der letzten Spalte, die Teil des Layouts und innerhalb des scrollRect des Layoutziels ist, oder -1, wenn noch nichts angezeigt wurde. Beachten Sie, dass die Spalte möglicherweise nur teilweise angezeigt wird.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.firstIndexInView.xml"><linktext>firstIndexInView</linktext></link><link href="" invalidHref="spark.layouts.fractionOfElementInView.xml"><linktext>fractionOfElementInView</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingBottom:get"><apiName>paddingBottom</apiName><shortdesc>
+      Die Mindestanzahl der Pixel zwischen dem unteren Rand des Containers und der Unterseite aller Layoutelemente des Containers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Mindestanzahl der Pixel zwischen dem unteren Rand des Containers und der Unterseite aller Layoutelemente des Containers. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingLeft:get"><apiName>paddingLeft</apiName><shortdesc>
+      Anzahl der Pixel zwischen dem linken Rand des Containers und dem linken Rand des ersten Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Anzahl der Pixel zwischen dem linken Rand des Containers und dem linken Rand des ersten Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingRight:get"><apiName>paddingRight</apiName><shortdesc>
+      Anzahl der Pixel zwischen dem rechten Rand des Containers und dem rechten Rand des letzten Layoutelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Anzahl der Pixel zwischen dem rechten Rand des Containers und dem rechten Rand des letzten Layoutelements.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:paddingTop:get"><apiName>paddingTop</apiName><shortdesc>
+      Die Mindestanzahl der Pixel zwischen dem oberen Rand des Containers und der Oberseite aller Layoutelemente des Containers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Mindestanzahl der Pixel zwischen dem oberen Rand des Containers und der Oberseite aller Layoutelemente des Containers. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedColumnCount:get"><apiName>requestedColumnCount</apiName><shortdesc>
+      Die gemessene Größe dieses Layouts ist breit genug, um die ersten requestedColumnCount Layoutelemente anzuzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die gemessene Größe dieses Layouts ist breit genug, um die ersten <codeph>requestedColumnCount</codeph> Layoutelemente anzuzeigen. Wenn <codeph>requestedColumnCount</codeph> auf „-1“ eingestellt ist, ist die gemessene Größe groß genug für alle Layoutelemente. 
+     
+      <p>Wenn die Originalgröße des Containers, der dieses Layout verwendet, explizit eingestellt wurde, hat diese Eigenschaft keine Auswirkungen.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedMinColumnCount"><linktext>requestedMinColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMaxColumnCount"><linktext>requestedMaxColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedMaxColumnCount:get"><apiName>requestedMaxColumnCount</apiName><shortdesc>
+      Die gemessene Breite dieses Layouts reicht aus, um höchstens requestedMaxColumnCount Layoutelemente anzuzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die gemessene Breite dieses Layouts reicht aus, um höchstens <codeph>requestedMaxColumnCount</codeph> Layoutelemente anzuzeigen. 
+     
+      <p>Wenn <codeph>requestedColumnCount</codeph> festgelegt ist, hat diese Eigenschaft keine Auswirkungen.</p>
+           <p>Wenn die Originalgröße des Containers, der dieses Layout verwendet, explizit eingestellt wurde, hat diese Eigenschaft keine Auswirkungen.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedColumnCount"><linktext>requestedColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMinColumnCount"><linktext>requestedMinColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:requestedMinColumnCount:get"><apiName>requestedMinColumnCount</apiName><shortdesc>
+      Die gemessene Breite dieses Layouts reicht aus, um mindestens requestedMinColumnCount Layoutelemente anzuzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die gemessene Breite dieses Layouts reicht aus, um mindestens <codeph>requestedMinColumnCount</codeph> Layoutelemente anzuzeigen. 
+     
+      <p>Wenn <codeph>requestedColumnCount</codeph> festgelegt ist, hat diese Eigenschaft keine Auswirkungen.</p>
+           <p>Wenn die Originalgröße des Containers, der dieses Layout verwendet, explizit eingestellt wurde, hat diese Eigenschaft keine Auswirkungen.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.layouts.xml#HorizontalLayout/requestedColumnCount"><linktext>requestedColumnCount</linktext></link><link href="spark.layouts.xml#HorizontalLayout/requestedMaxColumnCount"><linktext>requestedMaxColumnCount</linktext></link></related-links></apiValue><apiValue id="spark.layouts:HorizontalLayout:variableColumnWidth:get"><apiName>variableColumnWidth</apiName><shortdesc>
+      Wenn „true“, wird angegeben, dass Layoutelementen deren bevorzugte Breite zugewiesen werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Wenn <codeph>true</codeph>, wird angegeben, dass Layoutelementen deren bevorzugte Breite zugewiesen werden soll.
+           <p>Das Einstellen dieser Eigenschaft auf <codeph>false</codeph> gibt an, dass die Spalten eine feste Breite aufweisen. Die tatsächliche Breite eines jeden Layoutelements entspricht dem Wert der <codeph>columnWidth</codeph>-Eigenschaft. Dabei ignoriert das Layout die <codeph>percentWidth</codeph>-Eigenschaft der Layoutelemente.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalLayout:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc> 
+      Die vertikale Ausrichtung von Layoutelementen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"top"
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      Die vertikale Ausrichtung von Layoutelementen.
+     
+      <p>Lautet der Wert <codeph>"bottom"</codeph>, <codeph>"middle"</codeph> oder <codeph>"top"</codeph>, dann wird das Layoutelement relativ zur <codeph>contentWidth</codeph>-Eigenschaft des Containers ausgerichtet.</p>
+     
+      <p>Wenn der Wert <codeph>contentJustify</codeph> lautet, wird die tatsächliche Höhe des Layoutelements auf die <codeph>contentHeight</codeph> eingestellt. Die Inhaltshöhe des Containers entspricht der Höhe des größten Layoutelements. Wenn alle Layoutelemente kleiner als die Höhe des Containers sind, dann stellen Sie die Höhe von allen Layoutelementen auf die Höhe des Containers ein.</p>
+     
+      <p>Wenn der Wert <codeph>"justify"</codeph> lautet, wird die tatsächliche Höhe der Layoutelemente auf die Höhe des Containers eingestellt.</p>
+           <p>Wenn der Wert <codeph>"baseline"</codeph> ist, werden die Elemente so platziert, dass ihr Text auf das Maximum der Textoberlänge der Elemente ausgerichtet ist.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:TileOrientation"><apiName>TileOrientation</apiName><shortdesc>
+  Die TileOrientation-Klasse definiert die möglichen Werte für die orientation-Eigenschaft der TileLayout-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die TileOrientation-Klasse definiert die möglichen Werte für die <codeph>orientation</codeph>-Eigenschaft der TileLayout-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/orientation"><linktext>TileLayout.orientation</linktext></link></related-links><apiValue id="spark.layouts:TileOrientation:COLUMNS"><apiName>COLUMNS</apiName><shortdesc>
+      Ordnet Elemente Spalte für Spalte an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>columns</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Ordnet Elemente Spalte für Spalte an.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:TileOrientation:ROWS"><apiName>ROWS</apiName><shortdesc>
+      Ordnet Elemente Zeile für Zeile an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>rows</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Ordnet Elemente Zeile für Zeile an.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:RowAlign"><apiName>RowAlign</apiName><shortdesc>
+  Die RowAlign-Klasse definiert die möglichen Werte für die rowAlign-Eigenschaft der TileLayout-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die RowAlign-Klasse definiert die möglichen Werte für die <codeph>rowAlign</codeph>-Eigenschaft der TileLayout-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#TileLayout/rowAlign"><linktext>TileLayout.rowAlign</linktext></link></related-links><apiValue id="spark.layouts:RowAlign:JUSTIFY_USING_GAP"><apiName>JUSTIFY_USING_GAP</apiName><shortdesc>
+      Richtet die Zeilen durch Erhöhen der vertikalen Lücke aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingGap</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet die Zeilen durch Erhöhen der vertikalen Lücke aus.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:RowAlign:JUSTIFY_USING_HEIGHT"><apiName>JUSTIFY_USING_HEIGHT</apiName><shortdesc>
+      Richtet die Zeilen durch Erhöhen der Zeilenhöhe aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justifyUsingHeight</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet die Zeilen durch Erhöhen der Zeilenhöhe aus.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:RowAlign:TOP"><apiName>TOP</apiName><shortdesc>
+      Richtet keine Zeilen aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>top</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet keine Zeilen aus.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:HorizontalAlign"><apiName>HorizontalAlign</apiName><shortdesc>
+  Die HorizontalAlign-Klasse definiert die möglichen Werte für die HorizontalAlign-Eigenschaft der VerticalLayout-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die HorizontalAlign-Klasse definiert die möglichen Werte für die <codeph>HorizontalAlign</codeph>-Eigenschaft der VerticalLayout-Klasse.
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.xml#VerticalLayout/horizontalAlign"><linktext>VerticalLayout.horizontalAlign</linktext></link></related-links><apiValue id="spark.layouts:HorizontalAlign:CENTER"><apiName>CENTER</apiName><shortdesc>
+      Richten Sie die untergeordneten Elemente in der Mitte des Containers aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>center</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richten Sie die untergeordneten Elemente in der Mitte des Containers aus.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:CONTENT_JUSTIFY"><apiName>CONTENT_JUSTIFY</apiName><shortdesc>
+      Den Inhalt der untergeordneten Elemente in Bezug auf den Container ausrichten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>contentJustify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Den Inhalt der untergeordneten Elemente in Bezug auf den Container ausrichten. Dies ändert die Größe von allen untergeordneten Elementen gleichmäßig auf die Inhaltsbreite des Containers. Die Inhaltsbreite des Containers entspricht der Größe des größten untergeordneten Elements. Wenn alle untergeordneten Elemente kleiner als die Breite des Containers sind, wird die Größe von allen untergeordneten Elementen auf die Breite des Containers geändert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:JUSTIFY"><apiName>JUSTIFY</apiName><shortdesc>
+      Richtet die untergeordneten Elemente in Bezug auf den Container aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>justify</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richtet die untergeordneten Elemente in Bezug auf den Container aus. Dadurch wird die Größe von allen untergeordneten Elementen auf die Breite des Containers geändert.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:LEFT"><apiName>LEFT</apiName><shortdesc>
+      Richten Sie untergeordnete Elemente an der linken Kante des Containers aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richten Sie untergeordnete Elemente an der linken Kante des Containers aus.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts:HorizontalAlign:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      Richten Sie untergeordnete Elemente an der rechten Kante des Containers aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Richten Sie untergeordnete Elemente an der rechten Kante des Containers aus.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts:BasicLayout"><apiName>BasicLayout</apiName><shortdesc>
+  Die BasicLayout-Klasse ordnet die Layoutelemente entsprechend ihrer Einstellungen und unabhängig voneinander an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BasicLayout&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no additional tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BasicLayout/&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.layouts.supportClasses:LayoutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die BasicLayout-Klasse ordnet die Layoutelemente entsprechend ihrer Einstellungen und unabhängig voneinander an. BasicLayout, auch absolutes Layout genannt, erfordert, dass Sie jedes untergeordnete Element des Containers explizit positionieren. Für die Platzierung der untergeordneten Elemente können Sie dessen <codeph>x</codeph>- und <codeph>y</codeph>-Eigenschaften oder Beschränkungen verwenden.
+ 
+  <p><b>Hinweis:</b> Die listenbasierten Spark-Steuerelemente (das Spark List-Steuerelement und seine Unterklassen wie ButtonBar, ComboBox, DropDownList und TabBar) unterstützen nicht die Verwendung der BasicLayout-Klasse. Verwenden Sie BasicLayout nicht für listenbasierte Spark-Steuerelemente.</p>
+ 
+  <p>Die pro Element unterstützten Beschränkungen umfassen: <codeph>left</codeph>, <codeph>right</codeph>, <codeph>top</codeph>, <codeph>bottom</codeph>, <codeph>horizontalCenter</codeph>, <codeph>verticalCenter</codeph>, <codeph>baseline</codeph>, <codeph>percentWidth</codeph> und <codeph>percentHeight</codeph>. Die minimale und maximale Größe des Elements wird immer berücksichtigt.</p>
+ 
+  <p>Die gemessene Größe des Containers wird auf Grundlage der Elemente, ihrer Beschränkungen und ihrer bevorzugten Größen berechnet. Die gemessene Größe des Containers reicht aus, sodass alle Elemente in der bevorzugten Größe und mit erfüllten Beschränkungen darin enthalten sein können. </p>
+ 
+  <p>Im Folgenden sehen Sie anhand einiger Beispiele, wie die gemessene Größe berechnet wird:
+  <ul>
+    <li>Wenn der Container über ein einzelnes Element mit einer für <codeph>left</codeph> angegebenen Beschränkung verfügt, entspricht die gemessene Breite des Containers der bevorzugten Breite des Elements plus dem Wert der Beschränkung für <codeph>left</codeph>.</li>
+ 
+    <li>Wenn der Container über ein einzelnes Element mit angegebener <codeph>percentWidth</codeph> verfügt, entspricht die gemessene Breite des Containers der bevorzugten Breite des Elements. Obwohl die <codeph>percentWidth</codeph> des Elements in den Berechnungen nicht direkt berücksichtigt wird, wird sie beim Aufruf der <codeph>updateDisplayList()</codeph>-Methode berücksichtigt.</li>
+ 
+    <li>Wenn der Container über ein einzelnes Element mit einer Beschränkung für die <codeph>baseline</codeph> verfügt, entspricht die gemessene Höhe des Containers der bevorzugten Höhe des Elements plus der <codeph>baseline</codeph> abzüglich des Werts der <codeph>baselinePosition</codeph>-Eigenschaft des Elements.</li>
+ 
+    <li>Wenn der Container über ein einzelnes Element mit einer <codeph>verticalCenter</codeph>-Beschränkung verfügt, entspricht die gemessene Höhe des Containers der bevorzugten Höhe des Elements plus dem doppelten Wert der <codeph>verticalCenter</codeph>-Beschränkung.</li>
+  </ul>
+ </p>
+ 
+  <p>Während eines Aufrufs der <codeph>updateDisplayList()</codeph>-Methode wird die Größe von jedem Element wie folgt bestimmt, wobei die Regeln nach Priorität aufgeführt sind (die minimale und maximale Höhe des Elements werden immer berücksichtigt):</p>
+  <ul>
+    <li>Wenn bei dem Element die <codeph>percentWidth</codeph> oder <codeph>percentHeight</codeph> festgelegt ist, wird die zugehörige Größe als Prozentsatz der verfügbaren Größe berechnet. Die verfügbare Größe entspricht der Containergröße ggf. abzüglich der Beschränkungen für <codeph>left</codeph>, <codeph>right</codeph>, <codeph>top</codeph> und <codeph>bottom</codeph>.</li>
+ 
+    <li>Wenn für das Element Beschränkungen für links und rechts eingestellt sind, wird dessen Breite auf die Breite des Containers abzüglich der Beschränkungen für <codeph>left</codeph> und <codeph>right</codeph> eingestellt.</li>
+ 
+    <li>Wenn für das Element Beschränkungen für <codeph>top</codeph> und <codeph>bottom</codeph> eingestellt sind, wird dessen Höhe auf die Höhe des Containers abzüglich der Beschränkungen für <codeph>top</codeph> und <codeph>bottom</codeph> eingestellt.</li>
+ 
+    <li>Das Element ist auf die bevorzugte Breite und/oder Höhe eingestellt.</li>
+  </ul>
+ 
+  <p>Die BasicLayout-Klasse berechnet ihre Mindestgröße als das Maximum der Mindestgrößen untergeordneter Elemente:</p>
+ 
+  <ol>
+    <li>Legen Sie für jedes untergeordnete Element im Container die Mindestgröße fest, auf die das Element schrumpfen darf:
+        <ul>
+          <li>Ist das untergeordnete Element auf die Breite oder Höhe des übergeordneten Elements beschränkt, kann es auf die Mindestbreite bzw. -höhe schrumpfen. Verwenden Sie die Mindestgröße des untergeordneten Elements. </li>
+          <li>Ist das untergeordnete Element nicht auf das übergeordnete Element beschränkt, wird die bevorzugte Größe beibehalten. Verwenden Sie die bevorzugte Größe des untergeordneten Elements.   </li>
+        </ul></li>
+     <li>Suchen Sie das Maximum der Größen aus Schritt 1. </li>
+  </ol>
+ 
+  <p>Ist daher ein untergeordnetes auf sein übergeordnetes Element beschränkt, wird im Layout die Mindestgröße des untergeordneten Elements genutzt. Andernfalls wird die bevorzugte Größe des untergeordneten Elements genutzt, um die Mindestgröße für den Container zu berechnen.</p>
+ 
+  <p>Die Position des Elements wird entsprechend der Regeln in der folgenden Prioritätsreihenfolge bestimmt:</p>
+  <ul>
+    <li>Die <codeph>horizontalCenter</codeph>- bzw. <codeph>verticalCenter</codeph>-Beschränkungen geben den Abstand zwischen der Containermitte und der Elementmitte an. Setzen Sie die <codeph>horizontalCenter</codeph>- oder <codeph>verticalCenter</codeph>-Beschränkungen auf null, um das Element im Container in horizontaler oder vertikaler Richtung zu zentrieren.</li>
+ 
+    <li>Wenn die Grundlinie eines Elements angegeben ist, wird das Element in der vertikalen Richtung platziert, sodass die zugehörige <codeph>baselinePosition</codeph> (normalerweise die Grundlinie der ersten Textzeile) an der Beschränkung für die <codeph>baseline</codeph> ausgerichtet ist.</li>
+ 
+    <li>Wenn Beschränkungen für <codeph>top</codeph> oder <codeph>left</codeph> für das Element angegeben sind, wird das Element so platziert, dass die linke obere Ecke der Layoutgrenzen des Elements von der linken oberen Ecke des Containers um den angegebenen Wert versetzt ist.</li>
+ 
+    <li>Wenn Beschränkungen für <codeph>bottom</codeph> oder <codeph>right</codeph> für das Element angegeben sind, wird das Element so platziert, dass die rechte untere Ecke der Layoutgrenzen des Elements von der rechten unteren Ecke des Containers um den angegebenen Wert versetzt ist.</li>
+ 
+    <li>Wenn die Position in horizontaler oder vertikaler Richtung durch keine Beschränkungen bestimmt wird, wird das Element entsprechend den x- und y-Koordinaten platziert.</li>
+  </ul>
+ 
+  <p>Die Inhaltsgröße des Containers wird als Höchstwert der Koordinaten der rechten unteren Ecke aller Layoutelemente berechnet.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts:BasicLayout:BasicLayout"><apiName>BasicLayout</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

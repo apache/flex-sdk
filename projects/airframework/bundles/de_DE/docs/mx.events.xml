@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.events"><apiName>mx.events</apiName><apiDetail/><apiClassifier id="mx.events:AIREvent"><apiName>AIREvent</apiName><shortdesc>
+  Die AIREvent-Klasse stellt das Ereignisobjekt dar, das an den Ereignis-Listener für mehrere AIR-spezifische Ereignisse übergeben wird, die durch Window- und WindowedApplication-Komponenten ausgelöst werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die AIREvent-Klasse stellt das Ereignisobjekt dar, das an den Ereignis-Listener für mehrere AIR-spezifische Ereignisse übergeben wird, die durch Window- und WindowedApplication-Komponenten ausgelöst werden.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><adobeApiEvent id="mx.events:AIREvent:APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:AIREvent:AIREvent"><apiName>AIREvent</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Der Ereignistyp, der die Aktion angibt, durch die das Ereignis ausgelöst wurde.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Gibt an, ob das Ereignis in der Anzeigelistenhierarchie propagiert werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Gibt an, ob das mit dem Ereignis verknüpfte Verhalten verhindert werden kann.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:AIREvent:APPLICATION_ACTIVATE"><apiName>APPLICATION_ACTIVATE</apiName><shortdesc>
+      Die AIREvent.APPLICATION_ACTIVATE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein applicationActivate-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>applicationActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die AIREvent.APPLICATION_ACTIVATE-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>applicationActivate</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.APPLICATION_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:APPLICATION_DEACTIVATE"><apiName>APPLICATION_DEACTIVATE</apiName><shortdesc>
+      Die AIREvent.APPLICATION_DEACTIVATE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein applicationDeactivate-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>applicationDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die AIREvent.APPLICATION_DEACTIVATE-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>applicationDeactivate</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.APPLICATION_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:WINDOW_ACTIVATE"><apiName>WINDOW_ACTIVATE</apiName><shortdesc>
+      Die AIREvent.WINDOW_ACTIVATE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein windowActivate-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die AIREvent.WINDOW_ACTIVATE-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>windowActivate</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.WINDOW_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:WINDOW_COMPLETE"><apiName>WINDOW_COMPLETE</apiName><shortdesc>
+      Die AIREvent.WINDOW_COMPLETE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein windowComplete-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowComplete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die AIREvent.WINDOW_COMPLETE-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>windowComplete</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.WINDOW_COMPLETE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:WINDOW_DEACTIVATE"><apiName>WINDOW_DEACTIVATE</apiName><shortdesc>
+      Die AIREvent.WINDOW_DEACTIVATE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein windowDeactivate-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die AIREvent.WINDOW_DEACTIVATE-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>windowDeactivate</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.WINDOW_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:FlexNativeWindowBoundsEvent"><apiName>FlexNativeWindowBoundsEvent</apiName><shortdesc>
+  Das FlexNativeWindowBoundsEvent wird ausgelöst, wenn sich die Größe oder Position des NativeWindow ändert, auf dem eine Window- oder WindowedApplication-Komponente basiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:NativeWindowBoundsEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Das FlexNativeWindowBoundsEvent wird ausgelöst, wenn sich die Größe oder Position des NativeWindow ändert, auf dem eine Window- oder WindowedApplication-Komponente basiert.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><adobeApiEvent id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeWindowBoundsEvent:WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeWindowBoundsEvent:WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:FlexNativeWindowBoundsEvent:FlexNativeWindowBoundsEvent"><apiName>FlexNativeWindowBoundsEvent</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Der Ereignistyp, der die Aktion angibt, durch die das Ereignis ausgelöst wurde.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Gibt an, ob das Ereignis in der Anzeigelistenhierarchie propagiert werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Gibt an, ob das mit dem Ereignis verknüpfte Verhalten verhindert werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>beforeBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>Die Grenzen des Fensters vor der Größenänderung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>afterBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>Die Grenzen des Fensters vor der Größenänderung.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_MOVE"><apiName>WINDOW_MOVE</apiName><shortdesc>
+      Die FlexNativeWindowBoundsEvent.WINDOW_MOVE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein windowMove-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowMove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die FlexNativeWindowBoundsEvent.WINDOW_MOVE-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>windowMove</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>afterBounds</codeph></entry><entry>Die Grenzen des Fensters nach dem Ändern der Grenzen.</entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>Die Grenzen des Fensters vor dem Ändern der Grenzen.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeWindowBoundsEvent.WINDOW_MOVE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_RESIZE"><apiName>WINDOW_RESIZE</apiName><shortdesc>
+      Die FlexNativeWindowBoundsEvent.WINDOW_RESIZE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein windowResize-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowResize</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die FlexNativeWindowBoundsEvent.WINDOW_RESIZE-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>windowResize</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>afterBounds</codeph></entry><entry>Die Grenzen des Fensters nach dem Ändern der Grenzen.</entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>Die Grenzen des Fensters vor dem Ändern der Grenzen.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeWindowBoundsEvent.WINDOW_RESIZE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:FileEvent"><apiName>FileEvent</apiName><shortdesc>
+  Die FileEvent-Klasse stellt Ereignisobjekte dar, die sich auf FileSystemList-, FileSystemDataGrid-, FileSystemTree- und FileSystemComboBox-Steuerelemente beziehen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die FileEvent-Klasse stellt Ereignisobjekte dar, die sich auf FileSystemList-, FileSystemDataGrid-, FileSystemTree- und FileSystemComboBox-Steuerelemente beziehen.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#FileSystemComboBox"><linktext>mx.controls.FileSystemComboBox</linktext></link><link href="mx.controls.xml#FileSystemDataGrid"><linktext>mx.controls.FileSystemDataGrid</linktext></link><link href="mx.controls.xml#FileSystemList"><linktext>mx.controls.FileSystemList</linktext></link><link href="mx.controls.xml#FileSystemTree"><linktext>mx.controls.FileSystemTree</linktext></link></related-links><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_CHANGE_directoryChange"><apiName>directoryChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_CHANGING_directoryChanging"><apiName>directoryChanging</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_CHANGING</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_CLOSING_directoryClosing"><apiName>directoryClosing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_CLOSING</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_OPENING_directoryOpening"><apiName>directoryOpening</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_OPENING</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:FILE_CHOOSE_select"><apiName>select</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:FILE_CHOOSE</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:FileEvent:FileEvent"><apiName>FileEvent</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Der Ereignistyp, der die Aktion angibt, durch die das Ereignis ausgelöst wurde.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Gibt an, ob das Ereignis in der Anzeigelistenhierarchie propagiert werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Gibt an, ob das mit dem Ereignis verknüpfte Verhalten verhindert werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>file</apiItemName><apiType value="flash.filesystem:File"/><apiData>null</apiData><apiDesc>Die mit diesem Ereignis verknüpfte Dateiinstanz.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:FileEvent:DIRECTORY_CHANGE"><apiName>DIRECTORY_CHANGE</apiName><shortdesc>
+      Die FileEvent.DIRECTORY_CHANGE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein directoryChange-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die FileEvent.DIRECTORY_CHANGE-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>directoryChange</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_CHANGE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:DIRECTORY_CHANGING"><apiName>DIRECTORY_CHANGING</apiName><shortdesc>
+      Die FileEvent.DIRECTORY_CHANGING-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein directoryChanging-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryChanging</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die FileEvent.DIRECTORY_CHANGING-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>directoryChanging</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_CHANGING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:DIRECTORY_CLOSING"><apiName>DIRECTORY_CLOSING</apiName><shortdesc>
+      Die FileEvent.DIRECTORY_CLOSING-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein directoryClosing-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryClosing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die <codeph>FileEvent.DIRECTORY_CLOSING</codeph>-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein <codeph>directoryClosing</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_CLOSING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:DIRECTORY_OPENING"><apiName>DIRECTORY_OPENING</apiName><shortdesc>
+      Die FileEvent.DIRECTORY_OPENING-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein directoryOpening-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryOpening</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die FileEvent.DIRECTORY_OPENING-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>directoryOpening</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_OPENING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:FILE_CHOOSE"><apiName>FILE_CHOOSE</apiName><shortdesc>
+      Die FileEvent.FILE_CHOOSE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein fileChoose-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fileChoose</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die FileEvent.FILE_CHOOSE-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>fileChoose</codeph>-Ereignis.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>file</codeph></entry><entry>Das mit diesem Ereignis verknüpfte Dateiobjekt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.FILE_CHOOSE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:file"><apiName>file</apiName><shortdesc>
+      Die mit diesem Ereignis verknüpfte Dateiinstanz.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.filesystem:File"/></apiValueDef><apiDesc>
+      Die mit diesem Ereignis verknüpfte Dateiinstanz.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:FlexNativeMenuEvent"><apiName>FlexNativeMenuEvent</apiName><shortdesc>
+  Die FlexNativeMenuEvent-Klasse stellt Ereignisse dar, die mit FlexNativeMenu-Aktivitäten verknüpft sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die FlexNativeMenuEvent-Klasse stellt Ereignisse dar, die mit FlexNativeMenu-Aktivitäten verknüpft sind.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#FlexNativeMenu"><linktext>mx.controls.FlexNativeMenu</linktext></link></related-links><adobeApiEvent id="mx.events:FlexNativeMenuEvent:ITEM_CLICK_itemClick"><apiName>itemClick</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeMenuEvent:ITEM_CLICK</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeMenuEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FlexNativeMenuEvent:MENU_SHOW_menuShow"><apiName>menuShow</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeMenuEvent:MENU_SHOW</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeMenuEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:FlexNativeMenuEvent:FlexNativeMenuEvent"><apiName>FlexNativeMenuEvent</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Der Ereignistyp, der die Aktion angibt, durch die das Ereignis ausgelöst wurde.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Gibt an, ob das Ereignis in der Anzeigelistenhierarchie propagiert werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Gibt an, ob das mit dem Ereignis verknüpfte Verhalten verhindert werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>nativeMenu</apiItemName><apiType value="flash.display:NativeMenu"/><apiData>null</apiData><apiDesc>Die entsprechende NativeMenu-Instanz, die mit dem Ereignis verknüpft ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>nativeMenuItem</apiItemName><apiType value="flash.display:NativeMenuItem"/><apiData>null</apiData><apiDesc>Die entsprechende NativeMenuItem-Instanz, die mit dem Ereignis verknüpft ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Das Element im Datenprovider des verknüpften Menüelements.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Der Beschriftungstext des verknüpften Menüelements.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Die Indexposition im Menü des verknüpften Menüelements.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor. Wird normalerweise durch das FlexNativeMenu-Objekt aufgerufen.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:FlexNativeMenuEvent:ITEM_CLICK"><apiName>ITEM_CLICK</apiName><shortdesc>
+      Die FlexNativeMenuEvent.ITEM_CLICK-Ereignistypkonstante gibt an, dass der Benutzer ein Menüelement ausgewählt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die FlexNativeMenuEvent.ITEM_CLICK-Ereignistypkonstante gibt an, dass der Benutzer ein Menüelement ausgewählt hat.
+     
+      <p>Die Eigenschaften des Ereignisobjekts für diesen Ereignistyp haben folgende Werte. Nicht alle Eigenschaften sind für alle Ereignistypen sinnvoll. Weitere Informationen finden Sie in den ausführlichen Eigenschaftsbeschreibungen.</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>index</codeph></entry>
+             <entry>Die Indexposition im Menü des ausgewählten Menüelements.</entry></row><row><entry><codeph>item</codeph></entry>
+             <entry>Das im Datenprovider ausgewählte Element.</entry></row><row><entry><codeph>label</codeph></entry>
+             <entry>Der Beschriftungstext des ausgewählten Menüelements.</entry></row><row><entry><codeph>nativeMenu</codeph></entry>
+              <entry>Die entsprechende NativeMenu-Instanz, die mit diesem Ereignis verknüpft ist.</entry></row><row><entry><codeph>nativeMenuItem</codeph></entry>
+              <entry>Die entsprechende NativeMenuItem-Instanz, die mit diesem Ereignis verknüpft ist.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeMenuEvent.ITEM_CLICK</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:MENU_SHOW"><apiName>MENU_SHOW</apiName><shortdesc>
+      Die FlexNativeMenuEvent.MENU_SHOW-Typkonstante gibt an, dass bei Rollover ein Menü oder Untermenü geöffnet wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>menuShow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die FlexNativeMenuEvent.MENU_SHOW-Typkonstante gibt an, dass bei Rollover ein Menü oder Untermenü geöffnet wurde.
+     
+      <p>Die Eigenschaften des Ereignisobjekts für diesen Ereignistyp haben folgende Werte. Nicht alle Eigenschaften sind für alle Ereignistypen sinnvoll. Weitere Informationen finden Sie in den ausführlichen Eigenschaftsbeschreibungen.</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>index</codeph></entry>
+             <entry>-1. Diese Eigenschaft wird nicht für diesen Ereignistyp festgelegt.</entry></row><row><entry><codeph>item</codeph></entry>
+             <entry>null. Diese Eigenschaft wird nicht für diesen Ereignistyp festgelegt.</entry></row><row><entry><codeph>label</codeph></entry>
+             <entry>null. Diese Eigenschaft wird nicht für diesen Ereignistyp festgelegt.</entry></row><row><entry><codeph>nativeMenu</codeph></entry>
+              <entry>Die entsprechende NativeMenu-Instanz, die mit diesem Ereignis verknüpft ist.</entry></row><row><entry><codeph>nativeMenuItem</codeph></entry>
+              <entry>null. Diese Eigenschaft wird nicht für diesen Ereignistyp festgelegt.</entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeMenuEvent.MENU_SHOW</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:index"><apiName>index</apiName><shortdesc>
+      Die Indexposition des verknüpften Menüelements im übergeordneten Menü oder Untermenü.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Die Indexposition des verknüpften Menüelements im übergeordneten Menü oder Untermenü. Dies ist -1 für Ereignisse, die nicht mit einem einzelnen Element verknüpft sind.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:item"><apiName>item</apiName><shortdesc>
+      Das entsprechende Element im Datenprovider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Das entsprechende Element im Datenprovider. Dies ist null für Ereignisse, die nicht mit einem einzelnen Element verknüpft sind.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:label"><apiName>label</apiName><shortdesc>
+      Der Beschriftungstext des verknüpften Menüelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Beschriftungstext des verknüpften Menüelements. Dies ist null für Ereignisse, die nicht mit einem einzelnen Element verknüpft sind.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:nativeMenuItem"><apiName>nativeMenuItem</apiName><shortdesc>
+      Die entsprechende NativeMenuItem-Instanz, die mit dem Ereignis verknüpft ist, wie beispielsweise das Element, auf das geklickt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:NativeMenuItem"/></apiValueDef><apiDesc>
+      Die entsprechende NativeMenuItem-Instanz, die mit dem Ereignis verknüpft ist, wie beispielsweise das Element, auf das geklickt wurde. Dies ist null für Ereignisse, die nicht mit einem einzelnen Element verknüpft sind.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:nativeMenu"><apiName>nativeMenu</apiName><shortdesc>
+      Die entsprechende NativeMenu-Instanz, die mit dem Ereignis verknüpft ist, beispielsweise das angezeigte Menü.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:NativeMenu"/></apiValueDef><apiDesc>
+      Die entsprechende NativeMenu-Instanz, die mit dem Ereignis verknüpft ist, wie beispielsweise das angezeigte Menü.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

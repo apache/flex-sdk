@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.skins"><apiName>spark.skins</apiName><apiDetail/><apiClassifier id="spark.skins:IHighlightBitmapCaptureClient"><apiName>IHighlightBitmapCaptureClient</apiName><shortdesc>
+  IHighlightBitmapCaptureClient は、ハイライトビットマップキャプチャをサポートするスキンのためのインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IHighlightBitmapCaptureClient は、ハイライトビットマップキャプチャをサポートするスキンのためのインターフェイスを定義します。
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:beginHighlightBitmapCapture"><apiName>beginHighlightBitmapCapture</apiName><shortdesc>
+	  このスキンに対してビットマップキャプチャが行われる前に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+	  このスキンに対してビットマップキャプチャが行われる前に呼び出されます。ビットマップがキャプチャされる前にスキンを更新する必要がある場合は true を返します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:endHighlightBitmapCapture"><apiName>endHighlightBitmapCapture</apiName><shortdesc>
+	  このスキンに対してビットマップキャプチャが行われた後で呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+	  このスキンに対してビットマップキャプチャが行われた後で呼び出されます。スキンを更新する必要がある場合は true を返します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.skins:IHighlightBitmapCaptureClient:spark.skins:IHighlightBitmapCaptureClient:validateNow"><apiName>validateNow</apiName><shortdesc>
+	  スキンを検証します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  スキンを検証します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.skins:SparkButtonSkin"><apiName>SparkButtonSkin</apiName><shortdesc>
+      Spark ボタンスキンの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.skins:SparkSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+      Spark ボタンスキンの基本クラスです。必要な機能だけ提供するアイコンの管理に主に使用されます。
+      
+      </apiDesc></apiClassifierDetail><apiConstructor id="spark.skins:SparkButtonSkin:SparkButtonSkin"><apiName>SparkButtonSkin</apiName><shortdesc>
+         コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+         コンストラクターです。
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.skins:SparkButtonSkin:autoIconManagement:get"><apiName>autoIconManagement</apiName><shortdesc>
+          有効な場合、iconDisplay パーツを表示してレイアウト設定するために必要な構成を自動的に構築します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          有効な場合、iconDisplay パーツを表示してレイアウト設定するために必要な構成を自動的に構築します。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:gap:get"><apiName>gap</apiName><shortdesc>
+          ボタンのアイコンとラベルの間にあるピクセルの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>6
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          ボタンのアイコンとラベルの間にあるピクセルの数です。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconDisplay:get"><apiName>iconDisplay</apiName><shortdesc conref="spark.components.supportClasses.ButtonBase#iconDisplay">
+         </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.primitives:BitmapImage</apiValueClassifier></apiValueDef><apiDesc conref="spark.components.supportClasses.ButtonBase#iconDisplay">
+         </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingBottom:get"><apiName>iconGroupPaddingBottom</apiName><shortdesc>
+          ボタンの下端とアイコンまたはラベルの下端との間にあるピクセルの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          ボタンの下端とアイコンまたはラベルの下端との間にあるピクセルの数です。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingLeft:get"><apiName>iconGroupPaddingLeft</apiName><shortdesc>
+          ボタンの左端とアイコンまたはラベルの左端との間にあるピクセルの最少数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          ボタンの左端とアイコンまたはラベルの左端との間にあるピクセルの最少数です。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingRight:get"><apiName>iconGroupPaddingRight</apiName><shortdesc>
+          ボタンの右端とアイコンまたはラベルの右端との間にあるピクセルの最少数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          ボタンの右端とアイコンまたはラベルの右端との間にあるピクセルの最少数です。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:iconGroupPaddingTop:get"><apiName>iconGroupPaddingTop</apiName><shortdesc>
+          ボタンの上端と最初のアイコンまたはラベルの上端との間にあるピクセルの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          ボタンの上端と最初のアイコンまたはラベルの上端との間にあるピクセルの数です。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkButtonSkin:labelDisplay:get"><apiName>labelDisplay</apiName><shortdesc conref="spark.components.supportClasses.ButtonBase#labelDisplay">
+         </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.core:IDisplayText</apiValueClassifier></apiValueDef><apiDesc conref="spark.components.supportClasses.ButtonBase#labelDisplay">
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.skins:SparkSkin"><apiName>SparkSkin</apiName><shortdesc>
+  Spark のスキンの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.supportClasses:Skin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Spark のスキンの基本クラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.skins:SparkSkin:SparkSkin"><apiName>SparkSkin</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.skins:SparkSkin:protected:useChromeColor"><apiName>useChromeColor</apiName><shortdesc>
+      このスキンが chromeColor スタイルの影響を受けるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このスキンが <codeph>chromeColor</codeph> スタイルの影響を受けるかどうかを指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:colorizeExclusions:get"><apiName>colorizeExclusions</apiName><shortdesc>
+      chromeColor スタイルによってカラー化しないようにするアイテムの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      <codeph>chromeColor</codeph> スタイルによってカラー化しないようにするアイテムの名前です。DisplayObject 型または GraphicElement 型のアイテムのみを除外する必要があります。他の型のアイテムは無視されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:contentItems:get"><apiName>contentItems</apiName><shortdesc>
+     color プロパティが contentBackgroundColor スタイルによって定義される必要があるアイテムの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     <codeph>color</codeph> プロパティが <codeph>contentBackgroundColor</codeph> スタイルによって定義される必要があるアイテムの名前です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.skins:SparkSkin:symbolItems:get"><apiName>symbolItems</apiName><shortdesc>
+     color プロパティが symbolColor スタイルによって定義される必要があるアイテムの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+     <codeph>color</codeph> プロパティが <codeph>symbolColor</codeph> スタイルによって定義される必要があるアイテムの名前です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

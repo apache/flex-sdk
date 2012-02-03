@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.errors"><apiName>mx.messaging.errors</apiName><apiDetail/><apiClassifier id="mx.messaging.errors:InvalidChannelError"><apiName>InvalidChannelError</apiName><shortdesc>
+  如果无法访问某 Channel 或该 Channel 对当前目标无效，则会引发此错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:ChannelError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  如果无法访问某 Channel 或该 Channel 对当前目标无效，则会引发此错误。此错误由框架中的下列方法/属性引发：
+  <ul>
+    <li>如果无法根据通道 id 找到通道，则为 <codeph>ServerConfig.getChannel()</codeph>。</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:InvalidChannelError:InvalidChannelError"><apiName>InvalidChannelError</apiName><shortdesc>
+      使用指定的消息构造 InvalidChannelError 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>包含描述此 InvalidChannelError 的消息的字符串。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      使用指定的消息构造 InvalidChannelError 的新实例。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:InvalidDestinationError"><apiName>InvalidDestinationError</apiName><shortdesc>
+  如果无法访问目标或目标无效，则会引发此错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:ChannelError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  如果无法访问目标或目标无效，则会引发此错误。此错误由框架中的下列方法/属性引发：
+  <ul>
+    <li>如果指定的目标无效，则为 <codeph>ServerConfig.getChannelSet()</codeph>。</li>
+    <li>如果指定的目标无效，则为 <codeph>ServerConfig.getProperties()</codeph>。</li>
+    <li>如果没有为要发送的消息指定目标，则为 <codeph>Channel.send()</codeph>。</li>
+    <li>如果目标值为 null 或长度为零，则为 <codeph>MessageAgent.destination</codeph> setter。</li>
+    <li>如果没有为 Producer 或要发送的消息指定目标，则为 <codeph>Producer.send()</codeph>。</li>
+    <li>如果没有为 Consumer 指定目标，则为 <codeph>Consumer.subscribe()</codeph>。</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:InvalidDestinationError:InvalidDestinationError"><apiName>InvalidDestinationError</apiName><shortdesc>
+      使用指定的消息构造 InvalidDestinationError 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>包含描述此 InvalidDestinationError 的消息的字符串。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      使用指定的消息构造 InvalidDestinationError 的新实例。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:MessageSerializationError"><apiName>MessageSerializationError</apiName><shortdesc>
+  此错误指示在通道中序列化消息时出现的问题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:MessagingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  此错误指示在通道中序列化消息时出现的问题。它会提供一个 fault 属性，该属性与引发此错误时生成的 ErrorMessage 对应。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:MessageSerializationError:MessageSerializationError"><apiName>MessageSerializationError</apiName><shortdesc>
+	  使用指定的消息构造 MessageSerializationError 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>包含描述此错误的消息的字符串。
+	  </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>提供有关所发生的错误以及出现什么消息的具体信息。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  使用指定的消息构造 MessageSerializationError 的新实例。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.errors:MessageSerializationError:fault"><apiName>fault</apiName><shortdesc>
+      提供有关所发生的错误以及出现什么消息的具体信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:ErrorMessage</apiValueClassifier></apiValueDef><apiDesc>
+      提供有关所发生的错误以及出现什么消息的具体信息。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.errors:ChannelError"><apiName>ChannelError</apiName><shortdesc>
+  这是与通道相关的错误的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:MessagingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  这是与通道相关的错误的基类。允许使用精细程度较弱的捕获代码。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:ChannelError:ChannelError"><apiName>ChannelError</apiName><shortdesc>
+	  使用指定的消息构造 ChannelError 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>包含描述此错误的消息的字符串。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  使用指定的消息构造 ChannelError 的新实例。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:NoChannelAvailableError"><apiName>NoChannelAvailableError</apiName><shortdesc>
+  如果没有可用于发送消息的 Channel，则会引发此错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.errors:MessagingError</apiBaseClassifier></apiClassifierDef><apiDesc>
+  如果没有可用于发送消息的 Channel，则会引发此错误。此错误将由框架中的下列方法引发：
+  <ul>
+    <li>如果 ChannelSet 不包含通道，则为 <codeph>ChannelSet.send()</codeph>。</li>
+  </ul>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:NoChannelAvailableError:NoChannelAvailableError"><apiName>NoChannelAvailableError</apiName><shortdesc>
+      使用指定的消息构造 NoChannelAvailableError 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>包含描述此 NoChannelAvailableError 的消息的字符串。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      使用指定的消息构造 NoChannelAvailableError 的新实例。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.messaging.errors:MessagingError"><apiName>MessagingError</apiName><shortdesc>
+  这是与消息传送相关的错误的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  这是与消息传送相关的错误的基类。允许使用精细程度较弱的捕获代码。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.errors:MessagingError:MessagingError"><apiName>MessagingError</apiName><shortdesc>
+	  使用指定的消息构造 MessagingError 的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>包含描述此错误的消息的字符串。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  使用指定的消息构造 MessagingError 的新实例。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.errors:MessagingError:toString"><apiName>toString</apiName><shortdesc>
+      默认情况下将返回字符串“[MessagingError]”，并包含 message 属性（如果已定义）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>MessagingError 的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      默认情况下将返回字符串“[MessagingError]”，并包含 message 属性（如果已定义）。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.accessibility"><apiName>mx.accessibility</apiName><apiDetail/><apiClassifier id="mx.accessibility:ButtonAccImpl"><apiName>ButtonAccImpl</apiName><shortdesc>
+  ButtonAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Button.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Button.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ButtonAccImpl:ButtonAccImpl"><apiName>ButtonAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе Button.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе Button.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров Button их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DateChooserAccImpl"><apiName>DateChooserAccImpl</apiName><shortdesc>
+  DateChooserAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса DateChooser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateChooserAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса DateChooser.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DateChooserAccImpl:DateChooserAccImpl"><apiName>DateChooserAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DateChooserAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе DateChooser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе DateChooser.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров DateChooser их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+  TabBarAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса TabBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TabBarAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса TabBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TabBarAccImpl:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TabBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе TabBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе TabBar.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров TabBar их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:LabelAccImpl"><apiName>LabelAccImpl</apiName><shortdesc>
+  LabelAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Label.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LabelAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Label.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:LabelAccImpl:LabelAccImpl"><apiName>LabelAccImpl</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:LabelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      Включает расширенный доступ в классе Label.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Включает расширенный доступ в классе Label.
+     
+      <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров Label их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+  ListBaseAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса ListBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListBaseAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса ListBase.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ListBaseAccImpl:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ListBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе ListBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе ListBase.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров ListBase их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ComboBaseAccImpl"><apiName>ComboBaseAccImpl</apiName><shortdesc>
+  ComboBaseAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса ComboBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBaseAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса ComboBase.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ComboBaseAccImpl:ComboBaseAccImpl"><apiName>ComboBaseAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ComboBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе ComboBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе ComboBase.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров ComboBase их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:MenuBarAccImpl"><apiName>MenuBarAccImpl</apiName><shortdesc>
+  MenuBarAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuBarAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса MenuBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:MenuBarAccImpl:MenuBarAccImpl"><apiName>MenuBarAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:MenuBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе MenuBar.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров MenuBar их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:MenuBarAccImpl:get_accRole"><apiName>get_accRole</apiName><shortdesc>
+	  Получает роль для компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/><apiDesc>uint
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Получает роль для компонента.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:LinkButtonAccImpl"><apiName>LinkButtonAccImpl</apiName><shortdesc>
+  LinkButtonAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса LinkButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ButtonAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LinkButtonAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса LinkButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:LinkButtonAccImpl:LinkButtonAccImpl"><apiName>LinkButtonAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:LinkButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе LinkButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе LinkButton.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров LinkButton их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+  TitleWindowAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса TitleWindow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:PanelAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TitleWindowAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса TitleWindow.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TitleWindowAccImpl:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TitleWindowAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе TitleWindow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе TitleWindow.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров TitleWindow их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:AlertAccImpl"><apiName>AlertAccImpl</apiName><shortdesc>
+  AlertAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Alert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:TitleWindowAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AlertAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Alert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AlertAccImpl:AlertAccImpl"><apiName>AlertAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AlertAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе Alert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе Alert.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров Alert их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:SliderAccImpl"><apiName>SliderAccImpl</apiName><shortdesc>
+  SliderAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Slider.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:SliderAccImpl:SliderAccImpl"><apiName>SliderAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:SliderAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ для класса Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ для класса Slider.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров Slider их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:SliderAccImpl:protected:getState"><apiName>getState</apiName><shortdesc>
+	  Служебный метод определяет состояние доступного компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+	  Служебный метод определяет состояние доступного компонента.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+  ComboBoxAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса ComboBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ComboBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBoxAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса ComboBox.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ComboBoxAccImpl:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ComboBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе ComboBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе ComboBox.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров ComboBox их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:AccordionHeaderAccImpl"><apiName>AccordionHeaderAccImpl</apiName><shortdesc>
+  AccordionHeaderAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса AccordionHeader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AccordionHeaderAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса AccordionHeader.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AccordionHeaderAccImpl:AccordionHeaderAccImpl"><apiName>AccordionHeaderAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AccordionHeaderAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе AccordionHeader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе AccordionHeader.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров AccordionHeader их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+  RadioButtonAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса RadioButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:CheckBoxAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadioButtonAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса RadioButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:RadioButtonAccImpl:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:RadioButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе RadioButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе RadioButton.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров RadioButton их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+  ListAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса List.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса List.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ListAccImpl:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ListAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе List.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе List.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров List их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:ColorPickerAccImpl"><apiName>ColorPickerAccImpl</apiName><shortdesc>
+  ColorPickerAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса ColorPicker.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ComboBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorPickerAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса ColorPicker.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:ColorPickerAccImpl:ColorPickerAccImpl"><apiName>ColorPickerAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:ColorPickerAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе ColorPicker.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе ColorPicker.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров ColorPicker их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+  DataGridAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGridAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DataGridAccImpl:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DataGridAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе DataGrid.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров DataGrid их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+  CheckBoxAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса CheckBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ButtonAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CheckBoxAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса CheckBox.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:CheckBoxAccImpl:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:CheckBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе CheckBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе CheckBox.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров CheckBox их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:DateFieldAccImpl"><apiName>DateFieldAccImpl</apiName><shortdesc>
+  DateFieldAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса DateField.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateFieldAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса DateField.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:DateFieldAccImpl:DateFieldAccImpl"><apiName>DateFieldAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:DateFieldAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе DateField.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе DateField.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров DateField их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:TreeAccImpl"><apiName>TreeAccImpl</apiName><shortdesc>
+  TreeAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TreeAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Tree.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:TreeAccImpl:TreeAccImpl"><apiName>TreeAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:TreeAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе Tree.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров Tree их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+  PanelAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Panel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PanelAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Panel.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:PanelAccImpl:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:PanelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе Panel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе Panel.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров Panel их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.accessibility:MenuAccImpl"><apiName>MenuAccImpl</apiName><shortdesc>
+  MenuAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Menu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuAccImpl является подклассом AccessibilityImplementation, который реализует расширенный доступ для класса Menu.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:MenuAccImpl:MenuAccImpl"><apiName>MenuAccImpl</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Экземпляр UIComponent, который данный экземпляр AccImpl делает доступным.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:MenuAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  Включает расширенный доступ в классе Menu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Включает расширенный доступ в классе Menu.
+	 
+	  <p>Данный метод вызывается в коде запуска приложения, который автоматически создан компилятором MXML. В дальнейшем при инициализации экземпляров Menu их свойство <codeph>accessibilityImplementation</codeph> будет установлено на экземпляр этого класса.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

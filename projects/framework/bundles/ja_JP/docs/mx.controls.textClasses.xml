@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.textClasses"><apiName>mx.controls.textClasses</apiName><apiDetail/><apiClassifier id="mx.controls.textClasses:TextRange"><apiName>TextRange</apiName><shortdesc>
+  TextRange クラスは、Label、Text、TextArea、TextEditor、および RichTextEditor コントロール内のテキストの範囲を選択し、フォーマットするプロパティを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TextRange クラスは、Label、Text、TextArea、TextEditor、および RichTextEditor コントロール内のテキストの範囲を選択し、フォーマットするプロパティを提供します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Label"><linktext>mx.controls.Label</linktext></link><link href="mx.controls.xml#RichTextEditor"><linktext>mx.controls.RichTextEditor</linktext></link><link href="mx.controls.xml#Text"><linktext>mx.controls.Text</linktext></link><link href="mx.controls.xml#TextArea"><linktext>mx.controls.TextArea</linktext></link><link href="mx.controls.xml#TextInput"><linktext>mx.controls.TextInput</linktext></link><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links><apiConstructor id="mx.controls.textClasses:TextRange:TextRange"><apiName>TextRange</apiName><shortdesc>
+	  フォーマット情報を含むテキストコントロールのコンテンツのサブセットを表す TextRange オブジェクトを新規に作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>テキストを含むコントロールです。 このコントロールには、<codeph>textField</codeph> プロパティ、または RichTextEditor コントロールと同様に <codeph>textArea</codeph> プロパティが必要です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>modifiesSelection</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>範囲内のテキストを選択するかどうかを指定します。 このパラメーターを <codeph>true</codeph> に設定し、コントロール内のテキストに対応する開始インデックスと終了インデックスを指定しないと、現在のテキスト範囲の開始および終了インデックスが使用されます。 このパラメーターが <codeph>true</codeph> であるときに、<codeph>beginIndex</codeph> パラメーターと <codeph>endIndex</codeph> パラメーターを省略し、選択範囲がない場合は、TextRange オブジェクトは空です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>範囲内の最初の文字を示す 0 から始まるインデックス値です。 <codeph>modifiesSelection</codeph> パラメーターが <codeph>false</codeph> であるときに、このパラメーターを省略するか、負の値を指定すると、範囲の開始位置は、テキストの最初の文字になります。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>範囲内の最後の文字の<i>直後</i>の位置を示す 0 から始まるインデックス値です。 <codeph>modifiesSelection</codeph> パラメーターが <codeph>false</codeph> であるときに、このパラメーターを省略する、負の値を指定する、またはテキストの終点を越える値を指定するのいずれかを行うと、範囲の終了位置は、テキストの最後の文字になります。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  フォーマット情報を含むテキストコントロールのコンテンツのサブセットを表す TextRange オブジェクトを新規に作成します。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.textClasses:TextRange:beginIndex:get"><apiName>beginIndex</apiName><shortdesc>
+	  コントロールのテキストフィールド内の 0 から始まるインデックスで、範囲内の最初の文字を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  コントロールのテキストフィールド内の 0 から始まるインデックスで、範囲内の最初の文字を示します。 テキストの 5 番目の文字が範囲内の最初の文字の場合、このプロパティの値は 4 になります。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:bullet:get"><apiName>bullet</apiName><shortdesc>
+	  範囲内のテキストが箇条書きかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  範囲内のテキストが箇条書きかどうかを示します。 範囲内のテキストの一部のみが箇条書きの場合、値は <codeph>false</codeph> です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:color:get"><apiName>color</apiName><shortdesc>
+	  範囲内のテキストの色です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+	  範囲内のテキストの色です。 有効なカラー識別子を使用して値を設定できます。 このプロパティは数値を返します。 範囲内に複数の色がある場合、値は <codeph>null</codeph> です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:endIndex:get"><apiName>endIndex</apiName><shortdesc>
+	  コントロールのテキストフィールドの位置で、範囲内の最後の文字の直後の位置を示す 0 から始まるインデックスです。最後の文字の 1 から始まるインデックスに相当します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  コントロールのテキストフィールドの位置で、範囲内の最後の文字の直後の位置を示す 0 から始まるインデックスです。最後の文字の 1 から始まるインデックスに相当します。 テキストの 5 番目の文字が範囲内の最後の文字の場合、このプロパティの値は 5 になります。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontFamily:get"><apiName>fontFamily</apiName><shortdesc>
+	  範囲内のテキストのフォント名です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  範囲内のテキストのフォント名です。 範囲内に複数のフォントがある場合、値は <codeph>null</codeph> です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontSize:get"><apiName>fontSize</apiName><shortdesc>
+	  範囲内のテキストのポイントサイズです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+	  範囲内のテキストのポイントサイズです。 範囲内のテキストに複数のサイズがある場合、値は 0 です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontStyle:get"><apiName>fontStyle</apiName><shortdesc>
+	  "italic" または "normal" で範囲内のフォントのスタイルを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  "italic" または "normal" で範囲内のフォントのスタイルを示します。 このプロパティをこれ以外のストリングに設定すると、"normal" になります。 範囲内のテキストに複数のスタイルがある場合、値は <codeph>null</codeph> です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:fontWeight:get"><apiName>fontWeight</apiName><shortdesc>
+	  "bold" または "normal" で範囲内のフォントの太さを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  "bold" または "normal" で範囲内のフォントの太さを示します。 このプロパティをこれ以外のストリングに設定すると、"normal" になります。 範囲内のテキストに複数の太さがある場合、値は <codeph>null</codeph> です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:htmlText:get"><apiName>htmlText</apiName><shortdesc>
+	  範囲の HTML テキスト形式のコンテンツです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  範囲の HTML テキスト形式のコンテンツです。 このプロパティは、範囲で使用されるすべての HTML マークアップを返します。これには、<codeph>htmlText</codeph> プロパティを使用して指定した HTML だけでなく、Flex によって適用されているフォーマットのマークアップも含まれます。 したがって、このプロパティは、コントロールに表示されるテキストの完全な HTML 表現を示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:kerning:get"><apiName>kerning</apiName><shortdesc>
+	  カーニングが有効（true）か無効（false）かを示すブール値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  カーニングが有効（<codeph>true</codeph>) か無効 (<codeph>false</codeph>）かを示すブール値です。カーニングでは、読みやすくするために、特定の文字ペア間でピクセルを調整します。大きなフォントの見出しを使用する場合など、必要な場合にのみ使用する必要があります。カーニングは、埋め込みフォントに対してのみサポートされています。Verdana や、Courier New などの等幅フォントなど、特定のフォントではカーニングはサポートされていません。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:letterSpacing:get"><apiName>letterSpacing</apiName><shortdesc>
+	  各文字間に表示される追加のピクセル数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  各文字間に表示される追加のピクセル数です。 正の値を指定すると文字間隔が通常より広くなり、負の値を指定すると文字間隔が通常より狭くなります。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:modifiesSelection:get"><apiName>modifiesSelection</apiName><shortdesc>
+	  現在選択されているテキストが TextRange によって変更されるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  現在選択されているテキストが TextRange によって変更されるかどうかを指定します。 コンストラクターによって設定されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:owner:get"><apiName>owner</apiName><shortdesc>
+	  テキストを含むコントロールです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+	  テキストを含むコントロールです。 オーナー コントロールには <codeph>textField</codeph> プロパティが必要です。または、RichTextEditor コントロールと同様に <codeph>textArea</codeph> プロパティが必要です。 RichTextEditor コントロール内のテキストのオーナーは RichTextEditor コントロールであり、TextArea サブコントロールではありません。 初期値はコンストラクターによって設定されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:textAlign:get"><apiName>textAlign</apiName><shortdesc>
+	  範囲内のテキストの整列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  範囲内のテキストの整列です。 flash.text.TextFormatAlign 定数で有効な値を指定します。 他の値に設定すると、このプロパティは無効になります。 範囲内のテキストに複数の整列がある場合、値は <codeph>null</codeph> です。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.text.TextFormatAlign.xml"><linktext>flash.text.TextFormatAlign</linktext></link></related-links></apiValue><apiValue id="mx.controls.textClasses:TextRange:textDecoration:get"><apiName>textDecoration</apiName><shortdesc>
+	  "underline" または "normal" で範囲内のフォントの装飾を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  "underline" または "normal" で範囲内のフォントの装飾を示します。 このプロパティをこれ以外のストリングに指定すると、"normal" になります。 範囲内のテキストに複数の装飾が設定されている場合、値は <codeph>null</codeph> です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:text:get"><apiName>text</apiName><shortdesc>
+	  範囲のプレーンテキストコンテンツです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  範囲のプレーンテキストコンテンツです。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.textClasses:TextRange:url:get"><apiName>url</apiName><shortdesc>
+	  範囲内のハイパーリンクの URL です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  範囲内のハイパーリンクの URL です。 範囲内にリンクが含まれない場合、値は空のストリングです。 範囲内に複数のリンクが含まれる場合、値は <codeph>null</codeph> です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

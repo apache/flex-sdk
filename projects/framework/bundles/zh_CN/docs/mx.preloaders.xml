@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.preloaders"><apiName>mx.preloaders</apiName><apiDetail/><apiClassifier id="mx.preloaders:IPreloaderDisplay"><apiName>IPreloaderDisplay</apiName><shortdesc>
+  定义类必须实现以用作下载进度栏的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  定义类必须实现以用作下载进度栏的接口。IPreloaderDisplay 从 Preloader 类接收事件，并负责向用户显示此信息。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.preloaders.xml#DownloadProgressBar"><linktext>mx.preloaders.DownloadProgressBar</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiOperation id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:initialize"><apiName>initialize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundAlpha">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundAlpha">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundColor">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundColor">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundImage">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundImage">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#backgroundSize">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#backgroundSize">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:stageHeight:get"><apiName>stageHeight</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:stageWidth:get"><apiName>stageWidth</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:IPreloaderDisplay:mx.preloaders:IPreloaderDisplay:preloader:set"><apiName>preloader</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.preloaders:Preloader"><apiName>Preloader</apiName><shortdesc>
+  SystemManager 使用 Preloader 类监视 Flex 应用程序的下载和初始化状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SystemManager 使用 Preloader 类监视 Flex 应用程序的下载和初始化状态。同时还负责下载运行时共享库 (RSL)。
+ 
+  <p>Preloader 类例示必须实现 IPreloaderDisplay 接口的下载进度栏，并将下载和初始化事件传递到下载进度栏。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.preloaders.xml#DownloadProgressBar"><linktext>mx.preloaders.DownloadProgressBar</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:Preloader:Preloader"><apiName>Preloader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:Preloader:initialize"><apiName>initialize</apiName><shortdesc>  
+      由 SystemManager 调用，用于初始化 Preloader 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>showDisplay</apiItemName><apiType value="Boolean"/><apiDesc>确定是否应该显示显示类。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayClassName</apiItemName><apiType value="Class"/><apiDesc>IPreloaderDisplay 类，用于显示 preloader 状态。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundColor</apiItemName><apiType value="uint"/><apiDesc>应用程序的背景颜色。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundAlpha</apiItemName><apiType value="Number"/><apiDesc>应用程序的背景 alpha。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundImage</apiItemName><apiType value="Object"/><apiDesc>应用程序的背景图像。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>backgroundSize</apiItemName><apiType value="String"/><apiDesc>应用程序的背景大小。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayWidth</apiItemName><apiType value="Number"/><apiDesc>应用程序的宽度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>displayHeight</apiItemName><apiType value="Number"/><apiDesc>应用程序的高度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>libs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>用于运行时共享库的字符串 URL 的数组。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>sizes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>uint 值的数组，包含 libs 参数中每个 URL 的字节大小
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rslList</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>类型 RSLItem 和 CdRSLItem 的对象数组。此数组描述要加载的所有 RSL。忽略 lib 和大小参数，必须将其设置为 null。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceModuleURLs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>指定用于预加载资源模块的 URL 的字符串的数组。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>正在其中执行代码的应用程序域。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>  
+      由 SystemManager 调用，用于初始化 Preloader 对象。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:Preloader:registerApplication"><apiName>registerApplication</apiName><shortdesc>
+      完成例示应用程序类的一个实例后调用 SystemManager。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>app</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiDesc>应用程序对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      完成例示应用程序类的一个实例后调用 SystemManager。Flex 调用此方法；您不要自己调用它。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.preloaders:DownloadProgressBar"><apiName>DownloadProgressBar</apiName><shortdesc>
+  DownloadProgressBar 类显示下载进度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DownloadProgressBar 类显示下载进度。下载和加载应用程序期间，Preloader 控件使用它提供用户反馈。 
+ 
+  <p>下载进度栏显示关于两个应用程序阶段的信息：下载阶段和例示阶段。 </p>
+ 
+  <p>在 Application 容器中，使用 <codeph>preloader</codeph> 属性可以指定子类的名称。</p>
+ 
+  <p>您可以通过创建 DownloadProgressBar 类的子类来实现自定义下载进度栏组件。不要将下载进度栏实现为 MXML 组件，因为这样下载速度太慢。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.preloaders.xml#IPreloaderDisplay"><linktext>mx.preloaders.IPreloaderDisplay</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:DownloadProgressBar:DownloadProgressBar"><apiName>DownloadProgressBar</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:DownloadProgressBar:protected:center"><apiName>center</apiName><shortdesc>
+      根据传入的维度居中放置下载进度栏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>居中放置下载进度栏的区域宽度。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>居中放置下载进度栏的区域高度。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      根据传入的维度居中放置下载进度栏。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:completeHandler"><apiName>completeHandler</apiName><shortdesc>
+      用于 Event.COMPLETE 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>Event.COMPLETE</codeph> 事件的事件侦听器。默认实现不起任何作用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      创建显示的子组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      创建显示的子组件。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:getPercentLoaded"><apiName>getPercentLoaded</apiName><shortdesc>
+      返回已下载应用程序的百分比值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>已下载应用程序的百分比值。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>loaded</apiItemName><apiType value="Number"/><apiDesc>已下载的应用程序 SWF 文件的字节数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>应用程序 SWF 文件的大小（以字节为单位）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回已下载应用程序的百分比值。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:initCompleteHandler"><apiName>initCompleteHandler</apiName><shortdesc>
+      用于 FlexEvent.INIT_COMPLETE 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>FlexEvent.INIT_COMPLETE</codeph> 事件的事件侦听器。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:initProgressHandler"><apiName>initProgressHandler</apiName><shortdesc>
+      用于 FlexEvent.INIT_PROGRESS 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>FlexEvent.INIT_PROGRESS</codeph> 事件的事件侦听器。此实现在每次分派事件时更新进度栏，并且更改标签文本。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:initialize"><apiName>initialize</apiName><shortdesc>
+      将下载进度栏添加为 Preloader 的子级后，由 Preloader 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将下载进度栏添加为 Preloader 的子级后，由 Preloader 调用。这应该是配置下载进度栏的起始点。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:progressHandler"><apiName>progressHandler</apiName><shortdesc>
+      用于 ProgressEvent.PROGRESS 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>ProgressEvent.PROGRESS</codeph> 事件的事件侦听器。此实现使用下载的字节百分比更新进度栏。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslCompleteHandler"><apiName>rslCompleteHandler</apiName><shortdesc>
+      用于 RSLEvent.RSL_COMPLETE 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>RSLEvent.RSL_COMPLETE</codeph> 事件的事件侦听器。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslErrorHandler"><apiName>rslErrorHandler</apiName><shortdesc>
+      用于 RSLEvent.RSL_ERROR 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>RSLEvent.RSL_ERROR</codeph> 事件的事件侦听器。此事件侦听器处理下载 RSL 时检测到的任何错误。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:rslProgressHandler"><apiName>rslProgressHandler</apiName><shortdesc>
+      用于 RSLEvent.RSL_PROGRESS 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>RSLEvent.RSL_PROGRESS</codeph> 事件的事件侦听器。默认实现不起任何作用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:setProgress"><apiName>setProgress</apiName><shortdesc>
+      使用当前下载信息更新下载进度栏的显示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>已下载的应用程序 SWF 文件的字节数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>应用程序 SWF 文件的大小（以字节为单位）。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用当前下载信息更新下载进度栏的显示。典型实现会根据总值划分加载值，并显示百分比。如果不实现此方法，则应创建显示动画的进度栏来向用户表明正在下载。
+     
+      <p>只有在从远程服务器下载应用程序并且该应用程序不在浏览器缓存中时才调用 <codeph>setProgress()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:showDisplayForDownloading"><apiName>showDisplayForDownloading</apiName><shortdesc>
+      定义是否在下载阶段显示下载进度栏的算法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果返回值为 <codeph>true</codeph>，则显示下载进度栏。默认行为是，如果已经过 700 毫秒但 Flex 已下载的 SWF 文件字节数尚未过半，则显示下载进度栏。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>下载阶段开始后已经过的毫秒数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>ProgressEvent 对象，包含 <codeph>bytesLoaded</codeph> 和 <codeph>bytesTotal</codeph> 属性。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      定义是否在下载阶段显示下载进度栏的算法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:DownloadProgressBar:protected:showDisplayForInit"><apiName>showDisplayForInit</apiName><shortdesc>
+      定义确定是否在初始化阶段显示下载进度栏的算法，假设显示当前不可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果为 <codeph>true</codeph>，则显示下载进度栏。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>下载阶段开始后已经过的毫秒数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiDesc>已从应用程序接收 <codeph>initProgress</codeph> 事件的次数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      定义确定是否在初始化阶段显示下载进度栏的算法，假设显示当前不可见。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:DownloadProgressBar:protected:DOWNLOAD_PERCENTAGE"><apiName>DOWNLOAD_PERCENTAGE</apiName><shortdesc>
+      完全下载 SWF 文件时下载阶段填充的进度栏的百分比。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>60</apiData><apiType value="uint"/><apiDefaultValue>60
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      完全下载 SWF 文件时下载阶段填充的进度栏的百分比。初始化阶段期间填充进度栏的剩余部分。此值应该介于 0 和 100 之间。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:MINIMUM_DISPLAY_TIME"><apiName>MINIMUM_DISPLAY_TIME</apiName><shortdesc>
+      显示应该可见的最小毫秒数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="uint"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      显示应该可见的最小毫秒数。如果应用程序的下载和初始化时间低于此值，则 Flex 在分派 <codeph>complete</codeph> 事件前暂停此时间总额。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:initProgressTotal"><apiName>initProgressTotal</apiName><shortdesc>
+      希望在初始化阶段获得的验证事件总数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>6</apiData><apiType value="uint"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      希望在初始化阶段获得的验证事件总数。它应该是一个大于或等于 4 的整数（请注意，如果该数值大于 4，初始化代码中可能有无效部分）
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc>
+      backgroundImage 属性定义的 SWF 文件或图像的 Alpha 级别，或者 backgroundColor 属性定义的颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>backgroundImage</codeph> 属性定义的 SWF 文件或图像的 Alpha 级别，或者 <codeph>backgroundColor</codeph> 属性定义的颜色。有效值范围是 0 到 1.0。    
+     
+      <p>您可以指定 <codeph>backgroundColor</codeph> 或 <codeph>backgroundImage</codeph>，但是不能同时指定两者。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc>
+      下载进度栏的背景颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      下载进度栏的背景颜色。您可以具有 <codeph>backgroundColor</codeph> 或 <codeph>backgroundImage</codeph>，但是不能同时具有两者。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc>
+      由 Preloader 传入的应用程序的背景图像。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      由 Preloader 传入的应用程序的背景图像。您可以指定 <codeph>backgroundColor</codeph> 或 <codeph>backgroundImage</codeph>，但是不能同时指定两者。
+     
+      <p>值 null 表示“未设置”。如果此样式和 <codeph>backgroundColor</codeph> 样式都未定义，则控件将采用透明背景。</p>
+     
+      <p>preloader 不显示嵌入的图像。您只能使用在运行时加载的图像。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc>
+      将 backgroundImage 指定的图像缩放到不同的百分比大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      将 <codeph>backgroundImage</codeph> 指定的图像缩放到不同的百分比大小。<codeph>"100%"</codeph> 值将拉抻该图像以适应整个组件。要指定百分比值，您必须输入百分号 (%)。值 <codeph>"auto"</codeph> 表示维持原始图像大小。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:barFrameRect:get"><apiName>barFrameRect</apiName><shortdesc>
+      进度栏边框的尺寸。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      进度栏边框的尺寸。此为只读属性，如果您需要更改，则必须覆盖该属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:barRect:get"><apiName>barRect</apiName><shortdesc>
+      进度栏的尺寸。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      进度栏的尺寸。此为只读属性，如果您需要更改，则必须覆盖该属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:borderRect:get"><apiName>borderRect</apiName><shortdesc>
+      显示边框的尺寸。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+      显示边框的尺寸。此为只读属性，如果您需要更改，则必须覆盖该属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:downloadingLabel:get"><apiName>downloadingLabel</apiName><shortdesc>
+      下载阶段要显示为标签的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Loading"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      下载阶段要显示为标签的字符串。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:initializingLabel:get"><apiName>initializingLabel</apiName><shortdesc>
+      初始化阶段要显示为标签的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Initializing"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      初始化阶段要显示为标签的字符串。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:labelFormat:get"><apiName>labelFormat</apiName><shortdesc>
+      标签的 TextField 组件的 TextFormat 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextFormat"/></apiValueDef><apiDesc>
+      标签的 TextField 组件的 TextFormat 对象。此为只读属性，如果您需要更改，则必须覆盖该属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:labelRect:get"><apiName>labelRect</apiName><shortdesc>
+      标签 TextField 组件的尺寸。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      标签 TextField 组件的尺寸。此为只读属性，如果您需要更改，则必须覆盖该属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:label:get"><apiName>label</apiName><shortdesc>
+      进度栏活动时要显示的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      进度栏活动时要显示的文本。Preloader 类在显示进度栏前设置此值。可以选择是否在子类中实现此属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:percentFormat:get"><apiName>percentFormat</apiName><shortdesc>
+      显示百分比的 TextField 组件的 TextFormat。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextFormat"/></apiValueDef><apiDesc>
+      显示百分比的 TextField 组件的 TextFormat。此为只读属性，如果您需要更改，则必须覆盖该属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:percentRect:get"><apiName>percentRect</apiName><shortdesc>
+      显示百分比的 TextField 组件的尺寸。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      显示百分比的 TextField 组件的尺寸。此为只读属性，如果您需要更改，则必须覆盖该属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:showLabel:get"><apiName>showLabel</apiName><shortdesc>
+      控制是否要显示标签。是，则为 true；或者否，则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      控制是否显示标签。是，则为 <codeph>true</codeph>；或者否，则为 <codeph>false</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:protected:showPercentage:get"><apiName>showPercentage</apiName><shortdesc>
+      控制是否显示百分比。是，则为 true；或者否，则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      控制是否显示百分比。是，则为 <codeph>true</codeph>；或者否，则为 <codeph>false</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:stageHeight:get"><apiName>stageHeight</apiName><shortdesc>
+      舞台的高度，由 Preloader 类传入。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      舞台的高度，由 Preloader 类传入。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:stageWidth:get"><apiName>stageWidth</apiName><shortdesc>
+      舞台的宽度，由 Preloader 类传入。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      舞台的宽度，由 Preloader 类传入。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:visible:get"><apiName>visible</apiName><shortdesc>
+      指定下载进度栏是否可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定下载进度栏是否可见。
+     
+      <p>当 Preloader 控件决定应该显示进度栏时，它将此值设置为 <codeph>true</codeph>。当 Preloader 控件决定应该隐藏进度栏时，它将该值设置为 <codeph>false</codeph>。</p>
+     
+      <p>DownloadProgressBar 类的子类绝不应该修改此属性。相反，您可以覆盖 setter 方法来识别 Preloader 控件修改此属性的时间，并且执行任何必要的动作。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:DownloadProgressBar:preloader:set"><apiName>preloader</apiName><shortdesc>
+      Preloader 类会将到自身的引用传入显示类，以侦听来自 Preloader 的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Preloader 类会将到自身的引用传入显示类，以侦听来自 Preloader 的事件。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.preloaders:SparkDownloadProgressBar"><apiName>SparkDownloadProgressBar</apiName><shortdesc>
+  SparkDownloadProgressBar 类可显示下载进度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SparkDownloadProgressBar 类可显示下载进度。下载和加载应用程序期间，Preloader 控件使用它提供用户反馈。 
+ 
+  <p>下载进度栏显示关于两个应用程序阶段的信息：下载阶段和例示阶段。 </p>
+ 
+  <p>在 Application 容器中，使用 <codeph>preloader</codeph> 属性可以指定子类的名称。</p>
+ 
+  <p>您可以通过创建 SparkDownloadProgressBar 类的子类来实现自定义下载进度栏组件。不要将下载进度栏实现为 MXML 组件，因为这样下载速度太慢。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.preloaders.xml#IPreloaderDisplay"><linktext>mx.preloaders.IPreloaderDisplay</linktext></link><link href="mx.preloaders.xml#Preloader"><linktext>mx.preloaders.Preloader</linktext></link></related-links><apiConstructor id="mx.preloaders:SparkDownloadProgressBar:SparkDownloadProgressBar"><apiName>SparkDownloadProgressBar</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:completeHandler"><apiName>completeHandler</apiName><shortdesc>
+      用于 Event.COMPLETE 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>Event.COMPLETE</codeph> 事件的事件侦听器。默认实现不起任何作用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      创建显示的子组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      创建显示的子组件。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:initCompleteHandler"><apiName>initCompleteHandler</apiName><shortdesc>
+      用于 FlexEvent.INIT_COMPLETE 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>事件对象
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>FlexEvent.INIT_COMPLETE</codeph> 事件的事件侦听器。此实现可分派 <codeph>Event.COMPLETE</codeph> 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:initProgressHandler"><apiName>initProgressHandler</apiName><shortdesc>
+      用于 FlexEvent.INIT_PROGRESS 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>FlexEvent.INIT_PROGRESS</codeph> 事件的事件侦听器。此实现在每次分派事件时更新进度栏。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:initialize"><apiName>initialize</apiName><shortdesc>
+      将下载进度栏添加为 Preloader 的子级后，由 Preloader 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将下载进度栏添加为 Preloader 的子级后，由 Preloader 调用。这应该是配置下载进度栏的起始点。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:progressHandler"><apiName>progressHandler</apiName><shortdesc>
+      用于 ProgressEvent.PROGRESS 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>ProgressEvent.PROGRESS</codeph> 事件的事件侦听器。此实现使用下载的字节百分比更新进度栏。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslCompleteHandler"><apiName>rslCompleteHandler</apiName><shortdesc>
+      用于 RSLEvent.RSL_COMPLETE 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>RSLEvent.RSL_COMPLETE</codeph> 事件的事件侦听器。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslErrorHandler"><apiName>rslErrorHandler</apiName><shortdesc>
+      用于 RSLEvent.RSL_ERROR 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>RSLEvent.RSL_ERROR</codeph> 事件的事件侦听器。此事件侦听器处理下载 RSL 时检测到的任何错误。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:rslProgressHandler"><apiName>rslProgressHandler</apiName><shortdesc>
+      用于 RSLEvent.RSL_PROGRESS 事件的事件侦听器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:RSLEvent</apiOperationClassifier><apiDesc>事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于 <codeph>RSLEvent.RSL_PROGRESS</codeph> 事件的事件侦听器。默认实现不起任何作用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:setDownloadProgress"><apiName>setDownloadProgress</apiName><shortdesc> 
+      更新下载进度栏的外部部分以指明下载进度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>已下载的应用程序 SWF 文件的字节数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>应用程序 SWF 文件的大小（以字节为单位）。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      更新下载进度栏的外部部分以指明下载进度。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:setInitProgress"><apiName>setInitProgress</apiName><shortdesc> 
+      更新下载进度栏的内部部分以指明初始化进度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>completed</apiItemName><apiType value="Number"/><apiDesc>已完成的初始化步骤数
+     
+      </apiDesc></apiParam><apiParam><apiItemName>total</apiItemName><apiType value="Number"/><apiDesc>总初始化步骤数
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      更新下载进度栏的内部部分以指明初始化进度。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:showDisplayForDownloading"><apiName>showDisplayForDownloading</apiName><shortdesc>
+      定义是否在下载阶段显示下载进度栏的算法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果返回值为 <codeph>true</codeph>，则显示下载进度栏。默认行为是，如果已经过 700 毫秒但 Flex 已下载的 SWF 文件字节数尚未过半，则显示下载进度栏。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>下载阶段开始后已经过的毫秒数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/><apiDesc>ProgressEvent 对象，包含 <codeph>bytesLoaded</codeph> 和 <codeph>bytesTotal</codeph> 属性。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      定义是否在下载阶段显示下载进度栏的算法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.preloaders:SparkDownloadProgressBar:protected:showDisplayForInit"><apiName>showDisplayForInit</apiName><shortdesc>
+      定义确定是否在初始化阶段显示下载进度栏的算法，假设显示当前不可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果为 <codeph>true</codeph>，则显示下载进度栏。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="int"/><apiDesc>下载阶段开始后已经过的毫秒数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>count</apiItemName><apiType value="int"/><apiDesc>已从应用程序接收 <codeph>initProgress</codeph> 事件的次数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      定义确定是否在初始化阶段显示下载进度栏的算法，假设显示当前不可见。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.preloaders:SparkDownloadProgressBar:protected:initProgressTotal"><apiName>initProgressTotal</apiName><shortdesc>
+      希望在初始化阶段获得的验证事件总数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>6</apiData><apiType value="uint"/><apiDefaultValue>6
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      希望在初始化阶段获得的验证事件总数。它应该是一个大于或等于 4 的整数（请注意，如果该数值大于 4，初始化代码中可能有无效部分）
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundAlpha:get"><apiName>backgroundAlpha</apiName><shortdesc>
+      backgroundImage 属性定义的 SWF 文件或图像的 Alpha 级别，或者 backgroundColor 属性定义的颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>backgroundImage</codeph> 属性定义的 SWF 文件或图像的 Alpha 级别，或者 <codeph>backgroundColor</codeph> 属性定义的颜色。有效值范围是 0 到 1.0。覆盖此属性可以在自定义类中设置自己的值。
+     
+      <p>您可以指定 <codeph>backgroundColor</codeph> 或 <codeph>backgroundImage</codeph>，但是不能同时指定两者。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundColor:get"><apiName>backgroundColor</apiName><shortdesc>
+      下载进度栏的背景颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      下载进度栏的背景颜色。覆盖此属性可以在自定义类中设置自己的值。
+     
+      <p>您可以指定 <codeph>backgroundColor</codeph> 或 <codeph>backgroundImage</codeph>，但是不能同时指定两者。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundImage:get"><apiName>backgroundImage</apiName><shortdesc>
+      由 Preloader 传入的应用程序的背景图像。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      由 Preloader 传入的应用程序的背景图像。覆盖此属性可以在自定义类中设置自己的值。
+     
+      <p>您可以指定 <codeph>backgroundColor</codeph> 或 <codeph>backgroundImage</codeph>，但是不能同时指定两者。</p>
+     
+      <p>值 null 表示“未设置”。如果此样式和 <codeph>backgroundColor</codeph> 样式都未定义，则控件将采用透明背景。</p>
+     
+      <p>preloader 不显示嵌入的图像。您只能使用在运行时加载的图像。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:backgroundSize:get"><apiName>backgroundSize</apiName><shortdesc>
+      将 backgroundImage 指定的图像缩放到不同的百分比大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      将 <codeph>backgroundImage</codeph> 指定的图像缩放到不同的百分比大小。<codeph>"100%"</codeph> 值将拉抻该图像以适应整个组件。要指定百分比值，您必须输入百分号 (%)。值 <codeph>"auto"</codeph> 表示维持原始图像大小。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:stageHeight:get"><apiName>stageHeight</apiName><shortdesc>
+      舞台的高度，由 Preloader 类传入。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      舞台的高度，由 Preloader 类传入。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:stageWidth:get"><apiName>stageWidth</apiName><shortdesc>
+      舞台的宽度，由 Preloader 类传入。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      舞台的宽度，由 Preloader 类传入。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:visible:get"><apiName>visible</apiName><shortdesc>
+      指定下载进度栏是否可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定下载进度栏是否可见。
+     
+      <p>当 Preloader 控件决定应该显示进度栏时，它将此值设置为 <codeph>true</codeph>。当 Preloader 控件决定应该隐藏进度栏时，它将该值设置为 <codeph>false</codeph>。</p>
+     
+      <p>SparkDownloadProgressBar 类的子类绝不应该修改此属性。相反，您可以覆盖 setter 方法来识别 Preloader 控件修改此属性的时间，并且执行任何必要的动作。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.preloaders:SparkDownloadProgressBar:preloader:set"><apiName>preloader</apiName><shortdesc>
+      Preloader 类会将到自身的引用传入显示类，以侦听来自 Preloader 的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Preloader 类会将到自身的引用传入显示类，以侦听来自 Preloader 的事件。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

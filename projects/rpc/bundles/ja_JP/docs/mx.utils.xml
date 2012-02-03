@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.utils"><apiName>mx.utils</apiName><apiDetail/><apiClassifier id="mx.utils:URLUtil"><apiName>URLUtil</apiName><shortdesc>
+      URLUtil クラスは、Flex で 完全な URL や相対 URL を使用するためのメソッドを含む静的クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      URLUtil クラスは、Flex で 完全な URL や相対 URL を使用するためのメソッドを含む静的クラスです。
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.BrowserManager.xml"><linktext>mx.managers.BrowserManager</linktext></link></related-links><apiOperation id="mx.utils:URLUtil:getFullURL"><apiName>getFullURL</apiName><shortdesc>
+          不完全な相対 URL を完全修飾された URL に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>完全修飾された URL です。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiDesc><codeph>url</codeph> パラメーターで指定された URL の解決に使用される URL です（<codeph>url</codeph> が相対 URL の場合）。
+          </apiDesc></apiParam><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>変換する URL です。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          不完全な相対 URL を完全修飾された URL に変換します。URL が相対 URL ではない場合は、URL がそのまま返されます。URL がスラッシュで始まる場合、その前にルート URL からのホストとポートが付加されます。それ以外の場合は、前にホスト、ポート、およびパスが付加されます。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getPort"><apiName>getPort</apiName><shortdesc>
+          指定された URL からポート番号を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定された URL のポート番号です。
+          
+          </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>解析する URL です。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          指定された URL からポート番号を返します。
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getProtocol"><apiName>getProtocol</apiName><shortdesc>
+          指定された URL のプロトコルセクションを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>プロトコルです。プロトコルが指定されていない場合は、空のストリングになります。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>解析する URL を含むストリングです。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          指定された URL のプロトコルセクションを返します。次の例は、各種 URL に対してどのような結果が返されるかを示しています。
+          
+          <pre>
+          getProtocol("https://localhost:2700/") returns "https"
+          getProtocol("rtmp://www.myCompany.com/myMainDirectory/groupChatApp/HelpDesk") returns "rtmp"
+          getProtocol("rtmpt:/sharedWhiteboardApp/June2002") returns "rtmpt"
+          getProtocol("rtmp::1234/chatApp/room_name") returns "rtmp"
+          </pre>
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getServerNameWithPort"><apiName>getServerNameWithPort</apiName><shortdesc>
+          指定された URL からドメインおよびポート情報を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定された URL のサーバー名とポートです。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>解析する URL です。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          指定された URL からドメインおよびポート情報を返します。
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getServerName"><apiName>getServerName</apiName><shortdesc>
+          指定された URL からサーバー名を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定された URL のサーバー名です。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>解析する URL です。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          指定された URL からサーバー名を返します。
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:hasTokens"><apiName>hasTokens</apiName><shortdesc>
+          URL を指定して、その URL に server.name トークンと server.port トークンが含まれているかどうかを判定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>URL に server.name トークンと server.port トークンが含まれている場合は <codeph>true</codeph> です。
+         
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>url ストリングです。 
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          URL を指定して、その URL に server.name トークンと server.port トークンが含まれているかどうかを判定します。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:hasUnresolvableTokens"><apiName>hasUnresolvableTokens</apiName><shortdesc>
+         LoaderConfig.url プロパティが使用できない場合、replaceTokens() メソッドでは、サーバー名プロパティとポートプロパティは適切に置き換えられません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> が返されるのは、<codeph>LoaderConfig.url</codeph> プロパティが使用できない場合です。 それ以外の場合は <codeph>false</codeph> です。
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+         <codeph>LoaderConfig.url</codeph> プロパティが使用できない場合、<codeph>replaceTokens()</codeph> メソッドでは、サーバー名プロパティとポートプロパティは適切に置き換えられません。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:isHttpURL"><apiName>isHttpURL</apiName><shortdesc>
+          URL で HTTP、HTTPS、RTMP のいずれかのプロトコルが使用されているかどうかを判定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>URL が "http://"、"https://"、"rtmp://" のいずれかで始まる場合は <codeph>true</codeph> です。
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>解析する URL です。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          URL で HTTP、HTTPS、RTMP のいずれかのプロトコルが使用されているかどうかを判定します。 
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:isHttpsURL"><apiName>isHttpsURL</apiName><shortdesc>
+          URL でセキュアな HTTPS プロトコルが使用されているかどうかを判定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>URL が "https://" で始まる場合は <codeph>true</codeph> です。
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>解析する URL です。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          URL でセキュアな HTTPS プロトコルが使用されているかどうかを判定します。 
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:objectToString"><apiName>objectToString</apiName><shortdesc>
+          オブジェクトの動的プロパティを（for..in ループを使用して）列挙し、ストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>メソッドに渡されたオブジェクトです。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>ストリングに変換するオブジェクトです。
+          </apiDesc></apiParam><apiParam><apiItemName>separator</apiItemName><apiType value="String"/><apiData/><apiDesc>ストリングに含まれるオブジェクトの各 <codeph>property:value</codeph> ペアを区切る文字です。
+          </apiDesc></apiParam><apiParam><apiItemName>encodeURL</apiItemName><apiType value="Boolean"/><apiData/><apiDesc>ストリングを URL エンコードするかどうかを指定します。
+          
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          オブジェクトの動的プロパティを（<codeph>for..in</codeph> ループを使用して）列挙し、ストリングを返します。通常は、このメソッドを使用して ActionScript オブジェクトをストリングに変換し、そのストリングを URL の末尾に付加します。デフォルトでは、無効な URL 文字は URL エンコードされます（<codeph>%XX</codeph> 形式に変換されます）。
+         
+          <p>次に実際の使用例を示します。
+          <pre>
+          var o:Object = { name: "Alex", age: 21 };
+          var s:String = URLUtil.objectToString(o,";",true);
+          trace(s);
+          </pre>
+          "name=Alex;age=21" をトレースログに出力します。
+          </p>
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:replacePort"><apiName>replacePort</apiName><shortdesc>
+          指定されたポートでポートが置き換えられた新しいストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しいポートを含む URI です。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>ポートを置き換える URI を含むストリングです。
+          </apiDesc></apiParam><apiParam><apiItemName>newPort</apiItemName><apiType value="uint"/><apiDesc>置き換えに使用する新しいポートを含む uint です。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          指定されたポートでポートが置き換えられた新しいストリングを返します。指定された URI にポートがない場合は、ポートが挿入されます。このメソッドは、URI 内でプロトコルが指定されていることを前提とします。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:replaceProtocol"><apiName>replaceProtocol</apiName><shortdesc>
+          指定された URI のプロトコルを特定のプロトコルで置き換えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>プロトコルが置き換えられた URI を含むストリングです。URI にプロトコルが含まれていない場合は、空のストリングになります。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>プロトコルを置き換える URI を含むストリングです。
+         
+          </apiDesc></apiParam><apiParam><apiItemName>newProtocol</apiItemName><apiType value="String"/><apiDesc>使用する新しいプロトコルを含むストリングです。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          指定された URI のプロトコルを特定のプロトコルで置き換えます。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:replaceTokens"><apiName>replaceTokens</apiName><shortdesc>
+          ポートとサーバーのトークンを、現在実行しているアプリケーションのポートとサーバーで置き換えた新しいストリングを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ポートとサーバーが置き換えられた URI です。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>アプリケーションのポートとサーバーで置き換える、<codeph>SERVER_NAME_TOKEN</codeph> および <codeph>SERVER_NAME_PORT</codeph>、またはそのどちらかを含むストリングです。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          ポートとサーバーのトークンを、現在実行しているアプリケーションのポートとサーバーで置き換えた新しいストリングを返します。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:stringToObject"><apiName>stringToObject</apiName><shortdesc>
+          ストリングからオブジェクトを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>このメソッドに渡されたストリングから抽出されたプロパティと値を含むオブジェクトです。
+          
+          </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>string</apiItemName><apiType value="String"/><apiDesc>オブジェクトに変換するストリングです。
+          </apiDesc></apiParam><apiParam><apiItemName>separator</apiItemName><apiType value="String"/><apiData/><apiDesc>ストリング内の <codeph>name=value</codeph> ペアを区切る文字です。
+          </apiDesc></apiParam><apiParam><apiItemName>decodeURL</apiItemName><apiType value="Boolean"/><apiData/><apiDesc>ストリング内の URL エンコードされた文字をデコードするかどうかを指定します。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          ストリングからオブジェクトを返します。<codeph>name=value</codeph> ペアを含むストリングです。これらのペアが、返されるオブジェクトの動的プロパティになります。 これらのプロパティのペアは、指定された <codeph>separator</codeph> で区切られています。 このメソッドは、Number と Boolean、Array（"[]" で定義）およびサブオブジェクト（"{}" で定義）を変換します。 デフォルトでは、<codeph>%XX</codeph> 形式の URL パターンは適切なストリング文字に変換されます。
+         
+          <p>次に実際の使用例を示します。
+          <pre>
+          var s:String = "name=Alex;age=21";
+          var o:Object = URLUtil.stringToObject(s, ";", true);
+          </pre>
+          
+          オブジェクト：<codeph>{ name: "Alex", age: 21 }</codeph> を返します。
+          </p>
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:urisEqual"><apiName>urisEqual</apiName><shortdesc>
+         2 つの URI ストリングが等しいかどうかをテストします。大文字と小文字の違い、および後続のスラッシュの違いは無視されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>URI が等しい場合は <codeph>true</codeph> です。 それ以外の場合は <codeph>false</codeph> です。
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uri1</apiItemName><apiType value="String"/><apiDesc>比較する最初の URI です。
+          </apiDesc></apiParam><apiParam><apiItemName>uri2</apiItemName><apiType value="String"/><apiDesc>比較する 2 番目の URI です。
+          
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         2 つの URI ストリングが等しいかどうかをテストします。大文字と小文字の違い、および後続のスラッシュの違いは無視されます。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:URLUtil:SERVER_NAME_TOKEN"><apiName>SERVER_NAME_TOKEN</apiName><shortdesc>
+          アプリケーションのサーバー名で置き換えられる、replaceTokens() メソッドに渡されたストリング内のパターンです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>{server.name}</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          アプリケーションのサーバー名で置き換えられる、<codeph>replaceTokens()</codeph> メソッドに渡されたストリング内のパターンです。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:URLUtil:SERVER_PORT_TOKEN"><apiName>SERVER_PORT_TOKEN</apiName><shortdesc>
+          アプリケーションのポートで置き換えられる、replaceTokens() メソッドに渡されたストリング内のパターンです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>{server.port}</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          アプリケーションのポートで置き換えられる、<codeph>replaceTokens()</codeph> メソッドに渡されたストリング内のパターンです。
+          
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:RPCStringUtil"><apiName>RPCStringUtil</apiName><shortdesc>
+  RPCStringUtil クラスは StringUtil のサブセットであり、RPC メッセージがブートストラップローダーに含まれている場合に依存性の問題を引き起こすメソッドが削除されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RPCStringUtil クラスは StringUtil のサブセットであり、RPC メッセージがブートストラップローダーに含まれている場合に依存性の問題を引き起こすメソッドが削除されています。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCStringUtil:isWhitespace"><apiName>isWhitespace</apiName><shortdesc>
+      指定したストリングが単一の空白、タブ、復帰文字、改行文字、または用紙送り文字の場合、true を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定したストリングが単一の空白、タブ、復帰文字、改行文字、または用紙送り文字の場合は、<codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>character</apiItemName><apiType value="String"/><apiDesc>照会の対象となっているストリングです。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したストリングが単一の空白、タブ、復帰文字、改行文字、または用紙送り文字の場合、<codeph>true</codeph> を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCStringUtil:substitute"><apiName>substitute</apiName><shortdesc>
+      指定したストリング内の "{n}" トークンを、渡された対応するパラメーターと置き換えます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>すべての <codeph>{n}</codeph> トークンが、指定された対応するパラメーターと置換された新しいストリングです。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>置換を行うストリングです。このストリングには <codeph>{n}</codeph> 形式の特殊なトークンを含めることができます。ここで、<codeph>n</codeph> は 0 から始まるインデックスで、指定された場合、そのインデックスで検出された追加パラメーターに置換されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>それぞれの <codeph>str</codeph> パラメーター内の各 <codeph>{n}</codeph> 位置にある置換可能な追加パラメーターです。ここで <codeph>n</codeph> は、指定された値の配列の（0 から始まる）整数インデックス値です。 最初のパラメーターが配列の場合、この配列はパラメーターリストとして使用されます。 これにより、... rest シグネチャを使用する他のメソッドでこのルーチンを再使用できます。次に例を示します。 <pre>
+         public function myTracer(str:String, ... rest):void
+         { 
+             label.text += StringUtil.substitute(str, rest) + "\n";
+         } </pre>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したストリング内の "{n}" トークンを、渡された対応するパラメーターと置き換えます。
+     
+      </apiDesc><example>
+     
+      var str:String = "here is some info '{0}' and {1}"; trace(StringUtil.substitute(str, 15.4, true)); // これは次のストリングを出力します。// "here is some info '15.4' and true"
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCStringUtil:trimArrayElements"><apiName>trimArrayElements</apiName><shortdesc>
+      ストリングとして格納されている配列内の各エレメントの先頭と末尾から、すべての空白文字を削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>各エレメントの先頭および最後の空白を削除して更新されたストリングです。 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>空白を削除する必要のあるストリングです。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>delimiter</apiItemName><apiType value="String"/><apiDesc>ストリング内の各配列エレメントを区切るストリングです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ストリングとして格納されている配列内の各エレメントの先頭と末尾から、すべての空白文字を削除します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCStringUtil:trim"><apiName>trim</apiName><shortdesc>
+      指定したストリングの先頭と末尾から、すべての空白文字を削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>先頭および最後の空白を削除して更新されたストリングです。 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>空白を削除する必要のあるストリングです。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したストリングの先頭と末尾から、すべての空白文字を削除します。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RPCObjectUtil"><apiName>RPCObjectUtil</apiName><shortdesc>
+  RPCObjectUtil クラスは ObjectUtil のサブセットであり、RPC メッセージがブートストラップローダーに含まれている場合に依存性の問題を引き起こすメソッドが削除されています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RPCObjectUtil クラスは ObjectUtil のサブセットであり、RPC メッセージがブートストラップローダーに含まれている場合に依存性の問題を引き起こすメソッドが削除されています。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCObjectUtil:getClassInfo"><apiName>getClassInfo</apiName><shortdesc>
+      指定されたオブジェクトに関して、クラス情報およびクラスプロパティを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>以下のプロパティを持つオブジェクトです。
+      <ul>
+        <li><codeph>name</codeph>：クラスの名前を含むストリングです。</li>
+        <li><codeph>properties</codeph>：指定されたオブジェクトのプロパティ名のソートされたリストです。</li>
+      </ul>
+     
+     </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>調べるオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>excludes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>返される結果から除外する必要があるプロパティ名を指定するストリングの配列です。例えば、Event オブジェクトに <codeph>["currentTarget", "target"]</codeph> を指定することができます。これらのプロパティは、返される結果を大きくする場合があるためです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このメソッドによって返される情報を制御するプロパティを持つオブジェクト。このプロパティには次のようなものがあります。
+     
+      <ul>
+        <li><codeph>includeReadOnly</codeph>：<codeph>false</codeph> の場合、読み取り専用のオブジェクトプロパティが除外されます。 デフォルト値は <codeph>true</codeph> です。</li>
+      <li><codeph>includeTransient</codeph>：<codeph>false</codeph> の場合、<codeph>[Transient]</codeph> メタデータを含むオブジェクトプロパティおよび変数が除外されます。 デフォルト値は <codeph>true</codeph> です。</li>
+      <li><codeph>uris</codeph>：出力に含める必要があるすべての名前空間のストリングの配列です。 ワイルドカード "~~" は使用できます。 デフォルトでは null になっているため、名前空間は含められません。 例えば、<codeph>["mx_internal", "mx_object"]</codeph> または <codeph>["~~"]</codeph> を指定できます。</li>
+      </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたオブジェクトに関して、クラス情報およびクラスプロパティを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCObjectUtil:toString"><apiName>toString</apiName><shortdesc>
+      指定されたオブジェクトをストリングにプリティプリントします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>フォーマット済みの指定されたオブジェクトを含むストリングです。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>プリティプリントするオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>namespaceURIs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>出力に含める必要があるプロパティの名前空間 URI の配列です。デフォルトでは、パブリック名前空間のプロパティのみ出力に含められます。名前空間に関係なくすべてのプロパティを取得するには、単一エレメントの " で配列を渡します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exclude</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>出力から除外する必要があるプロパティ名の配列です。これを使用してフォーマットしたストリングからデータを削除します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたオブジェクトをストリングにプリティプリントします。すべてのプロパティは、アルファベット順に配置されます。印刷中に、各オブジェクトには ID が割り当てられます。この値の先頭には "#" が追加され、オブジェクト型トークンの隣に表示されます。例えば、次のようになります。
+     
+      <pre>
+      (mx.messaging.messages::AsyncMessage)#2.</pre>
+     
+      <p>この ID はいつ循環参照が発生するかを示します。<codeph>Class</codeph> 型のオブジェクトのプロパティのみが、割り当てられた型として表示されます。例えば、次のようなカスタム定義を例として示します。</p>
+     
+      <pre>
+        public class MyCustomClass {
+          public var clazz:Class;
+        }</pre>
+     
+      <p><codeph>clazz</codeph> プロパティが <codeph>Date</codeph> に割り当てられている場合は、次のように表示されます。</p>
+     
+      <pre>
+       (somepackage::MyCustomClass)#0
+          clazz = (Date)</pre>
+     
+      </apiDesc><example>
+      <pre>
+      // example 1
+      var obj:AsyncMessage = new AsyncMessage();
+      obj.body = [];
+      obj.body.push(new AsyncMessage());
+      obj.headers["1"] = { name: "myName", num: 15.3};
+      obj.headers["2"] = { name: "myName", num: 15.3};
+      obj.headers["10"] = { name: "myName", num: 15.3};
+      obj.headers["11"] = { name: "myName", num: 15.3};
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (mx.messaging.messages::AsyncMessage)#0
+        body = (Array)#1
+          [0] (mx.messaging.messages::AsyncMessage)#2
+            body = (Object)#3
+            clientId = (Null)
+            correlationId = ""
+            destination = ""
+            headers = (Object)#4
+            messageId = "378CE96A-68DB-BC1B-BCF7FFFFFFFFB525"
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+        clientId = (Null)
+        correlationId = ""
+        destination = ""
+        headers = (Object)#5
+          1 = (Object)#6
+            name = "myName"
+            num = 15.3
+          10 = (Object)#7
+            name = "myName"
+            num = 15.3
+          11 = (Object)#8
+            name = "myName"
+            num = 15.3
+          2 = (Object)#9
+            name = "myName"
+            num = 15.3
+        messageId = "1D3E6E96-AC2D-BD11-6A39FFFFFFFF517E"
+        sequenceId = (Null)
+        sequencePosition = 0
+        sequenceSize = 0
+        timeToLive = 0
+        timestamp = 0
+     
+      // example 2 with circular references
+      obj = {};
+      obj.prop1 = new Date();
+      obj.prop2 = [];
+      obj.prop2.push(15.2);
+      obj.prop2.push("testing");
+      obj.prop2.push(true);
+      obj.prop3 = {};
+      obj.prop3.circular = obj;
+      obj.prop3.deeper = new ErrorMessage();
+      obj.prop3.deeper.rootCause = obj.prop3.deeper;
+      obj.prop3.deeper2 = {};
+      obj.prop3.deeper2.deeperStill = {};
+      obj.prop3.deeper2.deeperStill.yetDeeper = obj;
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (Object)#0
+        prop1 = Tue Apr 26 13:59:17 GMT-0700 2005
+        prop2 = (Array)#1
+          [0] 15.2
+          [1] "testing"
+          [2] true
+        prop3 = (Object)#2
+          circular = (Object)#0
+          deeper = (mx.messaging.messages::ErrorMessage)#3
+            body = (Object)#4
+            clientId = (Null)
+            code = (Null)
+            correlationId = ""
+            destination = ""
+            details = (Null)
+            headers = (Object)#5
+            level = (Null)
+            message = (Null)
+            messageId = "14039376-2BBA-0D0E-22A3FFFFFFFF140A"
+            rootCause = (mx.messaging.messages::ErrorMessage)#3
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+          deeper2 = (Object)#6
+            deeperStill = (Object)#7
+              yetDeeper = (Object)#0
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RpcClassAliasInitializer"><apiName>RpcClassAliasInitializer</apiName><shortdesc>
+  RpcClassAliasInitializer クラスは、Flex RPC ライブラリで必要な AMF シリアライゼーション用のすべてのクラスを登録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RpcClassAliasInitializer クラスは、Flex RPC ライブラリで必要な AMF シリアライゼーション用のすべてのクラスを登録します。
+   </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RpcClassAliasInitializer:registerClassAliases"><apiName>registerClassAliases</apiName><shortdesc>
+     [RemoteClass(alias="")] ブートストラップコードを処理する Flex UI クラスをアプリケーションが使用しない場合、この機能は Flex RPC ライブラリで必要な AMF シリアライゼーション用のすべてのクラスを登録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     <codeph>[RemoteClass(alias="")]</codeph> ブートストラップコードを処理する Flex UI クラスをアプリケーションが使用しない場合、この機能は Flex RPC ライブラリで必要な AMF シリアライゼーション用のすべてのクラスを登録します。
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RPCUIDUtil"><apiName>RPCUIDUtil</apiName><shortdesc>
+  RPCUIDUtil クラスは、RPC メッセージがブートストラップローダーに配置された場合に依存性の問題が生じる一部の関数を含んでいない UIDUtil のコピーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RPCUIDUtil クラスは、RPC メッセージがブートストラップローダーに配置された場合に依存性の問題が生じる一部の関数を含んでいない UIDUtil のコピーです。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCUIDUtil:createUID"><apiName>createUID</apiName><shortdesc>
+      ActionScript の擬似乱数生成プログラムと現在の時刻に基づいて UID（一意の識別子）を生成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しく生成された UID です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      ActionScript の擬似乱数生成プログラムと現在の時刻に基づいて UID（一意の識別子）を生成します。
+     
+      <p>UID の形式は <codeph>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</codeph> で、X は 16 進数字（0 ～ 9、A ～ F）です。</p>
+     
+      <p>この UID は完全にグローバルに一意というわけではありませんが、Flash Player では UID 生成をサポートしていないため、これが最適な方法です。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:fromByteArray"><apiName>fromByteArray</apiName><shortdesc>
+     ByteArray にエンコードされた 128 ビット UID をストリング表現に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID のストリング表現です。無効な ByteArray が指定された場合は null です。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>ba</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>ByteArray の 16 バイト長は 128 ビットの UID を表します。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     ByteArray にエンコードされた 128 ビット UID をストリング表現に変換します。形式は、createUID によって生成されたものに一致します。適切な ByteArray が指定されない場合は、null が返されます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:isUID"><apiName>isUID</apiName><shortdesc>
+     String 値が正しく形式設定された UID 値を表すかどうかを確認するユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>値が UID として形式設定されている場合は、true を返します。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>UID として形式設定されているかどうかをテストする値です。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     String 値が正しく形式設定された UID 値を表すかどうかを確認するユーティリティメソッドです。UID 値は createUID() によって生成された形式で、0 ～ 9 以外に大文字の A ～ F だけが含まれることが想定されます。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     UID 形式のストリングを ByteArray に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID の 128 ビットを表す ByteArray の 16 バイト長です。uid が変換できない場合は null になります。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>128 ビット UID を表します
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     UID 形式のストリングを ByteArray に変換します。UID は createUID で生成された形式である必要があります。それ以外の場合は null が返されます。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

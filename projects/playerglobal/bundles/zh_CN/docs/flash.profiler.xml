@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.profiler" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.profiler</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiOperation id="globalOperation:flash.profiler:showRedrawRegions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">showRedrawRegions</apiName><shortdesc class="- topic/shortdesc ">
+	 显示或隐藏重绘区域。</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">on</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">指定显示或隐藏重绘区域。当设置为 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> 时，将显示重绘矩形。当设置为 <codeph class="+ topic/ph pr-d/codeph ">false</codeph> 时，将隐藏重绘矩形。
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">color</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">0xFF0000</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">设置矩形的颜色。若未指定此参数，则使用 0xFF0000。
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 显示或隐藏重绘区域。使 Flash <sup class="+ topic/ph hi-d/sup ">®</sup> Player 的调试器版能够描画出正在重绘的屏幕区域（即正在更新的区域）的轮廓。 
+	 
+	 </apiDesc></apiOperationDetail></apiOperation></apiPackage>

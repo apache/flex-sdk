@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.events"><apiName>mx.charts.events</apiName><apiDetail/><apiClassifier id="mx.charts.events:LegendMouseEvent"><apiName>LegendMouseEvent</apiName><shortdesc>
+   LegendMouseEvent クラスは、グラフの汎用コンポーネントに固有のイベントオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+   LegendMouseEvent クラスは、汎用項目がクリックされた場合などに、グラフの汎用コンポーネントに固有のイベントオブジェクトを表します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.events:LegendMouseEvent:LegendMouseEvent"><apiName>LegendMouseEvent</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Mouse イベントのタイプです。 マウスイベントのタイプが指定されている場合は、LegendMouseEvent タイプに変換されます。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:MouseEvent"/><apiData>null</apiData><apiDesc>この LegentMouseEvent をトリガーした MouseEvent です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiOperationClassifier>mx.charts:LegendItem</apiOperationClassifier><apiData>null</apiData><apiDesc>このイベントがトリガーされた Legend のアイテムです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_CLICK"><apiName>ITEM_CLICK</apiName><shortdesc>
+	  イベント型定数。ユーザーが凡例項目の上でマウスボタンをクリックしたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーが凡例項目の上でマウスボタンをクリックしたことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_DOWN"><apiName>ITEM_MOUSE_DOWN</apiName><shortdesc>
+	  イベント型定数。ユーザーが凡例項目の上でマウスボタンをクリックしたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseDown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーが凡例項目の上でマウスボタンをクリックしたことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_OUT"><apiName>ITEM_MOUSE_OUT</apiName><shortdesc>
+	  イベント型定数。ユーザーが凡例項目からマウスポインターを離したことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーが凡例項目からマウスポインターを離したことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_OVER"><apiName>ITEM_MOUSE_OVER</apiName><shortdesc>
+	  イベント型定数。ユーザーが凡例項目にマウスポインターを合わせたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseOver</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーが凡例項目にマウスポインターを合わせたことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:ITEM_MOUSE_UP"><apiName>ITEM_MOUSE_UP</apiName><shortdesc>
+	  イベント型定数。ユーザーが凡例項目の上でマウスボタンを離したことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseUp</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーが凡例項目の上でマウスボタンを離したことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:LegendMouseEvent:item"><apiName>item</apiName><shortdesc>
+	  このイベントがトリガーされた Legend のアイテムです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts:LegendItem</apiValueClassifier></apiValueDef><apiDesc>
+	  このイベントがトリガーされた Legend のアイテムです。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.events:ChartItemEvent"><apiName>ChartItemEvent</apiName><shortdesc>
+ ChartItemEvent クラスは、グラフ項目がクリックされた場合などの、グラフコンポーネントに特有のイベントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ ChartItemEvent クラスは、グラフ項目がクリックされた場合などの、グラフコンポーネントに特有のイベントを表します。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.events:ChartItemEvent:ChartItemEvent"><apiName>ChartItemEvent</apiName><shortdesc>
+	 コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントのタイプです。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>hitSet</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>イベントをトリガーした ChartItems を示す HitData 構造体の配列です。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:MouseEvent"/><apiData>null</apiData><apiDesc>この ChartItemEvent をトリガーした MouseEvent です。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.charts.chartClasses:ChartBase</apiOperationClassifier><apiData>null</apiData><apiDesc>イベントがトリガーされたグラフです。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	 コンストラクターです。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.events:ChartItemEvent:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+	  イベント型定数。グラフ内の選択範囲が変更されたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。グラフ内の選択範囲が変更されたことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_CLICK"><apiName>ITEM_CLICK</apiName><shortdesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスボタンをクリックしたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスボタンをクリックしたことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_DOUBLE_CLICK"><apiName>ITEM_DOUBLE_CLICK</apiName><shortdesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスボタンをダブルクリックしたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemDoubleClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスボタンをダブルクリックしたことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_MOUSE_DOWN"><apiName>ITEM_MOUSE_DOWN</apiName><shortdesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスボタンをクリックしたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseDown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスボタンをクリックしたことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_MOUSE_MOVE"><apiName>ITEM_MOUSE_MOVE</apiName><shortdesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスポインターを移動させたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseMove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスポインターを移動させたことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_MOUSE_UP"><apiName>ITEM_MOUSE_UP</apiName><shortdesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスボタンを離したことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemMouseUp</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目の上で、マウスボタンを離したことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_ROLL_OUT"><apiName>ITEM_ROLL_OUT</apiName><shortdesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目から、マウスポインターを離したことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemRollOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目から、マウスポインターを離したことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:ITEM_ROLL_OVER"><apiName>ITEM_ROLL_OVER</apiName><shortdesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目に、マウスポインターを合わせたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemRollOver</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  イベント型定数。ユーザーがグラフ内のデータを表すグラフ項目に、マウスポインターを合わせたことを示します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:hitSet"><apiName>hitSet</apiName><shortdesc>
+	  イベントをトリガーしたグラフ項目を示す HitData 構造体のセットです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  イベントをトリガーしたグラフ項目を示す HitData 構造体のセットです。 この配列は深度の順番になっています。つまり、配列の最初のアイテムが最も浅いレベルのアイテムで、最後のアイテムが最も深いレベルのアイテムです。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartItemEvent:hitData:get"><apiName>hitData</apiName><shortdesc> 
+	  hitSet 配列の最初のアイテムです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.charts:HitData</apiValueClassifier></apiValueDef><apiDesc> 
+	  hitSet 配列の最初のアイテムです。 これは、複数のアイテムに対応するイベントに関心のない開発者にとって便利な関数です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.events:ChartEvent"><apiName>ChartEvent</apiName><shortdesc>
+ ChartEvent クラスは、グラフがクリックされた場合などの、グラフコントロールに特有のイベントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ ChartEvent クラスは、グラフがクリックされた場合などの、グラフコントロールに特有のイベントを表します。 このイベントは、ChartItem オブジェクトがマウスでポイントされていない場合にのみ発生します。
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="mx.charts.events.xml#ChartItemEvent"><linktext>mx.charts.events.ChartItemEvent</linktext></link></related-links><apiConstructor id="mx.charts.events:ChartEvent:ChartEvent"><apiName>ChartEvent</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントのタイプです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:MouseEvent"/><apiData>null</apiData><apiDesc>この ChartEvent をトリガーした MouseEvent です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.charts.chartClasses:ChartBase</apiOperationClassifier><apiData>null</apiData><apiDesc>イベントがトリガーされたグラフです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.events:ChartEvent:CHART_CLICK"><apiName>CHART_CLICK</apiName><shortdesc>
+      ユーザーがグラフアイテムの上ではなくグラフコントロールの上でマウスボタンをクリックしたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>chartClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ユーザーがグラフアイテムの上ではなくグラフコントロールの上でマウスボタンをクリックしたことを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.events:ChartEvent:CHART_DOUBLE_CLICK"><apiName>CHART_DOUBLE_CLICK</apiName><shortdesc>
+      ユーザーがグラフアイテムの上ではなくグラフコントロールの上でマウスボタンをダブルクリックしたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>chartDoubleClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ユーザーがグラフアイテムの上ではなくグラフコントロールの上でマウスボタンをダブルクリックしたことを示します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics.codec"><apiName>mx.graphics.codec</apiName><apiDetail/><apiClassifier id="mx.graphics.codec:IImageEncoder"><apiName>IImageEncoder</apiName><shortdesc>
+  Die IImageEncoder-Schnittstelle definiert das Bild, das Encoder implementieren, um BitmapData-Objekte oder ByteArrays mit unformatierten ARGB-Pixeln in gängige Bildformate wie PNG oder JPEG zu konvertieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Die IImageEncoder-Schnittstelle definiert das Bild, das Encoder implementieren, um BitmapData-Objekte oder ByteArrays mit unformatierten ARGB-Pixeln in gängige Bildformate wie PNG oder JPEG zu konvertieren.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.codec.xml#PNGEncoder"><linktext>PNGEncoder</linktext></link><link href="mx.graphics.codec.xml#JPEGEncoder"><linktext>JPEGEncoder</linktext></link></related-links><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      Kodiert ein ByteArray-Objekt mit unformatierten Pixeln im 32-Bit-ARGB-Format (Alpha, Rot, Grün, Blau) in ein neues ByteArray-Objekt mit kodierten Bilddaten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt ein ByteArray-Objekt mit kodierten Bilddaten zurück.
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Das ByteArray-Eingabeobjekt mit unformatierten Pixeln. Dieses ByteArray sollte <codeph>4 width height</codeph> Byte enthalten. Jedes Pixel wird durch 4 Byte in der Reihenfolge ARGB dargestellt. Die ersten vier Byte entsprechen dem linken oberen Pixel des Bilds. Die nächsten vier Byte stellen das Pixel rechts davon dar usw. Jede Zeile folgt der vorhergehenden Zeile ohne Trennung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>Die Breite des Eingabebilds in Pixeln.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>Die Höhe des Eingabebilds in Pixeln.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Bei <codeph>false</codeph> werden Alphakanalinformationen ignoriert.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Kodiert ein ByteArray-Objekt mit unformatierten Pixeln im 32-Bit-ARGB-Format (Alpha, Rot, Grün, Blau) in ein neues ByteArray-Objekt mit kodierten Bilddaten. Das ursprüngliche ByteArray wird nicht verändert.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:encode"><apiName>encode</apiName><shortdesc>
+      Kodiert ein BitmapData-Objekt als ByteArray.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt ein ByteArray-Objekt mit kodierten Bilddaten zurück. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>Das BitmapData-Eingabeobjekt.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Kodiert ein BitmapData-Objekt als ByteArray.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:IImageEncoder:mx.graphics.codec:IImageEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Der MIME-Typ für das Bildformat, das dieser Encoder erzeugt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der MIME-Typ für das Bildformat, das dieser Encoder erzeugt.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+  Die JPEGEncoder-Klasse konvertiert unformatierte Bitmapbilder mit der Joint Photographic Experts Group (JPEG)-Komprimierung in kodierte Bilder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die JPEGEncoder-Klasse konvertiert unformatierte Bitmapbilder mit der Joint Photographic Experts Group (JPEG)-Komprimierung in kodierte Bilder. Informationen zum JPEG-Algorithmus finden Sie im Dokument http://www.opennet.ru/docs/formats/jpeg.txt von Cristi Cuturicu.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:JPEGEncoder:JPEGEncoder"><apiName>JPEGEncoder</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>quality</apiItemName><apiType value="Number"/><apiData>50.0</apiData><apiDesc>Ein Wert zwischen 0,0 und 100,0. Je niedriger der <codeph>quality</codeph>-Wert, umso kleiner ist die Dateigröße des Ergebnisbilds. Der Wert wirkt sich nicht auf die Kodierungsgeschwindigkeit aus. Beachten Sie, dass dieser Wert zwar zwischen 0,0 und 100,0 liegt, jedoch kein Prozentsatz ist. Der Standardwert ist 50,0.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:JPEGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      Konvertiert ein ByteArray-Objekt mit unformatierten Pixeln im 32-Bit-ARGB-Format (Alpha, Rot, Grün, Blau) in ein neues JPEG-kodiertes ByteArray-Objekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt ein ByteArray-Objekt mit JPEG-kodierten Bilddaten zurück. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Das ByteArray-Eingabeobjekt mit unformatierten Pixeln. Dieses ByteArray sollte <codeph>4 width height</codeph> Byte enthalten. Jedes Pixel wird durch 4 Byte in der Reihenfolge ARGB dargestellt. Die ersten vier Byte entsprechen dem linken oberen Pixel des Bilds. Die nächsten vier Byte stellen das Pixel rechts davon dar usw. Jede Zeile folgt der vorhergehenden Zeile ohne Trennung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>Die Breite des Eingabebilds in Pixeln.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>Die Höhe des Eingabebilds in Pixeln.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Bei <codeph>false</codeph> werden Alphakanalinformationen ignoriert.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Konvertiert ein ByteArray-Objekt mit unformatierten Pixeln im 32-Bit-ARGB-Format (Alpha, Rot, Grün, Blau) in ein neues JPEG-kodiertes ByteArray-Objekt. Das ursprüngliche ByteArray wird nicht verändert. Transparenz wird nicht unterstützt. Sie müssen jedoch jedes Pixel durch vier Byte im ARGB-Format darstellen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:JPEGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      Konvertiert die Pixel eines BitmapData-Objekts in ein JPEG-kodiertes ByteArray-Objekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt ein ByteArray-Objekt mit JPEG-kodierten Bilddaten zurück.
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>Das BitmapData-Eingabeobjekt.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Konvertiert die Pixel eines BitmapData-Objekts in ein JPEG-kodiertes ByteArray-Objekt.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:JPEGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Der MIME-Typ des JPEG-kodierten Bilds.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der MIME-Typ des JPEG-kodierten Bilds. Der Wert lautet <codeph>"image/jpeg"</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics.codec:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+  Die PNGEncoder-Klasse konvertiert unformatierte Bitmapbilder mit der verlustfreien Portable Network Graphics (PNG)-Komprimierung in kodierte Bilder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics.codec:IImageEncoder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die PNGEncoder-Klasse konvertiert unformatierte Bitmapbilder mit der verlustfreien Portable Network Graphics (PNG)-Komprimierung in kodierte Bilder.
+ 
+  <p>Die PNG-Spezifikation finden Sie unter http://www.w3.org/TR/PNG/</p>.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics.codec:PNGEncoder:PNGEncoder"><apiName>PNGEncoder</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics.codec:PNGEncoder:encodeByteArray"><apiName>encodeByteArray</apiName><shortdesc>
+      Konvertiert ein ByteArray-Objekt mit unformatierten Pixeln im 32-Bit-ARGB-Format (Alpha, Rot, Grün, Blau) in ein neues PNG-kodiertes ByteArray-Objekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt ein ByteArray-Objekt mit PNG-kodierten Bilddaten zurück. 
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>byteArray</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>Das ByteArray-Eingabeobjekt mit unformatierten Pixeln. Dieses ByteArray sollte <codeph>4 width height</codeph> Byte enthalten. Jedes Pixel wird durch 4 Byte in der Reihenfolge ARGB dargestellt. Die ersten vier Byte entsprechen dem linken oberen Pixel des Bilds. Die nächsten vier Byte stellen das Pixel rechts davon dar usw. Jede Zeile folgt der vorhergehenden Zeile ohne Trennung.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiDesc>Die Breite des Eingabebilds in Pixeln.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiDesc>Die Höhe des Eingabebilds in Pixeln.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>transparent</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Bei <codeph>false</codeph> werden Alphakanalinformationen ignoriert, Sie müssen jedoch trotzdem jedes Pixel durch vier Byte im ARGB-Format darstellen.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Konvertiert ein ByteArray-Objekt mit unformatierten Pixeln im 32-Bit-ARGB-Format (Alpha, Rot, Grün, Blau) in ein neues PNG-kodiertes ByteArray-Objekt. Das ursprüngliche ByteArray wird nicht verändert.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics.codec:PNGEncoder:encode"><apiName>encode</apiName><shortdesc>
+      Konvertiert die Pixel eines BitmapData-Objekts in ein PNG-kodiertes ByteArray-Objekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt ein ByteArray-Objekt mit PNG-kodierten Bilddaten zurück.
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>bitmapData</apiItemName><apiType value="flash.display:BitmapData"/><apiDesc>Das BitmapData-Eingabeobjekt.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Konvertiert die Pixel eines BitmapData-Objekts in ein PNG-kodiertes ByteArray-Objekt.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics.codec:PNGEncoder:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Der MIME-Typ des PNG-kodierten Bildes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der MIME-Typ des PNG-kodierten Bildes. Der Wert lautet <codeph>"image/png"</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

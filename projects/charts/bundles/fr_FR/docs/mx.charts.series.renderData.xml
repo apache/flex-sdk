@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.series.renderData"><apiName>mx.charts.series.renderData</apiName><apiDetail/><apiClassifier id="mx.charts.series.renderData:HLOCSeriesRenderData"><apiName>HLOCSeriesRenderData</apiName><shortdesc>
+  Représente toutes les informations dont les objets HLOCSeries et CandlestickSeries ont besoin pour le rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente toutes les informations dont les objets HLOCSeries et CandlestickSeries ont besoin pour le rendu.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:HLOCSeriesRenderData:HLOCSeriesRenderData"><apiName>HLOCSeriesRenderData</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets HLOCSeriesItem représentant les éléments présents dans le fournisseur de données.
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets HLOCSeriesItem représentant les éléments présents dans le fournisseur de données après filtrage.
+	 </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Moitié de la largeur d’un élément, en pixels.
+	 </apiDesc></apiParam><apiParam><apiItemName>renderedXOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>	Décalage de chaque élément par rapport à sa valeur x, en pixels.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:HLOCSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+	  Moitié de la largeur d’un élément, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Moitié de la largeur d’un élément, en pixels.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:HLOCSeriesRenderData:renderedXOffset"><apiName>renderedXOffset</apiName><shortdesc>
+	  Décalage de chaque élément par rapport à sa valeur x, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Décalage de chaque élément par rapport à sa valeur x, en pixels.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:PlotSeriesRenderData"><apiName>PlotSeriesRenderData</apiName><shortdesc>
+  Représente toutes les informations dont la série PlotSeries a besoin pour le rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente toutes les informations dont la série PlotSeries a besoin pour le rendu.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:PlotSeriesRenderData:PlotSeriesRenderData"><apiName>PlotSeriesRenderData</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets PlotSeriesItem représentant les éléments présents dans le fournisseur de données.
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets PlotSeriesItem représentant les éléments présents dans le fournisseur de données après filtrage.
+	 </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Rayon des différents objets PlotSeriesItem.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:PlotSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+	  Rayon des différents objets PlotSeriesItem.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Rayon des différents objets PlotSeriesItem.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:ColumnSeriesRenderData"><apiName>ColumnSeriesRenderData</apiName><shortdesc>
+  Représente toutes les informations dont la série ColumnSeries a besoin pour le rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente toutes les informations dont la série ColumnSeries a besoin pour le rendu.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:ColumnSeriesRenderData:ColumnSeriesRenderData"><apiName>ColumnSeriesRenderData</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets ColumnSeriesItem représentant les éléments présents dans l’objet dataProvider.
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets ColumnSeriesItem représentant les éléments présents dans l’objet dataProvider après filtrage.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Position verticale de la base des colonnes, en pixels.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Moitié de la largeur d’une colonne, en pixels.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedXOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Décalage de chaque colonne par rapport à sa valeur x, en pixels.
+      </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Facteur d’échelle des libellés rendus par la série de colonnes.
+      </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Structure de données associée à la mise en forme des libellés rendus par la série de colonnes.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+      Structure de données associée à la mise en forme des libellés rendus par la série de colonnes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Structure de données associée à la mise en forme des libellés rendus par la série de colonnes.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+      Facteur d’échelle des libellés rendus par la série de colonnes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur d’échelle des libellés rendus par la série de colonnes.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      Position verticale de la base des colonnes, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position verticale de la base des colonnes, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+      Moitié de la largeur d’une colonne, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Moitié de la largeur d’une colonne, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedXOffset"><apiName>renderedXOffset</apiName><shortdesc>
+      Décalage de chaque colonne par rapport à sa valeur x, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Décalage de chaque colonne par rapport à sa valeur x, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:AreaSeriesRenderData"><apiName>AreaSeriesRenderData</apiName><shortdesc>
+  Représente toutes les informations dont la série AreaSeries a besoin pour le rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente toutes les informations dont la série AreaSeries a besoin pour le rendu.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:AreaSeriesRenderData:AreaSeriesRenderData"><apiName>AreaSeriesRenderData</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:AreaSeries</apiOperationClassifier><apiDesc>Objet AreaSeries auquel cette structure est associée.
+      </apiDesc></apiParam><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets AreaSeriesItem représentant les éléments présents dans l’objet dataProvider.
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets AreaSeriesItem représentant les éléments présents dans l’objet dataProvider après filtrage.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Position verticale de la base de la série de zones, en pixels.
+      </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Rayon des éléments de la série AreaSeries.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:element"><apiName>element</apiName><shortdesc>
+      Série AreaSeries à laquelle cette structure est associée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts.series:AreaSeries</apiValueClassifier></apiValueDef><apiDesc>
+      Série AreaSeries à laquelle cette structure est associée.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+      Rayon des éléments de la série AreaSeries.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Rayon des éléments de la série AreaSeries.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      Position verticale de la base de la série de zones, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position verticale de la base de la série de zones, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:LineSeriesRenderData"><apiName>LineSeriesRenderData</apiName><shortdesc>
+  Représente toutes les informations dont la série LineSeries a besoin pour le rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente toutes les informations dont la série LineSeries a besoin pour le rendu.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:LineSeriesRenderData:LineSeriesRenderData"><apiName>LineSeriesRenderData</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets LineSeriesItem représentant les éléments présents dans l’objet dataProvider.
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets LineSeriesItem représentant les éléments présents dans l’objet dataProvider après filtrage.
+	 </apiDesc></apiParam><apiParam><apiItemName>validPoints</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Nombre de points valides dans le cache.
+	 </apiDesc></apiParam><apiParam><apiItemName>segments</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Tableau d’objets LineSeriesSegment représentant chacun un segment discontinu de la série LineSeries.
+	 </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Rayon des différents éléments de la série LineSeries.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+	  Rayon des différents éléments de la série de lignes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Rayon des différents éléments de la série de lignes.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:segments"><apiName>segments</apiName><shortdesc>
+	  Tableau d’occurrences LineSeriesSegment représentant chacune un segment discontinu de la série de lignes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  Tableau d’occurrences LineSeriesSegment représentant chacune un segment discontinu de la série de lignes.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:validPoints"><apiName>validPoints</apiName><shortdesc>
+	  Nombre de points du cache qui n’ont pas été filtrés par les axes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Nombre de points du cache qui n’ont pas été filtrés par les axes.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:BubbleSeriesRenderData"><apiName>BubbleSeriesRenderData</apiName><shortdesc>
+  Représente toutes les informations dont la série BubbleSeries a besoin pour le rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente toutes les informations dont la série BubbleSeries a besoin pour le rendu.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:BubbleSeriesRenderData:BubbleSeriesRenderData"><apiName>BubbleSeriesRenderData</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets BubbleSeriesItem représentant les éléments présents dans l’objet dataProvider.
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets BubbleSeriesItem représentant les éléments présents dans l’objet dataProvider après filtrage.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.charts.series.renderData:BarSeriesRenderData"><apiName>BarSeriesRenderData</apiName><shortdesc>
+  Représente toutes les informations dont la série BarSeries a besoin pour le rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente toutes les informations dont la série BarSeries a besoin pour le rendu.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:BarSeriesRenderData:BarSeriesRenderData"><apiName>BarSeriesRenderData</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets BarSeriesItem représentant les éléments présents dans l’objet dataProvider.
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets BarSeriesItem représentant les éléments présents dans l’objet dataProvider après filtrage.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Position horizontale de la base des barres, en pixels.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Moitié de la largeur d’une barre, en pixels.
+      </apiDesc></apiParam><apiParam><apiItemName>renderedYOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Décalage de chaque barre par rapport à sa valeur y, en pixels.
+      </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Facteur d’échelle des libellés rendus par la série de barres.
+      </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Structure de données associée à la mise en forme des libellés rendus par la série de barres.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+      Structure de données associée à la mise en forme des libellés rendus par la série de barres.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Structure de données associée à la mise en forme des libellés rendus par la série de barres.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+      Facteur d’échelle des libellés rendus par la série de barres.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Facteur d’échelle des libellés rendus par la série de barres.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      Position horizontale de la base des barres, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position horizontale de la base des barres, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+      Moitié de la largeur d’une barre, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Moitié de la largeur d’une barre, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedYOffset"><apiName>renderedYOffset</apiName><shortdesc>
+      Décalage de chaque barre par rapport à sa valeur y, en pixels.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Décalage de chaque barre par rapport à sa valeur y, en pixels.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:PieSeriesRenderData"><apiName>PieSeriesRenderData</apiName><shortdesc>
+  Représente toutes les informations dont la série PieSeries a besoin pour le rendu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente toutes les informations dont la série PieSeries a besoin pour le rendu.  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:PieSeriesRenderData:PieSeriesRenderData"><apiName>PieSeriesRenderData</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets PieSeriesItem représentant les éléments présents dans l’objet dataProvider.
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Liste des objets PieSeriesItem représentant les éléments présents dans l’objet dataProvider après filtrage.
+	 </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Facteur d’échelle des libellés rendus par la série PieSeries.
+	 </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Structure de données associée à la mise en forme des libellés rendus par la série PieSeries.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:itemSum"><apiName>itemSum</apiName><shortdesc>
+	  Somme totale des valeurs représentées dans la série de graphiques circulaires.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Somme totale des valeurs représentées dans la série de graphiques circulaires.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+	  Structure de données associée à la mise en forme des libellés rendus par la série de graphiques circulaires.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Structure de données associée à la mise en forme des libellés rendus par la série de graphiques circulaires.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+	  Facteur d’échelle des libellés rendus par la série de graphiques circulaires.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Facteur d’échelle des libellés rendus par la série de graphiques circulaires.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

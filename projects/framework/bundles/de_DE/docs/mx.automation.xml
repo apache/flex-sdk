@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation"><apiName>mx.automation</apiName><apiDetail/><apiClassifier id="mx.automation:IAutomationObject"><apiName>IAutomationObject</apiName><shortdesc>
+ Die IAutomationObject-Schnittstelle definiert die Schnittstelle für ein Delegatenobjekt, welches die Automatisierung für eine Komponente implementiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Die IAutomationObject-Schnittstelle definiert die Schnittstelle für ein Delegatenobjekt, welches die Automatisierung für eine Komponente implementiert.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:createAutomationIDPartWithRequiredProperties"><apiName>createAutomationIDPartWithRequiredProperties</apiName><shortdesc>
+      Gibt einen Satz Eigenschaften als Automatisierungs-IDs zurück, welche das untergeordnete Element innerhalb seines Containers identifizieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Satz Eigenschaften, der das untergeordnete Element beschreibt, welches später verwendet werden kann, um die Komponente aufzulösen.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiOperationClassifier>mx.automation:IAutomationObject</apiOperationClassifier><apiDesc>Untergeordnetes Element, für welches die ID bereitzustellen ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>properties</apiItemName><apiType value="Array"/><apiDesc>Muss zur Erstellung der ID berücksichtigt werden.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt einen Satz Eigenschaften als Automatisierungs-IDs zurück, welche das untergeordnete Element innerhalb seines Containers identifizieren. Diese Werte sollten sich über die Lebensdauer der Anwendung nicht verändern
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:createAutomationIDPart"><apiName>createAutomationIDPart</apiName><shortdesc>
+      Gibt einen Satz Eigenschaften zurück, welche das untergeordnete Element innerhalb dieses Containers identifizieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Satz Eigenschaften, der das untergeordnete Element beschreibt, welches später verwendet werden kann, um die Komponente aufzulösen.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiOperationClassifier>mx.automation:IAutomationObject</apiOperationClassifier><apiDesc>Untergeordnetes Element, für welches die ID bereitzustellen ist.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt einen Satz Eigenschaften zurück, welche das untergeordnete Element innerhalb dieses Containers identifizieren. Diese Werte sollten sich über die Lebensdauer der Anwendung nicht verändern.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:getAutomationChildAt"><apiName>getAutomationChildAt</apiName><shortdesc> 
+      Stellt das Automatisierungsobjekt an der festgelegten Indexposition bereit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Das untergeordnete Element an der festgelegten Indexposition.
+      
+      </apiDesc><apiOperationClassifier>mx.automation:IAutomationObject</apiOperationClassifier></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die zurückzugebende Indexposition des untergeordneten Elements.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Stellt das Automatisierungsobjekt an der festgelegten Indexposition bereit. Diese Liste sollte keine untergeordneten Elemente enthalten, welche Composites sind.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:getAutomationChildren"><apiName>getAutomationChildren</apiName><shortdesc>
+      Stellt die Automatisierungsobjektliste bereit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die untergeordneten Automatisierungselemente.
+     
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Stellt die Automatisierungsobjektliste bereit. Diese Liste enthält keine untergeordneten Objekte, welche Composites sind.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+      Wiederholt das festgelegte Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn eine Wiederholung erfolgreich war.  
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das zu wiederholende Ereignis.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wiederholt das festgelegte Ereignis. Komponentenautoren sollten super.replayAutomatableEvent für den Fall aufrufen, dass das voreingestellte Wiederholverhalten in einer Superklasse definiert wurde.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:resolveAutomationIDPart"><apiName>resolveAutomationIDPart</apiName><shortdesc>
+      Löst ein untergeordnetes Element mithilfe der bereitgestellten ID auf.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Array von untergeordneten Elementen, auf welche die Kriterien zutrafen oder <codeph>null</codeph>, wenn keine untergeordneten Elemente aufgelöst werden konnten.
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>criteria</apiItemName><apiType value="Object"/><apiDesc>Satz Eigenschaften, welcher das untergeordnete Element beschreibt. Die Kriterien können reguläre Ausdruckswerte enthalten, was zur Übereinstimmung mehrerer untergeordneter Elemente mit den Kriterien führen kann.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Löst ein untergeordnetes Element mithilfe der bereitgestellten ID auf. Die ID ist ein Satz Eigenschaften, der von der <codeph>createAutomationIDPart()</codeph>-Methode bereitgestellt wird.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationDelegate:get"><apiName>automationDelegate</apiName><shortdesc>
+      Das Delegatenobjekt, welches die automatisierungsverwandte Funktionalität verarbeitet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Das Delegatenobjekt, welches die automatisierungsverwandte Funktionalität verarbeitet. Die Automatisierung legt dies fest, wenn sie das Delegatenobjekt erstellt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc>
+      „True“, wenn diese Komponente automationsfähig ist, andernfalls „false“.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      „True“, wenn diese Komponente automationsfähig ist, andernfalls „false“.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IUIComponent/enabled"><linktext>mx.core.IUIComponent.enabled</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationName:get"><apiName>automationName</apiName><shortdesc>
+      Name, der als Bezeichner für dieses Objekt verwendet werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Name, der als Bezeichner für dieses Objekt verwendet werden kann.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationOwner:get"><apiName>automationOwner</apiName><shortdesc>
+      Der Eigentümer dieser Komponente für Automationszwecke.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      Der Eigentümer dieser Komponente für Automationszwecke.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IVisualElement/owner"><linktext>mx.core.IVisualElement.owner</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationParent:get"><apiName>automationParent</apiName><shortdesc>
+      Das übergeordnete Element dieser Komponente für Automationszwecke.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      Das übergeordnete Element dieser Komponente für Automationszwecke.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.core.xml#IVisualElement/parent"><linktext>mx.core.IVisualElement.parent</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+      Implementierung der IAutomationTabularData-Schnittstelle, welche verwendet werden kann, um die Daten abzurufen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Implementierung der <codeph>IAutomationTabularData</codeph>-Schnittstelle, welche verwendet werden kann, um die Daten abzurufen.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationValue:get"><apiName>automationValue</apiName><shortdesc>
+      Dieser Wert entspricht im Allgemeinen der gerenderten Darstellung des Objekts und kann verwendet werden, um den Bezeichner mit dem Objekt, wie es in der Anwendung erscheint, in Beziehung zu setzen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Dieser Wert entspricht im Allgemeinen der gerenderten Darstellung des Objekts und kann verwendet werden, um den Bezeichner mit dem Objekt, wie es in der Anwendung erscheint, in Beziehung zu setzen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:automationVisible:get"><apiName>automationVisible</apiName><shortdesc>
+      „True“, wenn diese Komponente für die Automation sichtbar ist, andernfalls „false“.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      „True“, wenn diese Komponente für die Automation sichtbar ist, andernfalls „false“.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/visible"><linktext>flash.display.DisplayObject.visible</linktext></link></related-links></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:numAutomationChildren:get"><apiName>numAutomationChildren</apiName><shortdesc>
+      Anzahl der untergeordneten Automatisierungselemente, die dieser Container besitzt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Anzahl der untergeordneten Automatisierungselemente, die dieser Container besitzt. Diese Summe sollte keine untergeordneten Compositeelemente enthalten. Sie enthält jedoch untergeordnete Elemente, welche innerhalb der Automatisierungshierarchie keine Signifikanz besitzen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation:IAutomationObject:mx.automation:IAutomationObject:showInAutomationHierarchy:get"><apiName>showInAutomationHierarchy</apiName><shortdesc> 
+      Ein Flag, welches bestimmt, ob ein Automatisierungsobjekt in der Automatisierungshierarchie angezeigt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+      Ein Flag, das bestimmt, ob ein Automatisierungsobjekt in der Automatisierungshierarchie angezeigt wird. Untergeordnete Elemente von Containern, die in der Hierarchie nicht sichtbar sind, erscheinen als untergeordnete Elemente des nächsthöheren sichtbaren übergeordneten Elements. Container für Layout, z. B. Felder und Arbeitsfläche, erscheinen normalerweise nicht in der Hierarchie.
+     
+      <p>Manche Steuerelemente erzwingen ein Erscheinen ihrer untergeordneten Elemente in der Hierarchie, wenn erforderlich. Beispiel: Eine Liste zwingt Elementrenderer, einschließlich Felder, immer in der Hierarchie zu erscheinen. Implementierer müssen das Ändern dieser Einstellungen auf <codeph>true</codeph> unterstützen.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

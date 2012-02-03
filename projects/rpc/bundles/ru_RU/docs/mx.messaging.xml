@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging"><apiName>mx.messaging</apiName><apiDetail/><apiClassifier id="mx.messaging:FlexClient"><apiName>FlexClient</apiName><shortdesc>
+  Одиночный класс, сохраняющий глобальный идентификатор для этого экземпляра проигрывателя, являющегося назначенным сервером при выполнении клиентом его начального подключения к серверу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Одиночный класс, сохраняющий глобальный идентификатор для этого экземпляра проигрывателя, являющегося назначенным сервером при выполнении клиентом его начального подключения к серверу.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:FlexClient_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Передается при изменении свойства одиночного FlexClient.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства одиночного FlexClient. Прослушиватели должны быть добавлены с помощью FlexClient.getInstance().addEventListener(...).
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.messaging:FlexClient:getInstance"><apiName>getInstance</apiName><shortdesc>
+	  Возвращает единственный экземпляр одного класса путем его создания, если он еще не существует.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Возвращает единственный экземпляр одного класса путем его создания, если он еще не существует.
+	  
+	  </apiDesc><apiOperationClassifier>mx.messaging:FlexClient</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+	  Возвращает единственный экземпляр одного класса путем его создания, если он еще не существует.
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:FlexClient:id:get"><apiName>id</apiName><shortdesc>
+      Глобальный идентификатор FlexClient для этого экземпляра проигрывателя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Глобальный идентификатор FlexClient для этого экземпляра проигрывателя. Это значение назначается сервером и устанавливается как часть процесса подключения канала. Будучи однажды установлено, оно не будет изменяться в продолжение срока действия экземпляра проигрывателя. Если ни один канал не подключен к серверу, то это свойство имеет значение null.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:AbstractProducer"><apiName>AbstractProducer</apiName><shortdesc>
+  AbstractProducer является базовым классом для классов Producer и MultiTopicConsumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:MessageAgent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AbstractProducer является базовым классом для классов Producer и MultiTopicConsumer. Используйте эти классы для отправки сообщений на сервер.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging:AbstractProducer:connect"><apiName>connect</apiName><shortdesc>
+      Подключает отправителя к его целевому адресу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc> Если адрес назначения не установлен.
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Подключает отправителя к его целевому адресу. При установлении подключения свойство <codeph>connected</codeph> изменяется на <codeph>true</codeph>, и это свойство является привязываемым и генерирует <codeph>PropertyChangeEvents</codeph>. Передаваемый внутренний CommandMessage TRIGGER_CONNECT_OPERATION приведет к событию подтверждения или ошибки в зависимости от того, установит ли основной канал свое подключение.
+     
+      </apiDesc><example>
+      <pre>
+         var producer:Producer = new Producer();
+         producer.destination = "TestTopic";
+         producer.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, handleConnect);
+         producer.connect();
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractProducer:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Отключает отправителя от его удаленного адресата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Отключает отправителя от его удаленного адресата. Этот метод не ожидает завершения сетевых операций в очереди. После вызова <codeph>disconnect()</codeph> отправитель сообщит, что не подключен и не получит ожидающих обработки сообщений о подтверждениях или ошибках. Отключение автоматически останавливает выполняемые повторные попытки подключения.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractProducer:send"><apiName>send</apiName><shortdesc>
+      Передает указанное сообщение адресу назначения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc> Если адрес назначения не установлен.
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, которое требуется отправить.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Передает указанное сообщение адресу назначения. Если отправитель используется для публикации/подписки на передачу сообщений, то должны передаваться только сообщения типа AsyncMessage, только если не используется пользовательский тип сообщения, и назначение сообщения на сервере было сконфигурировано для обработки пользовательского типа сообщений.
+     
+      </apiDesc><example>
+      <pre>
+         var producer:Producer = new Producer();
+         producer.destination = "TestTopic";
+         var msg:AsyncMessage = new AsyncMessage();
+         msg.body = "test message";
+         producer.send(msg);
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation><apiValue id="mx.messaging:AbstractProducer:autoConnect:get"><apiName>autoConnect</apiName><shortdesc>
+      Если значение true, отправитель автоматически подключается к своему адресату при первом вызове метода send().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Если значение <codeph>true</codeph>, отправитель автоматически подключается к своему адресату при первом вызове метода <codeph>send()</codeph>. При значении <codeph>false</codeph> метод <codeph>connect()</codeph> должен быть вызван явно для установки подключения к адресу назначения. По умолчанию это свойство имеет значение <codeph>true</codeph>, но приложения, которые должны функционировать в режиме off-line, могут установить значение <codeph>false</codeph> для предотвращения неявного подключения с помощью метода <codeph>send()</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:defaultHeaders:get"><apiName>defaultHeaders</apiName><shortdesc>
+      Заголовки по умолчанию, применяемые для сообщений отправителя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Заголовки по умолчанию, применяемые для сообщений отправителя. Создаются любые не существующие в сообщении заголовки по умолчанию. Если сообщение уже содержит заголовок, то он имеет приоритет, а значение заголовка по умолчанию игнорируется. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:priority:get"><apiName>priority</apiName><shortdesc>
+      По умолчанию приоритет имеют сообщения, переданные отправителем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      По умолчанию приоритет имеют сообщения, переданные отправителем. Допустимы значения от 0 до 9 (0 является минимальным), -1 означает, что отправитель не имеет установленного приоритета. Следует отметить, что если сообщение уже имеет приоритет, то он выше приоритета отправителя.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:reconnectAttempts:get"><apiName>reconnectAttempts</apiName><shortdesc>
+      Количество выполняемых отправителем повторных попыток подключения, если адресат назначения недоступен или закрыто подключение к адресату.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Количество выполняемых отправителем повторных попыток подключения, если адресат назначения недоступен или закрыто подключение к адресату. При значении -1 возможно бесконечное количество попыток. При нулевом значении повторные попытки подключения запрещены.
+      
+      <p>Повторные попытки подключения выполняются с постоянной периодичностью в соответствии со значением интервала повторных подключений. Когда повторная попытка подключения выполнена, если основной канал для отправителя не подключен или пытается подключиться, канал начнет попытку подключения. Последующие повторные попытки подключения отправителя, происходящие в то время, как попытка подключения основного канала ожидает обработки, игнорируются до успешного выполнения или выполнения с ошибкой ожидающей обработки попытки подключения канала.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Producer/reconnectInterval"><linktext>mx.messaging.Producer.reconnectInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractProducer:reconnectInterval:get"><apiName>reconnectInterval</apiName><shortdesc>
+      Количество миллисекунд между повторными попытками подключения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiException><apiDesc>Если присвоенное значение отрицательное.
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Количество миллисекунд между повторными попытками подключения. Если отправитель не получает подтверждение попытки подключения, то временной интервал перед выполнением следующей попытки подключения составит указанное количество миллисекунд. Установка нулевого значения запрещает повторные попытки подключения.
+      
+      <p>Повторные попытки подключения выполняются с постоянной периодичностью в соответствии с этим значением. Когда повторная попытка подключения выполнена, если основной канал для отправителя не подключен или пытается подключиться, канал начнет попытку подключения. Последующие повторные попытки подключения отправителя, происходящие в то время, как попытка подключения основного канала ожидает обработки, игнорируются до успешного выполнения или выполнения с ошибкой ожидающей обработки попытки подключения канала.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Producer/reconnectInterval"><linktext>mx.messaging.Producer.reconnectInterval</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging:ChannelSet"><apiName>ChannelSet</apiName><shortdesc>
+  ChannelSet представляет собой набор каналов, используемых для отправки сообщений по целевому адресу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion><DefaultProperty name="channels"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChannelSet представляет собой набор каналов, используемых для отправки сообщений по целевому адресу. ChannelSet повышает качество обслуживания клиента путем поиска среди его каналов для отправки сообщений в условиях отказов сети или проблем отдельных каналов.
+   </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:ChannelSet_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Передается при изменении свойства ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства ChannelSet.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ Событие ошибки передается при отказе вызова входа в систему или выхода из системы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Событие ошибки передается при отказе вызова входа в систему или выхода из системы.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ Событие результата передается при успешном возврате вызова входа в систему или выхода из системы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ Событие результата передается при успешном возврате вызова входа в систему или выхода из системы.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  Передается после возникновения ошибки в канале в ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается после возникновения ошибки в канале в ChannelSet.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  Передается после отключения канала в ChannelSet от его конечной точки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается после отключения канала в ChannelSet от его конечной точки.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  Передается после подключения канала в ChannelSet к его конечной точке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается после подключения канала в ChannelSet к его конечной точке.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:ChannelSet:ChannelSet"><apiName>ChannelSet</apiName><shortdesc>
+      Создает ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>channelIds</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Идентификаторы сконфигурированных каналов, полученных из ServerConfig для использования этого ChannelSet. При значении null каналы должны быть добавлены к ChannelSet вручную.
+           </apiDesc></apiParam><apiParam><apiItemName>clusteredWithURLLoadBalancing</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение true, если каналы кластеризованы в ChannelSet с помощью балансировки загрузки URL.
+           </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает ChannelSet. Если аргумент <codeph>channelIds</codeph> предоставляется, то для достижения адресата ChannelSet использует автоматически сконфигурированные каналы, полученные с помощью <codeph>ServerConfig.getChannel()</codeph>. Невозможно вручную назначить каналы ChannelSet, использующему сконфигурированные каналы.
+           <p>Если аргумент <codeph>channelIds</codeph> не предоставлен или имеет значение null, то каналы должны создаваться и добавляться к ChannelSet вручную для подключения и отправки сообщений.</p>
+           <p>Если ChannelSet будет кластеризован с помощью балансировки загрузки URL (где каждый сервер объявляет уникальный RTMP или URL HTTP, а клиент при возникновении ошибки переходит от одного URL к другому), то при первом успешном подключении канала в ChannelSet, ChannelSet автоматически сделает запрос на все конечные точки по кластеру для всех каналов набора и назначит эти URL преодоления отказов каждому соответствующему каналу. Это позволяет каналам в ChannelSet индивидуально преодолевать отказы, и когда варианты преодоления отказа для определенного канала исчерпываются, ChannelSet переходит к следующему каналу в наборе для повторной попытки подключения.</p>
+           <p>Независимо от кластеризации, если канал не может подключиться или теряет связность, ChannelSet будет переходить к его следующему доступному каналу и повторно пытаться подключиться. Это позволяет ChannelSet выполнять поиск среди каналов, использующих различные протоколы, порты и т. д., в поисках того, который может успешно подключиться к его конечной точке.</p>
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:ChannelSet:addChannel"><apiName>addChannel</apiName><shortdesc>
+      Добавляет канал к ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Если ChannelSet <codeph>configured</codeph>, добавление канала не поддерживается. Эта ошибка также возникает в случае, когда свойство <codeph>clustered</codeph> ChannelSet имеет значение <codeph>true</codeph>, но канал имеет идентификатор null.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>Добавляемый канал.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет канал к ChannelSet. Канал с идентификатором null не может быть добавлен к ChannelSet, если ChannelSet направлен на кластеризованный адресат.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelConnectHandler"><apiName>channelConnectHandler</apiName><shortdesc>
+      Обрабатывает ChannelEvent CONNECT и повторно передает событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает ChannelEvent CONNECT и повторно передает событие.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelDisconnectHandler"><apiName>channelDisconnectHandler</apiName><shortdesc>
+      Обрабатывает ChannelEvent DISCONNECT и повторно передает событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает ChannelEvent DISCONNECT и повторно передает событие.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelFaultHandler"><apiName>channelFaultHandler</apiName><shortdesc>
+      Обрабатывает ChannelFaultEvent и повторно передает событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>ChannelFaultEvent.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает ChannelFaultEvent и повторно передает событие.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:connect"><apiName>connect</apiName><shortdesc>
+      Подключает MessageAgent к ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Подключаемый MessageAgent.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Подключает MessageAgent к ChannelSet. После подключения агент может использовать ChannelSet для отправки сообщений.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:disconnectAll"><apiName>disconnectAll</apiName><shortdesc>
+      Отключает все связанные MessageAgents и отключает любой подключенный основной канал.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Отключает все связанные MessageAgents и отключает любой подключенный основной канал. В отличие от <codeph>disconnect(MessageAgent)</codeph>, вызываемого реализациями отключения определенных компонентов услуги, этот метод предоставляет одну удобную точку для завершения работы соединения между клиентом и сервером.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Отключает определенный MessageAgent от ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Отключаемый MessageAgent.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отключает определенный MessageAgent от ChannelSet. Если это последний MessageAgent, использующий ChannelSet, и текущий канал в наборе подключен, то канал будет физически отключен от сервера.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:login"><apiName>login</apiName><shortdesc>
+      Аутентифицирует ChannelSet с сервером с помощью предоставленных учетных данных.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>в двух ситуациях; если ChannelSet уже аутентифицирован или если в настоящее время происходит операция входа в систему или выхода из системы.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>Возвращает маркер, к которому код клиента может добавить ответчик для прямой обработки успешного или ошибочного выполнения.
+           </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>Имя пользователя.
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>Пароль.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Кодировка набора символов для использования при кодировании учетных данных. По умолчанию имеет нулевое значение, при котором используется унаследованный набор символов ISO-Latin-1. Помимо этого поддерживается только набор символов UTF-8.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Аутентифицирует ChannelSet с сервером с помощью предоставленных учетных данных. В отличие от других операций на каналах и ChannelSet, эта операция возвращает AsyncToken, к которому код клиента может добавить ответчик для прямой обработки успешного или ошибочного выполнения. Если ChannelSet не будет подключен к серверу при вызове этого метода, то это запустит попытку подключения, и в случае успеха отправит команду входа в систему на сервер. Только одна операция входа в систему или выхода из системы может находиться на рассмотрении в конкретный момент времени, и наложение вызовов сгенерирует IllegalOperationError. Вызов входа в систему при уже аутентифицированном ChannelSet также генерирует IllegalOperationError.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:logout"><apiName>logout</apiName><shortdesc>
+      Отключает ChannelSet от сервера.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Если в настоящее время происходит операция входа в систему или выхода из системы.
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>Возвращает маркер, к которому код клиента может добавить ответчик для прямой обработки успешного или ошибочного выполнения.
+           </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiData>null</apiData><apiDesc>Устаревший аргумент. MessageAgent, инициирующий выход из системы.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отключает ChannelSet от сервера. В отличие от других операций на каналах и ChannelSet, эта операция возвращает AsyncToken, к которому код клиента может добавить ответчик для прямой обработки успешного или ошибочного выполнения. При успешном выходе из системы все учетные данные, кэшированные для использования в автоматических повторных подключениях, сбрасываются для ChannelSet и его каналов, и для их аутентифицируемого состояния устанавливается значение false. Если ChannelSet не подключен к серверу при вызове этого метода, то он запустит попытку подключения, и в случае успеха отправит на сервер команду выхода из системы.
+           <p>Аргумент MessageAgent присутствует для поддержки устаревшего поведения при выходе из системы, и код клиента, вызывающий этот метод, не должен передавать ссылку MessageAgent. Достаточно вызвать <codeph>logout()</codeph>, не передающий аргументов.</p>
+           <p>Этот метод также вызывается компонентами услуги из их методов <codeph>logout()</codeph>, и эти компоненты передают ссылку MessageAgent в этот метод при их выходе из системы. Присутствие этого аргумента является сигналом запуска для выполнения устаревшего поведения при выходе из системы, которое отличается от описанного выше нового поведения. Устаревшее поведение только отправляет запрос выхода из системы на сервер, если клиент подключен и аутентифицирован. При невыполнении этих условий устаревшим поведением для этого метода является только сброс всех учетных значений, кэшированных для использования в автоматических повторных подключениях.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:protected:messageHandler"><apiName>messageHandler</apiName><shortdesc>
+      Повторно передает события сообщений из подключенного в настоящее время канала.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:MessageEvent</apiOperationClassifier><apiDesc>MessageEvent из канала.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Повторно передает события сообщений из подключенного в настоящее время канала.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:removeChannel"><apiName>removeChannel</apiName><shortdesc>
+      Удаляет канал из ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Если ChannelSet <codeph>configured</codeph>, удаление канала не поддерживается.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>Удаляемый канал.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет канал из ChannelSet. Если удаляемый канал в настоящее время подключен и используется ChannelSet, то он отключается и удаляется.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:send"><apiName>send</apiName><shortdesc>
+      Отправляет сообщение из MessageAgent по подключенному в настоящее время каналу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Если ChannelSet не имеет внутренних каналов для использования.
+           </apiDesc><apiItemName>NoChannelAvailableError</apiItemName><apiOperationClassifier>mx.messaging.errors:NoChannelAvailableError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>MessageAgent отправляет сообщение.
+           </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, которое требуется отправить.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отправляет сообщение из MessageAgent по подключенному в настоящее время каналу.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      Сохраняет учетные данные и передает их в каждый подключенный канал.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>в двух ситуациях; если учетные данные были уже установлены и аутентификация происходит с удаленным адресатом, или если аутентифицируется и указанные учетные данные не соответствуют аутентифицированным в настоящее время данным.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>credentials</apiItemName><apiType value="String"/><apiDesc>Учетные данные для MessageAgent.
+      </apiDesc></apiParam><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>MessageAgent, устанавливающий учетные данные.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Набор символов кодировки, используемый при кодировании учетных данных. По умолчанию имеет значение null, подразумевающее устаревшую кодировку ISO-Latin-1.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Сохраняет учетные данные и передает их в каждый подключенный канал.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает строку, содержащую идентификаторы каналов в ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Строковое представление ChannelSet.
+           </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает строку, содержащую идентификаторы каналов в ChannelSet.
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:ChannelSet:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      Указывает, имеет ли ChannelSet основной канал, который успешно аутентифицирован с его конечной точкой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, имеет ли ChannelSet основной канал, который успешно аутентифицирован с его конечной точкой.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:channelIds:get"><apiName>channelIds</apiName><shortdesc>
+      Идентификаторы каналов, используемых ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Идентификаторы каналов, используемых ChannelSet.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:channels:get"><apiName>channels</apiName><shortdesc>
+      Предоставляет доступ к каналам в ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiException><apiDesc>Если ChannelSet <codeph>configured</codeph>, присвоение этого свойства запрещено.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Предоставляет доступ к каналам в ChannelSet. Это свойство может использоваться для одновременного присвоения набора каналов, или каналы могут быть добавлены непосредственно к ChannelSet индивидуально через addChannel(). Если этот ChannelSet автоматически <codeph>configured</codeph>, отдельные каналы создаются и добавляются к этому свойству по мере необходимости.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:clustered:get"><apiName>clustered</apiName><shortdesc>
+      Указывает, направлен ли ChannelSet на кластеризованный адресат.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, направлен ли ChannelSet на кластеризованный адресат. При значении true, если подключение выполнено, ChannelSet сделает запрос адресата для всех кластеризованных конечных точек для его каналов, и назначит им URI преодоления отказа. Идентификаторы канала используются для назначения URI преодоления отказа соответствующим экземплярам канала, таким образом, необходимо, чтобы все каналы в ChannelSet имели идентификаторы, отличные от null, и будет инициирована ошибка, когда это свойство принимает значение true, если это не так. Если ChannelSet не использует балансировку нагрузки URL на клиенте, то для этого свойства не должно быть установлено значение true.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:connected:get"><apiName>connected</apiName><shortdesc>
+      Указывает, подключен ли ChannelSet.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, подключен ли ChannelSet.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:currentChannel:get"><apiName>currentChannel</apiName><shortdesc>
+      Возвращает текущий канал для ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      Возвращает текущий канал для ChannelSet.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:heartbeatInterval:get"><apiName>heartbeatInterval</apiName><shortdesc>
+      Количество миллисекунд между периодическими контрольными сообщениями, отправляемыми удаленному узлу, если подключение к этому ChannelSet активно и свободно.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Количество миллисекунд между периодическими контрольными сообщениями, отправляемыми удаленному узлу, если подключение к этому ChannelSet активно и свободно. Любые исходящие сообщения приводят к задержке перед отправкой следующего периодического контрольного сообщения на данное количество миллисекунд после последнего переданного сообщения.
+      <p>
+      Это свойство необходимо для приложений, которые соединяются с удаленным хостом для получения помещенных обновлений и не передают активно каких-либо сообщений, но для которых требуются уведомления о разрыве подключения даже в том случае, если сетевой уровень не предоставляет такое уведомление непосредственно. Путем отправки периодических контрольных сообщений клиент может вызвать принудительное сообщение сетевого уровня о тайм-ауте, если основное подключение было разорвано без уведомления. Таким образом, приложение может ответить на отключение соответствующим образом.
+      </p>
+      <p>
+      Любое неположительное значение отключает отправку контрольных сообщений к удаленному узлу. Значение по умолчанию 0. Оно указывает, что отправка контрольных сообщений отключена. При установке значения приложением использование более длинного интервала позволяет избежать ненужной нагрузки на удаленный хост. Например, по умолчанию проверки активности TCP-сокета нижнего уровня, как правило, имеют интервал 2 часа. Этот интервал длиннее необходимого для большинства приложений с активной отправкой контрольных сообщений, но это наглядный пример того, что необходимо использовать более длинный интервал.
+      </p>
+      <p>
+      Если подключенные в настоящее время основные команды опросы канала обращаются к удаленному узлу, отправка контрольных сообщений отключается, поскольку выполняются периодические команды опроса.</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:initialDestinationId:get"><apiName>initialDestinationId</apiName><shortdesc>
+      Предоставляет доступ к начальному адресату, используемому ChannelSet для получения доступа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к начальному адресату, используемому ChannelSet для получения доступа. Когда кластеризованное свойство имеет значение true, то это значение используется для запроса доступных URI преодоления отказов для сконфигурированных каналов для адресата.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:messageAgents:get"><apiName>messageAgents</apiName><shortdesc>
+      Предоставляет доступ к набору MessageAgents, использующих этот ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Предоставляет доступ к набору MessageAgents, использующих этот ChannelSet.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MultiTopicProducer"><apiName>MultiTopicProducer</apiName><shortdesc>
+  MultiTopicProducer отправляет сообщения адресату с нулевым или большим количеством подтем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractProducer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MultiTopicProducer отправляет сообщения адресату с нулевым или большим количеством подтем. Он схож с обычным отправителем, но может направить сообщение любому получателю, подписанному на любую из ряда подтем. Если получателем является MultiTopicConsumer, и этот получатель подписался более чем на одну подтему в списке подтем, используемых отправителем, то получатель получает сообщение только один раз.
+  <p>
+  MultiTopicProducer будет передавать MessageAckEvent или MessageFaultEvent для каждого отправляемого ими сообщения, в зависимости от того, было ли исходящее сообщение успешно передано и обработано или нет.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:MultiTopicProducer:MultiTopicProducer"><apiName>MultiTopicProducer</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function sendMessage():void
+       {
+           var producer:MultiTopicProducer = new MultiTopicProducer();
+           producer.destination = "NASDAQ";
+           var msg:AsyncMessage = new AsyncMessage();
+           msg.headers.operation = "UPDATE";
+           msg.body = {"SYMBOL":50.00};
+           // only send to subscribers to subtopic "SYMBOL" and "ALLSTOCKS"
+           msg.addSubtopic("SYMBOL");
+           msg.addSubtopic("ALLSTOCKS");
+           producer.send(msg);
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MultiTopicProducer:addSubtopic"><apiName>addSubtopic</apiName><shortdesc>
+     Добавляет подтему к текущему списку подтем для сообщений, переданных этим отправителем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiDesc>Подтема для добавления к текущему списку подтем, переданных этим отправителем.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Добавляет подтему к текущему списку подтем для сообщений, переданных этим отправителем. Является комбинацией клавиш для добавления этой подтемы к свойству подтем.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicProducer:removeSubtopic"><apiName>removeSubtopic</apiName><shortdesc>
+     Удаляет подтему из свойства подтем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiDesc>Подтема для удаления из свойства подтем.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Удаляет подтему из свойства подтем. Инициирует ошибку, если подтема не находится в списке.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MultiTopicProducer:subtopics:get"><apiName>subtopics</apiName><shortdesc>
+      Предоставляет доступ к списку подтем, используемых в публикации любых сообщений
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:ArrayCollection"/></apiValueDef><apiDesc>
+      Предоставляет доступ к списку подтем, используемых в публикации любых сообщений
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MultiTopicConsumer"><apiName>MultiTopicConsumer</apiName><shortdesc>
+      Как получатель, MultiTopicConsumer подписывается на адресат с одним clientId и поставляет сообщения одному обработчику событий.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+      <p>
+      The &lt;mx:MultiTopicConsumer&gt; tag has these properties:
+      </p>
+      <pre>
+       &lt;mx:Consumer
+        <b>Properties</b>
+        subscriptions="<i>"an empty ArrayCollection of SubscriptionInfo objects</i>"
+        resubscribeAttempts="<i>5</i>"
+        resubscribeInterval="<i>5000</i>"
+        timestamp="<i>No default.</i>"
+      /&gt;
+      </pre>
+     
+      ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractConsumer</apiBaseClassifier></apiClassifierDef><apiDesc>
+      Как получатель, MultiTopicConsumer подписывается на адресат с одним clientId и поставляет сообщения одному обработчику событий. В отличие от получателя, он позволяет регистрировать подписки для списка подтем и селекторных выражений одновременно из одного обработчика сообщений. Если получатель имеет свойства подтемы и селекторные свойства, у этого компонента есть метод addSubscription(subtopic, selector), используемый для добавления новой подписки к существующему набору подписок. В качестве альтернативы можно заполнить свойство подписок списком экземпляров SubscriptionInfo, определяющих подписки для этого адресата.
+      <p>
+      Как обычный получатель, MultiTopicConsumer отправляет сообщения о подписке и отмене подписки, генерирующие MessageAckEvent или MessageFaultEvent в зависимости от того, была операция успешно выполнена или нет. Будучи однажды подписан, MultiTopicConsumer передает MessageEvent для каждого получаемого им сообщения.</p>
+      </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:MultiTopicConsumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+      Передается при получении сообщения получателем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+      Передается при получении сообщения получателем.
+     
+      </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:MultiTopicConsumer:MultiTopicConsumer"><apiName>MultiTopicConsumer</apiName><shortdesc>
+          Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+          Конструктор.
+         
+         
+          </apiDesc><example>
+          <codeblock rev="3.0">
+           function initConsumer():void
+           {
+               var consumer:Consumer = new MultiTopicConsumer();
+               consumer.destination = "NASDAQ";
+               consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+               consumer.addSubscription("myStock1", "operation IN ('BID', 'Ask')");
+               consumer.addSubscription("myStock2", "operation IN ('BID', 'Ask')");
+               consumer.subscribe();
+           }
+         
+           function messageHandler(event:MessageEvent):void
+           {
+               var msg:IMessage = event.message;
+               var info:Object = msg.body;
+               trace("-App recieved message: " + msg.toString());
+           }
+           </codeblock>
+         
+          </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MultiTopicConsumer:addSubscription"><apiName>addSubscription</apiName><shortdesc>
+         Это стандартный метод добавления подписки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Подтема для новой подписки.
+         
+         </apiDesc></apiParam><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Селектор для новой подписки.
+         
+         </apiDesc></apiParam><apiParam><apiItemName>maxFrequency</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Максимальное количество сообщений в секунду, которое получатель предпочитает получать для подписки. Следует отметить, что это значение переписывает maxFrequency ширины получателя.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         Это стандартный метод добавления подписки. С его помощью создается только новый объект SubscriptionInfo, который добавляется к свойству подписок. Для вызова этого метода следует обеспечить подтему и селекторную строку для новой подписки. Если значение подтемы равно null, подписка применяется к сообщениям, для которых не установлена подтема в отправителе. Если значение селекторной строки равно null, все отправленные сообщения, соответствующие строке подтемы, получены этим получателем.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:protected:buildSubscribeMessage"><apiName>buildSubscribeMessage</apiName><shortdesc>
+         Возвращает сообщение о подписке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>CommandMessage подписки.
+         
+          </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+         Возвращает сообщение о подписке.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:protected:buildUnsubscribeMessage"><apiName>buildUnsubscribeMessage</apiName><shortdesc>
+         Возвращает сообщение об отмене подписки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>CommandMessage отмены подписки.
+         
+          </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiDesc>Если значение true, длительные подписки JMS не удаляются, что позволяет получателям повторно подписываться и получать пропущенные сообщения позже.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+         Возвращает сообщение об отмене подписки.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:removeSubscription"><apiName>removeSubscription</apiName><shortdesc>
+         Этот метод удаляет подписку, указанную с помощью подтемы и селектора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Подтема для подписки.
+         
+         </apiDesc></apiParam><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Селектор для подписки.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         Этот метод удаляет подписку, указанную с помощью подтемы и селектора.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MultiTopicConsumer:subscriptions:get"><apiName>subscriptions</apiName><shortdesc>
+          Сохраняет массив объектов SubscriptionInfo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:ArrayCollection"/></apiValueDef><apiDesc>
+          Сохраняет массив объектов SubscriptionInfo. Каждая подписка содержит подтему и селектор, которые могут иметь значение null. Подписка со значением подтемы, отличным от null, ограничивает подписку на сообщения, поставляемые только с этой подтемой. Если значение подтемы null, используется селектор без подтемы. Если селектор и подтема имеют значение null, подписка получает любые сообщения, нацеленные на адресат без подтемы. Подтема может содержать спецификацию подстановочного символа.
+         
+          <p>До вызова метода <codeph>subscribe()</codeph> это свойство может быть установлено без побочных эффектов. После того, как MultiTopicConsumer подписался на его адресат, изменение этого значения имеет побочный эффект обновления подписки MultiTopicConsumer для включения любых новых подписок и удаления любых подписок, удаленных из ArrayCollection.</p>
+         
+          <p>Удаленный адресат должен распознать значение селекторного выражения.</p>
+         
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Consumer"><apiName>Consumer</apiName><shortdesc>
+  Получатель подписывается на адрес назначения для получения сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The &lt;mx:Consumer&gt; tag inherits all the tag attributes of its superclass, and adds the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:Consumer
+    <b>Properties</b>
+    resubscribeAttempts="<i>5</i>"
+    resubscribeInterval="<i>5000</i>"
+    selector="<i>No default.</i>"
+    timestamp="<i>No default.</i>"
+  /&gt;
+  </pre> 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractConsumer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Получатель подписывается на адрес назначения для получения сообщений. Получатели отправляют сообщения о подписке и отмене подписки, которые генерируют MessageAckEvent или MessageFaultEvent в зависимости от того, была эта операция выполнена успешно или нет. После подписки получатель передает MessageEvent для каждого получаемого им сообщения. Получатели предоставляют возможность фильтровать сообщения с помощью селектора. Эти селекторы должны быть известны адресату.
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:Consumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  Передается при получении сообщения получателем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при получении сообщения получателем.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:Consumer:Consumer"><apiName>Consumer</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>messageType</apiItemName><apiType value="String"/><apiData>flex.messaging.messages.AsyncMessage</apiData><apiDesc>Псевдоним для типа сообщения, обрабатываемого службой, которая размещает удаленного адресата, на который будет подписан получатель. Этот параметр устарел и игнорируется конструктором.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function initConsumer():void
+       {
+           var consumer:Consumer = new Consumer();
+           consumer.destination = "NASDAQ";
+           consumer.selector = "operation IN ('Bid','Ask')";
+           consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+           consumer.subscribe();
+       }
+     
+       function messageHandler(event:MessageEvent):void
+       {
+           var msg:IMessage = event.message;
+           var info:Object = msg.body;
+           trace("-App recieved message: " + msg.toString());
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:Consumer:selector:get"><apiName>selector</apiName><shortdesc>
+	  Селектор для получателя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Селектор для получателя. Выражение, передаваемое адресату, использующему его для фильтрации доставляемых получателю сообщений.
+	 
+	  <p>До вызова метода <codeph>subscribe()</codeph> это свойство может быть установлено без побочных эффектов. После того как получатель будет подписан на адрес назначения, изменение этого значения имеет побочный эффект, который заключается в обновлении подписки получателя для немедленного использования нового селекторного выражения.</p>
+	 
+	  <p>Удаленный адресат должен распознать значение селекторного выражения.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Consumer:subtopic:get"><apiName>subtopic</apiName><shortdesc>
+      Предоставляет доступ к подтеме для удаленного адресата, используемого MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к подтеме для удаленного адресата, используемого MessageAgent.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MessageAgent"><apiName>MessageAgent</apiName><shortdesc>
+  Класс MessageAgent обеспечивает базовые функциональные возможности нижнего уровня, общие в обработке сообщений для адресата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  All message agent classes, including the Producer and Consumer classes, extend
+  MessageAgent and inherit the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:<i>tagname</i><br>
+    <b>Properties</b>
+    channelSet="<i>No default.</i>"
+    clientId="<i>No default.</i>"
+    connected="<i>false</i>"
+    destination="<i>No default.</i>"
+    requestTimeout="<i>-1</i>"
+    subtopic="<i>No default.</i>"
+ 
+ 
+   <b>Events</b>
+    acknowledge="<i>No default.</i>"
+    channelConnect="<i>No default.</i>"
+    channelDisconnect="<i>No default.</i>"
+    channelFault="<i>No default.</i>"
+    fault="<i>No default.</i>"
+    propertyChange="<i>No default.</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MessageAgent обеспечивает базовые функциональные возможности нижнего уровня, общие в обработке сообщений для адресата.
+ 
+  <p><b>Примечание.</b> Только для опытных пользователей. Используйте этот класс для создания пользовательских агентов сообщений, наподобие существующих классов отправителя и получателя.</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:MessageAgent_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Передается при изменении свойства connected MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства <codeph>connected</codeph> MessageAgent. Также передается при изменении <codeph>subscribed</codeph> получателя.
+  </apiDesc></adobeApiEventDetail><related-links><link href="mx.messaging.xml#Consumer"><linktext>mx.messaging.Consumer</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  Передается при ошибке основного канала, используемого MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при ошибке основного канала, используемого MessageAgent.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  Передается при отключении основного канала, используемого MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при отключении основного канала, используемого MessageAgent.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  Передается при подключении основного канала, используемого MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при подключении основного канала, используемого MessageAgent.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.MessageFaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  Передается при возникновении ошибки сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при возникновении ошибки сообщения.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.MessageAckEvent.ACKNOWLEDGE_acknowledge"><apiName>acknowledge</apiName><shortdesc>
+  Передается при получении сообщения подтверждения для отправленного сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageAckEvent.ACKNOWLEDGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageAckEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при получении сообщения подтверждения для отправленного сообщения.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:MessageAgent:MessageAgent"><apiName>MessageAgent</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MessageAgent:acknowledge"><apiName>acknowledge</apiName><shortdesc>
+      Вызываемый MessageResponder при приеме результата для отправленного сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>ackMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiDesc>Возвращается AcknowledgMessage.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Оригинал отправленного сообщения.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызываемый MessageResponder при приеме результата для отправленного сообщения. Подклассы могут перезаписать этот метод, если они должны выполнять пользовательскую обработку подтверждения, но они также должны вызвать <codeph>super.acknowledge()</codeph>. Этот метод передает MessageAckEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelConnectHandler"><apiName>channelConnectHandler</apiName><shortdesc>
+      Обрабатывает ChannelEvent CONNECT.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает ChannelEvent CONNECT. Подклассы, которые должны выполнять пользовательскую обработку, должны перезаписать этот метод и вызывать <codeph>super.channelConnectHandler()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelDisconnectHandler"><apiName>channelDisconnectHandler</apiName><shortdesc>
+      Обрабатывает ChannelEvent DISCONNECT.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает ChannelEvent DISCONNECT. Подклассы, которые должны выполнять пользовательскую обработку, должны перезаписать этот метод и вызывать <codeph>super.channelDisconnectHandler()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelFaultHandler"><apiName>channelFaultHandler</apiName><shortdesc>
+      Обрабатывает ChannelFaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>ChannelFaultEvent
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает ChannelFaultEvent. Подклассы, которые должны выполнять пользовательскую обработку, должны перезаписать этот метод и вызывать <codeph>super.channelFaultHandler()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Отключает сетевое подключение MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Отключает сетевое подключение MessageAgent. Этот метод не ожидает завершения сетевых операций в очереди.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:fault"><apiName>fault</apiName><shortdesc>
+      Вызываемый MessageResponder при приеме ошибки для отправленного сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>errMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>ErrorMessage.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Оригинал отправленного сообщения, вызвавшего эту ошибку.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызываемый MessageResponder при приеме ошибки для отправленного сообщения. Подклассы могут перезаписать этот метод, если они должны выполнить пользовательскую обработку отказов, при этом они должны вызвать <codeph>super.fault()</codeph>. Этот метод передает MessageFaultEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:handleAuthenticationFault"><apiName>handleAuthenticationFault</apiName><shortdesc>
+     Обрабатывает ошибки аутентификации на сервере.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>errMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>Сообщение об ошибке.
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, которое вызвало ошибку и должно быть отправлено повторно, как только будет выполнено отключение/подключение, что приведет к повторной аутентификации.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Обрабатывает ошибки аутентификации на сервере. Если идентифицированный флаг имеет значение true, то ошибка идентификации может быть вызвана тем, что срок действия сеанса на сервере истек. Установите для идентифицированного состояния значение false и, если активирован флаг loginAfterDisconnect, повторите отправку учетных данных на сервер, для чего необходимо отменить подключение и снова отправить сообщение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:hasPendingRequestForMessage"><apiName>hasPendingRequestForMessage</apiName><shortdesc>
+    Возвращает значение true при наличии запросов в очереди для переданного сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает значение <codeph>true</codeph> при наличии запросов в очереди для переданного сообщения.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, для которого проверяется наличие запросов в очереди.
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    Возвращает значение true при наличии запросов в очереди для переданного сообщения. Этот метод должен быть перезаписан подклассами
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:initChannelSet"><apiName>initChannelSet</apiName><shortdesc>
+      Используется для автоматической инициализации свойства channelSet для MessageAgent перед первым подключением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, которое должно быть отправлено.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Используется для автоматической инициализации свойства <codeph>channelSet</codeph> для MessageAgent перед первым подключением. Подтипы могут переопределить поведение по умолчанию на выполнение пользовательской инициализации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:initialized"><apiName>initialized</apiName><shortdesc>
+      Вызывается после создания объекта реализации и присвоения всех свойств, указанных в теге.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Документ MXML, создавший объект.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>идентификатор, используемый документом для ссылки на этот объект. Если объект представлен как свойство документа, то идентификатор является нулевым.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается после создания объекта реализации и присвоения всех свойств, указанных в теге.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:internalSend"><apiName>internalSend</apiName><shortdesc>
+      Отправляет сообщение от MessageAgent его адресату с помощью ChannelSet агента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiException><apiDesc>Если адрес назначения не установлен.
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение для отправки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>waitForClientId</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>При значении true сообщение может быть поставлено в очередь, пока clientId не будет назначен агенту. Как правило, это является требуемым поведением. Для специального поведения (автоматическое повторное подключение и повторная подписка) агент может передать значение false для перезаписи поведения очереди по умолчанию.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отправляет сообщение от MessageAgent его адресату с помощью ChannelSet агента. Подклассы MessageAgent должны использовать этот метод для отправки своих сообщений.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:logout"><apiName>logout</apiName><shortdesc>
+      Отключает MessageAgent от его удаленного адресата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Отключает MessageAgent от его удаленного адресата. Выход из адреса назначения применяется для всех подключений, использующих одинаковый ChannelSet, указанный в конфигурации сервера. Например, если несколько компонентов DataService подключены по каналу RTMP и <codeph>logout()</codeph> вызывается на одном из них, то все другие компоненты клиента, подключенные с помощью того же самого ChannelSet, также выполняют выход из системы.
+     
+      <p><b>Примечание.</b> Adobe рекомендует вместо этого метода использовать метод mx.messaging.ChannelSet.logout(). </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:reAuthorize"><apiName>reAuthorize</apiName><shortdesc>
+     Эта функция должна быть перезаписана подклассами для реализации повторной аутентификации вследствие специфичного для них поведения тайм-аута сеанса сервера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, которое вызвало ошибку и должно быть отправлено повторно, как только будет выполнено отключение/подключение, что приведет к повторной аутентификации.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Эта функция должна быть перезаписана подклассами для реализации повторной аутентификации вследствие специфичного для них поведения тайм-аута сеанса сервера. Как правило, она должна следовать образцу отключения, подключения, повторной отправки сообщения.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      Устанавливает учетные данные, которые MessageAgent использует для аутентификации к адресатам.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>в двух ситуациях; если учетные данные были уже установлены и аутентификация происходит с удаленным адресатом, или если аутентифицируется и указанные учетные данные не соответствуют аутентифицированным в настоящее время данным.
+     
+      </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>Имя пользователя.
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>Пароль.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Кодировка набора символов для использования при кодировании учетных данных. По умолчанию имеет нулевое значение, при котором используется унаследованный набор символов ISO-Latin-1. Помимо этого поддерживается только набор символов UTF-8.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает учетные данные, которые MessageAgent использует для аутентификации к адресатам. Учетные данные применяются ко всем службам, подключенным по одному ChannelSet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+      Устанавливает удаленные учетные данные, которые будут переданы удаленному адресату для аутентификации во вторичных системах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>Имя пользователя.
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>Пароль.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Кодировка набора символов для использования при кодировании учетных данных в удаленной службе. По умолчанию имеет нулевое значение, при котором используется унаследованный набор символов ISO-Latin-1. В настоящее время поддерживается только еще один вариант кодировки – UTF-8.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает удаленные учетные данные, которые будут переданы удаленному адресату для аутентификации во вторичных системах.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MessageAgent:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      Указывает, использует ли этот MessageAgent аутентифицируемое подключение к его адресату.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, использует ли этот MessageAgent аутентифицируемое подключение к его адресату.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      Предоставляет доступ к ChannelSet, который используется MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      Предоставляет доступ к ChannelSet, который используется MessageAgent. ChannelSet может быть вручную создан и назначен, или он будет динамически инициализирован для использования сконфигурированных каналов для адресата этого MessageAgent.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:clientId:get"><apiName>clientId</apiName><shortdesc>
+      Предоставляет доступ к идентификатору клиента для MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к идентификатору клиента для MessageAgent. MessageAgents назначен удаленным адресатом идентификатор клиента, и это значение используется для маршрутизации сообщения от удаленного адресата до соответствующего MessageAgent.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:connected:get"><apiName>connected</apiName><shortdesc>
+      Указывает, подключен ли этот MessageAgent в настоящее время к адресату через соответствующий ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, подключен ли этот MessageAgent в настоящее время к адресату через соответствующий ChannelSet. Событие <codeph>propertyChange</codeph> передается при изменении этого свойства.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:destination:get"><apiName>destination</apiName><shortdesc>
+      Предоставляет доступ к адресату для MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>Если адресат имеет значение null или нулевой длины.
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Предоставляет доступ к адресату для MessageAgent. Изменение адресата приведет к отключению MessageAgent, если он будет подключен.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      Предоставляет доступ к тайм-ауту запроса в секундах для переданных сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Предоставляет доступ к тайм-ауту запроса в секундах для переданных сообщений. Если подтверждение, ответ или ошибка не получены от удаленного адресата по истечении тайм-аута, то сообщение привело к ошибке на клиенте. Если значение меньше или равно нулю, тайм-аут запроса не применяется.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Producer"><apiName>Producer</apiName><shortdesc>
+  Отправитель отправляет сообщения адресату.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The &lt;mx:Producer&gt; tag inherits all the tag attributes of its superclass, and adds the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:Producer
+    <b>Properties</b>
+    defaultHeaders="<i>No default.</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractProducer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Отправитель отправляет сообщения адресату. Отправители передают MessageAckEvent или MessageFaultEvent для каждого отправляемого ими сообщения в зависимости от того, было ли исходящее сообщение отправлено и обработано успешно или нет.
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:Producer:Producer"><apiName>Producer</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc><example>
+      <pre>
+       function sendMessage():void
+       {
+           var producer:Producer = new Producer();
+           producer.destination = "NASDAQ";
+           var msg:AsyncMessage = new AsyncMessage();
+           msg.headers.operation = "UPDATE";
+           msg.body = {"SYMBOL":50.00};
+           producer.send(msg);
+       }
+       </pre>
+      
+      </example></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:Producer:DEFAULT_PRIORITY"><apiName>DEFAULT_PRIORITY</apiName><shortdesc>
+      Приоритет сообщения по умолчанию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Приоритет сообщения по умолчанию.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Producer:subtopic:get"><apiName>subtopic</apiName><shortdesc>
+      Предоставляет доступ к подтеме для удаленного адресата, используемого MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к подтеме для удаленного адресата, используемого MessageAgent.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:AbstractConsumer"><apiName>AbstractConsumer</apiName><shortdesc>
+  AbstractConsumer является базовым классом для классов Consumer и MultiTopicConsumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:MessageAgent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AbstractConsumer является базовым классом для классов Consumer и MultiTopicConsumer. Эти классы используются для получения инициированных сообщений с сервера.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:AbstractConsumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  Передается при получении сообщения получателем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при получении сообщения получателем.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:AbstractConsumer:AbstractConsumer"><apiName>AbstractConsumer</apiName><shortdesc>
+      Создает получатель.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает получатель.
+     
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function initConsumer():void
+       {
+           var consumer:Consumer = new Consumer();
+           consumer.destination = "NASDAQ";
+           consumer.selector = "operation IN ('Bid','Ask')";
+           consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+           consumer.subscribe();
+       }
+     
+       function messageHandler(event:MessageEvent):void
+       {
+           var msg:IMessage = event.message;
+           var info:Object = msg.body;
+           trace("-App recieved message: " + msg.toString());
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:AbstractConsumer:protected:buildSubscribeMessage"><apiName>buildSubscribeMessage</apiName><shortdesc>
+      Возвращает сообщение о подписке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>CommandMessage подписки.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Возвращает сообщение о подписке. Этот метод должен быть перезаписан подклассами, если они требуют пользовательские сообщения о подписке.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:protected:buildUnsubscribeMessage"><apiName>buildUnsubscribeMessage</apiName><shortdesc>
+      Возвращает сообщение об отмене подписки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>CommandMessage отмены подписки.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiDesc>При значении true длительные подписки JMS не удаляются, позволяя получателям повторно подписываться и получать пропущенные сообщения позже.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает сообщение об отмене подписки. Этот метод должен быть перезаписан подклассами, если им требуются пользовательские сообщения об отмене подписки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Отключает получатель от его удаленного адресата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Отключает получатель от его удаленного адресата. Этот метод должен вызваться на получателе, который больше не является необходимым приложением после отмены подписки. Для завершения этого метода не ожидаются сетевые операции, находящиеся в очереди обработки, и не отправляется сообщение об отмене подписки на сервер. После вызова disconnect() получатель сообщит, что отключен и подписка отменена, т.к. он больше не получает сообщения, пока не будут повторно установлены подключение и подписка. При отключении прекращаются автоматические попытки повторной подписки, если они выполняются.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:receive"><apiName>receive</apiName><shortdesc>
+      Запрашивает любые сообщения, которые поставлены в очередь для этого получателя на сервере.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>timestamp</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Этот аргумент является устаревшим и игнорируется.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Запрашивает любые сообщения, которые поставлены в очередь для этого получателя на сервере. Этот метод должен использоваться только для получателей, подписывающихся по неопрашиваемым каналам не в режиме реального времени. Этот метод является пустой командой, если получатель не подписан.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:subscribe"><apiName>subscribe</apiName><shortdesc>
+      Подписывается на удаленный адресат.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Если адрес назначения не установлен.
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>clientId</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор клиента для подписки. Используйте значение null для кратковременных получателей. Если подписка длительна, непротиворечивое значение должно быть обеспечено каждый раз, когда получатель подписывается для повторного подключения с правильной длительной подпиской в удаленном адресате.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Подписывается на удаленный адресат.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:unsubscribe"><apiName>unsubscribe</apiName><shortdesc>
+      Отмена подписки на удаленный адресат.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>При значении true длительные подписки JMS не удаляются, позволяя получателям повторно подписываться и получать пропущенные сообщения позже.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отмена подписки на удаленный адресат. В случае длительных подписок JMS это удалит длительную подписку на сервере JMS.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:AbstractConsumer:protected:_shouldBeSubscribed"><apiName>_shouldBeSubscribed</apiName><shortdesc>
+      Флаг, указывающий, должен ли этот получатель быть подписан или нет.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Флаг, указывающий, должен ли этот получатель быть подписан или нет.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:maxFrequency:get"><apiName>maxFrequency</apiName><shortdesc>
+      Определяет максимальное количество сообщений в секунду, установленное получателем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Определяет максимальное количество сообщений в секунду, установленное получателем. Сервер, который распознает это значение, использует его как входные данные при определении скорости отправки сообщения получателю. Значением по умолчанию является 0 – это означает, что получатель не имеет предпочтений для скорости передачи сообщений. Следует отметить, что это свойство должно быть установлено до подписки получателя, и любые изменения после подписки получателя не будут иметь эффекта до тех пор, пока получатель не отменит подписку и не подпишется повторно.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:resubscribeAttempts:get"><apiName>resubscribeAttempts</apiName><shortdesc>
+      Количество выполняемых получателем повторных попыток подписки при недоступном адресате или при ошибке подключения к адресату.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Количество выполняемых получателем повторных попыток подписки при недоступном адресате или при ошибке подключения к адресату. При значении -1 возможно бесконечное количество попыток. Нулевое значение запрещает повторные попытки подписки.
+      <p>
+      Повторные попытки выполняются с постоянной периодичностью в соответствии со значением интервала повторной подписки. После выполнения повторной попытки подписки, если основной канал для получателя не подключен или пытается подключиться, то канал запустит попытку подключения. Последующие повторные попытки подписки получателя, происходящие в то время, как попытка подключения основного канала ожидает обработки, игнорируются до тех пор, пока попытка подключения ожидающего обработки канала будет успешно выполнена или выполнена с ошибкой.
+      </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Consumer/resubscribeInterval"><linktext>mx.messaging.Consumer.resubscribeInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractConsumer:resubscribeInterval:get"><apiName>resubscribeInterval</apiName><shortdesc>
+      Количество миллисекунд между повторными попытками подписки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiException><apiDesc>Если присвоенное значение отрицательное.
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Количество миллисекунд между повторными попытками подписки. Если получатель не получает подтверждение для запроса подписки, то он будет ожидать указанное количество миллисекунд перед повторной попыткой подписки. Установка нулевого значения отключает повторные подписки.
+      <p>
+      Повторные попытки подписки выполняются с постоянной частотой в соответствии с этим значением. После выполнения повторной попытки подписки, если основной канал для получателя не подключен или пытается подключиться, то канал запустит попытку подключения. Последующие повторные попытки подписки получателя, происходящие в то время, как попытка подключения основного канала ожидает обработки, игнорируются до тех пор, пока попытка подключения ожидающего обработки канала будет успешно выполнена или выполнена с ошибкой.
+      </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Consumer/resubscribeInterval"><linktext>mx.messaging.Consumer.resubscribeInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractConsumer:subscribed:get"><apiName>subscribed</apiName><shortdesc>
+      Указывает, подписан ли в настоящее время получатель.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, подписан ли в настоящее время получатель. Событие <codeph>propertyChange</codeph> передается при изменении этого свойства.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      Содержит временную метку последнего сообщения, полученного этим получателем.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Содержит временную метку последнего сообщения, полученного этим получателем. Это значение передается адресату в вызове <codeph>receive()</codeph> для запроса о том, что он получает сообщения для получателя из временной метки передачи. Все сообщения со значением временной метки, которое больше значения <codeph>timestamp</codeph>, будут возвращены в течение операции опроса. Установка значения -1 приведет к извлечению всех кэшируемых сообщений из адресата.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Channel"><apiName>Channel</apiName><shortdesc>
+  Класс канала является основным классом канала передачи сообщений, расширением которого должны являться все каналы в системе передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс канала является основным классом канала передачи сообщений, расширением которого должны являться все каналы в системе передачи сообщений.
+ 
+  <p>Каналы являются определенными средствами передачи на основе протокола для сообщений, передаваемых между MessageAgents и удаленными адресатами. Предварительно сконфигурированные каналы получены внутри инфраструктуры с помощью метода <codeph>ServerConfig.getChannel()</codeph>. Можно создать канал непосредственно с помощью оператора <codeph>new</codeph> и напрямую добавить его к ChannelSet.</p>
+ 
+  <p>
+  Каналы представляют физическое подключение к удаленной конечной точке. Каналы совместно используются адресами назначения по умолчанию. Это означает, что для взаимодействия с разными адресами назначения клиент может использовать один канал.
+  </p>
+ 
+  <p><b>Примечание.</b> Этот класс предназначен только для опытных пользователей. Используйте этот класс для создания пользовательских каналов, подобных существующим RTMPChannel, AMFChannel и HTTPChannel.</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:Channel_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Передается при изменении свойства канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства канала.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  Передается при получении каналом сообщения из его конечной точки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при получении каналом сообщения из его конечной точки.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  Передается после ошибки в канале.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается после ошибки в канале.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  Передается после отключения канала от его конечной точки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается после отключения канала от его конечной точки.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  Передается после подключения канала к его конечной точке.</shortdesc><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается после подключения канала к его конечной точке.
+ <p>Канал и его подклассы вызывают код Channel.Connect.Failed всякий раз, когда возникает проблема при попытке подключения канала к удаленному адресу назначения. Объект AMFChannel вызывает код Channel.Call.Failed, когда канал уже подключен, но получает код Call.Failed из основного NetConnection.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:Channel:Channel"><apiName>Channel</apiName><shortdesc>
+      Создает экземпляр общего канала, подключающегося с указанными URI конечной точки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Идентификатор этого канала.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI конечной точки для этого канала.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает экземпляр общего канала, подключающегося с указанными URI конечной точки. <b>Примечание.</b> Тип канала не должен быть создан непосредственно. Вместо этого следует создать экземпляры специфичных для протокола подклассов, например RTMPChannel или AMFChannel.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:Channel:protected:applyClientLoadBalancingSettings"><apiName>applyClientLoadBalancingSettings</apiName><shortdesc>
+      Применяет URL-адреса балансировки нагрузки клиента, если они существуют.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>props</apiItemName><apiType value="XML"/><apiDesc>Раздел свойств в фрагменте XML-файла services-config.xml для этого канала.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Применяет URL-адреса балансировки нагрузки клиента, если они существуют. Он выбирает произвольный URL-адрес из набора URL-адресов балансировки нагрузки клиента и устанавливает его как основной URL-адрес канала; затем он присваивает оставшиеся URL-адреса как <codeph>failoverURI</codeph> канала.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:applySettings"><apiName>applySettings</apiName><shortdesc>
+      Подклассы должны перезаписать этот метод для применения любых параметров настройки, которые могут быть необходимы для отдельного канала.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>settings</apiItemName><apiType value="XML"/><apiDesc>Фрагмент XML-файла services-config.xml для этого канала. 
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Подклассы должны перезаписать этот метод для применения любых параметров настройки, которые могут быть необходимы для отдельного канала. Убедитесь, что был вызван <codeph>super.applySettings()</codeph> для применения общих параметров настройки к каналу. Этот метод используется, прежде всего, в подклассах канала.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectFailed"><apiName>connectFailed</apiName><shortdesc>
+      Обрабатывает неуспешно завершенное внутреннее подключение и передает событие FAULT для канала.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>ChannelFaultEvent для неуспешно завершенного подключения.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает неуспешно завершенное внутреннее подключение и передает событие <codeph>FAULT</codeph> для канала. Если канал будет иметь значения <codeph>failoverURI</codeph>, то он будет автоматически пытаться подключиться повторно путем перебора этих значений URI, пока не будет установлено подключение или не будут исчерпаны доступные значения.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectSuccess"><apiName>connectSuccess</apiName><shortdesc>
+      Обрабатывает успешное внутреннее подключение и передает событие CONNECT для канала.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обрабатывает успешное внутреннее подключение и передает событие <codeph>CONNECT</codeph> для канала.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectTimeoutHandler"><apiName>connectTimeoutHandler</apiName><shortdesc>
+      Обрабатывает тайм-аут подключения путем передачи ChannelFaultEvent.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:TimerEvent"/><apiDesc>Событие таймера, указывающее, что достигнут тайм-аут подключения.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает тайм-аут подключения путем передачи ChannelFaultEvent. Подтипы могут перезаписать его для закрытия текущей попытки подключения, но они должны выполнять вызов <codeph>super.connectTimeoutHandler(event)</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:connect"><apiName>connect</apiName><shortdesc>
+      Подключает ChannelSet к каналу.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channelSet</apiItemName><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier><apiDesc>ChannelSet для подключения к каналу.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Подключает ChannelSet к каналу. Если канал еще не подключен к своей конечной точке, то он предпринимает попытку выполнить подключение. Подклассы канала должны перезаписать метод <codeph>internalConnect()</codeph> и вызвать метод <codeph>connectSuccess()</codeph>, как только будет установлено основное подключение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:disconnectFailed"><apiName>disconnectFailed</apiName><shortdesc>
+      Обрабатывает завершенное с ошибкой внутреннее отключение и передает событие FAULT для канала.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>ChannelFaultEvent для завершенного с ошибкой отключения.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает завершенное с ошибкой внутреннее отключение и передает событие <codeph>FAULT</codeph> для канала.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:disconnectSuccess"><apiName>disconnectSuccess</apiName><shortdesc>
+      Обрабатывает успешное внутреннее отключение и передает событие DISCONNECT для канала.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение true, если отключение должно пропустить любую обработку преодоления отказа, которая была бы предпринята в противном случае; значение false, если следует разрешить запуск обработки преодоления отказа.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает успешное внутреннее отключение и передает событие <codeph>DISCONNECT</codeph> для канала. Если причиной отключения является отказ сети и канал имеет значения <codeph>failoverURI</codeph>, то он будет пытаться автоматически подключиться повторно путем перебора этих значений URI до тех пор, пока подключение не будет установлено или не будут исчерпаны доступные значения.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Отключает ChannelSet от канала.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channelSet</apiItemName><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier><apiDesc>Отключаемый от канала ChannelSet.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отключает ChannelSet от канала. Если канал подключен к своей конечной точке и более не имеет подключенных ChannelSet, то он будет отключен во внутренней среде.
+     
+      <p>Подклассы канала должны перезаписать метод <codeph>internalDisconnect()</codeph> и выполнить вызов метода <codeph>disconnectSuccess()</codeph> при завершении основного подключения.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:flexClientWaitHandler"><apiName>flexClientWaitHandler</apiName><shortdesc>
+      Обрабатывает изменение условия защиты для управления начальным подключением канала к приложению.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:PropertyChangeEvent"/><apiDesc>PropertyChangeEvent, передаваемый одиночным FlexClient.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Обрабатывает изменение условия защиты для управления начальным подключением канала к приложению. Его вызов означает, что этот канал ожидает попытки подключения.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:getMessageResponder"><apiName>getMessageResponder</apiName><shortdesc>
+      Возвращает соответствующий MessageResponder для метода send() канала.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiException><apiDesc>Если подкласс канала не перезаписывает этот метод.
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>MessageResponder для обработки результата или ошибки.
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:MessageResponder</apiOperationClassifier></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>MessageAgent отправляет сообщение.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, которое требуется отправить.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает соответствующий MessageResponder для метода <codeph>send()</codeph> канала. Должен быть перезаписан.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalConnect"><apiName>internalConnect</apiName><shortdesc>
+      Подключает канал к его конечной точке.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Подключает канал к его конечной точке. Должен быть перезаписан.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalDisconnect"><apiName>internalDisconnect</apiName><shortdesc>
+      Отключает канал от его конечной точки.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение true, если отключение было вызвано отклонением подключения или тайм-аутом, при этом автоматическая попытка повторного подключения не предусмотрена; в противном случае – значение false. 
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отключает канал от его конечной точки. Должен быть перезаписан.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalSend"><apiName>internalSend</apiName><shortdesc>
+      Отправляет сообщение по каналу и маршрутизирует ответ на ответчик.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>messageResponder</apiItemName><apiOperationClassifier>mx.messaging:MessageResponder</apiOperationClassifier><apiDesc>MessageResponder для обработки ответа.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отправляет сообщение по каналу и маршрутизирует ответ на ответчик. Должен быть перезаписан.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:logout"><apiName>logout</apiName><shortdesc>
+      Отправляет CommandMessage серверу для выхода из системы при подключенном канале.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>MessageAgent для выхода из системы.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отправляет CommandMessage серверу для выхода из системы при подключенном канале. Текущие учетные данные очищены.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:send"><apiName>send</apiName><shortdesc>
+      Передает указанное сообщение на целевой адрес.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Если адрес назначения не указан MessageAgent или сообщением.
+     </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>MessageAgent для передачи сообщения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение, которое требуется отправить.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Передает указанное сообщение на целевой адрес. Подклассы должны отменять метод <codeph>internalSend()</codeph> для выполнения фактической передачи.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      Устанавливает указанное значение для учетных данных.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>в двух ситуациях; если учетные данные были уже установлены и аутентификация происходит с удаленным адресатом, или если аутентифицируется и указанные учетные данные не соответствуют аутентифицированным в настоящее время данным.
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>credentials</apiItemName><apiType value="String"/><apiDesc>Строка учетных данных.
+      </apiDesc></apiParam><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiData>null</apiData><apiDesc>MessageAgent для входа в систему, который будет обрабатывать результат входа в систему.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Набор символов кодировки, используемый при кодировании учетных данных. По умолчанию имеет нулевое значение, при котором используется унаследованный набор символов ISO-Latin-1.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Устанавливает указанное значение для учетных данных. Если учетные данные имеют значение, отличное от null, а канал подключен, то этот метод также отправляет CommandMessage серверу для входа в систему с помощью учетных данных.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:Channel:protected:CONNECT_TIMEOUT_SECONDS"><apiName>CONNECT_TIMEOUT_SECONDS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>connect-timeout-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:ENABLE_SMALL_MESSAGES"><apiName>ENABLE_SMALL_MESSAGES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>enable-small-messages</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:FALSE"><apiName>FALSE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>false</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:RECORD_MESSAGE_SIZES"><apiName>RECORD_MESSAGE_SIZES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>record-message-sizes</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:RECORD_MESSAGE_TIMES"><apiName>RECORD_MESSAGE_TIMES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>record-message-times</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:REQUEST_TIMEOUT_SECONDS"><apiName>REQUEST_TIMEOUT_SECONDS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>request-timeout-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:SERIALIZATION"><apiName>SERIALIZATION</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>serialization</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:TRUE"><apiName>TRUE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>true</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      Указывает, аутентифицирован ли этот канал.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, аутентифицирован ли этот канал.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:channelSets:get"><apiName>channelSets</apiName><shortdesc>
+      Предоставляет доступ к ChannelSets, подключенному к каналу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Предоставляет доступ к ChannelSets, подключенному к каналу.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:connectTimeout:get"><apiName>connectTimeout</apiName><shortdesc>
+      Предоставляет доступ к тайм-ауту подключения в секундах для канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Предоставляет доступ к тайм-ауту подключения в секундах для канала. Значение 0 или ниже указывает, что попытки подключения на клиенте не будут истекать. Для каналов, сконфигурированных для преодоления отказа, это значение является общим временем для ожидания установления подключения. Оно не сбрасывается для каждого URI преодоления отказа, к которым канал может попытаться подключиться.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:connected:get"><apiName>connected</apiName><shortdesc>
+      Указывает, установил ли этот канал подключение к удаленному адресату.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, установил ли этот канал подключение к удаленному адресату.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:endpoint:get"><apiName>endpoint</apiName><shortdesc>
+      Предоставляет доступ к конечной точке этого канала.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к конечной точке этого канала. Это значение вычислено на основе значения свойства <codeph>uri</codeph>.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:failoverURIs:get"><apiName>failoverURIs</apiName><shortdesc>
+      Предоставляет доступ к набору URI конечных точек, которые этот канал может использовать для попытки преодоления отказа, если конечная точка кластеризована.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Предоставляет доступ к набору URI конечных точек, которые этот канал может использовать для попытки преодоления отказа, если конечная точка кластеризована.
+     
+      <p>Если кластеризация активна, это свойство заполняется автоматически. Если кластеризация не используется, можно установить собственные значения.</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:id:get"><apiName>id</apiName><shortdesc>
+      Предоставляет доступ к идентификатору этого канала.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к идентификатору этого канала.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Предоставляет доступ к протоколу, используемому каналом.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к протоколу, используемому каналом.
+     
+      <p><b>Примечание.</b> Подклассы канала должны перезаписать этот метод и возвращать строку, представляющую их поддерживаемый протокол. Примерами строк поддерживаемых протоколов являются rtmp, http или https.
+     </p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:reconnecting:get"><apiName>reconnecting</apiName><shortdesc>
+      Указывает, находится ли этот канал в процессе повторного подключения к альтернативной конечной точке.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, находится ли этот канал в процессе повторного подключения к альтернативной конечной точке.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:recordMessageSizes:get"><apiName>recordMessageSizes</apiName><shortdesc>
+     Свойство канала определяет уровень ввода информации о производительности – например необходимость ввода размера сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Свойство канала определяет уровень ввода информации о производительности – например необходимость ввода размера сообщения.
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:recordMessageTimes:get"><apiName>recordMessageTimes</apiName><shortdesc>
+     Свойство канала определяет уровень ввода информации о производительности, например вводятся ли временные метки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Свойство канала определяет уровень ввода информации о производительности, например вводятся ли временные метки. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      Предоставляет доступ к тайм-ауту выполнения запроса по умолчанию в секундах для канала.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Предоставляет доступ к тайм-ауту выполнения запроса по умолчанию в секундах для канала. Значение 0 или ниже указывает, что для исходящих запросов тайм-аут на клиенте не будет истекать.
+      <p>Тайм-ауты выполнения запроса являются самыми удобными для передачи сообщений в стиле RPC, требующем ответа от удаленного адресата.</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:shouldBeConnected:get"><apiName>shouldBeConnected</apiName><shortdesc>
+      Указывает, должен ли этот канал быть подключен к его конечной точке.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, должен ли этот канал быть подключен к его конечной точке. Этот флажок определяет, когда, в случае отключения или ошибки, необходимо предпринять преодоление отказа, а когда передать сообщение об отключении в удаленную конечную точку.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:uri:get"><apiName>uri</apiName><shortdesc>
+      Предоставляет доступ к URI, используемым для создания целых URI конечной точки для этого канала.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к URI, используемым для создания целых URI конечной точки для этого канала. URI могут являться частичными путями, в этом случае полные URI конечной точки вычисляются по мере необходимости.
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:SubscriptionInfo"><apiName>SubscriptionInfo</apiName><shortdesc>
+ Является классом, используемым для элементов свойства подписок ArrayCollection в свойстве MultiTopicConsumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Является классом, используемым для элементов свойства подписок ArrayCollection в свойстве MultiTopicConsumer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:SubscriptionInfo:SubscriptionInfo"><apiName>SubscriptionInfo</apiName><shortdesc> Формирует новый SubscriptionInfo с указанной подтемой и селектором.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>st</apiItemName><apiType value="String"/><apiDesc>Подтема для подписки. При значении null представляет подписку для сообщений, направленных на адрес назначения без подтемы.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>sel</apiItemName><apiType value="String"/><apiDesc>Селектор. При значении null указывает но то, что все сообщения должны быть отправлены.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>mf</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Максимальное желаемое количество сообщений в секунду, которое будет получать подписка. Нулевое значение означает отсутствие предпочтений.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc> Формирует новый SubscriptionInfo с указанной подтемой и селектором.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:SubscriptionInfo:maxFrequency"><apiName>maxFrequency</apiName><shortdesc>
+     Максимальное желаемое количество сообщений в секунду, которое будет получать подписка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+     Максимальное желаемое количество сообщений в секунду, которое будет получать подписка. Нулевое значение означает, что для подписки отсутствуют предпочтения в количестве принимаемых сообщений.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:SubscriptionInfo:selector"><apiName>selector</apiName><shortdesc>
+     Селектор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Селектор. Значение null указывает на то, что все сообщения должны быть отправлены.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:SubscriptionInfo:subtopic"><apiName>subtopic</apiName><shortdesc> 
+     Подтема.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     Подтема. При значении null представляет подписку для сообщений, направленных на адрес назначения без подтемы.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MessageResponder"><apiName>MessageResponder</apiName><shortdesc>
+  Класс MessageResponder обрабатывает успешный результат или ошибку из адреса назначения сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.net:Responder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MessageResponder обрабатывает успешный результат или ошибку из адреса назначения сообщения. Для каждого сообщения, отправляемого каналом, канал создает MessageResponder для обработки результата. После ответа, канал вызовет любой обратный вызов <codeph>result()</codeph> или <codeph>status()</codeph> на MessageResponder. Подклассы MessageResponder должны перезаписать эти методы для выполнения любой необходимой обработки. Для каждого ответа об успешном результате или об ошибке MessageResponder должен вызвать <codeph>acknowledge()</codeph> на его агенте. Если ответ является ошибкой, то MessageResponder должен вызвать <codeph>fault()</codeph> на его агенте.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:MessageResponder:MessageResponder"><apiName>MessageResponder</apiName><shortdesc>
+      Создает MessageResponder для обработки ответа на указанное сообщение для указанного MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Отправляющий сообщение MessageAgent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение отправлено.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>Используемый для отправки канал. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает MessageResponder для обработки ответа на указанное сообщение для указанного MessageAgent.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MessageResponder:protected:createRequestTimeoutErrorMessage"><apiName>createRequestTimeoutErrorMessage</apiName><shortdesc>
+      Создает ErrorMessage, который может быть передан в обратные вызовы связанного MessageAgent на тайм-аут выполнения запроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Возвращает ErrorMessage, который может быть передан в обратные вызовы связанного MessageAgent на тайм-аут выполнения запроса.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Создает ErrorMessage, который может быть передан в обратные вызовы связанного MessageAgent на тайм-аут выполнения запроса.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:requestTimedOut"><apiName>requestTimedOut</apiName><shortdesc>
+      Подклассы должны перезаписать этот метод для обработки тайм-аута выполнения запроса и вызвать соответствующие обратные вызовы на связанном MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Подклассы должны перезаписать этот метод для обработки тайм-аута выполнения запроса и вызвать соответствующие обратные вызовы на связанном MessageAgent.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:resultHandler"><apiName>resultHandler</apiName><shortdesc>
+      Подклассы должны перезаписать этот метод для выполнения пользовательской обработки результата и вызова соответствующих обратных вызовов на связанном MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение-результат, возвращенное адресатом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Подклассы должны перезаписать этот метод для выполнения пользовательской обработки результата и вызова соответствующих обратных вызовов на связанном MessageAgent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:result"><apiName>result</apiName><shortdesc>
+      Вызванный каналом, создавшим этот MessageResponder при возвращении ответа от адресата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение-результат, возвращенное адресатом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызванный каналом, создавшим этот MessageResponder при возвращении ответа от адресата. Этот метод выполняет базовую обработку результата, а затем вызывает метод <codeph>resultHandler()</codeph>, который может быть перезаписан подклассами для выполнения любой необходимой пользовательской обработки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:statusHandler"><apiName>statusHandler</apiName><shortdesc>
+      Подклассы должны перезаписать этот метод для выполнения пользовательской обработки статуса и вызова соответствующих обратных вызовов на связанном MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение об ошибке, возвращенное адресатом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Подклассы должны перезаписать этот метод для выполнения пользовательской обработки статуса и вызова соответствующих обратных вызовов на связанном MessageAgent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:status"><apiName>status</apiName><shortdesc>
+      Вызванный каналом, создавшим этот MessageResponder при возвращении от адресата ответа об ошибке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Сообщение об ошибке, возвращенное адресатом.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызванный каналом, создавшим этот MessageResponder при возвращении от адресата ответа об ошибке. Этот метод выполняет базовую обработку результата, а затем вызывает метод <codeph>statusHandler()</codeph>, который может быть перезаписан подклассами для выполнения любой необходимой пользовательской обработки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MessageResponder:agent:get"><apiName>agent</apiName><shortdesc>
+      Предоставляет доступ к MessageAgent, отправившему сообщение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:MessageAgent</apiValueClassifier></apiValueDef><apiDesc>
+      Предоставляет доступ к MessageAgent, отправившему сообщение.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageResponder:channel:get"><apiName>channel</apiName><shortdesc>
+      Предоставляет доступ к каналу, используемому для отправки сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      Предоставляет доступ к каналу, используемому для отправки сообщения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageResponder:message:get"><apiName>message</apiName><shortdesc>
+      Предоставляет доступ к отправленному сообщению.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      Предоставляет доступ к отправленному сообщению.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

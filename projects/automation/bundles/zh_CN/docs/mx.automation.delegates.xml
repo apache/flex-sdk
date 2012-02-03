@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.delegates"><apiName>mx.automation.delegates</apiName><apiDetail/><apiClassifier id="mx.automation.delegates:TextFieldAutomationHelper"><apiName>TextFieldAutomationHelper</apiName><shortdesc> 
+	 可简化文本输入和所选内容回放的 Utility 类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc> 
+	 可简化文本输入和所选内容回放的 Utility 类。
+	  
+	  </apiDesc></apiClassifierDetail><apiConstructor id="mx.automation.delegates:TextFieldAutomationHelper:TextFieldAutomationHelper"><apiName>TextFieldAutomationHelper</apiName><shortdesc>
+		 构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiDesc>使用 TextField 的 UIComponent。例如，如果 TextArea 使用 TextField，则 TextArea 为所有者。
+		  
+		 </apiDesc></apiParam><apiParam><apiItemName>replayer</apiItemName><apiType value="mx.automation:IAutomationObject"/><apiDesc>组件的 IAutomationObject。
+		  
+		 </apiDesc></apiParam><apiParam><apiItemName>textField</apiItemName><apiType value="mx.core:IUITextField"/><apiDesc>组件中的 TextField 对象。
+		  
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		 构造函数。
+		  
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates:TextFieldAutomationHelper:recordAutomatableEvent"><apiName>recordAutomatableEvent</apiName><shortdesc>
+		  录制用户与文本控件的交互。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>interaction</apiItemName><apiType value="flash.events:Event"/><apiDesc>待录制的事件。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cacheable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果此事件可缓存，则包含 <codeph>true</codeph>，否则包含 <codeph>false</codeph>。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  录制用户与文本控件的交互。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:TextFieldAutomationHelper:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		  重放 TypeTextEvent 和 TypeEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果为 true，则重放该事件。
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>要重放的事件。
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  重放 TypeTextEvent 和 TypeEvent。通过对基础文本字段调用 replaceText 重放 TypeTextEvent。TypeEvent 基于键入的字符重放。这两种形式的重放都分派原始键击。必须模拟原始行为，以防任何组件侦听键击事件（例如，DataGrid 侦听 itemRenderer 事件或者自定义组件是否试图执行按键遮罩）。理想情况下，该代码只分派原始键击，但 Flash Player TextField 会忽略我们向其发送的事件。
+		 
+		 </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates:DragManagerAutomationImpl"><apiName>DragManagerAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 DragManager 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 DragManager 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link></related-links><apiConstructor id="mx.automation.delegates:DragManagerAutomationImpl:DragManagerAutomationImpl"><apiName>DragManagerAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>proxy</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>要进行自动化的 DragManager 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		  
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:getDragManagerProxy"><apiName>getDragManagerProxy</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="flash.display:DisplayObject"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:recordAutomatableDragCancel1"><apiName>recordAutomatableDragCancel1</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:IUIComponent"/></apiParam><apiParam><apiItemName>dragEvent</apiItemName><apiType value="mx.events:DragEvent"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:replayDragDrop"><apiName>replayDragDrop</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>realTarget</apiItemName><apiType value="flash.events:IEventDispatcher"/></apiParam><apiParam><apiItemName>target</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam><apiParam><apiItemName>dragEvent</apiItemName><apiOperationClassifier>mx.automation.events:AutomationDragEvent</apiOperationClassifier></apiParam><apiParam><apiItemName>dontChangeCoords</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:setForcefulDragStart"><apiName>setForcefulDragStart</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:storeAIRDragSourceDetails"><apiName>storeAIRDragSourceDetails</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dragSource</apiItemName><apiType value="mx.core:DragSource"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.listClasses"><apiName>mx.controls.listClasses</apiName><apiDetail/><apiClassifier id="mx.controls.listClasses:MXItemRenderer"><apiName>MXItemRenderer</apiName><shortdesc>
+  MXItemRenderer 类是在基于 MX 列表的控件中使用的 Spark 项呈示器和项编辑器的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:MXItemRenderer&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:MXItemRenderer
+    <strong>Properties</strong>
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseClassifier>spark.components.supportClasses:ItemRenderer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MXItemRenderer 类是在基于 MX 列表的控件中使用的 Spark 项呈示器和项编辑器的基类。通过该类，可以将 Spark 项呈示器体系结构与 MX DataGrid、MX AdvancedDataGrid 和 MX Tree 控件一起使用。 
+ 
+  <p><b>注意：</b>许多 MX 控件支持项呈示器或项编辑器。但是，只有 MX DataGrid、MX AdvancedDataGrid 和 MX Tree 控件支持 MXItemRenderer 类。因此，可以继续将 MX 项呈示器和项编辑器与除 DataGrid、AdvancedDataGrid 和 Tree 之外的 MX 控件一起使用。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.listClasses:MXItemRenderer:MXItemRenderer"><apiName>MXItemRenderer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.listClasses:MXItemRenderer:editor"><apiName>editor</apiName><shortdesc>
+      如果提供了该组件，则它将作为编辑器接收焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.managers:IFocusManagerComponent"/></apiValueDef><apiDesc>
+      如果提供了该组件，则它将作为编辑器接收焦点。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:MXItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      由 IDropInListItemRenderer 接口定义的 listData 属性实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      由 IDropInListItemRenderer 接口定义的 <codeph>listData</codeph> 属性实现。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.listClasses:MXItemRenderer:text:get"><apiName>text</apiName><shortdesc>
+      由 editorID 指定的组件的 text 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      由 <codeph>editorID</codeph> 指定的组件的 <codeph>text</codeph> 属性。这是一个方便使用的属性，可以使 MX 控件的项编辑器（由 <codeph>itemEditor</codeph> 属性指定）从大多数项编辑器移出值，而无需将属性传播到 MXItemRenderer。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

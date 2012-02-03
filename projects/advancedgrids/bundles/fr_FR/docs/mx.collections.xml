@@ -1,0 +1,1574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections"><apiName>mx.collections</apiName><apiDetail/><apiClassifier id="mx.collections:IHierarchicalCollectionViewCursor"><apiName>IHierarchicalCollectionViewCursor</apiName><shortdesc>
+  L’interface IHierarchicalCollectionViewCursor définit l’interface permettant d’énumérer une vue de collection hiérarchique de manière bidirectionnelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IViewCursor</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IHierarchicalCollectionViewCursor définit l’interface permettant d’énumérer une vue de collection hiérarchique de manière bidirectionnelle. Ce curseur offre des fonctions permettant de connaître la profondeur actuelle d’un élément. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.IViewCursor.xml"><linktext>mx.collections.IViewCursor</linktext></link><link href="" invalidHref="mx.controls.IHierarchicalCollectionView.xml"><linktext>mx.controls.IHierarchicalCollectionView</linktext></link></related-links><apiValue id="mx.collections:IHierarchicalCollectionViewCursor:mx.collections:IHierarchicalCollectionViewCursor:currentDepth:get"><apiName>currentDepth</apiName><shortdesc>
+      Contient la profondeur du nœud à l’emplacement référencé par le curseur dans la collection source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Contient la profondeur du nœud à l’emplacement référencé par le curseur dans la collection source. Si le curseur est au-delà des limites de la collection, cette propriété contient la valeur 0.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryField2"><apiName>SummaryField2</apiName><shortdesc>
+  La classe SummaryField2 représente une propriété unique dans une instance SummaryRow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.SummaryField2&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SummaryField2
+  <b>Properties </b>
+    dataField="<i>No default</i>"
+    label="<i>No default</i>"
+    summaryOperation="<i>SUM</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SummaryField2 représente une propriété unique dans une instance SummaryRow. Chaque instance SummaryRow spécifie une ou plusieurs instances SummaryField2 utilisées pour créer un résumé de données. 
+ 
+  <p><b>Remarque : </b>dans la version précédente de Flex, vous avez utilisé la classe SummaryField pour créer des données de résumé. La classe SummaryField2, une nouveauté de Flex 4, offre de meilleures performances que SummaryField. </p>
+ 
+  <p>Utilisez la propriété <codeph>dataField</codeph> pour spécifier le champ de données utilisé pour générer le résumé, la propriété <codeph>label</codeph> pour spécifier le nom du champ de données créé dans le but d’accueillir les données de résumé, et la propriété <codeph>summaryOperation</codeph> pour spécifier comment créer le résumé pour les champs numériques. Vous pouvez spécifier l’une des valeurs suivantes : <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> ou <codeph>COUNT</codeph>.</p>
+  Vous pouvez également spécifier une implémentation ISummaryCalculator pour calculer les résumés. 
+ 
+  <p>L’exemple suivant crée des lignes de résumé à partir de deux champs issus du fournisseur de données du contrôle AdvancedDataGrid :</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Min Actual" summaryOperation="MIN"/>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Max Actual" summaryOperation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Min Actual" summaryOperation="MIN"/>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Max Actual" summaryOperation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryField2:SummaryField2"><apiName>SummaryField2</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Champ de données pour lequel le résumé est calculé.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>summaryOperation</apiItemName><apiType value="Object"/><apiData>SUM</apiData><apiDesc>Fonction à appliquer aux enfants. Vous pouvez spécifier l’une des valeurs suivantes pour les champs numériques : <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> ou <codeph>COUNT</codeph>. Vous pouvez également spécifier une implémentation ISummaryCalculator pour calculer les résumés.  
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryField2:dataField"><apiName>dataField</apiName><shortdesc>
+     Champ de données pour lequel le résumé est calculé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Champ de données pour lequel le résumé est calculé.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField2:label"><apiName>label</apiName><shortdesc>
+      Propriété utilisée dans l’objet de résumé, c’est-à-dire une occurrence de la classe SummaryObject, destinée à accueillir les informations de résumé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Propriété utilisée dans l’objet de résumé, c’est-à-dire une occurrence de la classe SummaryObject, destinée à accueillir les informations de résumé.
+     
+      <p>Par exemple, si vous définissez la propriété <codeph>label</codeph> sur "Summary", le résumé calculé est placé dans une propriété "Summary" de l’objet de résumé. La propriété de l’occurrence SummaryObject contenant les données de résumé apparaîtra comme suit :</p>
+     
+      <pre>{Summary:1000}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link><link href="mx.collections.xml#SummaryField2/summaryFunction"><linktext>summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryField2:summaryOperation"><apiName>summaryOperation</apiName><shortdesc>
+       Le résumé exécuté sur les enfants. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>SUM</apiData><apiType value="Object"/><apiDefaultValue>SUM
+       </apiDefaultValue></apiValueDef><apiDesc>
+       Le résumé exécuté sur les enfants. La valeur de cette propriété peut être l’une des suivantes : 
+       
+       <ul>
+         <li>Pour les champs numériques : <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> ou <codeph>COUNT</codeph>. </li>
+         <li>Une occurrence de classe qui implémente l’interface ISummaryCalculator personnalisée pour calculer un résumé personnalisé. </li>
+       </ul>
+        
+       </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#ISummaryCalculator"><linktext>mx.collections.ISummaryCalculator</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:IHierarchicalCollectionView"><apiName>IHierarchicalCollectionView</apiName><shortdesc>
+  L’interface IHierarchicalCollectionView définit une interface pour les données hiérarchiques ou groupées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ICollectionView</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IHierarchicalCollectionView définit une interface pour les données hiérarchiques ou groupées. Ces données sont généralement utilisées avec le contrôle AdvancedDataGrid. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Ajoute un nœud enfant à un nœud présent dans les données, à un index spécifié au sein des données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si le nœud est correctement ajouté.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud parent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nouveau nœud.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Index de base zéro de l’emplacement d’insertion du nœud enfant.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un nœud enfant à un nœud présent dans les données, à un index spécifié au sein des données.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:addChild"><apiName>addChild</apiName><shortdesc>
+      Ajoute un nœud enfant à un nœud de données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si le nœud est correctement ajouté.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud parent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nouveau nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un nœud enfant à un nœud de données.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:closeNode"><apiName>closeNode</apiName><shortdesc>
+      Ferme un nœud pour masquer ses enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ferme un nœud pour masquer ses enfants.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Renvoie une collection d’enfants, s’ils existent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Occurrence ICollectionView contenant les nœuds enfant.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud. Si la valeur est <codeph>null</codeph>, une collection de nœuds de niveau supérieur est renvoyée.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie une collection d’enfants, s’ils existent. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      Renvoie la profondeur du nœud dans la collection.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Profondeur du nœud.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la profondeur du nœud dans la collection.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      Renvoie le parent d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nœud parent comptant le nœud parmi ses enfants. La valeur est <codeph>null</codeph> s’il s’agit d’un nœud de niveau supérieur et <codeph>undefined</codeph> s’il est impossible de déterminer le parent.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le parent d’un nœud. Le parent d’un nœud de niveau supérieur est <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:openNode"><apiName>openNode</apiName><shortdesc>
+      Ouvre un nœud pour afficher ses enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ouvre un nœud pour afficher ses enfants.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Supprime le nœud enfant d’un nœud à l’index spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’opération aboutit, <codeph>false</codeph> dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet de nœud jouant le rôle de parent du nœud enfant. Définissez le paramètre <codeph>parent</codeph> sur <codeph>null</codeph> pour les nœuds de niveau supérieur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Index de base zéro du nœud enfant à supprimer, par rapport au parent.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime le nœud enfant d’un nœud à l’index spécifié.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:removeChild"><apiName>removeChild</apiName><shortdesc>
+      Supprime le nœud du nœud parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si la suppression du nœud aboutit.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud parent. La valeur est <codeph>null</codeph> s’il s’agit d’un nœud de niveau supérieur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud enfant à supprimer.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime le nœud du nœud parent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:hasRoot:get"><apiName>hasRoot</apiName><shortdesc> 
+      Si la valeur de cet indicateur est true, cela signifie que le fournisseur de données actuel contient un nœud racine, par exemple un nœud de niveau supérieur unique dans une structure hiérarchique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+      Si la valeur de cet indicateur est <codeph>true</codeph>, cela signifie que le fournisseur de données actuel contient un nœud racine, par exemple un nœud de niveau supérieur unique dans une structure hiérarchique. Les types XML et Object sont des exemples de types de données possédant un nœud racine. En revanche, les types List et Array n’en possèdent pas.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:openNodes:get"><apiName>openNodes</apiName><shortdesc>
+      Tableau d’objets contenant l’élément de fournisseur de données de tous les nœuds des branches ouvertes des données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Tableau d’objets contenant l’élément de fournisseur de données de tous les nœuds des branches ouvertes des données.
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:showRoot:get"><apiName>showRoot</apiName><shortdesc>
+      Indicateur booléen spécifiant si le nœud racine du fournisseur de données doit être affiché.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indicateur booléen spécifiant si le nœud racine du fournisseur de données doit être affiché. Si les données source possèdent un nœud racine et que cette propriété est définie sur <codeph>false</codeph>, la collection n’inclura pas l’élément racine. Seuls les descendants de l’élément racine seront inclus dans la collection.  
+     
+      <p>Cette propriété n’a aucun effet sur une source qui ne contient pas de nœud racine, par exemple des objets List ou Array.</p> 
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#IHierarchicalCollectionView/hasRoot"><linktext>hasRoot</linktext></link></related-links></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:source:get"><apiName>source</apiName><shortdesc>
+      Données source de l’interface IHierarchicalCollectionView.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalData</apiValueClassifier></apiValueDef><apiDesc>
+      Données source de l’interface IHierarchicalCollectionView.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryObject"><apiName>SummaryObject</apiName><shortdesc>
+  La classe SummaryObject définit l’objet utilisé pour stocker des informations lorsque des résumés de données personnalisés sont réalisés sur des données regroupées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SummaryObject définit l’objet utilisé pour stocker des informations lorsque des résumés de données personnalisés sont réalisés sur des données regroupées. Utilisez les propriétés <codeph>SummaryRow.summaryObjectFunction</codeph> et <codeph>SummaryField.summaryFunction</codeph> pour ajouter la logique de résumé personnalisée à l’application.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryObject:SummaryObject"><apiName>SummaryObject</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections:SummaryField"><apiName>SummaryField</apiName><shortdesc>
+  La classe SummaryField représente une propriété unique dans une occurrence SummaryRow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="SummaryField2" sinceVersion="4.0"/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SummaryField représente une propriété unique dans une occurrence SummaryRow. Chaque occurrence SummaryRow spécifie une ou plusieurs occurrences SummaryField utilisées pour créer un résumé de données. 
+ 
+  <p>Utilisez la propriété <codeph>dataField</codeph> pour spécifier le champ de données utilisé pour générer le résumé, la propriété <codeph>label</codeph> pour spécifier le nom du champ de données créé dans le but d’accueillir les données de résumé, et la propriété <codeph>operation</codeph> pour spécifier comment créer le résumé pour les champs numériques. Vous pouvez spécifier l’une des valeurs suivantes : <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> ou <codeph>COUNT</codeph>.</p>
+ 
+  <p>L’exemple suivant crée des lignes de résumé à partir de deux champs issus du fournisseur de données du contrôle AdvancedDataGrid :</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  <p>Cette classe, déconseillée, a été remplacée par la nouvelle classe <codeph>SummaryField2</codeph>. Les propriétés <codeph>opération</codeph> et <codeph>summaryFunction</codeph> ne sont pas présentes dans la classe <codeph>SummaryField2</codeph>. Une nouvelle propriété <codeph>summaryOperation</codeph> est introduite dans <codeph>SummaryField2</codeph>. </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryField:SummaryField"><apiName>SummaryField</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Champ de données pour lequel le résumé est calculé.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>operation</apiItemName><apiType value="String"/><apiData>SUM</apiData><apiDesc>Fonction à appliquer aux enfants. Vous pouvez spécifier l’une des valeurs suivantes pour les champs numériques : <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> ou <codeph>COUNT</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryField:dataField"><apiName>dataField</apiName><shortdesc>
+     Champ de données pour lequel le résumé est calculé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Champ de données pour lequel le résumé est calculé.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField:label"><apiName>label</apiName><shortdesc>
+      Propriété utilisée dans l’objet de résumé, c’est-à-dire une occurrence de la classe SummaryObject, destinée à accueillir les informations de résumé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Propriété utilisée dans l’objet de résumé, c’est-à-dire une occurrence de la classe SummaryObject, destinée à accueillir les informations de résumé.
+     
+      <p>Par exemple, si vous définissez la propriété <codeph>label</codeph> sur "Summary", le résumé calculé est placé dans une propriété "Summary" de l’objet de résumé. La propriété de l’occurrence SummaryObject contenant les données de résumé apparaîtra comme suit :</p>
+     
+      <pre>{Summary:1000}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link><link href="mx.collections.xml#SummaryField/summaryFunction"><linktext>summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryField:operation"><apiName>operation</apiName><shortdesc>
+      Fonction à appliquer aux enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>SUM</apiData><apiType value="String"/><apiDefaultValue>SUM
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Fonction à appliquer aux enfants. Vous pouvez spécifier l’une des valeurs suivantes pour les champs numériques : <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> ou <codeph>COUNT</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField:summaryFunction"><apiName>summaryFunction</apiName><shortdesc>
+      Spécifie une fonction de rappel pour le calcul d’un résumé de données personnalisé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Spécifie une fonction de rappel pour le calcul d’un résumé de données personnalisé.
+     
+      <p>Utilisez cette propriété avec la propriété <codeph>SummaryRow.summaryObjectFunction</codeph>, qui définit une occurrence de la classe SummaryObject utilisée pour collecter les données de résumé à afficher dans le contrôle AdvancedDataGrid.</p>
+     
+      <p>La signature de la fonction doit se présenter comme suit :</p>
+     
+      <pre>
+      function mySummaryFunction(iterator:IViewCursor, dataField:String, operation:String):Object</pre>
+     
+      <p>Les fonctions de résumé intégrées utilisant les valeurs <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph> et <codeph>COUNT</codeph> renvoient toutes un nombre contenant les données de résumé. </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:GroupingCollection2"><apiName>GroupingCollection2</apiName><shortdesc>
+  La classe GroupingCollection2 permet de créer des données regroupées à afficher dans le contrôle AdvancedDataGrid, à partir de données à plat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="grouping"/></asMetadata><asCustoms><mxml><![CDATA[  The <code>&lt;mx.GroupingCollection2&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+   <pre>
+  &lt;mx:GroupingCollection2
+  <b>Properties </b>
+    grouping="<i>No default</i>"
+    source="<i>No default</i>"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IGroupingCollection2</apiBaseInterface><apiBaseClassifier>mx.collections:HierarchicalData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GroupingCollection2 permet de créer des données regroupées à afficher dans le contrôle AdvancedDataGrid, à partir de données à plat. Lorsque vous créez l’occurrence de la classe GroupingCollection à partir de données à plat, vous devez spécifier le ou les champs de données à utiliser pour créer la hiérarchie.
+   <p><b>Remarque : </b>dans la version précédente de Flex, vous avez utilisé la classe GroupingCollection avec le contrôle AdvancedDataGrid. La classe GroupingCollection2, une nouveauté de Flex 4, offre de meilleures performances que GroupingCollection. </p>
+   <p>Pour que des données groupées viennent remplir le contrôle AdvancedDataGrid, créez une occurrence de la classe GroupingCollection à partir des données à plat, puis transmettez cette occurrence GroupingCollection au fournisseur de données du contrôle AdvancedDataGrid. Pour spécifier les champs de regroupement des données à plat, transmettez une occurrence Grouping à la propriété <codeph>GroupingCollection.grouping</codeph>. L’occurrence Grouping contient un tableau d’occurrences GroupingField (une par champ de regroupement). </p>
+   <p>L’exemple suivant utilise la classe GroupingCollection pour définir deux champs de regroupement : Region et Territory.</p>
+   <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection2 id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection2> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:GroupingCollection2:GroupingCollection2"><apiName>GroupingCollection2</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:GroupingCollection2:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      
+      Si l’actualisation est réalisée de manière asynchrone, l’opération d’actualisation est annulée et la construction des groupes est arrêtée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Si l’actualisation est réalisée de manière asynchrone, l’opération d’actualisation est annulée et la construction des groupes est arrêtée. Cette méthode annule l’actualisation uniquement si elle est initiée par un appel de la méthode <codeph>refresh()</codeph> utilisant un argument <codeph>asynch</codeph> de <codeph>true</codeph>, ce qui correspond à une actualisation asynchrone.
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:protected:getParent"><apiName>getParent</apiName><shortdesc>
+      Renvoie le parent d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Nœud parent comptant le nœud parmi ses enfants. La valeur est <codeph>null</codeph> s’il s’agit d’un nœud de niveau supérieur et <codeph>undefined</codeph> s’il est impossible de déterminer le parent.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le parent d’un nœud. Le parent d’un nœud de niveau supérieur est <codeph>null</codeph>.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:getRoot"><apiName>getRoot</apiName><shortdesc>
+      Renvoie super.source si la propriété grouping est définie. Si cette propriété n’est pas définie, renvoie une occurrence ICollectionView faisant référence à super.source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Objet à renvoyer.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie <codeph>super.source</codeph> si la propriété <codeph>grouping</codeph> est définie. SI cette propriété n’est pas définie, renvoie une occurrence ICollectionView faisant référence à <codeph>super.source</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:refresh"><apiName>refresh</apiName><shortdesc>
+      
+      Applique le regroupement à la collection.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si la méthode <codeph>refresh()</codeph> est terminée et <codeph>false</codeph> si cela n’est pas le cas, ce qui peut être le signe que des éléments sont toujours en attente.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Si la valeur est <codeph>true</codeph>, l’actualisation est définie comme étant asynchrone. La valeur par défaut est <codeph>false</codeph>, ce qui correspond à une actualisation synchrone.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchCollectionEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Si la valeur est <codeph>true</codeph>, les événements sont distribués à la formation des groupes. Pour de meilleures performances, définissez-la sur <codeph>false</codeph>. Si la valeur est <codeph>true</codeph>, les événements sont distribués sous forme de groupes et des résumés sont calculées en mode synchrone pour mettre à jour le contrôle. Remarque : si <codeph>Async</codeph> est <codeph>true</codeph>, <codeph>dispatchCollectionEvents</codeph> est toujours défini sur <codeph>true</codeph>. Par défaut, la valeur est <codeph>false</codeph>, indiquant qu’aucun événement n’est déclenché. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Applique le regroupement à la collection. La collection ne détecte pas automatiquement les modifications apportées à un groupe. Par conséquent, vous devez appeler la méthode <codeph>refresh()</codeph> pour actualiser la collection après avoir défini les propriétés <codeph>grouping </codeph>, <codeph> source </codeph> ou <codeph>summaries</codeph> Vous pouvez également appeler la méthode <codeph>refresh()</codeph> lorsque vous modifiez un GroupingField de la collection, en modifiant les propriétés <codeph>caseInsensitive</codeph>, <codeph>compareFunction</codeph> ou <codeph>groupingFunction</codeph>. 
+     
+      <p>La méthode <codeph>refresh()</codeph> peut être appliquée en mode synchrone ou asynchrone. </p>
+      
+      <p>Lorsque la méthode <codeph>refresh()</codeph> est appelée en mode synchrone, tous les groupes et les résumés sont mis à jour ensemble avant le renvoi de la méthode. Cela signifie que votre application ne peut pas effectuer d’autres opérations de traitement pour la durée de l’appel. Un client doit attendre qu’un événement CollectionEvent dont la propriété <codeph>kind</codeph> est définie sur <codeph>CollectionEventKind.REFRESH</codeph> soit généré pour faire en sorte que la méthode <codeph>refresh()</codeph> aboutisse.</p>
+     
+      <p>Dans une opération d’actualisation asynchrone, tous les groupes et les résumés sont mis à jour individuellement. La méthode <codeph>refresh()</codeph> est renvoyée avant la mise à jour des groupes et des résumés de façon à ce que l’exécution de votre application puisse continuer. Par ailleurs, le contrôle est mis à jour lors de l’actualisation afin que l’utilisateur puisse continuer à interagir avec ce dernier. </p>
+     
+      <p>Le temps système de mise à jour individuelle des groupes et des résumés, plutôt que toutes en même temps, allonge le délai de l’actualisation asynchrone par rapport à une actualisation synchrone. Cependant, pour les grands ensembles de données, votre application continue de fonctionner lors de l’actualisation. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:GroupingCollection2:summaries"><apiName>summaries</apiName><shortdesc>
+      Tableau d’occurrences SummaryRow définissant un résumé de données au niveau racine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Tableau d’occurrences SummaryRow définissant un résumé de données au niveau racine. Spécifiez une ou plusieurs occurrences SummaryRow pour définir les résumés de données, comme l’illustre l’exemple suivant :
+           <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection2 id="gc" source="{dpFlat}">
+                 &lt;mx:summaries>
+                     &lt;mx:SummaryRow summaryPlacement="last">
+                         &lt;mx:fields>
+                             &lt;mx:SummaryField2 dataField="Actual" 
+                                 label="Min Actual" summaryOperation="MIN"/>
+                             &lt;mx:SummaryField2 dataField="Actual" 
+                                 label="Max Actual" summaryOperation="MAX"/>
+                         &lt;/mx:fields>
+                       &lt;/mx:SummaryRow>
+                     &lt;/mx:summaries>
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region"/>
+                     &lt;mx:GroupingField name="Territory"/>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection2>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid></pre>
+           </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection2:protected:timer"><apiName>timer</apiName><shortdesc>
+      Minuteur associé à une opération d’actualisation asynchrone.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Timer"/></apiValueDef><apiDesc>
+      Minuteur associé à une opération d’actualisation asynchrone. Vous pouvez l’utiliser pour modifier l’intervalle de temporisation, suspendre l’actualisation ou réaliser différentes actions. La valeur par défaut de la propriété <codeph>delay</codeph> de l’occurrence Timer est 1, ce qui correspond à 1 milliseconde.
+           
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingCollection2:grouping:get"><apiName>grouping</apiName><shortdesc>
+      Spécifie l’occurrence Grouping appliquée aux données source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      Spécifie l’occurrence Grouping appliquée aux données source. Le fait de définir la propriété <codeph>grouping</codeph> n’actualise pas automatiquement la vue. Par conséquent, vous devez appeler la méthode <codeph>refresh()</codeph> après avoir défini cette propriété.
+           </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingCollection2/refresh()"><linktext>mx.collections.GroupingCollection2.refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection2:source:get"><apiName>source</apiName><shortdesc>
+      Collection source contenant les données à plat à regrouper.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Collection source contenant les données à plat à regrouper. Si la source n’est pas une collection, elle sera automatiquement enveloppée dans une collection.
+      
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IHierarchicalData"><apiName>IHierarchicalData</apiName><shortdesc>
+  L’interface IHierarchicalData définit l’interface permettant de représenter des données hiérarchiques sous forme de fournisseur de données pour un composant Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IHierarchicalData définit l’interface permettant de représenter des données hiérarchiques sous forme de fournisseur de données pour un composant Flex. Les données hiérarchiques sont des données regroupées dans une structure d’éléments de données parent et enfant.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:canHaveChildren"><apiName>canHaveChildren</apiName><shortdesc>
+      Renvoie true si le nœud peut contenir des enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si le nœud peut contenir des enfants.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie <codeph>true</codeph> si le nœud peut contenir des enfants.
+     
+      <p>Les nœuds ne doivent pas nécessairement contenir des enfants pour que la méthode renvoie <codeph>true</codeph>. Cette méthode est utile pour déterminer si d’autres nœuds peuvent être ajoutés comme enfants au nœud spécifié.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Renvoie un objet représentant les enfants du nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet contenant les nœuds enfant.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud. Si la valeur est <codeph>null</codeph>, une collection de nœuds de niveau supérieur est renvoyée.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie un objet représentant les enfants du nœud. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getData"><apiName>getData</apiName><shortdesc>
+      Renvoie les données issues d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Données demandées.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet de nœud auprès duquel les données doivent être obtenues.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie les données issues d’un nœud.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getRoot"><apiName>getRoot</apiName><shortdesc>
+     Renvoie l’élément de données racine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet contenant l’élément de données racine.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+     Renvoie l’élément de données racine.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      Renvoie true si le nœud contient des enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si le nœud contient des enfants.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie <codeph>true</codeph> si le nœud contient des enfants. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:GroupingField"><apiName>GroupingField</apiName><shortdesc>
+  La classe GroupingField représente les différents champs de données utilisés pour regrouper des données à plat devant être affichées par le contrôle AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="summaries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.GroupingField&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GroupingField
+  <b>Properties </b>
+    caseInsensitive="false|true"
+    compareFunction="<i>No default</i>"
+    descending="false|true"
+    groupingFunction="<i>No default</i>"
+    groupingObjectFunction="<i>No default</i>"
+    name="null"
+    numeric="false|true"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GroupingField représente les différents champs de données utilisés pour regrouper des données à plat devant être affichées par le contrôle AdvancedDataGrid. 
+ 
+  <p>Pour que des données groupées viennent remplir le contrôle AdvancedDataGrid, créez une occurrence de la classe GroupingCollection à partir des données à plat, puis transmettez cette occurrence GroupingCollection au fournisseur de données du contrôle AdvancedDataGrid. Pour spécifier les champs de regroupement des données à plat, transmettez une occurrence Grouping à la propriété <codeph>GroupingCollection.grouping</codeph>. L’occurrence Grouping contient un tableau d’occurrences GroupingField (une par champ de regroupement). </p>
+ 
+  <p>L’exemple suivant utilise la classe Grouping pour définir deux champs de regroupement : Region et Territory.</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link></related-links><apiConstructor id="mx.collections:GroupingField:GroupingField"><apiName>GroupingField</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Nom de la propriété utilisée par ce champ dans le cadre de la comparaison. Si l’objet est de type simple, transmettez la valeur <codeph>null</codeph>.
+      </apiDesc></apiParam><apiParam><apiItemName>caseInsensitive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Lors du tri de chaînes, indique au comparateur s’il faut ignorer la casse des valeurs.
+      </apiDesc></apiParam><apiParam><apiItemName>descending</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique au comparateur si les éléments doivent être classés dans l’ordre décroissant.
+      </apiDesc></apiParam><apiParam><apiItemName>numeric</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique au comparateur si les éléments de tri doivent être comparés en tant que nombres et non selon l’ordre alphabétique.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:GroupingField:groupingFunction"><apiName>groupingFunction</apiName><shortdesc>
+      Fonction déterminant le libellé de ce groupe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Fonction déterminant le libellé de ce groupe. Par défaut, le groupe affiche le texte du champ correspondant au champ spécifié par la propriété <codeph>nom</codeph> dans les données. Cependant, il est parfois utile de regrouper les éléments en fonction de plusieurs champs présents dans les données ou en fonction d’un critère qui ne correspond pas à un champ de chaîne simple. Dans ce cas, spécifiez une fonction de rappel à l’aide de la propriété <codeph>groupingFunction</codeph>.
+     
+      <p>Une fonction de rappel peut convertir un nombre correspondant au mois en chaîne pour le mois, ou regrouper plusieurs éléments dans un groupe en fonction de certains critères autres que la valeur actuelle du champ.</p>
+     
+      <p>Pour l’objet GroupField, la signature de la méthode se présente comme suit :</p>
+     
+      <pre>groupingFunction(item:Object, field:GroupField):String</pre>
+     
+      <p>Où <codeph>item</codeph> contient l’objet d’élément de données et <codeph>field</codeph> contient l’objet GroupField.</p>
+     
+      Par exemple, une fonction <codeph>groupingFunction</codeph> renvoyant le premier caractère comme nom de groupe peut être écrite comme suit : 
+      <pre>
+      private function groupFunc(item:Object, field:GroupingField):String
+      {
+          return item[field.name].toString().substr(0, 1);
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:groupingObjectFunction"><apiName>groupingObjectFunction</apiName><shortdesc>
+      Fonction de rappel à exécuter sur chaque nœud du groupe pour déterminer l’objet de regroupement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Fonction de rappel à exécuter sur chaque nœud du groupe pour déterminer l’objet de regroupement. Par défaut, un nouvel objet sera créé pour les nœuds du groupe.
+     
+      <p>Vous pouvez spécifier une fonction <codeph>groupingObjectFunction</codeph> fournissant l’objet adapté aux nœuds du groupe.</p>
+     
+      <p>La signature de la méthode se présente comme suit :</p>
+      <pre>
+      myGroupObjectFunction(label:String):Object</pre>
+     
+      <p>Où <codeph>label</codeph> contient la valeur qui sera affichée pour ce nœud du groupe. La fonction renvoie un objet qui sera utilisé pour les nœuds de groupe. </p>
+     
+      Par exemple, une fonction <codeph>groupingObjectFunction</codeph> renvoyant un objet contenant une propriété "name" dont la valeur est "Bob" peut être écrite comme suit : 
+      <pre>
+      private function groupObjFunction(label:String):Object
+      {
+          var obj:Object = {};
+          obj.name = "Bob";
+     
+          return obj;
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:summaries"><apiName>summaries</apiName><shortdesc>
+      Tableau d’occurrences SummaryRow définissant les résumés au niveau du groupe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Tableau d’occurrences SummaryRow définissant les résumés au niveau du groupe. Spécifiez une ou plusieurs occurrences SummaryRow pour définir les résumés de données, comme l’illustre l’exemple suivant :
+     
+      <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region">
+                       &lt;mx:summaries>
+                           &lt;mx:SummaryRow summaryPlacement="group">
+                             &lt;mx:fields>
+                                 &lt;mx:SummaryField dataField="Actual" 
+                                     label="Min Actual" operation="MIN"/>
+                                 &lt;mx:SummaryField dataField="Actual" 
+                                     label="Max Actual" operation="MAX"/>
+                             &lt;/mx:fields>
+                           &lt;/mx:SummaryRow>
+                         &lt;/mx:summaries>
+                     &lt;/mx:GroupingField>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid>  
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingField:caseInsensitive:get"><apiName>caseInsensitive</apiName><shortdesc>
+      Définissez cette valeur sur true si le tri de ce champ ne doit pas être sensible à la casse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Définissez cette valeur sur <codeph>true</codeph> si le tri de ce champ ne doit pas être sensible à la casse.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      Fonction comparant deux éléments lors d’un tri d’éléments pour la collection associée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Fonction comparant deux éléments lors d’un tri d’éléments pour la collection associée. Si vous spécifiez une propriété <codeph>compareFunction</codeph> dans un objet Grouping, Flex ignore les propriétés <codeph>compareFunction</codeph> des objets GroupingField.
+     
+      <p>La fonction de comparaison doit présenter la signature suivante :</p>
+     
+      <pre>function myCompare(a:Object, b:Object):int</pre>
+     
+      <p>Cette fonction doit retourner les valeurs suivantes :</p>
+       <ul>
+            <li>-1 si <codeph>a</codeph> apparaît avant <codeph>b</codeph> dans la séquence triée.</li>
+            <li>0 si <codeph>a</codeph> = <codeph>b</codeph>.</li>
+            <li>1 si <codeph>a</codeph> apparaît après <codeph>b</codeph> dans la séquence triée.</li>
+      </ul>
+     
+      <p>La valeur par défaut est une fonction de comparaison interne qui réalise une comparaison de chaîne, de nombre ou de date dans l’ordre croissant ou décroissant, en prenant ou non en compte la casse des chaînes. Spécifiez votre propre fonction uniquement si vous souhaitez disposer d’un algorithme de comparaison personnalisé. Normalement, cela est nécessaire uniquement lorsqu’un champ calculé est utilisé dans un affichage.</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:descending:get"><apiName>descending</apiName><shortdesc>
+      Définissez cette valeur sur true si le tri de ce champ doit être réalisé dans l’ordre décroissant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Définissez cette valeur sur <codeph>true</codeph> si le tri de ce champ doit être réalisé dans l’ordre décroissant.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:name:get"><apiName>name</apiName><shortdesc>
+      Nom du champ à trier.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nom du champ à trier.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:numeric:get"><apiName>numeric</apiName><shortdesc>
+      Force le comparateur à utiliser une comparaison numérique si le champ trié contient des valeurs numériques (number/int/uint) ou des représentations de chaîne de valeurs numériques.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Force le comparateur à utiliser une comparaison numérique si le champ trié contient des valeurs numériques (number/int/uint) ou des représentations de chaîne de valeurs numériques. Si la valeur de cette propriété est <codeph>false</codeph>, les champs contenant des représentations de chaîne de nombres sont triés en comparant les chaînes. Ainsi, 100 précède 99, car "1" est une valeur de chaîne inférieure à "9". 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:Grouping"><apiName>Grouping</apiName><shortdesc>
+  La classe Grouping définit les champs du fournisseur de données du contrôle AdvancedDataGrid utilisés pour regrouper des données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.Grouping&gt;</code> tag defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Grouping
+  <b>Properties </b>
+    compareFunction="<i>No default</i>"
+    fields="null"
+    groupingObjectFunction="<i>No default</i>"
+    label="GroupLabel"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Grouping définit les champs du fournisseur de données du contrôle AdvancedDataGrid utilisés pour regrouper des données. Utilisez cette classe pour créer des groupes lorsque les données d’entrée du contrôle AdvancedDataGrid sont des données à plat.
+ 
+  <p>Pour que des données groupées viennent remplir le contrôle AdvancedDataGrid, créez une occurrence de la classe GroupingCollection à partir des données à plat, puis transmettez cette occurrence GroupingCollection au fournisseur de données du contrôle AdvancedDataGrid. Pour spécifier les champs de regroupement des données à plat, transmettez une occurrence Grouping à la propriété <codeph>GroupingCollection.grouping</codeph>. L’occurrence Grouping contient un tableau d’occurrences GroupingField (une par champ de regroupement). </p>
+ 
+  <p>L’exemple suivant utilise la classe Grouping pour définir deux champs de regroupement : Region et Territory.</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:Grouping:Grouping"><apiName>Grouping</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:Grouping:groupingObjectFunction"><apiName>groupingObjectFunction</apiName><shortdesc>
+      Fonction de rappel à exécuter sur chaque nœud du groupe pour déterminer l’objet de regroupement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Fonction de rappel à exécuter sur chaque nœud du groupe pour déterminer l’objet de regroupement. Par défaut, un nouvel objet sera créé pour les nœuds du groupe.
+     
+      <p>Vous pouvez spécifier une fonction <codeph>groupingObjectFunction</codeph> fournissant l’objet adapté aux nœuds du groupe.</p>
+     
+      <p>La signature de la méthode se présente comme suit :</p>
+      <pre>
+      myGroupObjectFunction(label:String):Object</pre>
+     
+      <p>Où <codeph>label</codeph> contient la valeur qui sera affichée pour ce nœud du groupe. La fonction renvoie un objet qui sera utilisé pour les nœuds de groupe. </p>
+     
+      Par exemple, une fonction <codeph>groupingObjectFunction</codeph> renvoyant un objet contenant une propriété "name" dont la valeur est "Bob" peut être écrite comme suit : 
+      <pre>
+      private function groupObjFunction(label:String):Object
+      {
+          var obj:Object = {};
+          obj.name = "Bob";
+     
+          return obj;
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:label"><apiName>label</apiName><shortdesc>
+      Nom du champ ajouté aux données à plat pour créer la hiérarchie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>GroupLabel</apiData><apiType value="String"/><apiDefaultValue>GroupLabel
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nom du champ ajouté aux données à plat pour créer la hiérarchie. La valeur des nœuds de niveau supérieur (nœuds représentant les champs de groupe) dans chaque groupe est représentée par cette propriété. Utilisez cette propriété pour spécifier un autre nom.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      Méthode utilisée pour comparer des éléments lors du tri.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Méthode utilisée pour comparer des éléments lors du tri. Si vous spécifiez cette propriété, Flex ignore les propriétés <codeph>compareFunction</codeph> que vous spécifiez dans les objets SortField utilisés dans cette classe.
+     
+      <p>La fonction de comparaison doit présenter la signature suivante :</p>
+      <pre>
+         function [name](a:Object, b:Object, fields:Array=null):int</pre>
+     
+      <p>Cette fonction doit renvoyer les valeurs suivantes :</p>
+      <ul>
+            <li>-1 si <codeph>a</codeph> apparaît avant <codeph>b</codeph> dans la séquence triée.</li>
+            <li>0 si <codeph>a</codeph> = <codeph>b</codeph>.</li>
+            <li>1 si <codeph>a</codeph> apparaît après <codeph>b</codeph> dans la séquence triée.</li>
+      </ul>
+     
+      <p>Pour renvoyer à la fonction de comparaison interne, définissez cette valeur sur <codeph>null</codeph>.</p>
+     
+     <p>Le tableau <codeph>fields</codeph> spécifie les champs d’objet à comparer. En général, l’algorithme compare les propriétés jusqu’à ce que la fin de la liste des champs soit atteinte ou jusqu’à ce qu’une valeur autre que zéro puisse être renvoyée. Par exemple :</p>
+     
+      <pre>
+        function myCompare(a:Object, b:Object, fields:Array=null):int
+        {
+            var result:int = 0;
+            var i:int = 0;
+            var propList:Array = fields ? fields : internalPropList;
+            var len:int = propList.length;
+            var propName:String;
+            while (result == 0 &amp;&amp; (i &lt; len))
+            {
+                propName = propList[i];
+                result = compareValues(a[propName], b[propName]);
+                i++;
+            }
+            return result;
+        }
+     
+        function compareValues(a:Object, b:Object):int
+        {
+            if (a == null &amp;&amp; b == null)
+                return 0;
+     
+            if (a == null)
+              return 1;
+     
+            if (b == null)
+               return -1;
+     
+            if (a &lt; b)
+                return -1;
+     
+            if (a > b)
+                return 1;
+     
+            return 0;
+        }</pre>
+     
+      <p>La valeur par défaut est une fonction de comparaison interne qui réalise une comparaison de chaîne, de nombre ou de date dans l’ordre croissant ou décroissant, en prenant ou non en compte la casse des chaînes. Spécifiez votre propre fonction uniquement si vous souhaitez disposer d’un algorithme de comparaison personnalisé. Normalement, cela est nécessaire uniquement lorsqu’un champ calculé est utilisé dans un affichage.</p>
+     
+      <p>Vous pouvez également spécifier des fonctions de comparaison séparées pour chaque champ de tri, à l’aide de la propriété <codeph>compare</codeph> de la classe SortField. Il est ainsi possible d’utiliser la comparaison par défaut pour certains champs et une comparaison personnalisée pour d’autres.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:fields:get"><apiName>fields</apiName><shortdesc>
+      Tableau d’objets GroupingField spécifiant les champs utilisés pour regrouper les données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Tableau d’objets GroupingField spécifiant les champs utilisés pour regrouper les données. L’ordre des objets GroupingField dans le tableau détermine l’ordre de priorité des champs lors du tri.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingField"><linktext>GroupingField</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryRow"><apiName>SummaryRow</apiName><shortdesc>
+  La classe SummaryRow représente une ligne de résumé du contrôle AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.SummaryRow&gt;</code> tag defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SummaryRow
+  <b>Properties </b>
+    fields="<i>No default</i>"
+    summaryObjectFunction="<i>No default</i>"
+    summaryPlacement="<i>last</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SummaryRow représente une ligne de résumé du contrôle AdvancedDataGrid. Vous pouvez créer des données de résumé concernant les groupes de données à l’aide de la propriété <codeph>summaries</codeph> de la classe GroupingField ou GroupingCollection. Les données de résumé sont affichées dans une ligne existante du contrôle AdvancedDataGrid ou dans une ligne séparée.
+ 
+  <p>La propriété <codeph>summaries</codeph> de la classe GroupingField ou GroupingCollection accepte une occurrence de la classe SummaryRow. Vous pouvez ensuite utiliser la propriété <codeph>fields</codeph> de la classe SummaryRow pour spécifier un tableau contenant une ou plusieurs occurrences SummaryField2 définissant les champs des données utilisées pour créer le résumé. <codeph>SummaryField2</codeph> doit être utilisé lorsque vous utilisez <codeph>GroupingCollection2</codeph>. </p>
+ 
+  <p>L’exemple suivant crée des lignes de résumé à partir de deux champs issus du fournisseur de données du contrôle AdvancedDataGrid :</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiConstructor id="mx.collections:SummaryRow:SummaryRow"><apiName>SummaryRow</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryRow:fields"><apiName>fields</apiName><shortdesc>
+      Tableau d’occurrences SummaryField/SummaryField2 définissant les caractéristiques des champs de données utilisés pour créer le résumé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Tableau d’occurrences SummaryField/SummaryField2 définissant les caractéristiques des champs de données utilisés pour créer le résumé.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryRow:summaryObjectFunction"><apiName>summaryObjectFunction</apiName><shortdesc>
+      Spécifie une fonction de rappel définissant l’objet de résumé, qui est une occurrence de la classe SummaryObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      Spécifie une fonction de rappel définissant l’objet de résumé, qui est une occurrence de la classe SummaryObject. L’occurrence SummaryObject collecte les données de résumé à afficher dans le contrôle AdvancedDataGrid. Le contrôle AdvancedDataGrid ajoute l’occurrence SummaryObject au fournisseur de données pour afficher les données de résumé dans le contrôle. Par conséquent, vous devez définir les propriétés à afficher dans l’occurrence SummaryObject.
+     
+      <p>Utilisez cette propriété avec la propriété <codeph>SummaryField.summaryFunction</codeph>, qui définit une fonction de rappel permettant de réaliser le calcul de résumé.</p>
+     
+      <p>La classe GroupingCollection ajoute à l’objet une propriété appelée <codeph>children</codeph>.</p>
+     
+      <p>La fonction de rappel doit présenter la signature suivante :</p>
+     
+      <pre>function mySumObjFunc():SummaryObject {}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryField/summaryFunction"><linktext>mx.collections.SummaryField.summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryRow:summaryPlacement"><apiName>summaryPlacement</apiName><shortdesc> 
+      Spécifie la position d’affichage de la ligne de résumé dans le contrôle AdvancedDataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      Spécifie la position d’affichage de la ligne de résumé dans le contrôle AdvancedDataGrid. Valeurs possibles :
+     
+      <ul>
+        <li><codeph>"first"</codeph> : crée une ligne de résumé comme première ligne du groupe.</li>
+        <li><codeph>"last"</codeph> : crée une ligne de résumé comme dernière ligne du groupe.</li>
+        <li><codeph>"group"</codeph> : ajoute les données de résumé à la ligne correspondant au groupe.</li>
+      </ul>
+     
+      <p>Vous pouvez spécifier plusieurs valeurs, séparées par une espace. Par exemple, la valeur <codeph>"last group"</codeph> affiche la même ligne de résumé au niveau du groupe et dans la dernière ligne des enfants.</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:HierarchicalCollectionViewCursor"><apiName>HierarchicalCollectionViewCursor</apiName><shortdesc>
+  La classe HierarchicalCollectionViewCursor définit un curseur pour une vue hiérarchique d’une collection standard.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalCollectionViewCursor</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe HierarchicalCollectionViewCursor définit un curseur pour une vue hiérarchique d’une collection standard. Il n’est pas nécessaire que la collection parcourue par ce curseur soit hiérarchique : elle peut être plate. Cette classe utilise l’interface IHierarchicalData comme interface déléguée pour les informations concernant la structure d’arborescence des données parcourues. 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#HierarchicalCollectionView"><linktext>HierarchicalCollectionView</linktext></link></related-links><apiConstructor id="mx.collections:HierarchicalCollectionViewCursor:HierarchicalCollectionViewCursor"><apiName>HierarchicalCollectionViewCursor</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>collection</apiItemName><apiOperationClassifier>mx.collections:HierarchicalCollectionView</apiOperationClassifier><apiDesc>Occurrence HierarchicalCollectionView à laquelle ce curseur fait référence.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Collection de données source.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:IHierarchicalData</apiOperationClassifier><apiDesc>Données utilisées pour créer l’occurrence HierarchicalCollectionView.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findAny"><apiName>findAny</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findFirst"><apiName>findFirst</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findLast"><apiName>findLast</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:insert"><apiName>insert</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:moveNext"><apiName>moveNext</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:movePrevious"><apiName>movePrevious</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:remove"><apiName>remove</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:seek"><apiName>seek</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>bookmark</apiItemName><apiType value="mx.collections:CursorBookmark"/></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.collections:HierarchicalCollectionViewCursor:afterLast:get"><apiName>afterLast</apiName><shortdesc conref="mx.collections.IViewCursor#afterLast">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#afterLast">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:beforeFirst:get"><apiName>beforeFirst</apiName><shortdesc conref="mx.collections.IViewCursor#beforeFirst">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#beforeFirst">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:bookmark:get"><apiName>bookmark</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.collections:CursorBookmark"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:currentDepth:get"><apiName>currentDepth</apiName><shortdesc>
+      
+      Contient la profondeur du nœud à l’emplacement référencé par le curseur dans la collection source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      Contient la profondeur du nœud à l’emplacement référencé par le curseur dans la collection source. Si le curseur est au-delà des limites de la collection, cette propriété contient la valeur 0.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:current:get"><apiName>current</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:view:get"><apiName>view</apiName><shortdesc conref="mx.collections.IViewCursor#view">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.collections:ICollectionView"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#view">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:DefaultSummaryCalculator"><apiName>DefaultSummaryCalculator</apiName><shortdesc>
+  La classe DefaultSummaryCalculator fournit une logique de calcul de résumé pour les opérations SUM, MIN, MAX, AVG et COUNT. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISummaryCalculator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe DefaultSummaryCalculator fournit une logique de calcul de résumé pour les opérations <codeph>SUM</codeph>, <codeph>MIN</codeph>, <codeph>MAX</codeph>, <codeph>AVG</codeph>et <codeph>COUNT</codeph>. 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiOperation id="mx.collections:DefaultSummaryCalculator:calculateSummaryOfSummary"><apiName>calculateSummaryOfSummary</apiName><shortdesc>
+	  
+      Flex appelle cette méthode lorsqu’une nouvelle valeur de synthèse doit être ajoutée à la synthèse déjà calculée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>summaryOfSummaryCalculationBegin()</codeph> ou calculé par un appel précédent à la méthode <codeph>calculateSummaryOfSummary()</codeph>. Cette méthode modifie cet objet ; elle ne renvoie pas de valeur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>returnSummary()</codeph> pour une agrégation précédente. 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex appelle cette méthode lorsqu’une nouvelle valeur de synthèse doit être ajoutée à la synthèse déjà calculée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:calculateSummary"><apiName>calculateSummary</apiName><shortdesc>
+	  
+      Flex appelle cette méthode lorsqu’une nouvelle mesure doit être ajoutée à la valeur de synthèse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>summaryCalculationBegin()</codeph> ou calculé par un appel précédent à la méthode <codeph>calculateSummary()</codeph>. Utilisez cet objet pour stocker les informations nécessaires au calcul. Cette méthode modifie cet objet ; elle ne renvoie pas de valeur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Objet représentant les données de rangées en cours d’analyse. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex appelle cette méthode lorsqu’une nouvelle mesure doit être ajoutée à la valeur de synthèse.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:returnSummaryOfSummary"><apiName>returnSummaryOfSummary</apiName><shortdesc>
+	  
+      Flex appelle cette méthode pour terminer le calcul de synthèse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur de synthèse.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par un appel à la méthode <codeph>calculateSummaryOfSummary()</codeph> utilisée pour stocker les résultats du calcul de synthèse. Cette méthode modifie cet objet ; elle ne renvoie pas de valeur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex appelle cette méthode pour terminer le calcul de synthèse. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:returnSummary"><apiName>returnSummary</apiName><shortdesc>
+	  
+      Flex appelle cette méthode pour terminer le calcul de la valeur de synthèse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur de synthèse.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>calculateSummary()</codeph>. Utilisez cet objet pour stocker les informations nécessaires au calcul.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex appelle cette méthode pour terminer le calcul de la valeur de synthèse. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:summaryCalculationBegin"><apiName>summaryCalculationBegin</apiName><shortdesc>
+	  
+      Flex appelle cette méthode pour démarrer le calcul de la valeur de synthèse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet initialisé pour le calcul de synthèse. Utilisez cet objet pour stocker les informations nécessaires au calcul. Transmettez cet objet aux appels ultérieurs aux méthodes <codeph>calculateSummary()</codeph> et <codeph>returnSummary()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex appelle cette méthode pour démarrer le calcul de la valeur de synthèse.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:summaryOfSummaryCalculationBegin"><apiName>summaryOfSummaryCalculationBegin</apiName><shortdesc>
+	  
+      Flex appelle cette méthode pour démarrer calcul de synthèse à partir des valeurs ad hoc. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet initialisé pour le calcul de synthèse. Utilisez cet objet pour stocker les informations nécessaires au calcul. Transmettez cet objet aux appels ultérieurs aux méthodes <codeph>calculateSummaryOfSummary()</codeph> et <codeph>returnSummaryOfSummary()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>calculateSummary()</codeph> pour un calcul de synthèse précédent. Utilisez cet objet pour stocker les informations nécessaires au calcul.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex appelle cette méthode pour démarrer calcul de synthèse à partir des valeurs ad hoc. Calculer la valeur moyenne d’un groupe de moyennes constitue un exemple de calcul de synthèse à partir des valeurs ad hoc.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:HierarchicalData"><apiName>HierarchicalData</apiName><shortdesc>
+  Les données hiérarchiques sont des données qui se trouvent déjà dans une structure d’éléments de données parent et enfant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Les données hiérarchiques sont des données qui se trouvent déjà dans une structure d’éléments de données parent et enfant. La classe HierarchicalData fournit une implémentation par défaut permettant d’accéder et de manipuler des données à utiliser dans des contrôles tels que le contrôle AdvancedDataGrid. Pour configurer le contrôle AdvancedDataGrid de sorte qu’il affiche des données hiérarchiques, vous pouvez transmettre à la propriété <codeph>dataProvider</codeph> une occurrence de la classe HierarchicalData. Cette implémentation traite les nœuds E4X, XML et Object de manière quelque peu différente. Pour plus d’informations sur la manière dont les méthodes accèdent aux valeurs dans différents types de nœuds, voir la description de chaque méthode.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiConstructor id="mx.collections:HierarchicalData:HierarchicalData"><apiName>HierarchicalData</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Données utilisées pour remplir l’occurrence HierarchicalData.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalData:canHaveChildren"><apiName>canHaveChildren</apiName><shortdesc>
+     
+      Renvoie true si le nœud peut contenir des enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si le nœud peut contenir des enfants.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      Renvoie <codeph>true</codeph> si le nœud peut contenir des enfants.
+     
+      <p>Les nœuds ne doivent pas nécessairement contenir des enfants pour que la méthode renvoie <codeph>true</codeph>. Cette méthode est utile pour déterminer si d’autres nœuds peuvent être ajoutés comme enfants au nœud spécifié.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getChildren"><apiName>getChildren</apiName><shortdesc>
+      
+      Renvoie un objet représentant les enfants du nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet contenant les nœuds enfant.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud. Si la valeur est <codeph>null</codeph>, une collection de nœuds de niveau supérieur est renvoyée.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Renvoie un objet représentant les enfants du nœud. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getData"><apiName>getData</apiName><shortdesc>
+      
+      Renvoie les données issues d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Données demandées.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet de nœud auprès duquel les données doivent être obtenues.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Renvoie les données issues d’un nœud.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getRoot"><apiName>getRoot</apiName><shortdesc>
+     
+     Renvoie l’élément de données racine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet contenant l’élément de données racine.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+     
+     Renvoie l’élément de données racine.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      
+      Renvoie true si le nœud contient des enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si le nœud contient des enfants.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Renvoie <codeph>true</codeph> si le nœud contient des enfants. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:HierarchicalData:childrenField:get"><apiName>childrenField</apiName><shortdesc>
+      Indique le nom du champ à utiliser pour détecter les objets enfant dans un élément de données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Indique le nom du champ à utiliser pour détecter les objets enfant dans un élément de données. Par défaut, tous les sous-nœuds sont considérés comme des enfants des données XML et la propriété <codeph>children</codeph> est utilisée comme type de données de l’objet. Cette propriété est utile pour s’adapter à un format de date qui utilise des champs de données personnalisés pour représenter les enfants.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalData:source:get"><apiName>source</apiName><shortdesc>
+      Collection source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Collection source. La collection doit implémenter l’interface IList pour simplifier les opérations telles que l’ajout et la suppression d’éléments.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.collections.IList.xml"><linktext>mx.collections.IList</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:GroupingCollection"><apiName>GroupingCollection</apiName><shortdesc>
+  La classe GroupingCollection permet de créer des données regroupées à afficher dans le contrôle AdvancedDataGrid, à partir de données à plat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="grouping"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.GroupingCollection&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GroupingCollection
+  <b>Properties </b>
+    grouping="<i>No default</i>"
+    source="<i>No default</i>"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  <p>This Class has been deprecated and replaced by a new Class
+  <code>GroupingCollection2</code> which provide faster, 
+  improved performance and a new summary calculation mechanism.
+  Class <code>SummaryField</code> has also been deprecated and 
+  replaced by a new Class <code>SummaryField2</code>.
+  Properties <code>operation</code> and <code>summaryFunction</code> are 
+  not present in the Class <code>SummaryField2</code>. 
+  A new property <code>summaryOperation</code> is introduced in 
+  <code>SummaryField2</code>.</p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="GroupingCollection2" sinceVersion="4.0"/><apiBaseInterface>mx.collections:IGroupingCollection</apiBaseInterface><apiBaseClassifier>mx.collections:HierarchicalData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe GroupingCollection permet de créer des données regroupées à afficher dans le contrôle AdvancedDataGrid, à partir de données à plat. Lorsque vous créez l’occurrence de la classe GroupingCollection à partir de données à plat, vous devez spécifier le ou les champs de données à utiliser pour créer la hiérarchie.
+ 
+  <p>Pour que des données groupées viennent remplir le contrôle AdvancedDataGrid, créez une occurrence de la classe GroupingCollection à partir des données à plat, puis transmettez cette occurrence GroupingCollection au fournisseur de données du contrôle AdvancedDataGrid. Pour spécifier les champs de regroupement des données à plat, transmettez une occurrence Grouping à la propriété <codeph>GroupingCollection.grouping</codeph>. L’occurrence Grouping contient un tableau d’occurrences GroupingField (une par champ de regroupement). </p>
+ 
+  <p>L’exemple suivant utilise la classe GroupingCollection pour définir deux champs de regroupement : Region et Territory.</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:GroupingCollection:GroupingCollection"><apiName>GroupingCollection</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:GroupingCollection:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      
+      Si l’actualisation est réalisée de manière asynchrone, l’opération d’actualisation est annulée et la construction des groupes est arrêtée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Si l’actualisation est réalisée de manière asynchrone, l’opération d’actualisation est annulée et la construction des groupes est arrêtée. Cette méthode annule l’actualisation uniquement si elle est initiée par un appel de la méthode <codeph>refresh()</codeph> utilisant un argument <codeph>true</codeph>, ce qui correspond à une actualisation asynchrone.
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:protected:getParent"><apiName>getParent</apiName><shortdesc>
+      Renvoie le parent d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Nœud parent comptant le nœud parmi ses enfants. La valeur est <codeph>null</codeph> s’il s’agit d’un nœud de niveau supérieur et <codeph>undefined</codeph> s’il est impossible de déterminer le parent.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le parent d’un nœud. Le parent d’un nœud de niveau supérieur est <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:getRoot"><apiName>getRoot</apiName><shortdesc>
+      Renvoie super.source si la propriété grouping est définie. Si cette propriété n’est pas définie, renvoie une occurrence ICollectionView faisant référence à super.source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Objet à renvoyer.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie <codeph>super.source</codeph> si la propriété <codeph>grouping</codeph> est définie. SI cette propriété n’est pas définie, renvoie une occurrence ICollectionView faisant référence à <codeph>super.source</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:refresh"><apiName>refresh</apiName><shortdesc>
+      
+      Applique le regroupement à la vue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si la méthode <codeph>refresh()</codeph> est terminée et <codeph>false</codeph> si cela n’est pas le cas, ce qui peut être le signe que des éléments sont toujours en attente.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Si la valeur est <codeph>true</codeph>, l’actualisation est définie comme étant asynchrone. La valeur par défaut est <codeph>false</codeph>, ce qui correspond à une actualisation synchrone.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Applique le regroupement à la vue. L’interface IGroupingCollection ne détecte pas automatiquement les modifications apportées à un groupe. Par conséquent, vous devez appeler la méthode <codeph>refresh()</codeph> pour actualiser la vue après avoir défini la propriété <codeph>group</codeph>.
+     
+      <p>La méthode <codeph>refresh()</codeph> peut être appliquée de manière asynchrone en appelant la méthode <codeph>refresh(true)</codeph>.</p>
+      
+      <p>Lorsque la méthode <codeph>refresh()</codeph> est appelée de manière synchrone, un client doit attendre qu’un événement CollectionEvent dont la propriété <codeph>kind</codeph> est définie sur <codeph>CollectionEventKind.REFRESH</codeph> soit généré pour faire en sorte que la méthode <codeph>refresh()</codeph> aboutisse.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:GroupingCollection:summaries"><apiName>summaries</apiName><shortdesc>
+      Tableau d’occurrences SummaryRow définissant un résumé de données au niveau racine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      Tableau d’occurrences SummaryRow définissant un résumé de données au niveau racine. Spécifiez une ou plusieurs occurrences SummaryRow pour définir les résumés de données, comme l’illustre l’exemple suivant :
+     
+      <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+                 &lt;mx:summaries>
+                     &lt;mx:SummaryRow summaryPlacement="last">
+                         &lt;mx:fields>
+                             &lt;mx:SummaryField dataField="Actual" 
+                                 label="Min Actual" operation="MIN"/>
+                             &lt;mx:SummaryField dataField="Actual" 
+                                 label="Max Actual" operation="MAX"/>
+                         &lt;/mx:fields>
+                       &lt;/mx:SummaryRow>
+                     &lt;/mx:summaries>
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region"/>
+                     &lt;mx:GroupingField name="Territory"/>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection:protected:timer"><apiName>timer</apiName><shortdesc>
+      Minuteur associé à une opération d’actualisation asynchrone.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Timer"/></apiValueDef><apiDesc>
+      Minuteur associé à une opération d’actualisation asynchrone. Vous pouvez l’utiliser pour modifier l’intervalle de temporisation, suspendre l’actualisation ou réaliser différentes actions. La valeur par défaut de la propriété <codeph>delay</codeph> de l’occurrence Timer est 1, ce qui correspond à 1 milliseconde.
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingCollection:grouping:get"><apiName>grouping</apiName><shortdesc>
+      Spécifie l’occurrence Grouping appliquée aux données source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      Spécifie l’occurrence Grouping appliquée aux données source. Le fait de définir la propriété <codeph>grouping</codeph> n’actualise pas automatiquement la vue. Par conséquent, vous devez appeler la méthode <codeph>refresh()</codeph> après avoir défini cette propriété.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingCollection/refresh()"><linktext>mx.collections.GroupingCollection.refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection:source:get"><apiName>source</apiName><shortdesc>
+      Collection source contenant les données à plat à regrouper.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Collection source contenant les données à plat à regrouper. Si la source n’est pas une collection, elle sera automatiquement enveloppée dans une collection.
+      
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:ISummaryCalculator"><apiName>ISummaryCalculator</apiName><shortdesc>
+  L’interface ISummaryCalculator définit l’interface implémentée par des classes de calculateur de synthèse personnalisées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface ISummaryCalculator définit l’interface implémentée par des classes de calculateur de synthèse personnalisées. Une occurrence de classe qui implémente cette interface peut être transmis à la propriété <codeph>summaryOperation</codeph> de la classe <codeph>SummaryField2</codeph>. 
+ 
+  <p>Implémentez les méthodes de cette interface dans deux groupes. Le premier groupe comprend les méthodes <codeph>summaryCalculationBegin()</codeph>, <codeph>calculateSummary()</codeph> et <codeph>returnSummary()</codeph>. Utilisez ces méthodes pour calculer la synthèse des valeurs. </p>
+ 
+  <p>Le second groupe comprend les méthodes <codeph>summaryOfSummaryCalculationBegin()</codeph>, <codeph>calculateSummaryOfSummary()</codeph> et <codeph>returnSummaryOfSummary()</codeph>. Utilisez ces méthodes pour calculer la synthèse des valeurs de synthèse résumé de résumé. </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:calculateSummaryOfSummary"><apiName>calculateSummaryOfSummary</apiName><shortdesc>
+      Flex appelle cette méthode lorsqu’une nouvelle valeur de synthèse doit être ajoutée à la synthèse déjà calculée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>summaryOfSummaryCalculationBegin()</codeph> ou calculé par un appel précédent à la méthode <codeph>calculateSummaryOfSummary()</codeph>. Cette méthode modifie cet objet ; elle ne renvoie pas de valeur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>returnSummary()</codeph> pour une agrégation précédente. 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex appelle cette méthode lorsqu’une nouvelle valeur de synthèse doit être ajoutée à la synthèse déjà calculée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:calculateSummary"><apiName>calculateSummary</apiName><shortdesc>
+      Flex appelle cette méthode lorsqu’une nouvelle mesure doit être ajoutée à la valeur de synthèse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>summaryCalculationBegin()</codeph> ou calculé par un appel précédent à la méthode <codeph>calculateSummary()</codeph>. Utilisez cet objet pour stocker les informations nécessaires au calcul. Cette méthode modifie cet objet ; elle ne renvoie pas de valeur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Objet représentant les données de rangées en cours d’analyse. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex appelle cette méthode lorsqu’une nouvelle mesure doit être ajoutée à la valeur de synthèse.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:returnSummaryOfSummary"><apiName>returnSummaryOfSummary</apiName><shortdesc>
+      Flex appelle cette méthode pour terminer le calcul de synthèse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur de synthèse.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par un appel à la méthode <codeph>calculateSummaryOfSummary()</codeph> utilisée pour stocker les résultats du calcul de synthèse. Cette méthode modifie cet objet ; elle ne renvoie pas de valeur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex appelle cette méthode pour terminer le calcul de synthèse. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:returnSummary"><apiName>returnSummary</apiName><shortdesc>
+      Flex appelle cette méthode pour terminer le calcul de la valeur de synthèse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>La valeur de synthèse.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>calculateSummary()</codeph>. Utilisez cet objet pour stocker les informations nécessaires au calcul.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex appelle cette méthode pour terminer le calcul de la valeur de synthèse. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:summaryCalculationBegin"><apiName>summaryCalculationBegin</apiName><shortdesc>
+      Flex appelle cette méthode pour démarrer le calcul de la valeur de synthèse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet initialisé pour le calcul de synthèse. Utilisez cet objet pour stocker les informations nécessaires au calcul. Transmettez cet objet aux appels ultérieurs aux méthodes <codeph>calculateSummary()</codeph> et <codeph>returnSummary()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex appelle cette méthode pour démarrer le calcul de la valeur de synthèse.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:summaryOfSummaryCalculationBegin"><apiName>summaryOfSummaryCalculationBegin</apiName><shortdesc>
+      Flex appelle cette méthode pour démarrer calcul de synthèse à partir des valeurs ad hoc. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet initialisé pour le calcul de synthèse. Utilisez cet objet pour stocker les informations nécessaires au calcul. Transmettez cet objet aux appels ultérieurs aux méthodes <codeph>calculateSummaryOfSummary()</codeph> et <codeph>returnSummaryOfSummary()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Objet renvoyé par l’appel à la méthode <codeph>calculateSummary()</codeph> pour un calcul de synthèse précédent. Utilisez cet objet pour stocker les informations nécessaires au calcul.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>Le SummaryField2 pour laquelle le résumé doit calculé. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex appelle cette méthode pour démarrer calcul de synthèse à partir des valeurs ad hoc. Calculer la valeur moyenne d’un groupe de moyennes constitue un exemple de calcul de synthèse à partir des valeurs ad hoc.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:IGroupingCollection2"><apiName>IGroupingCollection2</apiName><shortdesc>
+  L’interface IGroupingCollection2 définit l’interface requise pour créer des données regroupées à partir de données à plat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IGroupingCollection2 définit l’interface requise pour créer des données regroupées à partir de données à plat.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#GroupingCollection2"><linktext>mx.collections.GroupingCollection2</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      Si l’actualisation est réalisée de manière asynchrone, l’opération d’actualisation est annulée et la construction des groupes est arrêtée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Si l’actualisation est réalisée de manière asynchrone, l’opération d’actualisation est annulée et la construction des groupes est arrêtée. Cette méthode annule l’actualisation uniquement si elle est initiée par un appel de la méthode <codeph>refresh()</codeph> utilisant un argument <codeph>asynch</codeph> de <codeph>true</codeph>, ce qui correspond à une actualisation asynchrone.
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:refresh"><apiName>refresh</apiName><shortdesc>
+      Applique le regroupement à la collection.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si la méthode <codeph>refresh()</codeph> est terminée et <codeph>false</codeph> si cela n’est pas le cas, ce qui peut être le signe que des éléments sont toujours en attente.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Si la valeur est <codeph>true</codeph>, l’actualisation est définie comme étant asynchrone. La valeur par défaut est <codeph>false</codeph>, ce qui correspond à une actualisation synchrone.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchCollectionEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Si la valeur est <codeph>true</codeph>, les événements sont distribués à la formation des groupes. Pour de meilleures performances, définissez-la sur <codeph>false</codeph>. Si la valeur est <codeph>true</codeph>, les événements sont distribués sous forme de groupes et des résumés sont calculées en mode synchrone pour mettre à jour le contrôle. Remarque : si <codeph>Async</codeph> est <codeph>true</codeph>, <codeph>dispatchCollectionEvents</codeph> est toujours défini sur <codeph>true</codeph>. Par défaut, la valeur est <codeph>false</codeph>, indiquant qu’aucun événement n’est déclenché. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Applique le regroupement à la collection. La collection ne détecte pas automatiquement les modifications apportées à un groupe. Par conséquent, vous devez appeler la méthode <codeph>refresh()</codeph> pour actualiser la collection après avoir défini les propriétés <codeph>grouping </codeph>, <codeph> source </codeph> ou <codeph>summaries</codeph> Vous pouvez également appeler la méthode <codeph>refresh()</codeph> lorsque vous modifiez un GroupingField de la collection, en modifiant les propriétés <codeph>caseInsensitive</codeph>, <codeph>compareFunction</codeph> ou <codeph>groupingFunction</codeph>. 
+     
+      <p>La méthode <codeph>refresh()</codeph> peut être appliquée en mode synchrone ou asynchrone. </p>
+      
+      <p>Lorsque la méthode <codeph>refresh()</codeph> est appelée en mode synchrone, tous les groupes et les résumés sont mis à jour ensemble avant le renvoi de la méthode. Cela signifie que votre application ne peut pas effectuer d’autres opérations de traitement pour la durée de l’appel. Un client doit attendre qu’un événement CollectionEvent dont la propriété <codeph>kind</codeph> est définie sur <codeph>CollectionEventKind.REFRESH</codeph> soit généré pour faire en sorte que la méthode <codeph>refresh()</codeph> aboutisse.</p>
+     
+      <p>Dans une opération d’actualisation asynchrone, tous les groupes et les résumés sont mis à jour individuellement. La méthode <codeph>refresh()</codeph> est renvoyée avant la mise à jour des groupes et des résumés de façon à ce que l’exécution de votre application puisse continuer. Par ailleurs, le contrôle est mis à jour lors de l’actualisation afin que l’utilisateur puisse continuer à interagir avec ce dernier. </p>
+     
+      <p>Le temps système de mise à jour individuelle des groupes et des résumés, plutôt que toutes en même temps, allonge le délai de l’actualisation asynchrone par rapport à une actualisation synchrone. Cependant, pour les grands ensembles de données, votre application continue de fonctionner lors de l’actualisation. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:grouping:get"><apiName>grouping</apiName><shortdesc>
+      Objet Grouping appliqué aux données source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      Objet Grouping appliqué aux données source. Le fait de définir cette propriété n’actualise pas automatiquement la vue. Par conséquent, vous devez appeler la méthode <codeph>refresh()</codeph> après avoir défini cette propriété.
+     
+      <p><b>Remarque :</b> les implémentations Flex de l’interface IGroupingCollection2 extraient tous les éléments d’un emplacement distant avant de procéder au regroupement.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:HierarchicalCollectionView"><apiName>HierarchicalCollectionView</apiName><shortdesc>
+  La classe HierarchicalCollectionView fournit une vue hiérarchique d’une collection standard.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.HierarchicalCollectionView&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:HierarchicalCollectionView
+  <b>Properties </b>
+    showRoot="true|false"
+    source="<i>No default</i>"
+  /&gt;
+  </pre> 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalCollectionView</apiBaseInterface><apiBaseInterface>mx.utils:IXMLNotifiable</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe HierarchicalCollectionView fournit une vue hiérarchique d’une collection standard.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections:HierarchicalCollectionView:HierarchicalCollectionView"><apiName>HierarchicalCollectionView</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:IHierarchicalData</apiOperationClassifier><apiData>null</apiData><apiDesc>Structure de données contenant les données hiérarchiques.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>argOpenNodes</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Objet définissant un nœud devant apparaître comme étant ouvert.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalCollectionView:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Ajoute un nœud enfant au nœud qui se trouve à l’index spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’enfant est correctement ajouté.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud parent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud enfant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Index de base zéro de l’emplacement d’insertion du nœud enfant.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un nœud enfant au nœud qui se trouve à l’index spécifié. Cette implémentation se comporte comme suit :
+     
+      <ul>
+          <li>Si le <codeph>parent</codeph> est null ou undefined, l’enfant <codeph>child</codeph> est inséré à l’<codeph>index</codeph> spécifié, dans la collection spécifiée par le paramètre <codeph>source</codeph>.
+          </li>
+          <li>Si le <codeph>parent</codeph> contient un champ ou une propriété <codeph>children</codeph>, la méthode y ajoute l’enfant <codeph>child</codeph> à l’emplacement <codeph>index</codeph>. Dans ce cas, la <codeph>source</codeph> n’est pas requise.
+         </li>
+         <li>Si le <codeph>parent</codeph> ne contient pas de champ ou de propriété <codeph>children</codeph>, la méthode ajoute l’enfant <codeph>children</codeph> au <codeph>parent</codeph>. La méthode ajoute ensuite l’enfant <codeph>child</codeph> au parent, à l’emplacement <codeph>index</codeph>. Dans ce cas, la <codeph>source</codeph> n’est pas requise.
+         </li>
+         <li>Si la valeur <codeph>index</codeph> est supérieure à la longueur de la collection ou au nombre d’enfants du parent, l’objet est ajouté en tant que dernier enfant.
+         </li>
+     </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:addChild"><apiName>addChild</apiName><shortdesc>
+      
+      Ajoute un nœud enfant à un nœud de données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si le nœud est correctement ajouté.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud parent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nouveau nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Ajoute un nœud enfant à un nœud de données.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:closeNode"><apiName>closeNode</apiName><shortdesc>
+      
+      Ferme un nœud pour masquer ses enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Ferme un nœud pour masquer ses enfants.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:contains"><apiName>contains</apiName><shortdesc>
+      Recherche l’élément de données dans la collection en utilisant le test d’égalité standard.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’élément de données est bien présent dans la collection, <codeph>false</codeph> dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud à rechercher.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Recherche l’élément de données dans la collection en utilisant le test d’égalité standard.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:createCursor"><apiName>createCursor</apiName><shortdesc>
+      Renvoie une nouvelle occurrence d’un itérateur de vue portant sur les éléments de cette vue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Occurrence IViewCursor.
+     
+      </apiDesc><apiType value="mx.collections:IViewCursor"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une nouvelle occurrence d’un itérateur de vue portant sur les éléments de cette vue.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.utils.IViewCursor.xml"><linktext>mx.utils.IViewCursor</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getChildren"><apiName>getChildren</apiName><shortdesc>
+      
+      Renvoie une collection d’enfants, s’ils existent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Occurrence ICollectionView contenant les nœuds enfant.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud. Si la valeur est <codeph>null</codeph>, une collection de nœuds de niveau supérieur est renvoyée.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Renvoie une collection d’enfants, s’ils existent. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+     
+      Renvoie la profondeur du nœud dans la collection.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Profondeur du nœud.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      Renvoie la profondeur du nœud dans la collection.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      Renvoie le parent d’un nœud.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Nœud parent contenant le nœud. La valeur est <codeph>null</codeph> s’il s’agit d’un nœud de niveau supérieur et <codeph>undefined</codeph> s’il est impossible de déterminer le parent.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie le parent d’un nœud. Le parent d’un nœud de niveau supérieur est <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:openNode"><apiName>openNode</apiName><shortdesc>
+      
+      Ouvre un nœud pour afficher ses enfants.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Ouvre un nœud pour afficher ses enfants.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:refresh"><apiName>refresh</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Supprime le nœud enfant d’un nœud à l’index spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si l’enfant est correctement supprimé.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud parent.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Index de base zéro du nœud enfant à supprimer, par rapport au parent.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime le nœud enfant d’un nœud à l’index spécifié.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:removeChild"><apiName>removeChild</apiName><shortdesc>
+      
+      Supprime le nœud du nœud parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si la suppression du nœud aboutit.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud parent. La valeur est <codeph>null</codeph> s’il s’agit d’un nœud de niveau supérieur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Objet définissant le nœud enfant à supprimer.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Supprime le nœud du nœud parent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:HierarchicalCollectionView:hasRoot:get"><apiName>hasRoot</apiName><shortdesc> 
+       
+      Si la valeur de cet indicateur est true, cela signifie que le fournisseur de données actuel contient un nœud racine, par exemple un nœud de niveau supérieur unique dans une structure hiérarchique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+       
+      Si la valeur de cet indicateur est <codeph>true</codeph>, cela signifie que le fournisseur de données actuel contient un nœud racine, par exemple un nœud de niveau supérieur unique dans une structure hiérarchique. Les types XML et Object sont des exemples de types de données possédant un nœud racine. En revanche, les types List et Array n’en possèdent pas.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:length:get"><apiName>length</apiName><shortdesc>
+      Longeur de la collection actuellement analysée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Longeur de la collection actuellement analysée.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:openNodes:get"><apiName>openNodes</apiName><shortdesc>
+      
+      Tableau d’objets contenant l’élément de fournisseur de données de tous les nœuds des branches ouvertes des données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      Tableau d’objets contenant l’élément de fournisseur de données de tous les nœuds des branches ouvertes des données.
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:showRoot:get"><apiName>showRoot</apiName><shortdesc>
+      
+      Indicateur booléen spécifiant si le nœud racine du fournisseur de données doit être affiché.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Indicateur booléen spécifiant si le nœud racine du fournisseur de données doit être affiché. Si les données source possèdent un nœud racine et que cette propriété est définie sur <codeph>false</codeph>, la collection n’inclura pas l’élément racine. Seuls les descendants de l’élément racine seront inclus dans la collection.  
+     
+      <p>Cette propriété n’a aucun effet sur une source qui ne contient pas de nœud racine, par exemple des objets List ou Array.</p> 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:source:get"><apiName>source</apiName><shortdesc>
+      
+      Données source de l’interface IHierarchicalCollectionView.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalData</apiValueClassifier></apiValueDef><apiDesc>
+      
+      Données source de l’interface IHierarchicalCollectionView.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IGroupingCollection"><apiName>IGroupingCollection</apiName><shortdesc>
+  L’interface IGroupingCollection définit l’interface requise pour créer des données regroupées à partir de données à plat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="IGroupingCollection2" sinceVersion="4.0"/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface IGroupingCollection définit l’interface requise pour créer des données regroupées à partir de données à plat.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      Si l’actualisation est réalisée de manière asynchrone, l’opération d’actualisation est annulée et la construction des groupes est arrêtée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Si l’actualisation est réalisée de manière asynchrone, l’opération d’actualisation est annulée et la construction des groupes est arrêtée. Cette méthode annule l’actualisation uniquement si elle est initiée par un appel de la méthode <codeph>refresh()</codeph> utilisant un argument <codeph>true</codeph>, ce qui correspond à une actualisation asynchrone.
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:refresh"><apiName>refresh</apiName><shortdesc>
+      Applique le regroupement à la vue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> si la méthode <codeph>refresh()</codeph> est terminée et <codeph>false</codeph> si cela n’est pas le cas, ce qui peut être le signe que des éléments sont toujours en attente.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Si la valeur est <codeph>true</codeph>, l’actualisation est définie comme étant asynchrone. La valeur par défaut est <codeph>false</codeph>, ce qui correspond à une actualisation synchrone.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Applique le regroupement à la vue. L’interface IGroupingCollection ne détecte pas automatiquement les modifications apportées à un groupe. Par conséquent, vous devez appeler la méthode <codeph>refresh()</codeph> pour actualiser la vue après avoir défini la propriété <codeph>group</codeph>.
+     
+      <p>La méthode <codeph>refresh()</codeph> peut être appliquée de manière asynchrone en appelant la méthode <codeph>refresh(true)</codeph>.</p>
+      
+      <p>Lorsque la méthode <codeph>refresh()</codeph> est appelée de manière synchrone, un client doit attendre qu’un événement CollectionEvent dont la propriété <codeph>kind</codeph> est définie sur <codeph>CollectionEventKind.REFRESH</codeph> soit généré pour faire en sorte que la méthode <codeph>refresh()</codeph> aboutisse.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:grouping:get"><apiName>grouping</apiName><shortdesc>
+      Objet Grouping appliqué aux données source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      Objet Grouping appliqué aux données source. Le fait de définir cette propriété n’actualise pas automatiquement la vue. Par conséquent, vous devez appeler la méthode <codeph>refresh()</codeph> après avoir défini cette propriété.
+     
+      <p>Remarque : les implémentations Flex de l’interface IGroupingCollection extraient tous les éléments d’un emplacement distant avant de procéder au regroupement.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.sliderClasses"><apiName>mx.controls.sliderClasses</apiName><apiDetail/><apiClassifier id="mx.controls.sliderClasses:Slider"><apiName>Slider</apiName><shortdesc>
+  Die Slider-Klasse ist die Basisklasse für die Flex-Schieberegler-Steuerelemente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="trackSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Die Skin für die Leiste der Schiebereglerleiste.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackHighlightSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Die Skin für die Leiste der Schiebereglerleiste, wenn diese ausgewählt wird.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDisabledSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Die Skin für den Schieberegler im deaktivierten Status.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Die Skin für den Schieberegler im Mousedown-Status.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Die Skin für den Schieberegler im Mouseover-Status.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Die Skin für den Schieberegler im Mouseup-Status.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Die Standard-Skin für den Schieberegler.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipPrecision" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="int">
+<description>
+  Die Anzahl von Dezimalstellen für den Datentipptext. Der Wert 0 bedeutet, dass alle Werte auf eine ganze Zahl gerundet werden.
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="dataTipOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Der Offset des Datentipps im Verhältnis zum Schieberegler in Pixeln. Wird in Kombination mit der <codeph>dataTipPlacement</codeph>-Stileigenschaft der Steuerelemente HSlider und VSlider verwendet.
+ 
+  </description>
+<default>16
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  Der Name der Stildeklaration, die für den Datentipp verwendet wird.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="trackMargin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Die Größe der Leistenränder in Pixeln. Wenn dieses Attribut <codeph>undefined</codeph> ist, werden die Leistenränder durch die Länge der ersten und der letzten Beschriftung bestimmt. Wenn ein Wert angegeben wird, versucht Flex, die Beschriftungen im verfügbaren Raum unterzubringen.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showTrackHighlight" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  Legt fest, ob die Hervorhebungsfarbe zwischen Schiebereglern (oder zwischen einem Schieberegler und dem Beginn der Leiste) aktiviert ist.
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Die Farben der Leiste als Array von zwei Farben. Sie können dieselbe Farbe zweimal für eine durchgängige Leistenfarbe verwenden.
+ 
+  <p>Sie verwenden diese Eigenschaft gemeinsam mit der <codeph>fillAlphas</codeph>-Eigenschaft. Im Allgemeinen legen Sie <codeph>fillAlphas</codeph> mit [ 1.0, 1.0 ] fest, wenn Sie <codeph>trackColors</codeph> einstellen.</p>
+ 
+  </description>
+<default>[ 0xE7E7E7, 0xE7E7E7 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickThickness" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Die Stärke der Markierungen des Schiebereglers in Pixeln. Wenn die Richtung horizontal ist, wird die Breite der Markierungen festgelegt. Wenn die Richtung vertikal ist, wird die Höhe festgelegt.
+ 
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Der Offset auf der y-Achse (bei horizontaler Richtung) oder auf der x-Achse (bei vertikaler Richtung) der Markierungen relativ zur Leiste.
+ 
+  </description>
+<default>-6
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickLength" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Die Länge der Markierungen des Schiebereglers in Pixeln. Wenn die <codeph>Richtung</codeph> <codeph>Direction.HORIZONTAL</codeph> ist, wird die Höhe der Markierungen festgelegt. Wenn die <codeph>Richtung</codeph> <codeph>Direction.VERTICAL</codeph> ist, wird die Breite festgelegt.
+ 
+  </description>
+<default>3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="tickColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="uint">
+<description>
+  Die Farbe der Markierungen. Dies kann ein hexadezimaler Farbwert oder ein als String angegebener Name einer bekannten Farbe sein.
+ 
+  </description>
+<default>0x6F7777.
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="thumbOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Der Offset auf der y-Achse (bei horizontaler Richtung) oder auf der x-Achse (bei vertikaler Richtung) des Schiebereglers relativ zur Leiste.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="slideEasingFunction" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Function">
+<description>
+  Tweeningfunktion, die von der Schieberegleranimation verwendet wird, wenn Sie auf die Leiste klicken, um einen Schieberegler zu verschieben.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Time" inherit="no" name="slideDuration" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Dauer in Millisekunden für die Schieberegleranimation, wenn Sie auf die Leiste klicken, um einen Schieberegler zu verschieben.
+ 
+  </description>
+<default>300
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="labelStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  Der Name des Stils, der für die Schiebereglerleistenbeschriftung verwendet wird.  
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="labelOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Der Offset auf der y-Achse (bei horizontaler Richtung) oder auf der x-Achse (bei vertikaler Richtung) des Labels relativ zur Leiste.
+ 
+   </description>
+<default>-10
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="invertThumbDirection" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  Umkehren der Richtung der Schieberegler. Wenn <codeph>true</codeph>, werden die Schieberegler gespiegelt.
+  
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="focusColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  Farbe des Fokusrings, wenn sich die Komponente im Fokus befindet
+   
+  </description>
+<default>0x70B2EE
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="accentColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  Farbe der Leistenhervorhebungsfarbe.
+ 
+  </description>
+<default>#0099FF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  Die Farbe des schwarzen Abschnitts des Rahmens. 
+  
+  </description>
+<default>0x919999
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Legt die Farben fest, die für die Hintergrundfüllung der Komponente verwendet werden. Sie müssen diesen Wert auf ein Array aus zwei oder vier uint-Werte festlegen, die RGB-Farben definieren. Die Elemente 0 und 1 legen den Start- und Endwert für einen Farbverlauf fest. Wenn die Elemente 2 und 3 vorhanden sind, werden sie anstelle der Elemente 0 und 1 verwendet, wenn sich die Komponente in einem Mouseover-Status befindet. Um ein Steuerelement mit einem flachen Aussehen zu gestalten, legen Sie dieselbe Farbe für die Elemente 0 und 1 sowie für die Elemente 2 und 3 fest. Der Standardwert ist <codeph>[ 0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE ]</codeph>.
+  <p>Einige Komponenten, wie beispielsweise der ApplicationControlBar-Container, haben einen anderen Standardwert. Für den ApplicationControlBar-Container ist der Standardwert <codeph>[ 0xFFFFFF, 0xFFFFFF ]</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Legt die Alphatransparenzwerte für die Hintergrundfüllung von Komponenten fest. Die Werte müssen auf ein Array von zwei oder vier Zahlen eingestellt werden. Die Elemente 0 und 1 legen den Start- und Endwert für einen Alphatransparenzverlauf fest. Wenn die Elemente 2 und 3 vorhanden sind, werden sie anstelle der Elemente 0 und 1 verwendet, wenn sich die Komponente in einem Mouseover-Status befindet. Der globale Standardwert ist <codeph>[ 0.60, 0.40, 0.75, 0.65 ]</codeph>. Einige Komponenten, wie beispielsweise der ApplicationControlBar-Container, haben einen anderen Standardwert. Für den ApplicationControlBar-Container ist der Standardwert <codeph>[ 0.0, 0.0 ]</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The Slider class cannot be used as an MXML tag. Use the <code>&lt;mx:HSlider&gt;</code> 
+  and <code>&lt;mx:VSlider&gt;</code> tags instead. However, the Slider class does define tag 
+  attributes used by the <code>&lt;mx:HSlider&gt;</code> and <code>&lt;mx:VSlider&gt;</code> tags. </p>
+ 
+  <p>The Slider class inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <strong>Properties</strong>
+    allowThumbOverlap="false|true"
+    allowTrackClick="true|false"
+    dataTipFormatFunction="undefined"
+    direction="horizontal|vertical"
+    labels="undefined"
+    liveDragging="false|true"
+    maximum="10"
+    minimum="0"
+    showDataTip="true|false"
+    sliderDataTipClass="sliderDataTip"
+    sliderThumbClass="SliderThumb"
+    snapInterval="0"
+    thumbCount="1"
+    tickInterval="0"
+    tickValues="undefined"
+    value="<i>The value of the minimum property.</i>"
+ 
+    <strong>Styles</strong>
+    borderColor="0x919999"
+    dataTipOffset="16"
+    dataTipPrecision="2"
+    dataTipStyleName="undefined"
+    fillAlphas="[0.6, 0.4, 0.75, 0.65]"
+    fillColors="[0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE;]"
+    labelOffset="-10"
+    labelStyleName="undefined"
+    showTrackHighlight="false"
+    slideDuration="300"
+    slideEasingFunction="undefined"
+    thumbDisabledSkin="SliderThumbSkin"
+    thumbDownSkin="SliderThumbSkin"
+    thumbOffset="0"
+    thumbOverSkin="SliderThumbSkin"
+    thumbUpSkin="SliderThumbSkin"
+    tickColor="0x6F7777"
+    tickLength="3"
+    tickOffset="-6"
+    tickThickness="1"
+    trackColors="[ 0xEEEEEE, 0xFFFFFF ]"
+    tracHighlightSkin="SliderHighlightSkin"
+    trackMargin="undefined"
+    trackSkin="SliderTrackSkin"
+  
+    <strong>Events</strong>
+    change="<i>No default</i>"
+    thumbDrag="<i>No default</i>"
+    thumbPress="<i>No default</i>"
+    thumbRelease="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Slider-Klasse ist die Basisklasse für die Flex-Slider-Steuerelemente. Bei den Slider-Steuerelementen können die Benutzer einen Wert auswählen, indem sie den Schieberegler auf der Schiebereglerleiste verschieben. Der aktuelle Wert der Schiebereglerleiste wird von der relativen Position des Schiebereglers zwischen den Endpunkten der Schiebereglerleiste bestimmt, die dem Mindest- und Höchstwert der Schiebereglerleiste entsprechen. Die Slider-Klasse hat die Unterklassen HSlider und VSlider.
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_RELEASE_thumbRelease"><apiName>thumbRelease</apiName><shortdesc>
+  Wird ausgelöst, wenn der Schieberegler der Schiebereglerleiste losgelassen wird, also wenn der Benutzer die Maustaste nach einem thumbPress-Ereignis loslässt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_RELEASE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn der Schieberegler der Schiebereglerleiste losgelassen wird, also wenn der Benutzer die Maustaste nach einem <codeph>thumbPress</codeph>-Ereignis loslässt.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_PRESS_thumbPress"><apiName>thumbPress</apiName><shortdesc>
+  Wird ausgelöst, wenn auf den Schieberegler der Schiebereglerleiste geklickt wird, d. h. wenn der Benutzer mit der Maustaste auf den Schieberegler klickt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_PRESS</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn auf den Schieberegler der Schiebereglerleiste geklickt wird, d. h. wenn der Benutzer mit der Maustaste auf den Schieberegler klickt.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_DRAG_thumbDrag"><apiName>thumbDrag</apiName><shortdesc>
+  Wird ausgelöst, wenn auf den Schieberegler der Schiebereglerleiste geklickt und dieser dann mit der Maus verschoben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_DRAG</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn auf den Schieberegler der Schiebereglerleiste geklickt und dieser dann mit der Maus verschoben wird. Vor diesem Ereignis wird immer ein <codeph>thumbPress</codeph>-Ereignis ausgelöst.
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.CHANGE_change"><apiName>change</apiName><shortdesc>
+  Wird ausgelöst, wenn sich der Wert der Schiebereglerleiste aufgrund von Maus- oder Tastatureingaben ändert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.CHANGE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn sich der Wert der Schiebereglerleiste aufgrund von Maus- oder Tastatureingaben ändert.
+ 
+  <p>Wenn die Eigenschaft <codeph>liveDragging</codeph> den Wert <codeph>true</codeph> aufweist, wird das Ereignis kontinuierlich ausgelöst, wenn der Benutzer den Schieberegler bewegt. Hat <codeph>liveDragging</codeph> den Wert <codeph>false</codeph>, wird das Ereignis ausgelöst, wenn der Benutzer den Schieberegler loslässt.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.sliderClasses:Slider:Slider"><apiName>Slider</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.sliderClasses:Slider:getThumbAt"><apiName>getThumbAt</apiName><shortdesc>
+      Gibt das Schieberegler-Objekt am angegebenen Index zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Verweis auf das SliderThumb-Objekt.
+      
+      </apiDesc><apiOperationClassifier>mx.controls.sliderClasses:SliderThumb</apiOperationClassifier></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die auf null basierende Indexzahl des Schiebereglers.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt das Schieberegler-Objekt am angegebenen Index zurück. Verwenden Sie diese Methode, um einzelne Schieberegler eines Slider-Steuerelements mit einem bestimmten Stil zu versehen und anzupassen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:measure"><apiName>measure</apiName><shortdesc>
+      Berechnet den von der Komponente verwendeten Platz.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Berechnet den von der Komponente verwendeten Platz. Ein horizontales Slider-Steuerelement berechnet seine Höhe durch Prüfung der Position seiner Beschriftungen, Markierungen und Schieberegler relativ zur Leiste. Die Höhe des Steuerelements entspricht der Position des unteren Rands des untersten Elements, subtrahiert von der Position des oberen Rands des höchsten Elements. Die Breite eines horizontalen Slider-Steuerelements ist standardmäßig 250 Pixel. Bei einem vertikalen Slider-Steuerelement werden die Werte für Breite und Länge umgekehrt.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:setThumbValueAt"><apiName>setThumbValueAt</apiName><shortdesc>
+      Diese Methode legt den Wert für den Schieberegler fest und aktualisiert die Anzeige.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die auf null basierende Indexzahl des Schiebereglers, für den der Wert eingestellt wird, wobei der Wert 0 dem ersten Schieberegler entspricht.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Number"/><apiDesc>Der Wert, auf den der Schieberregler eingestellt wird.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Diese Methode legt den Wert für den Schieberegler fest und aktualisiert die Anzeige.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      Platziert die Elemente des Steuerelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Legt die Breite der Komponente in Pixeln und deren Koordinaten fest, unabhängig vom Wert der <codeph>scaleX</codeph>-Eigenschaft der Komponente.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Legt die Höhe der Komponente in Pixeln und deren Koordinaten fest, unabhängig vom Wert der <codeph>scaleY</codeph>-Eigenschaft der Komponente.   
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Platziert die Elemente des Steuerelements. Die Leiste, die Schieberegler, die Beschriftungen und die Markierungen werden alle über diese Methode platziert und dimensioniert. Die Leistengröße richtet sich nach der Länge der Beschriftungen und dem Leistenrand. Wenn Sie einen <codeph>trackMargin</codeph>-Wert festlegen, entspricht die Größe der Leiste der verfügbaren Breite minus <codeph>trackMargin</codeph> mal 2.
+     
+      <p>Markierungen werden entlang der Leiste in gleichmäßigen Intervallen ab Beginn der Leiste angezeigt. Am Ende der Leiste wird eine zusätzliche Markierung gesetzt, wenn sonst keine vorhanden ist (d. h. wenn das Markierungsintervall nicht ein Faktor des Maximalwerts ist). Die Position der Markierung auf der y-Achse basiert auf <codeph>tickOffset</codeph>. Wenn ein Offset von 0 angegeben wird, setzt die Markierung direkt am oberen Ende der Leiste an. Mit negativen Offsets werden die Markierungen aufwärts verschoben, während mit positiven Offsets die Markierungen nach unten in der Leiste verschoben werden.</p>
+     
+      <p>Beschriftungen werden in gleichen Abständen entlang der Leiste gesetzt. Die Beschriftungen sind immer über ihrer Intervallposition horizontal zentriert, sofern nicht die Einstellung von <codeph>trackMargin</codeph> zu klein ist. Wenn Sie eine <codeph>trackMargin</codeph>-Eigenschaft angeben, werden die erste und letzte Beschriftung an den linken und rechten Rand des Steuerelements gesetzt. Beschriftungen werden weder zugeschnitten noch in der Größe verändert, wenn sie einander überlagern, daher müssen Sie genügend Raum lassen, damit sie auf der Leiste angezeigt werden können. Die Position auf der y-Achse basiert auf der <codeph>labelOffset</codeph>-Eigenschaft. Wenn ein Offset von 0 angegeben wird, setzt das untere Ende der Beschriftung direkt am oberen Ende der Leiste an. Anders als Markierungen können die Beschriftungen nicht so platziert werden, dass sie die Leiste überlappen. Wenn der Offset eine positive Zahl ist, wird das obere Ende der Beschriftung unter dem unteren Ende der Leiste angesetzt.</p>
+     
+      <p>Die Schieberegler werden so platziert, dass sie die Leiste überlappen. Ihre Position auf der x-Achse wird durch ihren Wert bestimmt. Die Position auf der y-Achse wird durch die <codeph>thumbOffset</codeph>-Eigenschaft gesteuert. Wenn ein Offset von 0 angegeben wird, wird die Mitte des Schiebereglers in die Mitte der Leiste gesetzt. Mit einem negativen Offset wird der Schieberegler nach oben verschoben, mit einem positiven Offset nach unten.</p>
+     
+      <p>Die Platzierung der Markierungen, Beschriftungen und Schieberegler erfolgt unabhängig voneinander. Sie nehmen keine Neuplatzierung vor, wenn sie einander überlappen.</p>
+     
+      <p>Bei einem vertikalen Slider-Steuerelement gelten dieselben Regeln. In der obenstehenden Beschreibung wird einfach die Breite für die Höhe, die Höhe für die Breite, links für oben, rechts für unten, x-Achse für y-Achse und y-Achse für x-Achse gelesen.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.sliderClasses:Slider:allowThumbOverlap"><apiName>allowThumbOverlap</apiName><shortdesc>
+      Wenn auf „false“ gesetzt, kann jeder Schieberegler nur zur Kante des daneben liegenden Schiebereglers verschoben werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Wenn auf <codeph>false</codeph> gesetzt, kann jeder Schieberegler nur zur Kante des daneben liegenden Schiebereglers verschoben werden. Wenn auf <codeph>true</codeph> gesetzt, kann jeder Schieberegler an jede Position der Leiste verschoben werden.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:allowTrackClick"><apiName>allowTrackClick</apiName><shortdesc>
+      Legt fest, ob ein Klicken auf die Leiste den Schieberegler bewegt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Legt fest, ob ein Klicken auf die Leiste den Schieberegler bewegt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:liveDragging"><apiName>liveDragging</apiName><shortdesc>
+      Legt fest, ob Live-Ziehen für die Schiebereglerleiste aktiviert ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Legt fest, ob Live-Ziehen für die Schiebereglerleiste aktiviert ist. Wenn <codeph>false</codeph>, legt Flex die <codeph>value</codeph>- und <codeph>values</codeph>-Eigenschaften fest und löst das <codeph>change</codeph>-Ereignis aus, wenn der Benutzer das Ziehen des Schiebereglers beendet. Wenn <codeph>true</codeph>, legt Flex die <codeph>value</codeph>- und <codeph>values</codeph>-Eigenschaften fest und löst das <codeph>change</codeph>-Ereignis kontinuierlich aus, solange der Benutzer den Schieberegler zieht.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:showDataTip"><apiName>showDataTip</apiName><shortdesc>
+      Wenn auf „true“ gesetzt, wird ein Datentipp mit dem aktuellen Wert der Schiebereglerleiste angezeigt, während der Benutzer das Steuerelement verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Wenn auf <codeph>true</codeph> gesetzt, wird ein Datentipp mit dem aktuellen Wert der Schiebereglerleiste angezeigt, während der Benutzer das Steuerelement verwendet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:dataTipFormatFunction:get"><apiName>dataTipFormatFunction</apiName><shortdesc>
+      Rückruffunktion, die den Datentipptext formatiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>undefined   
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Rückruffunktion, die den Datentipptext formatiert. Die Funktion übernimmt eine einzige Zahl als Argument und gibt einen formatierten String zurück.
+     
+      <p>Die Funktion hat folgende Signatur:</p>
+      <pre>
+      funcName(value:Number):String
+      </pre>
+     
+      <p>Im folgenden Beispiel wird dem Datentipptext ein Dollarzeichen vorangestellt und der Text wird mit <codeph>dataTipPrecision</codeph> eines Slider-Steuerelements namens „slide“ formatiert: </p>
+     
+      <pre>
+      import mx.formatters.NumberBase;
+      function myDataTipFormatter(value:Number):String { 
+          var dataFormatter:NumberBase = new NumberBase(".", ",", ".", ""); 
+          return   "$ " + dataFormatter.formatPrecision(String(value), slide.getStyle("dataTipPrecision")); 
+      }
+      </pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:direction:get"><apiName>direction</apiName><shortdesc>
+      Die Ausrichtung des Slider-Steuerelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SliderDirection.HORIZONTAL
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Ausrichtung des Slider-Steuerelements. Gültige Werte in MXML sind <codeph>„horizontal“</codeph> oder <codeph>„vertical“</codeph>.
+     
+      <p>In ActionScript verwenden Sie die folgenden Konstanten, um diese Eigenschaft festzulegen: <codeph>SliderDirection.VERTICAL</codeph> und <codeph>SliderDirection.HORIZONTAL</codeph>.</p>
+     
+      Die Steuerelemente HSlider und VSlider legen diese Eigenschaft für Sie fest, Sie brauchen sie nicht festzulegen, wenn Sie diese Steuerelemente verwenden.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.sliderClasses.xml#SliderDirection"><linktext>mx.controls.sliderClasses.SliderDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:labels:get"><apiName>labels</apiName><shortdesc>
+      Ein Array von Strings, die für die Beschriftungen der Schiebereglerleiste verwendet werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Array von Strings, die für die Beschriftungen der Schiebereglerleiste verwendet werden. Flex platziert die Beschriftungen am Beginn der Leiste und verteilt sie gleichmäßig zwischen dem Beginn und dem Ende der Leiste.
+     
+      <p>Beispiel: Wenn das Array drei Elemente enthält, wird das erste Element an den Beginn der Leiste gesetzt, das zweite in die Mitte und das dritte an das Ende der Leiste.</p>
+     
+      <p>Wenn nur eine Beschriftung angegeben ist, wird sie an den Beginn der Leiste gesetzt. Standardmäßig werden Beschriftungen über die Markierungen (wenn vorhanden) oder über die Leiste gesetzt. Um die Beschriftungen an den Markierungen auszurichten, achten Sie darauf, dass die Anzahl der Markierungen gleich der Anzahl der Beschriftungen ist.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:maximum:get"><apiName>maximum</apiName><shortdesc>
+      Der höchste zulässige Wert für die Schiebereglerleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>10
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der höchste zulässige Wert für die Schiebereglerleiste.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:minimum:get"><apiName>minimum</apiName><shortdesc>
+      Der zulässige Mindestwert auf dem Slider-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der zulässige Mindestwert auf dem Slider-Steuerelement.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderDataTipClass:get"><apiName>sliderDataTipClass</apiName><shortdesc>
+      Ein Verweis auf die Klasse, die für den Datentipp zu verwenden ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderDataTip
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Verweis auf die Klasse, die für den Datentipp zu verwenden ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderThumbClass:get"><apiName>sliderThumbClass</apiName><shortdesc>
+      Ein Verweis auf die Klasse, die für jeden Schieberegler zu verwenden ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderThumb
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Verweis auf die Klasse, die für jeden Schieberegler zu verwenden ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:snapInterval:get"><apiName>snapInterval</apiName><shortdesc>
+      Legt den Schrittwert des Schiebereglers für das Verschieben durch den Benutzer fest.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Legt den Schrittwert des Schiebereglers für das Verschieben durch den Benutzer fest. Wenn <codeph>snapInterval</codeph> beispielsweise 2 sowie der Wert <codeph>minimum</codeph> 0 und der Wert <codeph>maximum</codeph> 10 ist, wird der Schieberegler an den Werten 0, 2, 4, 6, 8 und 10 ausgerichtet, wenn er vom Benutzer bewegt wird. Der Wert 0 bedeutet, dass sich die Schiebereglerleiste fortlaufend zwischen den Werten <codeph>minimum</codeph> und <codeph>maximum</codeph> bewegt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:thumbCount:get"><apiName>thumbCount</apiName><shortdesc>
+      Die Anzahl von Schiebereglern, die auf dem Slider-Steuerelement zulässig sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Anzahl von Schiebereglern, die auf dem Slider-Steuerelement zulässig sind. Mögliche Werte sind 1 oder 2. Wenn die Einstellung 1 lautet, enthält die <codeph>value</codeph>-Eigenschaft den aktuellen Wert der Schiebereglerleiste. Wenn die Einstellung 2 lautet, enthält die <codeph>value</codeph>-Eigenschaft ein Array von Werten, die den Wert für jeden Schieberegler darstellen.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      Gruppe von Stilen, die vom Slider-Steuerelement an die Schieberegler übergeben werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Gruppe von Stilen, die vom Slider-Steuerelement an die Schieberegler übergeben werden.
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.styles.StyleProxy.xml"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickInterval:get"><apiName>tickInterval</apiName><shortdesc>
+      Die Abstände zwischen den Markierungen relativ zum Höchstwert des Steuerelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Abstände zwischen den Markierungen relativ zum <codeph>maximum</codeph>-Wert des Steuerelements. Flex zeigt Markierungen an, wenn Sie die <codeph>tickInterval</codeph>-Eigenschaft auf einen von Null verschiedenen Wert setzen.
+     
+      <p>Beispiel: Wenn <codeph>tickInterval</codeph> 1 und <codeph>maximum</codeph> 10 ist, wird in einem Intervall von 1 Zehntel der Länge der Schiebereglerleiste eine Markierung gesetzt. Wenn der Wert 0 ist, werden keine Markierungen gesetzt. Wenn die <codeph>tickValues</codeph>-Eigenschaft auf ein nicht leeres Array eingestellt ist, wird diese Eigenschaft ignoriert.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickValues:get"><apiName>tickValues</apiName><shortdesc>
+      Die Positionen der Markierungen auf der Schiebereglerleiste.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Positionen der Markierungen auf dem Schiebereglerleiste. Die Positionen entsprechen den Werten auf dem Slider-Steuerelement und müssen zwischen den Werten <codeph>minimum</codeph> und <codeph>maximum</codeph> liegen. Beispiel: Wenn die <codeph>tickValues</codeph>-Eigenschaft [0, 2.5, 7.5, 10] lautet und <codeph>maximum</codeph> 10 ist, wird eine Markierung an den folgenden Positionen entlang der Schiebereglerleiste gesetzt: Beginn der Schiebereglerleiste, 1/4 der Länge von links, 3/4 von links und Ende der Schiebereglerleiste. 
+      
+      <p>Wenn diese Eigenschaft auf ein nicht leeres Array gesetzt ist, wird die <codeph>tickInterval</codeph>-Eigenschaft ignoriert.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:value:get"><apiName>value</apiName><shortdesc>
+      Enthält die Position des Schiebereglers und ist eine Zahl zwischen den Eigenschaften „minimum“ und „maximum“.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Enthält die Position des Schiebereglers und ist eine Zahl zwischen den Eigenschaften <codeph>minimum</codeph> und <codeph>maximum</codeph>. Verwenden Sie die <codeph>value</codeph>-Eigenschaft, wenn <codeph>thumbCount</codeph> gleich 1 ist. Wenn <codeph>thumbCount</codeph> größer als 1 ist, verwenden Sie anstelle dessen die <codeph>values</codeph>-Eigenschaft. Der Standardwert entspricht der Eigenschaft „minimum“.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:values:get"><apiName>values</apiName><shortdesc>
+      Ein Werte-Array für jeden Schieberegler, wenn „thumbCount“ größer 1 ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Ein Werte-Array für jeden Schieberegler, wenn <codeph>thumbCount</codeph> größer 1 ist.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDirection"><apiName>SliderDirection</apiName><shortdesc>
+  Die SliderDirection-Klasse definiert die Konstantenwerte für die direction-Eigenschaft der Slider-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SliderDirection-Klasse definiert die Konstantenwerte für die <codeph>direction</codeph>-Eigenschaft der Slider-Klasse.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link></related-links><apiValue id="mx.controls.sliderClasses:SliderDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  Legt die Anzeige einer horizontalen Schiebereglerleiste fest.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt die Anzeige einer horizontalen Schiebereglerleiste fest. Das HSlider-Steuerelement verwendet diese Konstante.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:SliderDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  Legt die Anzeige einer vertikalen Schiebereglerleiste fest.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Legt die Anzeige einer vertikalen Schiebereglerleiste fest. Das VSlider-Steuerelement verwendet diese Konstante.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+  Die SliderDataTip-Klasse definiert die QuickInfo, die im mx.controls.Slider-Steuerelement verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:ToolTip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SliderDataTip-Klasse definiert die QuickInfo, die im mx.controls.Slider-Steuerelement verwendet wird. Die Klasse fügt mx.controls.ToolTip keine weiteren Funktionen hinzu. Sie wird nur verwendet, um einen Typ-Selektor-Stil anzuwenden.
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderDataTip:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+  Die SliderLabel-Klasse definiert die Beschriftung, die in der mx.controls.Slider-Komponente verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Label</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SliderLabel-Klasse definiert die Beschriftung, die in der mx.controls.Slider-Komponente verwendet wird. Die Klasse fügt mx.controls.Label keine weiteren Funktionen hinzu. Sie wird verwendet, um einen Typ-Selektor-Stil anzuwenden.
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderLabel:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+  Die SliderThumb-Klasse stellt einen Schieberegler eines Slider-Steuerelements dar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die SliderThumb-Klasse stellt einen Schieberegler eines Slider-Steuerelements dar. Die SliderThumb-Klasse kann nur im Kontext eines Slider-Steuerelements verwendet werden. Sie können eine Unterklasse der SliderThumb-Klasse erstellen und sie mit einem Slider-Steuerelement verwenden, indem Sie die <codeph>sliderThumbClass</codeph>-Eigenschaft des Slider-Steuerelements auf Ihre Unterklasse einstellen. 
+  		
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderThumb:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.sliderClasses:SliderThumb:xPosition:get"><apiName>xPosition</apiName><shortdesc>
+	  Legt die Position des Mittelpunkts des Schiebereglers auf der x-Achse fest.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Legt die Position des Mittelpunkts des Schiebereglers auf der x-Achse fest.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

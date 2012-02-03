@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls"><apiName>mx.controls</apiName><apiDetail/><apiClassifier id="mx.controls:MXFTETextInput"><apiName>MXFTETextInput</apiName><shortdesc>
+  MXFTETextInput は、MX コントロールおよびデータグリッドレンダラーで TLF テキストをサポートする場合に使用する UIComponent です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="text"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:ITextInput</apiBaseInterface><apiBaseClassifier>spark.components:TextInput</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MXFTETextInput は、MX コントロールおよびデータグリッドレンダラーで TLF テキストをサポートする場合に使用する UIComponent です。MX TextInput コントロールの代わりに使用できます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.TextInput.xml"><linktext>mx.controls.TextInput</linktext></link></related-links><adobeApiEvent id="mx.controls:MXFTETextInput_mx.events.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  data プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>data</codeph> プロパティが変更されたときに送出されます。
+ 
+  <p>コンポーネントをアイテムレンダラーとして使う場合、<codeph>data</codeph> プロパティは表示するデータを保持します。 このイベントを受け取って、<codeph>data</codeph> プロパティが変更されたときにコンポーネントを更新することができます。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:MXFTETextInput:MXFTETextInput"><apiName>MXFTETextInput</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:MXFTETextInput:showBorderAndBackground"><apiName>showBorderAndBackground</apiName><shortdesc>
+      コントロールの境界線と背景の可視性を判別するために使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>visible</apiItemName><apiType value="Boolean"/><apiDesc>境界と背景を表示するには、<codeph>true</codeph> を設定します。それ以外の場合は、<codeph>false</codeph> に設定します。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コントロールの境界線と背景の可視性を判別するために使用されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:MXFTETextInput:data:get"><apiName>data</apiName><shortdesc>
+      アイテムレンダラーまたはアイテムエディターでコンポーネントを使用するときに、コンポーネントに値を渡すことができます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムレンダラーまたはアイテムエディターでコンポーネントを使用するときに、そのコンポーネントに値を渡すことができます。 通常、データバインディングを使用して、<codeph>data</codeph> プロパティのフィールドをこのコンポーネントのプロパティにバインドします。
+     
+      <p>ドロップインアイテムレンダラーまたはドロップインアイテムエディターとしてコントロールを使用すると、アイテムの現在の値が、このコントロールの <codeph>text</codeph> プロパティに自動的に書き込まれます。</p>
+     
+      <p>MXML でこのプロパティを設定することはありません。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls:MXFTETextInput:fontContext:get"><apiName>fontContext</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:MXFTETextInput:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:MXFTETextInput:listData:get"><apiName>listData</apiName><shortdesc>
+      ドロップインアイテムレンダラーまたはドロップインアイテムエディターとして使用すると、このコンポーネントの listData プロパティが、リストコントロールからの該当するデータで初期化されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ドロップインアイテムレンダラーまたはドロップインアイテムエディターとして使用すると、このコンポーネントの <codeph>listData</codeph> プロパティが、リストコントロールからの該当するデータで初期化されます。 その後、コンポーネントでこの <codeph>listData</codeph> プロパティを使用して、ドロップインアイテムレンダラーまたはドロップインアイテムエディターの <codeph>data</codeph> プロパティを初期化できます。
+     
+      <p>MXML および ActionScript でこのプロパティを設定することはありません。このコンポーネントがドロップインアイテムレンダラーまたはドロップインアイテムエディターとして使用されるときに、Flex でプロパティが設定されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls:MXFTETextInput:parentDrawsFocus:get"><apiName>parentDrawsFocus</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue></apiClassifier></apiPackage>

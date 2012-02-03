@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging"><apiName>mx.messaging</apiName><apiDetail/><apiClassifier id="mx.messaging:FlexClient"><apiName>FlexClient</apiName><shortdesc>
+  Classe singleton qui stocke l’ID global de cette occurrence Player assignée par le serveur lorsque le client établit sa connexion initiale au serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe singleton qui stocke l’ID global de cette occurrence Player assignée par le serveur lorsque le client établit sa connexion initiale au serveur.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:FlexClient_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Distribué lorsqu’une propriété du singleton FlexClient change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une propriété du singleton FlexClient change. Les écouteurs doivent être ajoutés via FlexClient.getInstance().addEventListener(...
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.messaging:FlexClient:getInstance"><apiName>getInstance</apiName><shortdesc>
+	  Renvoie l’occurrence unique de cette classe Singleton. La crée si elle n’existe pas déjà.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie l’occurrence unique de cette classe Singleton. La crée si elle n’existe pas déjà.
+	  
+	  </apiDesc><apiOperationClassifier>mx.messaging:FlexClient</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+	  Renvoie l’occurrence unique de cette classe Singleton. La crée si elle n’existe pas déjà.
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:FlexClient:id:get"><apiName>id</apiName><shortdesc>
+      ID FlexClient global de cette occurrence Player.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ID FlexClient global de cette occurrence Player. Cette valeur est assignée par le serveur et est définie dans le cadre du processus de connexion du canal. Une fois définie, elle ne changera pas pendant toute la durée de vie de l’occurrence Player. Si aucun canal ne s’est connecté au serveur, cette valeur est nulle.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:AbstractProducer"><apiName>AbstractProducer</apiName><shortdesc>
+  La classe AbstractProducer est la classe de base des classes Producer et MultiTopicConsumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:MessageAgent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe AbstractProducer est la classe de base des classes Producer et MultiTopicConsumer. Ces classes vous permettent d’envoyer des messages vers le serveur.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging:AbstractProducer:connect"><apiName>connect</apiName><shortdesc>
+      Connecte la classe Producer à sa destination cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc> Si aucune destination n’est définie.
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Connecte la classe Producer à sa destination cible. Lorsqu’une connexion est établie, la propriété <codeph>connected</codeph> est redéfinie sur <codeph>true</codeph> et peut être liée et génère des événements <codeph>PropertyChangeEvent</codeph>. Le message de commande TRIGGER_CONNECT_OPERATION interne envoyé résulte en un événement d’accusé ou d’erreur selon que le canal sous-jacent établit sa connexion ou non.
+     
+      </apiDesc><example>
+      <pre>
+         var producer:Producer = new Producer();
+         producer.destination = "TestTopic";
+         producer.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, handleConnect);
+         producer.connect();
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractProducer:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Déconnecte la classe Producer de sa destination distante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Déconnecte la classe Producer de sa destination distante. Cette méthode n’attend pas que les opérations de réseau en attente se terminent. Après avoir invoqué la méthode <codeph>disconnect()</codeph>, la classe Producer signale qu’elle n’est pas connectée et ne reçoit aucun accusé ou aucune erreur de message en attente. La déconnexion arrête les tentatives de reconnexion automatiques si elles sont en cours d’exécution.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractProducer:send"><apiName>send</apiName><shortdesc>
+      Envoie le message spécifié à sa destination.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc> Si aucune destination n’est définie.
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message à envoyer.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Envoie le message spécifié à sa destination. Si la classe Producer est utilisée pour l’échange de messages de publication/d’abonnement, seuls les messages du type AsyncMessage doivent être envoyés, sauf si un type de message personnalisé est utilisé et que la destination du message sur le serveur a été configurée pour traiter le type de message personnalisé.
+     
+      </apiDesc><example>
+      <pre>
+         var producer:Producer = new Producer();
+         producer.destination = "TestTopic";
+         var msg:AsyncMessage = new AsyncMessage();
+         msg.body = "test message";
+         producer.send(msg);
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation><apiValue id="mx.messaging:AbstractProducer:autoConnect:get"><apiName>autoConnect</apiName><shortdesc>
+      Si true, la classe Producer se connecte automatiquement à sa destination la première fois que la méthode send() est appelée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Si <codeph>true</codeph>, la classe Producer se connecte automatiquement à sa destination la première fois que la méthode <codeph>send()</codeph> est appelée. Si <codeph>false</codeph>, la méthode <codeph>connect()</codeph> doit être appelée explicitement pour établir une connexion à la destination. Par défaut, cette propriété est <codeph>true</codeph>, mais les applications devant opérer en mode hors-ligne peuvent la définir sur <codeph>false</codeph> pour empêcher la méthode <codeph>send()</codeph> d’établir implicitement une connexion.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:defaultHeaders:get"><apiName>defaultHeaders</apiName><shortdesc>
+      En-têtes par défaut à appliquer aux messages envoyés par la classe Producer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      En-têtes par défaut à appliquer aux messages envoyés par la classe Producer. Les en-têtes par défaut n’existant pas dans le message seront créés. Si le message contient déjà un en-tête correspondant, la valeur dans le message a priorité et la valeur d’en-tête par défaut est ignorée. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:priority:get"><apiName>priority</apiName><shortdesc>
+      Priorité de message par défaut des messages envoyés par la classe Producer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Priorité de message par défaut des messages envoyés par la classe Producer. Les valeurs possibles vont de 0 à 9 (0 étant la valeur la plus basse) et -1 signifie qu’aucune priorité n’est définie pour la classe Producer. Si une priorité est déjà définie pour le message, cette priorité l’emporte sur celle de la classe Producer.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:reconnectAttempts:get"><apiName>reconnectAttempts</apiName><shortdesc>
+      Nombre de tentatives de reconnexion effectuées par la classe Producer si la destination n’est pas disponible ou si la connexion à la destination est interrompue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Nombre de tentatives de reconnexion effectuées par la classe Producer si la destination n’est pas disponible ou si la connexion à la destination est interrompue. Une valeur égale à -1 permet des tentatives illimitées. Une valeur égale à zéro désactive les tentatives de reconnexion.
+      
+      <p>Les tentatives de reconnexion sont effectuées à un rythme constant selon la valeur interne de reconnexion. Lorsqu’une tentative de reconnexion a lieu, si le canal sous-jacent de la classe Producer n’est pas connecté ou ne tente pas de se connecter, le canal commence une tentative de connexion. Les tentatives de reconnexion suivantes de la classe Producer qui se produisent alors que la tentative de connexion du canal sous-jacent est en attente sont ignorées jusqu’à ce que la tentative de connexion en attente du canal réussisse ou échoue.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Producer/reconnectInterval"><linktext>mx.messaging.Producer.reconnectInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractProducer:reconnectInterval:get"><apiName>reconnectInterval</apiName><shortdesc>
+      Nombre de millisecondes s’écoulant entre les tentatives de reconnexion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiException><apiDesc>Si la valeur assignée est négative.
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Nombre de millisecondes s’écoulant entre les tentatives de reconnexion. Si une classe Producer ne reçoit pas d’accusé pour une tentative de connexion, elle attend pendant le nombre de millisecondes spécifié avant d’effectuer une tentative de reconnexion suivante. Définir la valeur sur zéro désactive les tentatives de reconnexion.
+      
+      <p>Les tentatives de reconnexion sont effectuées à un rythme constant selon cette valeur. Lorsqu’une tentative de reconnexion a lieu, si le canal sous-jacent de la classe Producer n’est pas connecté ou ne tente pas de se connecter, le canal commence une tentative de connexion. Les tentatives de reconnexion suivantes de la classe Producer qui se produisent alors que la tentative de connexion du canal sous-jacent est en attente sont ignorées jusqu’à ce que la tentative de connexion en attente du canal réussisse ou échoue.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Producer/reconnectInterval"><linktext>mx.messaging.Producer.reconnectInterval</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging:ChannelSet"><apiName>ChannelSet</apiName><shortdesc>
+  La classe ChannelSet est un jeu de canaux utilisés pour envoyer des messages à une destination cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion><DefaultProperty name="channels"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ChannelSet est un jeu de canaux utilisés pour envoyer des messages à une destination cible. La classe ChannelSet améliore la qualité du service sur le client en passant en revue ses canaux pour envoyer des messages en cas de pannes du réseau ou de problèmes de canaux particuliers.
+   </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:ChannelSet_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Distribué lorsqu’une propriété de la classe ChannelSet change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une propriété de la classe ChannelSet change.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ L’événement d’erreur est distribué lorsqu’un appel de connexion ou de déconnexion échoue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ L’événement d’erreur est distribué lorsqu’un appel de connexion ou de déconnexion échoue.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ L’événement de résultat est distribué lorsqu’un appel de connexion ou de déconnexion est renvoyé avec succès.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ L’événement de résultat est distribué lorsqu’un appel de connexion ou de déconnexion est renvoyé avec succès.
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  Distribué après une erreur d’un canal de la classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après une erreur d’un canal de la classe ChannelSet.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  Distribué après qu’un canal de la classe ChannelSet se déconnecte de son extrémité.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après qu’un canal de la classe ChannelSet se déconnecte de son extrémité.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  Distribué après qu’un canal de la classe ChannelSet se connecte à son extrémité.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après qu’un canal de la classe ChannelSet se connecte à son extrémité.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:ChannelSet:ChannelSet"><apiName>ChannelSet</apiName><shortdesc>
+      Construit une classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>channelIds</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>ID des canaux configurés obtenus à partir de ServerConfig à utiliser par cette classe ChannelSet. Si null, les canaux doivent être manuellement ajoutés à la classe ChannelSet.
+           </apiDesc></apiParam><apiParam><apiItemName>clusteredWithURLLoadBalancing</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>True si les canaux dans la classe ChannelSet sont clusterisés via l’équilibrage de charge URL.
+           </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Construit une classe ChannelSet. Si l’argument <codeph>channelIds</codeph> est fourni, la classe ChannelSet utilise des canaux configurés automatiquement obtenus via <codeph>ServerConfig.getChannel()</codeph> pour atteindre une destination. Tenter d’assigner manuellement des canaux à une classe ChannelSet utilisant des canaux configurés n’est pas autorisé.
+           <p>Si l’argument <codeph>channelIds</codeph> n’est pas fourni ou est nul, les canaux doivent être manuellement créés et ajoutés à la classe ChannelSet en vue de la connexion et de l’envoi de messages.</p>
+           <p>Si la classe ChannelSet est clusterisée via l’équilibrage de charge URL (chaque serveur déclare une URL RTMP ou HTTP unique et le client bascule d’une URL à l’autre), la première fois qu’un canal dans la classe ChannelSet se connecte avec succès, la classe ChannelSet effectue automatiquement une demande pour toutes les extrémités à travers le cluster pour tous les canaux membres et assigne ces URL de basculement à chaque canal respectif. Ainsi, les canaux dans la classe ChannelSet peuvent basculer individuellement et lorsque les options de basculement d’un canal spécifique sont épuisées, la classe ChannelSet avance jusqu’au prochain canal dans le jeu pour essayer de se reconnecter.</p>
+           <p>Quelle que soit la clusterisation, si un canal ne peut pas se connecter ou perd sa connectivité, la classe ChannelSet avance jusqu’à son canal disponible suivant et tente de se reconnecter. Ainsi, la classe ChannelSet peut passer en revue les canaux utilisant différents protocoles, ports, etc., pour en rechercher un qui ne parvient pas à se connecter à son extrémité.</p>
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:ChannelSet:addChannel"><apiName>addChannel</apiName><shortdesc>
+      Ajoute un canal à la classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Si la classe ChannelSet est <codeph>configured</codeph>, l’ajout d’un canal n’est pas pris en charge. Cette erreur est également renvoyée si la propriété <codeph>clustered</codeph> de la classe ChannelSet est <codeph>true</codeph> mais que le canal comporte un ID nul.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>Canal à ajouter.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajoute un canal à la classe ChannelSet. Un canal comportant un ID nul ne peut pas être ajouté à la classe ChannelSet si la classe ChannelSet cible une destination clusterisée.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelConnectHandler"><apiName>channelConnectHandler</apiName><shortdesc>
+      Gère un événement ChannelEvent CONNECT et redistribue l’événement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>Evénement ChannelEvent.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gère un événement ChannelEvent CONNECT et redistribue l’événement.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelDisconnectHandler"><apiName>channelDisconnectHandler</apiName><shortdesc>
+      Gère un événement ChannelEvent DISCONNECT et redistribue l’événement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>Evénement ChannelEvent.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gère un événement ChannelEvent DISCONNECT et redistribue l’événement.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelFaultHandler"><apiName>channelFaultHandler</apiName><shortdesc>
+      Gère un événement ChannelFaultEvent et redistribue l’événement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>Evénement ChannelFaultEvent.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gère un événement ChannelFaultEvent et redistribue l’événement.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:connect"><apiName>connect</apiName><shortdesc>
+      Connecte une classe MessageAgent à la classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Classe MessageAgent à connecter.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Connecte une classe MessageAgent à la classe ChannelSet. Une fois connecté, l’agent peut utiliser la classe ChannelSet pour envoyer des messages.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:disconnectAll"><apiName>disconnectAll</apiName><shortdesc>
+      Déconnecte toutes les classes MessageAgent associées et les canaux sous-jacents connectés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Déconnecte toutes les classes MessageAgent associées et les canaux sous-jacents connectés. Contrairement à <codeph>disconnect(MessageAgent)</codeph>, invoqué par les implémentations de déconnexion de composants de services spécifiques, cette méthode fournit un point unique et convivial pour arrêter la connectivité entre le client et le serveur.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Déconnecte une classe MessageAgent spécifique de la classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Classe MessageAgent à déconnecter.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Déconnecte une classe MessageAgent spécifique de la classe ChannelSet. S’il s’agit de la dernière classe MessageAgent à utiliser la classe ChannelSet et que le canal actuel dans le jeu est connecté, le canal se déconnecte physiquement du serveur.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:login"><apiName>login</apiName><shortdesc>
+      Authentifie la classe ChannelSet avec le serveur à l’aide des informations d’identification fournies.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Dans deux situations ; si la classe ChannelSet est déjà authentifiée, ou si une opération de connexion ou de déconnexion est en cours.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>Renvoie un jeton auquel le code client peut ajouter un répondeur afin de gérer directement les réussites ou les échecs.
+           </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>Nom d’utilisateur.
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>Mot de passe.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères à utiliser lors du codage des informations d’identification. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. Le seul autre jeu de caractères pris en charge est « UTF-8 ».
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Authentifie la classe ChannelSet avec le serveur à l’aide des informations d’identification fournies. Contrairement aux autres opérations effectuées sur les canaux et la classe ChannelSet, cette opération renvoie un jeton asynchrone auquel le code client peut ajouter un répondeur afin de gérer directement les réussites ou les échecs. Si la classe ChannelSet n’est pas connectée au serveur lorsque cette méthode est invoquée, elle déclenche une tentative de connexion et, si cette tentative réussit, envoie la commande de connexion au serveur. Une seule opération de connexion ou déconnexion à la fois peut être en attente et les appels se chevauchant génèrent une erreur IllegalOperationError. Invoquer la connexion lorsque la classe ChannelSet est déjà authentifiée génère également une erreur IllegalOperationError.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:logout"><apiName>logout</apiName><shortdesc>
+      Déconnecte la classe ChannelSet du serveur.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Si une opératon de connexion ou de déconnexion est en cours.
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>Renvoie un jeton auquel le code client peut ajouter un répondeur afin de gérer directement les réussites ou les échecs.
+           </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiData>null</apiData><apiDesc>Argument existant. Classe MessageAgent qui initialise la déconnexion.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Déconnecte la classe ChannelSet du serveur. Contrairement aux autres opérations effectuées sur les canaux et la classe ChannelSet, cette opération renvoie un jeton asynchrone auquel le code client peut ajouter un répondeur afin de gérer directement les réussites ou les échecs. Si la déconnexion réussit, les informations d’identification ayant été mises en cache pour être utilisées lors des reconnexions automatiques sont effacées pour la classe ChannelSet et les canaux du jeu, ainsi que leur état authentifié, sont définis sur false. Si la classe ChannelSet n’est pas connectée au serveur lorsque cette méthode est invoquée, elle déclenche une tentative de connexion et, si cette tentative réussit, envoie une commande de déconnexion au serveur.
+           <p>L’argument MessageAgent est présent pour prendre en charge le comportement de déconnexion existant et le code client qui invoque cette méthode ne doit pas transmettre une référence MessageAgent. Invoquez simplement <codeph>logout()</codeph> ne transmettant aucun argument.</p>
+           <p>Cette méthode est également invoquée par les composants de services à partir de leurs méthodes <codeph>logout()</codeph>, et ces composants transmettent une référence MessageAgent à cette méthode lorsqu’ils se déconnectent. Cet argument est le déclencheur pour exécuter le comportement de déconnexion existant qui diffère du nouveau comportement décrit ci-dessus. Le comportement existant envoie uniquement une demande de déconnexion au serveur si le client est connecté et authentifié. Si ces conditions ne sont pas observées, le comportement existant de cette méthode consiste à ne rien faire d’autre que d’effacer les informations d’identification ayant été mises en cache pour être utilisées lors des reconnexions automatiques.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:protected:messageHandler"><apiName>messageHandler</apiName><shortdesc>
+      Redistribue les événements de messages du canal actuellement connecté.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:MessageEvent</apiOperationClassifier><apiDesc>Evénement MessageEvent du canal.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Redistribue les événements de messages du canal actuellement connecté.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:removeChannel"><apiName>removeChannel</apiName><shortdesc>
+      Supprime un canal de la classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Si la classe ChannelSet est <codeph>configured</codeph>, la suppression d’un canal n’est pas prise en charge.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>Canal à supprimer.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Supprime un canal de la classe ChannelSet. Si le canal à supprimer est connecté et utilisé par la classe ChannelSet, il est déconnecté et supprimé.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:send"><apiName>send</apiName><shortdesc>
+      Envoie un message d’une classe MessageAgent via le canal connecté.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Si la classe ChannelSet ne comporte aucun canal interne à utiliser.
+           </apiDesc><apiItemName>NoChannelAvailableError</apiItemName><apiOperationClassifier>mx.messaging.errors:NoChannelAvailableError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Classe MessageAgent envoyant le message.
+           </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message à envoyer.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Envoie un message d’une classe MessageAgent via le canal connecté.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      Stocke les informations d’identification et les transmet à chaque canal connecté.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>dans deux situations ; si les informations d’identification ont déjà été définies et qu’une authentification est en cours au niveau de la destination distante, ou si l’authentification et les informations d’identification spécifiées ne correspondent pas aux informations d’identification actuellement authentifiées.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>credentials</apiItemName><apiType value="String"/><apiDesc>Informations d’identification de la classe MessageAgent.
+      </apiDesc></apiParam><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Classe MessageAgent qui définit les informations d’identification.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères utilisé lors du codage des informations d’identification. La valeur par défaut est null, ce qui implique le codage existant, ISO-Latin-1.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Stocke les informations d’identification et les transmet à chaque canal connecté.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:toString"><apiName>toString</apiName><shortdesc>
+      Renvoie une chaîne contenant les ID des canaux dans la classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Représentation de chaîne de la classe ChannelSet.
+           </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie une chaîne contenant les ID des canaux dans la classe ChannelSet.
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:ChannelSet:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      Indique si la classe ChannelSet comporte un canal sous-jacent ayant réussi a s’authentifier auprès de son extrémité.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si la classe ChannelSet comporte un canal sous-jacent ayant réussi a s’authentifier auprès de son extrémité.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:channelIds:get"><apiName>channelIds</apiName><shortdesc>
+      ID des canaux utilisés par la classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      ID des canaux utilisés par la classe ChannelSet.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:channels:get"><apiName>channels</apiName><shortdesc>
+      Fournit un accès aux canaux dans la classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiException><apiDesc>Si la classe ChannelSet est <codeph>configured</codeph>, lui assigner cette propriété n’est pas autorisé.
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Fournit un accès aux canaux dans la classe ChannelSet. Cette propriété peut être utilisée pour assigner une classe ChannelSet en une seule fois ou des canaux peuvent être ajoutés directement à la classe ChannelSet via addChannel() individuellement. Si cette classe ChannelSet est <codeph>configured</codeph> automatiquement, les canaux individuels sont créés sans complication et ajoutés à cette propriété selon les besoins.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:clustered:get"><apiName>clustered</apiName><shortdesc>
+      Indique si la classe ChannelSet cible une destination clusterisée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si la classe ChannelSet cible une destination clusterisée. Si true, lors d’une connexion réussie, la classe ChannelSet interroge la destination afin de connaître toutes les extrémités clusterisées pour ses canaux et leur assigne des URI de basculement. Les ID de canaux étant utilisés pour assigner des URI de basculement aux occurrences de canaux appropriées, ceci nécessite que tous les canaux dans la classe ChannelSet comportent des ID non nuls, une erreur étant renvoyée lorsque cette propriété est définie sur true si cela n’est pas le cas. Si la classe ChannelSet n’utilise pas l’équilibrage de charge d’URL sur le client, cette propriété ne doit pas être définie sur true.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:connected:get"><apiName>connected</apiName><shortdesc>
+      Indique si la classe ChannelSet est connectée.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si la classe ChannelSet est connectée.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:currentChannel:get"><apiName>currentChannel</apiName><shortdesc>
+      Renvoie le canal actuel pour la classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      Renvoie le canal actuel pour la classe ChannelSet.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:heartbeatInterval:get"><apiName>heartbeatInterval</apiName><shortdesc>
+      Le nombre de millisecondes écoulées entre les battements envoyés à l’hôte distant pendant que cet objet ChannelSet est connecté activement mais inactif. </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Le nombre de millisecondes écoulées entre les battements envoyés à l’hôte distant pendant que cet objet ChannelSet est connecté activement mais inactif. Tout trafic de message sortant retarde les battements temporairement, avec ce nombre de millisecondes après le dernier message envoyé avant que le prochain battement ne soit émise. 
+      <p>
+      Cette propriété est très utile pour les applications qui se connectent à un hôte distant pour les mises à jour poussées reçues et n’envoyant pas activement de messages, mais que vous souhaitez être tenu informé de la perte de connexion même lorsque le calque de mise en réseau ne fournit pas les notifications directement. En émettant des battements périodiques, le client peut forcer le calque de mise en réseau pour signaler un délai si la connexion sous-jacente a abandonné sans notification et que l’application peut répondre à la déconnexion de façon appropriée. 
+      </p>
+      <p>
+      Un valeur non positive désactive les battements vers l’hôte distant. La valeur par défaut est 0 indiquant que les battements sont désactivés. Si l’application définit cette valeur qui doit préférer un intervalle plus long plutôt que plus court, pour éviter de placer une charge inutile sur l’hôte distant. Pour illustrer cela, un socket TCP de bas niveau maintient en général par défaut à un intervalle de 2 heures. Cet intervalle est plus long que la plupart des applications permettant les battements ne seraient susceptibles d’utiliser, mais il sert de précédent évident pour préférer un intervalle plus long par rapport à un intervalle plus court. 
+      </p>
+      <p>
+      Si le canal sous-jacent connecté actuellement émet des requêtes de sondage à l’hôte distant, les battements sont supprimés car les requêtes de sondage périodiques,prennent efficacement leur place. </p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:initialDestinationId:get"><apiName>initialDestinationId</apiName><shortdesc>
+      Permet à la classe ChannelSet d’accéder à la destination à laquelle elle a d’abord accédé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Permet à la classe ChannelSet d’accéder à la destination à laquelle elle a d’abord accédé. Lorsque la propriété clusterisée est true, cette valeur est utilisée afin de demander les URI de basculement disponibles des canaux configurés pour la destination.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:messageAgents:get"><apiName>messageAgents</apiName><shortdesc>
+      Fournit un accès au jeu de classes MessageAgent qui utilisent cette classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Fournit un accès au jeu de classes MessageAgent qui utilisent cette classe ChannelSet.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MultiTopicProducer"><apiName>MultiTopicProducer</apiName><shortdesc>
+  Une classe MultiTopicProducer envoie des messages à une destination avec zéro ou plusieurs sous-rubriques.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractProducer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Une classe MultiTopicProducer envoie des messages à une destination avec zéro ou plusieurs sous-rubriques. Elle est similaire à la classe Producer normale mais peut orienter le message vers une classe Consumer s’abonnant à une sous-rubrique parmi plusieurs sous-rubriques. Si la classe Consumer est une classe MultiTopicConsumer et qu’elle s’est abonnée à plusieurs sous-rubriques de la liste de sous-rubriques utilisée par la classe Producer, la classe Consumer ne reçoit le message qu’une seule fois.
+  <p>
+  La classe MultiTopicProducer distribue une classe MessageAckEvent ou MessageFaultEvent pour chaque message qu’elle envoie, selon que le message sortant ait été envoyé et traité avec succès ou non.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:MultiTopicProducer:MultiTopicProducer"><apiName>MultiTopicProducer</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function sendMessage():void
+       {
+           var producer:MultiTopicProducer = new MultiTopicProducer();
+           producer.destination = "NASDAQ";
+           var msg:AsyncMessage = new AsyncMessage();
+           msg.headers.operation = "UPDATE";
+           msg.body = {"SYMBOL":50.00};
+           // only send to subscribers to subtopic "SYMBOL" and "ALLSTOCKS"
+           msg.addSubtopic("SYMBOL");
+           msg.addSubtopic("ALLSTOCKS");
+           producer.send(msg);
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MultiTopicProducer:addSubtopic"><apiName>addSubtopic</apiName><shortdesc>
+     Ajoute une sous-rubrique à la liste actuelle de sous-rubriques pour messages envoyées par cette classe Producer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiDesc>Sous-rubrique à ajouter à la liste actuelle de sous-rubriques envoyées par cette classe Producer.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Ajoute une sous-rubrique à la liste actuelle de sous-rubriques pour messages envoyées par cette classe Producer. Cela est un raccourci pour ajouter cette sous-rubrique à la propriété subtopics.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicProducer:removeSubtopic"><apiName>removeSubtopic</apiName><shortdesc>
+     Supprime la sous-rubrique de la propriété subtopics.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiDesc>Sous-rubrique à supprimer de la propriété subtopics.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Supprime la sous-rubrique de la propriété subtopics. Renvoie une erreur si la sous-rubrique ne figure pas dans la liste.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MultiTopicProducer:subtopics:get"><apiName>subtopics</apiName><shortdesc>
+      Fournit un accès à la liste de sous-rubriques utilisée pour publier des messages.
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:ArrayCollection"/></apiValueDef><apiDesc>
+      Fournit un accès à la liste de sous-rubriques utilisée pour publier des messages.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MultiTopicConsumer"><apiName>MultiTopicConsumer</apiName><shortdesc>
+      Comme une classe Consumer, une classe MultiTopicConsumer s’abonne à une destination avec un ID client unique et livre les messages à un gestionnaire d’événements unique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+      <p>
+      The &lt;mx:MultiTopicConsumer&gt; tag has these properties:
+      </p>
+      <pre>
+       &lt;mx:Consumer
+        <b>Properties</b>
+        subscriptions="<i>"an empty ArrayCollection of SubscriptionInfo objects</i>"
+        resubscribeAttempts="<i>5</i>"
+        resubscribeInterval="<i>5000</i>"
+        timestamp="<i>No default.</i>"
+      /&gt;
+      </pre>
+     
+      ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractConsumer</apiBaseClassifier></apiClassifierDef><apiDesc>
+      Comme une classe Consumer, une classe MultiTopicConsumer s’abonne à une destination avec un ID client unique et livre les messages à un gestionnaire d’événements unique. Contrairement à une classe Consumer, ceci vous permet d’enregistrer simultanément des abonnements pour une liste de sous-rubriques et d’expressions de sélecteur via un gestionnaire de messages unique. Lorsque la classe Consumer comporte des propriétés de sous-rubriques et de sélecteurs, ce composant comporte une méthode addSubscription(subtopic, selector) qui vous permet d’ajouter un nouvel abonnement au jeu d’abonnements existant. Une autre possibilité consiste à spécifier la propriété subscriptions à l’aide d’une liste d’occurrences SubscriptionInfo qui définissent les abonnements pour cette destination.
+      <p>
+      Comme la classe Consumer normale, la classe MultiTopicConsumer envoie des messages d’abonnement et de désabonnement qui génèrent un événement MessageAckEvent ou MessageFaultEvent selon que l’opération réussit ou échoue. Une fois abonnée, une classe MultiTopicConsumer distribue un événement MessageEvent pour chaque message qu’elle reçoit.</p>
+      </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:MultiTopicConsumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+      Distribué lorsqu’un message est reçu par la classe Consumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+      Distribué lorsqu’un message est reçu par la classe Consumer.
+     
+      </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:MultiTopicConsumer:MultiTopicConsumer"><apiName>MultiTopicConsumer</apiName><shortdesc>
+          Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+          Constructeur.
+         
+         
+          </apiDesc><example>
+          <codeblock rev="3.0">
+           function initConsumer():void
+           {
+               var consumer:Consumer = new MultiTopicConsumer();
+               consumer.destination = "NASDAQ";
+               consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+               consumer.addSubscription("myStock1", "operation IN ('BID', 'Ask')");
+               consumer.addSubscription("myStock2", "operation IN ('BID', 'Ask')");
+               consumer.subscribe();
+           }
+         
+           function messageHandler(event:MessageEvent):void
+           {
+               var msg:IMessage = event.message;
+               var info:Object = msg.body;
+               trace("-App recieved message: " + msg.toString());
+           }
+           </codeblock>
+         
+          </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MultiTopicConsumer:addSubscription"><apiName>addSubscription</apiName><shortdesc>
+         Il s’agit d’une méthode pratique d’ajout de nouvel abonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Sous-rubrique du nouvel abonnement.
+         
+         </apiDesc></apiParam><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Sélecteur du nouvel abonnement.
+         
+         </apiDesc></apiParam><apiParam><apiItemName>maxFrequency</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Nombre maximal de messages par seconde que la classe Consumer souhaite recevoir pour l’abonnement. Cette valeur remplace la valeur maxFrequency de la classe Consumer.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         Il s’agit d’une méthode pratique d’ajout de nouvel abonnement. Cela crée simplement un nouvel objet SubscriptionInfo et l’ajoute à la propriété subscriptions. Pour appeler cette méthode, fournissez la chaîne de sous-rubrique et de sélecteur pour le nouvel abonnement. Si la sous-rubrique est nulle, l’abonnement s’applique aux messages dont la classe Producer ne comporte pas de sous-rubrique définie. Si la chaîne de sélecteur est nulle, tous les messages envoyés qui correspondent à la chaîne de sous-rubrique sont reçus par cette classe Consumer.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:protected:buildSubscribeMessage"><apiName>buildSubscribeMessage</apiName><shortdesc>
+         Retourne un message d’abonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Classe CommandMessage d’abonnement.
+         
+          </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+         Retourne un message d’abonnement.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:protected:buildUnsubscribeMessage"><apiName>buildUnsubscribeMessage</apiName><shortdesc>
+         Retourne un message de désabonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Classe CommandMessage de désabonnement.
+         
+          </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiDesc>Si true, les abonnements JMS durables ne sont pas détruits, ce qui permet aux consommateurs de se réabonner et de recevoir par la suite les messages manqués.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+         Retourne un message de désabonnement.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:removeSubscription"><apiName>removeSubscription</apiName><shortdesc>
+         Cette méthode supprime l’abonnement spécifié par la sous-rubrique et le sélecteur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Sous-rubrique de l’abonnement.
+         
+         </apiDesc></apiParam><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Sélecteur de l’abonnement.
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         Cette méthode supprime l’abonnement spécifié par la sous-rubrique et le sélecteur.
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MultiTopicConsumer:subscriptions:get"><apiName>subscriptions</apiName><shortdesc>
+          Stocke un tableau d’objets SubscriptionInfo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:ArrayCollection"/></apiValueDef><apiDesc>
+          Stocke un tableau d’objets SubscriptionInfo. Chaque abonnement contient une sous-rubrique et un sélecteur, chacun des deux pouvant être nul. Un abonnement comportant une sous-rubrique non nulle restreint l’abonnement aux messages délivrés avec uniquement cette sous-rubrique. Si une sous-rubrique est nulle, elle utilise le sélecteur sans sous-rubrique. Si le sélecteur et la sous-rubrique sont nuls, l’abonnement reçoit les messages ciblés à la destination sans sous-rubrique. La sous-rubrique peut contenir une spécification de caractère générique.
+         
+          <p>Avant un appel à la méthode <codeph>subscribe()</codeph>, cette propriété peut être définie sans effets secondaires. Une fois que la classe MultiTopicConsumer s’est abonnée à sa destination, changer cette valeur présente pour effet secondaire de mettre à jour l’abonnement de la classe MultiTopicConsumer pour inclure les nouveaux abonnements et supprimer les abonnements que vous avez supprimés de la classe ArrayCollection.</p>
+         
+          <p>La destination distante doit comprendre la valeur de l’expression de sélecteur.</p>
+         
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Consumer"><apiName>Consumer</apiName><shortdesc>
+  Une classe Consumer s’abonne à une destination pour recevoir des messages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The &lt;mx:Consumer&gt; tag inherits all the tag attributes of its superclass, and adds the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:Consumer
+    <b>Properties</b>
+    resubscribeAttempts="<i>5</i>"
+    resubscribeInterval="<i>5000</i>"
+    selector="<i>No default.</i>"
+    timestamp="<i>No default.</i>"
+  /&gt;
+  </pre> 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractConsumer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Une classe Consumer s’abonne à une destination pour recevoir des messages. Les classes Consumer envoient des messages d’abonnement et de désabonnement qui génèrent une classe MessageAckEvent ou MessageFaultEvent selon que l’opération réussit ou échoue. Une fois abonnée, une classe Consumer distribue un événement MessageEvent pour chaque message qu’elle reçoit. Les classes Consumer offrent la possibilité de filtrer les messages à l’aide d’un sélecteur. Ces sélecteurs doivent être compris par la destination.
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:Consumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  Distribué lorsqu’un message est reçu par la classe Consumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’un message est reçu par la classe Consumer.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:Consumer:Consumer"><apiName>Consumer</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>messageType</apiItemName><apiType value="String"/><apiData>flex.messaging.messages.AsyncMessage</apiData><apiDesc>Alias du type de message traité par le service hébergeant la destination auquel la classe Consumer va s’abonner. Cet argument est déconseillé et est ignoré par le constructeur.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function initConsumer():void
+       {
+           var consumer:Consumer = new Consumer();
+           consumer.destination = "NASDAQ";
+           consumer.selector = "operation IN ('Bid','Ask')";
+           consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+           consumer.subscribe();
+       }
+     
+       function messageHandler(event:MessageEvent):void
+       {
+           var msg:IMessage = event.message;
+           var info:Object = msg.body;
+           trace("-App recieved message: " + msg.toString());
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:Consumer:selector:get"><apiName>selector</apiName><shortdesc>
+	  Sélecteur de la classe Consumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Sélecteur de la classe Consumer. Il s’agit d’une expression transmise à la destination qui l’utilise pour filtrer les messages délivrés à la classe Consumer.
+	 
+	  <p>Avant un appel à la méthode <codeph>subscribe()</codeph>, cette propriété peut être définie sans effets secondaires. Une fois que la classe Consumer s’est abonnée à sa destination, changer cette valeur présente pour effet secondaire de mettre à jour l’abonnement de la classe Consumer pour utiliser immédiatement la nouvelle expression de sélecteur.</p>
+	 
+	  <p>La destination distante doit comprendre la valeur de l’expression de sélecteur.</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Consumer:subtopic:get"><apiName>subtopic</apiName><shortdesc>
+      Fournit un accès à la sous-rubrique de la destination que la classe MessageAgent utilise.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Fournit un accès à la sous-rubrique de la destination que la classe MessageAgent utilise.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MessageAgent"><apiName>MessageAgent</apiName><shortdesc>
+  La classe MessageAgent fournit les fonctionnalités de niveau inférieur de base communes à la gestion de messages pour une destination.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  All message agent classes, including the Producer and Consumer classes, extend
+  MessageAgent and inherit the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:<i>tagname</i><br>
+    <b>Properties</b>
+    channelSet="<i>No default.</i>"
+    clientId="<i>No default.</i>"
+    connected="<i>false</i>"
+    destination="<i>No default.</i>"
+    requestTimeout="<i>-1</i>"
+    subtopic="<i>No default.</i>"
+ 
+ 
+   <b>Events</b>
+    acknowledge="<i>No default.</i>"
+    channelConnect="<i>No default.</i>"
+    channelDisconnect="<i>No default.</i>"
+    channelFault="<i>No default.</i>"
+    fault="<i>No default.</i>"
+    propertyChange="<i>No default.</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe MessageAgent fournit les fonctionnalités de niveau inférieur de base communes à la gestion de messages pour une destination.
+ 
+  <p><b>Remarque :</b> pour une utilisation avancée uniquement. Utilisez cette classe pour créer des agents de messages personnalisés telles que les classes Producer et Consumer existantes.</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:MessageAgent_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Distribué lorsque la propriété connected de la classe MessageAgent change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque la propriété <codeph>connected</codeph> de la classe MessageAgent change. Egalement distribué lorsque la propriété <codeph>subscribed</codeph> d’une classe Consumer change.
+  </apiDesc></adobeApiEventDetail><related-links><link href="mx.messaging.xml#Consumer"><linktext>mx.messaging.Consumer</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  Distribué lorsque le canal sous-jacent utilisé par la classe MessageAgent génère des erreurs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque le canal sous-jacent utilisé par la classe MessageAgent génère des erreurs.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  Distribué lorsque le canal sous-jacent de la classe MessageAgent utilise des déconnexions.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque le canal sous-jacent de la classe MessageAgent utilise des déconnexions.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  Distribué lorsque le canal sous-jacent de la classe MessageAgent utilise des connexions.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque le canal sous-jacent de la classe MessageAgent utilise des connexions.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.MessageFaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  Distribué lorsqu’une erreur de message se produit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une erreur de message se produit.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.MessageAckEvent.ACKNOWLEDGE_acknowledge"><apiName>acknowledge</apiName><shortdesc>
+  Distribué lorsqu’un message d’accusé est reçu pour un message envoyé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageAckEvent.ACKNOWLEDGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageAckEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’un message d’accusé est reçu pour un message envoyé.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:MessageAgent:MessageAgent"><apiName>MessageAgent</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MessageAgent:acknowledge"><apiName>acknowledge</apiName><shortdesc>
+      Invoqué par une classe MessageResponder à la réception d’un résultat pour un message envoyé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>ackMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiDesc>Message AcknowledgMessage renvoyé.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message envoyé original.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Invoqué par une classe MessageResponder à la réception d’un résultat pour un message envoyé. Les sous-classes peuvent remplacer cette méthode si elles doivent procéder à un traitement personnalisé des accusés mais doivent également invoquer la méthode <codeph>super.acknowledge()</codeph>. Cette méthode distribue un événement MessageAckEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelConnectHandler"><apiName>channelConnectHandler</apiName><shortdesc>
+      Gère un événement ChannelEvent CONNECT.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>Evénement ChannelEvent.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gère un événement ChannelEvent CONNECT. Les sous-classes qui doivent procéder à un traitement personnalisé doivent remplacer cette méthode et invoquer la méthode <codeph>super.channelConnectHandler()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelDisconnectHandler"><apiName>channelDisconnectHandler</apiName><shortdesc>
+      Gère un événement ChannelEvent DISCONNECT.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>Evénement ChannelEvent.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gère un événement ChannelEvent DISCONNECT. Les sous-classes qui doivent procéder à un traitement personnalisé doivent remplacer cette méthode et invoquer la méthode <codeph>super.channelDisconnectHandler()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelFaultHandler"><apiName>channelFaultHandler</apiName><shortdesc>
+      Gère un événement ChannelFaultEvent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>ChannelFaultEvent
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gère un événement ChannelFaultEvent. Les sous-classes qui doivent procéder à un traitement personnalisé doivent remplacer cette méthode et invoquer la méthode <codeph>super.channelFaultHandler()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Interrompt la connexion réseau de la classe MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Interrompt la connexion réseau de la classe MessageAgent. Cette méthode n’attend pas que les opérations de réseau en attente se terminent. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:fault"><apiName>fault</apiName><shortdesc>
+      Invoqué par une classe MessageResponder à la réception d’une erreur pour un message envoyé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>errMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>Classe ErrorMessage.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message envoyé original ayant provoqué cette erreur.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Invoqué par une classe MessageResponder à la réception d’une erreur pour un message envoyé. Les sous-classes peuvent remplacer cette méthode si elles doivent procéder à un traitement personnalisé des erreurs mais doivent également invoquer la méthode <codeph>super.fault()</codeph>. Cette méthode distribue un événement MessageFaultEvent.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:handleAuthenticationFault"><apiName>handleAuthenticationFault</apiName><shortdesc>
+     Gère l'erreur d'authentification sur le serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>errMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>Message d'erreur.
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message qui a provoqué la défaillance et doit être renvoyé après la déconnexion/reconnexion ayant nécessité une nouvelle authentification.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Gère l'erreur d'authentification sur le serveur. Si l'indicateur authentifié est true, l'erreur d'authentification doit avoir été causée par une expiration de session sur le serveur. Définissez l'état authentifié sur false et si l'indicateur loginAfterDisconnect est activé, renvoyez les informations d'identification au serveur en vous déconnectant, puis en renvoyant le message.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:hasPendingRequestForMessage"><apiName>hasPendingRequestForMessage</apiName><shortdesc>
+    Renvoie true si des demandes sont en attente pour le message transmis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> si des demandes sont en attente pour le message transmis.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message pour lequel l’existence de demandes en attente est vérifiée.
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    Renvoie true si des demandes sont en attente pour le message transmis. Cette méthode doit être remplacée par des sous-classes.
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:initChannelSet"><apiName>initChannelSet</apiName><shortdesc>
+      Permet d’initialiser automatiquement la propriété channelSet pour la classe MessageAgent avant qu’elle ne se connecte pour la première fois.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message devant être envoyé.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Permet d’initialiser automatiquement la propriété <codeph>channelSet</codeph> pour la classe MessageAgent avant qu’elle ne se connecte pour la première fois. Les sous-types peuvent remplacer cette méthode pour procéder à une initialisation personnalisée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:initialized"><apiName>initialized</apiName><shortdesc>
+      Appelé une fois que l’objet d’implémentation a été créé et que toutes les propriétés spécifiées sur la balise ont été affectées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Document MXML qui a créé cet objet.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>ID utilisé par le document pour se référer à cet objet. Si l’objet est une propriété profonde du document, la valeur de l’ID est null.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé une fois que l’objet d’implémentation a été créé et que toutes les propriétés spécifiées sur la balise ont été affectées.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:internalSend"><apiName>internalSend</apiName><shortdesc>
+      Envoie un message de la classe MessageAgent vers sa destination à l’aide de la classe ChannelSet de l’agent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiException><apiDesc>Si aucune destination n’est définie.
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message à envoyer.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>waitForClientId</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Si true, le message peut être placé en file d’attente jusqu’à assignation d’un ID client à l’agent. En général, il s’agit du comportement désiré. Pour un comportement spécial (reconnexion et réabonnement automatiques), l’agent peut transmettre la valeur false pour remplacer le comportement de mise en file d’attente par défaut.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Envoie un message de la classe MessageAgent vers sa destination à l’aide de la classe ChannelSet de l’agent. Les sous-classes MessageAgent doivent utiliser cette méthode pour envoyer leurs messages.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:logout"><apiName>logout</apiName><shortdesc>
+      Déconnecte la classe MessageAgent de sa destination distante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Déconnecte la classe MessageAgent de sa destination distante. La déconnexion d’une destination s’applique à tous les éléments connectés à l’aide de la même classe ChannelSet tel que spécifié dans la configuration de serveur. Par exemple, si plusieurs composants DataService sont connectés sur un canal RTMP et que la méthode <codeph>logout()</codeph> est invoquée sur l’un d’entre eux, tous les autres composants client connectés à l’aide de la même classe ChannelSet sont également déconnectés.
+     
+      <p><b>Remarque :</b> Adobe vous recommande d’utiliser la méthode mx.messaging.ChannelSet.logout() au lieu de cette méthode.  </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:reAuthorize"><apiName>reAuthorize</apiName><shortdesc>
+     Cette fonction doit être remplacée par les sous-classes pour mettre en oeuvre la réauthentification résultant d'un comportement de dépassement de délai de session sur le serveur qui leur est spécifique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message qui a provoqué la défaillance et doit être renvoyé après la déconnexion/reconnexion ayant nécessité une nouvelle authentification.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Cette fonction doit être remplacée par les sous-classes pour mettre en oeuvre la réauthentification résultant d'un comportement de dépassement de délai de session sur le serveur qui leur est spécifique. En général, elle doit suivre un modèle déconnexion, connexion et renvoi du message.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      Définit les informations d’identification que la classe MessageAgent utilise pour s’authentifier auprès des destinations.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>dans deux situations ; si les informations d’identification ont déjà été définies et qu’une authentification est en cours au niveau de la destination distante, ou si l’authentification et les informations d’identification spécifiées ne correspondent pas aux informations d’identification actuellement authentifiées.
+     
+      </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>Nom d’utilisateur.
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>Mot de passe.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères à utiliser lors du codage des informations d’identification. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. Le seul autre jeu de caractères pris en charge est « UTF-8 ».
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit les informations d’identification que la classe MessageAgent utilise pour s’authentifier auprès des destinations. Les informations d’identification sont appliquées à tous les services connectés via la même classe ChannelSet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+      Définit les informations d’identification distantes allant être transmises à la destination distante en vue de l’authentification auprès des systèmes secondaires.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>Nom d’utilisateur.
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>Mot de passe.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères à utiliser lors du codage des informations d’identification distantes. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. La seule autre option actuellement prise en charge est « UTF-8 ».
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit les informations d’identification distantes allant être transmises à la destination distante en vue de l’authentification auprès des systèmes secondaires.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MessageAgent:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      Indique si cette classe MessageAgent utilise une connexion à sa destination authentifiée.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si cette classe MessageAgent utilise une connexion à sa destination authentifiée.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      Fournit un accès à la classe ChannelSet utilisée par la classe MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      Fournit un accès à la classe ChannelSet utilisée par la classe MessageAgent. La classe ChannelSet peut être manuellement construite et assignée, ou elle sera dynamiquement initialisée afin d’utiliser les canaux configurés pour la destination pour cette classe MessageAgent.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:clientId:get"><apiName>clientId</apiName><shortdesc>
+      Fournit un accès à l’ID client pour la classe MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Fournit un accès à l’ID client pour la classe MessageAgent. Les classes MessageAgents sont assignées à leur ID client par la destination distante et cette valeur est utilisée pour acheminer les messages de la destination distante à la classe MessageAgent appropriée.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:connected:get"><apiName>connected</apiName><shortdesc>
+      Indique si cette classe MessageAgent est actuellement connectée à sa destination via sa classe ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si cette classe MessageAgent est actuellement connectée à sa destination via sa classe ChannelSet. L’événement <codeph>propertyChange</codeph> est distribué lorsque cette propriété change.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:destination:get"><apiName>destination</apiName><shortdesc>
+      Fournit un accès à la destination pour la classe MessageAgent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>Si la destination est nulle ou comporte une longueur égale à zéro.
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Fournit un accès à la destination pour la classe MessageAgent. Changer la destination déconnecte la classe MessageAgent si elle est actuellement connectée.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      Fournit un accès au délai d’attente de demande en secondes pour les messages envoyés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Fournit un accès au délai d’attente de demande en secondes pour les messages envoyés. Si, avant expiration du délai, la destination distante ne reçoit pas d’accusé, de réponse ou d’erreur, le message génère une erreur sur le client. Une valeur égale ou inférieure à zéro empêche les délais d’attente de demande.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Producer"><apiName>Producer</apiName><shortdesc>
+  Une classe Producer envoie un message à une destination.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The &lt;mx:Producer&gt; tag inherits all the tag attributes of its superclass, and adds the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:Producer
+    <b>Properties</b>
+    defaultHeaders="<i>No default.</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractProducer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Une classe Producer envoie un message à une destination. Les classes Producer distribuent une classe MessageAckEvent ou MessageFaultEvent pour chaque message qu’elles envoient, selon que le message sortant ait été envoyé et traité avec succès ou non.
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:Producer:Producer"><apiName>Producer</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc><example>
+      <pre>
+       function sendMessage():void
+       {
+           var producer:Producer = new Producer();
+           producer.destination = "NASDAQ";
+           var msg:AsyncMessage = new AsyncMessage();
+           msg.headers.operation = "UPDATE";
+           msg.body = {"SYMBOL":50.00};
+           producer.send(msg);
+       }
+       </pre>
+      
+      </example></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:Producer:DEFAULT_PRIORITY"><apiName>DEFAULT_PRIORITY</apiName><shortdesc>
+      Priorité de message par défaut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Priorité de message par défaut.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Producer:subtopic:get"><apiName>subtopic</apiName><shortdesc>
+      Fournit un accès à la sous-rubrique de la destination que la classe MessageAgent utilise.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Fournit un accès à la sous-rubrique de la destination que la classe MessageAgent utilise.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:AbstractConsumer"><apiName>AbstractConsumer</apiName><shortdesc>
+  La classe AbstractConsumer est la classe de base des classes Consumer et MultiTopicConsumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:MessageAgent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe AbstractConsumer est la classe de base des classes Consumer et MultiTopicConsumer. Ces classes vous permettent de recevoir les messages envoyés à partir du serveur.
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:AbstractConsumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  Distribué lorsqu’un message est reçu par la classe Consumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’un message est reçu par la classe Consumer.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:AbstractConsumer:AbstractConsumer"><apiName>AbstractConsumer</apiName><shortdesc>
+      Construit une classe Consumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Construit une classe Consumer.
+     
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function initConsumer():void
+       {
+           var consumer:Consumer = new Consumer();
+           consumer.destination = "NASDAQ";
+           consumer.selector = "operation IN ('Bid','Ask')";
+           consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+           consumer.subscribe();
+       }
+     
+       function messageHandler(event:MessageEvent):void
+       {
+           var msg:IMessage = event.message;
+           var info:Object = msg.body;
+           trace("-App recieved message: " + msg.toString());
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:AbstractConsumer:protected:buildSubscribeMessage"><apiName>buildSubscribeMessage</apiName><shortdesc>
+      Retourne un message d’abonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Classe CommandMessage d’abonnement.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Renvoie un message d’abonnement. Cette méthode doit être remplacée par des sous-classes si celles-ci nécessitent des messages d’abonnement personnalisés.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:protected:buildUnsubscribeMessage"><apiName>buildUnsubscribeMessage</apiName><shortdesc>
+      Renvoie un message de désabonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Classe CommandMessage de désabonnement.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiDesc>- Si true, les abonnements JMS durables ne sont pas supprimés, ce qui permet aux classes Consumer de se réabonner et de recevoir par la suite les messages manqués.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie un message de désabonnement. Cette méthode doit être remplacée par des sous-classes si celles-ci nécessitent des messages de désabonnement personnalisés.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Déconnecte la classe Consumer de sa destination distante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Déconnecte la classe Consumer de sa destination distante. Cette méthode doit être invoquée sur une classe Consumer dont une application n’a plus besoin après désabonnement. Cette méthode n’attend pas que les opérations de réseau en attente se terminent et n’envoie pas de message de désabonnement au serveur. Après avoir invoqué la méthode disconnect(), la classe Consumer signale qu’elle est dans un état déconnecté et non abonné car elle ne reçoit plus de messages tant qu’elle ne se reconnecte pas et ne se réabonne pas. La déconnexion arrête les tentatives de réabonnement automatiques si elles sont en cours d’exécution.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:receive"><apiName>receive</apiName><shortdesc>
+      Demande les messages mis en file d’attente pour cette classe Consumer sur le serveur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>timestamp</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Cet argument est déconseillé et est ignoré.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Demande les messages mis en file d’attente pour cette classe Consumer sur le serveur. Cette méthode ne doit être utilisée que pour les classes Consumer qui s’abonnent via des canaux qui ne sont pas en temps réel et qui n’interrogent pas. Cette méthode est non opératoire lorsque la classe Consumer n’est pas abonnée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:subscribe"><apiName>subscribe</apiName><shortdesc>
+      S’abonne à la destination distante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Si aucune destination n’est définie.
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>clientId</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID client avec lequel s’abonner. Utilisez null pour les classes Consumer temporaires. Si l’abonnement est durable, une valeur cohérente doit être fournie chaque fois que la classe Consumer s’abonne pour se reconnecter à l’abonnement durable correct au niveau de la destination distante.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      S’abonne à la destination distante.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:unsubscribe"><apiName>unsubscribe</apiName><shortdesc>
+      Se désabonne de la destination distante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>- Si true, les abonnements JMS durables ne sont pas supprimés, ce qui permet aux classes Consumer de se réabonner et de recevoir par la suite les messages manqués.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Se désabonne de la destination distante. Dans le cas d’abonnements JMS durables, ceci supprime l’abonnement durable sur le serveur JMS.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:AbstractConsumer:protected:_shouldBeSubscribed"><apiName>_shouldBeSubscribed</apiName><shortdesc>
+      Indicateur spécifiant si cette classe Consumer doit être abonnée ou non.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indicateur spécifiant si cette classe Consumer doit être abonnée ou non.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:maxFrequency:get"><apiName>maxFrequency</apiName><shortdesc>
+      Détermine le nombre maximal de messages par seconde que la classe Consumer souhaite recevoir.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Détermine le nombre maximal de messages par seconde que la classe Consumer souhaite recevoir. Un serveur qui comprend cette valeur l’utilise comme entrée alors qu’il détermine la vitesse à laquelle envoyer des messages à la classe Consumer. La valeur par défaut est 0, ce qui signifie que la classe Consumer n’a aucune préférence quant au taux de messages. Cette propriété doit être définie avant que la classe Consumer ne s’abonne et les modifications effectuées après l’abonnement de la classe Consumer ne prennent effet que lorsque la classe Consumer se désabonne et se réabonne.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:resubscribeAttempts:get"><apiName>resubscribeAttempts</apiName><shortdesc>
+      Nombre de tentatives de réabonnement effectuées par la classe Consumer si la destination n’est pas disponible ou si la connexion à la destination est interrompue.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Nombre de tentatives de réabonnement effectuées par la classe Consumer si la destination n’est pas disponible ou si la connexion à la destination est interrompue. Une valeur égale à -1 permet des tentatives illimitées. Une valeur égale à zéro désactive les tentatives de réabonnement.
+      <p>
+      Les tentatives de réabonnement sont effectuées à un rythme constant selon la valeur interne de réabonnement. Lorsqu’une tentative de réabonnement a lieu, si le canal sous-jacent de la classe Consumer n’est pas connecté ou ne tente pas de se connecter, le canal commence une tentative de connexion. Les tentatives de réabonnement suivantes de la classe Consumer qui se produisent alors que la tentative de connexion du canal sous-jacent est en attente sont ignorées jusqu’à ce que la tentative de connexion en attente du canal réussisse ou échoue.
+      </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Consumer/resubscribeInterval"><linktext>mx.messaging.Consumer.resubscribeInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractConsumer:resubscribeInterval:get"><apiName>resubscribeInterval</apiName><shortdesc>
+      Nombre de millisecondes s’écoulant entre les tentatives de réabonnement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiException><apiDesc>Si la valeur assignée est négative.
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      Nombre de millisecondes s’écoulant entre les tentatives de réabonnement. Si une classe Consumer ne reçoit pas d’accusé pour une demande d’abonnement, elle attend pendant le nombre de millisecondes spécifié avant d’essayer de se réabonner. Définir la valeur sur zéro désactive les réabonnements.
+      <p>
+      Les tentatives de réabonnement sont effectuées à un rythme constant selon cette valeur. Lorsqu’une tentative de réabonnement a lieu, si le canal sous-jacent de la classe Consumer n’est pas connecté ou ne tente pas de se connecter, le canal commence une tentative de connexion. Les tentatives de réabonnement suivantes de la classe Consumer qui se produisent alors que la tentative de connexion du canal sous-jacent est en attente sont ignorées jusqu’à ce que la tentative de connexion en attente du canal réussisse ou échoue.
+      </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Consumer/resubscribeInterval"><linktext>mx.messaging.Consumer.resubscribeInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractConsumer:subscribed:get"><apiName>subscribed</apiName><shortdesc>
+      Indique si la classe Consumer est actuellement abonnée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si la classe Consumer est actuellement abonnée. L’événement <codeph>propertyChange</codeph> est distribué lorsque cette propriété change.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      Contient la date et l’heure du message le plus récent que cette classe Consumer a reçu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Contient la date et l’heure du message le plus récent que cette classe Consumer a reçu. Cette valeur est transmise à la destination dans un appel <codeph>receive()</codeph> afin de demander qu’il livre les messages pour la classe Consumer à partir de la date et de l’heure spécifiées. Tous les messages comportant une valeur de date et d’heure supérieure à la valeur <codeph>timestamp</codeph> sont renvoyés durant une opération d’interrogation. Définir cette valeur sur -1 extrait tous les messages mis en cache de la destination.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Channel"><apiName>Channel</apiName><shortdesc>
+  La classe Channel est la classe de canal de message de base que tous les canaux dans le système d’échange de messages doivent développer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Channel est la classe de canal de message de base que tous les canaux dans le système d’échange de messages doivent développer.
+ 
+  <p>Les canaux sont des conduits basés sur des protocoles spécifiques et destinés aux messages envoyés entre les classes MessageAgent et les destinations distantes. Les canaux préconfigurés sont obtenus au sein de la structure à l’aide de la méthode <codeph>ServerConfig.getChannel()</codeph>. Vous pouvez créer un canal directement à l’aide de l’opérateur <codeph>new</codeph> et l’ajouter directement à la classe ChannelSet.</p>
+ 
+  <p>
+  Les canaux représentent une connexion physique à une extrémité distante. Par défaut, les canaux sont partagés à travers les destinations. Cela signifie qu’un client ciblant différentes destinations peut utiliser le même canal pour communiquer avec ces destinations.
+  </p>
+ 
+  <p><b>Remarque :</b> cette classe est destinée à une utilisation avancée uniquement. Utilisez cette classe pour créer des canaux personnalisés tels que les canaux RTMPChannel, AMFChannel et HTTPChannel existants.</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:Channel_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  Distribué lorsqu’une propriété du canal change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une propriété du canal change.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  Distribué lorsqu’un canal reçoit un message de son extrémité.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’un canal reçoit un message de son extrémité.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  Distribué après une erreur du canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après une erreur du canal.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  Distribué après que le canal se déconnecte de son extrémité.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après que le canal se déconnecte de son extrémité.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  Distribué après que le canal se connecte à son extrémité.</shortdesc><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué après que le canal se connecte à son extrémité.
+ <p>Channel et ses sous-classes émettent un code Channel.Connect.Failed chaque fois qu’un problème se présente lors des tentatives de connexion d’un canal à une destination distante. Un objet AMFChannel émet un code Channel.Call.Failed code lorsque le canal est déjà connecté mais obtient un code Call.Failed de sa classe NetConnection sous-jacente. </p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:Channel:Channel"><apiName>Channel</apiName><shortdesc>
+      Construit une occurrence d’un canal générique qui se connecte à l’URI d’extrémité spécifiée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ID de ce canal.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>URI d’extrémité de ce canal.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Construit une occurrence d’un canal générique qui se connecte à l’URI d’extrémité spécifiée. <b>Remarque</b> : le type de canal ne doit pas être construit directement. A la place, créez des occurrences de sous-classes spécifiques à des protocoles, telles que RTMPChannel ou AMFChannel.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:Channel:protected:applyClientLoadBalancingSettings"><apiName>applyClientLoadBalancingSettings</apiName><shortdesc>
+      Applique les URL d’équilibrage de charge client si elles existent.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>props</apiItemName><apiType value="XML"/><apiDesc>Section propriétés du fragment XML du fichier services-config.xml de ce canal.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Applique les URL d’équilibrage de charge client si elles existent. Choisit au hasard une URL dans le jeu d’URL d’équilibrage de charge client et la définit en tant qu’URL principale du canal, puis assigne le reste des URL en tant qu’URI <codeph>failoverURI</codeph> du canal.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:applySettings"><apiName>applySettings</apiName><shortdesc>
+      Les sous-classes doivent remplacer cette méthode pour appliquer les paramètres susceptibles d’être nécessaires à un canal individuel.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>settings</apiItemName><apiType value="XML"/><apiDesc>Fragment XML du fichier services-config.xml de ce canal. 
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Les sous-classes doivent remplacer cette méthode pour appliquer les paramètres susceptibles d’être nécessaires à un canal individuel. Assurez-vous d’appeler <codeph>super.applySettings()</codeph> afin d’appliquer les paramètres communs pour le canal. Cette méthode est principalement utilisée dans les sous-classes Channel. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectFailed"><apiName>connectFailed</apiName><shortdesc>
+      Traite une connexion interne échouée et distribue l’événement FAULT pour le canal.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>Classe ChannelFaultEvent de la connexion échouée.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Traite une connextion interne échouée et distribue l’événement <codeph>FAULT</codeph> pour le canal. Si le canal comporte des valeurs <codeph>failoverURI</codeph>, il tente de se reconnecter automatiquement en essayant ces valeurs URI dans l’ordre jusqu’à établissement d’une connexion ou épuisement des valeurs disponibles.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectSuccess"><apiName>connectSuccess</apiName><shortdesc>
+      Traite une connextion interne réussie et distribue l’événement CONNECT pour le canal.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Traite une connextion interne réussie et distribue l’événement <codeph>CONNECT</codeph> pour le canal.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectTimeoutHandler"><apiName>connectTimeoutHandler</apiName><shortdesc>
+      Gère un délai d’attente de connexion en distribuant une classe ChannelFaultEvent.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:TimerEvent"/><apiDesc>Evénement Timer indiquant que le délai d’attente de connexion a été atteint.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gère un délai d’attente de connexion en distribuant une classe ChannelFaultEvent. Les sous-types peuvent remplacer ceci pour arrêter la tentative de connexion actuelle mais doivent appeler l’événement <codeph>super.connectTimeoutHandler(event)</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:connect"><apiName>connect</apiName><shortdesc>
+      Connecte la classe ChannelSet au canal.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channelSet</apiItemName><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier><apiDesc>Classe ChannelSet à connecter au canal.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Connecte la classe ChannelSet au canal. Si le canal ne s’est pas encore connecté à son extrémité, il tente de le faire. Les sous-classes Channel doivent remplacer la méthode <codeph>internalConnect()</codeph> et appeler la méthode <codeph>connectSuccess()</codeph> une fois la connexion sous-jacente établie.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:disconnectFailed"><apiName>disconnectFailed</apiName><shortdesc>
+      Traite une déconnexion interne échouée et distribue l’événement FAULT pour le canal.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>Classe ChannelFaultEvent de la déconnexion échouée.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Traite une déconnextion interne échouée et distribue l’événement <codeph>FAULT</codeph> pour le canal.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:disconnectSuccess"><apiName>disconnectSuccess</apiName><shortdesc>
+      Traite une déconnextion interne réussie et distribue l’événement DISCONNECT pour le canal.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>true si la déconnexion doit ignorer un traitement de basculement qui serait sinon tenté ; false si le traitement de basculement doit être autorisé.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Traite une déconnextion interne réussie et distribue l’événement <codeph>DISCONNECT</codeph> pour le canal. Si la déconnexion est liée à une panne de réseau et que le canal comporte des valeurs <codeph>failoverURI</codeph>, il tente de se reconnecter automatiquement en essayant ces valeurs URI dans l’ordre jusqu’à établissement d’une connexion ou épuisement des valeurs disponibles.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:disconnect"><apiName>disconnect</apiName><shortdesc>
+      Déconnecte la classe ChannelSet du canal.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channelSet</apiItemName><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier><apiDesc>Classe ChannelSet à déconnecter du canal.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Déconnecte la classe ChannelSet du canal. Si le canal est connecté à son extrémité et qu’il ne comporte pas d’autres classes ChannelSet connectées, il se déconnecte en interne.
+     
+      <p>Les sous-classes Channel doivent remplacer la méthode <codeph>internalDisconnect()</codeph> et appeler la méthode <codeph>disconnectSuccess()</codeph> une fois la connexion sous-jacente terminée.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:flexClientWaitHandler"><apiName>flexClientWaitHandler</apiName><shortdesc>
+      Gère une modification de la condition de surveillance pour gérer la connexion de canal initiale pour l’application.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:PropertyChangeEvent"/><apiDesc>Classe PropertyChangeEvent distribuée par le singleton FlexClient.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gère une modification de la condition de surveillance pour gérer la connexion de canal initiale pour l’application. Lorsque ceci est invoqué, cela signifie que ce canal attend pour essayer de se connecter.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:getMessageResponder"><apiName>getMessageResponder</apiName><shortdesc>
+      Renvoie la classe MessageResponder appropriée pour la méthode send() du canal.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiException><apiDesc>Si la sous-classe Channel ne remplace pas cette méthode.
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>Classe MessageResponder devant gérer le résultat ou l’erreur.
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:MessageResponder</apiOperationClassifier></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Classe MessageAgent envoyant le message.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message à envoyer.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la classe MessageResponder appropriée pour la méthode <codeph>send()</codeph> du canal. Doit être remplacé.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalConnect"><apiName>internalConnect</apiName><shortdesc>
+      Connecte le canal à son extrémité.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Connecte le canal à son extrémité. Doit être remplacé.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalDisconnect"><apiName>internalDisconnect</apiName><shortdesc>
+      Déconnecte le canal de son extrémité.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>true si la déconnexion est due à un délai d’attente ou à un rejet de connexion, la reconnexion ne devant pas être tentée automatiquement ; dans le cas contraire, false. 
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Déconnecte le canal de son extrémité. Doit être remplacé.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalSend"><apiName>internalSend</apiName><shortdesc>
+      Envoie le message via le canal et achemine la réponse à la classe Responder.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>messageResponder</apiItemName><apiOperationClassifier>mx.messaging:MessageResponder</apiOperationClassifier><apiDesc>Classe MessageResponder devant gérer la réponse.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Envoie le message via le canal et achemine la réponse à la classe Responder. Doit être remplacé.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:logout"><apiName>logout</apiName><shortdesc>
+      Envoie une classe CommandMessage au serveur pour se déconnecter si le canal est connecté.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Classe MessageAgent à déconnecter.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Envoie une classe CommandMessage au serveur pour se déconnecter si le canal est connecté. Les informations d’identification actuelles sont effacées.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:send"><apiName>send</apiName><shortdesc>
+      Envoie le message spécifié à sa destination cible.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>Si ni la classe MessageAgent ni le message ne spécifient une destination.
+     </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Classe MessageAgent envoyant le message.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message à envoyer.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Envoie le message spécifié à sa destination cible. Les sous-classes doivent remplacer la méthode <codeph>internalSend()</codeph> pour effectuer l’envoi effectif.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      Définit les informations d’identification sur la valeur spécifiée.</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>dans deux situations ; si les informations d’identification ont déjà été définies et qu’une authentification est en cours au niveau de la destination distante, ou si l’authentification et les informations d’identification spécifiées ne correspondent pas aux informations d’identification actuellement authentifiées.
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>credentials</apiItemName><apiType value="String"/><apiDesc>Chaîne d’informations d’identification.
+      </apiDesc></apiParam><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiData>null</apiData><apiDesc>Classe MessageAgent devant se connecter et allant traiter le résultat de connexion.
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Codage de jeu de caractères utilisé lors du codage des informations d’identification. La valeur par défaut est null, ce qui implique le jeu de caractères existant, ISO-Latin-1. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définit les informations d’identification sur la valeur spécifiée. Si les informations d’identification ne sont pas nulles et que le canal est connecté, cette méthode envoie également une classe CommandMessage au serveur pour se connecter à l’aide des informations d’identification.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:Channel:protected:CONNECT_TIMEOUT_SECONDS"><apiName>CONNECT_TIMEOUT_SECONDS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>connect-timeout-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:ENABLE_SMALL_MESSAGES"><apiName>ENABLE_SMALL_MESSAGES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>enable-small-messages</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:FALSE"><apiName>FALSE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>false</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:RECORD_MESSAGE_SIZES"><apiName>RECORD_MESSAGE_SIZES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>record-message-sizes</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:RECORD_MESSAGE_TIMES"><apiName>RECORD_MESSAGE_TIMES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>record-message-times</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:REQUEST_TIMEOUT_SECONDS"><apiName>REQUEST_TIMEOUT_SECONDS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>request-timeout-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:SERIALIZATION"><apiName>SERIALIZATION</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>serialization</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:TRUE"><apiName>TRUE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>true</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      Indique si le canal est authentifié.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si le canal est authentifié.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:channelSets:get"><apiName>channelSets</apiName><shortdesc>
+      Fournit un accès aux classes ChannelSet connectéees à ce canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Fournit un accès aux classes ChannelSet connectéees à ce canal.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:connectTimeout:get"><apiName>connectTimeout</apiName><shortdesc>
+      Fournit un accès au délai d’attente de connexion en secondes pour le canal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Fournit un accès au délai d’attente de connexion en secondes pour le canal. Une valeur égale ou inférieure à 0 indique qu’une tentative de connexion n’expire jamais sur le client. Pour les canaux configurés en vue d’un basculement, cette valeur est le laps de temps total pendant lequel attendre qu’une connexion soit établie. Elle n’est pas réinitialisée pour chaque URI de basculement à laquelle le canal peut tenter de se connecter.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:connected:get"><apiName>connected</apiName><shortdesc>
+      Indique si ce canal a établi une connexion à la destination distante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si ce canal a établi une connexion à la destination distante.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:endpoint:get"><apiName>endpoint</apiName><shortdesc>
+      Fournit un accès à l’extrémité de ce canal.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Fournit un accès à l’extrémité de ce canal. Cette valeur est calculée en fonction de la valeur de la propriété <codeph>uri</codeph>.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:failoverURIs:get"><apiName>failoverURIs</apiName><shortdesc>
+      Fournit un accès au jeu d’URI d’extrémité vers lequel ce canal peut tenter de basculer si l’extrémité est clusterisée.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Fournit un accès au jeu d’URI d’extrémité vers lequel ce canal peut tenter de basculer si l’extrémité est clusterisée.
+     
+      <p>Cette propriété est automatiquement renseignée lorsque le regroupement est activé. Si vous n’utilisez pas le regroupement, vous pouvez définir vos propres valeurs. </p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:id:get"><apiName>id</apiName><shortdesc>
+      Fournit un accès à l’ID de ce canal.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Fournit un accès à l’ID de ce canal.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      Fournit un accès au protocole que le canal utilise.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Fournit un accès au protocole que le canal utilise.
+     
+      <p><b>Remarque :</b> les sous-classes Channel doivent remplacer cette méthode et renvoyer une chaîne qui représente leur protocole pris en charge. Par exemple, « rtmp », « http » ou « https » sont des chaînes de protocoles pris en charge.
+     </p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:reconnecting:get"><apiName>reconnecting</apiName><shortdesc>
+      Indique si ce canal est en train de se reconnecter à une extrémité alternative.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si ce canal est en train de se reconnecter à une extrémité alternative.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:recordMessageSizes:get"><apiName>recordMessageSizes</apiName><shortdesc>
+     La propriété Channel détermine le niveau d’injection d’informations de performances - que nous injections des tailles de messages ou non.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     La propriété Channel détermine le niveau d’injection d’informations de performances - que nous injections des tailles de messages ou non.
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:recordMessageTimes:get"><apiName>recordMessageTimes</apiName><shortdesc>
+     La propriété Channel détermine le niveau d’injection d’informations de performances - que nous injections des dates/heures ou non.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     La propriété Channel détermine le niveau d’injection d’informations de performances - que nous injections des dates/heures ou non. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      Fournit un accès au délai d’attente de demande par défaut en secondes pour le canal.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Fournit un accès au délai d’attente de demande par défaut en secondes pour le canal. Une valeur égale ou inférieure à 0 indique que les demandes sortantes n’expirent jamais sur le client.
+      <p>Les délais d’attente de demandes sont très utiles pour l’échange de messages de style RPC nécessitant une réponse de la destination distante.</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:shouldBeConnected:get"><apiName>shouldBeConnected</apiName><shortdesc>
+      Indique si ce canal doit être connecté à son extrémité.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Indique si ce canal doit être connecté à son extrémité. Cet indicateur permet de contrôler le moment auquel un basculement doit être tenté et celui auquel une notification de déconnexion est envoyée à l’extrémité distante lors d’une déconnexion ou d’une erreur.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:uri:get"><apiName>uri</apiName><shortdesc>
+      Fournit un accès à l’URI utilisée pour créer toute l’URI d’extrémité pour ce canal.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Fournit un accès à l’URI utilisée pour créer toute l’URI d’extrémité pour ce canal. L’URI peut être un chemin partiel, auquel cas l’URI d’extrémité entière est calculée selon les besoins.
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:SubscriptionInfo"><apiName>SubscriptionInfo</apiName><shortdesc>
+ Cela est la classe utilisée pour les éléments de la propriété des abonnements ArrayCollection dans la propriété MultiTopicConsumer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Cela est la classe utilisée pour les éléments de la propriété des abonnements ArrayCollection dans la propriété MultiTopicConsumer.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:SubscriptionInfo:SubscriptionInfo"><apiName>SubscriptionInfo</apiName><shortdesc> Construit une nouvelle classe SubscriptionInfo avec la sous-rubrique et le sélecteur spécifiés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>st</apiItemName><apiType value="String"/><apiDesc>Sous-rubrique de l’abonnement. Si null, représente un abonnement pour les messages dirigés vers la destination sans sous-rubrique.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>sel</apiItemName><apiType value="String"/><apiDesc>Sélecteur. Si null, indique que tous les messages doivent être envoyés.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>mf</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Nombre maximal de messages par seconde que l’abonnement souhaite recevoir. Zéro signifie aucune préférence.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc> Construit une nouvelle classe SubscriptionInfo avec la sous-rubrique et le sélecteur spécifiés.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:SubscriptionInfo:maxFrequency"><apiName>maxFrequency</apiName><shortdesc>
+     Nombre maximal de messages par seconde que l’abonnement souhaite recevoir. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+     Nombre maximal de messages par seconde que l’abonnement souhaite recevoir. Zéro signifie que l’abonnement n’a aucune préférence quant au nombre de messages qu’il reçoit.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:SubscriptionInfo:selector"><apiName>selector</apiName><shortdesc>
+     Sélecteur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     Sélecteur. Si null, indique que tous les messages doivent être envoyés.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:SubscriptionInfo:subtopic"><apiName>subtopic</apiName><shortdesc> 
+     Sous-rubrique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     Sous-rubrique. Si null, représente un abonnement pour les messages dirigés vers la destination sans sous-rubrique.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MessageResponder"><apiName>MessageResponder</apiName><shortdesc>
+  La classe MessageResponder gère une réussite ou une erreur d’une destination de message.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.net:Responder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe MessageResponder gère une réussite ou une erreur d’une destination de message. Pour chaque message qu’un canal envoie, le canal crée une classe MessageResponder pour gérer le résultat. Lors d’une réponse, le canal invoque le rappel <codeph>result()</codeph> ou <codeph>status()</codeph> sur la classe MessageResponder. Les sous-classes MessageResponder doivent remplacer ces méthodes pour procéder au traitement nécessaire. Pour chaque réponse, qu’il s’agisse d’une réussite ou d’une erreur, la classe MessageResponder doit invoquer <codeph>acknowledge()</codeph> sur son agent. Si la réponse est une erreur, la classe MessageResponder doit aussi invoquer <codeph>fault()</codeph> sur son agent.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:MessageResponder:MessageResponder"><apiName>MessageResponder</apiName><shortdesc>
+      Construit une classe MessageResponder afin de gérer la réponse pour le message spécifié de la classe MessageAgent spécifiée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>Classe MessageAgent envoyant le message.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message en cours d’envoi.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>Canal utilisé pour l’envoi. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Construit une classe MessageResponder afin de gérer la réponse pour le message spécifié de la classe MessageAgent spécifiée.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MessageResponder:protected:createRequestTimeoutErrorMessage"><apiName>createRequestTimeoutErrorMessage</apiName><shortdesc>
+      Construit un message ErrorMessage pouvant être transmis aux rappels de la classe MessageAgent associée lors d’un délai d’attente de demande.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Renvoie un message ErrorMessage pouvant être transmis aux rappels de la classe MessageAgent associée lors d’un délai d’attente de demande.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Construit un message ErrorMessage pouvant être transmis aux rappels de la classe MessageAgent associée lors d’un délai d’attente de demande.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:requestTimedOut"><apiName>requestTimedOut</apiName><shortdesc>
+      Les sous-classes doivent remplacer cette méthode pour gérer un délai d’attente de demande et invoquer les rappels appropriés sur la classe MessageAgent associée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Les sous-classes doivent remplacer cette méthode pour gérer un délai d’attente de demande et invoquer les rappels appropriés sur la classe MessageAgent associée.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:resultHandler"><apiName>resultHandler</apiName><shortdesc>
+      Les sous-classes doivent remplacer cette méthode pour procéder au traitement personnalisé du résultat et invoquer les rappels appropriés sur la classe MessageAgent associée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message de résultat retourné par la destination.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Les sous-classes doivent remplacer cette méthode pour procéder au traitement personnalisé du résultat et invoquer les rappels appropriés sur la classe MessageAgent associée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:result"><apiName>result</apiName><shortdesc>
+      Appelé par le canal ayant créé cette classe MessageResponder lorsqu’une réponse est renvoyée depuis sa destination.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message de résultat retourné par la destination.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé par le canal ayant créé cette classe MessageResponder lorsqu’une réponse est retournée depuis sa destination. Cette méthode procède à un traitement principal des résultats, puis invoque la méthode <codeph>resultHandler()</codeph> que les sous-classes peuvent remplacer pour procéder au traitement personnalisé nécessaire.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:statusHandler"><apiName>statusHandler</apiName><shortdesc>
+      Les sous-classes doivent remplacer cette méthode pour procéder au traitement personnalisé de l’état et invoquer les rappels appropriés sur la classe MessageAgent associée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message d’erreur retourné par la destination.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Les sous-classes doivent remplacer cette méthode pour procéder au traitement personnalisé de l’état et invoquer les rappels appropriés sur la classe MessageAgent associée.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:status"><apiName>status</apiName><shortdesc>
+      Appelé par le canal ayant créé cette classe MessageResponder lorsqu’une réponse d’erreur est renvoyée depuis sa destination.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>Message d’erreur retourné par la destination.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé par le canal ayant créé cette classe MessageResponder lorsqu’une réponse d’erreur est retournée depuis sa destination. Cette méthode procède à un traitement principal des résultats, puis invoque la méthode <codeph>statusHandler()</codeph> que les sous-classes peuvent remplacer pour procéder au traitement personnalisé nécessaire.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MessageResponder:agent:get"><apiName>agent</apiName><shortdesc>
+      Fournit un accès à la classe MessageAgent ayant envoyé le message.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:MessageAgent</apiValueClassifier></apiValueDef><apiDesc>
+      Fournit un accès à la classe MessageAgent ayant envoyé le message.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageResponder:channel:get"><apiName>channel</apiName><shortdesc>
+      Fournit un accès au canal utilisé pour envoyer le message.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      Fournit un accès au canal utilisé pour envoyer le message.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageResponder:message:get"><apiName>message</apiName><shortdesc>
+      Fournit un accès au message envoyé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      Fournit un accès au message envoyé.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

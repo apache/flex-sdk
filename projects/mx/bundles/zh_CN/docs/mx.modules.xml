@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.modules"><apiName>mx.modules</apiName><apiDetail/><apiClassifier id="mx.modules:ModuleLoader"><apiName>ModuleLoader</apiName><shortdesc>
+  ModuleLoader 组件的行为方式与 SWFLoader 极为相似，不同的是它需要遵循与加载内容间的合同要求。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.modules:ModuleLoader" replacement="spark.modules.ModuleLoader" since="4.5">
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDeferredInstantiationUIComponent</apiBaseInterface><apiBaseClassifier>mx.containers:VBox</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ModuleLoader 组件的行为方式与 SWFLoader 极为相似，不同的是它需要遵循与加载内容间的合同要求。本合同规定子级 SWF 文件实现 IFlexModuleFactory，并且可以按需使用实现的 factory 创建子类的多个实例。
+   <p>ModuleLoader 已连接到延迟例示，请确保只有一个模块 SWF 文件副本使用 ModuleManager singleton 通过网络进行传输。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.ModuleManager.xml"><linktext>mx.modules.ModuleManager</linktext></link><link href="" invalidHref="mx.controls.SWFLoader.xml"><linktext>mx.controls.SWFLoader</linktext></link></related-links><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.UNLOAD_unload"><apiName>unload</apiName><shortdesc>
+  卸载模块数据时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.UNLOAD</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  卸载模块数据时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  加载模块时以固定间隔分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.PROGRESS</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  加载模块时以固定间隔分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.ERROR_error"><apiName>error</apiName><shortdesc>
+  模块引发错误时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.ERROR</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  模块引发错误时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.READY_ready"><apiName>ready</apiName><shortdesc>
+  完成加载模块时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.READY</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  完成加载模块时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.ModuleEvent.SETUP_setup"><apiName>setup</apiName><shortdesc>
+  模块相关信息可用（与 info() 方法一起使用）但模块尚未准备就绪时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.SETUP</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  模块相关信息可用（与 <codeph>info()</codeph> 方法一起使用）但模块尚未准备就绪时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.FlexEvent.URL_CHANGED_urlChanged"><apiName>urlChanged</apiName><shortdesc>
+  给 ModuleLoader 新的 URL 时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.URL_CHANGED</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  给 ModuleLoader 新的 URL 时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.modules:ModuleLoader_mx.events.FlexEvent.LOADING_loading"><apiName>loading</apiName><shortdesc>
+  ModuleLoader 开始加载 URL 时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.LOADING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ModuleLoader 开始加载 URL 时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.modules:ModuleLoader:ModuleLoader"><apiName>ModuleLoader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.modules:ModuleLoader:loadModule"><apiName>loadModule</apiName><shortdesc>
+      加载模块。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>模块的位置，以 URL 表示。这是一个可选参数。如果此参数为 null，则将使用 <codeph>url</codeph> 属性的值。如果提供了 url 参数，则会将 <codeph>url</codeph> 属性更新为该 url 的值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bytes</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>一个 ByteArray 对象。ByteArray 应该包含代表已编译 Module 的 SWF 文件的字节数。可以使用 URLLoader 类获得 ByteArray 对象。如果指定了此参数，则将从 ByteArray 加载模块，而 url 参数将用于在 <codeph>ModuleManager.getModule()</codeph> 方法中标识模块，并且必须为非 null。如果此参数为 null，则将从 url加载模块（如果 url 为非 null，则从 url 参数加载，否则从作为回退的 url 属性加载）。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      加载模块。完成加载模块时，ModuleLoader 会使用 <codeph>addChild()</codeph> 方法将其添加为子级。延迟例示通常会触发此事件。
+      
+      <p>如果已加载模块，则此方法不起任何作用。它不会再次加载模块。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.modules:ModuleLoader:unloadModule"><apiName>unloadModule</apiName><shortdesc>
+      卸载模块并将其设置为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      卸载模块并将其设置为 <codeph>null</codeph>。如果之前已将该模块的实例添加为子级，则此方法会针对子级调用 <codeph>removeChild()</codeph> 方法。 
+      <p>如果模块不存在或尚未加载模块，则此方法不会执行。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.modules:ModuleLoader:applicationDomain"><apiName>applicationDomain</apiName><shortdesc>
+      将模块加载到的应用程序域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.system:ApplicationDomain"/></apiValueDef><apiDesc>
+      将模块加载到的应用程序域。应用程序域用于划分位于同一个安全域中的类。它们允许同一个类存在多个定义，并且允许子级重用父级定义。
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.ApplicationDomain.xml"><linktext>flash.system.ApplicationDomain</linktext></link><link href="" invalidHref="flash.system.SecurityDomain.xml"><linktext>flash.system.SecurityDomain</linktext></link></related-links></apiValue><apiValue id="mx.modules:ModuleLoader:child"><apiName>child</apiName><shortdesc>
+      基于模块 factory 创建的 DisplayObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      基于模块 factory 创建的 DisplayObject。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.modules:ModuleLoader:url:get"><apiName>url</apiName><shortdesc>
+      模块的位置，以 URL 表示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      模块的位置，以 URL 表示。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.modules:Module"><apiName>Module</apiName><shortdesc>
+  基于 MXML 的动态可加载模块的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.modules:Module" replacement="spark.modules.Module" since="4.5">
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.modules:IModule</apiBaseInterface><apiBaseClassifier>mx.core:LayoutContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  基于 MXML 的动态可加载模块的基类。通过使用 MXML 文件中的 <codeph>&lt;mx:Module></codeph> 标签，可以在 MXML 中扩展此类，如下例所示：
+  
+  <pre>
+  &lt;?xml version="1.0"?>
+  &lt;!-- This module loads an image. -->
+  &lt;mx:Module  width="100%" height="100%" xmlns:mx="http://www.adobe.com/2006/mxml">
+  
+    &lt;mx:Image source="trinity.gif"/>
+  
+  &lt;/mx:Module>
+  </pre>
+  
+  <p>扩展 ActionScript 中的 Module 类与使用 MXML 文件中的 <codeph>&lt;mx:Module></codeph> 标签一样。如果您的模块可与框架交互，则扩展此类。要查看扩展 Module 类的 ActionScript 类样例，请创建具有 <codeph>&lt;mx:Module></codeph> 根标签的 MXML 文件。编译此文件时，请将 <codeph>keep-generated-actionscript</codeph> 编译器选项的值设置为 <codeph>true</codeph>。Flex 编译器会将生成的 ActionScript 类存储在名为 generated 的目录中以便查看。</p>
+  
+  <p>如果您的模块不包含任何框架代码，则可以创建扩展 ModuleBase 类的类。与创建基于 Module 类的模块相比，如果您使用 ModuleBase 类，则通常情况下您的模块要小一些，因为它没有任何框架类依赖项。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.ModuleBase.xml"><linktext>mx.modules.ModuleBase</linktext></link></related-links><apiConstructor id="mx.modules:Module:Module"><apiName>Module</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

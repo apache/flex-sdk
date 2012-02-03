@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.collections"><apiName>spark.collections</apiName><apiDetail/><apiClassifier id="spark.collections:Sort"><apiName>Sort</apiName><shortdesc>
+  提供在现有视图上建立排序所需的排序信息（ICollectionView 接口或实现此接口的类）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><styles><style inherit="yes" name="locale" owner="spark.collections:Sort" playerVersion="Flash10.1" type="String">
+<description>
+  区域设置标识符，用于指定语言、区域、脚本，还可以指定其它相关的标签和键。此标识符的语法必须遵守 Unicode 技术标准 #35 定义的语法（如 en-US、de-DE、zh-Hans-CN）。
+ 
+  <p>对于基于浏览器的应用程序，默认区域设置基于浏览器的语言设置。（请注意，这不是在 Javascript 中可用的浏览器 UI 语言，而是用户已在浏览器首选参数中设置的 Web 页面首选区域设置的列表。）对于 AIR 应用程序，默认 UI 区域设置基于用户的系统首选参数。</p>
+ 
+  </description>
+
+<playerversion>AIR 2.5
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog><related-links><link href="http://www.unicode.org/reports/tr35/"><linktext>http://www.unicode.org/reports/tr35/</linktext></link></related-links></style></styles><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Sort&gt;</code> tag has the following attributes:</p>
+ 
+  <pre>
+  &lt;s:Sort
+  <b>Properties</b>
+  compareFunction="<em>Internal compare function</em>"
+  fields="null"
+  unique="false | true"
+  /&gt;
+  </pre>
+ 
+  <p>In case items have inconsistent data types or items have complex data types, use of default
+  built-in compare functions is not desired. Inconsistent sort result may occur in such cases.
+  To avoid such problem, provide custom compare function and/or make item types consistent.</p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISort</apiBaseInterface><apiBaseClassifier>mx.styles:AdvancedStyleClient</apiBaseClassifier></apiClassifierDef><apiDesc>
+  提供在现有视图上建立排序所需的排序信息（<codeph>ICollectionView</codeph> 接口或实现此接口的类）。将 <codeph>Sort</codeph> 实例分配给视图的 <codeph>sort</codeph> 属性后，必须调用该视图的 <codeph>refresh()</codeph> 方法才能应用此排序条件。
+ 
+  <p>通常，这种排序是针对包含复杂项目的集合定义的，这样的集合是指那些对其中的对象的一个或多个属性执行排序的集合。以下示例显示了这种用法：</p>
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     // In the real world, the collection would have more than one item.
+     col.addItem({first:"Anders", last:"Dickerson"});
+ 
+     // Create the Sort instance.
+     var sort:ISort = new Sort();
+ 
+     // Set the sort field; sort on the last name first, first name second.
+     var sortfieldLastName:ISortField = new SortField("last",true);
+     var sortfieldFirstName:ISortField = new SortField("first",true);
+ 
+     // Set the locale style to "en-US" to cause the strings
+     // to be ordered according to the rules for English as used in the USA.
+     sortfieldLastName.setStyle("locale","en-US");
+     sortfieldFirstName.setStyle("locale","en-US");
+     sort.fields = [sortfieldLastName, sortfieldFirstName];
+ 
+     // Assign the Sort object to the view.
+     col.sort = sort;
+ 
+     // Apply the sort to the collection.
+     col.refresh();
+  </codeph></pre>
+ 
+  <p>也有集合中包含简单项目（如 <codeph>String</codeph>、<codeph>Date</codeph> 和 <codeph>Boolean</codeph> 等）的情形。在这种情况下，可直接对简单类型应用排序。在构造简单项目的排序时，请使用一个排序字段，并在 SortField 对象构造函数中指定 <codeph>null</codeph> <codeph>name</codeph>（第一个）参数。例如：
+  <pre><codeph>
+     import mx.collections.ArrayCollection;
+     import spark.collections.Sort;
+     import spark.collections.SortField;
+ 
+     var col:ICollectionView = new ArrayCollection();
+     col.addItem("California");
+     col.addItem("Arizona");
+     var sort:Sort = new Sort();
+ 
+     // There is only one sort field, so use a <codeph>null</codeph> 
+     // first parameter. 
+     var sortfield:SortField = new SortField("null",true);
+ 
+     // Set the locale style to "en-US" to set the language for the sort.
+     sortfield.setStyle("locale","en-US");
+     sort.fields = [sortfield];
+     col.sort = sort;
+     col.refresh();
+  </codeph></pre>
+  </p>
+ 
+  <p><codeph>ICollectionView</codeph> 接口的 Flex 实现将先检索远程位置的所有项目，然后再执行排序。如果要对排序后的列表使用分页，请在检索数据之前对远程集合应用排序。
+  </p>
+ 
+  <p>由 <codeph>SortField</codeph> 类提供的默认比较可以将字符串按照特定语言进行正确排序。可以按照以下方式之一，设置类的实例的区域设置样式以选择语言：
+  </p>
+  <ul>
+  <li>
+  在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。
+  </li>
+  示例：
+  <pre>
+  &lt;fx:Declarations> 
+         &lt;s:SortField id="sf" /> 
+  &lt;/fx:Declarations>
+  </pre>
+  <li>
+  使用 MXML 声明并在赋值列表中指定区域设置值。
+  </li>
+  示例：
+  <pre>
+  &lt;fx:Declarations> 
+      &lt;s:SortField id="sf_SimplifiedChinese" locale="zh-Hans-CN" /> 
+  &lt;/fx:Declarations>
+  </pre>
+  <li>
+  调用 <codeph>setStyle</codeph> 方法，如 <codeph>sf.setStyle("locale", "zh-Hans-CN")</codeph>
+  </li>
+  <li> 
+  调用 UIComponent 的 <codeph>addStyleClient()</codeph> 方法来继承 <codeph>UIComponent</codeph> 的样式。
+  </li>
+  </ul>
+  
+  </apiDesc><example conref="SortExample1.mxml"><swfblock conref="examples/SortExample1.swf"/></example><example conref="SortExample2.mxml"><swfblock conref="examples/SortExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link><link href="spark.collections.xml#SortField"><linktext>spark.collections.SortField</linktext></link></related-links><apiConstructor id="spark.collections:Sort:Sort"><apiName>Sort</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      <p>创建一个不带字段集和自定义比较运算符的新 Sort。</p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.collections:Sort:findItem"><apiName>findItem</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>mode</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>returnInsertionIndex</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>compareFunction</apiItemName><apiType value="Function"/><apiData>null</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:Sort:propertyAffectsSort"><apiName>propertyAffectsSort</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>property</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:Sort:reverse"><apiName>reverse</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:Sort:sort"><apiName>sort</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Array"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.collections:Sort:ANY_INDEX_MODE"><apiName>ANY_INDEX_MODE</apiName><shortdesc>
+      执行查找时返回任何匹配项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>any</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      执行查找时返回任何匹配项的索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:Sort:FIRST_INDEX_MODE"><apiName>FIRST_INDEX_MODE</apiName><shortdesc>
+      执行查找时返回第一个匹配项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>first</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      执行查找时返回第一个匹配项的索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:Sort:LAST_INDEX_MODE"><apiName>LAST_INDEX_MODE</apiName><shortdesc>
+      执行查找时返回最后一个匹配项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      执行查找时返回最后一个匹配项的索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:Sort:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+  </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:Sort:fields:get"><apiName>fields</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="fieldsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href="spark.collections.xml#SortField"><linktext>SortField</linktext></link></related-links></apiValue><apiValue id="spark.collections:Sort:unique:get"><apiName>unique</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue></apiClassifier><apiClassifier id="spark.collections:NumericDataProvider"><apiName>NumericDataProvider</apiName><shortdesc>
+  此 IList 类生成的各项是一个连续的数字序列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IList</apiBaseInterface><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  此 IList 类生成的各项是一个连续的数字序列。<codeph>minimum</codeph> 和 <codeph>maximum</codeph> 属性之间的数字范围。<codeph>stepSize</codeph> 属性定义相邻项之间的差。
+ 
+ <p/>
+ <pre>
+ &lt;s:SpinnerList>
+   &lt;s:dataProvider>
+     &lt;s:NumericDataProvider minimum="0" maximum="23" stepSize="1"/>
+   &lt;/s:dataProvider>
+ &lt;/s:SpinnerList> 
+ </pre>
+ 
+  <p>此类的优点是项值在需要时才计算，而不是存储项值。</p>
+ 
+  <p><codeph/><codeph/><codeph/><codeph/><codeph/><codeph/></p>
+    
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.SpinnerList.xml"><linktext>spark.components.SpinnerList</linktext></link><link href="" invalidHref="mx.collections.IList.xml"><linktext>mx.collections.IList</linktext></link></related-links><apiConstructor id="spark.collections:NumericDataProvider:NumericDataProvider"><apiName>NumericDataProvider</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.collections:NumericDataProvider:addItemAt"><apiName>addItemAt</apiName><shortdesc>
+      不支持此函数.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      不支持此函数.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:addItem"><apiName>addItem</apiName><shortdesc>
+      不支持此函数.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      不支持此函数.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:getItemAt"><apiName>getItemAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:NumericDataProvider:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+      </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:NumericDataProvider:itemUpdated"><apiName>itemUpdated</apiName><shortdesc>
+      不支持此函数.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="Object"/><apiData>null</apiData></apiParam><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiData>null</apiData></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiData>null</apiData></apiParam></apiOperationDef><apiDesc>
+      不支持此函数.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:removeAll"><apiName>removeAll</apiName><shortdesc>
+      不支持此函数.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      不支持此函数.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:removeItemAt"><apiName>removeItemAt</apiName><shortdesc>
+      不支持此函数.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      不支持此函数.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:setItemAt"><apiName>setItemAt</apiName><shortdesc>
+      不支持此函数.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      不支持此函数.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.collections:NumericDataProvider:toArray"><apiName>toArray</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.collections:NumericDataProvider:length:get"><apiName>length</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:NumericDataProvider:maximum:get"><apiName>maximum</apiName><shortdesc>
+      最后一项的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>100
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      最后一项的值。此值必须大于最小值。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:NumericDataProvider:minimum:get"><apiName>minimum</apiName><shortdesc>
+      第一项的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      第一项的值。此值必须小于最小值。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:NumericDataProvider:stepSize:get"><apiName>stepSize</apiName><shortdesc>
+      stepSize 属性控制第一项和最后一项之间的各项的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      stepSize 属性控制第一项和最后一项之间的各项的值。对于每个项，值计算为 <codeph>minimum</codeph> 和该项的索引与此属性的乘积之和。 
+     
+      <p>例如，如果 <codeph>minimum</codeph> 是 10，<codeph>maximum</codeph> 是 20，此属性是 3，则此数据提供程序的项值为 10、13、16、19 和 20。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.collections:SortField"><apiName>SortField</apiName><shortdesc>
+  提供对集合视图中的字段或属性建立排序所需的排序信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><styles><style inherit="yes" name="locale" owner="spark.collections:SortField" playerVersion="Flash10.1" type="String">
+<description>
+  区域设置标识符，用于指定语言、区域、脚本，还可以指定其它相关的标签和键。此标识符的语法必须遵守 Unicode 技术标准 #35 定义的语法（如 en-US、de-DE、zh-Hans-CN）。
+ 
+  <p>对于基于浏览器的应用程序，默认区域设置基于浏览器的语言设置。（请注意，这不是在 Javascript 中可用的浏览器 UI 语言，而是用户已在浏览器首选参数中设置的 Web 页面首选区域设置的列表。）对于 AIR 应用程序，默认 UI 区域设置基于用户的系统首选参数。</p>
+ 
+  </description>
+
+<playerversion>AIR 2.5
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4.5
+ </productversion></asCustoms></prolog><related-links><link href="http://www.unicode.org/reports/tr35/"><linktext>http://www.unicode.org/reports/tr35/</linktext></link></related-links></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:SortField&gt;</code> tag has the following attributes:</p>
+ 
+  <pre>
+  &lt;s:SortField
+  <b>Properties</b>
+  compareFunction="<em>Internal compare function</em>"
+  descending="false"
+  name="null"
+  numeric="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISortField</apiBaseInterface><apiBaseClassifier>mx.styles:AdvancedStyleClient</apiBaseClassifier></apiClassifierDef><apiDesc>
+  提供对集合视图中的字段或属性建立排序所需的排序信息。SortField 类打算与 Sort 类一起使用。通常，这种排序是针对包含复杂项目的集合定义的，复杂项目是指那些要在其中对这些对象的属性执行排序的项目。如下例所示：
+ 
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     col.addItem({first:"Anders", last:"Dickerson"});
+     var sort:Sort = new Sort();
+     var sortfield:SortField = new SortField("first", true);
+     sortfield.setStyle("locale", "en-US");
+     sort.fields = [sortfield];
+     col.sort = sort;
+  </codeph></pre>
+ 
+  也有集合中包含简单项目（如 <codeph>String</codeph>、<codeph>Date</codeph> 和 <codeph>Boolean</codeph> 等）的情形。在这种情况下，应直接对简单类型应用排序。在这种情况下构造排序时，只需要一个排序字段，且不应指定 <codeph>name</codeph>。例如：
+ 
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     col.addItem("California");
+     col.addItem("Arizona");
+     var sort:Sort = new Sort();
+     var sortfield:SortField = new SortField(null, true);
+     sortfield.setStyle("locale", "en-US");
+     sort.fields = [sortfield];
+     col.sort = sort;
+  </codeph></pre>
+ 
+  <p>由 <codeph>SortField</codeph> 类提供的默认比较可以将字符串按照特定语言进行正确排序。可以按照以下方式之一，设置类的实例的区域设置样式以选择语言：
+  </p>
+  <ul>
+  <li>
+  在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。
+  </li>
+  示例：
+  <pre>
+  &lt;fx:Declarations> 
+         &lt;s:SortField id="sf" /> 
+  &lt;/fx:Declarations>
+  </pre>
+  <li>
+  使用 MXML 声明并在赋值列表中指定区域设置值。
+  </li>
+  示例：
+  <pre>
+  &lt;fx:Declarations> 
+      &lt;s:SortField id="sf_SimplifiedChinese" locale="zh-Hans-CN" /> 
+  &lt;/fx:Declarations>
+  </pre>
+  <li>
+  调用 <codeph>setStyle</codeph> 方法，如 <codeph>sf.setStyle("locale", "zh-Hans-CN")</codeph>
+  </li>
+  <li> 
+  调用 UIComponent 的 <codeph>addStyleClient()</codeph> 方法来继承 <codeph>UIComponent</codeph> 的样式。
+  </li>
+  </ul>
+  
+  </apiDesc><example conref="SortExample1.mxml"><swfblock conref="examples/SortExample1.swf"/></example><example conref="SortExample2.mxml"><swfblock conref="examples/SortExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link><link href="spark.collections.xml#Sort"><linktext>spark.collections.Sort</linktext></link></related-links><apiConstructor id="spark.collections:SortField:SortField"><apiName>SortField</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此字段用来进行比较的属性的名称。如果该对象为简单类型，则传递 <codeph>null</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>descending</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示比较运算符是否按降序排列项目。
+      </apiDesc></apiParam><apiParam><apiItemName>numeric</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>指示比较运算符是否按编号而不按字母顺序比较排序项目。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.collections:SortField:initializeDefaultCompareFunction"><apiName>initializeDefaultCompareFunction</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.collections:SortField:reverse"><apiName>reverse</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.collections:SortField:arraySortOnOptions:get"><apiName>arraySortOnOptions</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:SortField:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      用于在对关联集合的项目进行排序时比较两个项目的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      用于在对关联集合的项目进行排序时比较两个项目的函数。如果指定了 ISort 对象中的 <codeph>compareFunction</codeph><codeph/> 属性，则 Flex 会忽略 ISort 的 SortField 对象的所有 <codeph>compareFunction</codeph> 属性。<codeph/>
+     
+      <p>该比较函数必须具有以下签名：</p>
+     
+      <p><codeph>function myCompare(a:Object, b:Object):int</codeph></p>
+     
+      <p>此函数必须返回以下值：</p>
+     
+       <ul>
+            <li>-1，如果在已排序序列中 <codeph>Object a</codeph> 应显示在 <codeph>Object b</codeph> 之前。</li>
+            <li>0，如果 <codeph>Object a</codeph> 等于 <codeph>Object b</codeph>。</li>
+            <li>1，如果在已排序序列中 <codeph>Object a</codeph> 应显示在 <codeph>Object b</codeph> 之后。</li>
+      </ul>
+     
+      <p>默认值为可以按升序或降序执行字符串、数字或日期比较的内部比较函数。从 <codeph>SortingCollator</codeph> 类调用特定于区域设置（语言、地区和脚本）的比较方法，以执行字符串比较。此类使用区域设置样式来确定区域设置。请仅在需要自定义比较算法时指定自己的函数。这种情况通常仅当在显示中使用计算的字段时出现。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.collections:SortField:descending:get"><apiName>descending</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="descendingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:SortField:name:get"><apiName>name</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nameChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:SortField:numeric:get"><apiName>numeric</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="numericChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.collections:SortField:usingCustomCompareFunction:get"><apiName>usingCustomCompareFunction</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><compareFunction>
+     
+      </compareFunction></asCustoms></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/><related-links><link href=""><linktext/></link></related-links></apiValue></apiClassifier></apiPackage>

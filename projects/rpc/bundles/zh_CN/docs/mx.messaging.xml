@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging"><apiName>mx.messaging</apiName><apiDetail/><apiClassifier id="mx.messaging:FlexClient"><apiName>FlexClient</apiName><shortdesc>
+  Singleton 类，用于存储客户端与服务器建立初始连接时服务器分配的此 Player 实例的全局 Id。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Singleton 类，用于存储客户端与服务器建立初始连接时服务器分配的此 Player 实例的全局 Id。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:FlexClient_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  FlexClient singleton 的某一属性发生更改时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  FlexClient singleton 的某一属性发生更改时分派。必须通过 FlexClient.getInstance().addEventListener(...) 添加侦听器。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.messaging:FlexClient:getInstance"><apiName>getInstance</apiName><shortdesc>
+	  返回此 singleton 类的唯一实例；如果不存在这样的实例，则创建一个。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>返回此 singleton 类的唯一实例；如果不存在这样的实例，则创建一个。
+	  
+	  </apiDesc><apiOperationClassifier>mx.messaging:FlexClient</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+	  返回此 singleton 类的唯一实例；如果不存在这样的实例，则创建一个。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:FlexClient:id:get"><apiName>id</apiName><shortdesc>
+      此 Player 实例的全局 FlexClient Id。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      此 Player 实例的全局 FlexClient Id。此值由服务器分配，并被设置为 Channel 连接过程的一部分。一经设置，它在 Player 实例的生命期内就不会发生更改。如果没有 Channel 连接到服务器，则此值为 null。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:AbstractProducer"><apiName>AbstractProducer</apiName><shortdesc>
+  AbstractProducer 是 Producer 和 MultiTopicConsumer 类的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:MessageAgent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AbstractProducer 是 Producer 和 MultiTopicConsumer 类的基类。您可以使用这些类向服务器推送消息。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging:AbstractProducer:connect"><apiName>connect</apiName><shortdesc>
+      将 Producer 连接到其目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc> 如果未设置目标。
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将 Producer 连接到其目标。建立连接后，<codeph>connected</codeph> 属性将变为 <codeph>true</codeph>，而此属性为可绑定，并生成 <codeph>PropertyChangeEvent</codeph>。根据基础通道是否建立其连接，所发送的内部 TRIGGER_CONNECT_OPERATION CommandMessage 将产生确认或错误事件。
+     
+      </apiDesc><example>
+      <pre>
+         var producer:Producer = new Producer();
+         producer.destination = "TestTopic";
+         producer.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, handleConnect);
+         producer.connect();
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractProducer:disconnect"><apiName>disconnect</apiName><shortdesc>
+      断开 Producer 与其远程目标之间的连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      断开 Producer 与其远程目标之间的连接。此方法不会等待未完成的网络操作完成。调用 <codeph>disconnect()</codeph> 之后，Producer 将报告其未连接，并且不会收到任何未完成的消息确认或错误。如果正在尝试重新连接，断开连接会停止自动重新连接的尝试。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractProducer:send"><apiName>send</apiName><shortdesc>
+      向其目标发送指定的消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc> 如果未设置目标。
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>要发送的 Message。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      向其目标发送指定的消息。如果使用 producer 发布/订阅消息传递，则除非使用自定义消息类型，并且服务器上的消息目标已配置为处理自定义消息类型，否则只可以发送 AsyncMessage 类型的消息。
+     
+      </apiDesc><example>
+      <pre>
+         var producer:Producer = new Producer();
+         producer.destination = "TestTopic";
+         var msg:AsyncMessage = new AsyncMessage();
+         msg.body = "test message";
+         producer.send(msg);
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation><apiValue id="mx.messaging:AbstractProducer:autoConnect:get"><apiName>autoConnect</apiName><shortdesc>
+      如果为 true，则 Producer 将在第一次调用 send() 方法时自动连接到其目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则 Producer 将在第一次调用 <codeph>send()</codeph> 方法时自动连接到其目标。如果为 <codeph>false</codeph>，必须显式调用 <codeph>connect()</codeph> 方法才能建立与目标的连接。默认情况下，此属性为 <codeph>true</codeph>，但需要在脱机模式下操作的应用程序可能将此属性设置为 <codeph>false</codeph>，以防止 <codeph>send()</codeph> 方法隐式连接。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:defaultHeaders:get"><apiName>defaultHeaders</apiName><shortdesc>
+      要应用于 Producer 发送的消息的默认标头。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      要应用于 Producer 发送的消息的默认标头。将创建消息中不存在的任何默认标头。如果消息已包含匹配的标头，则消息中的值优先，并忽略默认标头值。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:priority:get"><apiName>priority</apiName><shortdesc>
+      制作程序发送的消息的默认消息优先级。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      制作程序发送的消息的默认消息优先级。有效值是 0 到 9（0 表示最低优先级），值 -1 表示制作程序未设置优先级。请注意，如果消息已定义优先级，则该优先级优先于制作程序设置的优先级。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractProducer:reconnectAttempts:get"><apiName>reconnectAttempts</apiName><shortdesc>
+      Producer 在目标不可用或连接到目标关闭的情况下进行的重新连接尝试次数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Producer 在目标不可用或连接到目标关闭的情况下进行的重新连接尝试次数。如果值为 -1，则可以无限制地尝试。如果值为 0，则无法尝试重新连接。
+      
+      <p>根据重新连接间隔值以恒定速率尝试重新连接。如果在 Producer 的基础通道未连接或正在尝试连接时尝试重新连接，则该通道将开始尝试重新连接。在基础通道连接尝试正在进行时发生的后续 Producer 重新连接尝试将被有效忽略，直到正在进行的通道连接尝试成功或失败。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Producer/reconnectInterval"><linktext>mx.messaging.Producer.reconnectInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractProducer:reconnectInterval:get"><apiName>reconnectInterval</apiName><shortdesc>
+      重新连接尝试之间间隔的毫秒数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiException><apiDesc>如果分配的值为负数。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      重新连接尝试之间间隔的毫秒数。如果 Producer 未收到尝试连接的确认，则它将等待指定的毫秒数，然后再尝试进行接下来的重新连接。将值设置为 0 将无法尝试重新连接。
+      
+      <p>根据此值以恒定速率尝试重新连接。如果在 Producer 的基础通道未连接或正在尝试连接时尝试重新连接，则该通道将开始尝试重新连接。在基础通道连接尝试正在进行时发生的后续 Producer 重新连接尝试将被有效忽略，直到正在进行的通道连接尝试成功或失败。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Producer/reconnectInterval"><linktext>mx.messaging.Producer.reconnectInterval</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging:ChannelSet"><apiName>ChannelSet</apiName><shortdesc>
+  ChannelSet 是用于将消息发送到目标的一组 Channel。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion><DefaultProperty name="channels"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChannelSet 是用于将消息发送到目标的一组 Channel。如果出现网络失败或单个 Channel 问题，ChannelSet 可搜索其 Channel 来发送消息，从而提高了客户端的服务质量。
+   </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:ChannelSet_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  在 ChannelSet 的某一属性发生更改时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在 ChannelSet 的某一属性发生更改时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.rpc.events.FaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+ 登录或注销调用失败时，将分派错误事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.FaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.FaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 登录或注销调用失败时，将分派错误事件。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.rpc.events.ResultEvent.RESULT_result"><apiName>result</apiName><shortdesc>
+ 登录或注销调用成功返回时，将分派结果事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events.ResultEvent.RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events.ResultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 登录或注销调用成功返回时，将分派结果事件。
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  ChannelSet 中的某一 Channel 出错后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ChannelSet 中的某一 Channel 出错后分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  ChannelSet 中的某一 Channel 与其端点断开连接后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ChannelSet 中的某一 Channel 与其端点断开连接后分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:ChannelSet_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  ChannelSet 中的某一 Channel 连接到其端点后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ChannelSet 中的某一 Channel 连接到其端点后分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:ChannelSet:ChannelSet"><apiName>ChannelSet</apiName><shortdesc>
+      构造 ChannelSet。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>channelIds</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>从 ServerConfig 获得的已配置 Channel 的 id，供此 ChannelSet 使用。如果为 null，必须手动将 Channel 添加到 ChannelSet。
+           </apiDesc></apiParam><apiParam><apiItemName>clusteredWithURLLoadBalancing</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果使用 url 负载平衡群集化 ChannelSet 中的 Channel，则为 true。
+           </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造 ChannelSet。如果提供 <codeph>channelIds</codeph> 参数，ChannelSet 将自动使用通过 <codeph>ServerConfig.getChannel()</codeph> 获得的已配置 Channel 来达到目标。不允许尝试手动将 Channel 分配给使用已配置 Channel 的 ChannelSet。
+           <p>如果未提供 <codeph>channelIds</codeph> 参数或该参数为 null，必须手动创建 Channel 并将其添加到 ChannelSet，才能连接和发送消息。</p>
+           <p>如果使用 url 负载平衡（其中每个服务器声明唯一的 RTMP 或 HTTP URL，并且客户端将故障从一个 URL 转移到另一个 URL）群集化 ChannelSet，则当 ChannelSet 中的 Channel 连接首次成功时，ChannelSet 将自动为所有成员 Channel 发出对群集中的所有端点的请求，并将这些故障转移 URL 分别分配给各个 Channel。这允许 ChannelSet 中的各个 Channel 单独进行故障转移，并且当特定 Channel 的故障转移选项用尽时，ChannelSet 将进入到该集中的下一个 Channel 以尝试重新建立连接。</p>
+           <p>无论 clustering 为何，如果 Channel 无法连接或连接松动，ChannelSet 都将进入到它的下一个可用 Channel 并尝试重新建立连接。这允许 ChannelSet 在使用不同协议、端口等的 Channel 中进行搜索，以找出一个可以成功连接到其端口的 Channel。</p>
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:ChannelSet:addChannel"><apiName>addChannel</apiName><shortdesc>
+      将 Channel 添加到 ChannelSet。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 ChannelSet 为 <codeph>configured</codeph>，将不支持添加 Channel。如果 ChannelSet 的 <codeph>clustered</codeph> 属性为 <codeph>true</codeph>，但 Channel 的 id 为 null，也会引发此错误。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>要添加的 Channel。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 Channel 添加到 ChannelSet。如果 ChannelSet 面向群集化的目标，则无法将 id 为 null 的 Channel 添加到 ChannelSet。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelConnectHandler"><apiName>channelConnectHandler</apiName><shortdesc>
+      处理 CONNECT ChannelEvent 并重新分派该事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 CONNECT ChannelEvent 并重新分派该事件。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelDisconnectHandler"><apiName>channelDisconnectHandler</apiName><shortdesc>
+      处理 DISCONNECT ChannelEvent 并重新分派该事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 DISCONNECT ChannelEvent 并重新分派该事件。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:channelFaultHandler"><apiName>channelFaultHandler</apiName><shortdesc>
+      处理 ChannelFaultEvent 并重新分派该事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>ChannelFaultEvent。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 ChannelFaultEvent 并重新分派该事件。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:connect"><apiName>connect</apiName><shortdesc>
+      将 MessageAgent 联接到 ChannelSet。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>要连接的 MessageAgent。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 MessageAgent 联接到 ChannelSet。连接后，代理便可以使用 ChannelSet 发送消息。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:disconnectAll"><apiName>disconnectAll</apiName><shortdesc>
+      与所有相关的 MessageAgent 断开连接并与已连接的任何基础 Channel 断开连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      与所有相关的 MessageAgent 断开连接并与已连接的任何基础 Channel 断开连接。<codeph>disconnect(MessageAgent)</codeph> 由特定服务组件的断开连接实现调用，此方法与之不同，它为关闭客户端和服务器之间的连接提供了一个方便点。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:disconnect"><apiName>disconnect</apiName><shortdesc>
+      断开特定 MessageAgent 与 ChannelSet 之间的连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>要断开连接的 MessageAgent。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      断开特定 MessageAgent 与 ChannelSet 之间的连接。如果这是使用 ChannelSet 的最后一个 MessageAgent，并且该集中的当前 Channel 处于已连接状态，则该 Channel 将与服务器从物理上断开连接。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:login"><apiName>login</apiName><shortdesc>
+      针对使用提供的凭据的服务器对 ChannelSet 进行身份验证。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>有两种情况：ChannelSet 已经过身份验证，或者登录或注销操作当前正在进行中。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>返回客户端代码为了直接处理成功或失败而可能向其添加 responder 的标记。
+           </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>用户名。
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>密码。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。其它受支持的字符集仅有“UTF-8”。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      针对使用提供的凭据的服务器对 ChannelSet 进行身份验证。与 Channel 和 ChannelSet 上的其他操作不同，此操作将返回客户端代码可能将响应方添加到的 AsyncToken，以便直接处理成功或失败。如果调用此方法时 ChannelSet 尚未连接到服务器，它将触发连接尝试，如果连接尝试成功，则会向服务器发送登录命令。一次只能挂起一个登录或注销操作，如果调用发生重叠，则将生成 IllegalOperationError。如果在 ChannelSet 已经过身份验证时调用登录，也会生成 IllegalOperationError。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:logout"><apiName>logout</apiName><shortdesc>
+      从服务器注销 ChannelSet。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果登录或注销操作当前正在进行中。
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>返回客户端代码为了直接处理成功或失败而可能向其添加 responder 的标记。
+           </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiData>null</apiData><apiDesc>Legacy 参数。启动注销的 MessageAgent。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从服务器注销 ChannelSet。与 Channel 和 ChannelSet 上的其他操作不同，此操作将返回客户端代码可能将响应方添加到的 AsyncToken，以便直接处理成功或失败。如果注销成功，将为 ChannelSet 及其 Channel 清除所有为了用于自动重新连接而进行缓存的凭据，并且将它们已经过身份验证的状态设置为 false。如果调用此方法时 ChannelSet 尚未连接到服务器，它将触发连接尝试，如果连接尝试成功，则会向服务器发送注销命令。
+           <p>MessageAgent 参数旨在支持旧的注销行为，并且调用此方法的客户端代码将不会传递 MessageAgent 引用。仅调用 <codeph>logout()</codeph> 不会传递任何参数。</p>
+           <p>服务组件也从它们的 <codeph>logout()</codeph> 方法调用此方法，并且这些组件在注销时将 MessageAgent 引用传递给此方法。此参数的出现可触发执行旧的注销行为，该行为与以上所述的新行为不同。如果客户端已连接并且已经过身份验证，则旧的行为仅向服务器发送注销请求。如果不满足这些条件，此方法的旧行为除仅清除所有为用于自动重新连接而进行缓存的凭据之外，不会进行任何其他操作。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:protected:messageHandler"><apiName>messageHandler</apiName><shortdesc>
+      重新分派来自当前连接的 Channel 的消息事件。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:MessageEvent</apiOperationClassifier><apiDesc>来自 Channel 的 MessageEvent。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      重新分派来自当前连接的 Channel 的消息事件。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:removeChannel"><apiName>removeChannel</apiName><shortdesc>
+      将 Channel 从 ChannelSet 中删除。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 ChannelSet 为 <codeph>configured</codeph>，则不支持删除 Channel。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>要删除的 Channel。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 Channel 从 ChannelSet 中删除。如果要删除的 Channel 当前处于已连接状态并由 ChannelSet 使用，则它在被删除的同时也就断开了连接。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:send"><apiName>send</apiName><shortdesc>
+      通过当前连接的 Channel 发送 MessageAgent 中的消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 ChannelSet 不包含可供使用的内部 Channel。
+           </apiDesc><apiItemName>NoChannelAvailableError</apiItemName><apiOperationClassifier>mx.messaging.errors:NoChannelAvailableError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>用于发送消息的 MessageAgent。
+           </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>要发送的 Message。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过当前连接的 Channel 发送 MessageAgent 中的消息。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      存储这些凭据并将它们传送到每个已连接的通道。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>适用于两种情况：已设置凭据并且正在对远程目标进行身份验证；已经过身份验证，但指定的凭据与当前已经过身份验证的凭据不匹配。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>credentials</apiItemName><apiType value="String"/><apiDesc>MessageAgent 的凭据。
+      </apiDesc></apiParam><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>设置凭据的 MessageAgent。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对凭据进行编码时使用的字符集编码。默认值为 null，表示旧编码为 ISO-Latin-1。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      存储这些凭据并将它们传送到每个已连接的通道。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:ChannelSet:toString"><apiName>toString</apiName><shortdesc>
+      返回包含 ChannelSet 中 Channel 的 id 的 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>ChannelSet 的字符串表示形式。
+           </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回包含 ChannelSet 中 Channel 的 id 的 String。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:ChannelSet:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      指示 ChannelSet 是否包含已成功对其端点进行身份验证的基础 Channel。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示 ChannelSet 是否包含已成功对其端点进行身份验证的基础 Channel。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:channelIds:get"><apiName>channelIds</apiName><shortdesc>
+      ChannelSet 使用的 Channel 的 id。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      ChannelSet 使用的 Channel 的 id。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:channels:get"><apiName>channels</apiName><shortdesc>
+      提供对 ChannelSet 中 Channel 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiException><apiDesc>如果 ChannelSet 为 <codeph>configured</codeph>，将不允许为此属性分配值。
+           </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      提供对 ChannelSet 中 Channel 的访问。此属性可用于立即分配一组通道或通过 addChannel() 直接将这些通道逐个添加到 ChannelSet。如果此 ChannelSet 为 <codeph>configured</codeph>，将自动松散创建各个通道并根据需要将其添加到此属性。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:clustered:get"><apiName>clustered</apiName><shortdesc>
+      指示 ChannelSet 是否面向群集化的目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示 ChannelSet 是否面向群集化的目标。如果为 true，则连接成功后，ChannelSet 将为所有群集化端点的目标查询其 Channel，并为它们分配 failoverURI。Channel id 用于将 failoverURI 分配给合适的 Channel 实例，因此这需要 ChannelSet 中的所有 Channel 的 id 为非 null，否则，将此属性设置为 true 时会引发错误。如果 ChannelSet 未使用客户端上的 url 负载平衡，则不会将此属性设置为 true。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:connected:get"><apiName>connected</apiName><shortdesc>
+      指示 ChannelSet 是否已连接。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示 ChannelSet 是否已连接。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:currentChannel:get"><apiName>currentChannel</apiName><shortdesc>
+      返回 ChannelSet 的当前 Channel。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      返回 ChannelSet 的当前 Channel。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:heartbeatInterval:get"><apiName>heartbeatInterval</apiName><shortdesc>
+      此 ChannelSet 已主动连接但处于空闲状态时，每次发送检测信号到远程主机之间的毫秒数。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      此 ChannelSet 已主动连接但处于空闲状态时，每次发送检测信号到远程主机之间的毫秒数。任何出站消息通信将临时延迟检测信号，即在上一条消息发出之后，在该指定的毫秒数后，再发出下一个检测信号。
+      <p>
+      此属性对于以下应用程序很有用：这些应用程序连接到远程主机以接收已推送的更新，且不主动发送任何消息，但仍希望在断开连接时收到通知（即使当网络层无法直接提供这样的通知时也是如此）。在基础连接已断开但未发出通知，且应用程序可以对断开连接做出适当响应时，通过发出定期检测信号，客户端可以强制网络层报告超时。
+      </p>
+      <p>
+      任何非正值会禁用到远程主机的检测信号。默认值 0 指示检测信号已禁用。如果应用程序设置此值，应该首选较长的时间间隔，而不是较短的时间间隔，才能避免对远程主机施加不必要的负载。以下示例是一个典型示例：低级 TCP 套接字保持活动状态的时间间隔通常默认为 2 小时。此时间间隔比启用检测信号的大多数应用程序将可能希望使用的时间间隔更长，但它可作为首选较长时间间隔而不是较短时间间隔的一个清晰先例。
+      </p>
+      <p>
+      如果当前已连接的基础 Channel 发出对远程主机的轮询请求，则因为定期轮询请求有效地代替了它们，所以检测信号被抑制。</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:initialDestinationId:get"><apiName>initialDestinationId</apiName><shortdesc>
+      通过此属性可以访问用此 ChannelSet 访问的初始目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      通过此属性可以访问用此 ChannelSet 访问的初始目标。clustered 属性为 ture 时，此值用于为目标的已配置通道请求可用的故障转移 URI。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:ChannelSet:messageAgents:get"><apiName>messageAgents</apiName><shortdesc>
+      提供对使用此 ChannelSet 的一组 MessageAgent 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      提供对使用此 ChannelSet 的一组 MessageAgent 的访问。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MultiTopicProducer"><apiName>MultiTopicProducer</apiName><shortdesc>
+  MultiTopicProducer 将消息发送到具有零个或多个 subtopics 的目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractProducer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MultiTopicProducer 将消息发送到具有零个或多个 subtopics 的目标。它与常规 Producer 类似，但它可以将消息定向到任何订阅大量 subtopics 之一的使用者。如果使用者是 MultiTopicConsumer，并且该使用者已订阅了生产者使用的 subtopics 列表中的多个 subtopic，则使用者将仅能收到消息一次。
+  <p>
+  MultiTopicProducer 将为其发送的每条消息分派 MessageAckEvent 或 MessageFaultEvent，具体取决于出站消息的发送和处理是否成功。
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:MultiTopicProducer:MultiTopicProducer"><apiName>MultiTopicProducer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function sendMessage():void
+       {
+           var producer:MultiTopicProducer = new MultiTopicProducer();
+           producer.destination = "NASDAQ";
+           var msg:AsyncMessage = new AsyncMessage();
+           msg.headers.operation = "UPDATE";
+           msg.body = {"SYMBOL":50.00};
+           // only send to subscribers to subtopic "SYMBOL" and "ALLSTOCKS"
+           msg.addSubtopic("SYMBOL");
+           msg.addSubtopic("ALLSTOCKS");
+           producer.send(msg);
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MultiTopicProducer:addSubtopic"><apiName>addSubtopic</apiName><shortdesc>
+     将 subtopic 添加到此制造者发送的消息的当前 subtopics 列表中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiDesc>要添加到由此 producer 发送的 subtopic 的当前列表的 subtopic。
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将 subtopic 添加到此制造者发送的消息的当前 subtopics 列表中。这是将此 subtopic 添加到 subtopics 属性的快捷方式。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicProducer:removeSubtopic"><apiName>removeSubtopic</apiName><shortdesc>
+     将 subtopic 从 subtopics 属性中删除。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiDesc>要从 subtopics 属性删除的 subtopic。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将 subtopic 从 subtopics 属性中删除。如果列表中不包含该 subtopic，则将引发错误。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MultiTopicProducer:subtopics:get"><apiName>subtopics</apiName><shortdesc>
+      提供对发布消息时使用的 subtopics 列表的访问
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:ArrayCollection"/></apiValueDef><apiDesc>
+      提供对发布消息时使用的 subtopics 列表的访问
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MultiTopicConsumer"><apiName>MultiTopicConsumer</apiName><shortdesc>
+      与 Consumer 类似，MultiTopicConsumer 使用单个 clientId 订阅目标，并将消息传递到单个事件处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+      <p>
+      The &lt;mx:MultiTopicConsumer&gt; tag has these properties:
+      </p>
+      <pre>
+       &lt;mx:Consumer
+        <b>Properties</b>
+        subscriptions="<i>"an empty ArrayCollection of SubscriptionInfo objects</i>"
+        resubscribeAttempts="<i>5</i>"
+        resubscribeInterval="<i>5000</i>"
+        timestamp="<i>No default.</i>"
+      /&gt;
+      </pre>
+     
+      ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractConsumer</apiBaseClassifier></apiClassifierDef><apiDesc>
+      与 Consumer 类似，MultiTopicConsumer 使用单个 clientId 订阅目标，并将消息传递到单个事件处理函数。与 Consumer 不同，它使您可以在单个消息处理程序中同时注册一组 subtopics 和选择器表达式的 subscriptions。Consumer 具有 subtopic 和 selector 属性，而此组件则包含 addSubscription(subtopic, selector) 方法，可用于将新订阅添加到现有 subscriptions 集中。或者，您可以使用 SubscriptionInfo 实例列表填充 subscriptions 属性，这些实例定义对此目标的 subscriptions。
+      <p>
+      与常规 Consumer 类似，MultiTopicConsumer 发送生成 MessageAckEvent 或 MessageFaultEvent 的订阅和取消订阅消息，生成内容取决于操作是否成功。订阅后，MultiTopicConsumer 便会为它接收到的每条消息分派 MessageEvent。</p>
+      </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:MultiTopicConsumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+      Consumer 接收到消息时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+      Consumer 接收到消息时分派。
+     
+      </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:MultiTopicConsumer:MultiTopicConsumer"><apiName>MultiTopicConsumer</apiName><shortdesc>
+          构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+          构造函数。
+         
+         
+          </apiDesc><example>
+          <codeblock rev="3.0">
+           function initConsumer():void
+           {
+               var consumer:Consumer = new MultiTopicConsumer();
+               consumer.destination = "NASDAQ";
+               consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+               consumer.addSubscription("myStock1", "operation IN ('BID', 'Ask')");
+               consumer.addSubscription("myStock2", "operation IN ('BID', 'Ask')");
+               consumer.subscribe();
+           }
+         
+           function messageHandler(event:MessageEvent):void
+           {
+               var msg:IMessage = event.message;
+               var info:Object = msg.body;
+               trace("-App recieved message: " + msg.toString());
+           }
+           </codeblock>
+         
+          </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MultiTopicConsumer:addSubscription"><apiName>addSubscription</apiName><shortdesc>
+         这是添加新订阅的简便方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>新订阅的 subtopic。
+         
+         </apiDesc></apiParam><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>新订阅的选择器。
+         
+         </apiDesc></apiParam><apiParam><apiItemName>maxFrequency</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>Consumer 希望每秒钟收到订阅消息的最大数量。请注意，此值将覆盖 Consumer 范围的 maxFrequency。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         这是添加新订阅的简便方法。它只创建新 SubscriptionInfo 对象并将其添加到 subscriptions 属性。要调用此方法，您需要为新订阅提供 subtopic 以及选择器字符串。如果 subtopic 为 null，则订阅将应用于制造者中未设置 subtopic 的消息。如果选择器字符串为 null，则已发送的与 subtopic 字符串匹配的所有消息都将由此使用者接收。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:protected:buildSubscribeMessage"><apiName>buildSubscribeMessage</apiName><shortdesc>
+         返回订阅消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>订阅 CommandMessage。
+         
+          </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+         返回订阅消息。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:protected:buildUnsubscribeMessage"><apiName>buildUnsubscribeMessage</apiName><shortdesc>
+         返回取消订阅消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>取消订阅 CommandMessage。
+         
+          </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiDesc>如果为 true，则不会破坏持久 JMS 订阅，以使使用者稍后可以重新订阅和接收错过的消息。
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+         返回取消订阅消息。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MultiTopicConsumer:removeSubscription"><apiName>removeSubscription</apiName><shortdesc>
+         此方法可删除 subtopic 和选择器指定的订阅。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>subtopic</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>订阅的 subtopic。
+         
+         </apiDesc></apiParam><apiParam><apiItemName>selector</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>订阅的选择器。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         此方法可删除 subtopic 和选择器指定的订阅。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MultiTopicConsumer:subscriptions:get"><apiName>subscriptions</apiName><shortdesc>
+          存储 SubscriptionInfo 对象的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:ArrayCollection"/></apiValueDef><apiDesc>
+          存储 SubscriptionInfo 对象的 Array。每个订阅都包含一个 subtopic 和一个选择器，其中两者均可以为 null。subtopic 为非 null 的订阅将仅允许订阅通过该 subtopic 传递的消息。如果 subtopic 为 null，它将使用无 subtopic 的选择器。如果选择器和 subtopic 均为 null，则订阅将接收面向无 subtopic 的目标的任何消息。subtopic 可以包含通配符规范。
+         
+          <p>调用 <codeph>subscribe()</codeph> 方法之前，可以设置此属性，且不会产生任何副作用。MultiTopicConsumer 订阅其目标后，更改此值会产生以下副作用：更新 MultiTopicConsumer 的订阅以包含所有新的 subscriptions 并删除从 ArrayCollection 中删除的所有 subscriptions。</p>
+         
+          <p>远程目标必须了解选择器表达式的值。</p>
+         
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Consumer"><apiName>Consumer</apiName><shortdesc>
+  Consumer 订阅目标以接收消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The &lt;mx:Consumer&gt; tag inherits all the tag attributes of its superclass, and adds the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:Consumer
+    <b>Properties</b>
+    resubscribeAttempts="<i>5</i>"
+    resubscribeInterval="<i>5000</i>"
+    selector="<i>No default.</i>"
+    timestamp="<i>No default.</i>"
+  /&gt;
+  </pre> 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractConsumer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Consumer 订阅目标以接收消息。Consumer 发送生成 MessageAckEvent 或 MessageFaultEvent 的订阅和取消订阅消息，生成内容取决于操作是否成功。订阅后，Consumer 便会为它接收到的每条消息分派 MessageEvent。Consumer 提供使用选择器筛选消息的功能。目标必须了解这些选择器。
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:Consumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  Consumer 接收到消息时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Consumer 接收到消息时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:Consumer:Consumer"><apiName>Consumer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>messageType</apiItemName><apiType value="String"/><apiData>flex.messaging.messages.AsyncMessage</apiData><apiDesc>消息类型别名，由承载 Consumer 将订阅的远程目标的服务处理。不推荐使用此参数，并且构造函数将忽略它。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function initConsumer():void
+       {
+           var consumer:Consumer = new Consumer();
+           consumer.destination = "NASDAQ";
+           consumer.selector = "operation IN ('Bid','Ask')";
+           consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+           consumer.subscribe();
+       }
+     
+       function messageHandler(event:MessageEvent):void
+       {
+           var msg:IMessage = event.message;
+           var info:Object = msg.body;
+           trace("-App recieved message: " + msg.toString());
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:Consumer:selector:get"><apiName>selector</apiName><shortdesc>
+	  Consumer 的选择器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Consumer 的选择器。这是传递到目标的表达式，目标将使用该表达式筛选传递到 Consumer 的消息。
+	 
+	  <p>调用 <codeph>subscribe()</codeph> 方法之前，可以设置此属性，且不会产生任何副作用。Consumer 订阅其目标后，更改此值会产生以下副作用：更新 Consumer 的订阅以立即使用新的选择器表达式。</p>
+	 
+	  <p>远程目标必须了解选择器表达式的值。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Consumer:subtopic:get"><apiName>subtopic</apiName><shortdesc>
+      提供对 MessageAgent 使用的远程目标的 subtopic 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对 MessageAgent 使用的远程目标的 subtopic 的访问。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MessageAgent"><apiName>MessageAgent</apiName><shortdesc>
+  MessageAgent 类提供基本的低级功能，该功能对于目标的消息处理很常见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  All message agent classes, including the Producer and Consumer classes, extend
+  MessageAgent and inherit the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:<i>tagname</i><br>
+    <b>Properties</b>
+    channelSet="<i>No default.</i>"
+    clientId="<i>No default.</i>"
+    connected="<i>false</i>"
+    destination="<i>No default.</i>"
+    requestTimeout="<i>-1</i>"
+    subtopic="<i>No default.</i>"
+ 
+ 
+   <b>Events</b>
+    acknowledge="<i>No default.</i>"
+    channelConnect="<i>No default.</i>"
+    channelDisconnect="<i>No default.</i>"
+    channelFault="<i>No default.</i>"
+    fault="<i>No default.</i>"
+    propertyChange="<i>No default.</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MessageAgent 类提供基本的低级功能，该功能对于目标的消息处理很常见。
+ 
+  <p><b>注意：</b>仅在高级用法中使用。使用此类创建如现有的 Producer 类和 Consumer 类这样的自定义消息代理。</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:MessageAgent_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  MessageAgent 的连接属性发生更改时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  MessageAgent 的 <codeph>connected</codeph> 属性发生更改时分派。Consumer 的 <codeph>subscribed</codeph> 发生更改时也会分派。
+  </apiDesc></adobeApiEventDetail><related-links><link href="mx.messaging.xml#Consumer"><linktext>mx.messaging.Consumer</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  MessageAgent 使用的基础 Channel 出错时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  MessageAgent 使用的基础 Channel 出错时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  MessageAgent 使用的基础 Channel 断开连接时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  MessageAgent 使用的基础 Channel 断开连接时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  MessageAgent 使用的基础 Channel 建立连接时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  MessageAgent 使用的基础 Channel 建立连接时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.MessageFaultEvent.FAULT_fault"><apiName>fault</apiName><shortdesc>
+  发生消息错误时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  发生消息错误时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:MessageAgent_mx.messaging.events.MessageAckEvent.ACKNOWLEDGE_acknowledge"><apiName>acknowledge</apiName><shortdesc>
+  收到已发送消息的确认消息时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageAckEvent.ACKNOWLEDGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageAckEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  收到已发送消息的确认消息时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:MessageAgent:MessageAgent"><apiName>MessageAgent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MessageAgent:acknowledge"><apiName>acknowledge</apiName><shortdesc>
+      收到已发送消息的结果时由 MessageResponder 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>ackMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiDesc>返回的 AcknowledgMessage。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>原始已发送消息。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      收到已发送消息的结果时由 MessageResponder 调用。如果子类需要执行自定义确认处理，它们可能会覆盖此方法，但是同时还必须调用 <codeph>super.acknowledge()</codeph>。此方法将分派 MessageAckEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelConnectHandler"><apiName>channelConnectHandler</apiName><shortdesc>
+      处理 CONNECT ChannelEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 CONNECT ChannelEvent。需要执行自定义处理的子类将覆盖此方法，并调用 <codeph>super.channelConnectHandler()</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelDisconnectHandler"><apiName>channelDisconnectHandler</apiName><shortdesc>
+      处理 DISCONNECT ChannelEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier><apiDesc>ChannelEvent。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 DISCONNECT ChannelEvent。需要执行自定义处理的子类将覆盖此方法，并调用 <codeph>super.channelDisconnectHandler()</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:channelFaultHandler"><apiName>channelFaultHandler</apiName><shortdesc>
+      处理 ChannelFaultEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>ChannelFaultEvent
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理 ChannelFaultEvent。需要执行自定义处理的子类将覆盖此方法，并调用 <codeph>super.channelFaultHandler()</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:disconnect"><apiName>disconnect</apiName><shortdesc>
+      断开 MessageAgent 的网络连接的连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      断开 MessageAgent 的网络连接的连接。此方法不会等待未完成的网络操作完成。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:fault"><apiName>fault</apiName><shortdesc>
+      收到已发送消息的错误时由 MessageResponder 调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>errMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>ErrorMessage。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>导致此错误的原始已发送消息。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      收到已发送消息的错误时由 MessageResponder 调用。如果子类需要执行自定义错误处理，它们可能会覆盖此方法，但是同时还必须调用 <codeph>super.fault()</codeph>。此方法将分派 MessageFaultEvent。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:handleAuthenticationFault"><apiName>handleAuthenticationFault</apiName><shortdesc>
+     处理服务器上的身份验证错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>errMsg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>错误消息。
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>导致错误并应在用户断开连接/连接由此导致的身份重新验证后立即重新发送的消息。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     处理服务器上的身份验证错误。如果经过身份验证的标志为 true，则身份验证错误一定是由服务器上的会话过期导致的。将经过身份验证的状态设置为 false，而且如果启用了 loginAfterDisconnect 标志，则通过再次断开连接并重新发送消息将凭据重新发送到服务器。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:hasPendingRequestForMessage"><apiName>hasPendingRequestForMessage</apiName><shortdesc>
+    如果存在传入消息的任何挂起的请求，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果对传入的消息有任何挂起的请求，则返回 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>已针对其检查是否存在挂起请求的消息。
+    
+    </apiDesc></apiParam></apiOperationDef><apiDesc>
+    如果存在传入消息的任何挂起的请求，则返回 true。子类将覆盖此方法
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:initChannelSet"><apiName>initChannelSet</apiName><shortdesc>
+      用于首次连接之前自动初始化 MessageAgent 的 channelSet 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>需要发送的消息。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      用于首次连接之前自动初始化 MessageAgent 的 <codeph>channelSet</codeph> 属性。子类型可能覆盖此方法以执行自定义初始化。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:initialized"><apiName>initialized</apiName><shortdesc>
+      在创建了实现对象、并分配了标签上指定的所有属性后调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>创建此对象的 MXML 文档。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>文档用于引用此对象的 id。如果该对象是文档上的深层属性，则 id 为 null。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在创建了实现对象、并分配了标签上指定的所有属性后调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:internalSend"><apiName>internalSend</apiName><shortdesc>
+      使用代理的 ChannelSet 将 Message 从 MessageAgent 发送到其目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiException><apiDesc>如果未设置目标。
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>要发送的消息。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>waitForClientId</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>如果为 true，消息可能会排列到队列中，直到为代理分配了 clientId。通常，这是所需行为。对于特殊行为（自动重新连接和重新订阅），代理可能传递 false 来覆盖默认队列行为。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用代理的 ChannelSet 将 Message 从 MessageAgent 发送到其目标。MessageAgent 子类必须使用此方法发送其消息。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:logout"><apiName>logout</apiName><shortdesc>
+      从其远程目标注销 MessageAgent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      从其远程目标注销 MessageAgent。从目标中注销适用于使用在服务器配置中指定的同一 ChannelSet 连接的所有对象。例如，如果多个 DataService 组件通过 RTMP 通道进行连接，为它们其中之一调用 <codeph>logout()</codeph> 时，使用相同 ChannelSet 进行连接的所有其他客户端组件也会注销。
+     
+      <p><b>注意：</b>Adobe 建议使用 mx.messaging.ChannelSet.logout() 方法而不是此方法。 </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.messaging.xml#ChannelSet/logout()"><linktext>mx.messaging.ChannelSet.logout()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging:MessageAgent:protected:reAuthorize"><apiName>reAuthorize</apiName><shortdesc>
+     由于特定于子类的服务器会话超时行为，子类将覆盖此函数实现重新验证。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>导致错误并在用户断开连接/连接（由此导致需要重新验证）时应该重新发送的消息。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     由于特定于子类的服务器会话超时行为，子类将覆盖此函数实现重新验证。通常，它应遵循断开连接、连接、重新发送消息模式。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      设置 MessageAgent 用于对目标进行身份验证的凭据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>适用于两种情况：已设置凭据并且正在对远程目标进行身份验证；已经过身份验证，但指定的凭据与当前已经过身份验证的凭据不匹配。
+     
+      </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>用户名。
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>密码。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。其它受支持的字符集仅有“UTF-8”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置 MessageAgent 用于对目标进行身份验证的凭据。凭据适用于通过相同 ChannelSet 连接的所有服务。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageAgent:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+      设置将传递到远程目标以对次系统进行身份验证的远程凭据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>username</apiItemName><apiType value="String"/><apiDesc>用户名。
+      </apiDesc></apiParam><apiParam><apiItemName>password</apiItemName><apiType value="String"/><apiDesc>密码。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对远程凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。当前受支持的唯一其他选项是“UTF-8”。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置将传递到远程目标以对次系统进行身份验证的远程凭据。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MessageAgent:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      指示此 MessageAgent 是否使用指向其目标的经过身份验证的连接。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示此 MessageAgent 是否使用指向其目标的经过身份验证的连接。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:channelSet:get"><apiName>channelSet</apiName><shortdesc>
+      提供对 MessageAgent 使用的 ChannelSet 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging:ChannelSet</apiValueClassifier></apiValueDef><apiDesc>
+      提供对 MessageAgent 使用的 ChannelSet 的访问。可以手动构造和分配 ChannelSet，否则将动态对其进行初始化以对此 MessageAgent 的目标使用已配置 Channel。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:clientId:get"><apiName>clientId</apiName><shortdesc>
+      提供对 MessageAgent 的客户端 id 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对 MessageAgent 的客户端 id 的访问。MessageAgent 的客户端 id 由远程目标分配，并且此值用于将消息从远程目标传送到合适的 MessageAgent。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:connected:get"><apiName>connected</apiName><shortdesc>
+      指示此 MessageAgent 当前是否已通过其 ChannelSet 连接到了其目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示此 MessageAgent 当前是否已通过其 ChannelSet 连接到了其目标。此属性发生更改时分派 <codeph>propertyChange</codeph> 事件。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:destination:get"><apiName>destination</apiName><shortdesc>
+      提供对 MessageAgent 的目标的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果目标为 null 或长度为 0。
+     
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      提供对 MessageAgent 的目标的访问。更改目标将断开 MessageAgent 的连接（如果当前已连接）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageAgent:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      提供对已发送消息的请求超时（以秒为单位）的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      提供对已发送消息的请求超时（以秒为单位）的访问。如果在达到超时之前未从远程目标收到确认、响应或错误，则消息将在客户端上出错。如果值小于 0 或等于 0，则可阻止请求超时的发生。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Producer"><apiName>Producer</apiName><shortdesc>
+  Producer 将消息发送到目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>
+  The &lt;mx:Producer&gt; tag inherits all the tag attributes of its superclass, and adds the following tag attributes:
+  </p>
+  <pre>
+   &lt;mx:Producer
+    <b>Properties</b>
+    defaultHeaders="<i>No default.</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:AbstractProducer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Producer 将消息发送到目标。Producer 为其发送的每条消息分派 MessageAckEvent 或 MessageFaultEvent，具体取决于出站消息的发送和处理是否成功。
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:Producer:Producer"><apiName>Producer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc><example>
+      <pre>
+       function sendMessage():void
+       {
+           var producer:Producer = new Producer();
+           producer.destination = "NASDAQ";
+           var msg:AsyncMessage = new AsyncMessage();
+           msg.headers.operation = "UPDATE";
+           msg.body = {"SYMBOL":50.00};
+           producer.send(msg);
+       }
+       </pre>
+      
+      </example></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:Producer:DEFAULT_PRIORITY"><apiName>DEFAULT_PRIORITY</apiName><shortdesc>
+      默认消息优先级。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      默认消息优先级。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Producer:subtopic:get"><apiName>subtopic</apiName><shortdesc>
+      提供对 MessageAgent 使用的远程目标的 subtopic 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对 MessageAgent 使用的远程目标的 subtopic 的访问。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:AbstractConsumer"><apiName>AbstractConsumer</apiName><shortdesc>
+  AbstractConsumer 是 Consumer 类和 MultiTopicConsumer 类的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging:MessageAgent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AbstractConsumer 是 Consumer 类和 MultiTopicConsumer 类的基类。您可以使用这些类接收服务器推送的消息。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:AbstractConsumer_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  Consumer 接收到消息时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Consumer 接收到消息时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:AbstractConsumer:AbstractConsumer"><apiName>AbstractConsumer</apiName><shortdesc>
+      构造 Consumer。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造 Consumer。
+     
+     
+      </apiDesc><example>
+      <codeblock rev="3.0">
+       function initConsumer():void
+       {
+           var consumer:Consumer = new Consumer();
+           consumer.destination = "NASDAQ";
+           consumer.selector = "operation IN ('Bid','Ask')";
+           consumer.addEventListener(MessageEvent.MESSAGE, messageHandler);
+           consumer.subscribe();
+       }
+     
+       function messageHandler(event:MessageEvent):void
+       {
+           var msg:IMessage = event.message;
+           var info:Object = msg.body;
+           trace("-App recieved message: " + msg.toString());
+       }
+       </codeblock>
+      
+      </example></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:AbstractConsumer:protected:buildSubscribeMessage"><apiName>buildSubscribeMessage</apiName><shortdesc>
+      返回订阅消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>订阅 CommandMessage。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      返回订阅消息。如果子类需要自定义订阅消息，则子类应覆盖此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:protected:buildUnsubscribeMessage"><apiName>buildUnsubscribeMessage</apiName><shortdesc>
+      返回取消订阅消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>取消订阅 CommandMessage。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:CommandMessage</apiOperationClassifier></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiDesc>- 如果为 true，则将不会破坏持久 JMS subscriptions，从而使用者便可以稍后重新订阅和接收错过的消息
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回取消订阅消息。如果子类需要自定义取消订阅消息，则子类应覆盖此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:disconnect"><apiName>disconnect</apiName><shortdesc>
+      断开 Consumer 与其远程目标之间的连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      断开 Consumer 与其远程目标之间的连接。应在取消订阅后应用程序不再需要的 Consumer 上调用此方法。此方法不会等待未完成的网络操作完成，也不会向服务器发送取消订阅消息。调用 disconnect() 后，Consumer 将报告它处于断开连接的取消订阅状态，因为它在重新建立连接和重新订阅之前不会接收任何其他消息。如果正在尝试重新订阅，断开连接会停止自动重新订阅的尝试。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:receive"><apiName>receive</apiName><shortdesc>
+      请求在服务器上为此 Consumer 排队的所有消息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>timestamp</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>不推荐使用此参数，将忽略它。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      请求在服务器上为此 Consumer 排队的所有消息。应仅对通过非实时、非轮询通道订阅的 Consumer 使用此方法。如果未订阅 Consumer，此方法为无操作。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:subscribe"><apiName>subscribe</apiName><shortdesc>
+      订阅远程目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果未设置目标。
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>clientId</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>用于订阅的客户端 id。针对非持久 Consumer 使用 null。如果订阅是持久的，则每次 Consumer 订阅时必须提供一致的值，以便与远程目标中的正确持久订阅重新建立连接。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      订阅远程目标。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:AbstractConsumer:unsubscribe"><apiName>unsubscribe</apiName><shortdesc>
+      从远程目标取消订阅。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>preserveDurable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>- 如果为 true，则将不会破坏持久 JMS subscriptions，从而使用者便可以稍后重新订阅和接收错过的消息
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从远程目标取消订阅。对于持久 JMS subscriptions，这将破坏 JMS 服务器上的持久订阅。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:AbstractConsumer:protected:_shouldBeSubscribed"><apiName>_shouldBeSubscribed</apiName><shortdesc>
+      用于指示是否应订阅此使用者的标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      用于指示是否应订阅此使用者的标志。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:maxFrequency:get"><apiName>maxFrequency</apiName><shortdesc>
+      确定 Consumer 希望每秒钟收到的消息的最大数量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      确定 Consumer 希望每秒钟收到的消息的最大数量。了解此值的服务器将在确定向 Consumer 发送消息的速度时使用此值作为输入。默认值为 0，表示 Consumer 没有消息速度首选项。请注意，应在 Consumer 订阅之前设置此属性，在 Consumer 订阅后所做的任何更改都将是无效的，除非 Consumer 取消订阅并重新订阅。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:resubscribeAttempts:get"><apiName>resubscribeAttempts</apiName><shortdesc>
+      Consumer 在目标不可用或连接到目标失败的情况下进行的重新订阅尝试次数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Consumer 在目标不可用或连接到目标失败的情况下进行的重新订阅尝试次数。如果值为 -1，则可以无限制地尝试。如果值为 0，则无法尝试重新订阅。
+      <p>
+      根据重新订阅间隔值以恒定速率尝试重新订阅。如果在 Consumer 的基础通道未连接或正在尝试连接时尝试重新订阅，则该通道将开始尝试重新连接。在基础通道连接尝试正在进行时发生的后续 Consumer 重新订阅尝试将被有效忽略，直到正在进行的通道连接尝试成功或失败。
+      </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Consumer/resubscribeInterval"><linktext>mx.messaging.Consumer.resubscribeInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractConsumer:resubscribeInterval:get"><apiName>resubscribeInterval</apiName><shortdesc>
+      重新订阅尝试之间间隔的毫秒数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiException><apiDesc>如果分配的值为负数。
+      
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      重新订阅尝试之间间隔的毫秒数。如果 Consumer 没有收到订阅请求的确认，则在等待指定的毫秒数后，它将尝试重新订阅。将值设置为 0 将禁用重新订阅。
+      <p>
+      根据此值以恒定速率尝试重新订阅。如果在 Consumer 的基础通道未连接或正在尝试连接时尝试重新订阅，则该通道将开始尝试重新连接。在基础通道连接尝试正在进行时发生的后续 Consumer 重新订阅尝试将被有效忽略，直到正在进行的通道连接尝试成功或失败。
+      </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.xml#Consumer/resubscribeInterval"><linktext>mx.messaging.Consumer.resubscribeInterval</linktext></link></related-links></apiValue><apiValue id="mx.messaging:AbstractConsumer:subscribed:get"><apiName>subscribed</apiName><shortdesc>
+      指示 Consumer 当前是否处于订阅状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示 Consumer 当前是否处于订阅状态。此属性发生更改时分派 <codeph>propertyChange</codeph> 事件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:AbstractConsumer:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      包含此 Consumer 接收到的最新消息的时间戳。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      包含此 Consumer 接收到的最新消息的时间戳。在 <codeph>receive()</codeph> 调用中将此值传递到目标，以请求它为 Consumer 传递该时间戳之后的消息。轮询操作期间将返回时间戳值大于 <codeph>timestamp</codeph> 值的所有消息。将此值设置为 -1 将检索目标中所有缓存的消息。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:Channel"><apiName>Channel</apiName><shortdesc>
+  Channel 类是消息传递系统中的所有通道都必须扩展的消息通道基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Channel 类是消息传递系统中的所有通道都必须扩展的消息通道基类。
+ 
+  <p>通道是基于特定协议的渠道，用于在 MessageAgent 和远程目标之间发送消息。可使用 <codeph>ServerConfig.getChannel()</codeph> 方法在框架内获得预配置的通道。您可以使用 <codeph>new</codeph> 运算符直接创建 Channel，然后将其直接添加到 ChannelSet。</p>
+ 
+  <p>
+  通道表示到远程端点的物理连接。默认情况下，通道可以跨目标共享。这意味着定向于不同目标的客户端可以使用同一 Channel 与这些目标进行通信。
+  </p>
+ 
+  <p><b>注意：</b>仅在高级用法中使用此类。使用此类可以创建诸如现有的 RTMPChannel、AMFChannel 和 HTTPChannel 之类的自定义通道。</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging:Channel_mx.events.PropertyChangeEvent.PROPERTY_CHANGE_propertyChange"><apiName>propertyChange</apiName><shortdesc>
+  在通道的某一属性发生更改时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.PropertyChangeEvent.PROPERTY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.PropertyChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在通道的某一属性发生更改时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.MessageEvent.MESSAGE_message"><apiName>message</apiName><shortdesc>
+  在通道从其端点接收到消息时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.MessageEvent.MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events.MessageEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在通道从其端点接收到消息时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelFaultEvent.FAULT_channelFault"><apiName>channelFault</apiName><shortdesc>
+  通道出错后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelFaultEvent.FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelFaultEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  通道出错后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelEvent.DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><shortdesc>
+  通道与其端点断开连接后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  通道与其端点断开连接后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging:Channel_mx.messaging.events.ChannelEvent.CONNECT_channelConnect"><apiName>channelConnect</apiName><shortdesc>
+  通道连接到其端点后分派。</shortdesc><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events.ChannelEvent.CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events.ChannelEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  通道连接到其端点后分派。
+ <p>无论何时通道试图连接到远程目标出现问题，通道及其子类都会发出 Channel.Connect.Failed 代码。在通道已经连接但从其基础 NetConnection 获取 Call.Failed 代码之后，AMFChannel 对象就会发出 Channel.Call.Failed 代码。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging:Channel:Channel"><apiName>Channel</apiName><shortdesc>
+      构造连接到指定端点 URI 的通用 Channel 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此通道的 id。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此通道的端点 URI。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造连接到指定端点 URI 的通用 Channel 实例。<b>注意</b>：不应直接构造 Channel 类型，而应创建特定于协议的子类（如 RTMPChannel 或 AMFChannel）的实例。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:Channel:protected:applyClientLoadBalancingSettings"><apiName>applyClientLoadBalancingSettings</apiName><shortdesc>
+      如果存在客户端负载平衡 url，请应用之。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>props</apiItemName><apiType value="XML"/><apiDesc>此通道的 services-config.xml 文件的 XML 段的属性部分。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果存在客户端负载平衡 url，请应用之。它将从客户端负载平衡 url 集内随机选取一个 url，将其设置为通道的主 url，然后将其余 url 指定为通道的 <codeph>failoverURI</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:applySettings"><apiName>applySettings</apiName><shortdesc>
+      子类应覆盖此方法才可应用单个通道可能需要的任何设置。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>settings</apiItemName><apiType value="XML"/><apiDesc>services-config.xml 文件中适用于此通道的 XML 片段。
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+      子类应覆盖此方法才可应用单个通道可能需要的任何设置。确保调用 <codeph>super.applySettings()</codeph>，以便为该通道应用常见设置。此方法主要在 Channel 子类中使用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectFailed"><apiName>connectFailed</apiName><shortdesc>
+      处理失败的内部连接并为 Channel 分派 FAULT 事件。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>失败的连接的 ChannelFaultEvent。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理失败的内部连接并为 Channel 分派 <codeph>FAULT</codeph> 事件。如果 Channel 包含 <codeph>failoverURI</codeph> 值，它将通过按顺序尝试这些 URI 值来尝试自动重新建立连接，直到建立连接或用尽可用值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectSuccess"><apiName>connectSuccess</apiName><shortdesc>
+      处理成功的内部连接并为 Channel 分派 CONNECT 事件。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      处理成功的内部连接并为 Channel 分派 <codeph>CONNECT</codeph> 事件。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:connectTimeoutHandler"><apiName>connectTimeoutHandler</apiName><shortdesc>
+      通过分派 ChannelFaultEvent 处理连接超时。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:TimerEvent"/><apiDesc>计时器事件，用于指示已达到连接超时。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过分派 ChannelFaultEvent 处理连接超时。子类型可以覆盖此方法以关闭当前连接尝试，但必须调用 <codeph>super.connectTimeoutHandler(event)</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:connect"><apiName>connect</apiName><shortdesc>
+      将 ChannelSet 连接到 Channel。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channelSet</apiItemName><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier><apiDesc>要连接到 Channel 的 ChannelSet。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 ChannelSet 连接到 Channel。如果 Channel 尚未连接到其端点，它将尝试连接。Channel 子类必须覆盖 <codeph>internalConnect()</codeph> 方法，并在基础连接建立后调用 <codeph>connectSuccess()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:disconnectFailed"><apiName>disconnectFailed</apiName><shortdesc>
+      处理失败的内部断开连接并为 Channel 分派 FAULT 事件。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier><apiDesc>失败的断开连接的 ChannelFaultEvent。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理失败的内部断开连接并为 Channel 分派 <codeph>FAULT</codeph> 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:disconnectSuccess"><apiName>disconnectSuccess</apiName><shortdesc>
+      处理成功的内部断开连接并为 Channel 分派 DISCONNECT 事件。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果断开连接应跳过在其它情形下将尝试运行的某一故障转移处理，则为 true；如果应允许运行故障转移处理，则为 false。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理成功的内部断开连接并为 Channel 分派 <codeph>DISCONNECT</codeph> 事件。如果断开连接是由网络失败导致的，并且 Channel 包含 <codeph>failoverURI</codeph> 值，它将通过按顺序尝试这些 URI 值来尝试自动重新建立连接，直到建立连接或用尽可用值。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:disconnect"><apiName>disconnect</apiName><shortdesc>
+      断开 ChannelSet 与 Channel 的连接。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>channelSet</apiItemName><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier><apiDesc>要与 Channel 断开连接的 ChannelSet。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      断开 ChannelSet 与 Channel 的连接。如果 Channel 连接到它的端点，并且不存在其它连接的 ChannelSet，则它将在内部断开连接。
+     
+      <p>Channel 子类需要覆盖 <codeph>internalDisconnect()</codeph> 方法，并在基础连接终止时调用 <codeph>disconnectSuccess()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:flexClientWaitHandler"><apiName>flexClientWaitHandler</apiName><shortdesc>
+      处理对用于管理应用程序的初始 Channel 连接的保护条件的更改。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:PropertyChangeEvent"/><apiDesc>由 FlexClient singleton 分派的 PropertyChangeEvent。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      处理对用于管理应用程序的初始 Channel 连接的保护条件的更改。如果调用了此方法，则表明此 Channel 正在等待尝试进行连接。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:getMessageResponder"><apiName>getMessageResponder</apiName><shortdesc>
+      为 Channel 的 send() 方法返回适当的 MessageResponder。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiException><apiDesc>如果 Channel 子类不覆盖此方法。
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiDesc>用于处理结果或错误的 MessageResponder。
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:MessageResponder</apiOperationClassifier></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>用于发送消息的 MessageAgent。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>要发送的 Message。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      为 Channel 的 <codeph>send()</codeph> 方法返回适当的 MessageResponder。必须被覆盖。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalConnect"><apiName>internalConnect</apiName><shortdesc>
+      将 Channel 连接到其端点。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将 Channel 连接到其端点。必须被覆盖。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalDisconnect"><apiName>internalDisconnect</apiName><shortdesc>
+      断开 Channel 与其端点之间的连接。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果断开连接是由拒绝连接或连接超时导致的，并且不应自动尝试重新连接，则为 true；否则为 false。 
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      断开 Channel 与其端点之间的连接。必须被覆盖。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:protected:internalSend"><apiName>internalSend</apiName><shortdesc>
+      通过 Channel 发送 Message 并将响应传送到 Responder。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>messageResponder</apiItemName><apiOperationClassifier>mx.messaging:MessageResponder</apiOperationClassifier><apiDesc>用于处理响应的 MessageResponder。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通过 Channel 发送 Message 并将响应传送到 Responder。必须被覆盖。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:logout"><apiName>logout</apiName><shortdesc>
+      如果 Channel 已连接，则向服务器发送 CommandMessage 以进行注销。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>要注销的 MessageAgent。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果 Channel 已连接，则向服务器发送 CommandMessage 以进行注销。当前凭据被清除。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:send"><apiName>send</apiName><shortdesc>
+      向其目标对象发送指定的消息。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 MessageAgent 或消息都未指定对象，
+     </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>正在发送消息的 MessageAgent。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>要发送的 Message。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      向其目标对象发送指定的消息。子类必须覆盖 <codeph>internalSend()</codeph> 方法才能实际进行发送。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:Channel:setCredentials"><apiName>setCredentials</apiName><shortdesc>
+      将凭据设置为指定的值。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>适用于两种情况：已设置凭据并且正在对远程目标进行身份验证；已经过身份验证，但指定的凭据与当前已经过身份验证的凭据不匹配。
+     </apiDesc><apiItemName>flash.errors:IllegalOperationError</apiItemName><apiOperationClassifier>flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>credentials</apiItemName><apiType value="String"/><apiDesc>凭据字符串。
+      </apiDesc></apiParam><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiData>null</apiData><apiDesc>要登录的 MessageAgent，它将处理登录结果。
+      </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将凭据设置为指定的值。如果凭据为非空，并且 Channel 已连接，则此方法还会向服务器发送 CommandMessage 以使用这些凭据进行登录。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:Channel:protected:CONNECT_TIMEOUT_SECONDS"><apiName>CONNECT_TIMEOUT_SECONDS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>connect-timeout-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:ENABLE_SMALL_MESSAGES"><apiName>ENABLE_SMALL_MESSAGES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>enable-small-messages</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:FALSE"><apiName>FALSE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>false</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:RECORD_MESSAGE_SIZES"><apiName>RECORD_MESSAGE_SIZES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>record-message-sizes</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:RECORD_MESSAGE_TIMES"><apiName>RECORD_MESSAGE_TIMES</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>record-message-times</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:REQUEST_TIMEOUT_SECONDS"><apiName>REQUEST_TIMEOUT_SECONDS</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>request-timeout-seconds</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:SERIALIZATION"><apiName>SERIALIZATION</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>serialization</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:TRUE"><apiName>TRUE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="protected"/><apiStatic/><apiData>true</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:authenticated:get"><apiName>authenticated</apiName><shortdesc>
+      指示此通道是否已经过身份验证。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示此通道是否已经过身份验证。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:channelSets:get"><apiName>channelSets</apiName><shortdesc>
+      提供对连接到 Channel 的 ChannelSet 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      提供对连接到 Channel 的 ChannelSet 的访问。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:connectTimeout:get"><apiName>connectTimeout</apiName><shortdesc>
+      提供对此通道的连接超时（以秒为单位）的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      提供对此通道的连接超时（以秒为单位）的访问。如果值为 0 或小于 0，则表示连接尝试在客户端上永远不会超时。对于配置为故障转移的通道，此值是等待建立连接所用的总时间。并不会为通道可能尝试连接到的每个故障转移 URI 重置该属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:connected:get"><apiName>connected</apiName><shortdesc>
+      指示此通道是否已与远程目标建立连接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示此通道是否已与远程目标建立连接。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:endpoint:get"><apiName>endpoint</apiName><shortdesc>
+      提供对此通道的端点的访问。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对此通道的端点的访问。此值是根据 <codeph>uri</codeph> 属性的值计算得出的。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:failoverURIs:get"><apiName>failoverURIs</apiName><shortdesc>
+      提供对此通道可能尝试将故障转移到的端点 URI 集的访问（如果端点已群集化）。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      提供对此通道可能尝试将故障转移到的端点 URI 集的访问（如果端点已群集化）。
+     
+      <p>此属性是在启用群集时自动填充的。如果不使用群集，则可以设置自己的值。</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:id:get"><apiName>id</apiName><shortdesc>
+      提供对此通道的 id 的访问。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对此通道的 id 的访问。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protocol:get"><apiName>protocol</apiName><shortdesc>
+      提供对通道使用的协议的访问。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对通道使用的协议的访问。
+     
+      <p><b>注意：</b>Channel 的子类必须覆盖此方法并返回代表其支持的协议的字符串。支持的协议字符串示例有“rtmp”、“http”或“https”。
+     </p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:reconnecting:get"><apiName>reconnecting</apiName><shortdesc>
+      指示此通道是否正在重新连接到其它端点。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示此通道是否正在重新连接到其它端点。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:recordMessageSizes:get"><apiName>recordMessageSizes</apiName><shortdesc>
+     Channel 属性确定性能信息注入的级别 - 无论我们注入消息大小与否。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Channel 属性确定性能信息注入的级别 - 无论我们注入消息大小与否。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:recordMessageTimes:get"><apiName>recordMessageTimes</apiName><shortdesc>
+     Channel 属性确定性能信息注入的级别 - 无论我们注入时间戳与否。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Channel 属性确定性能信息注入的级别 - 无论我们注入时间戳与否。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:requestTimeout:get"><apiName>requestTimeout</apiName><shortdesc>
+      提供对通道的默认请求超时（以秒为单位）的访问。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      提供对通道的默认请求超时（以秒为单位）的访问。如果值为 0 或小于 0，则表示出站请求在客户端上永远不会超时。
+      <p>请求超时对于要求远程目标做出响应的 RPC 样式消息传递最为有用。</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:protected:shouldBeConnected:get"><apiName>shouldBeConnected</apiName><shortdesc>
+      指示是否应将此通道连接到其端点。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示是否应将此通道连接到其端点。此标志用于控制何时应尝试进行故障转移，以及在断开连接或出现故障时何时将断开连接通知发送到远程端点。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:Channel:uri:get"><apiName>uri</apiName><shortdesc>
+      提供对用于创建此通道的整个端点 URI 的 URI 的访问。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对用于创建此通道的整个端点 URI 的 URI 的访问。URI 可以是部分路径，在这种情况下，将根据需要来计算完整端点 URI。
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:SubscriptionInfo"><apiName>SubscriptionInfo</apiName><shortdesc>
+ 这是用于 MultiTopicConsumer 属性中的 ArrayCollection 新订阅属性的元素的类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 这是用于 MultiTopicConsumer 属性中的 ArrayCollection 新订阅属性的元素的类。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:SubscriptionInfo:SubscriptionInfo"><apiName>SubscriptionInfo</apiName><shortdesc> 使用指定的 subtopic 和选择器构建新的 SubscriptionInfo。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>st</apiItemName><apiType value="String"/><apiDesc>订阅的 subtopic。如果为 null，则表示订阅定向到无 subtopic 的目标的消息。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>sel</apiItemName><apiType value="String"/><apiDesc>选择器。如果为 null，则表示应发送所有消息。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>mf</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>订阅希望每秒钟收到的消息的最大数量。0 表示无首选项。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc> 使用指定的 subtopic 和选择器构建新的 SubscriptionInfo。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging:SubscriptionInfo:maxFrequency"><apiName>maxFrequency</apiName><shortdesc>
+     订阅希望每秒钟收到的消息的最大数量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+     订阅希望每秒钟收到的消息的最大数量。0 表示订阅没有收到消息数量首选项。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:SubscriptionInfo:selector"><apiName>selector</apiName><shortdesc>
+     选择器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     选择器。如果为 null，则表示应发送所有消息。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:SubscriptionInfo:subtopic"><apiName>subtopic</apiName><shortdesc> 
+     副标题</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     副标题如果为 null，则表示订阅定向到无 subtopic 的目标的消息。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging:MessageResponder"><apiName>MessageResponder</apiName><shortdesc>
+  MessageResponder 类处理来自消息目标中成功的结果或错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.net:Responder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MessageResponder 类处理来自消息目标中成功的结果或错误。对于 Channel 发送的每条消息，Channel 都会创建一个 MessageResponder 来处理结果。收到响应时，Channel 将在 MessageResponder 上调用 <codeph>result()</codeph> 或 <codeph>status()</codeph> 回调。MessageResponder 子类应覆盖这些方法来执行任何必要的处理。对于每个响应，无论是成功的结果还是错误，MessageResponder 都将在其代理上调用 <codeph>acknowledge()</codeph>。如果响应为错误，MessageResponder 还应在其代理上调用 <codeph>fault()</codeph>。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging:MessageResponder:MessageResponder"><apiName>MessageResponder</apiName><shortdesc>
+      构造 MessageResponder 以为指定的 MessageAgent 处理针对指定 Message 做出的响应。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>agent</apiItemName><apiOperationClassifier>mx.messaging:MessageAgent</apiOperationClassifier><apiDesc>用于发送消息的 MessageAgent。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>消息，要发送的 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>用于发送消息的 Channel。 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造 MessageResponder 以为指定的 MessageAgent 处理针对指定 Message 做出的响应。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging:MessageResponder:protected:createRequestTimeoutErrorMessage"><apiName>createRequestTimeoutErrorMessage</apiName><shortdesc>
+      构造一个 ErrorMessage，请求一旦超时，此消息便可传递到相关 MessageAgent 的回调。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>返回一个 ErrorMessage，请求一旦超时，即可将此消息传递给关联的 MessageAgent 的回调。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      构造一个 ErrorMessage，请求一旦超时，此消息便可传递到相关 MessageAgent 的回调。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:requestTimedOut"><apiName>requestTimedOut</apiName><shortdesc>
+      子类必须覆盖此方法来处理请求超时并在关联 MessageAgent 上调用适当的回调。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      子类必须覆盖此方法来处理请求超时并在关联 MessageAgent 上调用适当的回调。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:resultHandler"><apiName>resultHandler</apiName><shortdesc>
+      子类必须覆盖此方法来执行结果的自定义处理并在关联 MessageAgent 上调用适当的回调。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>目标返回的结果 Message。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      子类必须覆盖此方法来执行结果的自定义处理并在关联 MessageAgent 上调用适当的回调。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:result"><apiName>result</apiName><shortdesc>
+      从目标返回响应时，由创建此 MessageResponder 的通道调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>目标返回的结果 Message。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从目标返回响应时，由创建此 MessageResponder 的通道调用。此方法执行核心结果处理，然后调用 <codeph>resultHandler()</codeph> 方法，子类可能会覆盖此方法来执行任何必要的自定义处理。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:protected:statusHandler"><apiName>statusHandler</apiName><shortdesc>
+      子类必须覆盖此方法来执行状态的自定义处理并在相关 MessageAgent 上调用适当的回调。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>目标返回的错误 Message。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      子类必须覆盖此方法来执行状态的自定义处理并在相关 MessageAgent 上调用适当的回调。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging:MessageResponder:status"><apiName>status</apiName><shortdesc>
+      从目标返回错误响应时，由创建此 MessageResponder 的通道调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiFinal/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>目标返回的错误 Message。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从目标返回错误响应时，由创建此 MessageResponder 的通道调用。此方法执行核心结果处理，然后调用 <codeph>statusHandler()</codeph> 方法，子类可能会覆盖此方法来执行任何必要的自定义处理。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging:MessageResponder:agent:get"><apiName>agent</apiName><shortdesc>
+      提供对发送消息的 MessageAgent 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:MessageAgent</apiValueClassifier></apiValueDef><apiDesc>
+      提供对发送消息的 MessageAgent 的访问。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageResponder:channel:get"><apiName>channel</apiName><shortdesc>
+      提供对用于发送消息的 Channel 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      提供对用于发送消息的 Channel 的访问。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging:MessageResponder:message:get"><apiName>message</apiName><shortdesc>
+      提供对已发送的 Message 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      提供对已发送的 Message 的访问。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.events"><apiName>spark.events</apiName><apiDetail/><apiClassifier id="spark.events:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+  Die ViewNavigatorEvent-Klasse stellt Ereignisobjekte dar, die von der View-Klasse ausgelöst werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ViewNavigatorEvent-Klasse stellt Ereignisobjekte dar, die von der View-Klasse ausgelöst werden.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#View"><linktext>spark.components.View</linktext></link></related-links><adobeApiEvent id="spark.events:ViewNavigatorEvent:REMOVING_removing"><apiName>removing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:REMOVING</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE_activate"><apiName>activate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_ACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE_deactivate"><apiName>deactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:ViewNavigatorEvent:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Der Ereignistyp, der die Aktion angibt, durch die das Ereignis ausgelöst wurde.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Gibt an, ob das Ereignis in der Anzeigelistenhierarchie propagiert werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Gibt an, ob das mit dem Ereignis verknüpfte Verhalten verhindert werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Die vom Ansichtsnavigator übernommene Navigationsaktion, die zum Ereignis geführt hat.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:ViewNavigatorEvent:REMOVING"><apiName>REMOVING</apiName><shortdesc>
+      Die ViewNavigatorEvent.REMOVING-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein removing-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>removing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die <codeph>ViewNavigatorEvent.REMOVING</codeph>-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>removing</codeph>-Ereignis. Dieses Ereignis wird ausgelöst, wenn ein Bildschirm über eine Navigatoraktion gerade durch einen anderen Bildschirm ersetzt werden soll. Wenn <codeph>preventDefault()</codeph> bei diesem Ereignis aufgerufen wird, wird das Entfernen der Ansicht abgebrochen.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>Die vom Ansichtsnavigator übernommene Navigationsaktion, die zum Ereignis geführt hat.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>Typ</codeph></entry><entry>ViewNavigatorEvent.SCREEN_REMOVING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE"><apiName>VIEW_ACTIVATE</apiName><shortdesc>
+      Die ViewNavigatorEvent.VIEW_ACTIVATE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein viewActivate-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die <codeph>ViewNavigatorEvent.VIEW_ACTIVATE</codeph>-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>viewActivate</codeph>-Ereignis. Dieses Ereignis wird ausgelöst, wenn eine Komponente aktiviert wird.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>Die vom Ansichtsnavigator übernommene Navigationsaktion, die zum Ereignis geführt hat.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>Typ</codeph></entry><entry>ViewNavigatorEvent.VIEW_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE"><apiName>VIEW_DEACTIVATE</apiName><shortdesc>
+      Die ViewNavigatorEvent.VIEW_DEACTIVATE-Konstante definiert den Wert der type-Eigenschaft des Ereignisobjekts für ein viewDeactivate-Ereignis.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die <codeph>ViewNavigatorEvent.VIEW_DEACTIVATE</codeph>-Konstante definiert den Wert der <codeph>type</codeph>-Eigenschaft des Ereignisobjekts für ein <codeph>viewDeactivate</codeph>-Ereignis. Dieses Ereignis wird ausgelöst, wenn eine Komponente deaktiviert wird.
+     
+      <p>Die Eigenschaften des Ereignisobjekts haben die folgenden Werte:</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Eigenschaft</entry><entry>Wert</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>Die vom Ansichtsnavigator übernommene Navigationsaktion, die zum Ereignis geführt hat.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Das Objekt, das den Ereignis-Listener definiert, der das Ereignis übernimmt. Wenn Sie beispielsweise <codeph>myButton.addEventListener()</codeph> zur Registrierung eines Ereignis-Listeners verwenden, weist <codeph>currentTarget</codeph> den Wert „myButton“ auf. </entry></row><row><entry><codeph>target</codeph></entry><entry>Das Objekt, von dem das Ereignis ausgelöst wurde. Dies ist nicht immer das Objekt, das auf das Ereignis wartet. Verwenden Sie die <codeph>currentTarget</codeph>-Eigenschaft, damit immer auf das Objekt, das auf das Ereignis wartet, zugegriffen wird.</entry></row><row><entry><codeph>Typ</codeph></entry><entry>ViewNavigatorEvent.VIEW_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:action"><apiName>action</apiName><shortdesc>
+      Die vom Ansichtsnavigator übernommene Navigationsaktion, die zum Ereignis geführt hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Die vom Ansichtsnavigator übernommene Navigationsaktion, die zum Ereignis geführt hat. Mögliche Aktionen sind das Aktivieren oder Deaktivieren einer Ansicht.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

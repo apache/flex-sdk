@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.primitives"><apiName>spark.primitives</apiName><apiDetail/><apiClassifier id="spark.primitives:Graphic"><apiName>Graphic</apiName><shortdesc>
+  Graphic 控件显示一组图形绘制命令。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusSkin"/><Exclude kind="style" name="focusBlendMode"/><Exclude kind="property" name="tabEnabled"/><Exclude kind="property" name="mouseFocusEnabled"/><Exclude kind="property" name="layout"/><Exclude kind="property" name="focusPane"/><Exclude kind="property" name="focusEnabled"/><Exclude kind="method" name="setFocus"/><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Graphic&gt;</code> tag inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Graphic
+    <b>Properties</b>
+    version
+    viewHeight
+    viewWidth
+    &nbsp;
+  /&gt;
+  </pre>
+ 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Graphic 控件显示一组图形绘制命令。
+ 
+  <p>Graphic 类是所有图形元素的根标签。此标签也是所有 FXG 文档的根。它不能出现在 FXG 文档中的任何其他地方。</p>
+  
+  <p>您会将一系列元素标签（例如，<codeph>&lt;Rect></codeph>、<codeph>&lt;Path></codeph> 和 <codeph>&lt;Ellipse></codeph>）添加到 Graphic 元素 Array 以定义图形的内容。</p>
+ 
+  <p>Graphic 控件没有背景或边框，并且无法获得焦点。</p>
+  
+  <p>将此控件放置到容器中时，会按容器的规则定位 Graphic。但是，会始终相对于 Graphic 控件的左上角调整 Graphic 控件中图形的大小并定位这些图形。</p>
+  
+  <p>Graphic 元素可以选择包含 <codeph>&lt;Group></codeph> 元素。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.primitives.xml#Ellipse"><linktext>spark.primitives.Ellipse</linktext></link><link href="spark.primitives.xml#Line"><linktext>spark.primitives.Line</linktext></link><link href="spark.primitives.xml#Path"><linktext>spark.primitives.Path</linktext></link><link href="spark.primitives.xml#Rect"><linktext>spark.primitives.Rect</linktext></link><link href="spark.components.xml#Group"><linktext>spark.components.Group</linktext></link></related-links><apiConstructor id="spark.primitives:Graphic:Graphic"><apiName>Graphic</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Graphic:protected:measure"><apiName>measure</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="spark.primitives:Graphic:version"><apiName>version</apiName><shortdesc>
+        指定此 Graphic 标签所对应的 FXG 版本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1.0</apiData><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+        指定此 Graphic 标签所对应的 FXG 版本。  
+     
+        </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Graphic:viewHeight:get"><apiName>viewHeight</apiName><shortdesc>
+      定义图形在布局中使用的垂直空间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      定义图形在布局中使用的垂直空间。设置此值时，不会缩放内容。但是，如果指定 <codeph>height</codeph> 属性的值，就会缩放内容。 
+      
+      <p>在以下两种情形下这会很有用：1) 指定的 <codeph>viewHeight</codeph> 大于内容的正常大小。如果这样做，会使图形占用的空间比其可视大小更多。2) 指定的 <codeph>viewHeight</codeph> 小于内容的正常大小。如果您的图形具有额外的镶边或具有超出图形边缘的边框，则您可以这样做。在这种情形下，请务必在布局中禁用剪切。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Graphic:viewWidth:get"><apiName>viewWidth</apiName><shortdesc>
+      定义图形在布局中使用的水平空间。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      定义图形在布局中使用的水平空间。设置此值时，不会缩放内容。但是，如果指定 <codeph>width</codeph> 属性的值，就会缩放内容。 
+      
+      <p>在以下两种情形下这会很有用：1) 指定的 <codeph>viewWidth</codeph> 大于内容的正常大小。如果这样做，会使图形占用的空间比其可视大小更多。2) 指定的 <codeph>viewWidth</codeph> 小于内容的正常大小。如果您的图形具有额外的镶边或具有超出图形边缘的边框，则您可以这样做。在这种情形下，请务必在布局中禁用剪切。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:Rect"><apiName>Rect</apiName><shortdesc>
+  Rect 类是绘制矩形的填充图形元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:FilledElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Rect 类是绘制矩形的填充图形元素。矩形的角可以是圆角。<codeph>drawElement()</codeph> 方法会调用 <codeph>Graphics.drawRect()</codeph> 和 <codeph>Graphics.drawRoundRect()</codeph> 方法。
+ 
+  <p><b>注意：</b>默认情况下，边框的笔触是圆形的。如果不喜欢圆角，请将笔触的 <codeph>joints</codeph> 属性设置为 <codeph>JointStyle.MITER</codeph>。 </p>
+  
+  </apiDesc><example conref="RectExample.mxml"><swfblock conref="examples/RectExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="spark.primitives:Rect:Rect"><apiName>Rect</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Rect:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      绘制元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要绘制的图形元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      绘制元素。这是在绘制过程中采取的三个步骤中的第二步。覆盖此方法以实现绘图。已在 <codeph>beginDraw()</codeph> 方法中设置笔触（和填充，如果有）。您的覆盖仅应包含对诸如 <codeph>moveTo()</codeph>、<codeph>curveTo()</codeph> 和 <codeph>drawRect()</codeph> 等绘制方法的调用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Rect:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Rect:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:Rect:bottomLeftRadiusX:get"><apiName>bottomLeftRadiusX</apiName><shortdesc>
+      矩形的左下角的 x 半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形的左下角的 x 半径。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:bottomLeftRadiusY:get"><apiName>bottomLeftRadiusY</apiName><shortdesc>
+      矩形的左下角的 y 半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形的左下角的 y 半径。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:bottomRightRadiusX:get"><apiName>bottomRightRadiusX</apiName><shortdesc>
+      矩形右下角的 x 半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形右下角的 x 半径。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:bottomRightRadiusY:get"><apiName>bottomRightRadiusY</apiName><shortdesc>
+      矩形右下角的 y 半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形右下角的 y 半径。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:radiusX:get"><apiName>radiusX</apiName><shortdesc>
+      要用于所有角上的 x 轴的默认角半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      要用于所有角上的 x 轴的默认角半径。<codeph>topLeftRadiusX</codeph>、<codeph>topRightRadiusX</codeph>、<codeph>bottomLeftRadiusX</codeph> 和 <codeph>bottomRightRadiusX</codeph> 属性优先于此属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:radiusY:get"><apiName>radiusY</apiName><shortdesc>
+      要用于所有角上的 y 轴的默认角半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      要用于所有角上的 y 轴的默认角半径。<codeph>topLeftRadiusY</codeph>、<codeph>topRightRadiusY</codeph>、<codeph>bottomLeftRadiusY</codeph> 和 <codeph>bottomRightRadiusY</codeph> 属性优先于此属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topLeftRadiusX:get"><apiName>topLeftRadiusX</apiName><shortdesc>
+      矩形左上角的 x 半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形左上角的 x 半径。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topLeftRadiusY:get"><apiName>topLeftRadiusY</apiName><shortdesc>
+      矩形左上角的 y 半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形左上角的 y 半径。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topRightRadiusX:get"><apiName>topRightRadiusX</apiName><shortdesc>
+      矩形右上角的 x 半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形右上角的 x 半径。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Rect:topRightRadiusY:get"><apiName>topRightRadiusY</apiName><shortdesc>
+      矩形右上角的 y 半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      矩形右上角的 y 半径。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+      此类通常用于优化投影。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+      <p>此类通常用于优化投影。如果要对其边缘位于像素边界上的 rectangularly-shaped 对象应用投影，则应使用此类，而不应直接使用 DropShadowFilter。</p>
+     
+      <p>此类接受传递到 DropShadowFilter 的前四个参数：<codeph>alpha</codeph>、<codeph>angle</codeph>、<codeph>color</codeph> 和 <codeph>distance</codeph>。此外，此类接受投射阴影的 rectangularly-shaped 对象每个角（共四个角）的角半径。</p>
+     
+      <p>如果已经设置了这 8 个值，则此类会预先计算在屏幕外 Bitmap 中的投影。调用 <codeph>drawShadow()</codeph> 方法时，则会将预先计算的投影复制到传入的 Graphics 对象。</p>
+      
+      </apiDesc><example conref="RectangularDropShadowExample.mxml"><swfblock conref="examples/RectangularDropShadowExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#DropShadowFilter"><linktext>spark.filters.DropShadowFilter</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="spark.primitives:RectangularDropShadow:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+          构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+          构造函数。
+          
+          </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.primitives:RectangularDropShadow:alpha:get"><apiName>alpha</apiName><shortdesc conref="spark.filters.DropShadowFilter#alpha">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.filters.DropShadowFilter#alpha">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:angle:get"><apiName>angle</apiName><shortdesc conref="spark.filters.DropShadowFilter#angle">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.filters.DropShadowFilter#angle">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:blRadius:get"><apiName>blRadius</apiName><shortdesc>
+          投射阴影的圆角矩形左下角的顶点半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          投射阴影的圆角矩形左下角的顶点半径。对于非圆角矩形，可能为零。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:blurX:get"><apiName>blurX</apiName><shortdesc>
+          水平模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          水平模糊量。
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:blurY:get"><apiName>blurY</apiName><shortdesc>
+          垂直模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          垂直模糊量。
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:brRadius:get"><apiName>brRadius</apiName><shortdesc>
+          投射阴影的圆角矩形右下角的顶点半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          投射阴影的圆角矩形右下角的顶点半径。对于非圆角矩形，可能为零。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:color:get"><apiName>color</apiName><shortdesc conref="spark.filters.DropShadowFilter#color">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="spark.filters.DropShadowFilter#color">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:distance:get"><apiName>distance</apiName><shortdesc conref="flash.filters.DropShadowFilter#distance">
+          </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#distance">
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:tlRadius:get"><apiName>tlRadius</apiName><shortdesc>
+          投射阴影的圆角矩形左上角的顶点半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          投射阴影的圆角矩形左上角的顶点半径。对于非圆角矩形，可能为零。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:RectangularDropShadow:trRadius:get"><apiName>trRadius</apiName><shortdesc>
+          投射阴影的圆角矩形右上角的顶点半径。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+          投射阴影的圆角矩形右上角的顶点半径。对于非圆角矩形，可能为零。
+          
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:Line"><apiName>Line</apiName><shortdesc>
+  Line 类是绘制两点之间的直线的图形元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:StrokedElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Line 类是绘制两点之间的直线的图形元素。
+  
+  <p>未定义直线的默认笔触；因此，如果未指定笔触，则该直线不可见。</p>
+  
+  </apiDesc><example conref="LineExample.mxml"><swfblock conref="examples/LineExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.graphics.Stroke.xml"><linktext>mx.graphics.Stroke</linktext></link></related-links><apiConstructor id="spark.primitives:Line:Line"><apiName>Line</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Line:protected:canSkipMeasurement"><apiName>canSkipMeasurement</apiName><shortdesc>
+      
+      确定是否可以跳过对 measure() 方法的调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>当 <codeph>measureSizes()</codeph> 方法可以跳过对 <codeph>measure()</codeph> 方法的调用时，返回 <codeph>true</codeph>。例如，同时设置 <codeph>explicitWidth</codeph> 和 <codeph>explicitHeight</codeph> 属性时，它通常为 <codeph>true</codeph>。对于路径，当路径的界限未改变时，此为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      确定是否可以跳过对 <codeph>measure()</codeph> 方法的调用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Line:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      绘制元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要绘制的图形元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      绘制元素。这是在绘制过程中采取的三个步骤中的第二步。覆盖此方法以实现绘图。已在 <codeph>beginDraw()</codeph> 方法中设置笔触（和填充，如果有）。您的覆盖仅应包含对诸如 <codeph>moveTo()</codeph>、<codeph>curveTo()</codeph> 和 <codeph>drawRect()</codeph> 等绘制方法的调用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Line:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      计算元素的默认大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      计算元素的默认大小。此方法是一种高级方法，可在创建 GraphicElement 的子类时覆盖。
+     
+      <p>您无需直接调用此方法。使用 <codeph>addElement()</codeph> 方法将元素添加到 <codeph>IGraphicElementContainer</codeph> 容器（例如，组）时，以及调用元素的 <codeph>invalidateSize()</codeph> 方法时，Flex 会调用 <codeph>measure()</codeph> 方法。 </p>
+     
+      <p>默认情况下您会设置元素的显式高度和显式宽度，Flex 不会调用 <codeph>measure()</codeph> 方法，即使您显式调用 <codeph>invalidateSize()</codeph> 方法也不例外。若要覆盖此行为，请覆盖 <codeph>skipMeasure()</codeph> 方法。</p>
+     
+      <p>覆盖此方法时，必须设置 <codeph>measuredWidth</codeph> 和 <codeph>measuredHeight</codeph> 属性以定义默认大小。您可以选择设置 <codeph>measuredX</codeph> 和 <codeph>measuredY</codeph> 属性以定义相对于元素的原点的默认测量界限左上角。</p>
+     
+      <p><codeph>measure()</codeph> 的概念点供元素提供其自己的原始或固有界限作为默认值。因此，<codeph>measuredWidth</codeph> 和 <codeph>measuredHeight</codeph> 属性应由以下几个因素确定：</p>
+      <ul>
+         <li>组件需要显示的文本量。</li>
+         <li>组件所显示的 JPEG 图像的大小。</li>
+      </ul>
+     
+      <p>某些情况下，确定默认值的方式并不固定。例如，对于一个简单的 GreenCircle 元素，可能只需在其 <codeph>measure()</codeph> 方法中设置 measuredWidth = 100 和 measuredHeight = 100 便可提供合理的默认大小。而在其他情况下（例如 TextArea），相应计算（例如查找合适的宽度和高度，使其刚好适合显示所有文本并拥有黄金矩形的高宽比）所耗费的时间可能会过长。</p>
+     
+      <p><codeph>measure()</codeph> 的默认实现会将 <codeph>measuredWidth</codeph>、<codeph>measuredHeight</codeph>、<codeph>measuredX</codeph> 和 <codeph>measuredY</codeph> 属性的值设置为 <codeph>0</codeph>。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:Line:xFrom:get"><apiName>xFrom</apiName><shortdesc>
+     直线的起始 x 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     直线的起始 x 位置。
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Line:xTo:get"><apiName>xTo</apiName><shortdesc>
+     直线的结束 x 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     直线的结束 x 位置。
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Line:yFrom:get"><apiName>yFrom</apiName><shortdesc>
+     直线的起始 y 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     直线的起始 y 位置。
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Line:yTo:get"><apiName>yTo</apiName><shortdesc>
+     直线的结束 y 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     直线的结束 y 位置。
+    
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:BitmapImage"><apiName>BitmapImage</apiName><shortdesc>
+  BitmapImage 元素在其父元素的坐标空间内定义一个矩形区域，使用从源文件或源 URL 获取的位图数据填充。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.0"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:GraphicElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BitmapImage 元素在其父元素的坐标空间内定义一个矩形区域，使用从源文件或源 URL 获取的位图数据填充。
+   </apiDesc><example conref="BitmapImageExample.mxml"><swfblock conref="examples/BitmapImageExample.swf"/></example></apiClassifierDetail><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.SecurityErrorEvent.SECURITY_ERROR_securityError"><apiName>securityError</apiName><shortdesc>
+  发生安全性错误时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.SecurityErrorEvent.SECURITY_ERROR</apiEventType><adobeApiEventClassifier>flash.events.SecurityErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  发生安全性错误时分派。
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.SecurityErrorEvent.xml"><linktext>flash.events.SecurityErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_mx.events.FlexEvent.READY_ready"><apiName>ready</apiName><shortdesc>
+  在内容加载完成时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.READY</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在内容加载完成时分派。与 <codeph>complete</codeph> 事件不同，将为所有源类型分派此事件。
+   <p>请注意，对于通过加载器加载的内容，将分派 <codeph>ready</codeph> 和 <codeph>complete</codeph> 事件。</p>  对于其它源类型（如嵌入），仅分派 <codeph>ready</codeph>。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.ProgressEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  当加载内容时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.ProgressEvent.PROGRESS</apiEventType><adobeApiEventClassifier>flash.events.ProgressEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当加载内容时分派。
+   <p><b>注意：</b>不能保证分派 <codeph>progress</codeph> 事件。在不分派任何 <codeph>progress</codeph> 事件的情况下，也可能会接收 <codeph>complete</codeph> 事件。如果加载的内容是本地文件，就可能会出现这种情况。</p>
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.IOErrorEvent.IO_ERROR_ioError"><apiName>ioError</apiName><shortdesc>
+  发生输入/输出错误时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.IOErrorEvent.IO_ERROR</apiEventType><adobeApiEventClassifier>flash.events.IOErrorEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  发生输入/输出错误时分派。
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.events.IOErrorEvent.xml"><linktext>flash.events.IOErrorEvent</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.HTTPStatusEvent.HTTP_STATUS_httpStatus"><apiName>httpStatus</apiName><shortdesc>
+  在通过 HTTP 发出网络请求并且 Flash Player 或 AIR 可以检测到 HTTP 状态代码时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.HTTPStatusEvent.HTTP_STATUS</apiEventType><adobeApiEventClassifier>flash.events.HTTPStatusEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在通过 HTTP 发出网络请求并且 Flash Player 或 AIR 可以检测到 HTTP 状态代码时分派。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.primitives:BitmapImage_flash.events.Event.COMPLETE_complete"><apiName>complete</apiName><shortdesc>
+  在内容加载完成时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.COMPLETE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在内容加载完成时分派。仅对基于 URL 和 ByteArray 的源（这些源需要加载器）分派此事件。
+   <p>请注意，对于通过加载器加载的内容，将分派 <codeph>ready</codeph> 和 <codeph>complete</codeph> 事件。</p>  对于其它源类型（如嵌入），仅分派 <codeph>ready</codeph>。
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.primitives:BitmapImage:BitmapImage"><apiName>BitmapImage</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:BitmapImage:protected:commitProperties"><apiName>commitProperties</apiName><shortdesc>
+      
+      处理在元素上设置的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      处理在元素上设置的属性。此方法是一种高级方法，可在创建子类时覆盖。
+     
+      <p>您无需直接调用此方法。当您使用 <codeph>addElement()</codeph> 方法向 <codeph>IGraphicElementContainer</codeph> 容器（例如，组）中添加元素时，或调用元素的 <codeph>invalidateProperties()</codeph> 方法时，Flex 会调用 <codeph>commitProperties()</codeph> 方法。应在调用 <codeph>measure()</codeph> 方法之前调用 <codeph>commitProperties()</codeph> 方法。这允许您设置 <codeph>measure()</codeph> 方法可能会用到的属性值。</p>
+     
+      <p>某些元素具有可彼此交互的属性。通常，最好在启动时一次性处理所有这些属性以避免重复工作。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:BitmapImage:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      计算元素的默认大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      计算元素的默认大小。此方法是一种高级方法，可在创建 GraphicElement 的子类时覆盖。
+     
+      <p>您无需直接调用此方法。使用 <codeph>addElement()</codeph> 方法将元素添加到 <codeph>IGraphicElementContainer</codeph> 容器（例如，组）时，以及调用元素的 <codeph>invalidateSize()</codeph> 方法时，Flex 会调用 <codeph>measure()</codeph> 方法。 </p>
+     
+      <p>默认情况下您会设置元素的显式高度和显式宽度，Flex 不会调用 <codeph>measure()</codeph> 方法，即使您显式调用 <codeph>invalidateSize()</codeph> 方法也不例外。若要覆盖此行为，请覆盖 <codeph>skipMeasure()</codeph> 方法。</p>
+     
+      <p>覆盖此方法时，必须设置 <codeph>measuredWidth</codeph> 和 <codeph>measuredHeight</codeph> 属性以定义默认大小。您可以选择设置 <codeph>measuredX</codeph> 和 <codeph>measuredY</codeph> 属性以定义相对于元素的原点的默认测量界限左上角。</p>
+     
+      <p><codeph>measure()</codeph> 的概念点供元素提供其自己的原始或固有界限作为默认值。因此，<codeph>measuredWidth</codeph> 和 <codeph>measuredHeight</codeph> 属性应由以下几个因素确定：</p>
+      <ul>
+         <li>组件需要显示的文本量。</li>
+         <li>组件所显示的 JPEG 图像的大小。</li>
+      </ul>
+     
+      <p>某些情况下，确定默认值的方式并不固定。例如，对于一个简单的 GreenCircle 元素，可能只需在其 <codeph>measure()</codeph> 方法中设置 measuredWidth = 100 和 measuredHeight = 100 便可提供合理的默认大小。而在其他情况下（例如 TextArea），相应计算（例如查找合适的宽度和高度，使其刚好适合显示所有文本并拥有黄金矩形的高宽比）所耗费的时间可能会过长。</p>
+     
+      <p><codeph>measure()</codeph> 的默认实现会将 <codeph>measuredWidth</codeph>、<codeph>measuredHeight</codeph>、<codeph>measuredX</codeph> 和 <codeph>measuredY</codeph> 属性的值设置为 <codeph>0</codeph>。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:BitmapImage:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      
+      绘制元素和/或调整其内容的大小并定位该内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的宽度（以像素为单位），而不考虑该组件的 <codeph>scaleX</codeph> 属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>指定组件在组件坐标中的高度（以像素为单位），而不考虑该组件的 <codeph>scaleY</codeph> 属性值。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      绘制元素和/或调整其内容的大小并定位该内容。此方法是一种高级方法，可在创建 GraphicElement 的子类时覆盖。
+     
+      <p>您无需直接调用此方法。使用 <codeph>addElement()</codeph> 方法将组件添加到 <codeph>IGraphicElementContainer</codeph> 容器（例如，组）时，以及调用元素的 <codeph>invalidateDisplayList()</codeph> 方法时，Flex 会调用 <codeph>updateDisplayList()</codeph> 方法。 </p>
+     
+      <p>您可以借助此方法使用针对元素的 displayObject（如 <codeph>graphics.drawRect()</codeph>）上的一些方法以编程方式进行绘制。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:BitmapImage:bitmapData:get"><apiName>bitmapData</apiName><shortdesc>
+      返回 BitmapData 对象的副本，该对象表示当前加载的图像内容（未缩放）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:BitmapData"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      返回 BitmapData 对象的副本，该对象表示当前加载的图像内容（未缩放）。对于不受信任的跨域内容，此属性为 <codeph>null</codeph>。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:bytesLoaded:get"><apiName>bytesLoaded</apiName><shortdesc>
+      已加载的图像的字节数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      已加载的图像的字节数。仅与由请求 URL 加载的图像相关。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:bytesTotal:get"><apiName>bytesTotal</apiName><shortdesc>
+      已加载的或待加载的总图像数据（以字节为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      已加载的或待加载的总图像数据（以字节为单位）。仅与由请求 URL 加载的图像相关。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:clearOnLoad:get"><apiName>clearOnLoad</apiName><shortdesc>
+      指示是否在加载新内容之前清除以前的图像内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      指示是否在加载新内容之前清除以前的图像内容。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:contentLoaderGrouping:get"><apiName>contentLoaderGrouping</apiName><shortdesc>
+      要传递给相关联的 IContentLoader 实例的 load() 方法的可选内容分组标识符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      要传递给相关联的 IContentLoader 实例的 load() 方法的可选内容分组标识符。仅在分配有效的 contentLoader 时才会考虑此属性。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:contentLoader:get"><apiName>contentLoader</apiName><shortdesc>
+      可选自定义图像加载器（即</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.core:IContentLoader</apiValueClassifier><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      要与内容加载器客户端相关联的可选自定义图像加载器（即图像缓存或排队）。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:fillMode:get"><apiName>fillMode</apiName><shortdesc>
+      确定位图填充尺寸的方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapFillMode.SCALE&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      确定位图填充尺寸的方式。如果在标签中设置此属性的值，请使用字符串（如“repeat”）。如果您在 ActionScript 中设置此属性的值，请使用常量（如 <codeph>mx.graphics.BitmapFillMode.CLIP</codeph>）。
+           <p>设置为 <codeph>BitmapFillMode.CLIP</codeph>（“clip”）时，位图在区域的边缘处结束。</p>
+           <p>设置为 <codeph>BitmapFillMode.REPEAT</codeph>（“repeat”）时，位图将重复以填充区域。</p>
+           <p>设置为 <codeph>BitmapFillMode.SCALE</codeph>（“scale”）时，位图将拉伸以填充区域。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:horizontalAlign:get"><apiName>horizontalAlign</apiName><shortdesc>
+      当内容的高宽比不是 1:1 且 scaleMode 设置为 mx.graphics.BitmapScaleMode.LETTERBOX 时，内容的水平对齐方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>HorizontalAlign.CENTER&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      当内容的高宽比不是 1:1 且 <codeph>scaleMode</codeph> 设置为 <codeph>mx.graphics.BitmapScaleMode.LETTERBOX</codeph> 时，内容的水平对齐方式。
+           <p>可以是 <codeph>HorizontalAlign.LEFT</codeph> ("left")、<codeph>HorizontalAlign.RIGHT</codeph> ("right") 或 <codeph>HorizontalAlign.CENTER</codeph> ("center") 之一。</p>
+           <p>仅当 <codeph>fillMode</codeph> 设置为 <codeph>mx.graphics.BitmapFillMode.SCALE</codeph>（“缩放”）时，此属性才适用。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link><link href="" invalidHref="mx.graphics.BitmapScaleMode.xml"><linktext>mx.graphics.BitmapScaleMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:preliminaryHeight:get"><apiName>preliminaryHeight</apiName><shortdesc>
+      当布局请求图像的“测量”范围，但图像数据尚未完成加载时，提供要使用的高度的估计值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      当布局请求图像的“测量”范围，但图像数据尚未完成加载时，提供要使用的高度的估计值。如果为 NaN，则在图像完成加载之前，测量高度将一直是 0。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:preliminaryWidth:get"><apiName>preliminaryWidth</apiName><shortdesc>
+      当布局请求图像的“测量”范围，但图像数据尚未完成加载时，提供要使用的宽度的估计值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      当布局请求图像的“测量”范围，但图像数据尚未完成加载时，提供要使用的宽度的估计值。如果为 NaN，则在图像完成加载之前，测量宽度将一直是 0。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      确定当 fillMode 设置为 mx.graphics.BitmapFillMode.SCALE 时如何缩放图像。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapScaleMode.STRETCH&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      确定当 <codeph>fillMode</codeph> 设置为 <codeph>mx.graphics.BitmapFillMode.SCALE</codeph> 时如何缩放图像。
+           <p>当设置为 <codeph>mx.graphics.BitmapScaleMode.STRETCH</codeph>（“伸展”）时，图像被伸展以适应区域。</p>
+           <p>在设置为 <codeph>BitmapScaleMode.LETTERBOX</codeph> ("letterbox") 时，根据原始未缩放的图像的高宽比对图像进行缩放。</p>
+           <p>当设置为 <codeph>BitmapScaleMode.ZOOM</codeph>（“缩放”），图像会缩放以适应原始的未缩放图像的高宽比。这会导致在一个轴上出现裁剪。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link><link href="" invalidHref="mx.graphics.BitmapScaleMode.xml"><linktext>mx.graphics.BitmapScaleMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:sourceHeight:get"><apiName>sourceHeight</apiName><shortdesc>
+      提供原始图像数据的未缩放高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      提供原始图像数据的未缩放高度。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:sourceWidth:get"><apiName>sourceWidth</apiName><shortdesc>
+      提供原始图像数据的未缩放宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>NaN
+           </apiDefaultValue></apiValueDef><apiDesc>
+      提供原始图像数据的未缩放宽度。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:source:get"><apiName>source</apiName><shortdesc>
+      用于位图填充的源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sourceChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      用于位图填充的源。可以呈示基于各种图形源的填充，其中包括：
+      <ul>
+       <li>Bitmap 或 BitmapData 实例。</li>
+       <li>表示 DisplayObject 子类的类。BitmapFill 会将该类实例化并为其创建位图呈示。</li>
+       <li>DisplayObject 的实例。BitmapFill 将其复制到 Bitmap 中以供填充使用。</li>
+       <li>外部图像文件的名称。 </li>
+      </ul>
+           <p>如果使用某个图像文件作为源，则它可以是 PNG、GIF 或 JPG 类型。</p>
+           <p>要指定一个嵌入的图像源，可以使用 @Embed 指令，如下例所示：
+      <pre>
+      source="@Embed('&lt;i>image_location&lt;/i>')"
+      </pre>
+      </p>
+           <p>可通过 URL、URLRequest 或文件引用指定图像位置。如果是文件引用，则其位置是相对于要编译的文件的位置的。</p>
+           <p>BitmapImage 类旨在与嵌入图像或在运行时加载的图像一起使用。</p>
+           <p>如果该源是 Bitmap 或 BitmapData 实例，或者是外部图像文件，则一旦不再需要该源时，调用者有责任清除该源。如果 ImageLoader 创建了 BitmapData 实例，则它将在该源更改后清除 BitmapData。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Bitmap.xml"><linktext>flash.display.Bitmap</linktext></link><link href="" invalidHref="flash.display.BitmapData.xml"><linktext>flash.display.BitmapData</linktext></link><link href="" invalidHref="mx.graphics.BitmapFill.xml"><linktext>mx.graphics.BitmapFill</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:trustedSource:get"><apiName>trustedSource</apiName><shortdesc>
+      一个只读标志，指示是否将当前加载的内容视为是从其安全策略允许跨域图像访问的源加载的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+           </apiDefaultValue></apiValueDef><apiDesc>
+      一个只读标志，指示是否将当前加载的内容视为是从其安全策略允许跨域图像访问的源加载的。为 <codeph>false</codeph> 时，不允许执行高级位图操作，如高品质缩放和拼贴。在全部加载图像后设置此标志。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:verticalAlign:get"><apiName>verticalAlign</apiName><shortdesc>
+      当内容的高宽比不是 1:1 且 scaleMode 设置为 mx.graphics.BitmapScaleMode.LETTERBOX 时，内容的垂直对齐方式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>VerticalAlign.MIDDLE&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      当内容的高宽比不是 1:1 且 scaleMode 设置为 <codeph>mx.graphics.BitmapScaleMode.LETTERBOX</codeph> 时，内容的垂直对齐方式。
+           <p>可以是 <codeph>VerticalAlign.TOP</codeph> ("top")、<codeph>VerticalAlign.BOTTOM</codeph> ("bottom") 或 <codeph>VerticalAlign.MIDDLE</codeph> ("middle") 之一。</p>
+           <p>此属性仅在 scaleMode 设置为 <codeph>BitmapFillMode.SCALE</codeph> ("scale") 时才适用。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.graphics.BitmapFillMode.xml"><linktext>mx.graphics.BitmapFillMode</linktext></link><link href="" invalidHref="mx.graphics.BitmapScaleMode.xml"><linktext>mx.graphics.BitmapScaleMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives:BitmapImage:smooth:set"><apiName>smooth</apiName><shortdesc conref="flash.display.GraphicsBitmapFill#smooth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+           </apiDefaultValue></apiValueDef><apiDesc conref="flash.display.GraphicsBitmapFill#smooth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:BitmapImage:smoothingQuality:set"><apiName>smoothingQuality</apiName><shortdesc>
+      确定如何缩小图像。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapSmoothingQuality.DEFAULT&lt;/code>
+           </apiDefaultValue></apiValueDef><apiDesc>
+      确定如何缩小图像。当设置为 <codeph>BitmapSmoothingQuality.HIGH</codeph> 时，将重新采样图像（如果数据来源受信任），以达到更高质量的结果。如果设置为 <codeph>BitmapSmoothingQuality.DEFAULT</codeph>，则使用缩放的位图填充的默认舞台品质。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives:Path"><apiName>Path</apiName><shortdesc>
+  Path 类是绘制一系列路径段的填充图形元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:FilledElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Path 类是绘制一系列路径段的填充图形元素。在矢量图形中，路径是按直线段或曲线段连接的一系列点。这些线在一起形成一个图像。在 Flex 中，您可以使用 Path 类来定义通过一组线段构造的一个复杂矢量形状。 
+ 
+  <p>通常，路径定义的第一个元素是 Move 段，用于指定图形的开始钢笔位置。接着将使用 Line、CubicBezier 和 QuadraticBezier 段来绘制图形的线条。使用这些类时，您仅需指定线的终点的 x 和 y 坐标；而起点的 x 和 y 坐标是由当前钢笔位置定义的。</p>
+  
+  <p>在绘制线段之后，当前钢笔位置变成线的终点的 x 和 y 坐标。可以在路径定义中使用多个 Move 段来调整笔的位置。</p>
+  
+  <p>Path 类定义形状所用的语法与 SVG 路径语法相同，这样很容易将 SVG 路径转换为 Flex 路径。</p>
+  
+  </apiDesc><example conref="ArrowExample.mxml"><swfblock conref="examples/ArrowExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.primitives:Path:Path"><apiName>Path</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Path:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      绘制元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要绘制的图形元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      绘制元素。这是在绘制过程中采取的三个步骤中的第二步。覆盖此方法以实现绘图。已在 <codeph>beginDraw()</codeph> 方法中设置笔触（和填充，如果有）。您的覆盖仅应包含对诸如 <codeph>moveTo()</codeph>、<codeph>curveTo()</codeph> 和 <codeph>drawRect()</codeph> 等绘制方法的调用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:protected:endDraw"><apiName>endDraw</apiName><shortdesc>
+     
+      
+      完成此元素的绘制。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要完成绘制的图形元素。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      
+      完成此元素的绘制。这是在绘制过程中采取的三个步骤中的最后一步。在这一步中，填充已关闭。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:protected:invalidateDisplayObjectSharing"><apiName>invalidateDisplayObjectSharing</apiName><shortdesc>
+      
+      通知主机此元素已更改且需要更新其图层的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      通知主机此元素已更改且需要更新其图层的实用程序方法。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Path:protected:measure"><apiName>measure</apiName><shortdesc>
+      
+      计算元素的默认大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      计算元素的默认大小。此方法是一种高级方法，可在创建 GraphicElement 的子类时覆盖。
+     
+      <p>您无需直接调用此方法。使用 <codeph>addElement()</codeph> 方法将元素添加到 <codeph>IGraphicElementContainer</codeph> 容器（例如，组）时，以及调用元素的 <codeph>invalidateSize()</codeph> 方法时，Flex 会调用 <codeph>measure()</codeph> 方法。 </p>
+     
+      <p>默认情况下您会设置元素的显式高度和显式宽度，Flex 不会调用 <codeph>measure()</codeph> 方法，即使您显式调用 <codeph>invalidateSize()</codeph> 方法也不例外。若要覆盖此行为，请覆盖 <codeph>skipMeasure()</codeph> 方法。</p>
+     
+      <p>覆盖此方法时，必须设置 <codeph>measuredWidth</codeph> 和 <codeph>measuredHeight</codeph> 属性以定义默认大小。您可以选择设置 <codeph>measuredX</codeph> 和 <codeph>measuredY</codeph> 属性以定义相对于元素的原点的默认测量界限左上角。</p>
+     
+      <p><codeph>measure()</codeph> 的概念点供元素提供其自己的原始或固有界限作为默认值。因此，<codeph>measuredWidth</codeph> 和 <codeph>measuredHeight</codeph> 属性应由以下几个因素确定：</p>
+      <ul>
+         <li>组件需要显示的文本量。</li>
+         <li>组件所显示的 JPEG 图像的大小。</li>
+      </ul>
+     
+      <p>某些情况下，确定默认值的方式并不固定。例如，对于一个简单的 GreenCircle 元素，可能只需在其 <codeph>measure()</codeph> 方法中设置 measuredWidth = 100 和 measuredHeight = 100 便可提供合理的默认大小。而在其他情况下（例如 TextArea），相应计算（例如查找合适的宽度和高度，使其刚好适合显示所有文本并拥有黄金矩形的高宽比）所耗费的时间可能会过长。</p>
+     
+      <p><codeph>measure()</codeph> 的默认实现会将 <codeph>measuredWidth</codeph>、<codeph>measuredHeight</codeph>、<codeph>measuredX</codeph> 和 <codeph>measuredY</codeph> 属性的值设置为 <codeph>0</codeph>。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives:Path:data:set"><apiName>data</apiName><shortdesc>
+      包含路径段的压缩表示的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      包含路径段的压缩表示的字符串。这是设置 segments 属性的一种替代方式。设置此属性会覆盖 segments array 属性中存储的任何值。
+     
+      <p>该值是用于描述每个路径段的以空格分隔的字符串。每个段条目都有一个表示段类型的字符和两个或更多段参数。</p>
+     
+      <p>如果段命令是大写的，则这些参数是绝对值。如果段命令是小写的，则这些参数是相对值。</p>
+     
+      <p>下表显示这些段的语法：
+      
+      
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+      <tgroup cols="4"><thead><row><entry>段类型</entry><entry>命令</entry><entry>参数</entry><entry>示例</entry></row></thead><tbody><row>
+          <entry>Move</entry>
+          <entry>M/m</entry>
+          <entry>x y</entry>
+          <entry><codeph>M 10 20</codeph> － 将直线移到 10, 20。</entry>
+        </row><row>
+          <entry>Line</entry>
+          <entry>L/l</entry>
+          <entry>x y</entry>
+          <entry><codeph>L 50 30</codeph> － 直线到 50, 30。</entry>
+        </row><row>
+          <entry>水平线</entry>
+          <entry>H/h</entry>
+          <entry>x</entry>
+          <entry><codeph>H 40</codeph> = 水平线到 40。</entry>
+        </row><row>
+          <entry>垂直线</entry>
+          <entry>V/v</entry>
+          <entry>y</entry>
+          <entry><codeph>V 100</codeph> - 垂直线到 100。</entry>
+        </row><row>
+          <entry>QuadraticBezier</entry>
+          <entry>Q/q</entry>
+          <entry>controlX controlY x y</entry>
+          <entry><codeph>Q 110 45 90 30</codeph> - 曲线到 90, 30，控制点位于 110, 45。</entry>
+        </row><row>
+          <entry>CubicBezier</entry>
+          <entry>C/c</entry>
+          <entry>control1X control1Y control2X control2Y x y</entry>
+          <entry><codeph>C 45 50 20 30 10 20</codeph> － 曲线到 10, 20，第一个控制点位于 45, 50，而第二个控制点位于 20, 30。</entry>
+        </row><row>
+          <entry>闭合路径</entry>
+          <entry>Z/z</entry>
+          <entry>无</entry>
+          <entry>关闭路径。</entry>
+        </row></tbody></tgroup></adobetable>
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives:Path:winding:set"><apiName>winding</apiName><shortdesc>
+      相交或重叠路径段的填充规则。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>evenOdd
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      相交或重叠路径段的填充规则。可能的值有 <codeph>GraphicsPathWinding.EVEN_ODD</codeph> 或 <codeph>GraphicsPathWinding.NON_ZERO</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.GraphicsPathWinding.xml"><linktext>flash.display.GraphicsPathWinding</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.primitives:Ellipse"><apiName>Ellipse</apiName><shortdesc>
+  Ellipse 类是绘制椭圆的填充图形元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:FilledElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Ellipse 类是绘制椭圆的填充图形元素。为了绘制椭圆，此类会调用 <codeph>Graphics.drawEllipse()</codeph> 方法。
+  
+  </apiDesc><example conref="EllipseExample.mxml"><swfblock conref="examples/EllipseExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="spark.primitives:Ellipse:Ellipse"><apiName>Ellipse</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives:Ellipse:protected:draw"><apiName>draw</apiName><shortdesc>
+      
+      绘制元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>要绘制的图形元素。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      绘制元素。这是在绘制过程中采取的三个步骤中的第二步。覆盖此方法以实现绘图。已在 <codeph>beginDraw()</codeph> 方法中设置笔触（和填充，如果有）。您的覆盖仅应包含对诸如 <codeph>moveTo()</codeph>、<codeph>curveTo()</codeph> 和 <codeph>drawRect()</codeph> 等绘制方法的调用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Ellipse:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives:Ellipse:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

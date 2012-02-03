@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.utils"><apiName>mx.utils</apiName><apiDetail/><apiClassifier id="mx.utils:URLUtil"><apiName>URLUtil</apiName><shortdesc>
+      URLUtil 类是一个静态类，其方法用于处理 Flex　内的完整或相对 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      URLUtil 类是一个静态类，其方法用于处理 Flex　内的完整或相对 URL。
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.BrowserManager.xml"><linktext>mx.managers.BrowserManager</linktext></link></related-links><apiOperation id="mx.utils:URLUtil:getFullURL"><apiName>getFullURL</apiName><shortdesc>
+          将潜在的相对 URL 转换为完全限定 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>完全限定 URL。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiDesc>如果 <codeph>url</codeph> 为相对值，该　URL 用于解析由 <codeph>url</codeph> 参数指定的 URL。
+          </apiDesc></apiParam><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>要转换的　URL。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          将潜在的相对 URL 转换为完全限定 URL。如果该 URL 不是相对值，则原样返回。如果 URL 以斜杠开头，则在前面加上根 URL 的主机和端口。否则在前面加上主机、端口和路径。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getPort"><apiName>getPort</apiName><shortdesc>
+          返回指定 URL 的端口号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定的 URL 的端口号。
+          
+          </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>要分析的 URL。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          返回指定 URL 的端口号。
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getProtocol"><apiName>getProtocol</apiName><shortdesc>
+          返回指定 URL 的协议部分。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>协议；如果未指定协议，则为空字符串。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>包含要解析的 URL 的字符串。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          返回指定 URL 的协议部分。以下示例显示基于不同的 URL 返回的内容：
+          
+          <pre>
+          getProtocol("https://localhost:2700/") returns "https"
+          getProtocol("rtmp://www.myCompany.com/myMainDirectory/groupChatApp/HelpDesk") returns "rtmp"
+          getProtocol("rtmpt:/sharedWhiteboardApp/June2002") returns "rtmpt"
+          getProtocol("rtmp::1234/chatApp/room_name") returns "rtmp"
+          </pre>
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getServerNameWithPort"><apiName>getServerNameWithPort</apiName><shortdesc>
+          返回指定 URL 的域和端口信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定的 URL 的服务器名称和端口。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>要分析的 URL。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          返回指定 URL 的域和端口信息。
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:getServerName"><apiName>getServerName</apiName><shortdesc>
+          返回指定 URL 的服务器名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>指定的 URL 的服务器名称。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>要分析的 URL。
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          返回指定 URL 的服务器名称。
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:hasTokens"><apiName>hasTokens</apiName><shortdesc>
+          提供一个 URL，确定此 URL 是否包含 server.name 和 server.port 标记。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果此 URL 包含 server.name 和 server.port 标记，则为 <codeph>true</codeph>。
+         
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>URL 字符串。 
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          提供一个 URL，确定此 URL 是否包含 server.name 和 server.port 标记。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:hasUnresolvableTokens"><apiName>hasUnresolvableTokens</apiName><shortdesc>
+         如果 LoaderConfig.url 属性不可用，replaceTokens() 方法将不能正确替换服务器名称和端口属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果 <codeph>LoaderConfig.url</codeph> 属性不可用，则为 <codeph>true</codeph>。否则为 <codeph>false</codeph>。
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+         如果 <codeph>LoaderConfig.url</codeph> 属性不可用，<codeph>replaceTokens()</codeph> 方法将不能正确替换服务器名称和端口属性。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:isHttpURL"><apiName>isHttpURL</apiName><shortdesc>
+          确定 URL 是否使用 HTTP、HTTPS 或 RTMP 协议。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果 URL 以“http://”、“https://”或“rtmp://”开头，则为 <codeph>true</codeph>。
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>要分析的 URL。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          确定 URL 是否使用 HTTP、HTTPS 或 RTMP 协议。 
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:isHttpsURL"><apiName>isHttpsURL</apiName><shortdesc>
+          确定 URL 是否使用安全 HTTPS 协议。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果 URL 以“https://”开头，则为 <codeph>true</codeph>。
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>要分析的 URL。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          确定 URL 是否使用安全 HTTPS 协议。 
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:objectToString"><apiName>objectToString</apiName><shortdesc>
+          枚举对象的动态属性（通过在循环中使用 for）并返回一个字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>传递给方法的对象。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>object</apiItemName><apiType value="Object"/><apiDesc>要转换为字符串的对象。
+          </apiDesc></apiParam><apiParam><apiItemName>separator</apiItemName><apiType value="String"/><apiData/><apiDesc>分隔字符串中对象的各 <codeph>property:value</codeph> 对的字符。
+          </apiDesc></apiParam><apiParam><apiItemName>encodeURL</apiItemName><apiType value="Boolean"/><apiData/><apiDesc>是否对字符串进行 URL 编码。
+          
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          枚举对象的动态属性（通过在循环中使用 <codeph>for</codeph>）并返回一个字符串。通常使用此方法将 ActionScript 对象转换为一个字符串,然后将其附加到 URL 的末尾。默认情况下，将对无效的 URL 字符进行 URL 编码（转换为 <codeph>%XX</codeph> 格式）。
+         
+          <p>例如：
+          <pre>
+          var o:Object = { name: "Alex", age: 21 };
+          var s:String = URLUtil.objectToString(o,";",true);
+          trace(s);
+          </pre>
+          在跟踪日志中写入“name=Alex;age=21”。
+          </p>
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:replacePort"><apiName>replacePort</apiName><shortdesc>
+          返回新字符串，其端口用指定端口替换。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>使用新端口的 URI。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>包含其端口被替换的 URI 的字符串。
+          </apiDesc></apiParam><apiParam><apiItemName>newPort</apiItemName><apiType value="uint"/><apiDesc>包含用于替换的新端口的 uint。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          返回新字符串，其端口用指定端口替换。如果指定的 URI 中没有端口，将插入该端口。该方法要求 URI 内已指定了协议。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:replaceProtocol"><apiName>replaceProtocol</apiName><shortdesc>
+          用给定协议替换指定 URI 的协议。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>替换其协议的 URI；如果 URI 不包含协议，则为空字符串。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>包含其协议需要被替换的 URI 的字符串。
+         
+          </apiDesc></apiParam><apiParam><apiItemName>newProtocol</apiItemName><apiType value="String"/><apiDesc>包含要使用的新协议的字符串。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          用给定协议替换指定 URI 的协议。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:replaceTokens"><apiName>replaceTokens</apiName><shortdesc>
+          返回一个新字符串，其端口和服务器标记已用当前运行的应用程序中的端口和服务器替换。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>端口和服务器被替换的 URI。
+          
+          </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>包含应使用应用程序中的端口和服务器替换的 <codeph>SERVER_NAME_TOKEN</codeph> 和/或 <codeph>SERVER_NAME_PORT</codeph> 的字符串。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          返回一个新字符串，其端口和服务器标记已用当前运行的应用程序中的端口和服务器替换。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:stringToObject"><apiName>stringToObject</apiName><shortdesc>
+          从字符串返回对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>包含从传递给该方法的字符串中提取的属性和值的对象。
+          
+          </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>string</apiItemName><apiType value="String"/><apiDesc>要转换为对象的字符串。
+          </apiDesc></apiParam><apiParam><apiItemName>separator</apiItemName><apiType value="String"/><apiData/><apiDesc>分隔字符串中的 <codeph>name=value</codeph> 对的字符。
+          </apiDesc></apiParam><apiParam><apiItemName>decodeURL</apiItemName><apiType value="Boolean"/><apiData/><apiDesc>是否对字符串中 URL 编码的字符进行解码。
+         
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+          从字符串返回对象。字符串包含 <codeph>name=value</codeph> 对，它们成为返回对象的动态属性。这些属性对由指定的 <codeph>separator</codeph> 分隔。该方法可转换数字、布尔值、数组（由“[]”定义）以及子类（由“{}”定义）。默认情况下，<codeph>%XX</codeph> 格式的 URL 模式将转换为相应的字符串字符。
+         
+          <p>例如：
+          <pre>
+          var s:String = "name=Alex;age=21";
+          var o:Object = URLUtil.stringToObject(s, ";", true);
+          </pre>
+          
+          返回对象：<codeph>{ name: "Alex", age: 21 }</codeph>。
+          </p>
+          
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:URLUtil:urisEqual"><apiName>urisEqual</apiName><shortdesc>
+         测试两个 URI 字符串是否等效，忽略大小写和末尾斜杠的差异。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果 URI 相等，则为 <codeph>true</codeph>。否则为 <codeph>false</codeph>。
+          
+          </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uri1</apiItemName><apiType value="String"/><apiDesc>要比较的第一个 URI。
+          </apiDesc></apiParam><apiParam><apiItemName>uri2</apiItemName><apiType value="String"/><apiDesc>要比较的第二个 URI。
+          
+          </apiDesc></apiParam></apiOperationDef><apiDesc>
+         测试两个 URI 字符串是否等效，忽略大小写和末尾斜杠的差异。
+         
+          </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.utils:URLUtil:SERVER_NAME_TOKEN"><apiName>SERVER_NAME_TOKEN</apiName><shortdesc>
+          由应用程序的服务器名称替换的传递给 replaceTokens() 方法的字符串中的模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>{server.name}</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          由应用程序的服务器名称替换的传递给 <codeph>replaceTokens()</codeph> 方法的字符串中的模式。
+          
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.utils:URLUtil:SERVER_PORT_TOKEN"><apiName>SERVER_PORT_TOKEN</apiName><shortdesc>
+          由应用程序的端口替换的传递给 replaceTokens() 方法的字符串中的模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>{server.port}</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          由应用程序的端口替换的传递给 <codeph>replaceTokens()</codeph> 方法的字符串中的模式。
+          
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.utils:RPCStringUtil"><apiName>RPCStringUtil</apiName><shortdesc>
+  RPCStringUtil 类是 StringUtil 的一个子集，去除了在将 RPC 消息放入引导程序加载器中时产生依赖关系问题的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RPCStringUtil 类是 StringUtil 的一个子集，去除了在将 RPC 消息放入引导程序加载器中时产生依赖关系问题的方法。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCStringUtil:isWhitespace"><apiName>isWhitespace</apiName><shortdesc>
+      如果指定的字符串是单个空格、制表符、回车符、换行符或换页符，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果指定的字符串是单个空格、制表符、回车符、换行符或换页符，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>character</apiItemName><apiType value="String"/><apiDesc>查询的字符串。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果指定的字符串是单个空格、制表符、回车符、换行符或换页符，则返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCStringUtil:substitute"><apiName>substitute</apiName><shortdesc>
+      使用传入的各个参数替换指定的字符串内的“{n}”标记。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>使用指定的各个参数替换了所有 <codeph>{n}</codeph> 标记的新字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>要在其中进行替换的字符串。该字符串可包含 <codeph>{n}</codeph> 形式的特殊标记，其中 <codeph>n</codeph> 为从零开始的索引，它将被该索引处的其他参数（如果指定）替换。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>可在 <codeph>str</codeph> 参数中的每个 <codeph>{n}</codeph> 位置被替换的其他参数，其中 <codeph>n</codeph> 是一个对指定值数组的整数索引值（从 0 开始）。如果第一个参数是一个数组，则该数组将用作参数列表。如此可允许在其他想要使用... rest 签名的方法中重复使用此例程。例如 <pre>
+         public function myTracer(str:String, ... rest):void
+         { 
+             label.text += StringUtil.substitute(str, rest) + "\n";
+         } </pre>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用传入的各个参数替换指定的字符串内的“{n}”标记。
+     
+      </apiDesc><example>
+     
+      var str:String = "here is some info '{0}' and {1}"; trace(StringUtil.substitute(str, 15.4, true)); //这将输出下列字符串：// "here is some info '15.4' and true"
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCStringUtil:trimArrayElements"><apiName>trimArrayElements</apiName><shortdesc>
+      删除数组中每个元素的开头和末尾的所有空格字符，此处数组作为字符串存储。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>删除了每个元素的开头和末尾空格字符的更新字符串。 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>要去掉其空格字符的字符串。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>delimiter</apiItemName><apiType value="String"/><apiDesc>分隔字符串中的每个数组元素的字符串。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除数组中每个元素的开头和末尾的所有空格字符，此处数组作为字符串存储。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCStringUtil:trim"><apiName>trim</apiName><shortdesc>
+      删除指定字符串的开头和末尾的所有空格字符。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>删除了其开头和末尾空格字符的更新字符串。 
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>str</apiItemName><apiType value="String"/><apiDesc>要去掉其空格字符的字符串。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除指定字符串的开头和末尾的所有空格字符。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RPCObjectUtil"><apiName>RPCObjectUtil</apiName><shortdesc>
+  RPCObjectUtil 类是 ObjectUtil 的一个子集，去除了在将 RPC 消息放入引导程序加载器中时产生依赖关系问题的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RPCObjectUtil 类是 ObjectUtil 的一个子集，去除了在将 RPC 消息放入引导程序加载器中时产生依赖关系问题的方法。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCObjectUtil:getClassInfo"><apiName>getClassInfo</apiName><shortdesc>
+      返回指定对象的关于该类以及该类的属性的信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>对象包含下列属性：
+      <ul>
+        <li><codeph>name</codeph>：包含类的名称的字符串；</li>
+        <li><codeph>properties</codeph>：指定对象属性名称的排序列表。</li>
+      </ul>
+     
+     </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>要检查的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>excludes</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>指定应从返回结果中排除的属性名称的字符串数组。例如，可以指定 Event 对象的 <codeph>["currentTarget", "target"]</codeph>，因为这些属性可导致返回结果变大。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该对象包含一个或多个属性，控制由该方法返回的信息。这些属性包括：
+     
+      <ul>
+        <li><codeph>includeReadOnly</codeph>：如果为 <codeph>false</codeph>，则排除只读对象属性。默认值为 <codeph>true</codeph>。</li>
+      <li><codeph>includeTransient</codeph>：如果为 <codeph>false</codeph>，则排除具有 <codeph>[Transient]</codeph> 元数据的对象属性和变量。默认值为 <codeph>true</codeph>。</li>
+      <li><codeph>uris</codeph>：输出中要包括的所有命名空间的字符串数组。允许使用“~~”通配符。默认情况下为 null，表示没有应包括的命名空间。例如，可指定 <codeph>["mx_internal", "mx_object"]</codeph> 或 <codeph>["~~"]</codeph>。</li>
+      </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回指定对象的关于该类以及该类的属性的信息。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCObjectUtil:toString"><apiName>toString</apiName><shortdesc>
+      将指定的对象代码美化为一个字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>包含指定对象格式化版本的字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要美化打印的对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>namespaceURIs</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>输出中要包括的属性的命名空间 URI　数组。默认情况下，输出中仅包括公共命名空间中的属性。要获取不考虑命名空间的所有属性，传递仅有单个元素 "*" 的数组。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exclude</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>应从输出中排除的属性名称的数组。使用它从格式化的字符串中删除数据。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定的对象代码美化为一个字符串。所有属性将按字母排序。打印过程中将为每个对象分配一个 ID；该值将在对象类型标记的旁边显示，前面带有“#”号，例如：
+     
+      <pre>
+      (mx.messaging.messages::AsyncMessage)#2.</pre>
+     
+      <p>此 ID 用于指示 circular 引用发生的时间。<codeph>Class</codeph>　类型的对象属性将仅显示为分配的类型。例如如下所示的自定义的定义：</p>
+     
+      <pre>
+        public class MyCustomClass {
+          public var clazz:Class;
+        }</pre>
+     
+      <p>为 <codeph>clazz</codeph> 属性分配<codeph>Date</codeph> 的显示如下：</p>
+     
+      <pre>
+       (somepackage::MyCustomClass)#0
+          clazz = (Date)</pre>
+     
+      </apiDesc><example>
+      <pre>
+      // example 1
+      var obj:AsyncMessage = new AsyncMessage();
+      obj.body = [];
+      obj.body.push(new AsyncMessage());
+      obj.headers["1"] = { name: "myName", num: 15.3};
+      obj.headers["2"] = { name: "myName", num: 15.3};
+      obj.headers["10"] = { name: "myName", num: 15.3};
+      obj.headers["11"] = { name: "myName", num: 15.3};
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (mx.messaging.messages::AsyncMessage)#0
+        body = (Array)#1
+          [0] (mx.messaging.messages::AsyncMessage)#2
+            body = (Object)#3
+            clientId = (Null)
+            correlationId = ""
+            destination = ""
+            headers = (Object)#4
+            messageId = "378CE96A-68DB-BC1B-BCF7FFFFFFFFB525"
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+        clientId = (Null)
+        correlationId = ""
+        destination = ""
+        headers = (Object)#5
+          1 = (Object)#6
+            name = "myName"
+            num = 15.3
+          10 = (Object)#7
+            name = "myName"
+            num = 15.3
+          11 = (Object)#8
+            name = "myName"
+            num = 15.3
+          2 = (Object)#9
+            name = "myName"
+            num = 15.3
+        messageId = "1D3E6E96-AC2D-BD11-6A39FFFFFFFF517E"
+        sequenceId = (Null)
+        sequencePosition = 0
+        sequenceSize = 0
+        timeToLive = 0
+        timestamp = 0
+     
+      // example 2 with circular references
+      obj = {};
+      obj.prop1 = new Date();
+      obj.prop2 = [];
+      obj.prop2.push(15.2);
+      obj.prop2.push("testing");
+      obj.prop2.push(true);
+      obj.prop3 = {};
+      obj.prop3.circular = obj;
+      obj.prop3.deeper = new ErrorMessage();
+      obj.prop3.deeper.rootCause = obj.prop3.deeper;
+      obj.prop3.deeper2 = {};
+      obj.prop3.deeper2.deeperStill = {};
+      obj.prop3.deeper2.deeperStill.yetDeeper = obj;
+      trace(ObjectUtil.toString(obj));
+     
+      // will output to flashlog.txt
+      (Object)#0
+        prop1 = Tue Apr 26 13:59:17 GMT-0700 2005
+        prop2 = (Array)#1
+          [0] 15.2
+          [1] "testing"
+          [2] true
+        prop3 = (Object)#2
+          circular = (Object)#0
+          deeper = (mx.messaging.messages::ErrorMessage)#3
+            body = (Object)#4
+            clientId = (Null)
+            code = (Null)
+            correlationId = ""
+            destination = ""
+            details = (Null)
+            headers = (Object)#5
+            level = (Null)
+            message = (Null)
+            messageId = "14039376-2BBA-0D0E-22A3FFFFFFFF140A"
+            rootCause = (mx.messaging.messages::ErrorMessage)#3
+            sequenceId = (Null)
+            sequencePosition = 0
+            sequenceSize = 0
+            timeToLive = 0
+            timestamp = 0
+          deeper2 = (Object)#6
+            deeperStill = (Object)#7
+              yetDeeper = (Object)#0
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RpcClassAliasInitializer"><apiName>RpcClassAliasInitializer</apiName><shortdesc>
+  RpcClassAliasInitializer 类注册 Flex RPC 库所需的 AMF 序列化的所有类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RpcClassAliasInitializer 类注册 Flex RPC 库所需的 AMF 序列化的所有类。
+   </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RpcClassAliasInitializer:registerClassAliases"><apiName>registerClassAliases</apiName><shortdesc>
+     如果应用程序不使用 Flex UI 类（这些类用于处理 [RemoteClass(alias="")] 引导代码），此函数会注册 Flex RPC 库所需的 AMF 序列化的所有类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     如果应用程序不使用 Flex UI 类（这些类用于处理 <codeph>[RemoteClass(alias="")]</codeph> 引导代码），此函数会注册 Flex RPC 库所需的 AMF 序列化的所有类。
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RPCUIDUtil"><apiName>RPCUIDUtil</apiName><shortdesc>
+  RPCUIDUtil 类是 UIDUtil 的一个副本，其中不含在将 RPC 消息放入引导程序加载器中时产生依赖关系问题的某些函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RPCUIDUtil 类是 UIDUtil 的一个副本，其中不含在将 RPC 消息放入引导程序加载器中时产生依赖关系问题的某些函数。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCUIDUtil:createUID"><apiName>createUID</apiName><shortdesc>
+      基于 ActionScript 的伪随机数生成器和当前时间生成 UID（唯一标识符）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新生成的 UID。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      基于 ActionScript 的伪随机数生成器和当前时间生成 UID（唯一标识符）。
+     
+      <p>UID 的格式为 <codeph>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</codeph>，其中 X 是一个十六进制数字 (0-9, A-F)。</p>
+     
+      <p>该 UID 不会是真正全局唯一，但这是在没有播放器支持的情况下生成 UID 的最佳方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:fromByteArray"><apiName>fromByteArray</apiName><shortdesc>
+     将编码为 ByteArray 的 128 位 UID 转换为字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID 的字符串表示形式；如果提供的 ByteArray 无效，则为 null。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>ba</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>表示 128 位 UID 的 16 字节长度的 ByteArray。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将编码为 ByteArray 的 128 位 UID 转换为字符串表示形式。该格式与通过 createUID 生成的格式匹配。如果未提供合适的 ByteArray，则返回 null。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:isUID"><apiName>isUID</apiName><shortdesc>
+     检查字符串值是否表示一个格式正确的 UID 值的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果该值为 UID 格式，则返回 true。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>测试其是否为 UID 格式的值。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     检查字符串值是否表示一个格式正确的 UID 值的实用程序方法。UID 值应采用 createUID() 所生成的格式，这意味着只支持大写字符 A-F 和数字 0-9。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     将 UID 格式的字符串转换为 ByteArray。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>表示 128 位 UID 的 16 字节长度的 ByteArray；如果 uid 无法转换则为 null。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>表示 128 位 UID
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将 UID 格式的字符串转换为 ByteArray。UID 必须采用 createUID 所生成的格式，否则将返回 null。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.remoting"><apiName>mx.rpc.remoting</apiName><apiDetail/><apiClassifier id="mx.rpc.remoting:Operation"><apiName>Operation</apiName><shortdesc>
+ 专门由 RemoteObjects 使用的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc:AbstractOperation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 专门由 RemoteObjects 使用的 Operation。Operation 是服务上的单个方法。可以通过在服务上调用同名函数或在服务上访问作为属性的 Operation 并调用 <codeph>send()</codeph> 方法来调用 Operation。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.remoting:Operation:Operation"><apiName>Operation</apiName><shortdesc>
+     创建一个新的 Operation。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>remoteObject</apiItemName><apiOperationClassifier>mx.rpc:AbstractService</apiOperationClassifier><apiData>null</apiData><apiDesc>定义服务的 RemoteObject 对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>服务的名称。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 Operation。当访问未知操作时，该操作通常直接由 RemoteObject 自动完成。建议开发人员不要直接使用此构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.remoting:Operation:cancel"><apiName>cancel</apiName><shortdesc>
+     
+      取消上次服务调用或具有指定 ID 的调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>与被取消的调用关联的 AsyncToken，如果未取消任何调用，则为 null。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要取消的调用的 messageId。可选。如果省略，将取消上一次服务调用。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      取消上次服务调用或具有指定 ID 的调用。即使网络操作可能仍在继续，也不分派 result 或 fault 事件。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting:Operation:send"><apiName>send</apiName><shortdesc>
+     
+     执行此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>AsyncToken 对象。<codeph>token</codeph> 属性的 <codeph>result</codeph> 和 <codeph>fault</codeph> 事件中具有相同的对象。
+     
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier></apiReturn><apiParam><apiItemName>args</apiItemName><apiType value="restParam"/><apiDesc>作为方法调用的一部分传入的可选参数。如果没有传递的参数，则参数对象将用作参数源。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+     执行此方法。任何传入的任何参数将作为方法调用的一部分进行传递。如果没有传递的参数，则参数对象将用作参数源。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.remoting:Operation:argumentNames"><apiName>argumentNames</apiName><shortdesc>
+     要传递给方法调用的参数名称的有序列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     要传递给方法调用的参数名称的有序列表。由于参数对象是无确定排序的 hashmap，此数组可帮助将所有内容正确放置在一起。如有必要，当以标签形式使用 Operation 时由 MXML 编译器自动设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:Operation:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+     此操作的并发设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     此操作的并发设置。如果尚未明确设置，将使用 RemoteObject 中的设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:Operation:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:Operation:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+     此操作是否应在其执行时显示忙状态光标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     此操作是否应在其执行时显示忙状态光标。如果尚未明确设置，将使用 RemoteObject 中的设置。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.remoting:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+ RemoteObject 类使您可以访问远程应用程序服务器上的类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.rpc:AbstractService</apiBaseClassifier></apiClassifierDef><apiDesc>
+ RemoteObject 类使您可以访问远程应用程序服务器上的类。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.remoting:RemoteObject:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+     创建一个新的 RemoteObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>[可选] RemoteObject 的目标；应与 services-config.xml 文件中的目标名称匹配。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 RemoteObject。
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.remoting:RemoteObject:getOperation"><apiName>getOperation</apiName><shortdesc>
+     返回给定名称的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>为此名称执行的操作。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>操作的名称。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     返回给定名称的操作。如果之前没有创建该操作，则将在此调用过程中创建一个新的 <codeph>mx.rpc.remoting.Operation</codeph>。通常只需在服务变量之后命名操作即可访问操作 (<codeph>myService.someOperation</codeph>)，但如果 Operation 的名称恰好与服务上所定义的方法（如 <codeph>setCredentials</codeph>）相匹配，则可以改用此方法来获取 Operation。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting:RemoteObject:setRemoteCredentials"><apiName>setRemoteCredentials</apiName><shortdesc>
+     如果远程对象由外部服务（如 ColdFusion 组件 (CFC)）管理，则可以为该远程服务的身份验证机制设置用户名和密码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>remoteUsername</apiItemName><apiType value="String"/><apiDesc>要传递给远程端点的用户名
+     </apiDesc></apiParam><apiParam><apiItemName>remotePassword</apiItemName><apiType value="String"/><apiDesc>要传递给远程端点的密码
+     </apiDesc></apiParam><apiParam><apiItemName>charset</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>对远程凭据进行编码时使用的字符集编码。默认值为 null，表示旧字符集 ISO-Latin-1。其它受支持的字符集仅有“UTF-8”。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     如果远程对象由外部服务（如 ColdFusion 组件 (CFC)）管理，则可以为该远程服务的身份验证机制设置用户名和密码。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting:RemoteObject:toString"><apiName>toString</apiName><shortdesc>
+     将 RemoteObject 的实例表示为字符串，描述如目标 id 和所分配的通道集等重要属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>返回表示 RemoteObject 的实例的 String。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     将 RemoteObject 的实例表示为字符串，描述如目标 id 和所分配的通道集等重要属性。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.remoting:RemoteObject:convertParametersHandler"><apiName>convertParametersHandler</apiName><shortdesc>
+     一个可选函数，主要供具有以下需要的框架开发人员使用：安装用传递给每个远程对象调用的参数进行调用的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     一个可选函数，主要供具有以下需要的框架开发人员使用：安装用传递给每个远程对象调用的参数进行调用的函数。该函数接受一个参数数组，并返回可能改变的数组。该函数定义应该如下所示：<codeph> function myParametersFunction(parameters:Array):Array </codeph>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:convertResultHandler"><apiName>convertResultHandler</apiName><shortdesc>
+     一个可选函数，主要供具有以下需要的框架开发人员使用：安装一个挂钩，以便在通知结果处理程序之前处理操作的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+     一个可选函数，主要供具有以下需要的框架开发人员使用：安装一个挂钩，以便在通知结果处理程序之前处理操作的结果。该函数定义应该如下所示：<codeph> function myConvertResultsFunction(result: operation:AbstractOperation)： </codeph>在 makeObjectsBindable 转换完成之后、创建结果事件之前向其传递结果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+    指示如何处理对同一服务的多个调用的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+    指示如何处理对同一服务的多个调用的值。默认值为 multiple。允许使用的值包括：
+    <ul>
+    <li>multiple — 不取消现有请求，由开发人员负责通过仔细管理事件流来确保返回数据的一致性。此为默认。</li>
+    <li>single — 每次只允许在此方法中发出一个请求；在有请求未处理时在客户端上发出的其它请求会立即出错，而不会发送给服务器。</li>
+    <li>last — 发出请求可导致客户端忽略任何当前未处理请求的结果或错误。仅在客户端上分派最新请求的结果或错误。这样可以简化客户端应用程序中的事件处理过程，但应该特别注意的是，只有在可以安全忽略请求的结果或错误时，才可使用此模式。</li>
+    </ul>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:endpoint:get"><apiName>endpoint</apiName><shortdesc>
+     此属性可使开发人员在编译或以编程方式创建 ChannelSet 时快速指定 RemoteObject 目标的端点，而无需引用服务配置文件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     此属性可使开发人员在编译或以编程方式创建 ChannelSet 时快速指定 RemoteObject 目标的端点，而无需引用服务配置文件。如果已经为 RemoteObject 服务设置了 ChannelSet，它也可以覆盖现有的 ChannelSet。
+     
+     <p>如果端点 url 以“https”开头，将使用 SecureAMFChannel；否则将使用 AMFChannel。可以在端点 url 中使用 {server.name} 和 {server.port} 这两个特殊标记，以指定通道应使用用来加载 SWF 的服务器名称和端口。 </p>
+     
+     <p><b>注意：</b>当创建 AIR 应用程序时该属性是必需的。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     当该置为 true 时，返回的匿名对象将强制成为可绑定的对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+    如果为 true，在执行服务时会显示忙状态光标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+    如果为 <codeph>true</codeph>，在执行服务时会显示忙状态光标。默认值为 <codeph>false</codeph>。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.remoting:RemoteObject:source:get"><apiName>source</apiName><shortdesc>
+     用于指定客户端上的源值；不支持使用 JavaAdapter 的目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     用于指定客户端上的源值；不支持使用 JavaAdapter 的目标。这样即可提供可从服务器上的单个目标访问的多个源。 
+         
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

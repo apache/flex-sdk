@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="flash.text.engine"><apiName>flash.text.engine</apiName><apiDetail/><apiClassifier id="flash.text.engine:ITextSupport"><apiName>ITextSupport</apiName><shortdesc>
+  Интерфейс ITextSupport реализуется объектами, которые стремятся внедрить встроенный IME, или содержат текст, который должен быть доступен для поиска в Интернете, или являются доступными.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс ITextSupport реализуется объектами, которые стремятся внедрить встроенный IME, или содержат текст, который должен быть доступен для поиска в Интернете, или являются доступными. 
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:getTextInRange"><apiName>getTextInRange</apiName><shortdesc> 
+	  Получает указанный диапазон текста от компонента, реализующего интерфейс ITextSupport.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Запрашиваемый текст или <codeph>null</codeph>, если в указанном диапазоне нет текста, либо один или оба индекса недействительны. <codeph/><codeph/>
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>startIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Необязательно; целое число, указывающую начальное местоположение диапазона текста, который требуется получить.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Необязательно; целое число, указывающую конечное местоположение диапазона текста, который требуется получить.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Получает указанный диапазон текста от компонента, реализующего интерфейс ITextSupport. Чтобы получить весь текст в компоненте, не указывайте значения <codeph>startIndex</codeph> и <codeph>endIndex</codeph>. Для компонентов, которым требуется поддержка встроенных IME или веб-поиска, необходимо переопределить этот метод. Если компонент переопределяет этот метод, необходимо обеспечить поддержку значения по умолчанию <codeph>-1</codeph> для <codeph>startIndex</codeph> и <codeph>endIndex</codeph>.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectRange"><apiName>selectRange</apiName><shortdesc> 
+	  Устанавливает диапазон выделенного текста в компоненте, который реализует интерфейс ITextSupport.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/><apiDesc>Отсчитываемое от нуля значение индекса символа в опорной конечной точке выделенного фрагмента.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/><apiDesc>Отсчитываемое от нуля значение индекса символа в активной конечной точке выделенного фрагмента.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Устанавливает диапазон выделенного текста в компоненте, который реализует интерфейс ITextSupport. Если любой из аргументов находится за пределами диапазона, выделенную область изменять не требуется. Для компонентов, которым требуется поддержка встроенных IME, необходимо переопределить этот метод.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:canReconvert:get"><apiName>canReconvert</apiName><shortdesc>
+	  Указывает, поддерживает ли компонент, реализующий интерфейс ITextSupport, повторное преобразование (имеет редактируемый текст).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Указывает, поддерживает ли компонент, реализующий интерфейс ITextSupport, повторное преобразование (имеет редактируемый текст).
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectionActiveIndex:get"><apiName>selectionActiveIndex</apiName><shortdesc> 
+	  Отсчитываемое от нуля значение индекса для последнего символа в текущем выделенном фрагменте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+	  Отсчитываемое от нуля значение индекса для последнего символа в текущем выделенном фрагменте. Для компонентов, которым требуется поддержка встроенных IME или расширенного доступа, необходимо переопределить этот метод.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectionAnchorIndex:get"><apiName>selectionAnchorIndex</apiName><shortdesc> 
+	  Отсчитываемое от нуля значение индекса для первого символа в текущем выделенном фрагменте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+	  Отсчитываемое от нуля значение индекса для первого символа в текущем выделенном фрагменте. Для компонентов, которым требуется поддержка встроенных IME или расширенного доступа, необходимо переопределить этот метод.
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

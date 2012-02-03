@@ -1,0 +1,668 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.sliderClasses"><apiName>mx.controls.sliderClasses</apiName><apiDetail/><apiClassifier id="mx.controls.sliderClasses:Slider"><apiName>Slider</apiName><shortdesc>
+  La classe Slider est la classe de base des contrôles de curseur Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion><styles><style inherit="no" name="trackSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Habillage de la glissière.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="trackHighlightSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Habillage de la glissière lorsqu’elle est sélectionnée.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDisabledSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Habillage de l’état désactivé du rail du curseur.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbDownSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Habillage de l’état Au-desous du rail du curseur.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbOverSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Habillage de l’état Au-dessus du rail du curseur.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbUpSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Habillage de l’état Rélévé du rail du curseur.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="thumbSkin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Class">
+<description>
+  Habillage par défaut du curseur.
+ 
+  </description>
+<default>SliderThumbSkin
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipPrecision" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="int">
+<description>
+  Nombre de chiffres après la virgule à utiliser pour le texte des astuces sur les données. La valeur 0 arrondit toutes les valeurs à un nombre entier.
+ 
+  </description>
+<default>2
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="dataTipOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Décalage, en pixels, de l’astuce sur les données par rapport au curseur. Utilisé avec la propriété de style <codeph>dataTipPlacement</codeph> des contrôles HSlider et VSlider.
+ 
+  </description>
+<default>16
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="dataTipStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  Nom de la déclaration de style à utiliser pour l’astuce sur les données.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="trackMargin" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Taille des marges du rail, en pixels. Si la taille est <codeph>indéterminée</codeph>, les marges du rail sont définies par la longueur des première et dernière étiquettes. Si une valeur est donnée, Flex tente d’adapter les étiquettes à l’espace disponible.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="showTrackHighlight" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  Indique si la surbrillance de suivi entre les curseurs doit être activée (ou entre un seul curseur et le début du rail).
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="trackColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Couleurs du rail, sous forme de tableau de deux couleurs. Vous pouvez utliser deux fois la même couleur pour une couleur de rail uniforme.
+ 
+  <p>Cette propriété s’utilise avec la propriété <codeph>fillAlphas</codeph>. En général, vous définissez <codeph>fillAlphas</codeph> sur [ 1.0, 1.0 ] lorsque vous définissez <codeph>trackColors</codeph>.</p>
+ 
+  </description>
+<default>[ 0xE7E7E7, 0xE7E7E7 ]
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickThickness" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Epaisseur en pixels des graduations. En direction horizontale, ajustez la largeur des graduations. En direction verticale, ajustez la hauteur.
+ 
+  </description>
+<default>1
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Décalage de la position y (en direction horizontale) ou décalage de la position x (en direction verticale) des graduations par rapport au rail.
+ 
+  </description>
+<default>-6
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="tickLength" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Longueur en pixels des graduations. Si <codeph>direction</codeph> est <codeph>Direction.HORIZONTAL</codeph>, ajustez la hauteur des graduations. Si <codeph>direction</codeph> est <codeph>Direction.VERTICAL</codeph>, ajustez la largeur.
+ 
+  </description>
+<default>3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="tickColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="uint">
+<description>
+  Couleur des graduations. Il peut s’agir d’une valeur de couleur Hex ou du nom de chaîne d’une couleur connue.
+ 
+  </description>
+<default>0x6F7777.
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="thumbOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Décalage de la position y (en direction horizontale) ou décalage de la position x (en direction verticale) du curseur par rapport au rail.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="slideEasingFunction" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Function">
+<description>
+  Fonction d’interpolation utilisée par l’animation de glissement lorsque vous cliquez sur le rail pour déplacer un curseur.
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Time" inherit="no" name="slideDuration" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Durée en millisecondes de l’animation de glissement lorsque vous cliquez sur le rail pour déplacer un curseur.
+ 
+  </description>
+<default>300
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="labelStyleName" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="String">
+<description>
+  Nom du style à utiliser pour l’étiquette du curseur.  
+ 
+  </description>
+<default>undefined
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="labelOffset" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Number">
+<description>
+  Décalage de la position y (en direction horizontale) ou décalage de la position x (en direction verticale) des étiquettes par rapport au rail.
+ 
+   </description>
+<default>-10
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="invertThumbDirection" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" type="Boolean">
+<description>
+  Inversez la direction des curseurs. Si la valeur est <codeph>true</codeph>, les curseurs seront inversés.
+  
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="focusColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  Couleur de l’anneau de focus lorsque le composant a le focus.
+   
+  </description>
+<default>0x70B2EE
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="accentColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash10" theme="spark" type="uint">
+<description>
+  Couleur de la surbrillance de suivi. 
+ 
+  </description>
+<default>#0099FF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="borderColor" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="uint">
+<description>
+  Couleur de la section noire de la bordure. 
+  
+  </description>
+<default>0x919999
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="uint" format="Color" inherit="no" name="fillColors" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Indique les couleurs utilisées pour teindre le remplissage d’arrère-plan du composant. Il est conseillé de le définir sur un tableau de deux ou quatre valeurs d’unité spécifiant les couleurs RVB. Les éléments 0 et 1 spécifient les valeurs de début et de fin d’un dégradé de couleurs. Si les éléments 2 et 3 sont définis, ils sont utilisés en lieu et place des éléments 0 et 1 lorsque le composant est survolé par la souris. Pour un contrôle d’apparence plate, définissez la même couleur pour les éléments 0 et 1 et pour les éléments 2 et 3. La valeur par défaut est <codeph>[ 0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE ]</codeph>.
+  <p>Certains composants, tels que le conteneur ApplicationControlBar, ont une autre valeur par défaut. Dans le cas du conteneur ApplicationControlBar, la valeur par défaut est <codeph>[ 0xFFFFFF, 0xFFFFFF ]</codeph>.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style arrayType="Number" inherit="no" name="fillAlphas" owner="mx.controls.sliderClasses:Slider" playerVersion="Flash9" theme="halo" type="Array">
+<description>
+  Spécifie les valeurs de transparence alpha utilisées pour le remplissage d’arrière-plan des composants. Définissez cette propriété sur un tableau contenant deux ou quatre nombres. Les éléments 0 et 1 spécifient les valeurs de début et de fin d’un dégradé alpha. Si les éléments 2 et 3 sont définis, ils sont utilisés en lieu et place des éléments 0 et 1 lorsque le composant est survolé par la souris. La valeur par défaut globale est <codeph>[ 0.60, 0.40, 0.75, 0.65 ]</codeph>. Certains composants, tels que le conteneur ApplicationControlBar, ont une autre valeur par défaut. Pour le conteneur ApplicationControlBar, la valeur par défaut est <codeph>[ 0.0, 0.0 ]</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The Slider class cannot be used as an MXML tag. Use the <code>&lt;mx:HSlider&gt;</code> 
+  and <code>&lt;mx:VSlider&gt;</code> tags instead. However, the Slider class does define tag 
+  attributes used by the <code>&lt;mx:HSlider&gt;</code> and <code>&lt;mx:VSlider&gt;</code> tags. </p>
+ 
+  <p>The Slider class inherits all of the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    <strong>Properties</strong>
+    allowThumbOverlap="false|true"
+    allowTrackClick="true|false"
+    dataTipFormatFunction="undefined"
+    direction="horizontal|vertical"
+    labels="undefined"
+    liveDragging="false|true"
+    maximum="10"
+    minimum="0"
+    showDataTip="true|false"
+    sliderDataTipClass="sliderDataTip"
+    sliderThumbClass="SliderThumb"
+    snapInterval="0"
+    thumbCount="1"
+    tickInterval="0"
+    tickValues="undefined"
+    value="<i>The value of the minimum property.</i>"
+ 
+    <strong>Styles</strong>
+    borderColor="0x919999"
+    dataTipOffset="16"
+    dataTipPrecision="2"
+    dataTipStyleName="undefined"
+    fillAlphas="[0.6, 0.4, 0.75, 0.65]"
+    fillColors="[0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE;]"
+    labelOffset="-10"
+    labelStyleName="undefined"
+    showTrackHighlight="false"
+    slideDuration="300"
+    slideEasingFunction="undefined"
+    thumbDisabledSkin="SliderThumbSkin"
+    thumbDownSkin="SliderThumbSkin"
+    thumbOffset="0"
+    thumbOverSkin="SliderThumbSkin"
+    thumbUpSkin="SliderThumbSkin"
+    tickColor="0x6F7777"
+    tickLength="3"
+    tickOffset="-6"
+    tickThickness="1"
+    trackColors="[ 0xEEEEEE, 0xFFFFFF ]"
+    tracHighlightSkin="SliderHighlightSkin"
+    trackMargin="undefined"
+    trackSkin="SliderTrackSkin"
+  
+    <strong>Events</strong>
+    change="<i>No default</i>"
+    thumbDrag="<i>No default</i>"
+    thumbPress="<i>No default</i>"
+    thumbRelease="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Slider est la classe de base des contrôles de curseur Flex. Le curseur permet aux utilisateurs de sélectionner une valeur en le déplaçant entre les deux extrémités de la glissière. La valeur actuelle du curseur est déterminée par son emplacement relatif entre ses extrémités, ce qui correspond aux valeurs minimum et maximum du curseur. La classe Slider se subdivise en sous-classes HSlider et VSlider.
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_RELEASE_thumbRelease"><apiName>thumbRelease</apiName><shortdesc>
+  Distribué lorsque le curseur est relâché, ce qui signifie que l’utilisateur relâche le bouton de la souris après un événement thumbPress.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_RELEASE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque le curseur est relâché, ce qui signifie que l’utilisateur relâche le bouton de la souris après un événement <codeph>thumbPress</codeph>.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_PRESS_thumbPress"><apiName>thumbPress</apiName><shortdesc>
+  Distribué lorsque le curseur est activé, ce qui signifie que l’utilisateur appuie sur le bouton de la souris sur le curseur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_PRESS</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque le curseur est activé, ce qui signifie que l’utilisateur appuie sur le bouton de la souris sur le curseur.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.THUMB_DRAG_thumbDrag"><apiName>thumbDrag</apiName><shortdesc>
+  Distribué lorsque l’utilisateur clique sur le curseur, puis le déplace avec sa souris.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.THUMB_DRAG</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsque l’utilisateur clique sur le curseur, puis le déplace avec sa souris. Cet événement est toujours précédé d’un événement <codeph>thumbPress</codeph>.
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls.sliderClasses:Slider_mx.events.SliderEvent.CHANGE_change"><apiName>change</apiName><shortdesc>
+  Distribué lorsqu’une interaction du clavier ou de la souris modifie la valeur de la glissière.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.SliderEvent.CHANGE</apiEventType><adobeApiEventClassifier>mx.events.SliderEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Distribué lorsqu’une interaction du clavier ou de la souris modifie la valeur de la glissière.
+ 
+  <p>Si la valeur de la propriété <codeph>liveDragging</codeph> est <codeph>true</codeph>, l’événement est diffusé en permanence tant que l’utilisateur déplace le curseur. Si la valeur de la propriété <codeph>liveDragging</codeph> est <codeph>false</codeph>, l’événement est distribué lorsque l’utilisateur relâche le curseur.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.sliderClasses:Slider:Slider"><apiName>Slider</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.sliderClasses:Slider:getThumbAt"><apiName>getThumbAt</apiName><shortdesc>
+      Retourne le curseur à l’emplacement d’index donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Référence à l’objet SliderThumb.
+      
+      </apiDesc><apiOperationClassifier>mx.controls.sliderClasses:SliderThumb</apiOperationClassifier></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Numéro d’index de base zéro du curseur.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Retourne le curseur à l’emplacement d’index donné. Utilisez cette méthode pour styliser et personnaliser chaque curseur d’un contrôle de glissière.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:measure"><apiName>measure</apiName><shortdesc>
+      Calcule la quantité d’espace utilisée par le composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Calcule la quantité d’espace utilisée par le composant. Un contrôle de glissière horizontale calcule sa hauteur en examinant la position de ses étiquettes, graduations et curseurs par rapport au rail. La hauteur du contrôle équivaut à la position inférieure de l’élément le plus bas soustraite à la position supérieure de l’élément le plus haut. La largeur par défaut d’un contrôle de glissière horizontale est de 250 pixels. Pour un contrôle de glissière verticale, les mesures de la largeur et de la hauteur sont inversées.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:setThumbValueAt"><apiName>setThumbValueAt</apiName><shortdesc>
+      Cette méthode permet de définir la valeur d’un curseur et d’actualiser l’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Le numéro d’index de base zéro du curseur dont la valeur doit être définie, la valeur 0 correspondant au premier curseur.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Number"/><apiDesc>Valeur à affecter au curseur.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode permet de définir la valeur d’un curseur et d’actualiser l’affichage.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.sliderClasses:Slider:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      Positionne les éléments du contrôle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Indique la largeur du composant, en pixels, des coordonnées du composant, quelle que soit la valeur de la propriété <codeph>scaleX</codeph> du composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Indique la hauteur du composant, en pixels, des coordonnées du composant, quelle que soit la valeur de la propriété <codeph>scaleY</codeph> du composant.   
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Positionne les éléments du contrôle. Le rail, les curseurs, les étiquettes et les graduations sont tous positionnés et dimensionnés avec cette méthode. Le rail est dimensionné en fonction de la longueur des étiquettes et de la marge du rail. Si vous spécifiez un objet <codeph>trackMargin</codeph>, la taille du rail est égale à la largeur disponible moins l’objet <codeph>trackMargin</codeph> fois 2.
+     
+      <p>Les graduations sont espacées à intervalles réguliers le long du rail depuis le début. Une graduation supplémentaire est insérée à la fin du rail si ce n’est pas déjà le cas (si l’intervalle entre les graduations n’est pas un multiple de la valeur maximale). La position y de la graduation est fonction du paramètre <codeph>tickOffset</codeph>. Un décalage de 0 place le bas de la graduation en haut du rail. Les décalages négatifs déplacent les graduations vers le haut et les décalages positifs les déplacent vers le bas le long du rail.</p>
+     
+      <p>Les étiquettes sont placées à intervalles réguliers le long du rail. Elles sont toujours centrées horizontalement au-dessus de leur position d’intervalle, sauf si le paramètre <codeph>trackMargin</codeph> est trop petit. Si vous spécifiez un paramètre <codeph>trackMargin</codeph>, la première et dernière étiquettes se positionnent sur les bordures gauche et droite du contrôle. Les étiquettes ne sont pas recadrées ou redimensionnées si elles se chevauchent. Par conséquent, n’oubliez pas d’allouer assez d’espace pour qu’elles tiennent sur le rail. La position y est fonction de la propriété <codeph>labelOffset</codeph>. Un décalage de 0 place le bas de l’étiquette en haut du rail. Contrairement aux graduations, les étiquettes ne peuvent pas être positionnées pour chevaucher le rail. Si le décalage est un nombre positif, le haut de l’étiquette est positionné sous le bas du rail.</p>
+     
+      <p>Les curseurs sont positionnés de façon à chevaucher le rail. Leur position x est déterminée par leur valeur. La position y est contrôlée par la propriété <codeph>thumbOffset</codeph>. Un décalage de 0 place le centre du curseur au centre du rail. Un décalage négatif déplace les curseurs vers le haut, tandis qu’un décalage positif les déplace vers le bas.</p>
+     
+      <p>Les placements des graduations, étiquettes et curseurs ne dépendent pas les uns des autres. Ils ne tenteront pas de se repositionner s’ils se chevauchent.</p>
+     
+      <p>Les mêmes règles s’appliquent à un contrôle de curseur vertical. Dans la description ci-dessus, remplacez la largeur par la hauteur, la hauteur par la largeur, la gauche par le haut, la droite par le bas, la position x par la position y et la position y par la position x.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.sliderClasses:Slider:allowThumbOverlap"><apiName>allowThumbOverlap</apiName><shortdesc>
+      S’il est défini sur false, chaque curseur ne peut être déplacé que vers le bord du curseur adjacent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      S’il est défini sur <codeph>false</codeph>, chaque curseur ne peut être déplacé que vers le bord du curseur adjacent. S’il est défini sur <codeph>true</codeph>, chaque curseur peut être déplacé dans n’importe quelle position sur le rail.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:allowTrackClick"><apiName>allowTrackClick</apiName><shortdesc>
+      Indique que le curseur est déplacé lorsqu’un utilisateur clique sur le rail.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique que le curseur est déplacé lorsqu’un utilisateur clique sur le rail.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:liveDragging"><apiName>liveDragging</apiName><shortdesc>
+      Indique si le glissement direct est activé pour le curseur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Indique si le glissement direct est activé pour le curseur. Si la valeur est <codeph>false</codeph>, Flex définit les propriétés <codeph>value</codeph> et <codeph>values</codeph> et distribue l’événement <codeph>change</codeph> lorsque l’utilisateur arrête de faire glisser le curseur. Si la valeur est <codeph>true</codeph>, Flex définit les propriétés <codeph>value</codeph> et <codeph>values</codeph> et distribue l’événement <codeph>change</codeph> de façon continue au fur et à mesure que l’utilisateur déplace le curseur.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:showDataTip"><apiName>showDataTip</apiName><shortdesc>
+      Si la valeur est true, une astuce sur les données contenant la valeur actuelle du curseur s’affiche lors de l’interaction utilisateur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Si la valeur est <codeph>true</codeph>, une astuce sur les données contenant la valeur actuelle du curseur s’affiche lors de l’interaction utilisateur.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:dataTipFormatFunction:get"><apiName>dataTipFormatFunction</apiName><shortdesc>
+      Fonction de rappel qui met en forme le texte des astuces sur les données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>undefined   
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Fonction de rappel qui formate le texte de l’astuce sur les données. La fonction accepte un seul nombre comme argument et retourne une chaîne formatée.
+     
+      <p>La fonction présente la signature suivante :</p>
+      <pre>
+      funcName(value:Number):String
+      </pre>
+     
+      <p>L’exemple suivant ajoute le symbole du dollar au texte des astuces sur les donnéeset met en forme le texte à l’aide de la propriété <codeph>dataTipPrecision</codeph> d’un contrôle Slider appelé ’slide’ : </p>
+     
+      <pre>
+      import mx.formatters.NumberBase;
+      function myDataTipFormatter(value:Number):String { 
+          var dataFormatter:NumberBase = new NumberBase(".", ",", ".", ""); 
+          return   "$ " + dataFormatter.formatPrecision(String(value), slide.getStyle("dataTipPrecision")); 
+      }
+      </pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:direction:get"><apiName>direction</apiName><shortdesc>
+      Orientation du contrôle Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SliderDirection.HORIZONTAL
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Orientation du contrôle Slider. Les valeurs possibles dans MXML sont <codeph>"horizontal"</codeph> ou <codeph>"vertical"</codeph>.
+     
+      <p>Dans ActionScript, utilisez les constantes suivantes pour définir cette propriété : <codeph>SliderDirection.VERTICAL</codeph> et <codeph>SliderDirection.HORIZONTAL</codeph>.</p>
+     
+      Les contrôles HSlider et VSlider définissent cette propriété pour vous. Vous ne la définissez pas lorsque vous utilisez ces contrôles.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.sliderClasses.xml#SliderDirection"><linktext>mx.controls.sliderClasses.SliderDirection</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:labels:get"><apiName>labels</apiName><shortdesc>
+      Tableau de chaînes utilisé pour les étiquettes de curseur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Tableau de chaînes utilisé pour les étiquettes de curseur. Flex place les étiquettes au début du rail et les espaces de façon régulière entre le début du rail et la fin du rail.
+     
+      <p>Par exemple, si le tableau contient trois éléments, le premier est placé au début du rail, le deuxième au milieu du rail et le dernier à la fin du rail.</p>
+     
+      <p>Si une seule étiquette est spécifiée, elle est placée au début du rail. Par défaut, les étiquettes sont placées au-dessus des graduations (s’il en existe) ou au-dessus du rail. Pour aligner les étiquettes sur les graduations, vérifiez que le nombre de graduations est égal à celui des étiquettes.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:maximum:get"><apiName>maximum</apiName><shortdesc>
+      Valeur maximale acceptée pour le contrôle Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>10
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur maximale acceptée pour le contrôle Slider.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:minimum:get"><apiName>minimum</apiName><shortdesc>
+      Valeur minimale acceptée pour le contrôle Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur minimale acceptée pour le contrôle Slider.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderDataTipClass:get"><apiName>sliderDataTipClass</apiName><shortdesc>
+      Référence à la classe à utiliser pour l’astuce sur les données.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderDataTip
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Référence à la classe à utiliser pour l’astuce sur les données.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:sliderThumbClass:get"><apiName>sliderThumbClass</apiName><shortdesc>
+      Référence à la classe à utiliser pour chaque curseur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>SliderThumb
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Référence à la classe à utiliser pour chaque curseur.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:snapInterval:get"><apiName>snapInterval</apiName><shortdesc>
+      Spécifie la valeur d’incrémentation du curseur lorsque l’utilisateur déplace celui-ci.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie la valeur d’incrémentation du curseur lorsque l’utilisateur déplace celui-ci. Par exemple, si <codeph>snapInterval</codeph> est défini sur 2, la valeur <codeph>minimum</codeph> de 0 et la valeur <codeph>maximum</codeph> de 10, le curseur s’accroche aux valeurs 0, 2, 4, 6, 8 et 10 dès que l’utilisateur le déplace. La valeur 0 signifie que le curseur se déplace de façon continue entre les valeurs <codeph>minimum</codeph> et <codeph>maximum</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:thumbCount:get"><apiName>thumbCount</apiName><shortdesc>
+      Nombre de curseurs autorisés pour le contrôle Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Nombre de curseurs autorisés pour le contrôle Slider. Les valeurs possibles sont 1 ou 2. Si la valeur est 1, la propriété <codeph>value</codeph> contient la valeur actuelle du curseur. Si la valeur est 2, la propriété <codeph>values</codeph> contient un tableau de valeurs représentant la valeur de chaque curseur.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:protected:thumbStyleFilters:get"><apiName>thumbStyleFilters</apiName><shortdesc>
+      Jeu de styles à transmettre du contrôle Slider aux curseurs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Jeu de styles à transmettre du contrôle Slider aux curseurs.
+      </apiDesc></apiValueDetail><related-links><link href="mx.styles.xml#StyleProxy"><linktext>mx.styles.StyleProxy</linktext></link></related-links></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickInterval:get"><apiName>tickInterval</apiName><shortdesc>
+      Espacement entre les graduations par rapport à la valeur maximale du contrôle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Espacement entre les graduations par rapport à la valeur <codeph>maximale</codeph> du contrôle. Flex affiche des graduations dès que vous définissez la propriété <codeph>tickInterval</codeph> sur une valeur non nulle.
+     
+      <p>Par exemple, si la propriété <codeph>tickInterval</codeph> a la valeur 1 et si <codeph>maximum</codeph> a la valeur 10, une graduation ayant un espacement correspondant à un dixième de la longueur du curseur est appliquée. Aucune graduation ne s’affiche si la valeur est de 0. Si la propriété <codeph>tickValues</codeph> est définie sur un tableau non vide, cette propriété est ignorée.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:tickValues:get"><apiName>tickValues</apiName><shortdesc>
+      Positions des graduations sur le curseur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Positions des graduations sur le curseur. Les positions correspondent aux valeurs sur le curseur et doivent se trouver entre les valeurs <codeph>minimum</codeph> et <codeph>maximum</codeph>. Par exemple, si la propriété <codeph>tickValues</codeph> a la valeur [0, 2.5, 7.5, 10] et <codeph>maximum</codeph> a la valeur 10, une graduation est insérée aux positions suivantes le long du curseur : début du curseur, 1/4 de la trajectoire à partir de la gauche, 3/4 de la trajectoire à partir de la gauche et fin du curseur. 
+      
+      <p>Si cette propriété est définie sur un tableau non vide, la propriété <codeph>tickInterval</codeph>est ignorée.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:value:get"><apiName>value</apiName><shortdesc>
+      Contient la position du curseur et est un nombre compris entre les propriétés minimum et maximum.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueCommit"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Contient la position du curseur et est un nombre compris entre les propriétés <codeph>minimum</codeph> et <codeph>maximum</codeph>. Utilisez la propriété <codeph>value</codeph> lorsque <codeph>thumbCount</codeph> a la valeur 1. Lorsque la valeur de <codeph>thumbCount</codeph> est supérieure à 1, utilisez à la place la propriété <codeph>values</codeph>. La valeur par défaut est égale à la propriété minimum.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:Slider:values:get"><apiName>values</apiName><shortdesc>
+      Un tableau de valeurs pour chaque curseur de défilement lorsque thumbCount est supérieur à 1.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Un tableau de valeurs pour chaque curseur de défilement lorsque <codeph>thumbCount</codeph> est supérieur à 1.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDirection"><apiName>SliderDirection</apiName><shortdesc>
+  La classe SliderDirection définit les valeurs constantes de la propriété direction de la classe Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SliderDirection définit les valeurs constantes de la propriété <codeph>direction</codeph> de la classe Slider.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link></related-links><apiValue id="mx.controls.sliderClasses:SliderDirection:HORIZONTAL"><apiName>HORIZONTAL</apiName><shortdesc>
+	  Indique qu’un curseur horizontal doit être affiché.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Indique qu’un curseur horizontal doit être affiché. Le contrôle HSlider utilise cette constante.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.sliderClasses:SliderDirection:VERTICAL"><apiName>VERTICAL</apiName><shortdesc>
+	  Indique qu’un curseur vertical doit être affiché.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>vertical</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Indique qu’un curseur vertical doit être affiché. Le contrôle VSlider utilise cette constante.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+  La classe SliderDataTip définit l’info-bulle utilisée dans le contrôle mx.controls.Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:ToolTip</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SliderDataTip définit l’info-bulle utilisée dans le contrôle mx.controls.Slider. La classe n’ajoute aucune fonctionnalité supplémentaire à mx.controls.ToolTip. Elle permet uniquement d’appliquer un style du sélecteur de type.
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderDataTip:SliderDataTip"><apiName>SliderDataTip</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+  La classe SliderLabel définit l’étiquette utilisée dans le composant mx.controls.Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Label</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SliderLabel définit l’étiquette utilisée dans le composant mx.controls.Slider. La classe n’ajoute aucune fonctionnalité supplémentaire à mx.controls.Label. Elle permet d’appliquer un style du sélecteur de type.
+  	
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderThumb"><linktext>mx.controls.sliderClasses.SliderThumb</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderLabel:SliderLabel"><apiName>SliderLabel</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.sliderClasses:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+  La classe SliderThumb représente un curseur d’un contrôle Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Button</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SliderThumb représente un curseur d’un contrôle Slider. La classe SliderThumb ne peut être utilisée que dans le contexte d’un contrôle Slider. Vous pouvez créer une sous-classe de la classe SliderThumb et l’utiliser avec un contrôle Slider en définissant la propriété <codeph>sliderThumbClass</codeph> du contrôle Slider à votre sous-classe. 
+  		
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#HSlider"><linktext>mx.controls.HSlider</linktext></link><link href="mx.controls.xml#VSlider"><linktext>mx.controls.VSlider</linktext></link><link href="mx.controls.sliderClasses.xml#Slider"><linktext>mx.controls.sliderClasses.Slider</linktext></link><link href="mx.controls.sliderClasses.xml#SliderDataTip"><linktext>mx.controls.sliderClasses.SliderDataTip</linktext></link><link href="mx.controls.sliderClasses.xml#SliderLabel"><linktext>mx.controls.sliderClasses.SliderLabel</linktext></link></related-links><apiConstructor id="mx.controls.sliderClasses:SliderThumb:SliderThumb"><apiName>SliderThumb</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Constructeur.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.sliderClasses:SliderThumb:xPosition:get"><apiName>xPosition</apiName><shortdesc>
+	  Indique la position du centre du curseur sur l’axe x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Indique la position du centre du curseur sur l’axe x.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

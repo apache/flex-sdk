@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.filters"><apiName>mx.filters</apiName><apiDetail/><apiClassifier id="mx.filters:BaseDimensionFilter"><apiName>BaseDimensionFilter</apiName><shortdesc>
+  Базовый класс для некоторых фильтров Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Базовый класс для некоторых фильтров Spark.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.filters:BaseDimensionFilter:BaseDimensionFilter"><apiName>BaseDimensionFilter</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.filters:BaseDimensionFilter:blurX:get"><apiName>blurX</apiName><shortdesc>
+      Степень размытия по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Степень размытия по горизонтали. Действительны значения от 0 до 255. Размытие со значением 1 или менее означает, что исходное изображение копируется как есть. По умолчанию используется значение 4. Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:blurY:get"><apiName>blurY</apiName><shortdesc>
+      Степень размытия по вертикали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Степень размытия по вертикали. Действительны значения от 0 до 255. Размытие со значением 1 или менее означает, что исходное изображение копируется как есть. По умолчанию используется значение 4. Значения, являющиеся степенью 2 (т. е. 2, 4, 8, 16 и 32), оптимизируются и выполняются быстрее, чем остальные.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:knockout:get"><apiName>knockout</apiName><shortdesc>
+      Определяет, применяется ли к объекту эффект выбивки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Определяет, применяется ли к объекту эффект выбивки. Эффект выбивки делает заливку объекта прозрачной и выявляет цвет фона документа. Значение true указывает на наличие эффекта выбивки. По умолчанию задано значение false (без эффекта выбивки).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:quality:get"><apiName>quality</apiName><shortdesc>
+      Заданное число применений фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Заданное число применений фильтра. Значение по умолчанию – BitmapFilterQuality.LOW, что эквивалентно однократному применению фильтра. Значение BitmapFilterQuality.MEDIUM применяет фильтр дважды; значение BitmapFilterQuality.HIGH – трижды. Фильтры с более низкими значениями выполняются быстрее. Для большинства приложений достаточно значений качества low (низкое), medium (среднее) или high (высокое). Хотя можно использовать дополнительные числовые значения до 15 для получения разнообразных эффектов, более высокие значения выполняются дольше. Вместо увеличения значения quality можно просто увеличить значения свойств blurX и blurY. Это даст похожий эффект, а выполнение будет происходить быстрее.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:strength:get"><apiName>strength</apiName><shortdesc>
+      Степень вдавливания или нанесения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Степень вдавливания или нанесения. Чем выше значение, тем более насыщен цвет тени и тем сильнее контраст между свечением и фоном. Действительны значения от 0 до 255. Значение 0 означает, что фильтр не применяется. Значением по умолчанию является 1. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.filters:IBitmapFilter"><apiName>IBitmapFilter</apiName><shortdesc>
+     Интерфейс, используемый некоторыми фильтрами Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+     Интерфейс, используемый некоторыми фильтрами Spark.
+    
+     </apiDesc></apiClassifierDetail><apiOperation id="mx.filters:IBitmapFilter:mx.filters:IBitmapFilter:clone"><apiName>clone</apiName><shortdesc>
+         Возвращает копию фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Новый экземпляр BitmapFilter с теми же свойствами, что и исходный экземпляр BitmapFilter.
+        
+         </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+         Возвращает копию фильтра.
+        
+         </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.filters:BaseFilter"><apiName>BaseFilter</apiName><shortdesc>
+     Базовый класс для некоторых фильтров Spark.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+     Базовый класс для некоторых фильтров Spark.
+    
+     </apiDesc></apiClassifierDetail><apiConstructor id="mx.filters:BaseFilter:BaseFilter"><apiName>BaseFilter</apiName><shortdesc>
+         Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiData>null</apiData><apiDesc>Целевой объект, к которому применяется фильтр.
+        
+         </apiDesc></apiParam></apiConstructorDef><apiDesc>
+         Конструктор.
+        
+         </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.filters:BaseFilter:notifyFilterChanged"><apiName>notifyFilterChanged</apiName><shortdesc>
+         Передает событие изменения после изменения фильтра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+         Передает событие изменения после изменения фильтра.
+        
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.filters:BaseFilter:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+         Строка change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         Строка <codeph>change</codeph>. Используется событием при изменении фильтра.
+        
+         </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

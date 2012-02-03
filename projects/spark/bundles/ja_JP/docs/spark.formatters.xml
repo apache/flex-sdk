@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.formatters"><apiName>spark.formatters</apiName><apiDetail/><apiClassifier id="spark.formatters:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+  CurrencyFormatter クラスは、ロケールに依存した、通貨値のフォーマットと解析を可能にします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:CurrencyFormatter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:CurrencyFormatter 
+    <strong>Properties</strong>
+    currencyISOCode="<i>locale and OS dependent</i>"
+    currencySymbol="<i>locale and OS dependent</i>"
+    negativeCurrencyFormat="<i>locale and OS dependent</i>"
+    positiveCurrencyFormat="<i>locale and OS dependent</i>"
+    useCurrencySymbol="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>spark.formatters.supportClasses:NumberFormatterBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CurrencyFormatter クラスは、ロケールに依存した、通貨値のフォーマットと解析を可能にします。 
+ 
+  <p>このクラスは <codeph>flash.globalization.CurrencyFormatter</codeph> のラッパークラスです。 したがって、ロケール固有のフォーマットが <codeph>flash.globalization.CurrencyFormatter</codeph> によって提供されます。 ただし、この CurrencyFormatter クラスは MXML 宣言で使用でき、要求されたロケール ID 名にロケールスタイルを使用し、バインド可能なメソッドおよびプロパティを持ちます。
+  </p><p>
+  flash.globalization.CurrencyFormatter クラスでは、フォーマット機能と、ロケール固有データの提供用に、基盤となるオペレーティングシステムを使用します。 一部のオペレーティングシステムでは、flash.globalization クラスがサポートされておらず、これらのシステムではこのラッパークラスが代替機能を提供します。
+  </p>
+ 
+  </apiDesc><example conref="CurrencyFormatterExample1.mxml"><swfblock conref="examples/CurrencyFormatterExample1.swf"/></example><example conref="CurrencyFormatterExample2.mxml"><swfblock conref="examples/CurrencyFormatterExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link><link href="spark.formatters.xml#NumberFormatter"><linktext>NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters:CurrencyFormatter:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+      所定のロケールの規則に従って通貨額を表す数字をフォーマットするために、新しい CurrencyFormatter オブジェクトを構築します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      所定のロケールの規則に従って通貨額を表す数字をフォーマットするために、新しい <codeph>CurrencyFormatter</codeph> オブジェクトを構築します。
+      <p>
+      このクラスのロケールは <codeph>locale</codeph> スタイルによって提供されます。 <codeph>locale</codeph> スタイルは、次のいくつかの方法で設定できます。
+      </p>
+      <ul>
+      <li>
+      MXML 宣言内でクラスを使用し、宣言を格納するドキュメントからロケールを継承する。
+      </li>
+      例：
+      <pre>
+      &lt;fx:Declarations> 
+             &lt;s:CurrencyFormatter id="cf" /> 
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      MXML 宣言を使用し、代入のリスト内でロケールの値を指定する。
+      </li>
+      例：
+      <pre>
+      &lt;fx:Declarations> 
+          &lt;s:CurrencyFormatter id="cf_Japanese" locale="ja-JP" /> 
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      <codeph>setStyle()</codeph> メソッド（<codeph>cf.setStyle("locale", "ja-JP")</codeph> など）を呼び出す。
+      </li>
+      <li> 
+      UIComponent の <codeph>addStyleClient()</codeph> メソッドを呼び出すことによって <codeph>UIComponent</codeph> からスタイルを継承する。
+      </li>
+      </ul>
+      <p>
+      <codeph>locale</codeph> スタイルが上記のいずれかの手法で設定されていない場合は、このクラスのインスタンスが <codeph>StyleClient</codeph> として <codeph>topLevelApplication</codeph> に追加されるため、<codeph>locale</codeph> 依存のプロパティ getter または <codeph>locale</codeph> 依存のメソッドが呼び出されるときに、<codeph>topLevelApplication</codeph> オブジェクトから <codeph>locale</codeph> が継承されます。
+      </p>   
+     
+      <p>このクラスのほとんどのプロパティは、<codeph>locale</codeph> スタイルに基づいて自動的に設定されます。 <codeph>locale</codeph> スタイルが変更されると、明示的に設定されていないすべてのプロパティは新しいロケールに基づいて更新されます。 使用される実際のロケールは <codeph>actualLocaleIDName</codeph> プロパティによって指定されることに注意してください。</p>
+     
+      <p><b>注意：</b>代替のロケールが使用されると、通貨プロパティがデフォルトの値に設定されます。そのため、<codeph>currencySymbol</codeph> または <codeph>currencyISOCode</codeph> プロパティに予期せぬ値が設定される場合があります。 通貨額をフォーマットする前に、<codeph>currencySymbol</codeph> および <codeph>currencyISOCode</codeph> プロパティの値を調べることをお勧めします。
+      </p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/lastOperationsStatus"><linktext>lastOperationsStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.formatters:CurrencyFormatter:format"><apiName>format</apiName><shortdesc>
+      locale、useCurrencySymbol、currencySymbol または currencyISOCode の各プロパティを含むこの CurrencyFormatter オブジェクトの現在のプロパティに従ってフォーマットされた通貨額を表す文字列を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマットされた通貨値を含む文字列。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>通貨ストリングにフォーマットされる数値を格納するオブジェクト。 オブジェクトが <codeph>Number</codeph> でない場合、オブジェクトは <codeph>Number()</codeph> 変換機能を使用して数値に変換されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>locale</codeph>、<codeph>useCurrencySymbol</codeph>、<codeph>currencySymbol</codeph> または <codeph>currencyISOCode</codeph> の各プロパティを含むこの CurrencyFormatter オブジェクトの現在のプロパティに従ってフォーマットされた通貨額を表す文字列を作成します。
+     
+      <p><codeph>useCurrencySymbol</codeph> プロパティは、format メソッドが通貨額のフォーマットで <codeph>currencySymbol</codeph> または <codeph>currencyISOCode</codeph> のどちらを使用するかを判別します。 <codeph>useCurrencySymbol</codeph> のデフォルト値は <codeph>false</codeph> であるため、通貨額は <codeph>currencyISOCode</codeph> を使用してフォーマットされます。</p>
+     
+      <p>多くの国や地域では、さまざまな通貨に同じ通貨記号を使用しています。例えば、米国、オーストラリア、ニュージーランド、カナダおよびメキシコはすべて、国内通貨の値に同じドル記号（$）を使用しています。 通貨のフォーマットがユーザーの地域の通貨と異なる場合は、ISO コードを通貨ストリングとして使用することをお勧めします。<codeph>formattingWithCurrencySymbolIsSafe()</codeph> メソッドを使用して、フォーマットされる通貨の ISO コードが、フォーマッターによって使用される実際のロケールのデフォルト通貨 ISO コードと一致するかどうかをテストできます。
+      </p>
+     
+      <p>このメソッドで、多数の非常に高額の通貨および非常に小額の通貨をフォーマットできます。 ただし、有効桁数は Number データ型によって指定される精度に限定されます。
+      </p>
+     
+      <p>不正な入力値またはその他のエラーによりフォーマット中にエラーが発生した場合、<codeph>format()</codeph> メソッドはデフォルトで <codeph>null</codeph> を返します。 ただし、<codeph>errorText</codeph> プロパティが null 以外の場合、<codeph>errorText</codeph> プロパティの値が返されます。 <codeph>lastOperationStatus</codeph> プロパティが、発生したエラーを示すように設定されます。</p>
+     
+      </apiDesc><example>この例では、<codeph>locale</codeph> スタイルは fr-CA（フランス語（カナダ））に設定されます。 この例は、このロケールがユーザーのオペレーティングシステムでサポートされており、したがって、代替のロケールは使用されないことを前提にしています。「fr-CA」の場合、デフォルトの通貨は ISO コードが CAD のカナダドルです。したがって、デフォルト値で通貨をフォーマットすると、CAD が通貨記号として使用されます。ただし、<codeph>useCurrencySymbol</codeph> プロパティが <codeph>true</codeph> に設定されている場合、<codeph>currencySymbol</codeph> を使用して通貨額がフォーマットされます。
+     
+      <codeblock rev="3.0">
+      &lt;fx:Declarations>
+        &lt;s:CurrencyFormatter id="cf_use_ISOCode" locale="fr-CA" />
+        &lt;s:CurrencyFormatter id="cf_use_Symbol" locale="fr-CA" 
+                           useCurrencySymbol="true" />
+      &lt;/fx:Declarations>
+      
+      &lt;s:VGroup>
+        &lt;!-- label will use ISO code: 1,234,567.89 CAD -->
+        &lt;s:Label text="{cf_use_ISOCode.format(1234567.89)}" /> 
+        &lt;!-- label will use currency symbol: 1,234,567.89 $ -->
+        &lt;s:Label text="{cf_use_Symbol.format(1234567.89)}" /> 
+      &lt;/s:VGroup>
+     
+      </codeblock>
+     
+      <p>2 番目の例は、デフォルトのユーザーのロケールを使用して、カナダドルで通貨額をフォーマットするメソッドを示しています。<codeph>formattingWithCurrencySymbolIsSafe()</codeph> メソッドは、<codeph>useCurrencySymbol</codeph> プロパティの値を設定するために使用されます。 ユーザーのデフォルトのロケールがカナダの場合（fr-CA または en-CA など）、カナダのデフォルトの通貨記号が使用されます。 デフォルトとなっているロケールがある場合、フォーマットされた通貨額には <codeph>currencyISOCode</codeph> の CAD が使用されます。</p>
+     
+      <codeblock rev="3.0">
+      &lt;fx:Declarations>
+       &lt;s:CurrencyFormatter id="cf_CAD" locale="{LocaleID.DEFAULT}"
+        currencyISOCode="CAD"
+        useCurrencySymbol="{cf_CAD.formattingWithCurrencySymbolIsSafe('CAD')}"
+       />
+      &lt;/fx:Declarations>
+      
+      &lt;fx:Script>
+      &lt;![CDATA[
+          import flash.globalization.LocaleID;
+      ]]&gt;
+      &lt;/fx:Script>
+      
+      &lt;!-- label will use ISO code or currency symbol depending on
+              user's default locale -->
+      &lt;s:Label text="{cf_CAD.format(1234567.89)}" />
+      </codeblock>
+     
+      </example></apiOperationDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencyISOCode"><linktext>currencyISOCode</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/lastOperationStatus"><linktext>lastOperationStatus</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/useCurrencySymbol"><linktext>useCurrencySymbol</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/errorText"><linktext>spark.formatters.supportClasses.NumberFormatterBase.errorText</linktext></link><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:CurrencyFormatter:formattingWithCurrencySymbolIsSafe"><apiName>formattingWithCurrencySymbolIsSafe</apiName><shortdesc>
+      通貨額のフォーマット時に、現在指定されている通貨記号を使用できるかどうかを判別します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc><codeph>requestedISOCode</codeph> パラメーターが null の場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc><codeph>actualLocaleIDName</codeph> に対応するロケールのデフォルトの <codeph>currencyISOCode</codeph> が <codeph>requestedISOCode</codeph> パラメーターに一致する場合は <codeph>true</codeph> で、それ以外の場合は <codeph>false</codeph> です。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>requestedISOCode</apiItemName><apiType value="String"/><apiDesc>3 文字の ISO 4217 通貨コード（米ドルは USD、ユーロは EUR など）。A～Z の 3 文字の大文字を含む必要があります。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通貨額のフォーマット時に、現在指定されている通貨記号を使用できるかどうかを判別します。
+     
+      <p>多くの地域や国で、同じ通貨記号が使用されています。このメソッドを使用して、あいまいな通貨記号、または代替のロケールの使用によって予期されるものとは異なる通貨記号や ISO コードが使用されるのを防ぐことができます。</p>
+     
+      <p>このメソッドがよく使用されるのは、ロケールの通貨記号を表示するか（金額がユーザーのデフォルトの通貨でフォーマットされる場合）、またはさらに固有の ISO コード文字列を表示するか（金額がユーザーのデフォルトとは異なる通貨でフォーマットされる場合）を決めるために使用する場合です。</p>
+     
+      <p>このメソッドは、<codeph>requestedISOCode</codeph> パラメーターを実際のロケールのデフォルトの <codeph>currencyISOCode</codeph> と比較し、ストリングが等しい場合は <codeph>true</codeph> を返し、等しくない場合は <codeph>false</codeph> を返します。 ストリングが等しい場合、<codeph>useCurrencySymbol</codeph> プロパティを <codeph>true</codeph> に設定して <codeph>format()</codeph> メソッドを使用すると、現在のロケールで使用される通貨記号を持つフォーマットされた通貨値ストリングになります。 このメソッドが <codeph>false</codeph> を返す場合、<codeph>useCurrencySymbol</codeph> プロパティを <codeph>true</codeph> に設定して <codeph>format()</codeph> メソッドを使用すると、あいまいな通貨記号または正しくない通貨記号を使用することになります。
+      </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencyISOCode"><linktext>currencyISOCode</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/useCurrencySymbol"><linktext>useCurrencySymbol</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:CurrencyFormatter:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+      このクラスでサポートされているすべてのロケール ID 名のリストが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>このクラスおよびオペレーティングシステムでサポートされているすべてのロケール ID 名を含む文字列のベクトル。
+     
+      </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+      このクラスでサポートされているすべてのロケール ID 名のリストが表示されます。これはオペレーティングシステムでサポートされているロケールのリストです。ResourceManager にリソースがあるロケールのリストではありません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:CurrencyFormatter:parse"><apiName>parse</apiName><shortdesc>
+      文字列を通貨額および通貨記号に解析します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc><codeph>inputString</codeph> パラメーターが null の場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>数値および通貨記号または文字列を含む CurrencyParseResult オブジェクト。
+     
+      </apiDesc><apiType value="flash.globalization:CurrencyParseResult"/></apiReturn><apiParam><apiItemName>inputString</apiItemName><apiType value="String"/><apiDesc>解析する入力文字列。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      文字列を通貨額および通貨記号に解析します。
+     
+      <p>解析アルゴリズムは <codeph>decimalSeparator</codeph> プロパティの値を使用して、数字の整数部分と少数部分を判別します。このアルゴリズムは、<codeph>negativeCurrencyFormat</codeph> および <codeph>positiveCurrencyFormat</codeph> プロパティの値を使用して、通貨額との関連で通貨記号または文字列の位置を決めます。負の金額の場合、<codeph>negativeCurrencyFormat</codeph> プロパティの値によって、負の記号の位置と括弧を使用するかどうかが決まります。</p>
+     
+      <p>入力ストリング内の通貨記号、負の記号および数字の順序が <codeph>negativeCurrencyFormat</codeph> および <codeph>positiveCurrencyFormat</codeph> プロパティによって識別されるパターンと一致しない場合、次のようになります。</p>
+     
+      <ol>
+       <li>返された <codeph>CurrencyParseResult</codeph> オブジェクトの <codeph>value</codeph> プロパティが <codeph>NaN</codeph> に設定されます。</li>
+       <li>返された CurrencyParseResult オブジェクトの <codeph>currencyString</codeph> プロパティが <codeph>null</codeph> に設定されます。</li>
+       <li><codeph>lastOperationStatus</codeph> プロパティが、解析の失敗を示す <codeph>LastOperationStatus.PARSE_ERROR</codeph> に設定されます。</li>
+      </ol>
+     
+      <p>入力ストリングには、解析中に無視される空白文字が含まれる場合があります。</p>
+     
+      <p>通貨記号がない場合でも解析は成功します。文字列の通貨記号に該当する部分には検証は実行されませｎ。通貨記号またはストリングがない場合、返される CurrencyParseResult オブジェクト内の <codeph>currencyString</codeph> プロパティが空のストリングに設定されます。</p>
+     
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/decimalSeparator"><linktext>spark.formatters.supportClasses.NumberFormatterBase.decimalSeparator</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/negativeCurrencyFormat"><linktext>negativeCurrencyFormat</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/positiveCurrencyFormat"><linktext>positiveCurrencyFormat</linktext></link><link href="" invalidHref="flash.globalization.CurrencyParseResult.xml"><linktext>flash.globalization.CurrencyParseResult</linktext></link></related-links></apiOperation><apiValue id="spark.formatters:CurrencyFormatter:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      このクラスオブジェクトで使用される実際のロケール ID の名前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      このクラスオブジェクトで使用される実際のロケール ID の名前。これはフォーマットするデータと機能にオペレーティングシステムからアクセスするために使用されるロケールです。
+     
+      <p><codeph>locale</codeph> スタイルによって設定されたロケールが使用できない場合、<codeph>actualLocaleIDName</codeph> の値は <codeph>locale</codeph> スタイルの値とは異なります。 この値は使用中の代替ロケールを示します。 locale スタイルが <codeph>LocaleID.DEFAULT</codeph> に設定された場合、ユーザーのオペレーティングシステムによって指定されたロケールの名前が使用されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.xml#CurrencyFormatter/actualLocaleIDName"><linktext>flash.globalization.CurrencyFormatter.actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/CurrencyFormatter()"><linktext>CurrencyFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:currencyISOCode:get"><apiName>currencyISOCode</apiName><shortdesc>
+      使用される実際のロケールの 3 文字の ISO 4217 通貨コード</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>このプロパティに null 値が割り当てられている場合。 
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      使用される実際のロケールの 3 文字の ISO 4217 通貨コード（USD、EUR、JPY、CNY など）。
+     
+      <p><codeph>useCurrencySymbol</codeph> プロパティが <codeph>false</codeph> に設定されると、<codeph>format()</codeph> メソッドを使用して通貨額をフォーマットするとき、このコードは通貨タイプを示すために使用されます。 </p>
+     
+      <p>このプロパティは、使用される実際のロケールに基づいてロケールスタイルが設定されるときに初期化されます。 代替のロケールが使用される場合、このプロパティは、代替のロケールで優先されるデフォルトの通貨コードを反映します。</p>
+     
+      <p>デフォルト値は実際のロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      使用される実際のロケールの通貨記号または文字列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>このプロパティに null 値が割り当てられている場合。 
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      使用される実際のロケールの通貨記号または文字列。
+     
+      <p>このプロパティは、<codeph>withCurrencySymbol</codeph> パラメーターを <codeph>true</codeph> に設定して、<codeph>format()</codeph> を使用して金額をフォーマットするときに通貨記号として使用されます。</p>
+     
+      <p>このプロパティは、使用される実際のロケールに基づいてロケールスタイルが設定されるときに初期化されます。 代替のロケールが使用される場合、このプロパティは、代替のロケールで優先されるデフォルトの通貨記号を反映します（ロケールスタイルと異なる場合があります）。</p>
+     
+      <p>デフォルト値は実際のロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencyISOCode"><linktext>currencyISOCode</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:negativeCurrencyFormat:get"><apiName>negativeCurrencyFormat</apiName><shortdesc>
+      負の通貨額のフォーマットパターンを示す数値。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>割り当てられた値が 0～15 の場合。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      負の通貨額のフォーマットパターンを示す数値。このパターンは、通貨額の数値部分に関連する通貨記号とマイナス記号または括弧の位置を定義します。
+     
+       <p>このプロパティの値は、下の表で定義された定数のいずれかになります。
+      </p>
+     
+      <p>下の表は負の通貨額の有効なフォーマットパターンの概要を示しています。通貨額が <codeph>format()</codeph> メソッドでフォーマットされる場合：</p>
+     
+      <ul>
+       <li>「¤」記号は、<codeph>format()</codeph> メソッドに渡される <codeph>withCurrencySymbol</codeph> パラメーターに応じて、<codeph>currencyISOCode</codeph> または <codeph>currencySymbol</codeph> プロパティの値に置き換えられます。</li>
+       <li>「-」記号は、<codeph>negativeNumberSymbol</codeph> プロパティの値に置き換えられます。</li>
+       <li>「n」文字は、<codeph>format()</codeph> メソッドに渡される通貨額の値に置き換えられます。</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>負の金額のフォーマットの種類</entry>
+                <entry>フォーマットパターン</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(¤n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-¤n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤-n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>¤n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>(n¤)</entry>
+            </row><row>
+                <entry>5</entry>
+                <entry>-n¤</entry>
+            </row><row>
+                <entry>6</entry>
+                <entry>n-¤</entry>
+            </row><row>
+                <entry>7</entry>
+                <entry>n¤-</entry>
+            </row><row>
+                <entry>8</entry>
+                <entry>-n ¤</entry>
+            </row><row>
+                <entry>9</entry>
+                <entry>-¤ n</entry>
+            </row><row>
+                <entry>10</entry>
+                <entry>n ¤-</entry>
+            </row><row>
+                <entry>11</entry>
+                <entry>¤ n-</entry>
+            </row><row>
+                <entry>12</entry>
+                <entry>¤ -n</entry>
+            </row><row>
+                <entry>13</entry>
+                <entry>n- ¤</entry>
+            </row><row>
+                <entry>14</entry>
+                <entry>(¤ n)</entry>
+            </row><row>
+                <entry>15</entry>
+                <entry>(n ¤)</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>デフォルト値は実際のロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/negativeSymbol"><linktext>negativeSymbol</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:positiveCurrencyFormat:get"><apiName>positiveCurrencyFormat</apiName><shortdesc>
+      正の金額のフォーマットパターンを示す数値。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>割り当てられた値が 0～3 の場合。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      正の金額のフォーマットパターンを示す数値。このフォーマットは、通貨額の数値部分に関連する通貨記号の位置を定義します。
+     
+      <p>このプロパティの値は、下の表で定義された定数のいずれかになります。
+      </p>
+     
+      <p>下の表は正の通貨額の有効なフォーマットパターンの概要を示しています。通貨額が <codeph>format()</codeph> メソッドでフォーマットされる場合：</p>
+     
+      <ul>
+       <li>「¤」記号は、<codeph>format()</codeph> メソッドに渡される <codeph>withCurrencySymbol</codeph> パラメーターに応じて、<codeph>currencyISOCode</codeph> または <codeph>currencySymbol</codeph> プロパティの値に置き換えられます。</li>
+       <li>「n」文字は、<codeph>format()</codeph> メソッドに渡される通貨額の値に置き換えられます。</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>正の金額のフォーマットの種類</entry>
+                <entry>フォーマットパターン</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>¤n</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>n¤</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤ n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n ¤</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>デフォルト値は実際のロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:useCurrencySymbol:get"><apiName>useCurrencySymbol</apiName><shortdesc>
+      通貨額をフォーマットするときに currencySymbol プロパティを使用できるようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      通貨額をフォーマットするときに <codeph>currencySymbol</codeph> プロパティを使用できるようにします。
+     
+      <p><codeph>useCurrencySymbol</codeph> プロパティが <codeph>true</codeph> に設定される場合、<codeph>currencySymbol</codeph> プロパティの値が format メソッドによって返されるストリング内で使用されます。 例：<codeph>$123,456,789.22</codeph></p>
+     
+      <p><codeph>useCurrencySymbol</codeph> プロパティが <codeph>false</codeph> に設定される場合、<codeph>currencyISOCode</codeph> プロパティの値が <codeph>format</codeph> メソッドによって返されるストリング内で使用されます。 例：<codeph>USD 123,456,789.22</codeph></p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.formatters:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+  NumberFormatter クラスは、ロケールに依存した、数値のフォーマットと解析を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:NumberFormatter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberFormatter 
+    <strong>Properties</strong>
+    negativeNumberFormat="<i>locale and OS dependent</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>spark.formatters.supportClasses:NumberFormatterBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberFormatter クラスは、ロケールに依存した、数値のフォーマットと解析を提供します。<codeph>int</codeph>、<codeph>uint</codeph> および <codeph>Number</codeph> オブジェクトをフォーマットできます。
+ 
+  <p>このクラスは flash.globalization.NumberFormatter クラスのラッパークラスです。 したがって、ロケール固有のフォーマットが flash.globalization.NumberFormatter によって提供されます。 ただし、この NumberFormatter クラスは MXML 宣言で使用でき、要求されたロケール ID 名にロケールスタイルを使用し、バインド可能なメソッドおよびプロパティを持ちます。  
+  </p>
+ 
+  <p>flash.globalization.NumberFormatter クラスでは、フォーマット機能と、ロケール固有データの提供用に、基盤となるオペレーティングシステムを使用します。 一部のオペレーティングシステムでは、flash.globalization クラスがサポートされておらず、これらのシステムではこのラッパークラスが代替機能を提供します。</p>
+ 
+  </apiDesc><example conref="NumberFormatterExample1.mxml"><swfblock conref="examples/NumberFormatterExample1.swf"/></example><example conref="NumberFormatterExample2.mxml"><swfblock conref="examples/NumberFormatterExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.xml"><linktext>flash.globalization.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters:NumberFormatter:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+      所定のロケールの規則に基づいて数字をフォーマットするために、新しい NumberFormatter オブジェクトを構築します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      所定のロケールの規則に基づいて数字をフォーマットするために、新しい NumberFormatter オブジェクトを構築します。
+      <p>
+      このクラスのロケールはロケールスタイルによって提供されます。 ロケールスタイルは、次のいくつかの方法で設定できます。
+      </p>
+      <ul>
+      <li>
+      MXML 宣言内でクラスを使用し、宣言を格納するドキュメントからロケールを継承する。例： <pre>
+      &lt;fx:Declarations> 
+             &lt;s:NumberFormatter id="nf" />
+      &lt;/fx:Declarations></pre>
+      </li>
+      <li>
+      MXML 宣言を使用し、代入のリスト内でロケールの値を指定する。例：<pre>
+      &lt;fx:Declarations>
+          &lt;s:NumberFormatter id="nf_French_France" locale="fr_FR" />
+      &lt;/fx:Declarations></pre>
+      </li>
+      <li>
+      setStyle メソッドを呼び出す。 次に実際の使用例を示します。<pre>
+      <codeph>nf.setStyle("locale", "fr-FR")</codeph></pre>
+      </li>
+      <li> 
+      UIComponent の <codeph>addStyleClient()</codeph> メソッドを呼び出すことによって <codeph>UIComponent</codeph> からスタイルを継承する。
+      </li>
+      </ul>
+      <p>
+      <codeph>locale</codeph> スタイルが上記のいずれかの手法で設定されていない場合は、このクラスのインスタンスが <codeph>StyleClient</codeph> として <codeph>topLevelApplication</codeph> に追加されるため、<codeph>locale</codeph> 依存のプロパティ getter または <codeph>locale</codeph> 依存のメソッドが呼び出されるときに、<codeph>topLevelApplication</codeph> オブジェクトから <codeph>locale</codeph> が継承されます。
+      </p>   
+      <p>このクラスのほとんどのプロパティは、ロケールスタイルに基づいて自動的に設定されます。 ロケールスタイルが変更されると、明示的に設定されていないすべてのプロパティは新しいロケールに基づいて更新されます。 使用される実際のロケールは actualLocaleIDName プロパティによって指定されることに注意してください。</p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.formatters.xml#NumberFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#NumberFormatter/lastOperationsStatus"><linktext>lastOperationsStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.formatters:NumberFormatter:format"><apiName>format</apiName><shortdesc>
+      数字をフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>フォーマット済み数字文字列。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>フォーマットする数値を格納するオブジェクト。 オブジェクトが <codeph>Number</codeph> でない場合、オブジェクトは <codeph>Number()</codeph> 変換機能を使用して数値に変換されます。
+         
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      数字をフォーマットします。
+     
+     <p>この関数はフォーマッターのプロパティ値に基づいて数字をフォーマットします。<codeph>locale</codeph> スタイルが設定された後にプロパティが変更されない場合、数字は、<codeph>actualLocaleIDName</codeph> プロパティによって識別されるロケールのオペレーティングシステムが提供するロケール固有の規則に従ってフォーマットされます。 フォーマットをカスタマイズするために、プロパティを変更して、特定の面で数字のフォーマットを変更できます。</p>
+     
+      <p>非常に大きな数字と非常に小さな数字をこの関数でフォーマットできます。ただし、有効桁数は <codeph>Number</codeph> オブジェクトによって指定される精度に限定されます。 科学的記数法はサポートされていません。</p>
+     
+      <p>不正な入力値またはその他のエラーによりフォーマット中にエラーが発生した場合、<codeph>format()</codeph> メソッドはデフォルトで <codeph>null</codeph> を返します。 ただし、<codeph>errorText</codeph> プロパティが null 以外の場合、<codeph>errorText</codeph> プロパティの値が返されます。 <codeph>lastOperationStatus</codeph> プロパティが、発生したエラーを示すように設定されます。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#NumberFormatter/NumberFormatter"><linktext>NumberFormatter</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/errorText"><linktext>spark.formatters.supportClasses.NumberFormatterBase.errorText</linktext></link><link href="spark.formatters.xml#NumberFormatter/lastOperationStatus"><linktext>lastOperationStatus</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:NumberFormatter:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+      このクラスでサポートされているすべてのロケール ID 名のリストが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>このクラスおよびオペレーティングシステムでサポートされているすべてのロケール ID 名を含む文字列のベクトル。
+     
+      </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+      このクラスでサポートされているすべてのロケール ID 名のリストが表示されます。これはオペレーティングシステムでサポートされているロケールのリストです。ResourceManager にリソースがあるロケールのリストではありません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:NumberFormatter:parseNumber"><apiName>parseNumber</apiName><shortdesc>
+      数字とスペース（オプション）のみを含む文字列を解析して、Number を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc><codeph>parseString</codeph> が <codeph>null</codeph> の場合
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>数値を含む <codeph>Number</codeph> オブジェクト。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>parseString</apiItemName><apiType value="String"/><apiDesc>解析する入力文字列。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      数字とスペース（オプション）のみを含む文字列を解析して、Number を返します。文字列が数字で始まらないか、数字の一部ではないスペース以外の文字を含む場合、このメソッドは <codeph>NaN</codeph> を返します。 数字桁の前後のスペースは無視されます。 
+     
+      <p>数字桁の前または後ろにプラス記号「+」が付いている場合は、空白文字以外として扱われます。戻り値は <codeph>NaN</codeph> です。
+      </p>
+     
+      <p>数字の解析および有効な数字の構成について詳しくは、解析機能の説明を参照してください。
+      </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#NumberFormatter/parse()"><linktext>parse()</linktext></link><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:NumberFormatter:parse"><apiName>parse</apiName><shortdesc>
+      文字列を解析して、解析した要素を含む NumberParseResult オブジェクトを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc><codeph>inputString</codeph> パラメーターが null の場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>数値と、数字を格納するストリング部分の開始および終了のインデックスを格納する <codeph>NumberParseResult</codeph> オブジェクト。
+     
+      </apiDesc><apiType value="flash.globalization:NumberParseResult"/></apiReturn><apiParam><apiItemName>inputString</apiItemName><apiType value="String"/><apiDesc>解析する入力文字列。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ストリングを解析し、解析されたエレメントを含む <codeph>NumberParseResult</codeph> オブジェクトを返します。
+     
+      <p><codeph>NumberParseResult</codeph> オブジェクトには入力文字列で見つかった最初の数字の値、文字列内の数字の開始インデックス、文字列内の数字の後の最初の文字のインデックスが含まれます。</p>
+     
+      <p>ストリングに数字が含まれない場合、NumberParseResult の value プロパティは <codeph>NaN</codeph> に設定され、<codeph>startIndex</codeph> および <codeph>endIndex</codeph> プロパティは 16 進数値の <codeph>0x7fffffff</codeph> に設定されます。
+      </p>
+     
+      <p>この関数は、<codeph>decimalSeparator</codeph> プロパティの値を使用して少数桁を含む数字の部分を判別し、<codeph>groupingSeparator</codeph> プロパティの値を使用して、数字の桁内で許容される文字を判別し、<codeph>negativeNumberFormat</codeph> プロパティの値を使用して、負の値を表示方法を制御します。 </p>
+     
+      <p>次の表は様々な <codeph>NegativeNumberFormat</codeph> 値で解析される文字列の結果を示しています。</p>
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="3"><tbody><row>
+                <entry>NegativeNumberFormat</entry>
+                <entry>入力文字列</entry>
+                <entry>結果</entry>
+             </row><row>
+                <entry>(n)</entry>
+                <entry>"(123)" または "( 123 )"</entry>
+                <entry>"-123"</entry>
+            </row><row>
+                <entry>-n</entry>
+                <entry>"-123" または "- 123"</entry>
+                <entry>"-123"</entry>
+            </row><row>
+                <entry>- n</entry>
+                <entry>"-123" または "- 123"</entry>
+                <entry>"-123"</entry>
+            </row><row>
+                <entry>n-</entry>
+                <entry>"123-" または "123 -"</entry>
+                <entry>"-123"</entry>
+            </row><row>
+                <entry>n -</entry>
+                <entry>"123-" または "123 -"</entry>
+                <entry>"-123"</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>数字とマイナス記号または括弧の間には、スペースを 1 つ入れることができます。 スペース文字とは、Unicode Character Database の Space Separator（Zs）プロパティを持つ文字のことです。詳細については、<xref href="http://www.unicode.org/ucd/">http://www.unicode.org/ucd/</xref> を参照してください。</p>
+     
+      <p>その他のプロパティは、有効な数字を判別するときに無視されます。特に <codeph>digitsType</codeph> プロパティの値が無視され、桁は <codeph>NationalDigitsType</codeph> クラスで列挙される桁セットのいずれかから取得できます。 <codeph>groupingPattern</codeph> および <codeph>useGrouping</codeph> プロパティの値は数字の解析に影響を与えます。
+      </p>
+     
+      <p>数字の前または後にプラス記号「+」が付いている場合、このプラス記号は数字の一部ではない文字として扱われます。
+      </p>
+     
+      <p>この関数では、科学的表記の数字（1.23e40 など）が含まれるストリングは解析されません。</p>
+     
+     
+      </apiDesc><example>次のコードで文字列から数字を解析して、接頭辞と接尾辞を取得します。
+      <codeblock rev="3.0">
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale","fr-FR");
+      var str:String = "1,56 mètre"
+      var result:NumberParseResult = nf.parse(str);
+      trace(result.value) // 1.56
+      trace(str.substr(0,result.startIndex));                // ""
+      trace(str.substr(result.startIndex, result.endIndex)); // "1,56"
+      trace(str.substr(result.endIndex));                 // " mètre"
+      </codeblock>
+     
+      </example></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.NumberParseResult.xml"><linktext>flash.globalization.NumberParseResult</linktext></link><link href="spark.formatters.xml#NumberFormatter/parseNumber()"><linktext>parseNumber()</linktext></link><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiOperation><apiValue id="spark.formatters:NumberFormatter:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      このクラスオブジェクトで使用される実際のロケール ID の名前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      このクラスオブジェクトで使用される実際のロケール ID の名前。これはフォーマットするデータと機能にオペレーティングシステムからアクセスするために使用されるロケールです。
+     
+      <p><codeph>locale</codeph> スタイルによって設定されたロケールが使用できない場合、<codeph>actualLocaleIDName</codeph> の値は <codeph>locale</codeph> スタイルの値とは異なります。 この値は使用中の代替ロケールを示します。 locale スタイルが <codeph>LocaleID.DEFAULT</codeph> に設定された場合、ユーザーのオペレーティングシステムによって指定されたロケールの名前が使用されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.actualLocaleIDName.xml"><linktext>flash.globalization.NumberFormatter.actualLocaleIDName</linktext></link><link href="spark.formatters.xml#NumberFormatter/NumberFormatter()"><linktext>NumberFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:NumberFormatter:negativeNumberFormat:get"><apiName>negativeNumberFormat</apiName><shortdesc>
+      負の数のフォーマットパターンを示す数値。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>割り当てられた値が 0～4 の数字でない場合。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      負の数のフォーマットパターンを示す数値。このパターンは、フォーマットされた数字の数値部分に関連するマイナス記号または括弧の位置を定義します。
+     
+      <p>次の表は、負の数の有効なフォーマットの概要を示しています。負の数がフォーマットされると、フォーマットのマイナス記号が <codeph>negativeSymbol</codeph> プロパティの値に置き換えられ、「n」の文字がフォーマットされた数値に置き換えられます。</p>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>負の数のフォーマットの種類</entry>
+                <entry>形式</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>- n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>n -</entry>
+            </row></tbody></tgroup></adobetable>
+     
+     
+      <p>デフォルト値はロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#NumberFormatter/negativeSymbol"><linktext>negativeSymbol</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.formatters:DateTimeFormatter"><apiName>DateTimeFormatter</apiName><shortdesc>
+  DateTimeFormatter クラスは、Date オブジェクトのロケールに依存したフォーマットを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:DateTimeFormatter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DateTimeFormatter
+    <strong>Properties</strong>
+    dateStyle="long"
+    dateTimePattern="EEEE, MMMM dd, yyyy h:mm:ss a"
+    errorText="null"
+    timeStyle="long"
+    useUTC="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateTimeFormatter クラスは、<codeph>Date</codeph> オブジェクトのロケールに依存したフォーマットを提供します。
+ 
+  <p>このクラスは flash.globalization.DateTimeFormatter クラスのラッパークラスです。 したがって、ロケール固有のフォーマット機能と月名、曜日名および週の最初の日は flash.globalization.DateTimeFormatter によって指定されます。 ただし、この DateTimeFormatter クラスは MXML 宣言で使用でき、要求されたロケール ID 名にロケールスタイルを使用し、バインド可能なメソッドおよびプロパティを持ちます。</p>
+ 
+  <p>flash.globalization.DateTimeFormatter クラスでは、フォーマット機能と、ロケール固有データの提供用に、基盤となるオペレーティングシステムを使用します。 一部のオペレーティングシステムでは、flash.globalization クラスがサポートされておらず、これらのシステムではこのラッパークラスが代替機能を提供します。</p>
+ 
+  </apiDesc><example conref="DateTimeFormatterExample.mxml"><swfblock conref="examples/DateTimeFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeFormatter.xml"><linktext>flash.globalization.DateTimeFormatter</linktext></link></related-links><apiConstructor id="spark.formatters:DateTimeFormatter:DateTimeFormatter"><apiName>DateTimeFormatter</apiName><shortdesc>
+      指定されたロケールと提供された日付と時刻フォーマットスタイルの規則に基づいて、日付と時間をフォーマットするための新しい DateTimeFormatter オブジェクトを構築します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      指定されたロケールと日付／時刻のフォーマットスタイルの規則に従って日付と時刻をフォーマットする新しい <codeph>DateTimeFormatter</codeph> オブジェクトを作成します。
+     
+      <p>このクラスのロケールはロケールスタイルによって提供されます。 ロケールスタイルは、次のいくつかの方法で設定できます。
+      </p>
+      <ul>
+      <li>
+      MXML 宣言内でクラスを使用し、宣言を格納するドキュメントからロケールを継承する。
+      </li>
+      例：<pre>
+      &lt;fx:Declarations> 
+             &lt;s:DateTimeFormatter id="df" />
+      &lt;/fx:Declarations></pre>
+      <li>
+      MXML 宣言を使用し、代入のリスト内でロケールの値を指定する。
+      </li>
+      例：<pre>
+      &lt;fx:Declarations> 
+          &lt;s:DateTimeFormatter id="df_Japanese" locale="ja-JP" />
+      &lt;/fx:Declarations></pre>
+      <li>
+      setStyle メソッドを呼び出す。 次に実際の使用例を示します。 <pre>
+      df.setStyle("locale", "ja-JP")</pre>
+      </li>
+      <li> 
+      UIComponent の <codeph>addStyleClient()</codeph> メソッドを呼び出すことによって <codeph>UIComponent</codeph> からスタイルを継承する。
+      </li>
+      </ul>
+      <p>
+      <codeph>locale</codeph> スタイルが上記のいずれかの手法で設定されていない場合は、このクラスのインスタンスが <codeph>StyleClient</codeph> として <codeph>topLevelApplication</codeph> に追加されるため、<codeph>locale</codeph> 依存のプロパティ getter または <codeph>locale</codeph> 依存のメソッドが呼び出されるときに、<codeph>topLevelApplication</codeph> オブジェクトから <codeph>locale</codeph> が継承されます。
+      </p>    
+     
+      <p>このクラスのほとんどのプロパティは、ロケールスタイルに基づいて自動的に設定されます。 ロケールスタイルが変更されると、明示的に設定されていないすべてのプロパティは新しいロケールに基づいて更新されます。 使用される実際のロケールは actualLocaleIDName プロパティによって指定されることに注意してください。</p>
+      
+      
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/lastOperationsStatus"><linktext>lastOperationsStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.formatters:DateTimeFormatter:format"><apiName>format</apiName><shortdesc>
+     ユーザーのローカル時刻または UTC 時刻のいずれかで日付を指定するオブジェクトの表示文字列をフォーマットします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>日付または時間の値を表すフォーマットされた文字列。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>フォーマットされる <codeph>Date</codeph> 値。 オブジェクトが <codeph>Date</codeph> でない場合、オブジェクトは <codeph>Date()</codeph> コンストラクターを使用して数値に変換されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     ユーザーのローカル時刻または UTC 時刻のいずれかで日付を指定するオブジェクトの表示文字列をフォーマットします。
+     
+     
+      <p><codeph>Date</codeph> オブジェクトには日付と時刻の値のセットが 2 つあり、1 つはユーザーのローカル時刻のセット（<codeph>date、day、fullYear、hours、minutes、month</codeph> および <codeph>seconds</codeph>）で、もう 1 つは UTC 時刻のセット（<codeph>dateUTC、dayUTC、fullYearUTC、hoursUTC、minutesUTC、monthUTC</codeph> および <codeph>secondsUTC</codeph>）です。 ブール型プロパティ <codeph>useUTC</codeph> は、日付をフォーマットするときに使用する日付と時刻のコンポーネントのセットを制御します。 フォーマットは、<codeph>locale</codeph> スタイルプロパティによって設定されるロケールの規則と、<codeph>dateStyle</codeph> および <codeph>timeStyle</codeph> プロパティ、またはこの <codeph>DateTimeFormatter</codeph> インスタンス用に指定された <codeph>dateTimePattern</codeph> を使用して実行されます。
+      </p>
+     
+      <p>不正な入力値またはその他のエラーによりフォーマット中にエラーが発生した場合、<codeph>format()</codeph> メソッドはデフォルトで <codeph>null</codeph> を返します。 ただし、<codeph>errorText</codeph> プロパティが null 以外の場合、<codeph>errorText</codeph> プロパティの値が返されます。 <codeph>lastOperationStatus</codeph> プロパティが、発生したエラーを示すように設定されます。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/timeStyle"><linktext>timeStyle</linktext></link><link href="" invalidHref="spark.formatters.Date.xml"><linktext>Date</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/dateTimePattern"><linktext>dateTimePattern</linktext></link><link href="spark.formatters.xml#DateTimeFormatter"><linktext>DateTimeFormatter</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+      このクラスでサポートされているすべてのロケール ID 名のリストが表示されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>このクラスおよびオペレーティングシステムでサポートされているすべてのロケール ID 名を含む文字列のベクトル。
+     
+      </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+      このクラスでサポートされているすべてのロケール ID 名のリストが表示されます。これはオペレーティングシステムでサポートされているロケールのリストです。ResourceManager にリソースがあるロケールのリストではありません。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getFirstWeekday"><apiName>getFirstWeekday</apiName><shortdesc>
+      このロケールおよびカレンダーシステムの週の最初の日に対応する整数を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>このロケールおよびカレンダーシステムの週の最初の日に対応する整数。
+     
+      </apiDesc><apiType value="int"/></apiReturn></apiOperationDef><apiDesc>
+      このロケールおよびカレンダーシステムの週の最初の日に対応する整数を返します。値 0 は日曜日、1 は月曜日というように対応し、6 が土曜日に対応します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getMonthNames"><apiName>getMonthNames</apiName><shortdesc>
+      現在のカレンダーシステムの月の名前を含むローカライズされた文字列のリストを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc><codeph>nameStyle</codeph> または <codeph>context</codeph> パラメータが null の場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>現在のロケール（ロケールスタイルによって指定される）、名前スタイルおよびコンテキストの月の名前を含むローカライズされた文字列のベクトル。 このベクトルのインデックス 0 における最初の要素は年の最初の月の名前、次の要素は年の 2 番目の月の名前というように続きます。
+      </apiDesc><apiType value="Vector$String"/></apiReturn><apiParam><apiItemName>nameStyle</apiItemName><apiType value="String"/><apiData>full</apiData><apiDesc>使用される名前文字列のスタイルを示します。有効な値は次のとおりです。
+              <ul>
+                  <li><codeph>DateTimeNameStyle.FULL</codeph></li>
+                  <li><codeph>DateTimeNameStyle.LONG_ABBREVIATION</codeph>
+                      </li>
+                  <li><codeph>DateTimeNameStyle.SHORT_ABBREVIATION</codeph>
+                      </li>
+              </ul>
+      </apiDesc></apiParam><apiParam><apiItemName>context</apiItemName><apiType value="String"/><apiData>standalone</apiData><apiDesc>フォーマットされた文字列が使用されるコンテキストを示すコード。このコンテキストは、特定のロケールにのみ影響します。有効な値は次のとおりです。
+              <ul>
+                  <li><codeph>DateTimeNameContext.FORMAT</codeph></li>
+                  <li><codeph>DateTimeNameContext.STANDALONE</codeph></li>
+              </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      現在のカレンダーシステムの月の名前を含むローカライズされた文字列のリストを取得します。このリストの最初の要素は、年の最初の月の名前です。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeNameContext.xml"><linktext>flash.globalization.DateTimeNameContext</linktext></link><link href="" invalidHref="flash.globalization.DateTimeNameStyle.xml"><linktext>flash.globalization.DateTimeNameStyle</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getWeekdayNames"><apiName>getWeekdayNames</apiName><shortdesc>
+      現在のカレンダーシステムの曜日の名前を含むローカライズされた文字列のリストを取得します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc><codeph>nameStyle</codeph> または <codeph>context</codeph> パラメータが null の場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>現在のロケール（ロケールスタイルによって指定される）、名前スタイルおよびコンテキストの月の名前を含むローカライズされた文字列のベクトル。 このベクトルのインデックス 0 における最初の要素は日曜日の名前、次の要素は月曜日の名前というように続きます。
+      </apiDesc><apiType value="Vector$String"/></apiReturn><apiParam><apiItemName>nameStyle</apiItemName><apiType value="String"/><apiData>full</apiData><apiDesc>使用される名前文字列のスタイルを示します。有効な値は次のとおりです。
+              <ul>
+                  <li><codeph>DateTimeNameStyle.FULL</codeph></li>
+                  <li><codeph>DateTimeNameStyle.LONG_ABBREVIATION</codeph>
+                      </li>
+                  <li><codeph>DateTimeNameStyle.SHORT_ABBREVIATION</codeph>
+                      </li>
+              </ul>
+      </apiDesc></apiParam><apiParam><apiItemName>context</apiItemName><apiType value="String"/><apiData>standalone</apiData><apiDesc>フォーマットされた文字列が使用されるコンテキストを示すコード。このコンテキストは、コンテキストに応じて月の名前表示が変わる特定のロケールにのみ適用されます。例えば、ギリシャ語では、月の名前だけを表示する場合と、月と日にちを表示する場合では、月名の表示が異なります。有効な値は次のとおりです。
+              <ul>
+                  <li><codeph>DateTimeNameContext.FORMAT</codeph></li>
+                  <li><codeph>DateTimeNameContext.STANDALONE</codeph></li>
+              </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      現在のカレンダーシステムの曜日の名前を含むローカライズされた文字列のリストを取得します。リストの最初の要素は、日曜日の名前を表しています。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeNameContext.xml"><linktext>flash.globalization.DateTimeNameContext</linktext></link><link href="" invalidHref="flash.globalization.DateTimeNameStyle.xml"><linktext>flash.globalization.DateTimeNameStyle</linktext></link></related-links></apiOperation><apiValue id="spark.formatters:DateTimeFormatter:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      このクラスオブジェクトで使用される実際のロケール ID の名前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      このクラスオブジェクトで使用される実際のロケール ID の名前。これはフォーマットするデータと機能にオペレーティングシステムからアクセスするために使用されるロケールです。
+     
+      <p><codeph>locale</codeph> スタイルによって設定されたロケールが使用できない場合、<codeph>actualLocaleIDName</codeph> の値は <codeph>locale</codeph> スタイルの値とは異なります。 この値は使用中の代替ロケールを示します。 locale スタイルが <codeph>LocaleID.DEFAULT</codeph> に設定された場合、ユーザーのオペレーティングシステムによって指定されたロケールの名前が使用されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeFormatter.actualLocaleIDName.xml"><linktext>flash.globalization.DateTimeFormatter.actualLocaleIDName</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/DateTimeFormatter()"><linktext>DateTimeFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:dateStyle:get"><apiName>dateStyle</apiName><shortdesc>
+      DateTimeFormatter のこのインスタンスの日付スタイル。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>割り当てられた値が有効な <codeph>DateTimeStyle</codeph> 定数でないか、<codeph>DateTimeStyle.CUSTOM</codeph> の場合。
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException><apiException><apiDesc><codeph>dateStyle</codeph> が <codeph>null</codeph> に設定されている場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiDefaultValue>&lt;code>DateTimeStyle.LONG&lt;/code>
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      DateTimeFormatter のこのインスタンスの日付スタイル。この日付スタイルは、オペレーティングシステムから事前定義の時間およびロケール固有のフォーマットパターンを取得するために使用されます。 日付をフォーマットするとき、<codeph>locale</codeph> スタイル、<codeph>timeStyle</codeph> および <codeph>dateStyle</codeph> プロパティによって日付のフォーマットが決定されます。 日付スタイルの値は、値を <codeph>dateStyle</codeph> プロパティまたは <codeph>dateTimePattern</codeph> プロパティのいずれかに割り当てる 2 つの方法で設定できます。 
+     
+      <p>このプロパティに指定可能な値は、flash.globalization.DateTimeStyle クラスで定義されます。 <codeph>dateStyle</codeph> プロパティの可能な値は次のとおりです。</p>
+     
+      <ul>
+      <li><codeph>DateTimeStyle.LONG</codeph> </li>
+      <li><codeph>DateTimeStyle.MEDIUM</codeph> </li>
+      <li><codeph>DateTimeStyle.SHORT </codeph></li>
+      <li><codeph>DateTimeStyle.NONE </codeph></li>
+      <li><codeph>DateTimeStyle.CUSTOM </codeph></li>
+      </ul>
+     
+     <p><codeph>dateTimePattern</codeph> プロパティに値を割り当てた場合、副次的な作用として、<codeph>dateStyle</codeph> プロパティは <codeph>DateTimeStyle.CUSTOM</codeph> に設定されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/dateTimePattern"><linktext>dateTimePattern</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/lastOperationStatus"><linktext>lastOperationStatus</linktext></link><link href="" invalidHref="flash.globalization.DateTimeStyle.xml"><linktext>flash.globalization.DateTimeStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/DateTimeFormatter()"><linktext>DateTimeFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:dateTimePattern:get"><apiName>dateTimePattern</apiName><shortdesc>
+      DateTimeFormatter オブジェクトで日付と時間をフォーマットするために使用するパターン文字列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"EEEE, MMMM dd, yyyy h:mm:ss a"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      DateTimeFormatter オブジェクトで日付と時間をフォーマットするために使用するパターン文字列。
+     
+      <p>このパターンは次の 2 つの方法のいずれかで設定できます。</p>
+     
+      <ol>
+         <li><codeph>dateStyle</codeph> および <codeph>timeStyle</codeph> プロパティを設定する方法 </li>
+         <li><codeph>dateTimePattern</codeph> プロパティを設定する方法</li>
+      </ol>
+     
+      <p>このプロパティに直接値を割り当てた場合、副次的な作用として、現在の時刻と日付のスタイルがオーバーライドされ、<codeph>DateTimeStyle.CUSTOM</codeph> という値に設定されます。</p>
+     
+      <p>パターン構文について詳しくは、<xref href="..\..\flash\globalization\DateTimeFormatter.html#setDateTimePattern()"> <codeph>flash.globalization.DateTimeFormatter.setDateTimePattern()</codeph></xref> メソッドを参照してください。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/timeStyle"><linktext>timeStyle</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:errorText:get"><apiName>errorText</apiName><shortdesc>
+      エラーが発生したときに format() メソッドによって返される文字列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      エラーが発生したときに <codeph>format()</codeph> メソッドによって返される文字列。
+     
+      <p><codeph>errorText</codeph> が null でなく、日付のフォーマット中にエラーが発生した場合、format メソッドはこのプロパティに割り当てられた文字列を返します。</p>
+     
+      次に実際の使用例を示します。
+      <codeblock rev="3.0">
+      var dtf:DateTimeFormatter = new DateTimeFormatter();
+      dtf.setStyle("locale", "en-US");
+      dtf.errorText = "----"
+      trace(dtf.format("abc"));  // ----
+      </codeblock>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      このクラスオブジェクトが実行した最新の操作のステータス。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      このクラスオブジェクトが実行した最新の操作のステータス。コンストラクターまたはこのクラスのメソッドが呼び出されたり、プロパティが設定されたりすると、必ず <codeph>lastOperationStatus</codeph> が設定されます。有効な値については、各メソッドの説明を参照してください。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.formatters:DateTimeFormatter:timeStyle:get"><apiName>timeStyle</apiName><shortdesc>
+      DateTimeFormatter のこのインスタンスの時刻スタイル。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>割り当てられた値が有効な <codeph>DateTimeStyle</codeph> 定数でないか、<codeph>DateTimeStyle.CUSTOM</codeph> の場合。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException><apiException><apiDesc><codeph>dateStyle</codeph> または <codeph>timeStyle</codeph> パラメーターが null の場合。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiDefaultValue>&lt;code>DateTimeStyle.LONG&lt;/code>
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      DateTimeFormatter のこのインスタンスの時刻スタイル。この時間スタイルは、オペレーティングシステムから事前定義の時間およびロケール固有のフォーマットパターンを取得するために使用されます。 日付をフォーマットするとき、<codeph>locale</codeph> スタイル、<codeph>timeStyle</codeph> および <codeph>dateStyle</codeph> プロパティによって日付のフォーマットが決定されます。 時刻スタイルの値は、値を <codeph>timeStyle</codeph> プロパティまたは <codeph>dateTimePattern</codeph> プロパティのいずれかに割り当てる 2 つの方法で設定できます。
+     
+      <p>このプロパティの値は、flash.globalization.DateTimeStyle クラスで定義されます。<codeph>timeStyle</codeph> プロパティの可能な値は次のとおりです。</p>
+     
+      <ul>
+      <li><codeph>DateTimeStyle.LONG</codeph></li>
+      <li><codeph>DateTimeStyle.MEDIUM</codeph></li>
+      <li><codeph>DateTimeStyle.SHORT</codeph></li>
+      <li><codeph>DateTimeStyle.NONE</codeph></li>
+      <li><codeph>DateTimeStyle.CUSTOM </codeph></li>
+      </ul>
+     
+     <p><codeph>dateTimePattern</codeph> プロパティに値を割り当てた場合、副次的な作用として、dateStyle プロパティは <codeph>DateTimeStyle.CUSTOM</codeph> に設定されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/dateTimePattern"><linktext>dateTimePattern</linktext></link><link href="" invalidHref="flash.globalization.DateTimeStyle.xml"><linktext>flash.globalization.DateTimeStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/DateTimeFormatter()"><linktext>DateTimeFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:useUTC:get"><apiName>useUTC</apiName><shortdesc>
+      日付をフォーマットするときに使用される日付と時刻の値が、ローカルまたは UTC のいずれかを制御する Boolean フラグ。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      日付をフォーマットするときに使用される日付と時刻の値が、ローカルまたは UTC のいずれかを制御する Boolean フラグ。<codeph>useUTC</codeph> が <codeph>true</codeph> に設定される場合、UTC 値が使用されます。 値が <codeph>false</codeph> に設定される場合、オペレーティングシステムの現在のタイムゾーンの日付と時刻が使用されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

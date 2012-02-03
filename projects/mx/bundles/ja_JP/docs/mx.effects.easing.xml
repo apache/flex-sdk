@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.easing"><apiName>mx.effects.easing</apiName><apiDetail/><apiClassifier id="mx.effects.easing:Quartic"><apiName>Quartic</apiName><shortdesc>
+  Quartic クラスでは、Flex エフェクトクラスでモーションを実装する 3 種類のイージング関数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quartic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Flex 4 で提供される Spark エフェクトでは、以前の Flex 3 のエフェクトで使用される Quartic のようなクラス内のイージング関数ではなく、IEaser インターフェイスを実装するクラスが使用されます。Quartic と同等の機能を実現するには、<codeph>exponent</codeph> を 4 に設定して Power インスタンスを作成し、意図どおりの結果が得られるように <codeph>easeInFraction</codeph> を適切に設定します。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Quartic クラスでは、Flex エフェクトクラスでモーションを実装する 3 種類のイージング関数を定義します。 Quartic イージング式のモーションの加速は、Quadratic イージング式または Cubic イージング式のモーションより大きくなります。 詳細については、http://www.robertpenner.com/profmx を参照してください。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quartic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() メソッドは、easeIn() メソッドと easeOut() メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> メソッドは、<codeph>easeIn()</codeph> メソッドと <codeph>easeOut()</codeph> メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quartic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quartic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() メソッドはモーションを高速で開始し、その後モーションを速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> メソッドはモーションを高速で開始し、その後モーションを速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Linear"><apiName>Linear</apiName><shortdesc>
+  Linear クラスでは、Flex エフェクトクラスで線形モーションを実装するイージング関数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Linear" replacement="spark.effects.easing.Linear" since="4.0">
+<description>
+  Flex 4 で提供される Spark エフェクトでは、以前の Flex 3 のエフェクトで使用される Linear のようなクラス内のイージング関数ではなく、IEaser インターフェイスを実装するクラスが使用されます。以前の Linear クラスと同等の機能を実現するには、spark.effects.easing.Linear の新しいインスタンスを作成するか、spark.effects.easing.Linear.getInstance() を呼び出してシングルトンインスタンスを取得します。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Linear クラスでは、Flex エフェクトクラスで線形モーションを実装するイージング関数を定義します。 詳細については、http://www.robertpenner.com/profmx を参照してください。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Linear:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() メソッドは、easeIn() メソッドと easeOut() メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> メソッドは、<codeph>easeIn()</codeph> メソッドと <codeph>easeOut()</codeph> メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeNone"><apiName>easeNone</apiName><shortdesc>
+      easeNone() メソッドは、加速しない一定速のモーションを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeNone()</codeph> メソッドは、加速しない一定速のモーションを定義します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Linear:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Quintic"><apiName>Quintic</apiName><shortdesc>
+  Quintic クラスでは、Flex エフェクトクラスでモーションを実装する 3 種類のイージング関数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quintic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Flex 4 で提供される Spark エフェクトでは、以前の Flex 3 のエフェクトで使用される Quintic のようなクラス内のイージング関数ではなく、IEaser インターフェイスを実装するクラスが使用されます。Quintic と同等の機能を実現するには、<codeph>exponent</codeph> を 5 に設定して Power インスタンスを作成し、意図どおりの結果が得られるように <codeph>easeInFraction</codeph> を適切に設定します。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Quintic クラスでは、Flex エフェクトクラスでモーションを実装する 3 種類のイージング関数を定義します。 Quintic イージング式のモーションの加速は、Quadratic イージング式、Cubic イージング式または Quartic イージング式のモーションの加速よりも大きくなります。 詳細については、http://www.robertpenner.com/profmx を参照してください。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quintic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() メソッドは、easeIn() メソッドと easeOut() メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> メソッドは、<codeph>easeIn()</codeph> メソッドと <codeph>easeOut()</codeph> メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quintic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quintic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Cubic"><apiName>Cubic</apiName><shortdesc>
+  Cubic クラスでは、Flex エフェクトクラスでモーションを実装する 3 種類のイージング関数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Cubic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Flex 4 で提供される Spark エフェクトでは、以前の Flex 3 のエフェクトで使用される Cubic のようなクラス内のイージング関数ではなく、IEaser インターフェイスを実装するクラスが使用されます。Cubic と同等の機能を実現するには、<codeph>exponent</codeph> を 3 に設定して Power インスタンスを作成し、意図どおりの結果が得られるように <codeph>easeInFraction</codeph> を適切に設定します。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Cubic クラスでは、Flex エフェクトクラスでモーションを実装する 3 種類のイージング関数を定義します。 Cubic イージング式のモーションの加速は、Quadratic イージング式のモーションの加速よりも大きくなります。詳細については、http://www.robertpenner.com/profmx を参照してください。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Cubic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() メソッドは、easeIn() メソッドと easeOut() メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> メソッドは、<codeph>easeIn()</codeph> メソッドと <codeph>easeOut()</codeph> メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Cubic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Cubic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Quadratic"><apiName>Quadratic</apiName><shortdesc>
+  Quadratic クラスでは、Flex エフェクトクラスで二次モーションを実装する 3 種類のイージング関数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Quadratic" replacement="spark.effects.easing.Power" since="4.0">
+<description>
+  Flex 4 で提供される Spark エフェクトでは、以前の Flex 3 のエフェクトで使用される Quadratic のようなクラス内のイージング関数ではなく、IEaser インターフェイスを実装するクラスが使用されます。Quadratic と同等の機能を実現するには、<codeph>exponent</codeph> を 2 に設定して Power インスタンスを作成し、意図どおりの結果が得られるように <codeph>easeInFraction</codeph> を適切に設定します。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Quadratic クラスでは、Flex エフェクトクラスで二次モーションを実装する 3 種類のイージング関数を定義します。 Quadratic イージング式のモーションの加速は、Cubic イージング式または Quartic イージング式のモーションより遅くなります。 詳細については、http://www.robertpenner.com/profmx を参照してください。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Quadratic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() メソッドは、easeIn() メソッドと easeOut() メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> メソッドは、<codeph>easeIn()</codeph> メソッドと <codeph>easeOut()</codeph> メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quadratic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Quadratic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Sine"><apiName>Sine</apiName><shortdesc>
+  Sine クラスでは、モーションが正弦波により定義される Flex エフェクトクラスでモーションを実装する 3 種類のイージング関数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects.easing:Sine" replacement="spark.effects.easing.Sine" since="4.0">
+<description>
+  Flex 4 で提供される Spark エフェクトでは、以前の Flex 3 のエフェクトで使用される Sine のようなクラス内のイージング関数ではなく、IEaser インターフェイスを実装するクラスが使用されます。以前の Sine クラスと同等の機能を実現するには、意図どおりの結果が得られるように <codeph>easeInFraction</codeph> を適切に設定して spark.effects.Sine インスタンスを作成します。
+ </description>
+	</Alternative></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Sine クラスでは、モーションが正弦波により定義される Flex エフェクトクラスでモーションを実装する 3 種類のイージング関数を定義します。 詳細については、http://www.robertpenner.com/profmx を参照してください。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Sine:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      easeInOut() メソッドは、easeIn() メソッドと easeOut() メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeInOut()</codeph> メソッドは、<codeph>easeIn()</codeph> メソッドと <codeph>easeOut()</codeph> メソッドのモーションを組み合わせたもので、モーションを速度 0 から開始して加速させた後、速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Sine:easeIn"><apiName>easeIn</apiName><shortdesc>
+      easeIn() メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeIn()</codeph> メソッドはモーションを速度 0 から開始し、実行するにつれてモーションを加速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Sine:easeOut"><apiName>easeOut</apiName><shortdesc>
+      easeOut() メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>コンポーネントの位置に対応する数値を表します。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>時刻を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの初期位置を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>コンポーネントの位置の変化量を指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>エフェクトの継続時間をミリ秒単位で指定します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      <codeph>easeOut()</codeph> メソッドはモーションを高速で開始し、実行するにつれてモーションを速度 0 まで減速させます。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

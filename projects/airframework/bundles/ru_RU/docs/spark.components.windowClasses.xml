@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.windowClasses"><apiName>spark.components.windowClasses</apiName><apiDetail/><apiClassifier id="spark.components.windowClasses:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+  Класс TitleBar определяет строку заголовка по умолчанию для контейнера WindowedApplication или Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion><Exclude kind="style" name="focusThickness"/><Exclude kind="style" name="focusBlendMode"/><skinStates><SkinState name="disabledAndMaximized" owner="spark.components.windowClasses:TitleBar" playerVersion="Flash10">
+<description>
+  Строка заголовка отключена, приложение развернуто.
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndMaximized" owner="spark.components.windowClasses:TitleBar" playerVersion="Flash10">
+<description>
+  Строка заголовка включена, приложение развернуто.
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><skinParts><SkinPart name="closeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="true" var_type="spark.components:Button">
+<description>
+      Элемент темы оформления, который определяет элемент управления Button, соответствующий кнопке закрытия.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="maximizeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components:Button">
+<description>
+      Элемент темы оформления, который определяет элемент управления Button, соответствующий кнопке развертывания.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="minimizeButton" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components:Button">
+<description>
+      Элемент темы оформления, который определяет элемент управления Button, соответствующий кнопке свертывания.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleIconImage" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.primitives:BitmapImage">
+<description>
+      Значок заголовка в элементе TitleBar.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleText" owner="spark.components.windowClasses:TitleBar" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      Элемент темы оформления, который определяет элемент управления UITextField, отображающий заголовок приложения.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart></skinParts></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.supportClasses:SkinnableComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс TitleBar определяет строку заголовка по умолчанию для контейнера WindowedApplication или Window.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="spark.components.windowClasses:TitleBar:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.windowClasses:TitleBar:protected:doubleClickHandler"><apiName>doubleClickHandler</apiName><shortdesc>
+      Метод, обеспечивающий обработку события doubleClick соответствующим платформе способом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/><apiDesc>Объект события.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Метод, обеспечивающий обработку события <codeph>doubleClick</codeph> соответствующим платформе способом.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.windowClasses:TitleBar:protected:getCurrentSkinState"><apiName>getCurrentSkinState</apiName><shortdesc>
+      Возвращает имя состояния, которое должно быть применено к теме оформления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Строка, указывающая имя состояния, которое должно быть применено к теме оформления.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает имя состояния, которое должно быть применено к теме оформления. Например, компонент Button может возвратить строку up, down, over или disabled для указания состояния.
+     
+      <p>Подкласс SkinnableComponent должен обеспечивать перезапись этого метода для возврата значения.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.windowClasses:TitleBar:title:get"><apiName>title</apiName><shortdesc>
+      Заголовок, появляющийся в строке заголовка окна и стыковочном узле или на панели задач.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Заголовок, появляющийся в строке заголовка окна и стыковочном узле или на панели задач.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.windowClasses:TitleBar:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Значок, отображаемый в строке заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значок, отображаемый в строке заголовка.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

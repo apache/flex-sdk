@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.resources"><apiName>mx.resources</apiName><apiDetail/><apiClassifier id="mx.resources:Locale"><apiName>Locale</apiName><shortdesc>
+  Die Gebietsschemaklasse kann benutzt werden, um einen Gebietsschemastring, z. B. „en_US_MAC“, in drei Teile aufzugliedern: Sprachencode, Ländercode und eine Variante.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Gebietsschemaklasse kann benutzt werden, um einen Gebietsschemastring, z. B. <codeph>"en_US_MAC"</codeph>, in drei Teile zu zergliedern: Sprachencode, Ländercode und eine Variante.
+ 
+  <p>Die Lokalisierungs-APIs in den IResourceManager- und IResourceBundle-Schnittstellen verwenden bevorzugt Gebietsschemastrings statt Gebietsschemainstanzen. Deshalb wird diese Klasse selten in einer Anwendung benutzt.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:Locale:Locale"><apiName>Locale</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>localeString</apiItemName><apiType value="String"/><apiDesc>Ein ein-, zwei- oder dreiteiliger String, wie z. B. <codeph>"en"</codeph>, <codeph>"en_US"</codeph> oder <codeph>"en_US_MAC"</codeph>. Diese Teile werden durch Unterstrich voneinander getrennt. Der erste Teil ist ein Sprachencode bestehend aus zwei Kleinbuchstaben nach ISO-639. Beispiel: <codeph>"en"</codeph> für Englisch. Der zweite Teil ist ein Ländercode bestehend aus zwei Großbuchstaben nach ISO-3166. Beispiel: <codeph>"US"</codeph> für die Vereinigten Staaten. Der dritte Teil ist ein Variantenstring, der benutzt werden kann, um optional zwischen mehreren Gebietsschemas für die gleiche Sprache und das gleiche Land zu unterscheiden. Dies wird manchmal benutzt um anzuzeigen, mit welchem Betriebssystem das Gebietsschema benutzt werden soll, z. B. <codeph>"MAC"</codeph>, <codeph>"WIN"</codeph> oder <codeph>"UNIX"</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:Locale:toString"><apiName>toString</apiName><shortdesc>
+      Gibt den Gebietsschemastring zurück, welcher benutzt wurde, um die Gebietsschemainstanz zu erstellen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Gibt den Gebietsschemastring zurück, welcher benutzt wurde, um die Gebietsschemainstanz zu erstellen.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt den Gebietsschemastring zurück, welcher benutzt wurde, um die Gebietsschemainstanz zu erstellen. Beispiel:
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.toString()); // outputs "en_US_MAC"
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:Locale:country:get"><apiName>country</apiName><shortdesc>
+      Der Ländercode dieser Gebietsschemainstanz.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Ländercode dieser Gebietsschemainstanz. [Schreibgeschützt]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.country); // outputs "US"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:language:get"><apiName>language</apiName><shortdesc>
+      Der Sprachencode dieser Gebietsschemainstanz.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Sprachencode dieser Gebietsschemainstanz. [Schreibgeschützt]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.language); // outputs "en"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:variant:get"><apiName>variant</apiName><shortdesc>
+      Der Variantenteil dieser Gebietsschemainstanz.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Variantenteil dieser Gebietsschemainstanz. [Schreibgeschützt]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.variant); // outputs "MAC"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceManager"><apiName>IResourceManager</apiName><shortdesc>
+  Die APIs der IResourceManager-Schnittstelle bieten Unterstützung bei der Lokalisierung der Flex-Anwendungen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Die APIs der IResourceManager-Schnittstelle bieten Unterstützung bei der Lokalisierung der Flex-Anwendungen.
+ 
+  <p>Die Lokalisierung umfasst drei wesentliche Konzepte: Gebietsschemas, Ressourcen und ResourceBundles.</p>
+ 
+  <p>Ein Gebietsschema legt eine Sprache und ein Land fest, für welche Ihre Anwendung lokalisiert wird. Beispiel: Gebietsschema <codeph>"en_US"</codeph> legt das in den USA gesprochene Englisch fest. (Weitere Informationen finden Sie unter mx.resources.Locale-Klasse.)</p>
+ 
+  <p>Eine Ressource ist ein vom Gebietsschema abhängiger benannter Wert. Beispiel: Ihre Anwendung besitzt eine Ressource, deren Name <codeph>"OPEN"</codeph> lautet und deren Wert für ein englisches Gebietsschema <codeph>"Open"</codeph> ist. Der Wert für ein französisches Gebietsschema ist jedoch <codeph>"Ouvrir"</codeph>.</p>
+ 
+  <p>Ein ResourceBundle ist eine benannte Gruppe von Ressourcen, deren Werte für ein bestimmtes Gebietsschema lokalisiert wurden. Ein ResourceBundle wird durch die Kombination seines <codeph>bundleName</codeph> und seines <codeph>locale</codeph> identifiziert und besitzt ein <codeph>content</codeph>-Objekt, welches die Name-/Wertepaare der Ressourcen des Bundles enthält. In der Dokumentation zu mx.resources.IResourceBundle finden Sie Informationen darüber, wie ResourceBundles normalerweise aus Eigenschaftendateien erstellt werden.</p>
+ 
+  <p>Ein einzelnes ResourceManager-Objekt, welches die IResourceManager-Schnittstelle implementiert, verwaltet verschiedene ResourceBundles für mehrere Gebietsschemas und bietet Zugriff auf die Ressourcen, welche sie enthalten. Beispiel: Sie können einen bestimmten Ressourcenstring abrufen, indem Sie <codeph>resourceManager.getString(bundleName, resourceName)</codeph> aufrufen.</p>
+ 
+  <p>Alle Klassen, die UIComponent oder den Formatierer oder den Validator erweitern, besitzen eine <codeph>resourceManager</codeph>-Eigenschaft, welche einen Verweis auf das Objekt bereitstellt, welches die Schnittstelle implementiert. Andere Klassen können <codeph>ResourceManager.getInstance()</codeph> aufrufen, um dieses Objekt zu beziehen.</p>
+ 
+  <p>Methoden, die Ressourcen abrufen, wie z. B. <codeph>getString()</codeph>, durchsuchen Gebietsschemas, welche durch die<codeph>localeChain</codeph>-Eigenschaft festgelegt sind, nach Ressourcen. Durch Änderung dieser Eigenschaft können Sie Ihre Anwendung dazu bringen, z. B. japanische statt englische Ressourcen zu verwenden.</p>
+ 
+  <p>Wenn Ihre Anwendung startet, wird ResourceManager automatisch mit allen in die Anwendung kompilierten Ressourcen gefüllt. Wenn Sie ein Codemodul erzeugen, werden die Ressourcen, welche seine Klassen benötigen, standardmäßig in das Modul kompiliert. Wenn das Modul in eine Anwendung geladen wird, werden alle Bundles, welche die Anwendung nicht schon besitzt, dem ResourceManager hinzugefügt.</p>
+ 
+  <p>Sie können „Ressourcenmodule“ kompilieren, die nur Ressourcen enthalten. Diese können Sie mit der <codeph>loadResourceModule()</codeph>-Methode des IResourceManager laden. Mit Ressourcenmodulen können Sie mehrere Gebietsschemas unterstützen, indem Sie die benötigten Ressourcen während der Laufzeit laden, statt sie in die Anwendung zu kompilieren.</p>
+ 
+  <p>Zwar wird ResourceManager normalerweise mit ResourceBundles gefüllt, welche entweder in Ihre Anwendung kompiliert oder aus einem Modul geladen wurden, Sie können ResourceBundles aber auch programmgesteuert erstellen und sie mit der <codeph>addResourceBundle()</codeph>-Methode selbst dem ResourceManager hinzufügen.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:addResourceBundle"><apiName>addResourceBundle</apiName><shortdesc>
+      Fügt ResourceManager ein bestimmtes ResourceBundle hinzu, sodass auf seine Ressourcen durch ResourceManager-Methoden wie z. B. getString() zugegriffen werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>resourceBundle</apiItemName><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier><apiDesc>Das hinzuzufügende ResourceBundle.
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Bestimmt, ob ResourceManager einen schwachen Verweis auf das Ressourcenpaket beibehält. Wenn <codeph>useWeakReference</codeph> den Wert <codeph>true</codeph> aufweist, stellt ResourceManager einen schwachen Verweis auf das Ressourcenpaket zur Verfügung. Wenn der Aufrufer die Verwendung eines schwachen Verweises wählt, liegt es in der Verantwortung des Aufrufers, einen starken Verweis auf das Ressourcenpaket beizubehalten, damit es nicht vom Garbagekollektor frühzeitig entfernt wird. Wenn <codeph>useWeakReference</codeph> den Wert <codeph>false</codeph> aufweist, stellt ResourceManager einen starken Verweis auf das Ressourcenpaket zur Verfügung, damit es nicht vom Garbagekollektor entfernt wird.
+      
+      <p>Wenn ein Flex-Modul oder eine Flex-Unteranwendung dem ResourceManager kompilierte Ressourcenpakete automatisch hinzufügt, ruft das Modul bzw. die Unteranwendung <codeph>addResourceBundle()</codeph> mit auf <codeph>true</codeph> gesetztem <codeph>useWeakReference</codeph> auf, um ein Festsetzen im Speicher zu vermeiden. Gehen Sie genauso vor, wenn Sie Ressourcenpakete zur Laufzeit in einer Unteranwendung oder einem Modul erstellen. Sie müssen anschließend an diesen Ressourcenpaketen mit einem starken Verweis festhalten, um zu verhindern, dass sie vom Garbagekollektor entfernt werden.</p>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Fügt ResourceManager ein bestimmtes ResourceBundle zu, sodass auf seine Ressourcen durch ResourceManager-Methoden wie z. B. <codeph>getString()</codeph> zugegriffen werden kann.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:findResourceBundleWithResource"><apiName>findResourceBundleWithResource</apiName><shortdesc>
+      Sucht das Gebietsschema in localeChain für die festgelegte Ressource und gibt das erste ResourceBundle zurück, das gefunden wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Das erste ResourceBundle in <codeph>localeChain</codeph>, welches die festgelegten Ressourcen oder <codeph>null</codeph> enthält.
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Ein Bundle-Name, z. B. <codeph>"MyResources"</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Der Name einer Ressource im ResourcBundle.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Sucht das Gebietsschema in <codeph>localeChain</codeph> für die festgelegte Ressource und gibt das erste ResourceBundle zurück, das gefunden wurde. Wenn die Ressource nicht gefunden wird, gibt die Methode <codeph>null</codeph> zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBoolean"><apiName>getBoolean</apiName><shortdesc>
+      Ruft den Wert einer festgelegten Ressource als booleschen Wert ab.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Ressourcenwert als boolescher Wert oder <codeph>false</codeph>, wenn kein Wert gefunden wurde.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Der Name des ResourceBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Der Name einer Ressource im ResourcBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein bestimmtes Gebietsschema, welches für das Nachschlagen benutzt wird oder <codeph>null</codeph>, um in allen Gebietsschemas von <codeph>localeChain</codeph> zu suchen. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>. Diesen Wert müssen Sie nur selten festlegen.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ruft den Wert einer festgelegten Ressource als booleschen Wert ab.
+     
+      <p>Diese Methode ruft zuerst <codeph>getString()</codeph> auf und konvertiert das Ergebnis in Kleinbuchstaben. Es wird <codeph>true</codeph>zurückgegeben, wenn das Ergebnis<codeph>"true"</codeph> war. und <codeph>false</codeph>, wenn nicht.</p>
+     
+      <p>Wenn die festgelegte Ressource nicht gefunden wurde, wird <codeph>false</codeph> zurückgegeben.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBundleNamesForLocale"><apiName>getBundleNamesForLocale</apiName><shortdesc>
+      Gibt ein Array von Strings zurück, welches die Bundle-Namen für alle ResourceBundle-Objekte festlegt, welche im ResourceManager vorliegen, und welche zum festgelegten Gebietsschema gehören.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Array von Bundle-Namen.
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Ein Gebietsschemastring, z. B. <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt ein Array von Strings zurück, welches die Bundle-Namen für alle ResourceBundle-Objekte festlegt, welche im ResourceManager vorliegen, und welche zum festgelegten Gebietsschema gehören.
+     
+      <p>Die Reihenfolge der Bundle-Namen in diesem Array ist nicht festgelegt.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getClass"><apiName>getClass</apiName><shortdesc>
+      Ruft den Wert einer festgelegten Ressource als Klasse ab.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Ressourcenwert als <codeph>Class</codeph> oder <codeph>null</codeph>, wenn kein Wert gefunden wurde.
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Der Name des ResourceBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Der Name einer Ressource im ResourcBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein bestimmtes Gebietsschema, welches für das Nachschlagen benutzt wird oder <codeph>null</codeph>, um in allen Gebietsschemas von <codeph>localeChain</codeph> zu suchen. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>. Diesen Wert müssen Sie nur selten festlegen.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ruft den Wert einer festgelegten Ressource als Klasse ab.
+     
+      <p>Diese Methode ruft <codeph>getObject()</codeph> auf und erzwingt das Schreiben einer Klasse mithilfe des <codeph>as</codeph>-Operator. Das Ergebnis ist <codeph>null</codeph>, wenn der Ressourcenwert kein Klassenverweis war. Dies ist nützlich, wenn Sie Zeilen wie diese </p>
+     
+      <pre>
+      IMAGE=Embed("image.jpg")
+      BUTTON_SKIN=ClassReference("skins.ButtonSkin_en_US")
+      </pre>
+     
+      <p>in eine Eigenschaftendatei geschrieben haben und die Klasse beziehen möchten, welche die <codeph>Embed()</codeph> oder die<codeph>ClassReference()</codeph>-Direktive erzeugt hat.</p> 
+     
+      <p>Wenn die festgelegte Ressource nicht gefunden wurde, wird <codeph>null</codeph> zurückgegeben.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getInt"><apiName>getInt</apiName><shortdesc>
+      Ruft den Wert einer festgelegten Ressource als int-Wert ab.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Ressourcenwert als int-Wert oder 0, wenn der Wert nicht gefunden wurde.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Der Name des ResourceBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Der Name einer Ressource im ResourcBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein bestimmtes Gebietsschema, welches für das Nachschlagen benutzt wird oder <codeph>null</codeph>, um in allen Gebietsschemas von <codeph>localeChain</codeph> zu suchen. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>. Diesen Wert müssen Sie nur selten festlegen.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ruft den Wert einer festgelegten Ressource als int-Wert ab.
+     
+      <p>Diese Methode ruft <codeph>getObject()</codeph> auf und wandelt das Ergebnis in einen int-Wert um. Dies ist nützlich, wenn Sie Zeilen wie diese</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>in eine Eigenschaftendatei geschrieben haben und den Wert 5 statt <codeph>"5"</codeph> erhalten möchten.</p> 
+     
+      <p>Wenn die festgelegte Ressource nicht gefunden wurde, gibt die Methode 0 zurück.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getLocales"><apiName>getLocales</apiName><shortdesc>
+      Gibt ein Array von Strings zurück, welches alle Gebietsschemas festlegt, für welche ResourceBundle-Objekte im ResourceManager existieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Array von Gebietsschemastrings.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt ein Array von Strings zurück, welches alle Gebietsschemas festlegt, für welche ResourceBundle-Objekte im ResourceManager existieren.
+     
+      <p>Die Reihenfolge der Gebietsschemas in diesem Array ist nicht festgelegt.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getNumber"><apiName>getNumber</apiName><shortdesc>
+      Ruft den Wert einer festgelegten Ressource als Zahl ab.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Ressourcenwert als Zahl oder <codeph>NaN</codeph>, wenn kein Wert gefunden wurde.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Der Name des ResourceBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Der Name einer Ressource im ResourcBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein bestimmtes Gebietsschema, welches für das Nachschlagen benutzt wird oder <codeph>null</codeph>, um in allen Gebietsschemas von <codeph>localeChain</codeph> zu suchen. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>. Diesen Wert müssen Sie nur selten festlegen.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ruft den Wert einer festgelegten Ressource als Zahl ab.
+     
+      <p>Diese Methode ruft <codeph>getObject()</codeph> auf und wandelt das Ergebnis in eine Zahl um. Dies ist nützlich, wenn Sie Zeilen wie diese</p>
+     
+      <pre>
+      LONGITUDE=170.3
+      </pre>
+     
+      <p>in eine Eigenschaftendatei geschrieben haben und den Wert 170.3 statt <codeph>"170.3"</codeph> erhalten möchten.</p> 
+     
+      <p>Wenn die festgelegte Ressource nicht gefunden wurde, gibt die Methode <codeph>NaN</codeph> zurück.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getObject"><apiName>getObject</apiName><shortdesc>
+      Ruft den Wert einer festgelegten Ressource als Objekt ab.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Ressourcenwert, genau wie im <codeph>content</codeph>-Objekt gespeichert, oder <codeph>undefined</codeph>, wenn die Ressource nicht gefunden wurde.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Der Name des ResourceBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Der Name einer Ressource im ResourcBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein bestimmtes Gebietsschema, welches für das Nachschlagen benutzt wird oder <codeph>null</codeph>, um in allen Gebietsschemas von <codeph>localeChain</codeph> zu suchen. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>. Diesen Wert müssen Sie nur selten festlegen.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ruft den Wert einer festgelegten Ressource als Objekt ab.
+     
+      <p>Der Wert wird genauso zurückgegeben, wie er im <codeph>content</codeph>-Objekt des ResourceBundle gespeichert ist. Es findet keine Konvertierung statt. Wenn die Ressource aus einer Eigenschaftendatei kompiliert wurde, ist der Ressourcenwert des <codeph>content</codeph>-Objekts immer ein String, es sei denn, dass die <codeph>Embed()</codeph> oder die <codeph>ClassReference()</codeph>-Direktive, welche in diesem Fall eine Klasse ist, benutzt wurde. Verwenden Sie <codeph>getString()</codeph>-, <codeph>getStringArray()</codeph>-, <codeph>getNumber()</codeph>-, <codeph>getInt()</codeph>-, <codeph>getUint()</codeph>-, <codeph>getBoolean()</codeph>- und <codeph>getClass()</codeph>-Methoden, um den Wert in speziellere Typen zu konvertieren.</p>
+     
+      <p>Wenn die festgelegte Ressource nicht gefunden wurde, gibt die Methode <codeph>undefined</codeph> zurück.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getPreferredLocaleChain"><apiName>getPreferredLocaleChain</apiName><shortdesc>
+      Gibt ein Array von Strings zurück, welches alle Gebietsschemas, für welche ResourceBundle-Objekte im ResourceManager existieren, festlegt. Geordnet nach den von Capabilities.language oder Capabilities.languages gemeldeten Benutzereinstellungen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Array von Gebietsschemastrings.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt ein Array von Strings zurück, welches alle Gebietsschemas, für welche ResourceBundle-Objekte im ResourceManager existieren, festlegt. Geordnet nach den von <codeph>Capabilities.language</codeph> oder <codeph>Capabilities.languages</codeph> gemeldeten Benutzereinstellungen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getResourceBundle"><apiName>getResourceBundle</apiName><shortdesc>
+      Gibt ein ResourceBundle mit dem festgelegten Gebietsschema und bundleName zurück, welches zuvor zum ResourceManager mit addResourceBundle() hinzugefügt wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ResourceBundle mit festgelegtem <codeph>locale</codeph> und <codeph>bundleName</codeph>, wenn vorhanden, oder <codeph>null</codeph>, wenn nicht.
+     
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Ein Gebietsschemastring, z. B. <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Ein Bundle-Name, z. B. <codeph>"MyResources"</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt ein ResourceBundle mit dem festgelegten <codeph>locale</codeph> und <codeph>bundleName</codeph> zurück, welches zuvor zum ResourceManager mit <codeph>addResourceBundle()</codeph> hinzugefügt wurde. Wenn kein ResourceBundle existiert, dann gibt diese Methode <codeph>null</codeph>zurück.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getStringArray"><apiName>getStringArray</apiName><shortdesc>
+      Ruft den Wert einer festgelegten Ressource als Array von Strings ab.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Ressourcenwert als Array von Strings oder<codeph>null</codeph>, wenn der Wert nicht gefunden wurde.
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Der Name des ResourceBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Der Name einer Ressource im ResourcBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein bestimmtes Gebietsschema, welches für das Nachschlagen benutzt wird oder <codeph>null</codeph>, um in allen Gebietsschemas von <codeph>localeChain</codeph> zu suchen. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>. Diesen Wert müssen Sie nur selten festlegen.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ruft den Wert einer festgelegten Ressource als Array von Strings ab.
+     
+      <p>Die Methode geht davon aus, dass der Ressourcenwert ein String ist und durch Komma abgegrenzte Elementlisten enthält. Die <codeph>getString()</codeph>-Methode wird aufgerufen, teilt den String an den Kommas in Elemente und entfernt Leerzeichen vor und nach jedem Element. Dies ist nützlich, wenn Sie Zeilen wie diese</p>
+     
+      <pre>
+      COUNTRIES=India, China, Japan
+      </pre>
+     
+      <p>In einer Eigenschaftendatei sollte der Wert <codeph>[ "India", "China", "Japan" ]</codeph> statt <codeph>"India, China, Japan"</codeph>bezogen werden.</p> 
+     
+      <p>Wenn die festgelegte Ressource nicht gefunden wurde, wird <codeph>null</codeph> zurückgegeben.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getString"><apiName>getString</apiName><shortdesc>
+      Ruft den Wert einer festgelegten Ressource als String ab, nachdem die Platzhalter durch festgelegte Werte ersetzt wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Ressourcenwert als String oder <codeph>null</codeph>, wenn kein Wert gefunden wurde.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Der Name des ResourceBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Der Name einer Ressource im ResourcBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>parameters</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Ein Array von Parametern, die die Platzhalter ersetzen. Jeder Parameter wird mithilfe der <codeph>toString()</codeph>-Methode in einen String konvertiert, bevor er ersetzt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein bestimmtes Gebietsschema, welches für das Nachschlagen benutzt wird oder <codeph>null</codeph>, um in allen Gebietsschemas von <codeph>localeChain</codeph> zu suchen. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>. Diesen Wert müssen Sie nur selten festlegen.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ruft den Wert einer festgelegten Ressource als String ab, nachdem die Platzhalter durch festgelegte Werte ersetzt wurden.
+     
+      <p>Diese Methode ruft <codeph>getObject()</codeph>auf und wandelt das Ergebnis in einen String um.</p>
+     
+      <p>Wenn ein <codeph>parameters</codeph>-Array an diese Methode übergeben wird, werden die darin enthaltenen Parameter in Strings konvertiert und dann für die Platzhalter <codeph>"{0}"</codeph>, <codeph>"{1}"</codeph> (usw.) im String eingesetzt, bevor er zurückgegeben wird.</p>
+     
+      <p>Wenn die festgelegte Ressource nicht gefunden wurde, wird <codeph>null</codeph> zurückgegeben.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getUint"><apiName>getUint</apiName><shortdesc>
+      Ruft den Wert einer festgelegten Ressource als uint-Wert ab.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Ressourcenwert als uint oder 0, wenn der Wert nicht gefunden wurde.
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Der Name des ResourceBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Der Name einer Ressource im ResourcBundle.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein bestimmtes Gebietsschema, welches für das Nachschlagen benutzt wird oder <codeph>null</codeph>, um in allen Gebietsschemas von <codeph>localeChain</codeph> zu suchen. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>. Diesen Wert müssen Sie nur selten festlegen.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ruft den Wert einer festgelegten Ressource als uint-Wert ab.
+     
+      <p>Diese Methode ruft die <codeph>getObject()</codeph>-Methode auf und wandelt das Ergebnis in einen uint-Wert um. Dies ist nützlich, wenn Sie Zeilen wie diese</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>in eine Eigenschaftendatei geschrieben haben und den Wert 5 statt <codeph>"5"</codeph> erhalten möchten.</p> 
+     
+      <p>Wenn die festgelegte Ressource nicht gefunden wurde, gibt die Methode 0 zurück.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:initializeLocaleChain"><apiName>initializeLocaleChain</apiName><shortdesc>
+     Initialisiert die localeChain-Eigenschaft des ResourceManager mithilfe eines Algorithmus, der die Liste des Betriebssystems der vom Benutzer bevorzugten Gebietsschemas mit der Liste des in der SWF verfügbaren Gebietsschemas vergleicht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>compiledLocales</apiItemName><apiType value="Array"/><apiDesc>Ein Array von Strings, welches die Gebietsschemas festlegt, für welche die SWF kompiliert wurde.
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Initialisiert die <codeph>localeChain</codeph>-Eigenschaft des ResourceManager mithilfe eines Algorithmus, der die Liste des Betriebssystems der vom Benutzer bevorzugten Gebietsschemas mit der Liste des in der SWF verfügbaren Gebietsschemas vergleicht.
+    
+     <p>Beispiel: Wenn der Benutzer im Betriebssystem angegeben hat, dass er Französisch bevorzugt, und die SWF für die Gebietsschemas en_US, fr_FR und de_DE kompiliert wurde, wird die <codeph>localeChain</codeph> so eingestellt, dass das erste Gebietsschema darin fr_FR ist.</p>
+    
+     <p>Diese Methode wird nur von Klassen verwendet, die die IFlexModuleFactory-Schnittstelle implementieren.</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:installCompiledResourceBundles"><apiName>installCompiledResourceBundles</apiName><shortdesc>
+     Erstellt Instanzen aller ResourceBundle-Unterklassen, die in der SWF kompiliert wurden, und fügt sie dem ResourceManager hinzu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Array der ResourceBundle-Instanzen, das erstellt und dem ResourceManager hinzugefügt wurde.
+      
+     </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiDesc> Die ApplicationDomain, welche die Ressourcenpaketklassen nach Namen sucht.
+    
+     </apiDesc></apiParam><apiParam><apiItemName>locales</apiItemName><apiType value="Array"/><apiDesc>Ein Array von Strings, welches die Gebietsschemas festlegt, für welche die SWF kompiliert wurde.
+    
+     </apiDesc></apiParam><apiParam><apiItemName>bundleNames</apiItemName><apiType value="Array"/><apiDesc>Ein Array von Strings, welches die Namen der Ressourcenpakete festlegt, die in die SWF kompiliert wurden.
+    
+     </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Ein Flag, das festlegt, ob die Ressourcenpakete im ResourceManager mithilfe eines schwachen Verweises installiert werden sollen.
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Erstellt Instanzen aller ResourceBundle-Unterklassen, die in der SWF kompiliert wurden, und fügt sie dem ResourceManager hinzu.
+    
+     <p>Beispiel: Wenn der <codeph>locales</codeph>-Parameter [ "en_US", "ja_JP" ] und der <codeph>bundleNames</codeph>-Parameter [ "core", "controls" ] ist, werden vier Ressourcenpakete installiert.</p>
+    
+     <p>Diese Methode wird nur von Klassen verwendet, die die IFlexModuleFactory-Schnittstelle implementieren.</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:loadResourceModule"><apiName>loadResourceModule</apiName><shortdesc>
+      Beginnt ein Ressourcenmodul zu laden, welches ResourceBundles enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Objekt, welches mit diesem bestimmten Ladevorgang verknüpft ist, welcher <codeph>ResourceEvent.PROGRESS</codeph>, <codeph>ResourceEvent.COMPLETE</codeph> und <codeph>ResourceEvent.ERROR</codeph>-Ereignisse auslöst.
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Die URL, von welcher das Ressourcenmodul zu laden ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Ob die <codeph>update()</codeph>-Methode aufgerufen werden soll, wenn das Modul den Ladevorgang beendet hat.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>Die ApplicationDomain, welche an die <codeph>load()</codeph>-Methode der IModuleInfo-Klasse übergeben wurde, die das Ressourcenmodul lädt. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>Die SecurityDomain, welche an die <codeph>load()</codeph>-Methode der IModuleInfo-Klasse übergeben wurde, die das Ressourcenmodul lädt. Dieser Parameter ist optional und standardmäßig <codeph>null</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Beginnt ein Ressourcenmodul zu laden, welches ResourceBundles enthält.
+     
+      <p>Jeder Aufruf dieser Methode gibt ein neues ereignisauslösendes Objekt zurück, an welchem Sie den Ladefortschritt ablesen können und erfahren, ob dieser erfolgreich abgeschlossen wurde oder mit einem Fehler endete. Dieses Objekt löst <codeph>ResourceEvent.PROGRESS</codeph>, <codeph>ResourceEvent.COMPLETE</codeph> und <codeph>ResourceEvent.ERROR</codeph>-Ereignisse aus.</p>
+     
+      <p>Wenn das Modul geladen wurde, werden die ResourceBundles dem ResourceManager hinzugefügt, aber <codeph>localeChain</codeph>. bleibt unverändert. Wenn der <codeph>update</codeph>-Parameter <codeph>true</codeph> ist, wird die <codeph>update()</codeph>-Methode aufgerufen.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ResourceEvent"><linktext>mx.events.ResourceEvent</linktext></link><link href="mx.resources.xml#IResourceManager/update()"><linktext>mx.resources.IResourceManager.update()</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundle"><apiName>removeResourceBundle</apiName><shortdesc>
+      Entfernt ein bestimmtes ResourceBundle aus dem ResourceManager, sodass auf seine Ressourcen durch ResourceManager-Methoden wie z. B. getString() nicht mehr zugegriffen werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Ein Gebietsschemastring, z. B. <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Ein Bundle-Name, z. B. <codeph>"MyResources"</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Entfernt ein bestimmtes ResourceBundle aus dem ResourceManager, sodass auf seine Ressourcen durch ResourceManager-Methoden wie z. B. <codeph>getString()</codeph> nicht mehr zugegriffen werden kann.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundlesForLocale"><apiName>removeResourceBundlesForLocale</apiName><shortdesc>
+      Entfernt alle ResourceBundles eines bestimmten Gebietsschemas aus dem ResourceManager, sodass auf seine Ressourcen durch ResourceManager-Methoden wie z. B. getString() nicht mehr zugegriffen werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Ein Gebietsschemastring, z. B. <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Entfernt alle ResourceBundles eines bestimmten Gebietsschemas aus dem ResourceManager, sodass auf seine Ressourcen durch ResourceManager-Methoden wie z. B. <codeph>getString()</codeph> nicht mehr zugegriffen werden kann.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:unloadResourceModule"><apiName>unloadResourceModule</apiName><shortdesc>
+      Entlädt ein geladenes Ressourcenmodul.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>Die URL, die zum Laden des Ressourcenmoduls verwendet wurde.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Gibt an, ob die <codeph>update()</codeph>-Methode aufgerufen werden soll, wenn das Modul den Entladevorgang beendet hat.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Entlädt ein geladenes Ressourcenmodul.
+     
+      <p>Durch Entladen des Moduls werden dessen ResourceBundles aus dem ResourceManager entfernt, die<codeph>localeChain</codeph> bleibt jedoch unverändert. Wenn der <codeph>update</codeph>-Parameter <codeph>true</codeph> ist, wird die <codeph>update()</codeph>-Methode aufgerufen.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:update"><apiName>update</apiName><shortdesc>
+      Löst ein Änderungsereignis vom ResourceManager aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Löst ein <codeph>change</codeph>-Ereignis vom ResourceManager aus.
+     
+      <p>Dies führt dazu, dass bindbare Ausdrücke erneut ermitteln, ob die folgenden ResourceManager-Methoden beteiligt sind: <codeph>getObject()</codeph>, <codeph>getString()</codeph>, <codeph>getStringArray()</codeph>, <codeph>getNumber()</codeph>, <codeph>getInt()</codeph>, <codeph>getUint()</codeph>, <codeph>getBoolean()</codeph> oder <codeph>getClass()</codeph>.</p>
+     
+      <p>Dies löst auch die Ausführung der <codeph>resourcesChanged()</codeph>-Methode von UIComponent, Formatierer oder Validator aus. Viele Komponenten implementieren diese Methode, um ihren Status anhand der neusten Ressourcen zu aktualisieren.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:IResourceManager:mx.resources:IResourceManager:localeChain:get"><apiName>localeChain</apiName><shortdesc>
+      Ein Array von Gebietsschemastrings, z. B. [ „en_US“ ], welches ein oder mehrere Gebietsschemas festlegt, die nach Ressourcen durchsucht werden können.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Ein Array von Gebietsschemastrings, z. B. <codeph>[ „en_US“ ]</codeph>, welches ein oder mehrere Gebietsschemas festlegt, die nach Ressourcen durchsucht werden können.
+      
+      <p>Wenn Sie die ResourceManager-Methoden <codeph>getObject()</codeph>, <codeph>getString()</codeph>, <codeph>getStringArray()</codeph>, <codeph>getNumber()</codeph>, <codeph>getInt()</codeph>, <codeph>getUint()</codeph>, <codeph>getBoolean()</codeph> oder <codeph>getClass()</codeph> aufrufen, um den Wert einer Ressource abzurufen, legen Sie einen Bundle-Namen und einen Ressourcennamen fest, aber kein Gebietsschema. Der ResourceManager beginnt mit dem ersten Gebietsschema in der <codeph>localeChain</codeph> und sucht nach einem ResourceBundle mit dem festgelegten Bundle-Namen für dieses Gebietsschema. Wenn ein ResourceBundle existiert und sich die festgelegte Methode darin befindet, wird der Wert dieser Ressource zurückgegeben. Wenn nicht, fährt der ResourceManager mit den anderen Gebietsschemas in <codeph>localeChain</codeph> fort.</p>
+     
+      <p>Dieses Schema erlaubt das Vorhandensein von Gebietsschemas, welche nicht den kompletten Satz an lokalisierten Ressourcen aufweisen. Beispiel: Wenn Sie Ihre Anwendung in indischem Englisch statt US-Englisch lokalisieren, brauchen Sie lediglich diejenigen Ressourcen für das Gebietsschema <codeph>en_IN</codeph> bereitzustellen, deren Schreibweise oder Gebrauch vom US-Englischen abweicht. Anschließend setzen Sie die <codeph>localeChain</codeph>-Eigenschaft auf <codeph>[ "en_IN", "en_US" ]</codeph>.</p>
+     
+      <p>Viele Frameworkklassen gehen davon aus, dass sie von den Gebietsschemas immer die Ressourcen beziehen können, die sie erwarten. Wenn dies nicht funktioniert, geben sie einen Fehler aus. Deshalb müssen Sie sicherstellen, dass <codeph>localeChain</codeph> immer einen vollständigen Satz Ressourcen enthält. Wenn Sie keine vollständige Lokalisierung aller Frameworkressourcen und Ihrer eigenen Anwendungen durchgeführt haben, behalten Sie das Gebietsschema <codeph>"en_US"</codeph> am Ende Ihrer <codeph>localeChain</codeph> bei, um dies sicherzustellen.</p>
+     
+      <p>Das Einstellen dieser Eigenschaft veranlasst ResourceManager, ein <codeph>"change"</codeph>-Ereignis auszulösen.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:ResourceManager"><apiName>ResourceManager</apiName><shortdesc>
+  Diese Klasse wird benutzt, um eine einzelne Instanz der IResourceManager-Implementierung abzurufen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Diese Klasse wird benutzt, um eine einzelne Instanz der IResourceManager-Implementierung abzurufen. IResourceManager- und IResourceBundle-Schnittstellen arbeiten zusammen, um Internationalisierungsunterstützung für Flex-Anwendungen bereitzustellen.
+ 
+  <p>Eine einzelne Instanz einer IResourceManager-Implementierung verwaltet alle lokalisierten Ressourcen einer Flex-Anwendung.</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:ResourceManager:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Ruft die Instanz der ResourceManager-Klasse ab.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Ein Objekt, welches IResourceManager implementiert.
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceManager</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Ruft die Instanz der ResourceManager-Klasse ab. Dieses Objekt verwaltet alle lokalisierten Ressourcen für eine Flex-Anwendung.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.resources:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+  Stellt eine Implementierung der IResourceBundle-Schnittstelle bereit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.resources:IResourceBundle</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Stellt eine Implementierung der IResourceBundle-Schnittstelle bereit. IResourceManager- und IResourceBundle-Schnittstellen arbeiten zusammen, um Internationalisierungsunterstützung für Flex-Anwendungen bereitzustellen.
+ 
+  <p>Normalerweise besitzt eine Flex-Anwendung mehrere Instanzen dieser Klasse, welche alle von einer einzigen Instanz der ResourceManager-Klasse verwaltet werden. Mehrere ResourceBundle-Instanzen für mehrere Gebietsschemas sind möglich, jeweils eine für jedes Gebietsschema. Es kann mehrere ResourceBundle-Instanzen mit verschiedenen Bundle-Namen geben.</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:ResourceBundle:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein Gebietsschemastring, z. B. <codeph>"en_US"</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Ein Name, der dieses Bundle identifiziert, z. B. <codeph>"MyResources"</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:ResourceBundle:protected:getContent"><apiName>getContent</apiName><shortdesc>
+      Wenn eine Eigenschaftendatei in ein ResourceBundle kompiliert wurde, generiert der MXML-Compiler automatisch eine Unterklasse des ResourceBundle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Das Objekt, welches Schlüssel-/Wertepaare für die Ressourcen des Bundle enthält.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Wenn eine Eigenschaftendatei in ein ResourceBundle kompiliert wurde, generiert der MXML-Compiler automatisch eine Unterklasse des ResourceBundle. Die Unterklasse setzt diese Methode außer Kraft, um ein Objekt zurückzugeben, welches Schlüssel-/Wertepaare für die Ressourcen des Bundles enthält.
+     
+      <p>Wenn Sie Ihre eigene ResourceBundle-Instanz erzeugen, können Sie die Schlüssel-/Wertepaare des <codeph>content</codeph>-Objekts festlegen.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:ResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc conref="mx.resources.IResourceBundle#bundleName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#bundleName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:content:get"><apiName>content</apiName><shortdesc conref="mx.resources.IResourceBundle#content">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#content">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:locale:get"><apiName>locale</apiName><shortdesc conref="mx.resources.IResourceBundle#locale">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#locale">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceBundle"><apiName>IResourceBundle</apiName><shortdesc>
+  IResourceBundle- und IResourceManager-Schnittstellen arbeiten zusammen, um Internationalisierungsunterstützung für Flex bereitzustellen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IResourceBundle- und IResourceManager-Schnittstellen arbeiten zusammen, um Internationalisierungsunterstützung für Flex bereitzustellen.
+ 
+  <p>Die Lokalisierung umfasst drei wesentliche Konzepte: Gebietsschemas, Ressourcen und ResourceBundles.</p>
+ 
+  <p>Ein Gebietsschema legt eine Sprache und ein Land fest, für welche Ihre Anwendung lokalisiert wird. Beispiel: Gebietsschema <codeph>"en_US"</codeph> legt das in den USA gesprochene Englisch fest. (Weitere Informationen finden Sie unter mx.resources.Locale-Klasse.)</p>
+ 
+  <p>Eine Ressource ist ein vom Gebietsschema abhängiger benannter Wert. Beispiel: Ihre Anwendung besitzt eine Ressource, deren Name <codeph>"OPEN"</codeph> lautet und deren Wert für ein englisches Gebietsschema <codeph>"Open"</codeph> ist. Der Wert für ein französisches Gebietsschema ist jedoch <codeph>"Ouvrir"</codeph>.</p>
+ 
+  <p>Ein ResourceBundle ist eine benannte Gruppe von Ressourcen, deren Werte für ein bestimmtes Gebietsschema lokalisiert wurden. Ein ResourceBundle wird durch die Kombination seines <codeph>bundleName</codeph> und seines <codeph>locale</codeph> identifiziert und besitzt ein <codeph>content</codeph>-Objekt, welches die Name-/Wertepaare der Ressourcen des Bundles enthält.</p>
+ 
+  <p>Die IResourceBundle-Schnittstelle stellt ein bestimmtes ResourceBundle dar. Die meisten Anwendungen benötigen jedoch lediglich IResourceManager. Ein einzelnes ResourceManager-Objekt, welches diese Schnittstelle implementiert, verwaltet verschiedene ResourceBundles, manchmal für mehrere Gebietsschemas, und bietet Zugriff auf die Ressourcen, welche sie enthalten. Beispiel: Sie können einen bestimmten Ressourcenstring abrufen, indem Sie <codeph>resourceManager.getString(bundleName, resourceName)</codeph> aufrufen. Durch Ändern der <codeph>localeChain</codeph>-Eigenschaft des ResourceManager können Sie festlegen, welche ResourceBundles nach Ressourcenwerten durchsucht werden.</p>
+ 
+  <p>Normalerweise erstellen Sie ResourceBundles nicht selbst. Sie werden aus einer Eigenschaftendatei kompiliert Eine Eigenschaftendatei mit dem Namen MyResources.properties erstellt ein ResourceBundle mit <codeph>"MyResources"</codeph> als <codeph>bundleName</codeph>. Im Allgemeinen erstellt man mehrere Versionen von jeder Eigenschaftendatei. Eine für jedes Gebietsschema, welches die Anwendung unterstützt.</p>
+ 
+  <p>Flex-Eigenschaftendateien ähneln Java-Eigenschaftendateien, mit dem Unterschied, dass sie zusätzlich MXML <codeph>Embed()</codeph> und <codeph>ClassReference()</codeph>-Direktiven unterstützen. Diese Direktiven funktionieren innerhalb von Eigenschaftendateien genauso wie in CSS-Dateien und erzeugen Klassenverweise. Des Weiteren wird davon ausgegangen, dass das Kodieren der Flex-Eigenschaften stets in UTF-8 erfolgt.</p>
+ 
+  <p>Die Ressourcen des Flex-Frameworks wurden für US-Englisch und Japanisch lokalisiert (Gebietsschema <codeph>"en_US"</codeph> und Gebietsschema <codeph>"ja_JP"</codeph>). Die Frameworkressourcen sind in mehrere Bundles aufgeteilt, welche Frameworkpaketen entsprechen. Beispiel: Das „Formatierer“-Bundle wird von Klassen des mx.formatters-Pakets benutzt. (Es gibt ebenfalls ein „SharedResources"-Bundle für Ressourcen, welches von mehreren Paketen benutzt wird.)</p>
+ 
+  <p>Die Eigenschaftendateien für die Frameworkressourcen wie formatters.properties finden Sie in den frameworks/projects/framework/bundles/{locale}/src-Ordnern von Flex SDK. Ihre Anwendungen sind mit dem Flex-Framework als vorkompilierte Bibliotheken verlinkt: framework.swc im frameworks/libs-Ordner. Diese Bibliothek enthält keine Ressourcen. Stattdessen wurden die Frameworkressourcen in separate ResourceBundle-Bibliotheken kompiliert, z. B. framework_rb.swc. Diese befinden sich in den frameworks/locales/{locale}-Ordnern und Ihre Anwendung muss auch auf einen oder mehrere dieser Ordner verlinken.</p>
+ 
+  <p>Es ist Ihnen überlassen, die Ressourcen Ihrer eigenen Anwendung nach Ihren Wünschen in Bundles zu gruppieren. Wenn Sie Ihre Anwendung für andere Gebietsschemas als <codeph>"en_US"</codeph> und <codeph>"ja_JP"</codeph> lokalisieren, sollten Sie die Eigenschaftendateien des Frameworks ebenfalls für diese Gebietsschemas lokalisieren und zusätzliche ResourceBundle-Bibliotheken für diese kompilieren.</p>
+ 
+  <p>Wenn Ihre Anwendung startet, wird ResourceManager automatisch mit allen in die Anwendung kompilierten Ressourcen gefüllt. Wenn Sie ein Codemodul erzeugen, werden die Ressourcen, welche seine Klassen benötigen, standardmäßig in das Modul kompiliert. Wenn das Modul in eine Anwendung geladen wird, werden alle Bundles, welche die Anwendung nicht schon besitzt, dem ResourceManager hinzugefügt.</p>
+ 
+  <p>Sie können „Ressourcenmodule“ kompilieren, die nur Ressourcen enthalten. Diese können Sie mit der <codeph>loadResourceModule()</codeph>-Methode des ResourceManager laden. Mit Ressourcenmodulen können Sie mehrere Gebietsschemas unterstützen, indem Sie die benötigten Ressourcen während der Laufzeit laden, statt sie in die Anwendung zu kompilieren.</p>
+ 
+  <p>Zwar wird ResourceManager normalerweise mit ResourceBundles gefüllt, welche entweder in Ihre Anwendung kompiliert oder aus einem Modul geladen wurden, Sie können ResourceBundles aber auch programmgesteuert erstellen und sie mit der <codeph>addResourceBundle()</codeph>-Methode selbst dem ResourceManager hinzufügen.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link></related-links><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc>
+      Ein Name, der dieses ResourceBundle identifiziert, z. B. „MyResources“.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Ein Name, der dieses ResourceBundle identifiziert, z. B. <codeph>"MyResources"</codeph>.
+     
+      <p>Die Eigenschaft „schreibgeschützt“ wird eingestellt, wenn ein ResourceBundle erstellt wird.</p>
+     
+      <p>ResourceBundles, welche automatisch aus kompilierten Eigenschaftendateien erstellt wurden, haben Bundle-Namen, die auf diesen Dateinamen basieren. Beispiel: Eine Eigenschaftendatei mit dem Namen MyResources.properties erstellt ein ResourceBundle, dessen <codeph>bundleName</codeph> <codeph>"MyResources"</codeph> ist.</p>
+     
+      <p>ResourceManager kann mehrere Bundles mit dem gleichen <codeph>bundleName</codeph> verwalten, solange sie verschiedene Werte für ihre <codeph>locale</codeph>-Eigenschaften besitzen.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:content:get"><apiName>content</apiName><shortdesc>
+      Ein Objekt, welches Schlüssel-/Wertepaare für die Ressourcen im ResourceBundle enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Ein Objekt, welches Schlüssel-/Wertepaare für die Ressourcen im ResourceBundle enthält.
+     
+      <p>Im Allgemeinen sollten Sie auf Ressourcen über IResourceManager-Methoden wie z. B. <codeph>getString()</codeph> zugreifen, statt direkt im ResourceBundle auf sie zuzugreifen. Falls Sie Ihre eigenen ResourceBundles programmgesteuert erstellen, können Sie diese mit den Ressourcen wie folgt initialisieren:</p>
+     
+      <pre>
+      var rb:IResourceBundle = new ResourceBundle("fr_FR", "MyResources");
+      rb.content["LANGUAGE"] = "Francais";
+      rb.content["GREETING"] = "Bonjour";
+      </pre>
+     
+      <p>Wenn ein ResourceBundle durch Kompilieren einer Eigenschaftendatei erstellt wurde, sind ihre Werte entweder Strings oder Klassen. Beispiel: Wenn die Eigenschaftendatei Folgendes enthält:</p>
+     
+      <pre>
+      LANGUAGE=English
+      MINIMUM_AGE=18
+      ENABLED=true
+      LOGO=Embed("logo.png")
+      </pre>
+     
+      <p>ist der Wert der <codeph>LANGUAGE</codeph>-Ressource der String <codeph>"English"</codeph>, der Wert der <codeph>MINIMUM_AGE</codeph>-Ressource der String <codeph>"18"</codeph>, der Wert der <codeph>ENABLED</codeph>-Ressource der String <codeph>"true"</codeph> und der Wert der <codeph>LOGO</codeph>-Ressource ist eine Klasse, welche die eingebettete PNG-Datei enthält.</p>
+     
+      <p>Sie können IResourceManager-Methoden wie z. B. <codeph>getInt()</codeph> und <codeph>getBoolean()</codeph> verwenden, um Ressourcenstrings wie z. B. <codeph>"18"</codeph> und <codeph>"true"</codeph> in den vom Code erwarteten Typ zu konvertieren.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:locale:get"><apiName>locale</apiName><shortdesc>
+      Das Gebietsschema, für welches die Ressourcen des Bundles lokalisiert wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Das Gebietsschema, für welches die Ressourcen des Bundles lokalisiert wurden. Dies ist ein String wie <codeph>"en_US"</codeph> für US-Englisch.
+     
+      <p>Die Eigenschaft „schreibgeschützt“ wird eingestellt, wenn ein ResourceBundle erstellt wird.</p>
+     
+      <p>ResourceBundles, die automatisch aus kompilierten Eigenschaftendateien erstellt wurden, besitzen Gebietsschemas, die auf der <codeph>-compiler.locale</codeph>-Option des mxmlc- oder compc-Compilers basieren. Beispiel: Sie kompilieren Ihre Anwendung mit der Option <codeph>-compiler.locale=en_US,ja_JP</codeph> und Sie haben <codeph>-compiler.source-path=resources/{locale}</codeph> festgelegt, sodass die Ressourcen Ihrer Anwendung, welche sich in resources/en_US/MyResources.properties und resources/ja_JP/MyResources.properties befinden, gefunden werden. Ihre Anwendung besitzt damit zwei ResourceBundles, deren <codeph>bundleName</codeph> <codeph>"MyResources"</codeph> lautet. Ein <codeph>locale</codeph> mit der Bezeichnung <codeph>"en_US"</codeph>, das andere <codeph>locale</codeph> mit <codeph>"ja_JP"</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

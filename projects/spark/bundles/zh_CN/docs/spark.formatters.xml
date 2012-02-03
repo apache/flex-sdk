@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.formatters"><apiName>spark.formatters</apiName><apiDetail/><apiClassifier id="spark.formatters:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+  CurrencyFormatter 类提供货币值的区分区域设置的格式设置和解析。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:CurrencyFormatter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:CurrencyFormatter 
+    <strong>Properties</strong>
+    currencyISOCode="<i>locale and OS dependent</i>"
+    currencySymbol="<i>locale and OS dependent</i>"
+    negativeCurrencyFormat="<i>locale and OS dependent</i>"
+    positiveCurrencyFormat="<i>locale and OS dependent</i>"
+    useCurrencySymbol="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>spark.formatters.supportClasses:NumberFormatterBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CurrencyFormatter 类提供货币值的区分区域设置的格式设置和解析。 
+ 
+  <p>此类是包装 <codeph>flash.globalization.CurrencyFormatter</codeph> 的包装器类。因此，特定于区域设置的格式化由 <codeph>flash.globalization.CurrencyFormatter</codeph> 提供。但是，此 CurrencyFormatter 类可在 MXML 声明中使用，为请求的区域设置 ID 名称使用区域设置样式，并具有可绑定的方法和属性。
+  </p><p>
+  flash.globalization.CurrencyFormatter 类使用基础操作系统来实现格式化功能并提供特定于区域设置的数据。某些操作系统不支持 flash.globalization 类，在这些操作系统上，由包装器类提供回退功能。
+  </p>
+ 
+  </apiDesc><example conref="CurrencyFormatterExample1.mxml"><swfblock conref="examples/CurrencyFormatterExample1.swf"/></example><example conref="CurrencyFormatterExample2.mxml"><swfblock conref="examples/CurrencyFormatterExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link><link href="spark.formatters.xml#NumberFormatter"><linktext>NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters:CurrencyFormatter:CurrencyFormatter"><apiName>CurrencyFormatter</apiName><shortdesc>
+      构造新的 CurrencyFormatter 对象以根据给定区域设置的约定设置表示货币金额的数字格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造新的 <codeph>CurrencyFormatter</codeph> 对象以根据给定区域设置的约定设置表示货币金额的数字格式。
+      <p>
+      此类的区域设置由区域设置<codeph/>样式提供。可以使用下列方法来设置区域设置<codeph/>样式：
+      </p>
+      <ul>
+      <li>
+      在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。
+      </li>
+      示例：
+      <pre>
+      &lt;fx:Declarations> 
+             &lt;s:CurrencyFormatter id="cf" /> 
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      使用 MXML 声明并在赋值列表中指定区域设置值。
+      </li>
+      示例：
+      <pre>
+      &lt;fx:Declarations> 
+          &lt;s:CurrencyFormatter id="cf_Japanese" locale="ja-JP" /> 
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      调用 <codeph>setStyle()</codeph> 方法，如 <codeph>cf.setStyle("locale", "ja-JP")</codeph>
+      </li>
+      <li> 
+      调用 UIComponent 的 <codeph>addStyleClient()</codeph> 方法来继承 <codeph>UIComponent</codeph> 的样式。
+      </li>
+      </ul>
+      <p>
+      如果 <codeph>locale</codeph> 样式不是由以上方式之一设置的，则该类的实例会作为 <codeph>StyleClient</codeph> 添加至 <codeph>topLevelApplication</codeph> 中，并因此在调用 <codeph>locale</codeph> 从属属性 getter 或 <codeph>locale</codeph> 从属方法时，会从 <codeph>topLevelApplication</codeph> 对象中继承 <codeph>locale</codeph> 样式。
+      </p>   
+     
+      <p>此类的大部分属性将自动根据 <codeph>locale</codeph> 样式来设置。如果 <codeph>locale</codeph> 样式发生改变，则任何未明确设置的属性也都会根据新的区域设置来进行更新。请注意，正在使用的实际区域设置是由 <codeph>actualLocaleIDName</codeph> 属性来指定的。</p>
+     
+      <p><b>注意：</b>当使用回退区域设置时，货币属性设置为默认值，因此 <codeph>currencySymbol</codeph> 或 <codeph>currencyISOCode</codeph> 属性可能被设为意外的值。在为货币金额设置格式前，最好先检查 <codeph>currencySymbol</codeph> 和 <codeph>currencyISOCode</codeph> 属性值。
+      </p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/lastOperationsStatus"><linktext>lastOperationsStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.formatters:CurrencyFormatter:format"><apiName>format</apiName><shortdesc>
+      创建字符串，该字符串表示根据此 CurrencyFormatter 对象的当前属性（包括 locale、useCurrencySymbol、currencySymbol 或 currencyISOCode 属性）设置格式的货币金额。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>一个字符串，其中包含设置了格式的货币值。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>一个对象，其中包含设置为货币字符串格式的数值。如果对象不是 <codeph>Number</codeph>，则将使用 <codeph>Number()</codeph> 转换函数来转换为数字。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      创建字符串，该字符串表示根据此 CurrencyFormatter 对象的当前属性（包括 <codeph>locale</codeph>、<codeph>useCurrencySymbol</codeph>、<codeph>currencySymbol</codeph> 或 <codeph>currencyISOCode</codeph> 属性）设置格式的货币金额。
+     
+      <p><codeph>useCurrencySymbol</codeph> 属性决定了 format 方法是否在设置了格式的货币金额中使用 <codeph>currencySymbol</codeph> 或 <codeph>currencyISOCode</codeph>。<codeph>useCurrencySymobl</codeph> 的默认值为 <codeph>false</codeph>，因此，默认情况下，将以 <codeph>currencyISOCode</codeph> 来设置货币金额的格式</p>
+     
+      <p>许多国家/地区和区域使用同一货币符号来表示不同币种。例如，美国、澳大利亚、新西兰、加拿大和墨西哥对于本地货币值都使用同一种美元符号 ($)。当设置格式的货币与用户的本地货币不同时，最好使用 ISO 代码作为货币字符串。您可以使用 <codeph>formattingWithCurrencySymbolIsSafe</codeph> 方法来测试要设置格式的货币的 ISO 代码是否与格式化程序所使用的实际区域设置的默认货币 ISO 代码相匹配。
+      </p>
+     
+      <p>此方法可为极大数量级和极小数量级的数字设置格式。但有效位数不得超过 Number 数据类型提供的精度。
+      </p>
+     
+      <p>如果由于非法输入值或其它错误在设置格式时发生了错误，则默认情况下 <codeph>format()</codeph> 方法将返回 <codeph> null</codeph>。但是，如果 <codeph>errorText</codeph> 属性为非 null，则将返回 <codeph>errorText</codeph> 属性的值。设置 <codeph>lastOperationStatus</codeph> 属性以指明发生的错误。</p>
+     
+      </apiDesc><example>在此示例中，<codeph>locale</codeph> 样式被设置为 fr-CA [French (Canada)]。此示例假设用户的操作系统支持此区域设置，因此不使用回退区域设置。对于 fr-CA，默认货币是 ISO 代码为 CAD 的加拿大元。因此，使用默认值设置货币格式时，使用 CAD 作为货币符号。但是，当 <codeph>useCurrencySymbol</codeph> 属性设置为 <codeph>true</codeph> 时，将使用 <codeph>currencySymbol</codeph> 属性为货币金额设置格式。
+     
+      <codeblock rev="3.0">
+      &lt;fx:Declarations>
+        &lt;s:CurrencyFormatter id="cf_use_ISOCode" locale="fr-CA" />
+        &lt;s:CurrencyFormatter id="cf_use_Symbol" locale="fr-CA" 
+                           useCurrencySymbol="true" />
+      &lt;/fx:Declarations>
+      
+      &lt;s:VGroup>
+        &lt;!-- label will use ISO code: 1,234,567.89 CAD -->
+        &lt;s:Label text="{cf_use_ISOCode.format(1234567.89)}" /> 
+        &lt;!-- label will use currency symbol: 1,234,567.89 $ -->
+        &lt;s:Label text="{cf_use_Symbol.format(1234567.89)}" /> 
+      &lt;/s:VGroup>
+     
+      </codeblock>
+     
+      <p>第二个示例显示使用默认用户的区域设置为以加拿大元表示的货币金额设置格式的方法。<codeph>formattingWithCurrencySymbolIsSafe()</codeph> 方法用于设置 <codeph>useCurrencySymbol</codeph> 属性的值。如果用户的默认区域设置为加拿大（例如，fr-CA 或 en-CA），则会使用加拿大的默认货币符号。如果有多个默认的区域设置，则 CAD 的 <codeph>currencyISOCode</codeph> 将在设置了格式的货币金额中使用。</p>
+     
+      <codeblock rev="3.0">
+      &lt;fx:Declarations>
+       &lt;s:CurrencyFormatter id="cf_CAD" locale="{LocaleID.DEFAULT}"
+        currencyISOCode="CAD"
+        useCurrencySymbol="{cf_CAD.formattingWithCurrencySymbolIsSafe('CAD')}"
+       />
+      &lt;/fx:Declarations>
+      
+      &lt;fx:Script>
+      &lt;![CDATA[
+          import flash.globalization.LocaleID;
+      ]]&gt;
+      &lt;/fx:Script>
+      
+      &lt;!-- label will use ISO code or currency symbol depending on
+              user's default locale -->
+      &lt;s:Label text="{cf_CAD.format(1234567.89)}" />
+      </codeblock>
+     
+      </example></apiOperationDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencyISOCode"><linktext>currencyISOCode</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/lastOperationStatus"><linktext>lastOperationStatus</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/useCurrencySymbol"><linktext>useCurrencySymbol</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/errorText"><linktext>spark.formatters.supportClasses.NumberFormatterBase.errorText</linktext></link><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:CurrencyFormatter:formattingWithCurrencySymbolIsSafe"><apiName>formattingWithCurrencySymbolIsSafe</apiName><shortdesc>
+      确定是否可使用当前指定的货币符号为货币金额设置格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 <codeph>requestedISOCode</codeph> 参数为 null。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>如果与 <codeph>actualLocaleIDName</codeph> 相对应的区域设置的默认 <codeph>currencyISOCode</codeph> 与 <codeph>requestedISOCode</codeph> 参数相匹配，则为 <codeph>true</codeph>，否则为 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>requestedISOCode</apiItemName><apiType value="String"/><apiDesc>三个字母的 ISO 4217 币种代码（例如，美元为 USD，欧元为 EUR）。必须包含从 A 到 Z 的三个大写字母。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定是否可使用当前指定的货币符号为货币金额设置格式。
+     
+      <p>许多区域和国家/地区使用同一货币符号。此方法可用于确保避免使用存在歧义的货币符号，或使用由于使用回退区域设置而导致的与预期不同的货币符号或 ISO 代码。</p>
+     
+      <p>此方法的一个常见用例是确定显示本地货币符号（如果将金额的格式设置为用户的默认货币）还是显示更加具体的 ISO 代码字符串（如果将金额的格式设置为与用户的默认货币不同的货币）。</p>
+     
+      <p>此方法将 <codeph>requestedISOCode</codeph> 参数与实际区域设置的默认 <codeph>currencyISOCode</codeph> 做比较，当两个字符串相等时返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>。当两个字符串相等时，使用 <codeph>format()</codeph> 方法并将 <codeph>useCurrencySymbol</codeph> 属性设置为 <codeph>true</codeph> 会导致设置了格式的货币值字符串具有该当前区域设置中使用的货币符号。如果该方法返回 <codeph>false</codeph>，则使用 <codeph>format()</codeph> 方法并将 <codeph>useCurrencySymbol</codeph> 属性设置为 <codeph>true</codeph> 会导致使用存在歧义或不正确的货币符号。
+      </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencyISOCode"><linktext>currencyISOCode</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/useCurrencySymbol"><linktext>useCurrencySymbol</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:CurrencyFormatter:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+      列出此类支持的所有区域设置 ID 名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>一个字符串矢量，其中包含此类和操作系统所支持的所有区域设置 ID 名称。
+     
+      </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+      列出此类支持的所有区域设置 ID 名称。这是操作系统所支持的区域设置列表，而不是 ResourceManager 拥有其资源的区域设置列表。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:CurrencyFormatter:parse"><apiName>parse</apiName><shortdesc>
+      将字符串解析为货币金额和货币符号。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 <codeph>inputString</codeph> 参数为 null。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>一个包含数值和货币符号或字符串的 CurrencyParseResult 对象。
+     
+      </apiDesc><apiType value="flash.globalization:CurrencyParseResult"/></apiReturn><apiParam><apiItemName>inputString</apiItemName><apiType value="String"/><apiDesc>要解析的输入字符串。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将字符串解析为货币金额和货币符号。
+     
+      <p>此解析算法使用 <codeph>decimalSeparator</codeph> 属性的值确定数值的整数部分和小数部分。它使用 <codeph>negativeCurrencyFormat</codeph> 和 <codeph>positiveCurrencyFormat</codeph> 属性的值确定与货币金额相关的货币符号或字符串的位置。对于负数金额，<codeph>negativeCurrencyFormat</codeph> 属性的值确定负号的位置以及是否使用圆括号。</p>
+     
+      <p>如果输入字符串中的货币符号、负号和数字的顺序与 <codeph>negativeCurrencyFormat</codeph> 和 <codeph>positiveCurrencyFormat</codeph> 属性标识的模式不匹配，则：</p>
+     
+      <ol>
+       <li>返回的 <codeph>CurrencyParseResult</codeph> 对象的 <codeph>value</codeph> 属性设置为 <codeph>NaN</codeph>。</li>
+       <li>返回的 CurrencyParseResult 对象的 <codeph>currencyString</codeph> 属性设置为 <codeph>null</codeph>。</li>
+       <li><codeph>lastOperationStatus</codeph> 属性的值设置为 <codeph>LastOperationStatus.PARSE_ERROR</codeph>，表示解析失败。</li>
+      </ol>
+     
+      <p>输入字符串中可以包括空格字符，解析期间将忽略空格字符。</p>
+     
+      <p>即使没有货币符号解析也可成功。没有验证与货币符号对应的字符串部分。如果没有货币符号或字符串，返回的 CurrencyParseResult 对象中的 <codeph>currencyString</codeph> 属性设置为空字符串。</p>
+     
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/decimalSeparator"><linktext>spark.formatters.supportClasses.NumberFormatterBase.decimalSeparator</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/negativeCurrencyFormat"><linktext>negativeCurrencyFormat</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/positiveCurrencyFormat"><linktext>positiveCurrencyFormat</linktext></link><link href="" invalidHref="flash.globalization.CurrencyParseResult.xml"><linktext>flash.globalization.CurrencyParseResult</linktext></link></related-links></apiOperation><apiValue id="spark.formatters:CurrencyFormatter:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      由该类对象使用的实际区域设置 ID 的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      由该类对象使用的实际区域设置 ID 的名称。这是用于从操作系统访问格式化数据和功能的区域设置。
+     
+      <p>如果由 <codeph>locale</codeph> 样式所设置的区域设置不可用，则 <codeph>actualLocaleIDName</codeph> 的值将不同于 <codeph>locale</codeph> 样式的值。它指明正在使用的回退区域设置。如果区域设置样式设置为 <codeph>LocaleID.DEFAULT</codeph>，将使用由用户的操作系统指定的区域设置的名称。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.xml#CurrencyFormatter/actualLocaleIDName"><linktext>flash.globalization.CurrencyFormatter.actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/CurrencyFormatter()"><linktext>CurrencyFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:currencyISOCode:get"><apiName>currencyISOCode</apiName><shortdesc>
+      正在使用的实际区域设置的三字母 ISO 4217 币种代码（例如，</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果为此属性分配 null 值。 
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      正在使用的实际区域设置的三字母 ISO 4217 币种代码（例如，USD、EUR、JPY、CNY）。
+     
+      <p>当 <codeph>useCurrencySymbol</codeph> 属性设置为 <codeph>false</codeph> 时，此代码将用于在使用 <codeph>format()</codeph> 方法设置货币金额格式时指示货币类型。 </p>
+     
+      <p>在基于正在使用的实际区域设置来设置区域设置样式时，将初始化此属性。当使用回退区域设置时，此属性反映回退区域设置的首选/默认币种代码。</p>
+     
+      <p>默认值取决于实际区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      正在使用的实际区域设置的货币符号或字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果为此属性分配 null 值。 
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      正在使用的实际区域设置的货币符号或字符串。
+     
+      <p>使用 <codeph>withCurrencySymbol</codeph> 参数设置为 <codeph>true</codeph> 的 <codeph>format()</codeph> 方法设置货币金额格式时，此属性用作货币符号。</p>
+     
+      <p>在基于正在使用的实际区域设置来设置区域设置样式时，将初始化此属性。当使用回退区域设置时，此属性反映回退区域设置的首选/默认货币符号，此符号可能不同于区域设置样式。</p>
+     
+      <p>默认值取决于实际区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencyISOCode"><linktext>currencyISOCode</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:negativeCurrencyFormat:get"><apiName>negativeCurrencyFormat</apiName><shortdesc>
+      表示负值货币金额的格式设置模式的数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>如果指定的值不介于 0 到 15 之间。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      表示负值货币金额的格式设置模式的数值。此模式定义货币符号和负号或圆括号相对于货币金额的数字部分的位置。
+     
+       <p>此属性的值必须是在下表中定义的常量之一。
+      </p>
+     
+      <p>下表总结了负值货币金额的可能的格式设置模式。在使用 <codeph>format()</codeph> 方法为货币金额设置格式时：</p>
+     
+      <ul>
+       <li>“¤”符号由 <codeph>currencyISOCode</codeph> 或 <codeph>currencySymbol</codeph> 属性的值替换，视传递到 <codeph>format()</codeph> 方法的 <codeph>withCurrencySymbol</codeph> 参数值而定；</li>
+       <li>“-”字符由 <codeph>negativeNumberSymbol</codeph> 属性的值替换；</li>
+       <li>“n”字符由传递到 <codeph>format()</codeph> 方法的货币金额值替换。</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>负值货币格式类型</entry>
+                <entry>格式化图案</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(¤n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-¤n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤-n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>¤n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>(n¤)</entry>
+            </row><row>
+                <entry>5</entry>
+                <entry>-n¤</entry>
+            </row><row>
+                <entry>6</entry>
+                <entry>n-¤</entry>
+            </row><row>
+                <entry>7</entry>
+                <entry>n¤-</entry>
+            </row><row>
+                <entry>8</entry>
+                <entry>-n ¤</entry>
+            </row><row>
+                <entry>9</entry>
+                <entry>-¤ n</entry>
+            </row><row>
+                <entry>10</entry>
+                <entry>n ¤-</entry>
+            </row><row>
+                <entry>11</entry>
+                <entry>¤ n-</entry>
+            </row><row>
+                <entry>12</entry>
+                <entry>¤ -n</entry>
+            </row><row>
+                <entry>13</entry>
+                <entry>n- ¤</entry>
+            </row><row>
+                <entry>14</entry>
+                <entry>(¤ n)</entry>
+            </row><row>
+                <entry>15</entry>
+                <entry>(n ¤)</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>默认值取决于实际区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/negativeSymbol"><linktext>negativeSymbol</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:positiveCurrencyFormat:get"><apiName>positiveCurrencyFormat</apiName><shortdesc>
+      表示正值货币金额的格式设置模式的数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>如果指定的值不介于 0 到 3 之间。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      表示正值货币金额的格式设置模式的数值。此格式定义货币符号相对于货币金额数值部分的位置。
+     
+      <p>此属性的值必须是在下表中定义的常量之一。
+      </p>
+     
+      <p>下表总结了正值货币金额的可能的格式设置模式。在使用 <codeph>format()</codeph> 方法为货币金额设置格式时：</p>
+     
+      <ul>
+       <li>“¤”符号由 <codeph>currencyISOCode</codeph> 或 <codeph>currencySymbol</codeph> 属性的值替换，视传递到 <codeph>format()</codeph> 方法的 <codeph>withCurrencySymbol</codeph> 参数值而定；</li>
+       <li>“n”字符由传递到 <codeph>format()</codeph> 方法的货币金额值替换。</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>正值货币格式类型</entry>
+                <entry>格式化图案</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>¤n</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>n¤</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤ n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n ¤</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>默认值取决于实际区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:CurrencyFormatter:useCurrencySymbol:get"><apiName>useCurrencySymbol</apiName><shortdesc>
+      当设置货币金额格式时，启用对 currencySymbol 属性的使用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当设置货币金额格式时，启用对 <codeph>currencySymbol</codeph> 属性的使用。
+     
+      <p>当 <codeph>useCurrencySymbol</codeph> 属性设置为 <codeph>true</codeph> 时，将在 format 方法返回的字符串中使用 <codeph>currencySymbol</codeph> 属性的值。例如：<codeph>$123,456,789.22</codeph></p>
+     
+      <p>当 <codeph>useCurrencySymbol</codeph> 属性设置为 <codeph>false</codeph> 时，将在 <codeph>format</codeph> 方法返回的字符串中使用 <codeph>currencyISOCode</codeph> 属性的值。例如：<codeph>USD 123,456,789.22</codeph></p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#CurrencyFormatter/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.formatters.xml#CurrencyFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.formatters:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+  NumberFormatter 类提供数值的区分区域设置的格式设置和解析。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:NumberFormatter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberFormatter 
+    <strong>Properties</strong>
+    negativeNumberFormat="<i>locale and OS dependent</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>spark.formatters.supportClasses:NumberFormatterBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberFormatter 类提供数值的区分区域设置的格式设置和解析。它可以设置 <codeph>int</codeph>、<codeph>uint</codeph> 和 <codeph>Number</codeph> 对象的格式。
+ 
+  <p>此类是包装 flash.globalization.NumberFormatter 类的包装器类。因此，特定于区域设置的格式化由 flash.globalization.NumberFormatter 提供。但是，此 NumberFormatter 类可在 MXML 声明中使用，为请求的区域设置 ID 名称使用区域设置样式，并具有可绑定的方法和属性。  
+  </p>
+ 
+  <p>flash.globalization.NumberFormatter 类使用基础操作系统来实现格式化功能并提供特定于区域设置的数据。某些操作系统不支持 flash.globalization 类，在这些操作系统上，由包装器类提供回退功能。</p>
+ 
+  </apiDesc><example conref="NumberFormatterExample1.mxml"><swfblock conref="examples/NumberFormatterExample1.swf"/></example><example conref="NumberFormatterExample2.mxml"><swfblock conref="examples/NumberFormatterExample2.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.xml"><linktext>flash.globalization.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.formatters:NumberFormatter:NumberFormatter"><apiName>NumberFormatter</apiName><shortdesc>
+      构造新的 NumberFormatter 对象以根据给定区域设置的约定设置数字的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造新的 NumberFormatter 对象以根据给定区域设置的约定设置数字的格式。
+      <p>
+      此类的区域设置是由区域设置样式提供的。可以使用以下几种方法来设置区域设置样式：
+      </p>
+      <ul>
+      <li>
+      在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。示例： <pre>
+      &lt;fx:Declarations> 
+             &lt;s:NumberFormatter id="nf" />
+      &lt;/fx:Declarations></pre>
+      </li>
+      <li>
+      使用 MXML 声明并在赋值列表中指定区域设置值。示例：<pre>
+      &lt;fx:Declarations>
+          &lt;s:NumberFormatter id="nf_French_France" locale="fr_FR" />
+      &lt;/fx:Declarations></pre>
+      </li>
+      <li>
+      调用 setStyle 方法。例如：<pre>
+      <codeph>nf.setStyle("locale", "fr-FR")</codeph></pre>
+      </li>
+      <li> 
+      调用 UIComponent 的 <codeph>addStyleClient()</codeph> 方法来继承 <codeph>UIComponent</codeph> 的样式。
+      </li>
+      </ul>
+      <p>
+      如果 <codeph>locale</codeph> 样式不是由以上方式之一设置的，则该类的实例会作为 <codeph>StyleClient</codeph> 添加至 <codeph>topLevelApplication</codeph> 中，并因此在调用 <codeph>locale</codeph> 从属属性 getter 或 <codeph>locale</codeph> 从属方法时，会从 <codeph>topLevelApplication</codeph> 对象中继承 <codeph>locale</codeph> 样式。
+      </p>   
+      <p>此类的大部分属性将自动根据区域设置样式来设置。如果区域设置样式发生改变，则任何未明确设置的属性也都会根据新的区域设置来进行更新。请注意，正在使用的实际区域设置是由 actualLocaleIDName 属性来指定的。</p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.formatters.xml#NumberFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#NumberFormatter/lastOperationsStatus"><linktext>lastOperationsStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.formatters:NumberFormatter:format"><apiName>format</apiName><shortdesc>
+      设置数字格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>设置了格式的数字字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>一个对象，其中包含要设置格式的数值。如果对象不是 <codeph>Number</codeph>，则将使用 <codeph>Number()</codeph> 转换函数来转换为数字。
+         
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置数字格式。
+     
+     <p>此函数根据格式程序的属性值设置数字格式。如果在设置 <codeph>locale</codeph> 样式后没有修改属性，则根据操作系统提供的由 <codeph>actualLocaleIDName</codeph> 属性标识的区域设置的特定于区域设置的约定为数字设置格式。要自定义格式，可以更改属性以控制设置数字格式的特定方面。</p>
+     
+      <p>可以使用此函数设置非常大的数字和非常小的量级的数字的格式。但有效位数不得超过 <codeph>Number </codeph>对象提供的精度。不支持科学计数法。</p>
+     
+      <p>如果由于非法输入值或其它错误在设置格式时发生了错误，则默认情况下 <codeph>format()</codeph> 方法将返回 <codeph> null</codeph>。但是，如果 <codeph>errorText</codeph> 属性为非 null，则将返回 <codeph>errorText</codeph> 属性的值。将设置 <codeph>lastOperationStatus</codeph> 属性以指明发生的错误。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#NumberFormatter/NumberFormatter"><linktext>NumberFormatter</linktext></link><link href="spark.formatters.supportClasses.xml#NumberFormatterBase/errorText"><linktext>spark.formatters.supportClasses.NumberFormatterBase.errorText</linktext></link><link href="spark.formatters.xml#NumberFormatter/lastOperationStatus"><linktext>lastOperationStatus</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:NumberFormatter:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+      列出此类支持的所有区域设置 ID 名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>一个字符串矢量，其中包含此类和操作系统所支持的所有区域设置 ID 名称。
+     
+      </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+      列出此类支持的所有区域设置 ID 名称。这是操作系统所支持的区域设置列表，而不是 ResourceManager 拥有其资源的区域设置列表。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:NumberFormatter:parseNumber"><apiName>parseNumber</apiName><shortdesc>
+      解析仅包含数字和可选空白字符的字符串并返回一个数字。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 <codeph>parseString</codeph> 为 <codeph>null</codeph>
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>包含数字值的 <codeph>Number</codeph> 对象。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>parseString</apiItemName><apiType value="String"/><apiDesc>要解析的输入字符串。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      解析仅包含数字和可选空白字符的字符串并返回一个数字。如果字符串不以数字开头或包含除空格之外的不属于数字部分的字符，则此方法返回 <codeph>NaN</codeph>。忽略数字前后的空格。 
+     
+      <p>如果数字位数前面或后面跟着一个加号“+”，这个加号作为非空白字符处理。返回值为 <codeph>NaN</codeph>。
+      </p>
+     
+      <p>有关数字解析和有效数字构成部分的更多信息，请参阅解析功能的说明。
+      </p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#NumberFormatter/parse()"><linktext>parse()</linktext></link><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:NumberFormatter:parse"><apiName>parse</apiName><shortdesc>
+      解析字符串并返回包含解析的元素的 NumberParseResult 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 <codeph>inputString</codeph> 参数为 null。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc><codeph>NumberParseResult</codeph> 对象包含数值和包含该数值的字符串部分的起点与终点的索引。
+     
+      </apiDesc><apiType value="flash.globalization:NumberParseResult"/></apiReturn><apiParam><apiItemName>inputString</apiItemName><apiType value="String"/><apiDesc>要解析的输入字符串。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      分析字符串并返回包含已分析的元素的 <codeph>NumberParseResult</codeph> 对象。
+     
+      <p><codeph>NumberParseResult</codeph> 对象包含在输入字符串中找到的第一个数字的值、字符串内数字的起始索引以及字符串中数字之后的第一个字符的索引。</p>
+     
+      <p>如果字符串中不包含数字，NumberParseResult 的属性值设置为 <codeph>NaN</codeph>，<codeph>startIndex</codeph> 和 <codeph>endIndex</codeph> 属性值设置为十六进制值 <codeph>0x7fffffff</codeph>。
+      </p>
+     
+      <p>此函数使用 <codeph>decimalSeparator</codeph> 属性的值确定包含小数的数字部分，使用 <codeph>groupingSeparator</codeph> 属性确定数字位数内允许的字符，使用 <codeph>negativeNumberFormat</codeph> 属性控制负值的表示方法。 </p>
+     
+      <p>下表标识为不同的 <codeph>NegativeNumberFormat</codeph> 值解析的字符串的结果：</p>
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="3"><tbody><row>
+                <entry>NegativeNumberFormat</entry>
+                <entry>输入字符串</entry>
+                <entry>结果</entry>
+             </row><row>
+                <entry>(n)</entry>
+                <entry>“(123)”或“( 123 )”</entry>
+                <entry>“-123”</entry>
+            </row><row>
+                <entry>-n</entry>
+                <entry>“-123”或“- 123”</entry>
+                <entry>“-123”</entry>
+            </row><row>
+                <entry>- n</entry>
+                <entry>“-123”或“- 123”</entry>
+                <entry>“-123”</entry>
+            </row><row>
+                <entry>n-</entry>
+                <entry>“123-”或“123 -”</entry>
+                <entry>“-123”</entry>
+            </row><row>
+                <entry>n -</entry>
+                <entry>“123-”或“123 -”</entry>
+                <entry>“-123”</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>允许数字和负号或括号之间存有单个空格。空白字符是 Unicode 字符数据库中具有 Space Separator (Zs) 属性的字符。有关详细信息，请参阅 <xref href="http://www.unicode.org/ucd/">http://www.unicode.org/ucd/</xref>。</p>
+     
+      <p>确定有效的数字时，忽略其它属性。具体来说，忽略 <codeph>digitsType</codeph> 属性的值，并且数字可以来自 <codeph>NationalDigitsType</codeph> 类中枚举的任何数字集。<codeph>groupingPattern</codeph> 和 <codeph>useGrouping</codeph> 属性的值不影响数字的解析。
+      </p>
+     
+      <p>如果字符串中数字的前面或后面有加号“+”，加号被视为不属于数字部分的字符。
+      </p>
+     
+      <p>此函数不解析包含以科学记数法表示的数字（例如，1.23e40）的字符串。</p>
+     
+     
+      </apiDesc><example>以下代码解析字符串中的数字并检索前缀和后缀：
+      <codeblock rev="3.0">
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale","fr-FR");
+      var str:String = "1,56 mètre"
+      var result:NumberParseResult = nf.parse(str);
+      trace(result.value) // 1.56
+      trace(str.substr(0,result.startIndex));                // ""
+      trace(str.substr(result.startIndex, result.endIndex)); // "1,56"
+      trace(str.substr(result.endIndex));                 // " mètre"
+      </codeblock>
+     
+      </example></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.NumberParseResult.xml"><linktext>flash.globalization.NumberParseResult</linktext></link><link href="spark.formatters.xml#NumberFormatter/parseNumber()"><linktext>parseNumber()</linktext></link><link href="" invalidHref="flash.globalization.NationalDigitsType.xml"><linktext>flash.globalization.NationalDigitsType</linktext></link></related-links></apiOperation><apiValue id="spark.formatters:NumberFormatter:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      由该类对象使用的实际区域设置 ID 的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      由该类对象使用的实际区域设置 ID 的名称。这是用于从操作系统访问格式化数据和功能的区域设置。
+     
+      <p>如果由 <codeph>locale</codeph> 样式所设置的区域设置不可用，则 <codeph>actualLocaleIDName</codeph> 的值将不同于 <codeph>locale</codeph> 样式的值。它指明正在使用的回退区域设置。如果区域设置样式设置为 <codeph>LocaleID.DEFAULT</codeph>，将使用由用户的操作系统指定的区域设置的名称。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.actualLocaleIDName.xml"><linktext>flash.globalization.NumberFormatter.actualLocaleIDName</linktext></link><link href="spark.formatters.xml#NumberFormatter/NumberFormatter()"><linktext>NumberFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:NumberFormatter:negativeNumberFormat:get"><apiName>negativeNumberFormat</apiName><shortdesc>
+      表示负数的格式设置模式的数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>如果指定的值不介于 0 到 4 之间。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      表示负数的格式设置模式的数值。此模式定义负号或圆括号相对于设置了格式的数字的数字部分的位置。
+     
+      <p>下表总结了可能的负数格式。当设置负数的格式时，格式中的负号由 <codeph>negativeSymbol</codeph> 属性的值替换，“n”字符由设置了格式的数值替换。</p>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>负数格式类型</entry>
+                <entry>格式</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>- n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>n -</entry>
+            </row></tbody></tgroup></adobetable>
+     
+     
+      <p>默认值取决于区域设置和操作系统。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#NumberFormatter/negativeSymbol"><linktext>negativeSymbol</linktext></link><link href="spark.formatters.xml#NumberFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.formatters:DateTimeFormatter"><apiName>DateTimeFormatter</apiName><shortdesc>
+  DateTimeFormatter 类为 Date 对象提供特定于区域设置的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:DateTimeFormatter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DateTimeFormatter
+    <strong>Properties</strong>
+    dateStyle="long"
+    dateTimePattern="EEEE, MMMM dd, yyyy h:mm:ss a"
+    errorText="null"
+    timeStyle="long"
+    useUTC="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.formatters:IFormatter</apiBaseInterface><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateTimeFormatter 类为 <codeph>Date</codeph> 对象提供特定于区域设置的格式。
+ 
+  <p>此类是包装 flash.globalization.DateTimeFormatter 类的包装器类。因此，特定于区域设置的格式化功能与月份、日期以及每周的第一天是由 flash.globalization.DateTimeFormatter 提供的。但是，此 DateTimeFormatter 类可在 MXML 声明中使用，为请求的区域设置 ID 名称使用区域设置样式，并具有可绑定的方法和属性。</p>
+ 
+  <p>flash.globalization.DateTimeFormatter 类使用基础操作系统来实现格式化功能并提供特定于区域设置的数据。某些操作系统不支持 flash.globalization 类，在这些操作系统上，由包装器类提供回退功能。</p>
+ 
+  </apiDesc><example conref="DateTimeFormatterExample.mxml"><swfblock conref="examples/DateTimeFormatterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeFormatter.xml"><linktext>flash.globalization.DateTimeFormatter</linktext></link></related-links><apiConstructor id="spark.formatters:DateTimeFormatter:DateTimeFormatter"><apiName>DateTimeFormatter</apiName><shortdesc>
+      构造新 DateTimeFormatter 对象，以根据指定区域设置的约定以及提供的日期和时间格式设置样式来设置日期和时间的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造新 <codeph>DateTimeFormatter</codeph> 对象，以根据指定区域设置的约定以及提供的日期和时间格式设置样式来设置日期和时间的格式。
+     
+      <p>此类的区域设置是由区域设置样式提供的。可以使用以下几种方法来设置区域设置样式：
+      </p>
+      <ul>
+      <li>
+      在 MXML 声明中使用该类，并从包含声明的文档中继承区域设置。
+      </li>
+      示例：<pre>
+      &lt;fx:Declarations> 
+             &lt;s:DateTimeFormatter id="df" />
+      &lt;/fx:Declarations></pre>
+      <li>
+      使用 MXML 声明并在赋值列表中指定区域设置值。
+      </li>
+      示例：<pre>
+      &lt;fx:Declarations> 
+          &lt;s:DateTimeFormatter id="df_Japanese" locale="ja-JP" />
+      &lt;/fx:Declarations></pre>
+      <li>
+      调用 setStyle 方法。例如： <pre>
+      df.setStyle("locale", "ja-JP")</pre>
+      </li>
+      <li> 
+      调用 UIComponent 的 <codeph>addStyleClient()</codeph> 方法来继承 <codeph>UIComponent</codeph> 的样式。
+      </li>
+      </ul>
+      <p>
+      如果 <codeph>locale</codeph> 样式不是由以上方式之一设置的，则该类的实例会作为 <codeph>StyleClient</codeph> 添加至 <codeph>topLevelApplication</codeph> 中，并因此在调用 <codeph>locale</codeph> 从属属性 getter 或 <codeph>locale</codeph> 从属方法时，会从 <codeph>topLevelApplication</codeph> 对象中继承 <codeph>locale</codeph> 样式。
+      </p>    
+     
+      <p>此类的大部分属性将自动根据区域设置样式来设置。如果区域设置样式发生改变，则任何未明确设置的属性也都会根据新的区域设置来进行更新。请注意，正在使用的实际区域设置是由 actualLocaleIDName 属性来指定的。</p>
+      
+      
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/actualLocaleIDName"><linktext>actualLocaleIDName</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/lastOperationsStatus"><linktext>lastOperationsStatus</linktext></link></related-links></apiConstructor><apiOperation id="spark.formatters:DateTimeFormatter:format"><apiName>format</apiName><shortdesc>
+     为对象设置显示字符串的格式，指定以用户的本地时间或 UTC 时间来表示日期。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>表示日期或时间值的设置了格式的字符串。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要设置格式的 <codeph>Date</codeph> 值。如果对象不是 <codeph>Date</codeph>，将使用 <codeph>Date()</codeph> 构造函数来转换为日期。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     为对象设置显示字符串的格式，指定以用户的本地时间或 UTC 时间来表示日期。
+     
+     
+      <p><codeph>Date</codeph> 对象具有两组日期与时间值，包括用户本地时间（<codeph>date、day、fullYear、hours、minutes、month</codeph> 以及 <codeph>seconds</codeph>）和 UTC 时间（<codeph>dateUTC、dayUTC、fullYearUTC、hoursUTC、minutesUTC、monthUTC</codeph> 以及 <codeph>secondsUTC</codeph>）。布尔值属性 <codeph>useUTC</codeph> 控制在设置日期的格式时使用哪一组日期与时间组件。将使用区域设置约定（即由 <codeph>locale</codeph> 样式属性、<codeph>dateStyle</codeph>和 <codeph>timeStyle</codeph> 属性所设置的），或为此 <codeph>DateTimeFormatter</codeph> 实例指定的<codeph>dateTimePattern</codeph> 来执行格式设置。
+      </p>
+     
+      <p>如果由于非法输入值或其它错误在设置格式时发生了错误，则默认情况下 <codeph>format()</codeph> 方法将返回 <codeph>null</codeph>。但是，如果 <codeph>errorText</codeph> 属性为非 null，则将返回 <codeph>errorText</codeph> 属性的值。将设置 <codeph>lastOperationStatus</codeph> 属性以指明发生的错误。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/timeStyle"><linktext>timeStyle</linktext></link><link href="" invalidHref="spark.formatters.Date.xml"><linktext>Date</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/dateTimePattern"><linktext>dateTimePattern</linktext></link><link href="spark.formatters.xml#DateTimeFormatter"><linktext>DateTimeFormatter</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc>
+      列出此类支持的所有区域设置 ID 名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>一个字符串矢量，其中包含此类和操作系统所支持的所有区域设置 ID 名称。
+     
+      </apiDesc><apiType value="Vector$String"/></apiReturn></apiOperationDef><apiDesc>
+      列出此类支持的所有区域设置 ID 名称。这是操作系统所支持的区域设置列表，而不是 ResourceManager 拥有其资源的区域设置列表。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getFirstWeekday"><apiName>getFirstWeekday</apiName><shortdesc>
+      返回一个整数，它对应于此区域设置和日历系统的每周第一天。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>一个整数，对应于此区域设置和日历系统的每周第一天。
+     
+      </apiDesc><apiType value="int"/></apiReturn></apiOperationDef><apiDesc>
+      返回一个整数，它对应于此区域设置和日历系统的每周第一天。值 0 对应于星期日，1 对应于星期一，依此类推，6 对应于星期六。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getMonthNames"><apiName>getMonthNames</apiName><shortdesc>
+      检索包含当前日历系统的月名称的本地化字符串列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 <codeph>nameStyle</codeph> 或 <codeph>context</codeph> 参数为 null。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>一个本地化字符串矢量，其中包含当前区域设置（由区域设置样式指定）、名称样式和上下文的月名称。矢量中位于索引 0 处的第一个元素表示一年中第一个月的名称；下一个元素表示一年中第二个月的名称；以此类推。
+      </apiDesc><apiType value="Vector$String"/></apiReturn><apiParam><apiItemName>nameStyle</apiItemName><apiType value="String"/><apiData>full</apiData><apiDesc>表示要使用的名称字符串样式。有效值为：
+              <ul>
+                  <li><codeph>DateTimeNameStyle.FULL</codeph></li>
+                  <li><codeph>DateTimeNameStyle.LONG_ABBREVIATION</codeph>
+                      </li>
+                  <li><codeph>DateTimeNameStyle.SHORT_ABBREVIATION</codeph>
+                      </li>
+              </ul>
+      </apiDesc></apiParam><apiParam><apiItemName>context</apiItemName><apiType value="String"/><apiData>standalone</apiData><apiDesc>指示将在其中使用设置了格式的字符串的上下文的代码。此上下文只对于某些区域设置有差别。有效值为：
+              <ul>
+                  <li><codeph>DateTimeNameContext.FORMAT</codeph></li>
+                  <li><codeph>DateTimeNameContext.STANDALONE</codeph></li>
+              </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      检索包含当前日历系统的月名称的本地化字符串列表。列表中的第一个元素表示一年中第一个月的名称。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeNameContext.xml"><linktext>flash.globalization.DateTimeNameContext</linktext></link><link href="" invalidHref="flash.globalization.DateTimeNameStyle.xml"><linktext>flash.globalization.DateTimeNameStyle</linktext></link></related-links></apiOperation><apiOperation id="spark.formatters:DateTimeFormatter:getWeekdayNames"><apiName>getWeekdayNames</apiName><shortdesc>
+      检索包含当前日历系统的工作日名称的本地化字符串列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 <codeph>nameStyle</codeph> 或 <codeph>context</codeph> 参数为 null。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiReturn><apiDesc>一个本地化字符串矢量，其中包含当前区域设置（由区域设置样式指定）、名称样式和上下文的月名称。矢量中位于索引 0 处的第一个元素是星期日的名称；下一个元素是星期一的名称；依此类推。
+      </apiDesc><apiType value="Vector$String"/></apiReturn><apiParam><apiItemName>nameStyle</apiItemName><apiType value="String"/><apiData>full</apiData><apiDesc>表示要使用的名称字符串样式。有效值为：
+              <ul>
+                  <li><codeph>DateTimeNameStyle.FULL</codeph></li>
+                  <li><codeph>DateTimeNameStyle.LONG_ABBREVIATION</codeph>
+                      </li>
+                  <li><codeph>DateTimeNameStyle.SHORT_ABBREVIATION</codeph>
+                      </li>
+              </ul>
+      </apiDesc></apiParam><apiParam><apiItemName>context</apiItemName><apiType value="String"/><apiData>standalone</apiData><apiDesc>指示将在其中使用设置了格式的字符串的上下文的代码。该上下文仅适用于月份名称随上下文变化的特定区域设置。例如，在希腊语中，月份名称单独显示时同与日一起显示时不同。有效值为：
+              <ul>
+                  <li><codeph>DateTimeNameContext.FORMAT</codeph></li>
+                  <li><codeph>DateTimeNameContext.STANDALONE</codeph></li>
+              </ul>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      检索包含当前日历系统的工作日名称的本地化字符串列表。列表中的第一个元素表示星期日的名称。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeNameContext.xml"><linktext>flash.globalization.DateTimeNameContext</linktext></link><link href="" invalidHref="flash.globalization.DateTimeNameStyle.xml"><linktext>flash.globalization.DateTimeNameStyle</linktext></link></related-links></apiOperation><apiValue id="spark.formatters:DateTimeFormatter:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      由该类对象使用的实际区域设置 ID 的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      由该类对象使用的实际区域设置 ID 的名称。这是用于从操作系统访问格式化数据和功能的区域设置。
+     
+      <p>如果由 <codeph>locale</codeph> 样式所设置的区域设置不可用，则 <codeph>actualLocaleIDName</codeph> 的值将不同于 <codeph>locale</codeph> 样式的值。它指明正在使用的回退区域设置。如果区域设置样式设置为 <codeph>LocaleID.DEFAULT</codeph>，将使用由用户的操作系统指定的区域设置的名称。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.DateTimeFormatter.actualLocaleIDName.xml"><linktext>flash.globalization.DateTimeFormatter.actualLocaleIDName</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/DateTimeFormatter()"><linktext>DateTimeFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:dateStyle:get"><apiName>dateStyle</apiName><shortdesc>
+      此 DateTimeFormatter 实例的日期样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果指定的值不是有效的 <codeph>DateTimeStyle</codeph> 常量或指定的值是 <codeph>DateTimeStyle.CUSTOM</codeph>。
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException><apiException><apiDesc>如果设置为 <codeph>dateStyle</codeph> 或 <codeph>null</codeph>。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiDefaultValue>&lt;code>DateTimeStyle.LONG&lt;/code>
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此 DateTimeFormatter 实例的日期样式。日期样式用于从操作系统检索预定义的时间和特定于区域设置的格式设置模式。在设置日期格式时，<codeph>locale</codeph> 样式、<codeph>timeStyle</codeph> 和 <codeph>dateStyle</codeph> 属性决定了日期的格式。可以使用以下两种方法来设置日期样式的值：指定 <codeph>dateStyle</codeph> 属性或 <codeph>dateTimePattern</codeph> 属性的值。 
+     
+      <p>此属性的可能值是由 flash.globalization.DateTimeStyle 类定义的。可以为 <codeph>dateStyle</codeph> 属性指定的值如下：</p>
+     
+      <ul>
+      <li><codeph>DateTimeStyle.LONG</codeph> </li>
+      <li><codeph>DateTimeStyle.MEDIUM</codeph> </li>
+      <li><codeph>DateTimeStyle.SHORT</codeph></li>
+      <li><codeph>DateTimeStyle.NONE</codeph></li>
+      <li><codeph>DateTimeStyle.CUSTOM</codeph></li>
+      </ul>
+     
+     <p>如果为 <codeph>dateTimePattern</codeph> 属性指定了值，则会产生副作用，<codeph>dateStyle</codeph> 属性必定设置为 <codeph>DateTimeStyle.CUSTOM</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/dateTimePattern"><linktext>dateTimePattern</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/lastOperationStatus"><linktext>lastOperationStatus</linktext></link><link href="" invalidHref="flash.globalization.DateTimeStyle.xml"><linktext>flash.globalization.DateTimeStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/DateTimeFormatter()"><linktext>DateTimeFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:dateTimePattern:get"><apiName>dateTimePattern</apiName><shortdesc>
+      模式字符串，由 DateTimeFormatter 对象使用以设置日期和时间的格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"EEEE, MMMM dd, yyyy h:mm:ss a"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      模式字符串，由 DateTimeFormatter 对象使用以设置日期和时间的格式。
+     
+      <p>可以使用以下两种方法之一设置此模式：</p>
+     
+      <ol>
+         <li>通过设置 <codeph>dateStyle</codeph> 和 <codeph>timeStyle</codeph> 属性。 </li>
+         <li>通过设置 <codeph>dateTimePattern</codeph> 属性。</li>
+      </ol>
+     
+      <p>如果直接为此属性指定了值，则会产生副作用，当前时间与日期样式将被重写，并设置为值 <codeph>DateTimeStyle.CUSTOM</codeph>。</p>
+     
+      <p>有关模式语法的说明，请参阅 <xref href="..\..\flash\globalization\DateTimeFormatter.html#setDateTimePattern()"><codeph>flash.globalization.DateTimeFormatter.setDateTimePattern()</codeph></xref> 方法。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/timeStyle"><linktext>timeStyle</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:errorText:get"><apiName>errorText</apiName><shortdesc>
+      当发生错误时，由 format() 方法返回的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      当发生错误时，由 <codeph>format()</codeph> 方法返回的字符串。
+     
+      <p>如果 <codeph>errorText</codeph> 为非 null，并且在设置日期的格式时发生了错误，则 format 方法将返回为此属性指定的字符串。</p>
+     
+      例如：
+      <codeblock rev="3.0">
+      var dtf:DateTimeFormatter = new DateTimeFormatter();
+      dtf.setStyle("locale", "en-US");
+      dtf.errorText = "----"
+      trace(dtf.format("abc"));  // ----
+      </codeblock>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.globalization.xml#LastOperationStatus"><linktext>spark.globalization.LastOperationStatus</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      此类对象执行的最近操作的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      此类对象执行的最近操作的状态。只要调用构造函数或此类的一个方法，或设置一个属性，都会设置 <codeph>lastOperationStatus</codeph>。有关可能值的信息，请参阅每种方法下的说明。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.formatters:DateTimeFormatter:timeStyle:get"><apiName>timeStyle</apiName><shortdesc>
+      此 DateTimeFormatter 实例的时间样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiException><apiDesc>如果指定的值不是有效的 <codeph>DateTimeStyle</codeph> 常量或指定的值是 <codeph>DateTimeStyle.CUSTOM</codeph>。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException><apiException><apiDesc>如果 <codeph>dateStyle</codeph> 或 <codeph>timeStyle</codeph> 参数为 null。
+     
+      </apiDesc><apiItemName>TypeError</apiItemName><apiOperationClassifier>TypeError</apiOperationClassifier></apiException><apiDefaultValue>&lt;code>DateTimeStyle.LONG&lt;/code>
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此 DateTimeFormatter 实例的时间样式。时间样式用于从操作系统检索预定义的时间和特定于区域设置的格式设置模式。在设置日期格式时，<codeph>locale</codeph> 样式、<codeph>timeStyle</codeph> 和 <codeph>dateStyle</codeph> 属性决定了日期的格式。可以使用以下两种方法来设置时间样式的值：指定 <codeph>timeStyle</codeph> 属性或 <codeph>dateTimePattern</codeph> 属性的值。
+     
+      <p>此属性的值是由 flash.globalization.DateTimeStyle 类定义的。可以为 <codeph>timeStyle</codeph> 属性指定的值如下：</p>
+     
+      <ul>
+      <li><codeph>DateTimeStyle.LONG</codeph></li>
+      <li><codeph>DateTimeStyle.MEDIUM</codeph></li>
+      <li><codeph>DateTimeStyle.SHORT</codeph></li>
+      <li><codeph>DateTimeStyle.NONE</codeph></li>
+      <li><codeph>DateTimeStyle.CUSTOM</codeph></li>
+      </ul>
+     
+     <p>如果为 <codeph>dateTimePattern</codeph> 属性指定了值，则会产生副作用，dateStyle 属性必定设置为 <codeph>DateTimeStyle.CUSTOM</codeph>。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/dateStyle"><linktext>dateStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/dateTimePattern"><linktext>dateTimePattern</linktext></link><link href="" invalidHref="flash.globalization.DateTimeStyle.xml"><linktext>flash.globalization.DateTimeStyle</linktext></link><link href="spark.formatters.xml#DateTimeFormatter/DateTimeFormatter()"><linktext>DateTimeFormatter()</linktext></link></related-links></apiValue><apiValue id="spark.formatters:DateTimeFormatter:useUTC:get"><apiName>useUTC</apiName><shortdesc>
+      一个布尔值标志，用于控制在设置日期的格式时是使用区域设置还是 UTC 的日期与时间值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个布尔值标志，用于控制在设置日期的格式时是使用区域设置还是 UTC 的日期与时间值。如果 <codeph>useUTC</codeph> 设置为 <codeph>true</codeph>，则使用 UTC 值，如果该值设置为 <codeph>false</codeph>，则使用操作系统当前时区的日期与时间的值。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.formatters.xml#DateTimeFormatter/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

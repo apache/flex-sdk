@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.accessibility"><apiName>spark.accessibility</apiName><apiDetail/><apiClassifier id="spark.accessibility:WindowAccImpl"><apiName>WindowAccImpl</apiName><shortdesc>
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:WindowAccImpl:WindowAccImpl"><apiName>WindowAccImpl</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>
+           </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+           </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:WindowAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+           <p><codeph/></p>
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:WindowedApplicationAccImpl"><apiName>WindowedApplicationAccImpl</apiName><shortdesc>
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:WindowedApplicationAccImpl:WindowedApplicationAccImpl"><apiName>WindowedApplicationAccImpl</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:WindowedApplicationAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+     
+      <p><codeph/></p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

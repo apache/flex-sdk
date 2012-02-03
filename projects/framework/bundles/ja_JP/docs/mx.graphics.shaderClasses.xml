@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics.shaderClasses"><apiName>mx.graphics.shaderClasses</apiName><apiDetail/><apiClassifier id="mx.graphics.shaderClasses:LuminosityShader"><apiName>LuminosityShader</apiName><shortdesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Luminosity" ブレンドモードに相当するブレンドシェーダーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Luminosity" ブレンドモードに相当するブレンドシェーダーを作成します。このブレンドモードは Flash ネイティブではなく、Adobe Illustrator や Adobe Photoshop などのツールでも使用できます。 
+ 
+  <p>"luminosity" ブレンドモードは、Flex グループとグラフィックエレメントに設定できます。Adobe Illustrator や Adobe Photoshop などのツールの外観表示は、このブレンドシェーダーで模倣されます。</p>  
+ 
+  </apiDesc><example conref="LuminosityShaderExample.mxml"><swfblock conref="examples/LuminosityShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:LuminosityShader:LuminosityShader"><apiName>LuminosityShader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:SoftLightShader"><apiName>SoftLightShader</apiName><shortdesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Soft Light" ブレンドモードに相当するブレンドシェーダーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Soft Light" ブレンドモードに相当するブレンドシェーダーを作成します。このブレンドモードは Flash ネイティブではなく、Adobe Illustrator や Adobe Photoshop などのツールでも使用できます。 
+ 
+  <p>"softlight" ブレンドモードは、Flex グループとグラフィックエレメントに設定できます。Adobe Illustrator や Adobe Photoshop などのツールの外観表示は、このブレンドシェーダーで模倣されます。</p>  
+ 
+  </apiDesc><example conref="SoftLightShaderExample.mxml"><swfblock conref="examples/SoftLightShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:SoftLightShader:SoftLightShader"><apiName>SoftLightShader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:HueShader"><apiName>HueShader</apiName><shortdesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Hue" ブレンドモードに相当するブレンドシェーダーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Hue" ブレンドモードに相当するブレンドシェーダーを作成します。このブレンドモードは Flash ネイティブではなく、Adobe Illustrator や Adobe Photoshop などのツールでも使用できます。 
+ 
+  <p>"hue" ブレンドモードは、Flex グループとグラフィックエレメントに設定できます。Adobe Illustrator や Adobe Photoshop などのツールの外観表示は、このブレンドシェーダーで模倣されます。</p>  
+ 
+  </apiDesc><example conref="HueShaderExample.mxml"><swfblock conref="examples/HueShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:HueShader:HueShader"><apiName>HueShader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorShader"><apiName>ColorShader</apiName><shortdesc>
+  ColorShader クラスは、Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Color" ブレンドモードに相当するブレンドシェーダーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorShader クラスは、Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Color" ブレンドモードに相当するブレンドシェーダーを作成します。このブレンドモードは Flash ネイティブではなく、Adobe Illustrator や Adobe Photoshop などのツールでも使用できます。"color" ブレンドモードは、Flex グループとグラフィックエレメントに設定でき、Adobe Illustrator や Adobe Photoshop などのツールの外観表示は、このブレンドシェーダーで模倣されます。  
+ 
+  </apiDesc><example conref="ColorShaderExample.mxml"><swfblock conref="examples/ColorShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorShader:ColorShader"><apiName>ColorShader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ExclusionShader"><apiName>ExclusionShader</apiName><shortdesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Exclusion" ブレンドモードに相当するブレンドシェーダーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Exclusion" ブレンドモードに相当するブレンドシェーダーを作成します。このブレンドモードは Flash ネイティブではなく、Adobe Illustrator や Adobe Photoshop などのツールでも使用できます。 
+ 
+  <p>"exclusion" ブレンドモードは、Flex グループとグラフィックエレメントに設定できます。Adobe Illustrator や Adobe Photoshop などのツールの外観表示は、このブレンドシェーダーで模倣されます。</p>  
+ 
+  </apiDesc><example conref="ExclusionShaderExample.mxml"><swfblock conref="examples/ExclusionShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ExclusionShader:ExclusionShader"><apiName>ExclusionShader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorDodgeShader"><apiName>ColorDodgeShader</apiName><shortdesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Color Dodge" ブレンドモードに相当するブレンドシェーダーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Color Dodge" ブレンドモードに相当するブレンドシェーダーを作成します。このブレンドモードは Flash ネイティブではなく、Adobe Illustrator や Adobe Photoshop などのツールでも使用できます。 
+ 
+  <p>"colordodge" ブレンドモードは、Flex グループとグラフィックエレメントに設定できます。Adobe Illustrator や Adobe Photoshop などのツールの外観表示は、このブレンドシェーダーで模倣されます。</p>
+ 
+  </apiDesc><example conref="ColorDodgeShaderExample.mxml"><swfblock conref="examples/ColorDodgeShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorDodgeShader:ColorDodgeShader"><apiName>ColorDodgeShader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorBurnShader"><apiName>ColorBurnShader</apiName><shortdesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Color Burn" ブレンドモードに相当するブレンドシェーダーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Color Burn" ブレンドモードに相当するブレンドシェーダーを作成します。このブレンドモードは Flash ネイティブではなく、Adobe Illustrator や Adobe Photoshop などのツールでも使用できます。 
+ 
+  <p>"'colorburn" ブレンドモードは、Flex グループとグラフィックエレメントに設定でき、Adobe Illustrator や Adobe Photoshop などのツールの外観表示は、このブレンドシェーダーで模倣されます。</p>  
+ 
+  </apiDesc><example conref="ColorBurnShaderExample.mxml"><swfblock conref="examples/ColorBurnShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorBurnShader:ColorBurnShader"><apiName>ColorBurnShader</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。 
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:LuminosityMaskShader"><apiName>LuminosityMaskShader</apiName><shortdesc>
+  Adobe Creative Suite ツールで使用可能な輝度マスキングオプション（ソフトマスキングとも呼ばれる）に相当するブレンドシェーダーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Creative Suite ツールで使用可能な輝度マスキングオプション（ソフトマスキングとも呼ばれる）に相当するブレンドシェーダーを作成します。このマスクタイプは Flash ネイティブではなく、Adobe Illustrator や Adobe Photoshop などのツールでも使用できます。 
+ 
+  <p>輝度マスクタイプは、Flex グループとグラフィックエレメントに設定できます。Adobe Illustrator や Adobe Photoshop などのツールの外観表示は、このブレンドシェーダーで模倣されます。</p>
+  
+  </apiDesc><example conref="LuminosityMaskShaderExample.mxml"><swfblock conref="examples/LuminosityMaskShaderExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/maskType"><linktext>spark.primitives.supportClasses.GraphicElement.maskType</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/maskType"><linktext>spark.components.supportClasses.GroupBase.maskType</linktext></link></related-links><apiConstructor id="mx.graphics.shaderClasses:LuminosityMaskShader:LuminosityMaskShader"><apiName>LuminosityMaskShader</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。 
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics.shaderClasses:LuminosityMaskShader:mode:get"><apiName>mode</apiName><shortdesc>
+      luminosityClip と luminosityInvert の両方またはどちらかがオンまたはオフであることを考慮する便利なフィールドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      luminosityClip と luminosityInvert の両方またはどちらかがオンまたはオフであることを考慮する便利なフィールドです。 
+     
+      <ul>
+       <li>モード 0 = luminosityClip オフ、luminosityInvert オフ</li>
+       <li>モード 1 = luminosityClip オフ、luminosityInvert オン</li>
+       <li>モード 2 = luminosityClip オン、luminosityInvert オフ</li>
+       <li>モード 3 = luminosityClip オン、luminosityInvert オン </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/luminosityClip"><linktext>spark.primitives.supportClasses.GraphicElement.luminosityClip</linktext></link><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/luminosityInvert"><linktext>spark.primitives.supportClasses.GraphicElement.luminosityInvert</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/luminosityClip"><linktext>spark.components.supportClasses.GroupBase.luminosityClip</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/luminosityInvert"><linktext>spark.components.supportClasses.GroupBase.luminosityInvert</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:SaturationShader"><apiName>SaturationShader</apiName><shortdesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Saturation" ブレンドモードに相当するブレンドシェーダーを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Adobe Creative Suite ツールで使用可能な RGB プリマルチプライ済みカラーの "Saturation" ブレンドモードに相当するブレンドシェーダーを作成します。このブレンドモードは Flash ネイティブではなく、Adobe Illustrator や Adobe Photoshop などのツールでも使用できます。 
+ 
+  <p>"saturation" ブレンドモードは、Flex グループとグラフィックエレメントに設定できます。Adobe Illustrator や Adobe Photoshop などのツールの外観表示は、このブレンドシェーダーで模倣されます。</p>  
+ 
+  </apiDesc><example conref="SaturationShaderExample.mxml"><swfblock conref="examples/SaturationShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:SaturationShader:SaturationShader"><apiName>SaturationShader</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

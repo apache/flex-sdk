@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.supportClasses"><apiName>spark.effects.supportClasses</apiName><apiDetail/><apiClassifier id="spark.effects.supportClasses:AnimateTransitionShaderInstance"><apiName>AnimateTransitionShaderInstance</apiName><shortdesc>
+  AnimateTransitionShaderInstance 类用于实现 AnimateTransitionShader 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.supportClasses:AnimateInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimateTransitionShaderInstance 类用于实现 AnimateTransitionShader 效果的实例类。Flex 在播放 AnimateTransitionShader 效果时将创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateTransitionShader"><linktext>spark.effects.AnimateTransitionShader</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:AnimateTransitionShaderInstance:AnimateTransitionShaderInstance"><apiName>AnimateTransitionShaderInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.supportClasses:AnimateTransitionShaderInstance:bitmapFrom"><apiName>bitmapFrom</apiName><shortdesc conref="spark.effects.AnimateTransitionShader#bitmapFrom">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:BitmapData"/></apiValueDef><apiDesc conref="spark.effects.AnimateTransitionShader#bitmapFrom">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateTransitionShaderInstance:bitmapTo"><apiName>bitmapTo</apiName><shortdesc conref="spark.effects.AnimateTransitionShader#bitmapTo">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:BitmapData"/></apiValueDef><apiDesc conref="spark.effects.AnimateTransitionShader#bitmapTo">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateTransitionShaderInstance:shaderByteCode"><apiName>shaderByteCode</apiName><shortdesc conref="spark.effects.AnimateTransitionShader#shaderByteCode">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.utils:ByteArray"/></apiValueDef><apiDesc conref="spark.effects.AnimateTransitionShader#shaderByteCode">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateTransitionShaderInstance:protected:shaderFilter"><apiName>shaderFilter</apiName><shortdesc>
+     围绕实例的 shader 属性折回的滤镜。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.filters:ShaderFilter"/></apiValueDef><apiDesc>
+     围绕实例的 <codeph>shader</codeph> 属性折回的滤镜。在动画过程中随着每次更新，会将此滤镜指定给目标对象的 <codeph>filters</codeph> 属性，这样会在应用到用户看到的显示对象的滤镜中反映对基础着色器的动画更新。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateTransitionShaderInstance:shaderProperties"><apiName>shaderProperties</apiName><shortdesc conref="spark.effects.AnimateTransitionShader#shaderProperties">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc conref="spark.effects.AnimateTransitionShader#shaderProperties">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateTransitionShaderInstance:protected:shader"><apiName>shader</apiName><shortdesc>
+     通过将 shaderByteCode 属性用作基础字节代码创建的 Shader。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shader"/></apiValueDef><apiDesc>
+     通过将 <codeph>shaderByteCode</codeph> 属性用作基础字节代码创建的 Shader。每个实例都需要它自己的单独的 Shader，但可以共享字节代码。播放每个实例时，创建该实例所使用的 Shader。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.supportClasses:SetActionInstance"><apiName>SetActionInstance</apiName><shortdesc>
+  SetActionInstance 类用于实现 SetAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetActionInstance 类用于实现 SetAction 效果的实例类。Flex 在播放 SetAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#SetAction"><linktext>spark.effects.SetAction</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:SetActionInstance:SetActionInstance"><apiName>SetActionInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.supportClasses:SetActionInstance:property"><apiName>property</apiName><shortdesc conref="spark.effects.SetAction#property"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc conref="spark.effects.SetAction#property"> 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:SetActionInstance:value:get"><apiName>value</apiName><shortdesc conref="spark.effects.SetAction#value"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc conref="spark.effects.SetAction#value"> 
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.supportClasses:RemoveActionInstance"><apiName>RemoveActionInstance</apiName><shortdesc>
+  RemoveActionInstance 类用于实现 RemoveAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemoveActionInstance 类用于实现 RemoveAction 效果的实例类。Flex 在播放 RemoveAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#RemoveAction"><linktext>spark.effects.RemoveAction</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:RemoveActionInstance:RemoveActionInstance"><apiName>RemoveActionInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects.supportClasses:AnimateTransformInstance"><apiName>AnimateTransformInstance</apiName><shortdesc>
+  AnimateTransformInstance 类用于实现 AnimateTransform 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.supportClasses:AnimateInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimateTransformInstance 类用于实现 AnimateTransform 效果的实例类。Flex 在播放 AnimateTransform 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateTransform"><linktext>spark.effects.AnimateTransform</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:AnimateTransformInstance:AnimateTransformInstance"><apiName>AnimateTransformInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.supportClasses:AnimateTransformInstance:addMotionPath"><apiName>addMotionPath</apiName><shortdesc>
+      使用相对于最外侧的 parent 效果的开始时间，将一个 MotionPath 对象添加到此实例中的 MotionPath 对象集中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newMotionPath</apiItemName><apiOperationClassifier>spark.effects.animation:MotionPath</apiOperationClassifier><apiDesc>新建 MotionPath 对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newEffectStartTime</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>新的 MotionPath 对象的开始时间（以毫秒为单位）。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用相对于最外侧的 parent 效果的开始时间，将一个 MotionPath 对象添加到此实例中的 MotionPath 对象集中。对于在与新的 MotionPath 对象相同的属性上起作用的此效果实例，如果已经存在一个 MotionPath 对象，则只会将新 MotionPath 的关键帧添加到现有 MotionPath 中。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.supportClasses:AnimateTransformInstance:autoCenterTransform"><apiName>autoCenterTransform</apiName><shortdesc conref="spark.effects.AnimateTransform#animateTransform">
+      如果 autoCenterTransform 为 true，则随着该效果的执行，将重新计算转换中心，从而更新对象的宽度和高度的任何更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc conref="spark.effects.AnimateTransform#animateTransform">
+      如果 <codeph>autoCenterTransform</codeph> 为 <codeph>true</codeph>，则随着该效果的执行，将重新计算转换中心，从而更新对象的宽度和高度的任何更改。如果该属性为 <codeph>false</codeph>，则将改用 <codeph>transformCenter</codeph> 属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateTransformInstance:initialized"><apiName>initialized</apiName><shortdesc>
+      如果为 true，则已经初始化与该转换相关的效果的此单一实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则已经初始化与该转换相关的效果的此单一实例。此属性供 AnimateTransform 使用，以防止在将多个转换效果集成到此单一实例中时重复初始化该实例。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateTransformInstance:transformCenter"><apiName>transformCenter</apiName><shortdesc>
+      中心，此效果中的转换是围绕其发生的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Vector3D"/></apiValueDef><apiDesc>
+      中心，此效果中的转换是围绕其发生的。特别是，旋转会围绕此点旋转，平移会移动此点，而缩放会以此点为中心进行缩放。如果 <codeph>autoCenterTransform</codeph> 为 true，则将忽略此属性。如果 <codeph>autoCenterTransform</codeph> 为 false 且未提供 <codeph>transformCenter</codeph>，则会使用目标对象的中心。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.supportClasses:AnimateColorInstance"><apiName>AnimateColorInstance</apiName><shortdesc>
+  AnimateColorInstance 类是 AnimateColor 效果的实例类，它通过按颜色通道插补 from/to 值，设置颜色更改的动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.supportClasses:AnimateInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimateColorInstance 类是 AnimateColor 效果的实例类，它通过按颜色通道插补 from/to 值，设置颜色更改的动画。Flex 在播放 AnimateFilter 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateColor"><linktext>spark.effects.AnimateColor</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:AnimateColorInstance:AnimateColorInstance"><apiName>AnimateColorInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.supportClasses:AnimateColorInstance:colorFrom"><apiName>colorFrom</apiName><shortdesc conref="spark.effects.AnimateColor#colorFrom">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc conref="spark.effects.AnimateColor#colorFrom">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateColorInstance:colorPropertyName"><apiName>colorPropertyName</apiName><shortdesc conref="spark.effects.AnimateColor#colorPropertyName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc conref="spark.effects.AnimateColor#colorPropertyName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateColorInstance:colorTo"><apiName>colorTo</apiName><shortdesc conref="spark.effects.AnimateColor#colorTo">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc conref="spark.effects.AnimateColor#colorTo">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.supportClasses:AddActionInstance"><apiName>AddActionInstance</apiName><shortdesc>
+  AddActionInstance 类用于实现 AddAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddActionInstance 类用于实现 AddAction 效果的实例类。Flex 在播放 AddAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#AddAction"><linktext>spark.effects.AddAction</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:AddActionInstance:AddActionInstance"><apiName>AddActionInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.supportClasses:AddActionInstance:index"><apiName>index</apiName><shortdesc conref="spark.effects.AddAction#index"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc conref="spark.effects.AddAction#index"> 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AddActionInstance:position"><apiName>position</apiName><shortdesc conref="spark.effects.AddAction#position"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc conref="spark.effects.AddAction#position"> 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AddActionInstance:relativeTo"><apiName>relativeTo</apiName><shortdesc conref="spark.effects.AddAction#relativeTo"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc conref="spark.effects.AddAction#relativeTo"> 
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.supportClasses:AnimateFilterInstance"><apiName>AnimateFilterInstance</apiName><shortdesc>
+ AnimateFilterInstance 类用于实现 AnimateFilter 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.supportClasses:AnimateInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+ AnimateFilterInstance 类用于实现 AnimateFilter 效果的实例类。Flex 在播放 AnimateFilter 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateFilter"><linktext>spark.effects.AnimateFilter</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:AnimateFilterInstance:AnimateFilterInstance"><apiName>AnimateFilterInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.supportClasses:AnimateFilterInstance:bitmapFilter"><apiName>bitmapFilter</apiName><shortdesc conref="spark.effects.AnimateFilter#bitmapFilter">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.filters:IBitmapFilter"/></apiValueDef><apiDesc conref="spark.effects.AnimateFilter#bitmapFilter">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.supportClasses:AnimateInstance"><apiName>AnimateInstance</apiName><shortdesc>
+  AnimateInstance 类用于实现 Animate 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.animation:IAnimationTarget</apiBaseInterface><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimateInstance 类用于实现 Animate 效果的实例类。Flex 在播放 Animate 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Animate"><linktext>spark.effects.Animate</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:AnimateInstance:AnimateInstance"><apiName>AnimateInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.supportClasses:AnimateInstance:protected:autoRemoveTarget"><apiName>autoRemoveTarget</apiName><shortdesc>
+      如果为 true，则该效果会在过渡期间保留其目标并在完成时删除它。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则该效果会在过渡期间保留其目标并在完成时删除它。此功能专门应用诸如 Fade 等效果（这些效果对于在过渡结束时离开的目标起作用），并消除提供 RemoveAction 或相似效果的需求，从而手动保持在该项目周围并在过渡完成时删除它。 
+     
+      <p>若要使用此功能，子类应该将此变量设置为 <codeph>true</codeph>，并公开其 <codeph>affectedProperties</codeph> Array 中的 <codeph>parent</codeph> 属性，这样效果实例会具有关于要执行该作业的目标和容器的足够信息。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateInstance:disableLayout"><apiName>disableLayout</apiName><shortdesc conref="spark.effects.Animate#disableLayout">
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc conref="spark.effects.Animate#disableLayout">
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateInstance:motionPaths:get"><apiName>motionPaths</apiName><shortdesc conref="spark.effects.Animate#motionPaths">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$spark.effects.animation:MotionPath"/></apiValueDef><apiDesc conref="spark.effects.Animate#motionPaths">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateInstance:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.effects.supportClasses:AnimateInstance:easer:set"><apiName>easer</apiName><shortdesc conref="spark.effects.Animate#easer">
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier></apiValueDef><apiDesc conref="spark.effects.Animate#easer">
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateInstance:interpolator:set"><apiName>interpolator</apiName><shortdesc conref="spark.effects.Animate#interpolator">
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc conref="spark.effects.Animate#interpolator">
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:AnimateInstance:repeatBehavior:set"><apiName>repeatBehavior</apiName><shortdesc conref="spark.effects.Animate#repeatBehavior">
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc conref="spark.effects.Animate#repeatBehavior">
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.supportClasses:CallActionInstance"><apiName>CallActionInstance</apiName><shortdesc>
+  CallActionInstance 类用于实现 CallAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CallActionInstance 类用于实现 CallAction 效果的实例类。Flex 在播放 CallAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#CallAction"><linktext>spark.effects.CallAction</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:CallActionInstance:CallActionInstance"><apiName>CallActionInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.supportClasses:CallActionInstance:args"><apiName>args</apiName><shortdesc conref="spark.effects.CallAction#args"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc conref="spark.effects.CallAction#args"> 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:CallActionInstance:functionName"><apiName>functionName</apiName><shortdesc conref="spark.effects.CallAction#functionName"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc conref="spark.effects.CallAction#functionName"> 
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.supportClasses:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+  FadeInstance 类用于实现 Fade 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.supportClasses:AnimateInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FadeInstance 类用于实现 Fade 效果的实例类。Flex 在播放 Fade 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Fade"><linktext>spark.effects.Fade</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:FadeInstance:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.supportClasses:FadeInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc conref="spark.effects.Fade#alphaFrom"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.effects.Fade#alphaFrom"> 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:FadeInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc conref="spark.effects.Fade#alphaTo"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.effects.Fade#alphaTo"> 
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.supportClasses:ResizeInstance"><apiName>ResizeInstance</apiName><shortdesc>
+  ResizeInstance 类用于实现 Resize 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.supportClasses:AnimateInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ResizeInstance 类用于实现 Resize 效果的实例类。Flex 在播放 Resize 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Resize"><linktext>spark.effects.Resize</linktext></link></related-links><apiConstructor id="spark.effects.supportClasses:ResizeInstance:ResizeInstance"><apiName>ResizeInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.supportClasses:ResizeInstance:heightFrom"><apiName>heightFrom</apiName><shortdesc conref="spark.effects.Resize#heightFrom"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.effects.Resize#heightFrom"> 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:ResizeInstance:widthFrom"><apiName>widthFrom</apiName><shortdesc conref="spark.effects.Resize#widthFrom"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.effects.Resize#widthFrom"> 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:ResizeInstance:heightBy:get"><apiName>heightBy</apiName><shortdesc> 
+      组件高度所修改的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+      组件高度所修改的像素数目。值可以为负数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:ResizeInstance:heightTo:get"><apiName>heightTo</apiName><shortdesc conref="spark.effects.Resize#heightTo"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.effects.Resize#heightTo"> 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:ResizeInstance:widthBy:get"><apiName>widthBy</apiName><shortdesc conref="spark.effects.Resize#widthBy"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.effects.Resize#widthBy"> 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.supportClasses:ResizeInstance:widthTo:get"><apiName>widthTo</apiName><shortdesc conref="spark.effects.Resize#widthTo"> 
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="spark.effects.Resize#widthTo"> 
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

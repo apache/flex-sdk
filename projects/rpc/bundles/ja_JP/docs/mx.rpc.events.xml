@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.events"><apiName>mx.rpc.events</apiName><apiDetail/><apiClassifier id="mx.rpc.events:HeaderEvent"><apiName>HeaderEvent</apiName><shortdesc>
+ WebService SOAP 要求などの RPC 処理が応答でヘッダーを返したことを示すイベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ WebService SOAP 要求などの RPC 処理が応答でヘッダーを返したことを示すイベントです。 サービスヘッダーごとに新しいヘッダーイベントが送出されます。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:HeaderEvent:HEADER_header"><apiName>header</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:HeaderEvent:HEADER</apiEventType><adobeApiEventClassifier>mx.rpc.events:HeaderEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:HeaderEvent:HeaderEvent"><apiName>HeaderEvent</apiName><shortdesc>
+     新しい HeaderEvent を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。デフォルトは <codeph>true</codeph> です。ただし、<codeph>preventDefault()</codeph> メソッドは無視されます。
+     </apiDesc></apiParam><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>呼び出しのヘッダーを保持しているオブジェクトです。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>メソッドへの呼び出しを表す AsyncToken です。Asynchronous Completion Token パターンで使用されます。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>ヘッダーのソースメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい HeaderEvent を作成します。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:HeaderEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+     バブリングされずキャンセル可能な新しい HeaderEvent を作成するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>バブリングされずキャンセル可能な新しい HeaderEvent を返します。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.events:HeaderEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>header</apiItemName><apiType value="Object"/><apiDesc>呼び出しのヘッダーを保持しているオブジェクトです。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiDesc>メソッドへの呼び出しを表す AsyncToken です。Asynchronous Completion Token パターンで使用されます。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>ソースメッセージのヘッダーです。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     バブリングされずキャンセル可能な新しい HeaderEvent を作成するためのユーティリティメソッドです。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:HeaderEvent:toString"><apiName>toString</apiName><shortdesc>
+     HeaderEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>HeaderEvent のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     HeaderEvent のストリング表現を返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:HeaderEvent:HEADER"><apiName>HEADER</apiName><shortdesc>
+    HEADER イベントタイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>header</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    HEADER イベントタイプです。
+    
+    <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+        
+           
+        
+        
+     <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>token</codeph></entry><entry>メソッドの呼び出しを表すトークン。Asynchronous Completion Token パターンで使用されます。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true です。ただし、preventDefault() メソッドは無視されます。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>header</codeph></entry><entry>RPC 呼び出しが応答で返すヘッダーです。 
+        </entry></row><row><entry><codeph>message</codeph></entry><entry>このイベントに関連付けられたメッセージ。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:HeaderEvent:header:get"><apiName>header</apiName><shortdesc>
+     RPC 呼び出しが応答で返したヘッダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     RPC 呼び出しが応答で返したヘッダーです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:XMLLoadEvent"><apiName>XMLLoadEvent</apiName><shortdesc>
+ XMLLoadEvent クラスは、RPC サービスが XML ドキュメントを正常にロードしたときに送出されるイベントの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+ XMLLoadEvent クラスは、RPC サービスが XML ドキュメントを正常にロードしたときに送出されるイベントの基本クラスです。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:XMLLoadEvent:LOAD_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:XMLLoadEvent:LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.events:XMLLoadEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:XMLLoadEvent:XMLLoadEvent"><apiName>XMLLoadEvent</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントをトリガーしたアクションを示します。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>xml</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>ロードされる XML ドキュメントです。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>location</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ドキュメントのロードに使用されるパスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:XMLLoadEvent:clone"><apiName>clone</apiName><shortdesc>
+      この XMLLoadEvent オブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この XMLLoadEvent オブジェクトのコピーです。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      この XMLLoadEvent オブジェクトのコピーを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:XMLLoadEvent:toString"><apiName>toString</apiName><shortdesc>
+      この XMLLoadEvent オブジェクトのストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この XMLLoadEvent オブジェクトのストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      この XMLLoadEvent オブジェクトのストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:XMLLoadEvent:LOAD"><apiName>LOAD</apiName><shortdesc>
+     LOAD 定数により type プロパティ値が定義されます。これは xmlLoad イベントのイベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>xmlLoad</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     LOAD 定数により <codeph>type</codeph> プロパティ値が定義されます。これは <codeph>xmlLoad</codeph> イベントのイベントオブジェクトのプロパティ値です。
+     
+     <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+     <adobetable class="innertable">
+     
+     
+     
+     
+     
+     
+     
+     <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>location</codeph></entry><entry>ドキュメントのロード元の場所です。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>xml</codeph></entry><entry>生の XML ドキュメントです。</entry></row></tbody></tgroup></adobetable>
+         
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:XMLLoadEvent:location"><apiName>location</apiName><shortdesc>
+     ドキュメントのロード元の場所です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     ドキュメントのロード元の場所です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:XMLLoadEvent:xml"><apiName>xml</apiName><shortdesc>
+     生の XML ドキュメントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="XML"/></apiValueDef><apiDesc>
+     生の XML ドキュメントです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:FaultEvent"><apiName>FaultEvent</apiName><shortdesc>
+ このイベントは、RPC コールでフォルトが発生したときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ このイベントは、RPC コールでフォルトが発生したときに送出されます。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:FaultEvent:FAULT_fault"><apiName>fault</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:FaultEvent:FAULT</apiEventType><adobeApiEventClassifier>mx.rpc.events:FaultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:FaultEvent:FaultEvent"><apiName>FaultEvent</apiName><shortdesc>
+     新しい FaultEvent を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントをトリガーしたアクションを示します。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+     </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiOperationClassifier>mx.rpc:Fault</apiOperationClassifier><apiData>null</apiData><apiDesc>faultCode および faultString などを含め、フォルトの詳細を保持するオブジェクトです。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>メソッドの呼び出しを表すトークン。Asynchronous Completion Token パターンで使用されます。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>フォルトのソースメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい FaultEvent を作成します。フォルトは必須パラメーターですが、呼び出しおよびメッセージはオプションです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:FaultEvent:createEventFromMessageFault"><apiName>createEventFromMessageFault</apiName><shortdesc>
+      MessageFaultEvent の場合、このメソッドは FaultEvent を作成して返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>FaultEvent を返します。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.events:FaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>value</apiItemName><apiOperationClassifier>mx.messaging.events:MessageFaultEvent</apiOperationClassifier><apiDesc>適切なフォルト情報を抽出するための MessageFaultEvent 参照です。
+      </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>このフォルトに関連付けられた AsyncToken [オプション] です。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      MessageFaultEvent の場合、このメソッドは FaultEvent を作成して返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:FaultEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      フォルトの場合、このメソッドは FaultEvent を作成して返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>FaultEvent を返します。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.events:FaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>fault</apiItemName><apiOperationClassifier>mx.rpc:Fault</apiOperationClassifier><apiDesc>FaultEvent の詳細情報が含まれるフォルト。
+      </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>このフォルトに関連付けられた AsyncToken [オプション] です。
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>このフォルトに関連付けられたメッセージ [オプション] です。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      フォルトの場合、このメソッドは FaultEvent を作成して返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:FaultEvent:toString"><apiName>toString</apiName><shortdesc>
+      FaultEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>FaultEvent のストリング表現です。
+       
+       </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      FaultEvent のストリング表現を返します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:FaultEvent:FAULT"><apiName>FAULT</apiName><shortdesc>
+    FAULT イベントタイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fault</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    FAULT イベントタイプです。
+    
+    <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+           
+        
+        
+           
+     <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true。関連付けられたトークンの responder.fault メソッドから preventDefault() を呼び出すと、サービスまたは処理がこのイベントを送出しなくなります。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>fault</codeph></entry><entry>このイベントの原因についての詳細が含まれる Fault オブジェクトです。</entry></row><row><entry><codeph>message</codeph></entry><entry>このイベントに関連付けられたメッセージ。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>token</codeph></entry><entry>メソッドの呼び出しを表すトークン。Asynchronous Completion Token パターンで使用されます。</entry></row></tbody></tgroup></adobetable>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:FaultEvent:fault:get"><apiName>fault</apiName><shortdesc>
+     このイベントの原因についての詳細が含まれる Fault オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.rpc:Fault</apiValueClassifier></apiValueDef><apiDesc>
+     このイベントの原因についての詳細が含まれる Fault オブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:FaultEvent:headers:get"><apiName>headers</apiName><shortdesc>
+     特定の状況では、失敗の詳細なコンテキストを示すために、フォルトと共にヘッダーも返される場合があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     特定の状況では、失敗の詳細なコンテキストを示すために、フォルトと共にヘッダーも返される場合があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:FaultEvent:statusCode:get"><apiName>statusCode</apiName><shortdesc>
+     ソースメッセージが HTTP 経由で送信されている場合、このプロパティは HTTP 応答ステータスコードへのアクセスを提供します（使用可能な場合）。それ以外の場合、値は 0 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     ソースメッセージが HTTP 経由で送信されている場合、このプロパティは HTTP 応答ステータスコードへのアクセスを提供します（使用可能な場合）。それ以外の場合、値は 0 です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:AbstractEvent"><apiName>AbstractEvent</apiName><shortdesc>
+ RPC サービスが送出するイベントの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.events:MessageEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ RPC サービスが送出するイベントの基本クラスです。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.events:AbstractEvent:token:get"><apiName>token</apiName><shortdesc>
+     メソッドの呼び出しを表すトークン。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.rpc:AsyncToken</apiValueClassifier></apiValueDef><apiDesc>
+     メソッドの呼び出しを表すトークン。Asynchronous Completion Token パターンで使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:ResultEvent"><apiName>ResultEvent</apiName><shortdesc>
+ RPC 処理が正常に結果を返したことを示すイベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ RPC 処理が正常に結果を返したことを示すイベントです。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:ResultEvent:RESULT_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:ResultEvent:RESULT</apiEventType><adobeApiEventClassifier>mx.rpc.events:ResultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:ResultEvent:ResultEvent"><apiName>ResultEvent</apiName><shortdesc>
+     新しい ResultEvent を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントをトリガーしたアクションを示します。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+     </apiDesc></apiParam><apiParam><apiItemName>result</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>呼び出しの実際の結果を保持しているオブジェクトです。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>メソッドの呼び出しを表すトークン。Asynchronous Completion Token パターンで使用されます。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>結果のソースメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい ResultEvent を作成します。
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:ResultEvent:toString"><apiName>toString</apiName><shortdesc>
+     ResultEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>ResultEvent のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+     ResultEvent のストリング表現を返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:ResultEvent:RESULT"><apiName>RESULT</apiName><shortdesc>
+    RESULT イベントタイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>result</apiData><apiType value="String"/></apiValueDef><apiDesc>
+    RESULT イベントタイプです。
+    
+    <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+    <adobetable class="innertable">
+        
+        
+        
+        
+        
+        
+        
+        
+     <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true。関連付けられたトークンの responder.result メソッドから preventDefault() を呼び出すと、サービスまたは処理がこのイベントを送出しなくなります。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>message</codeph></entry><entry> このイベントに関連付けられたメッセージ。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>result</codeph></entry><entry>RPC 呼び出しが返す結果です。</entry></row><row><entry><codeph>token</codeph></entry><entry>メソッドの個々の呼び出しを表すトークン。 Asynchronous Completion Token パターンで使用されます。</entry></row></tbody></tgroup></adobetable>
+        
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:ResultEvent:headers:get"><apiName>headers</apiName><shortdesc>
+     特定の状況では、詳細なコンテキストを提供する結果と共にヘッダーが返される場合もあります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     特定の状況では、詳細なコンテキストを提供する結果と共にヘッダーが返される場合もあります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:ResultEvent:result:get"><apiName>result</apiName><shortdesc>
+     RPC 呼び出しが返す結果です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+     RPC 呼び出しが返す結果です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:ResultEvent:statusCode:get"><apiName>statusCode</apiName><shortdesc>
+     ソースメッセージが HTTP 経由で送信されている場合、このプロパティは HTTP 応答ステータスコードへのアクセスを提供します（使用可能な場合）。それ以外の場合、値は 0 です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     ソースメッセージが HTTP 経由で送信されている場合、このプロパティは HTTP 応答ステータスコードへのアクセスを提供します（使用可能な場合）。それ以外の場合、値は 0 です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:InvokeEvent"><apiName>InvokeEvent</apiName><shortdesc>
+ RPC 処理が呼び出されたことを示すイベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:AbstractEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ RPC 処理が呼び出されたことを示すイベントです。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:InvokeEvent:INVOKE_invoke"><apiName>invoke</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:InvokeEvent:INVOKE</apiEventType><adobeApiEventClassifier>mx.rpc.events:InvokeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:InvokeEvent:InvokeEvent"><apiName>InvokeEvent</apiName><shortdesc>
+     新しい InvokeEvent を作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントをトリガーしたアクションを示します。
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+     </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiOperationClassifier>mx.rpc:AsyncToken</apiOperationClassifier><apiData>null</apiData><apiDesc>メソッドの呼び出しを表すトークン。Asynchronous Completion Token パターンで使用されます。
+     </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>要求のソースメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     新しい InvokeEvent を作成します。
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:InvokeEvent:toString"><apiName>toString</apiName><shortdesc>
+    InvokeEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>InvokeEvent のストリング表現です。
+     
+     </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+    InvokeEvent のストリング表現を返します。
+    
+    </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:InvokeEvent:INVOKE"><apiName>INVOKE</apiName><shortdesc>
+     INVOKE イベントタイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invoke</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     INVOKE イベントタイプです。
+     
+     <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+     <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>token</codeph></entry><entry> メソッドの個々の呼び出しを表すトークン。 Asynchronous Completion Token パターンで使用されます。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>message</codeph></entry><entry> このイベントに関連付けられた要求メッセージです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.events:WSDLLoadEvent"><apiName>WSDLLoadEvent</apiName><shortdesc>
+ WSDLLoadEvent クラスは、WSDL XML ドキュメントが正常にロードされたときに送出されるイベントのイベントオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.rpc.events:XMLLoadEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+ WSDLLoadEvent クラスは、WSDL XML ドキュメントが正常にロードされたときに送出されるイベントのイベントオブジェクトを表します。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.rpc.events:WSDLLoadEvent:LOAD_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.rpc.events:WSDLLoadEvent:LOAD</apiEventType><adobeApiEventClassifier>mx.rpc.events:WSDLLoadEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.rpc.events:WSDLLoadEvent:WSDLLoadEvent"><apiName>WSDLLoadEvent</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>wsdl</apiItemName><apiType value="mx.rpc.wsdl:WSDL"/><apiData>null</apiData><apiDesc>完全な WSDL ドキュメントです。
+     
+     </apiDesc></apiParam><apiParam><apiItemName>location</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ドキュメントのロードに使用されるパスです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.events:WSDLLoadEvent:clone"><apiName>clone</apiName><shortdesc>
+      この WSDLLoadEvent オブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この WSDLLoadEvent オブジェクトのコピーです。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      この WSDLLoadEvent オブジェクトのコピーを返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.events:WSDLLoadEvent:toString"><apiName>toString</apiName><shortdesc>
+      この WSDLLoadEvent オブジェクトのストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この WSDLLoadEvent オブジェクトのストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      この WSDLLoadEvent オブジェクトのストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.events:WSDLLoadEvent:LOAD"><apiName>LOAD</apiName><shortdesc>
+     LOAD 定数により type プロパティ値が定義されます。これは wsdlLoad イベントのイベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>wsdlLoad</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     LOAD 定数により <codeph>type</codeph> プロパティ値が定義されます。これは <codeph>wsdlLoad</codeph> イベントのイベントオブジェクトのプロパティ値です。
+     
+     <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+     <adobetable class="innertable">
+     
+     
+     
+     
+     
+     
+     
+     <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>location</codeph></entry><entry>ドキュメントのロードに使用されるパスです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>wsdl</codeph></entry><entry>完全な WSDL ドキュメントです。</entry></row></tbody></tgroup></adobetable>
+         
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.events:WSDLLoadEvent:wsdl"><apiName>wsdl</apiName><shortdesc>
+     完全な WSDL ドキュメントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.rpc.wsdl:WSDL"/></apiValueDef><apiDesc>
+     完全な WSDL ドキュメントです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

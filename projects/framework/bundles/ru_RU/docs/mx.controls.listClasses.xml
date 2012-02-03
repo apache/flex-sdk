@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.listClasses"><apiName>mx.controls.listClasses</apiName><apiDetail/><apiClassifier id="mx.controls.listClasses:IDropInListItemRenderer"><apiName>IDropInListItemRenderer</apiName><shortdesc>
+  Интерфейс для средств визуализации вставных элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс для средств визуализации вставных элементов. Большинство элементов IListItemRenderers не являются вставными. Они предполагают использование определенного поля элемента поставщика данных. Например, они могут присваивать свойство элемента lastName свойству метки <codeph>text</codeph>. Эту операцию проще всего описать с помощью привязки данных, но при этом средство визуализации будет невозможно использовать в других столбцах сетки данных или другого списка с другими полями. Элемент IDropInListItemRenderer допускает повторное использование средства визуализации. Классы списка будут передавать больший объем данных в средство визуализации элементов, что позволит ему определить поле, используемое во время выполнения.
+ 
+  <p>Компоненты, которые необходимо использовать в качестве средств визуализации или редакторов вставных элементов, должны реализовывать интерфейс IDropInListItemRenderer. Многие компоненты Flex реализуют данный интерфейс и поэтому могут быть использованы в качестве средств визуализации или редакторов вставных элементов в любом столбце или списке.</p>
+ 
+  <p>Средства визуализации или редакторы вставных элементов также должны реализовывать интерфейс IDataRenderer, определяющий свойство <codeph>data</codeph>.</p> 
+ 
+  <p>Если компонент используется в качестве средства визуализации или редактора вставных элементов, то Flex инициализирует свойство компонента <codeph>listData</codeph> соответствующими данными из элемента управления списка. Затем компонент может использовать свойство <codeph>listData</codeph> для инициализации свойства <codeph>data</codeph> средства визуализации или редактора вставных объектов.</p>
+ 
+  <p>Свойство <codeph>listData</codeph> имеет тип BaseListData, а класс BaseListData имеет четыре подкласса: DataGridListData, ListData, TreeListData и MenuListData. Текущий тип данных значения свойства <codeph>listData</codeph> зависит от элемента управления, который использует средство визуализации или редактор вставных объектов. Для элемента управления DataGrid значение имеет тип DataGridListData, для элемента управления List – тип ListData, для элемента управления Tree – тип TreeListData, а для элемента управления Menu – тип MenuListData.</p>
+ 
+  <p>В следующем примере показан метод установщика для свойства <codeph>data</codeph> элемента управления NumericStepper, которое инициализирует свойство NumericStepper <codeph>value</codeph> в зависимости от значения свойства <codeph>listData</codeph>:</p>
+ 
+  <pre>
+    public function set data(value:Object):void
+    {
+      _data = value;
+    
+      this.value = _listData ? parseFloat(_listData.label) : Number(_data);
+    
+      dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+    }
+  </pre>
+ 
+  <p>В приведенном выше примере элемент управления NumericStepper игнорирует свойство <codeph>data</codeph> при задании свойства NumericStepper <codeph>value</codeph> и использует вместо него свойство <codeph>listData</codeph>.</p>
+ 
+  <p>Для реализации интерфейса IDropInListItemRenderer следует определить методы установщика и получателя, которые реализуют свойство <codeph>listData</codeph>. Метод установщика обычно записывает значение свойства <codeph>listData</codeph> во внутреннюю переменную. Класс списка обычно присваивает это значение, а затем устанавливает элемент поставщика данных в свойстве <codeph>data</codeph>.</p>
+ 
+  <p>Обратите внимание на то, что метод установщика для свойства <codeph>listData</codeph> не осуществляет передачу событий. Это обусловлено тем, что классы списка всегда задают свойство <codeph>listData</codeph>, а затем – свойство <codeph>data</codeph>. Задание свойства <codeph>data</codeph> также влечет за собой передачу события <codeph>dataChange</codeph>. Свойство <codeph>listData</codeph> никогда не задается отдельно, поэтому необходимость в передаче собственного события отсутствует. </p>
+ 
+  <p>Метод установщика <codeph>data</codeph> может вызвать метод <codeph>invalidateProperties()</codeph>, если в ходе его выполнения возникает необходимость в обновлении элемента управления. Разработчик компонента должен предусмотреть метод <codeph>commitProperties()</codeph>, который обнаруживает изменение свойства <codeph>listData</codeph> и выполняет соответствующие действия. </p>
+ 
+  <p>Метод получателя возвращает текущее значение внутренней переменной, как показано в следующем примере:</p>
+  
+  <pre>
+    // Internal variable for the property value.
+    private var _listData:BaseListData;
+    
+    // Make the listData property bindable.
+    [Bindable("dataChange")]
+    
+    // Define the getter method.
+    public function get listData():BaseListData
+    {
+      return _listData;
+    }
+    
+    // Define the setter method,
+    public function set listData(value:BaseListData):void
+    {
+      _listData = value;
+    }
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#BaseListData"><linktext>mx.controls.listClasses.BaseListData</linktext></link><link href="mx.core.xml#IDataRenderer"><linktext>mx.core.IDataRenderer</linktext></link></related-links><apiValue id="mx.controls.listClasses:IDropInListItemRenderer:mx.controls.listClasses:IDropInListItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      Реализует свойство listData с помощью методов установщика и получателя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls.listClasses:BaseListData</apiValueClassifier></apiValueDef><apiDesc>
+      Реализует свойство <codeph>listData</codeph> с помощью методов установщика и получателя. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.listClasses:BaseListData"><apiName>BaseListData</apiName><shortdesc>
+  Класс TreeListData определяет тип данных свойства listData, реализуемого средствами визуализации или редакторами вставных элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс TreeListData определяет тип данных свойства <codeph>listData</codeph>, реализуемого средствами визуализации или редакторами вставных элементов. Все средства визуализации вставных элементов или редакторы вставных элементов должны реализовать интерфейс IDropInListItemRenderer, определяющий свойство <codeph>listData</codeph>.
+ 
+  <p>Свойство <codeph>listData</codeph> имеет тип BaseListData. Класс BaseListData содержит три подкласса: DataGridListData, ListData и TreeListData. Текущий тип данных значения свойства <codeph>listData</codeph> зависит от элемента управления, который использует средство визуализации или редактор вставных объектов. Для элемента управления DataGrid значение имеет тип DataGridListData, для элемента управления List – тип ListData, а для элемента управления Tree – тип TreeListData.</p>
+ 
+  <p>При использовании в качестве средства визуализации или редактора вставных элементов Flex устанавливает свойство <codeph>listData</codeph> равным производному от BaseListData классу, который содержит вычисленные данные об элементе в его источнике данных.</p>
+ 
+  <p>Несмотря на то что свойства этого класса могут быть перезаписаны, их необходимо рассматривать как доступные только для чтения. Они инициализируются классом списка и считываются средством визуализации или редактором элементов. Это может привести к непредвиденным результатам.</p>
+ 
+  <p>Свойства отмечены как связываемые, но фактически они не выполняют обнаружения изменений или отправку событий изменения. Свойства изменяются в целом путем установки нового значения для свойства <codeph>listData</codeph>. Событие <codeph>change</codeph> для видоизменения свойства <codeph>listData</codeph> обновляет все привязки.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.listClasses.xml#IDropInListItemRenderer"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.listClasses:BaseListData:BaseListData"><apiName>BaseListData</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiDesc>Текстовое представление данных элемента.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Уникальный идентификатор.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>Ссылка на элемент управления List.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Индекс строки из числа видимых в настоящий момент строк элемента управления.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Индекс столбца в видимых в настоящий момент столбцах элемента управления.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.listClasses:BaseListData:columnIndex"><apiName>columnIndex</apiName><shortdesc>
+      Индекс столбца элемента управления, основанного на списке, по отношению к видимым в данный момент столбцам элемента, где первый столбец имеет индекс 1.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс столбца элемента управления, основанного на списке, по отношению к видимым в данный момент столбцам элемента, где первый столбец имеет индекс 1. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:label"><apiName>label</apiName><shortdesc>
+      Текстовое представление данных элемента на основе метода класса списка itemToLabel().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Текстовое представление данных элемента на основе метода класса списка <codeph>itemToLabel()</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:owner"><apiName>owner</apiName><shortdesc>
+      Ссылка на объект списка, которому принадлежит данный элемент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.core:IUIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      Ссылка на объект списка, которому принадлежит данный элемент. Этот класс должен быть производным от ListBase. Данное свойство введено как IUIComponent, что делает необязательным наличие зависимостей по отношению к списку и всем зависимым от него объектам для вставных элементов (например, Label и TextInput).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:rowIndex"><apiName>rowIndex</apiName><shortdesc>
+      Индекс строки элементов управления DataGrid, List или Tree по отношению к видимым в настоящий момент строкам элемента управления, где индекс первой строки равен 1.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс строки элементов управления DataGrid, List или Tree по отношению к видимым в настоящий момент строкам элемента управления, где индекс первой строки равен 1. Например, пользователь щелкает строку в элементе управления, и свойство <codeph>rowIndex</codeph> устанавливается равным 3. Затем в элементе управления выполняется прокрутка для изменения позиции строки в видимой области элемента. Затем пользователь еще раз щелкает описанную строку. Свойство <codeph>rowIndex</codeph> теперь содержит другое значение, соответствующее новому индексу строки по отношению к видимым строкам.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.listClasses:BaseListData:uid:get"><apiName>uid</apiName><shortdesc>
+      Уникальный идентификатор для этого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Уникальный идентификатор для этого элемента.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.listClasses:IListItemRenderer"><apiName>IListItemRenderer</apiName><shortdesc>
+  Средства визуализации и редакторы элементов для компонентов списка должны реализовывать интерфейс IListItemRenderer.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Средства визуализации и редакторы элементов для компонентов списка должны реализовывать интерфейс IListItemRenderer. Интерфейс IListItemRenderer является набором других интерфейсов. Он не определяет новые методы или свойства класса. 
+ 
+  <p>В набор интерфейсов входят: IDataRenderer, IFlexDisplayObject, ILayoutManagerClient, ISimpleStyleClient, IUIComponent. Класс UIComponent реализует все эти интерфейсы, за исключением интерфейса IDataRenderer. Поэтому при создании пользовательского средства визуализации или редактора элементов как подкласса для класса UIComponent следует реализовать только интерфейс IDataRenderer. Затем можно добавить к определению класса, что класс реализует IDataRenderer и IListItemRenderer.</p>
+ 
+ <p>IListItemRenderers, как правило, используются для отображения определенного поля из элемента поставщика данных и не могут быть повторно использованы в других столбцах DataGrid или в других списках с разными полями. При создании средства визуализации, которое может быть повторно использовано, можно также реализовать IDropInListItemRenderer, и список передаст большее количество данных средству визуализации, что позволит повторно использовать средство визуализации с другими полями данных.</p>
+ 
+  <p>Средства визуализации и редакторы элементов являются данными, передаваемыми от поставщика данных класса списка с помощью интерфейса IDataRenderer. Средства визуализации и редакторы, реализующие интерфейс IDropInListItemRenderer, получают другую информацию из класса списка. Средство визуализации или редактор элементов использует один или оба набора информации для отображения данных.</p>
+ 
+  <p>Зачастую средства визуализации и редакторы используются повторно. С момента создания они могут использоваться повторно путем простого ввода новых данных и необязательного свойства <codeph>listData</codeph>. Поэтому при реализации следует убедиться, что свойства компонента не должны содержать начальные значения или значения по умолчанию.</p>
+  
+  </apiDesc></apiClassifierDetail></apiClassifier></apiPackage>

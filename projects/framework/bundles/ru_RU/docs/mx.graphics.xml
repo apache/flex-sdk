@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics"><apiName>mx.graphics</apiName><apiDetail/><apiClassifier id="mx.graphics:ImageSnapshot"><apiName>ImageSnapshot</apiName><shortdesc>
+  Вспомогательный класс, используемый для сохранения снимка любого компонента Flash, который реализует flash.display. IBitmapDrawable, включая UIComponents Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Вспомогательный класс, используемый для захвата снимка любого компонента Flash, который реализует <codeph>flash.display. IBitmapDrawable</codeph>, включая UIComponents Flex.
+ 
+  <p>Экземпляр этого класса может передаваться в LiveCycle Data Services как RemoteObject для генерации PDF-файла изображения на стороне клиента. При необходимости указания дополнительных свойств изображения наряду с его свойствами <codeph>contentType</codeph>, <codeph>width</codeph> и <codeph>height</codeph> следует определить пары имя/значение для объекта <codeph>properties</codeph>.</p>
+ 
+  <p>В более ранних версиях Flex эти дополнительные свойства устанавливались непосредственно в экземпляре ImageSnapshot. В целях обеспечения этого условия данный класс по-прежнему является динамическим, однако в будущих версиях Flex он может больше не быть динамическим.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics:ImageSnapshot:ImageSnapshot"><apiName>ImageSnapshot</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Ширина изображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Высота изображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>Байтовый массив, содержащий изображение.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>contentType</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Тип формата кодировщика для изображения: либо PNGEncoder, либо JPEGEncoder.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:ImageSnapshot:captureBitmapData"><apiName>captureBitmapData</apiName><shortdesc>
+      Служебный метод для захвата необработанного снимка компонента UI в виде BitmapData.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Объект BitmapData, представляющий захваченный снимок экрана, или null, если источник не имеет видимых границ.
+      
+      </apiDesc><apiType value="flash.display:BitmapData"/></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="flash.display:IBitmapDrawable"/><apiDesc>Объект, реализующий интерфейс <codeph>flash.display. IBitmapDrawable</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matrix</apiItemName><apiType value="flash.geom:Matrix"/><apiData>null</apiData><apiDesc>Объект Matrix, используемый для масштабирования, поворота и преобразования координат полученного растрового изображения. Если не требуется применять преобразование матрицы в изображение, задайте для этого параметра идентификационную матрицу, созданную с помощью конструктора new Matrix() по умолчанию, или передайте значение null.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorTransform</apiItemName><apiType value="flash.geom:ColorTransform"/><apiData>null</apiData><apiDesc>Объект ColorTransform, используемый для настройки значений цвета растрового изображения. Если объект не указан, цвета растрового изображения не преобразуются. Если вам необходимо передать этот параметр, но преобразовывать изображение не нужно, задайте для него объект ColorTransform, созданный с помощью конструктора new ColorTransform() по умолчанию.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>blendMode</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Строковое значение класса flash.display.BlendMode, задающее режим наложения, которые будет применен к полученному растровому изображению.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>clipRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>Объект Rectangle, определяющий для рисования область исходного объекта. Если это значение не задано, то обрезка не производится и исходный объект рисуется полностью.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>smoothing</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение Boolean, определяющее необходимость сглаживания объекта BitmapData при масштабировании.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Служебный метод для захвата необработанного снимка компонента UI в виде BitmapData.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:ImageSnapshot:captureImage"><apiName>captureImage</apiName><shortdesc>
+      Служебный метод для захвата снимка компонента, масштабируемого до определенного разрешения (dpi) и кодируемого в изображение определенного формата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ImageSnapshot содержит захваченный кодированный снимок и связанные метаданные изображения.
+      
+      </apiDesc><apiOperationClassifier>mx.graphics:ImageSnapshot</apiOperationClassifier></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="flash.display:IBitmapDrawable"/><apiDesc>Объект, реализующий интерфейс <codeph>flash.display. IBitmapDrawable</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dpi</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Разрешение в точках на дюйм. Если разрешение не определено, по умолчанию используется текущее разрешение экрана.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>encoder</apiItemName><apiOperationClassifier>mx.graphics.codec:IImageEncoder</apiOperationClassifier><apiData>null</apiData><apiDesc>Формат изображения, используемый для кодирования необработанного растрового изображения. Используются следующие два кодировщика: PNGEncoder и JPEGEncoder. Если кодировщик не определен, по умолчанию используется PNGEncoder.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleLimited</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Максимальная ширина или высота растрового изображения в приложении Flash составляет 2880 пикселей; если для scaleLimited установлено значение true, то разрешение пропорционально уменьшается таким образом, чтобы оно не выходило за пределы 2880 пикселей, в противном случае, если scaleLimited имеет значение false, крупное изображение захватывается из ряда окон меньшего размера. Значение по умолчанию равно true.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Служебный метод для захвата снимка компонента, масштабируемого до определенного разрешения (dpi) и кодируемого в изображение определенного формата.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:ImageSnapshot:encodeImageAsBase64"><apiName>encodeImageAsBase64</apiName><shortdesc>
+      Служебный метод для преобразования ImageSnapshot в строку в кодировке Base-64 для передачи в форматы сериализации на основе текста, например XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Строка, представляющая снимок в кодировке Base-64.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>snapshot</apiItemName><apiOperationClassifier>mx.graphics:ImageSnapshot</apiOperationClassifier><apiDesc>Изображение, захваченное как <codeph>mx.graphics.ImageSnapshot</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Служебный метод для преобразования ImageSnapshot в строку в кодировке Base-64 для передачи в форматы сериализации на основе текста, например XML.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.graphics.xml#ImageSnapshot/captureImage"><linktext>captureImage</linktext></link></related-links></apiOperation><apiValue id="mx.graphics:ImageSnapshot:MAX_BITMAP_DIMENSION"><apiName>MAX_BITMAP_DIMENSION</apiName><shortdesc>
+      Максимальная ширина и высота растрового изображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2880</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Максимальная ширина и высота растрового изображения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:defaultEncoder"><apiName>defaultEncoder</apiName><shortdesc>
+      Для захвата изображения используется реализация по умолчанию mx.graphics.codec. IImageEncoder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Class"/></apiValueDef><apiDesc>
+      Для захвата изображения используется реализация по умолчанию <codeph>mx.graphics.codec. IImageEncoder</codeph>. Используются следующие две реализации: PNGEncoder и JPEGEncoder. Кодировщик по умолчанию использует формат PNG.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:contentType:get"><apiName>contentType</apiName><shortdesc>
+      Тип содержимого MIME для формата кодировки изображения, который использовался для захвата этого снимка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Тип содержимого MIME для формата кодировки изображения, который использовался для захвата этого снимка. Для изображений в формате PNG используется тип MIME image/png. Для изображений в формате JPG или JPEG используется тип MIME image/jpeg
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:data:get"><apiName>data</apiName><shortdesc>
+      Кодированные данные, представляющие снимок изображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.utils:ByteArray"/></apiValueDef><apiDesc>
+      Кодированные данные, представляющие снимок изображения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:height:get"><apiName>height</apiName><shortdesc>
+      Высота изображения в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Высота изображения в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:properties:get"><apiName>properties</apiName><shortdesc>
+      Object, содержащий пары «имя/значение», которые указывают дополнительные свойства изображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>{}
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Object, содержащий пары «имя/значение», которые указывают дополнительные свойства изображения.
+     
+      <p>Как правило, такая информация предоставляется только в случае передачи экземпляра ImageSnapshot в LiveCycle Data Services Adobe в целях генерации файла PDF. Можно либо установить весь объект, либо задать отдельные пары «имя-значение» для существующего ранее пустого объекта.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:width:get"><apiName>width</apiName><shortdesc>
+     Ширина изображения в пикселях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+     Ширина изображения в пикселях.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:GradientStroke"><apiName>GradientStroke</apiName><shortdesc>
+  Класс GradientStroke позволяет определять штрих градиента заполнения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IStroke</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GradientStroke позволяет определять штрих градиента заполнения. Класс GradientStroke наряду с классом GradientEntry используется для определения обводки градиента.
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:GradientStroke:GradientStroke"><apiName>GradientStroke</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Указывает вес линии (в пикселях). Это дополнительный параметр, по умолчанию его значением является <codeph>1</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Логическое значение, определяющее, следует ли выполнять хинтинг штрихов до полных пикселей. Оно влияет на позицию привязок кривой и на размер штриха линии как таковой. Если для <codeph>pixelHinting</codeph> задано значение <codeph>true</codeph>, проигрыватель Flash Player и AIR доводят толщину линии до полного пикселя. Если для <codeph>pixelHinting</codeph> задано значение <codeph>false</codeph>, в кривых и прямых линиях могут возникать разрывы. Это дополнительный параметр, по умолчанию его значением является <codeph>false</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Значение класса LineScaleMode, задающее режим масштабирования. Возможны следующие значения: <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> и <codeph>LineScaleMode.VERTICAL</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>LineScaleMode.NORMAL</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Значение класса CapsStyle, задающее тип концов линии. Допустимые значения: <codeph>CapsStyle.NONE</codeph>, <codeph>CapsStyle.ROUND</codeph> и <codeph>CapsStyle.SQUARE</codeph>. Значение <codeph>null</codeph> эквивалентно <codeph>CapsStyle.ROUND</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>CapsStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Значение класса JointStyle, задающее тип стыка на углах. Допустимые значения: <codeph>JointStyle.BEVEL</codeph>, <codeph>JointStyle.MITER</codeph> и <codeph>JointStyle.ROUND</codeph>. Значение <codeph>null</codeph> эквивалентно <codeph>JointStyle.ROUND</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>JointStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>Число, указывающее предел усечения уголка. Допустимыми являются значения в диапазоне 1-255 (остальные значения округляются до 1 или 255). Это значение используется, только если для свойства <codeph>jointStyle</codeph> установлено значение <codeph>miter</codeph>. Значение <codeph>miterLimit</codeph> – это длина, до которой может продлеваться уголок после точки стыка. Значение выражает фактор <codeph>thickness</codeph> линии. Например, при факторе <codeph>miterLimit</codeph>, равном 2,5, и <codeph>thickness</codeph> в 10 пикселов длина уголка достигает 25 пикселов. Это дополнительный параметр, по умолчанию его значением является <codeph>3</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:GradientStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+	  Обеспечивает применение свойств к указанному объекту Graphics.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Объект Graphics, к которому должны применяться свойства.
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Границы фигуры, к которой была применена обводка. 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта.  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Обеспечивает применение свойств к указанному объекту Graphics.
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:GradientStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      
+      Создает объект GraphicsStroke, представляющий данную обводку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект рисования API-2 GraphicsStroke, представляющий данную обводку. 
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Ограничительная рамка обводки.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Создает объект GraphicsStroke, представляющий данную обводку. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:GradientStroke:caps:get"><apiName>caps</apiName><shortdesc>
+      Определяет внешний вид концов линий.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CapsStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет внешний вид концов линий.
+     
+      <p>Допустимые значения: <codeph>CapsStyle.NONE</codeph>, <codeph>CapsStyle.ROUND</codeph> и <codeph>CapsStyle.SQUARE</codeph>. Значение <codeph>null</codeph> эквивалентно <codeph>CapsStyle.ROUND</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.CapStyle.xml"><linktext>flash.display.CapStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      Значение класса JointStyle, задающее тип стыка на углах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>JointStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение класса JointStyle, задающее тип стыка на углах.
+     
+      <p>Допустимые значения: <codeph>JointStyle.BEVEL</codeph>, <codeph>JointStyle.MITER</codeph> и <codeph>JointStyle.ROUND</codeph>. Значение <codeph>null</codeph> эквивалентно <codeph>JointStyle.ROUND</codeph>.</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.JointStyle.xml"><linktext>flash.display.JointStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      Число, указывающее предел усечения уголка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число, указывающее предел усечения уголка. 
+     
+      <p>Допустимыми являются значения в диапазоне 1-255 (остальные значения округляются до 1 или 255). </p>
+     
+      <p>Это значение используется, только если для свойства <codeph>jointStyle</codeph> установлено значение <codeph>JointStyle.MITER</codeph>.</p>
+     
+      <p>Значение свойства <codeph>miterLimit</codeph> — это длина, до которой может продлеваться уголок после точки стыка. Значение выражает фактор <codeph>thickness</codeph> линии. Например, при факторе <codeph>miterLimit</codeph>, равном 2,5, и <codeph>thickness</codeph> в 10 пикселов длина уголка достигает 25 пикселов.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientStroke:pixelHinting:get"><apiName>pixelHinting</apiName><shortdesc>
+      Логическое значение, определяющее, следует ли выполнять хинтинг штрихов до полных пикселей.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Логическое значение, определяющее, следует ли выполнять хинтинг штрихов до полных пикселей.
+     
+      <p>Оно влияет на позицию привязок кривой и на размер штриха линии как таковой.</p>
+     
+      <p>Если для <codeph>pixelHinting</codeph> задано значение <codeph>true</codeph>, проигрыватель Flash Player и AIR доводят толщину линии до полного пикселя. Если для <codeph>pixelHinting</codeph> задано значение <codeph>false</codeph>, в кривых и прямых линиях могут возникать разрывы.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      Определяет используемый режим масштабирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет используемый режим масштабирования. Допустимые значения:
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph>? Всегда масштабировать толщину линии при масштабировании объекта (по умолчанию).
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph>? Никогда не масштабировать толщину линии.
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph>? Не масштабировать толщину линии, если объект масштабируется <i>только</i> по вертикали. 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph>? Не масштабировать толщину линии, если объект масштабируется <i>только</i> по горизонтали. 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.LineScaleMode.xml"><linktext>flash.display.LineScaleMode</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:weight:get"><apiName>weight</apiName><shortdesc>
+      Вес штриха (в пикселях).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Вес штриха (в пикселях).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:IFill"><apiName>IFill</apiName><shortdesc>
+  Определяет интерфейс, который должен реализовать классы, выполняющие заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Определяет интерфейс, который должен реализовать классы, выполняющие заполнение.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link></related-links><apiOperation id="mx.graphics:IFill:mx.graphics:IFill:begin"><apiName>begin</apiName><shortdesc>
+	  Начинает заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Заполняемый целевой объект Graphics.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Объект Rectangle, определяющий размер и области заполнения внутри объекта <codeph>target</codeph>. Если размеры объекта Rectangle превосходят размеры объекта <codeph>target</codeph>, заполнение отсекается. Если размеры объекта Rectangle меньше размеров <codeph>target</codeph>, заполнение расширяется для охвата всего объекта <codeph>target</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Начинает заполнение.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:IFill:mx.graphics:IFill:end"><apiName>end</apiName><shortdesc>
+	  Завершает заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Заполняемый объект Graphics. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Завершает заполнение.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.graphics:GradientEntry"><apiName>GradientEntry</apiName><shortdesc>
+  Класс GradientEntry определяет объекты, управляющие переходом как частью заливки градиента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:GradientEntry&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GradientEntry
+    <b>Properties</b>
+    alpha="1.0"
+    color="0x000000"
+    ratio="NaN"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GradientEntry определяет объекты, управляющие переходом как частью заливки градиента. Этот класс наряду с классами LinearGradient и RadialGradient используется для определения заливки градиента. 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link></related-links><apiConstructor id="mx.graphics:GradientEntry:GradientEntry"><apiName>GradientEntry</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Цвет для этой записи градиента. Значение по умолчанию – 0x000000 (черный).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ratio</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Область графического элемента, где связанный цвет представлен на 100 %. Flex однородно размещает любые GradientEntries с отсутствующими значениями пропорции. По умолчанию используется значение NaN.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Альфа-значение для этой записи в градиенте. Этот параметр является необязательным. По умолчанию используется значение 1.0.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:GradientEntry:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Прозрачность заливки градиента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Прозрачность заливки градиента. Возможные значения: от 0,0 (невидимый) до 1,0 (непрозрачный). 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientEntry:color:get"><apiName>color</apiName><shortdesc>
+      Значение цвета для заливки градиента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      Значение цвета для заливки градиента. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientEntry:ratio:get"><apiName>ratio</apiName><shortdesc>
+      Область графического элемента, где Flex определяет связанный цвет как представленный на 100 % (в процентах от 0,0 до 1,0).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Область графического элемента, где Flex определяет связанный цвет как представленный на 100 % (в процентах от 0,0 до 1,0). 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapFillMode"><apiName>BitmapFillMode</apiName><shortdesc>
+  Класс BitmapFillMode определяет перечисление режимов изменения размеров, описывающих, каким образом BitmapImage заполняет указанные в системе макета размеры.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс BitmapFillMode определяет перечисление режимов изменения размеров, описывающих, каким образом BitmapImage заполняет указанные в системе макета размеры.
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Image/fillMode"><linktext>spark.components.Image.fillMode</linktext></link><link href="" invalidHref="spark.primitives.xml#BitmapImage/fillMode"><linktext>spark.primitives.BitmapImage.fillMode</linktext></link></related-links><apiValue id="mx.graphics:BitmapFillMode:CLIP"><apiName>CLIP</apiName><shortdesc>
+      Растровое изображение заканчивается на границе области.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>clip</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Растровое изображение заканчивается на границе области.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFillMode:REPEAT"><apiName>REPEAT</apiName><shortdesc>
+      Растровое изображение для заполнения области.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>repeat</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Растровое изображение для заполнения области.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFillMode:SCALE"><apiName>SCALE</apiName><shortdesc>
+      Растровое изображение растягивается для заполнения области.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>scale</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Растровое изображение растягивается для заполнения области.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RadialGradient"><apiName>RadialGradient</apiName><shortdesc>
+  Класс RadialGradient позволяет указывать постепенный переход цвета в цвете заливки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RadialGradient&gt;</code> tag
+  inherits all the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:RadialGradient
+    <b>Properties</b>
+    angle="0"
+    focalPointRatio="0"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RadialGradient позволяет указывать постепенный переход цвета в цвете заливки. Радиальный градиент определяет узор заливки, исходящий из центра графического элемента. Серия объектов GradientEntry добавляется к массиву <codeph>entries</codeph> объекта RadialGradient в целях определения цветов, которые составляют градиентную заливку.
+  
+  <p>В MXML RadialGradient определяется путем добавления серии объектов GradientEntry, как показано в следующем примере:
+  <pre>
+  &lt;mx:fill>
+      &lt;mx:RadialGradient>
+          &lt;mx:entries>
+              &lt;mx:GradientEntry color="0xC5C551" ratio="0.00" alpha="0.5"/>
+              &lt;mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+              &lt;mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+          &lt;/mx:entries>
+      &lt;/mx:RadialGradient>
+  &lt;/mx:fill>
+  </pre>
+  </p>
+  
+  <p>Кроме того, можно определить RadialGradient в качестве заливки для любого графического элемента в ActionScript, как показано в следующем примере:
+  <pre>
+  
+  &lt;?xml version="1.0"?>
+  &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+      &lt;mx:Script>
+      import flash.display.Graphics;
+      import flash.geom.Rectangle;
+      import mx.graphics.GradientEntry;
+      import mx.graphics.RadialGradient;
+  
+      private function init():void
+      {
+          var w:Number = 200;
+          var h:Number = 200;
+  
+          var s:Sprite = new Sprite();
+          // Add the new Sprite to the display list.
+          rawChildren.addChild(s);    
+  
+          var g:Graphics = s.graphics;
+          g.lineStyle(1, 0x33CCFF, 1.0);
+  
+          var fill:RadialGradient = new RadialGradient();
+          
+          var g1:GradientEntry = new GradientEntry(0xFFCC66, 0.00, 0.5);
+          var g2:GradientEntry = new GradientEntry(0x000000, 0.33, 0.5);
+          var g3:GradientEntry = new GradientEntry(0x99FF33, 0.66, 0.5);
+          
+          fill.entries = [ g1, g2, g3 ];
+  
+          // Set focal point to upper left corner.
+          fill.angle = 45;
+          fill.focalPointRatio = -0.8;
+  
+          // Draw a box and fill it with the RadialGradient.
+          g.moveTo(0, 0);
+          fill.begin(g,new Rectangle(0, 0, w, h));
+          g.lineTo(w, 0);
+          g.lineTo(w, h);
+          g.lineTo(0, h);
+          g.lineTo(0, 0);      
+          fill.end(g);
+      }
+      &lt;/mx:Script>
+  &lt;/mx:Application>
+  </pre>  
+  </p>  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:RadialGradient:RadialGradient"><apiName>RadialGradient</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:RadialGradient:begin"><apiName>begin</apiName><shortdesc>
+      
+	  Начинает заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Заполняемый целевой объект Graphics.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Объект Rectangle, определяющий размер и области заполнения внутри объекта <codeph>target</codeph>. Если размеры объекта Rectangle превосходят размеры объекта <codeph>target</codeph>, заполнение отсекается. Если размеры объекта Rectangle меньше размеров <codeph>target</codeph>, заполнение расширяется для охвата всего объекта <codeph>target</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Начинает заполнение.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:RadialGradient:end"><apiName>end</apiName><shortdesc>
+      
+	  Завершает заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Заполняемый объект Graphics. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Завершает заполнение.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:RadialGradient:focalPointRatio:get"><apiName>focalPointRatio</apiName><shortdesc>
+      Устанавливает местоположение, из которого начинается радиальное заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Устанавливает местоположение, из которого начинается радиальное заполнение.
+     
+      <p>Допустимые значения: от <codeph>-1.0</codeph> до <codeph>1.0</codeph>. Значение <codeph>-1,0</codeph> устанавливает фокус (или, начало заливки градиента) слева от ограничивающего Rectangle. Значение <codeph>1,0</codeph> устанавливает фокус справа от ограничивающего Rectangle.
+      
+      <p>Если данное свойство используется совместно со свойством <codeph>angle</codeph>, это значение определяет местоположение фокуса относительно центра. Например, если угол равен 45, и <codeph>focalPointRatio</codeph> имеет значение 0,25, фокус находится немного нижнее и правее центра. Если для <codeph>focalPointRatio</codeph> установлено значение <codeph>0</codeph>, фокус находится в центре ограничивающего Rectangle.</p>
+      Если для <codeph>focalPointRatio</codeph> установлено значение <codeph>1</codeph>, фокус находится в нижнем правом углу ограничивающего Rectangle.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradient:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Горизонтальный масштаб градиента преобразования, который определяет ширину градиента (при отсутствии вращения).
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Горизонтальный масштаб градиента преобразования, который определяет ширину градиента (при отсутствии вращения).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradient:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      Вертикальный масштаб градиента преобразования, который определяет высоту градиента (при отсутствии вращения).
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Вертикальный масштаб градиента преобразования, который определяет высоту градиента (при отсутствии вращения).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:IStroke"><apiName>IStroke</apiName><shortdesc>
+  Определяет интерфейс, который используется для реализации классов, определяющих линию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Определяет интерфейс, который используется для реализации классов, определяющих линию.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.graphics:IStroke:mx.graphics:IStroke:apply"><apiName>apply</apiName><shortdesc>
+	  Обеспечивает применение свойств к указанному объекту Graphics.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Объект Graphics, к которому должны применяться свойства.
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Границы фигуры, к которой была применена обводка. 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта.  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Обеспечивает применение свойств к указанному объекту Graphics.
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:IStroke:mx.graphics:IStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      Создает объект GraphicsStroke, представляющий данную обводку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект рисования API-2 GraphicsStroke, представляющий данную обводку. 
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Ограничительная рамка обводки.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Создает объект GraphicsStroke, представляющий данную обводку. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      Определяет внешний вид пересечений линий в углах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Определяет внешний вид пересечений линий в углах. Допустимые значения: <codeph>JointStyle.ROUND</codeph>, <codeph>JointStyle.MITER</codeph> и <codeph>JointStyle.BEVEL</codeph>.
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.JoingStyle.xml"><linktext>flash.display.JoingStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      Указывает предел усечения уголка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает предел усечения уголка. Допустимыми являются значения от 0 до 255.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      Значение класса LineScaleMode, задающее режим масштабирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение класса LineScaleMode, задающее режим масштабирования. Допустимые значения:
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph>? Всегда масштабировать толщину линии при масштабировании объекта (по умолчанию).
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph>? Никогда не масштабировать толщину линии.
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph>? Не масштабировать толщину линии, если объект масштабируется <i>только</i> по вертикали. 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph>? Не масштабировать толщину линии, если объект масштабируется <i>только</i> по горизонтали. 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.LineScaleMode.xml"><linktext>flash.display.LineScaleMode</linktext></link></related-links></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:weight:get"><apiName>weight</apiName><shortdesc>
+	  Толщина линии (в пикселях).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Толщина линии (в пикселях). Для многих линий диаграмм значением по умолчанию является 1 пиксель.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapFill"><apiName>BitmapFill</apiName><shortdesc> 
+  Определяет ряд значений, используемых для заливки области на экране с помощью растрового изображения или другого DisplayObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  Определяет ряд значений, используемых для заливки области на экране с помощью растрового изображения или другого DisplayObject.
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link><link href="" invalidHref="flash.display.Bitmap.xml"><linktext>flash.display.Bitmap</linktext></link><link href="" invalidHref="flash.display.BitmapData.xml"><linktext>flash.display.BitmapData</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="mx.graphics:BitmapFill:BitmapFill"><apiName>BitmapFill</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:BitmapFill:protected:compoundTransform"><apiName>compoundTransform</apiName><shortdesc>
+      Содержит матрицу и свойства преобразования (x, y и rotation).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.geom:CompoundTransform</apiValueClassifier></apiValueDef><apiDesc>
+      Содержит матрицу и свойства преобразования (<codeph>x</codeph>, <codeph>y</codeph> и <codeph>rotation</codeph>). compoundTransform создается только в том случае, если установлено свойство <codeph>matrix</codeph>. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Прозрачность заливки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0. 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Прозрачность заливки. Возможные значения: от 0,0 (невидимый) до 1,0 (непрозрачный). 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:fillMode:get"><apiName>fillMode</apiName><shortdesc>
+      Определяет, каким образом растровое изображение заполняет область определенного размера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapFillMode.SCALE&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, каким образом растровое изображение заполняет область определенного размера. При установке значения этого свойства в теге необходимо использовать строку (например, repeat). Если установлено значение этого свойства в ActionScript, то необходимо использовать константу (например, <codeph>BitmapFillMode.CLIP</codeph>). Если установлено значение <codeph>BitmapFillMode.CLIP</codeph> ("clip"), то растровое изображение ограничивается пределами области. Если установлено значение <codeph>BitmapFillMode.REPEAT</codeph> ("repeat"), то растровое изображение копируется для заполнения области. Если установлено значение <codeph>BitmapFillMode.SCALE</codeph> ("scale"), растровое изображение растягивается для заполнения области.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:matrix:get"><apiName>matrix</apiName><shortdesc>
+      Массив значений, используемых для матричных преобразований.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/></apiValueDef><apiDesc>
+      Массив значений, используемых для матричных преобразований.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:offsetX:get"><apiName>offsetX</apiName><shortdesc>
+      Величина горизонтального смещения растрового изображения от точки основы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue><apiDeprecated replacement="x" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Величина горизонтального смещения растрового изображения от точки основы. Эта настройка выполняется после вращения и масштабирования.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:offsetY:get"><apiName>offsetY</apiName><shortdesc>
+      Величина вертикального смещения растрового изображения от точки основы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue><apiDeprecated replacement="y" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Величина вертикального смещения растрового изображения от точки основы. Эта настройка выполняется после вращения и масштабирования.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:originX:get"><apiName>originX</apiName><shortdesc>
+      Точка основы для растровой заливки по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0 
+      
+      </apiDefaultValue><apiDeprecated replacement="transformX" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Точка основы для растровой заливки по горизонтали. Растровая заливка смещается таким образом, что эта точка совпадает с точкой основы. Масштабирование и вращение растрового изображения выполняется вокруг этой точки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:originY:get"><apiName>originY</apiName><shortdesc>
+      Точка основы для растровой заливки по вертикали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0 
+      
+      </apiDefaultValue><apiDeprecated replacement="transformY" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Точка основы для растровой заливки по вертикали. Растровая заливка смещается таким образом, что эта точка совпадает с точкой основы. Масштабирование и вращение растрового изображения выполняется вокруг этой точки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:repeat:get"><apiName>repeat</apiName><shortdesc>
+      Необходимость повторения растрового изображения для заливки области.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue><apiDeprecated replacement="fillMode" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      Необходимость повторения растрового изображения для заливки области. Если установлено значение <codeph>true</codeph>, выполняется мозаичная заливка с выходом за пределы области. Если установлено значение <codeph>false</codeph>, заливка ограничивается пределами области.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:rotation:get"><apiName>rotation</apiName><shortdesc>
+      Число градусов, определяющее угол вращения растрового изображения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число градусов, определяющее угол вращения растрового изображения. Допустимыми являются значения от 0,0 до 360,0.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Процентное значение для горизонтального масштабирования растрового изображения при заливке; принимает значения от 0,0 до 1,0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Процентное значение для горизонтального масштабирования растрового изображения при заливке; принимает значения от 0,0 до 1,0. Если значение равно 1,0, выполняется заливка растрового изображения в его естественном размере.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      Процентное значение для вертикального масштабирования растрового изображения при заливке; принимает значения от 0,0 до 1,0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Процентное значение для вертикального масштабирования растрового изображения при заливке; принимает значения от 0,0 до 1,0. Если значение равно 1,0, выполняется заливка растрового изображения в его естественном размере.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:smooth:get"><apiName>smooth</apiName><shortdesc>
+      Флаг, определяющий необходимость сглаживания растровых данных в процессе заливки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, определяющий необходимость сглаживания растровых данных в процессе заливки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:source:get"><apiName>source</apiName><shortdesc>
+      Источник, используемый для растровой заливки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Источник, используемый для растровой заливки. Заливка может выполняться на основе различных графических источников, включая следующие. 
+      <ul>
+       <li>Растровое изображение или экземпляр BitmapData.</li>
+       <li>Класс, представляющий подкласс DisplayObject. BitmapFill реализует класс и выполняет его растровую визуализацию.</li>
+       <li>Экземпляр DisplayObject. BitmapFill копирует его в растровое изображение для заливки.</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:transformX:get"><apiName>transformX</apiName><shortdesc>
+      Положение точки преобразования заливки по оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Положение точки преобразования заливки по оси x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:transformY:get"><apiName>transformY</apiName><shortdesc>
+      Положение точки преобразования заливки по оси у.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Положение точки преобразования заливки по оси у.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:x:get"><apiName>x</apiName><shortdesc>
+      Расстояние, на которое перемещается каждая точка вдоль оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Расстояние, на которое перемещается каждая точка вдоль оси x.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:y:get"><apiName>y</apiName><shortdesc>
+      Расстояние, на которое перемещается каждая точка вдоль оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Расстояние, на которое перемещается каждая точка вдоль оси y.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:LinearGradient"><apiName>LinearGradient</apiName><shortdesc>
+  Класс LinearGradient позволяет указывать заливку графического элемента, где градиент определяет постепенный переход цветов заливки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:LinearGradient&gt;</code> tag
+  inherits all the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:LinearGradient
+    <b>Properties</b>
+    angle="0"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс LinearGradient позволяет указывать заливку графического элемента, где градиент определяет постепенный переход цветов заливки. Серия объектов GradientEntry добавляется к массиву <codeph>entries</codeph> объекта LinearGradient в целях определения цветов, которые составляют заливку градиента.
+  
+  <p>В MXML LinearGradient определяется путем добавления серии объектов GradientEntry, как показано в следующем примере:
+  <pre>
+  &lt;mx:fill>
+  	&lt;mx:LinearGradient>
+  		&lt;mx:entries>
+  			&lt;mx:GradientEntry color="0xC5C551" ratio="0.00" alpha="0.5"/>
+  			&lt;mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+  			&lt;mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+  		&lt;/mx:entries>
+  	&lt;/mx:LinearGradient>
+  &lt;/mx:fill>
+  </pre>
+  </p>
+  
+  <p>Кроме того, можно определить LinearGradient в качестве заливки для любого графического элемента в ActionScript, как показано в следующем примере:
+  <pre>
+  
+  &lt;?xml version="1.0"?>
+  &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+  	&lt;mx:Script>
+  	import flash.display.Graphics;
+  	import flash.geom.Rectangle;
+  	import mx.graphics.GradientEntry;
+  	import mx.graphics.LinearGradient;
+  
+  	private function init():void
+      {
+  		var w:Number = 200;
+  		var h:Number = 200;
+  
+  		var s:Sprite = new Sprite();
+  		// Add the new Sprite to the display list.
+  		rawChildren.addChild(s);	
+  
+  		var g:Graphics = s.graphics;
+  		g.lineStyle(1, 0x33CCFF, 1.0);
+  
+  		var fill:LinearGradient = new LinearGradient();
+  		
+  		var g1:GradientEntry = new GradientEntry(0xFFCC66, 0.00, 0.5);
+  		var g2:GradientEntry = new GradientEntry(0x000000, 0.33, 0.5);
+  		var g3:GradientEntry = new GradientEntry(0x99FF33, 0.66, 0.5);
+    		
+   		fill.entries = [ g1, g2, g3 ];
+  		fill.angle = 240;
+  
+   		// Draw a box and fill it with the LinearGradient.
+  		g.moveTo(0, 0);
+  		fill.begin(g, new Rectangle(0, 0, w, h));
+  		g.lineTo(w, 0);
+  		g.lineTo(w, h);
+  		g.lineTo(0, h);
+  		g.lineTo(0, 0);		
+  		fill.end(g);
+  	}
+  	&lt;/mx:Script>
+  &lt;/mx:Application>
+  </pre>  
+  </p>  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:LinearGradient:LinearGradient"><apiName>LinearGradient</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:LinearGradient:begin"><apiName>begin</apiName><shortdesc>
+	  
+	  Начинает заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Заполняемый целевой объект Graphics.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Объект Rectangle, определяющий размер и области заполнения внутри объекта <codeph>target</codeph>. Если размеры объекта Rectangle превосходят размеры объекта <codeph>target</codeph>, заполнение отсекается. Если размеры объекта Rectangle меньше размеров <codeph>target</codeph>, заполнение расширяется для охвата всего объекта <codeph>target</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  Начинает заполнение.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:LinearGradient:end"><apiName>end</apiName><shortdesc>
+	  
+	  Завершает заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Заполняемый объект Graphics. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  Завершает заполнение.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:LinearGradient:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Горизонтальный масштаб градиента преобразования, который определяет ширину градиента (при отсутствии вращения).
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Горизонтальный масштаб градиента преобразования, который определяет ширину градиента (при отсутствии вращения).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+  Для создания теней обычно используется класс DropShadowFilter.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Для создания теней обычно используется класс DropShadowFilter. Однако использование DropShadowFilter, как и всех других растровых фильтров, приводит к большим объемам вычислений. Применение DropShadowFilter к DisplayObject предполагает повторное вычисление тени при каждом изменении внешнего вида объекта. В случае применения анимации к объекту DisplayObject (например, при использовании эффекта Resize) использование теней оказывает негативное влияние на частоту обновления анимации.
+ 
+  <p>Этот класс позволяет оптимизировать использование теней в общих случаях. Если тень применяется к прямоугольному объекту, грани которого попадают на границы пикселей, вместо непосредственного вызова фильтра DropShadowFilter используется этот класс.</p>
+ 
+  <p>Этот класс принимает первые четыре параметра, передаваемые в фильтр DropShadowFilter: <codeph>alpha</codeph>, <codeph>angle</codeph>, <codeph>color</codeph> и <codeph>distance</codeph>. Кроме того, этот класс принимает радиусы угла для каждого из четырех углов прямоугольного объекта, для которого выполняется преобразование тени.</p>
+ 
+  <p>После установки этих 8 значений указанный класс выполняет предварительное вычисление тени в виде растрового изображения за пределами экрана. При вызове метода <codeph>drawShadow()</codeph> фрагменты предварительно вычисленной тени копируются в передаваемый объект Graphics.</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.DropShadowFilter.xml"><linktext>flash.filters.DropShadowFilter</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="mx.graphics:RectangularDropShadow:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:RectangularDropShadow:drawShadow"><apiName>drawShadow</apiName><shortdesc>
+      Отображает тень на экране.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Объект Graphics, для которого отображается тень.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Горизонтальное смещение тени на основе позиции объекта Graphics.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Вертикальное смещение тени на основе позиции объекта Graphics.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Ширина тени в пикселях.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Высота тени в пикселях.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Отображает тень на экране. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:RectangularDropShadow:alpha:get"><apiName>alpha</apiName><shortdesc conref="flash.filters.DropShadowFilter#alpha">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#alpha">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:angle:get"><apiName>angle</apiName><shortdesc conref="flash.filters.DropShadowFilter#angle">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#angle">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blRadius:get"><apiName>blRadius</apiName><shortdesc>
+      Радиус нижнего левого закругленного угла прямоугольника, для которого выполняется преобразование тени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Радиус нижнего левого закругленного угла прямоугольника, для которого выполняется преобразование тени. Может быть нулем для прямоугольников с незакругленными углами.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blurX:get"><apiName>blurX</apiName><shortdesc>
+      Степень размытия по горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Степень размытия по горизонтали.
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blurY:get"><apiName>blurY</apiName><shortdesc>
+      Степень размытия по вертикали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Степень размытия по вертикали.
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:brRadius:get"><apiName>brRadius</apiName><shortdesc>
+      Радиус нижнего правого закругленного угла прямоугольника, для которого выполняется преобразование тени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Радиус нижнего правого закругленного угла прямоугольника, для которого выполняется преобразование тени. Может быть нулем для прямоугольников с незакругленными углами.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:color:get"><apiName>color</apiName><shortdesc conref="flash.filters.DropShadowFilter#color">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#color">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:distance:get"><apiName>distance</apiName><shortdesc conref="flash.filters.DropShadowFilter#distance">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#distance">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:tlRadius:get"><apiName>tlRadius</apiName><shortdesc>
+      Радиус верхнего левого закругленного угла прямоугольника, для которого выполняется преобразование тени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Радиус верхнего левого закругленного угла прямоугольника, для которого выполняется преобразование тени. Может быть нулем для прямоугольников с незакругленными углами.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:trRadius:get"><apiName>trRadius</apiName><shortdesc>
+      Радиус верхнего правого закругленного угла прямоугольника, для которого выполняется преобразование тени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Радиус верхнего правого закругленного угла прямоугольника, для которого выполняется преобразование тени. Может быть нулем для прямоугольников с незакругленными углами.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:SolidColor"><apiName>SolidColor</apiName><shortdesc> 
+  Определяет представление для цвета, включая значение цвета и значение альфа-множителя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="color"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  Определяет представление для цвета, включая значение цвета и значение альфа-множителя. 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:SolidColor:SolidColor"><apiName>SolidColor</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Указывает цвет. Значение по умолчанию – 0x000000 (черный).
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Указывает уровень прозрачности. Допустимые значения находятся в диапазоне от 0,0 (полностью прозрачный) до 1,0 (полностью непрозрачный). По умолчанию используется значение 1.0.
+ 	  
+ 	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Конструктор.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:SolidColor:begin"><apiName>begin</apiName><shortdesc>
+	  
+	  Начинает заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Заполняемый целевой объект Graphics.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Объект Rectangle, определяющий размер и области заполнения внутри объекта <codeph>target</codeph>. Если размеры объекта Rectangle превосходят размеры объекта <codeph>target</codeph>, заполнение отсекается. Если размеры объекта Rectangle меньше размеров <codeph>target</codeph>, заполнение расширяется для охвата всего объекта <codeph>target</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  Начинает заполнение.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:SolidColor:end"><apiName>end</apiName><shortdesc>
+	  
+	  Завершает заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Заполняемый объект Graphics. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  Завершает заполнение.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:SolidColor:alpha:get"><apiName>alpha</apiName><shortdesc>
+	  Прозрачность цвета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  Прозрачность цвета. Возможные значения: от 0,0 (невидимый) до 1,0 (непрозрачный). 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColor:color:get"><apiName>color</apiName><shortdesc>
+	  Значение цвета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+	  Значение цвета. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RadialGradientStroke"><apiName>RadialGradientStroke</apiName><shortdesc>
+  Класс RadialGradientStroke позволяет определять штрих градиента заполнения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.graphics:GradientStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RadialGradientStroke позволяет определять штрих градиента заполнения. Класс RadialGradientStroke наряду с классом GradientEntry используется для определения обводки градиента.
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:RadialGradientStroke:RadialGradientStroke"><apiName>RadialGradientStroke</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Указывает вес линии (в пикселях). Это дополнительный параметр, по умолчанию его значением является <codeph>1</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Логическое значение, определяющее, следует ли выполнять хинтинг штрихов до полных пикселей. Оно влияет на позицию привязок кривой и на размер штриха линии как таковой. Если для <codeph>pixelHinting</codeph> задано значение <codeph>true</codeph>, проигрыватель Flash Player и AIR доводят толщину линии до полного пикселя. Если для <codeph>pixelHinting</codeph> задано значение <codeph>false</codeph>, в кривых и прямых линиях могут возникать разрывы. Это дополнительный параметр, по умолчанию его значением является <codeph>false</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Значение класса LineScaleMode, задающее режим масштабирования. Возможны следующие значения: <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> и <codeph>LineScaleMode.VERTICAL</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>LineScaleMode.NORMAL</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Значение класса CapsStyle, задающее тип концов линии. Допустимые значения: <codeph>CapsStyle.NONE</codeph>, <codeph>CapsStyle.ROUND</codeph> и <codeph>CapsStyle.SQUARE</codeph>. Значение <codeph>null</codeph> эквивалентно <codeph>CapsStyle.ROUND</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>CapsStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Значение класса JointStyle, задающее тип стыка на углах. Допустимые значения: <codeph>JointStyle.BEVEL</codeph>, <codeph>JointStyle.MITER</codeph> и <codeph>JointStyle.ROUND</codeph>. Значение <codeph>null</codeph> эквивалентно <codeph>JointStyle.ROUND</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>JointStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>Число, указывающее предел усечения уголка. Допустимыми являются значения в диапазоне 1-255 (остальные значения округляются до 1 или 255). Это значение используется, только если для свойства <codeph>jointStyle</codeph> установлено значение <codeph>miter</codeph>. Значение <codeph>miterLimit</codeph> – это длина, до которой может продлеваться уголок после точки стыка. Значение выражает фактор <codeph>thickness</codeph> линии. Например, при факторе <codeph>miterLimit</codeph>, равном 2,5, и <codeph>thickness</codeph> в 10 пикселов длина уголка достигает 25 пикселов. Это дополнительный параметр, по умолчанию его значением является <codeph>3</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:RadialGradientStroke:focalPointRatio:get"><apiName>focalPointRatio</apiName><shortdesc>
+      Устанавливает местоположение, из которого начинается радиальное заполнение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Устанавливает местоположение, из которого начинается радиальное заполнение.
+     
+      <p>Допустимые значения: от <codeph>-1.0</codeph> до <codeph>1.0</codeph>. Значение <codeph>-1,0</codeph> устанавливает фокус (или, начало заливки градиента) слева от ограничивающего Rectangle. Значение <codeph>1,0</codeph> устанавливает фокус справа от ограничивающего Rectangle.
+      
+      <p>Если данное свойство используется совместно со свойством <codeph>angle</codeph>, это значение определяет местоположение фокуса относительно центра. Например, если угол равен 45, и <codeph>focalPointRatio</codeph> имеет значение 0,25, фокус находится немного нижнее и правее центра. Если для <codeph>focalPointRatio</codeph> установлено значение <codeph>0</codeph>, фокус находится в центре ограничивающего Rectangle.</p>
+      Если для <codeph>focalPointRatio</codeph> установлено значение <codeph>1</codeph>, фокус находится в нижнем правом углу ограничивающего Rectangle.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradientStroke:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Горизонтальный масштаб градиента преобразования, который определяет ширину градиента (при отсутствии вращения).
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Горизонтальный масштаб градиента преобразования, который определяет ширину градиента (при отсутствии вращения).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradientStroke:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      Вертикальный масштаб градиента преобразования, который определяет высоту градиента (при отсутствии вращения).
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Вертикальный масштаб градиента преобразования, который определяет высоту градиента (при отсутствии вращения).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:LinearGradientStroke"><apiName>LinearGradientStroke</apiName><shortdesc>
+  Класс LinearGradientStroke позволяет определять штрих градиента заполнения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.graphics:GradientStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс LinearGradientStroke позволяет определять штрих градиента заполнения. Класс LinearGradientStroke наряду с классом GradientEntry используется для определения обводки градиента.
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:LinearGradientStroke:LinearGradientStroke"><apiName>LinearGradientStroke</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Указывает вес линии (в пикселях). Это дополнительный параметр, по умолчанию его значением является <codeph>1</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Логическое значение, определяющее, следует ли выполнять хинтинг штрихов до полных пикселей. Оно влияет на позицию привязок кривой и на размер штриха линии как таковой. Если для <codeph>pixelHinting</codeph> задано значение <codeph>true</codeph>, проигрыватель Flash Player и AIR доводят толщину линии до полного пикселя. Если для <codeph>pixelHinting</codeph> задано значение <codeph>false</codeph>, в кривых и прямых линиях могут возникать разрывы. Это дополнительный параметр, по умолчанию его значением является <codeph>false</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Значение класса LineScaleMode, задающее режим масштабирования. Возможны следующие значения: <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> и <codeph>LineScaleMode.VERTICAL</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>LineScaleMode.NONE</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Значение класса CapsStyle, задающее тип концов линии. Допустимые значения: <codeph>CapsStyle.NONE</codeph>, <codeph>CapsStyle.ROUND</codeph> и <codeph>CapsStyle.SQUARE</codeph>. Значение <codeph>null</codeph> эквивалентно <codeph>CapsStyle.ROUND</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>CapsStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Значение класса JointStyle, задающее тип стыка на углах. Допустимые значения: <codeph>JointStyle.BEVEL</codeph>, <codeph>JointStyle.MITER</codeph> и <codeph>JointStyle.ROUND</codeph>. Значение <codeph>null</codeph> эквивалентно <codeph>JointStyle.ROUND</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>JointStyle.ROUND</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>Число, указывающее предел усечения уголка. Допустимыми являются значения в диапазоне 1-255 (остальные значения округляются до 1 или 255). Это значение используется, только если для свойства <codeph>jointStyle</codeph> установлено значение <codeph>miter</codeph>. Значение <codeph>miterLimit</codeph> – это длина, до которой может продлеваться уголок после точки стыка. Значение выражает фактор <codeph>thickness</codeph> линии. Например, при факторе <codeph>miterLimit</codeph>, равном 2,5, и <codeph>thickness</codeph> в 10 пикселов длина уголка достигает 25 пикселов. Это дополнительный параметр, по умолчанию его значением является <codeph>3</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:LinearGradientStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  Обеспечивает применение свойств к указанному объекту Graphics.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Объект Graphics, к которому должны применяться свойства.
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Границы фигуры, к которой была применена обводка. 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта.  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  Обеспечивает применение свойств к указанному объекту Graphics.
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:LinearGradientStroke:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Горизонтальный масштаб градиента преобразования, который определяет ширину градиента (при отсутствии вращения).
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Горизонтальный масштаб градиента преобразования, который определяет ширину градиента (при отсутствии вращения).
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:SolidColorStroke"><apiName>SolidColorStroke</apiName><shortdesc>
+  Класс SolidColorStroke определяет свойства линии.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SolidColorStroke&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SolidColorStroke
+    <b>Properties</b>
+    alpha="1.0"
+    caps="round|none|square"
+    color="0x000000"
+    joints="round|bevel|miter"
+    miterLimit="3"
+    pixelHinting="false|true"
+    scaleMode="normal|none|horizontal|vertical"
+    weight="1 (<i>in most cases</i>)"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IStroke</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SolidColorStroke определяет свойства линии. Можно определить объект SolidColorStroke в MXML, однако для его использования в приложении следует присоединить объект SolidColorStroke к другому объекту. В следующем примере определяются два объекта SolidColorStroke, которые используются средством horizontalAxisRenderer элемента управления LineChart:
+  
+  <pre>
+  ...
+  &lt;mx:SolidColorStroke id="ticks" color="0xFF0000" weight="1"/>
+  &lt;mx:SolidColorStroke id="mticks" color="0x0000FF" weight="1"/>
+  
+  &lt;mx:LineChart id="mychart" dataProvider="{ndxa}">
+      &lt;mx:horizontalAxisRenderer>
+          &lt;mx:AxisRenderer placement="bottom" canDropLabels="true">
+              &lt;mx:tickStroke>{ticks}&lt;/mx:tickStroke>
+              &lt;mx:minorTickStroke>{mticks}&lt;/mx:minorTickStroke>
+          &lt;/mx:AxisRenderer>
+      &lt;/mx:horizontalAxisRenderer>
+  &lt;/LineChart>
+  ...
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:SolidColorStroke:SolidColorStroke"><apiName>SolidColorStroke</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Указывает цвет линии. Значение по умолчанию – 0x000000 (черный).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Указывает вес линии (в пикселях). Значением по умолчанию является 1.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Указывает значение альфа-канала в диапазоне от 0,0 до 1,0. Значение по умолчанию: 1,0 (непрозрачно).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, следует ли выполнять хинтинг до полных пикселей. Это значение влияет на позицию привязок кривой и на размер штриха линии как таковой. Значение по умолчанию false.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Значение класса LineScaleMode, задающее режим масштабирования. Возможны следующие значения: <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> и <codeph>LineScaleMode.VERTICAL</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>LineScaleMode.NORMAL</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Указывает тип концов линии. Допустимые значения: <codeph>CapsStyle.ROUND</codeph>, <codeph>CapsStyle.SQUARE</codeph> и <codeph>CapsStyle.NONE</codeph>. Значением по умолчанию является <codeph>CapsStyle.ROUND</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>Задает тип стыка на углах. Допустимые значения: <codeph>JointStyle.ROUND</codeph>, <codeph>JointStyle.MITER</codeph> и <codeph>JointStyle.BEVEL</codeph>. Значением по умолчанию является <codeph>JointStyle.ROUND</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>Указывает предел усечения уголка. Допустимыми являются значения от 1 до 255. По умолчанию используется значение 3.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:SolidColorStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+	  Обеспечивает применение свойств к указанному объекту Graphics.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Объект Graphics, к которому должны применяться свойства.
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Границы фигуры, к которой была применена обводка. 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта.  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  Обеспечивает применение свойств к указанному объекту Graphics.
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:SolidColorStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      
+      Создает объект GraphicsStroke, представляющий данную обводку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект рисования API-2 GraphicsStroke, представляющий данную обводку. 
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>Ограничительная рамка обводки.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Точка, определяющая начало координат(0,0) фигуры в системе координат целевого объекта. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Создает объект GraphicsStroke, представляющий данную обводку. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:SolidColorStroke:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Прозрачность линии.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0. 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Прозрачность линии. Возможные значения: от 0,0 (невидимый) до 1,0 (непрозрачный). 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:caps:get"><apiName>caps</apiName><shortdesc>
+      Указывает тип концов линии.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CapsStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает тип концов линии. Допустимые значения: <codeph>CapsStyle.ROUND</codeph>, <codeph>CapsStyle.SQUARE</codeph> и <codeph>CapsStyle.NONE</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:color:get"><apiName>color</apiName><shortdesc>
+      Цвет линии</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000 (black). 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Цвет линии 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      Задает тип стыка на углах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>JointStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Задает тип стыка на углах. Допустимые значения: <codeph>JointStyle.ROUND</codeph>, <codeph>JointStyle.MITER</codeph> и <codeph>JointStyle.BEVEL</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      Указывает предел усечения уголка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает предел усечения уголка. Допустимыми являются значения от 1 до 255.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:pixelHinting:get"><apiName>pixelHinting</apiName><shortdesc>
+      Указывает, следует ли выполнять хинтинг до полных пикселей.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, следует ли выполнять хинтинг до полных пикселей. Это значение влияет на позицию привязок кривой и на размер штриха линии как таковой.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      Значение класса LineScaleMode, задающее режим масштабирования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение класса LineScaleMode, задающее режим масштабирования. Допустимые значения:
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph>? Всегда масштабировать толщину линии при масштабировании объекта (по умолчанию).
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph>? Никогда не масштабировать толщину линии.
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph>? Не масштабировать толщину линии, если объект масштабируется <i>только</i> по вертикали. 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph>? Не масштабировать толщину линии, если объект масштабируется <i>только</i> по горизонтали. 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:weight:get"><apiName>weight</apiName><shortdesc>
+      Толщина линии (в пикселях).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Толщина линии (в пикселях). Для многих диаграмм значением по умолчанию является 1 пиксель.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:GradientBase"><apiName>GradientBase</apiName><shortdesc>
+  Класс GradientBase является базовым для классов LinearGradient, LinearGradientStroke и RadialGradient.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GradientBase является базовым для классов LinearGradient, LinearGradientStroke и RadialGradient.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics:GradientBase:GradientBase"><apiName>GradientBase</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:GradientBase:GRADIENT_DIMENSION"><apiName>GRADIENT_DIMENSION</apiName><shortdesc>
+      Значения ширины и высоты непреобразованного градиента
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1638.4</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Значения ширины и высоты непреобразованного градиента
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:protected:compoundTransform"><apiName>compoundTransform</apiName><shortdesc>
+      Содержит матрицу и свойства преобразования (x, y и rotation).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.geom:CompoundTransform</apiValueClassifier></apiValueDef><apiDesc>
+      Содержит матрицу и свойства преобразования (<codeph>x</codeph>, <codeph>y</codeph> и <codeph>rotation</codeph>). compoundTransform создается только в том случае, если установлено свойство <codeph>matrix</codeph>. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:angle:get"><apiName>angle</apiName><shortdesc>
+      По умолчанию класс LinearGradientStroke определяет переход слева направо в пределах элемента управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue><apiDeprecated replacement="rotation"/></apiValueDef><apiDesc>
+      По умолчанию класс LinearGradientStroke определяет переход слева направо в пределах элемента управления. Свойство <codeph>angle</codeph> используется для управления направлением перехода. Например, значение 180.0 вызывает переход справа налево, а не слева направо.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:entries:get"><apiName>entries</apiName><shortdesc>
+      Массив объектов GradientEntry, определяющий узор градиентной заливки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Массив объектов GradientEntry, определяющий узор градиентной заливки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:interpolationMethod:get"><apiName>interpolationMethod</apiName><shortdesc>
+      Значение класса InterpolationMethod, определяющее используемый метод интерполяции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>InterpolationMethod.RGB
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение класса InterpolationMethod, определяющее используемый метод интерполяции.
+     
+      <p>Допустимыми значениями являются: <codeph>InterpolationMethod. LINEAR_RGB</codeph> и <codeph>InterpolationMethod. RGB</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:matrix:get"><apiName>matrix</apiName><shortdesc>
+      Массив значений, используемых для матричных преобразований.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Массив значений, используемых для матричных преобразований.
+     
+      <p>Свойства градиента <codeph>scaleX</codeph> и <codeph>scaleY</codeph>представляют собой пиксели, в то время как свойства масштабирования матрицы являются множителями. Таким образом, они не совместимы. Другим отличием является то, что большая часть свойств преобразования (<codeph>x</codeph>, <codeph>y</codeph>, <codeph>scaleX</codeph> и <codeph>scaleY</codeph>) поддерживают значения NaN, в то время как матрица их не поддерживает. Значение NaN означает, что градиент выберет соответствующее значение.</p>
+      
+      <p>Свойства <codeph>scaleX</codeph> и <codeph>scaleY</codeph> свойства не могут быть представлены матрицей. Как только матрица установлена, свойства <codeph>scaleX</codeph> и <codeph>scaleY</codeph> сбрасываются. Кроме того, <codeph>x</codeph> и <codeph>y</codeph> невозможно установить на значение NaN. Матрицу можно обратно установить на значение null, при этом будут сброшены все свойства преобразования на свои значения по умолчанию.</p>
+      
+      <p>Если матрица установлена, то логика рисования градиента будет масштабировать градиент в соответствии с границами графического элемента. Градиент будет позиционироваться в верхнем левом углу графического элемента. В завершение применяются преобразования матрицы.</p>
+    
+      <p>По умолчанию класс LinearGradientStroke определяет переход слева направо в пределах элемента управления. Свойство <codeph>rotation</codeph> используется для управления направлением перехода. Например, значение 180.0 вызывает переход справа налево, а не слева направо.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:rotation:get"><apiName>rotation</apiName><shortdesc>
+      По умолчанию класс LinearGradientStroke определяет переход слева направо в пределах элемента управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      По умолчанию класс LinearGradientStroke определяет переход слева направо в пределах элемента управления. Свойство <codeph>rotation</codeph> используется для управления направлением перехода. Например, значение 180.0 вызывает переход справа налево, а не слева направо.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:spreadMethod:get"><apiName>spreadMethod</apiName><shortdesc>
+      Значение класса SpreadMethod, указывающее метод нанесения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SpreadMethod.PAD
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение класса SpreadMethod, указывающее метод нанесения.
+     
+      <p>Допустимыми значениями являются: <codeph>SpreadMethod.PAD</codeph>, <codeph>SpreadMethod.REFLECT</codeph> и <codeph>SpreadMethod.REPEAT</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:x:get"><apiName>x</apiName><shortdesc>
+      Расстояние, на которое перемещается каждая точка вдоль оси x.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Расстояние, на которое перемещается каждая точка вдоль оси x.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:y:get"><apiName>y</apiName><shortdesc>
+      Расстояние, на которое перемещается каждая точка вдоль оси y.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Расстояние, на которое перемещается каждая точка вдоль оси y.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapScaleMode"><apiName>BitmapScaleMode</apiName><shortdesc>
+  Класс BitmapScaleMode определяет перечисление режимов масштаба, описывающих, каким образом BitmapImage масштабирует содержимое изображения, если для fillMode установлено значение mx.graphics.BitmapFillMode.SCALE.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс BitmapScaleMode определяет перечисление режимов масштаба, описывающих, каким образом BitmapImage масштабирует содержимое изображения, если для <codeph>fillMode</codeph> установлено значение <codeph>mx.graphics.BitmapFillMode.SCALE</codeph>.
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Image/scaleMode"><linktext>spark.components.Image.scaleMode</linktext></link><link href="" invalidHref="spark.primitives.xml#BitmapImage/scaleMode"><linktext>spark.primitives.BitmapImage.scaleMode</linktext></link></related-links><apiValue id="mx.graphics:BitmapScaleMode:LETTERBOX"><apiName>LETTERBOX</apiName><shortdesc>
+      Растровая заливка масштабируется с сохранением пропорций исходного содержимого.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>letterbox</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Растровая заливка масштабируется с сохранением пропорций исходного содержимого.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapScaleMode:STRETCH"><apiName>STRETCH</apiName><shortdesc>
+      Растровое изображение растягивается для заполнения области.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>stretch</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Растровое изображение растягивается для заполнения области.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapScaleMode:ZOOM"><apiName>ZOOM</apiName><shortdesc>
+      Растровая заливка масштабируется и обрезается с сохранением пропорций исходного содержимого и без растяжения по вертикали или горизонтали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>zoom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Растровая заливка масштабируется и обрезается с сохранением пропорций исходного содержимого и без растяжения по вертикали или горизонтали.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapSmoothingQuality"><apiName>BitmapSmoothingQuality</apiName><shortdesc>
+  Перечисление режимов качества сглаживания, которые определяют, как BitmapImage будет масштабировать содержимое изображения, когда fillMode имеет значение BitmapFillMode.SCALE и для smooth установлено значение true.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Перечисление режимов качества сглаживания, которые определяют, как BitmapImage будет масштабировать содержимое изображения, когда fillMode имеет значение BitmapFillMode.SCALE и для <codeph>smooth</codeph> установлено значение true.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.graphics:BitmapSmoothingQuality:DEFAULT"><apiName>DEFAULT</apiName><shortdesc>
+      Алгоритм сглаживания по умолчанию используется при масштабировании, согласованном с качеством рабочей области (stage.quality).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>default</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Алгоритм сглаживания по умолчанию используется при масштабировании, согласованном с качеством рабочей области (stage.quality).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapSmoothingQuality:HIGH"><apiName>HIGH</apiName><shortdesc>
+      При масштабировании используется алгоритм сглаживания высокого качества.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>high</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      При масштабировании используется алгоритм сглаживания высокого качества. Используется, когда требуется масштабирование с более высоким качеством (с понижением разрешения). Эта функция обеспечивает лучшие результаты, когда изображение масштабируется с учетом размера, равного пропорциям исходного изображения, и используется при создании эскизов высокого качества. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:Stroke"><apiName>Stroke</apiName><shortdesc>
+  Класс Stroke определяет свойства линии.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Stroke&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Stroke
+    <b>Properties</b>
+    alpha="1.0"
+    caps="null|none|round|square"
+    color="0x000000"
+    joints="null|bevel|miter|round"
+    miterLimit="1"
+    pixelHinting="false|true"
+    scaleMode="normal|none|horizontal|vertical"
+    weight="1 (<i>in most cases</i>)"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="SolidColorStroke" sinceVersion="4.0"/><apiBaseClassifier>mx.graphics:SolidColorStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Stroke определяет свойства линии. Можно определить объект Stroke в MXML, однако для его использования в приложении следует присоединить этот объект Stroke к другому объекту. В следующем примере определяются два объекта Stroke, которые используются средством horizontalAxisRenderer элемента управления LineChart:
+  
+  <pre>
+  ...
+  &lt;mx:Stroke id="ticks" color="0xFF0000" weight="1"/>
+  &lt;mx:Stroke id="mticks" color="0x0000FF" weight="1"/>
+  
+  &lt;mx:LineChart id="mychart" dataProvider="{ndxa}">
+      &lt;mx:horizontalAxisRenderer>
+          &lt;mx:AxisRenderer placement="bottom" canDropLabels="true">
+              &lt;mx:tickStroke>{ticks}&lt;/mx:tickStroke>
+              &lt;mx:minorTickStroke>{mticks}&lt;/mx:minorTickStroke>
+          &lt;/mx:AxisRenderer>
+      &lt;/mx:horizontalAxisRenderer>
+  &lt;/LineChart>
+  ...
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:Stroke:Stroke"><apiName>Stroke</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>Указывает цвет линии. Значение по умолчанию – 0x000000 (черный).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Указывает вес линии (в пикселях). Значением по умолчанию является 0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>Указывает значение альфа-канала в диапазоне от 0,0 до 1,0. Значение по умолчанию: 1,0 (непрозрачно).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, следует ли выполнять хинтинг до полных пикселей. Это значение влияет на позицию привязок кривой и на размер штриха линии как таковой. Значение по умолчанию false.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>Значение класса LineScaleMode, задающее режим масштабирования. Возможны следующие значения: <codeph>LineScaleMode.HORIZONTAL</codeph>, <codeph>LineScaleMode.NONE</codeph>, <codeph>LineScaleMode.NORMAL</codeph> и <codeph>LineScaleMode.VERTICAL</codeph>. Это дополнительный параметр, по умолчанию его значением является <codeph>LineScaleMode.NORMAL</codeph>. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Указывает тип концов линии. Допустимыми значениями являются: <codeph>round</codeph>, <codeph>square</codeph> и <codeph>none</codeph>. По умолчанию используется <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Задает тип стыка на углах. Допустимыми значениями являются: <codeph>round</codeph>, <codeph>miter</codeph> и <codeph>bevel</codeph>. По умолчанию используется <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>Указывает предел усечения уголка. Допустимыми являются значения от 1 до 255. Значением по умолчанию является 1.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.utils"><apiName>spark.utils</apiName><apiDetail/><apiClassifier id="spark.utils:TextFlowUtil"><apiName>TextFlowUtil</apiName><shortdesc>
+  TextFlowUtil ist eine Dienstklasse, die Methoden für das Importieren eines TextFlow von einer Markup-Sprache (und Exportieren eines TextFlow in eine Markup-Sprache) bietet, die vom Text Layout Framework verwendet wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TextFlowUtil ist eine Dienstklasse, die Methoden für das Importieren eines TextFlow von einer Markup-Sprache (und Exportieren eines TextFlow in eine Markup-Sprache) bietet, die vom Text Layout Framework verwendet wird.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.utils:TextFlowUtil:export"><apiName>export</apiName><shortdesc>
+      Exportiert einen TextFlow in Form von XML in die vom Text Layout Framework verwendete Markup-Sprache.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>XML, die die Markup-Sprache des Text Layout Framework enthält.
+      
+      </apiDesc><apiType value="XML"/></apiReturn><apiParam><apiItemName>textFlow</apiItemName><apiType value="flashx.textLayout.elements:TextFlow"/><apiDesc>Der in die Markup-Sprache des Text Layout Framework zu exportierende TextFlow.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Exportiert einen TextFlow in Form von XML in die vom Text Layout Framework verwendete Markup-Sprache.
+     
+      <p>Das Stamm-Tag der exportierten XML lautet:
+      <pre>
+      &lt;TextFlow xmlns="http://ns.adobe.com/textLayout/2008" ...>
+      </pre>
+      </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.utils:TextFlowUtil:importFromString"><apiName>importFromString</apiName><shortdesc>
+      Erstellt einen TextFlow durch Importieren (d. h. Parsen) eines Strings, der die vom Text Layout Framework verwendete Markup-Sprache enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Eine aus dem Markup erstellte neue TextFlow-Instanz.
+      
+      </apiDesc><apiType value="flashx.textLayout.elements:TextFlow"/></apiReturn><apiParam><apiItemName>markup</apiItemName><apiType value="String"/><apiDesc>Der zu importierende Markup-String.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>whiteSpaceCollapse</apiItemName><apiType value="String"/><apiData>collapse</apiData><apiDesc>Ein String, der angibt, ob im Markup Leerstellen reduziert oder beibehalten werden sollen. Mögliche Werte sind <codeph>WhiteSpaceCollapse.COLLAPSE</codeph> und <codeph>WhiteSpaceCollapse.PRESERVE</codeph> in der flashx.textLayout.formats.WhiteSpaceCollapse-Klasse. Der Standardwert ist <codeph>WhiteSpaceCollapse.COLLAPSE</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Erstellt einen TextFlow durch Importieren (d. h. Parsen) eines Strings, der die vom Text Layout Framework verwendete Markup-Sprache enthält.
+      
+      <p>Beispiel eines Markup-Strings:
+      <pre>
+      "&lt;TextFlow xmlns='http://ns.adobe.com/textLayout/2008'>
+      <p><ph>Hello, </ph><ph fontWeight="bold">World!</ph></p>&lt;/TextFlow>"
+      </pre>
+      </p>
+     
+      <p>Sie können jedoch eine noch komprimiertere Markup-Sprache verwenden, wie etwa:
+      <pre>"Hello, <ph fontWeight="bold">World!</ph>"</pre>. Er wird im entsprechenden Namespace von einem TextFlow-Tag eingeschlossen. Span- und Paragraph-Tags werden zur Einhaltung der Struktur eines TextFlow bei Bedarf automatisch eingefügt.</p>
+     
+      <p>Wenn Sie das TextFlow-Tag selbst festlegen, muss es sich im korrekten XML-Namespace für Text Layout Framework-Laufzeit-Markup befinden. Dieser lautet: <codeph>"http://ns.adobe.com/textLayout/2008"</codeph>.</p>
+     
+      <p>Ein falsches Markup führt dazu, dass diese Methode verschiedene Ausnahmen ausgibt. Die Fehlermeldung enthält Informationen dazu, warum kein Parsing möglich war.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.utils:TextFlowUtil:importFromXML"><apiName>importFromXML</apiName><shortdesc>
+      Erstellt einen TextFlow durch Importieren (Parsen) von XML, das die vom Text Layout Framework verwendete Markup-Sprache enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Eine aus dem Markup erstellte neue TextFlow-Instanz.
+      
+      </apiDesc><apiType value="flashx.textLayout.elements:TextFlow"/></apiReturn><apiParam><apiItemName>markup</apiItemName><apiType value="XML"/><apiDesc>Die zu importierende Markup-XML.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>whiteSpaceCollapse</apiItemName><apiType value="String"/><apiData>collapse</apiData><apiDesc>Ein String, der angibt, ob im Markup Leerstellen reduziert oder beibehalten werden sollen. Mögliche Werte sind <codeph>WhiteSpaceCollapse.COLLAPSE</codeph> und <codeph>WhiteSpaceCollapse.PRESERVE</codeph> in der flashx.textLayout.formats.WhiteSpaceCollapse-Klasse. Der Standardwert ist <codeph>WhiteSpaceCollapse.COLLAPSE</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Erstellt einen TextFlow durch Importieren (Parsen) von XML, das die vom Text Layout Framework verwendete Markup-Sprache enthält.
+      
+      <p>Beispiel für Markup-XML:
+      <pre>
+      &lt;TextFlow xmlns='http://ns.adobe.com/textLayout/2008'>
+        <p><ph>Hello, </ph><ph fontWeight="bold">World!</ph></p>
+      &lt;/TextFlow>
+      </pre>
+      </p>
+     
+      <p>Sie können auch eine noch komprimiertere Markup-Sprache verwenden, wie etwa die folgende:
+      <pre>
+      "Hello, &lt;span fontWeight='bold'>World!&lt;/span>"
+      </pre>
+      Der Parser schließt das Markup in ein <codeph>&lt;TextFlow></codeph>-Tag im korrekten Namespace ein. Der Parser fügt außerdem &lt;span>- und &lt;paragraph>-Tags ein, wo dies zur Einhaltung der Struktur von TextFlow-Objekten erforderlich ist.</p>
+     
+      <p>Wenn Sie das TextFlow-Tag selbst festlegen, muss es sich im korrekten XML-Namespace für Text Layout Framework-Laufzeit-Markup befinden. Dieser lautet: <codeph>"http://ns.adobe.com/textLayout/2008"</codeph>.</p>
+     
+      <p>Ein falsches Markup führt dazu, dass diese Methode verschiedene Ausnahmen ausgibt. Die Fehlermeldung enthält Informationen dazu, warum kein Parsing möglich war.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.utils:LabelUtil"><apiName>LabelUtil</apiName><shortdesc>
+  Mithilfe der LabelUtil-Klasse bestimmen Komponenten den richtigen, auf ihren Renderern oder untergeordneten Elementen anzuzeigenden Text.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Mithilfe der LabelUtil-Klasse bestimmen Komponenten den richtigen, auf ihren Renderern oder untergeordneten Elementen anzuzeigenden Text. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.utils:LabelUtil:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      Eine Funktion, mit deren Hilfe Komponenten, die Elementrenderer unterstützen, den richtigen, vom Elementrenderer eines Datenelements anzuzeigenden Text bestimmen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Eine Stringdarstellung für das Datenelement 
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Das Datenelement. Null-Elemente geben den leeren String zurück. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>labelField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Das Feld im Datenelement, das zurückzugeben ist. Wenn labelField auf einen leeren String ("") festgelegt wurde, stellt kein Feld im Datenelement Beschriftung dar.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>labelFunction</apiItemName><apiType value="Function"/><apiData>null</apiData><apiDesc>Eine Funktion, die das Datenelement als einzelnen Parameter übernimmt und einen String zurückgibt. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Eine Funktion, mit deren Hilfe Komponenten, die Elementrenderer unterstützen, den richtigen, vom Elementrenderer eines Datenelements anzuzeigenden Text bestimmen. Wenn kein <codeph>labelField</codeph>- oder <codeph>labelFunction</codeph>-Parameter festgelegt ist, wird die <codeph>toString()</codeph>-Methode des Datenelements aufgerufen, die eine Darstellung des Datenelements als String zurückgibt.
+      
+      <p>Die <codeph>labelFunction</codeph>-Eigenschaft verweist auf eine Funktion. Die Funktion empfängt ein einzelnes Argument, nämlich das Element im Datenprovider, und gibt einen String zurück:</p>
+      <pre>
+      myLabelFunction(item:Object):String</pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.utils:BitmapUtil"><apiName>BitmapUtil</apiName><shortdesc>
+  Diese Klasse stellt bitmapbezogene Dienstfunktionen bereit. 
+  
+  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Diese Klasse stellt bitmapbezogene Dienstfunktionen bereit. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.utils:BitmapUtil:getSnapshotWithPadding"><apiName>getSnapshotWithPadding</apiName><shortdesc>
+      Erstellt eine BitmapData-Darstellung des Zielobjekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>Das <codeph>target</codeph>-Objekt und alle seine untergeordneten Objekte stammen nicht aus derselben Domäne wie der Aufrufer oder befinden sich nicht in einem Inhalt, auf den der Aufrufer per Aufruf der <codeph>Security.allowDomain()</codeph>-Methode zugreifen kann.
+           </apiDesc><apiItemName>SecurityError</apiItemName><apiOperationClassifier>SecurityError</apiOperationClassifier></apiException><apiReturn><apiDesc>Ein BitmapData-Objekt, das das Bild enthält.
+           </apiDesc><apiType value="flash.display:BitmapData"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>Das in den resultierenden BitmapData zu erfassende Objekt
+     
+      </apiDesc></apiParam><apiParam><apiItemName>padding</apiItemName><apiType value="int"/><apiData>4</apiData><apiDesc>Auffüllung in Pixel um Ziel, das in die Bitmap aufgenommen werden soll.
+           </apiDesc></apiParam><apiParam><apiItemName>propagateColorTransform</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Wenn „true“, wird die Farbtransformation des Ziels auf den Bitmaperfassungsvorgang angewendet. 
+       
+      </apiDesc></apiParam><apiParam><apiItemName>bounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>Falls nicht null, wird dieses Rechteck mit den sichtbaren Grenzen des Objekts im Verhältnis zum Objekt selbst gefüllt.
+        
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Erstellt eine BitmapData-Darstellung des Zielobjekts.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.utils:BitmapUtil:getSnapshot"><apiName>getSnapshot</apiName><shortdesc>
+      Erstellt eine BitmapData-Darstellung des Zielobjekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>Das <codeph>target</codeph>-Objekt und alle seine untergeordneten Objekte stammen nicht aus derselben Domäne wie der Aufrufer oder befinden sich nicht in einem Inhalt, auf den der Aufrufer per Aufruf der <codeph>Security.allowDomain()</codeph>-Methode zugreifen kann.
+           </apiDesc><apiItemName>SecurityError</apiItemName><apiOperationClassifier>SecurityError</apiOperationClassifier></apiException><apiReturn><apiDesc>Ein BitmapData-Objekt, das das Bild enthält.
+           </apiDesc><apiType value="flash.display:BitmapData"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>Das in den resultierenden BitmapData zu erfassende Objekt  
+      </apiDesc></apiParam><apiParam><apiItemName>visibleBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>Falls nicht null, wird dieses Rechteck mit den sichtbaren Grenzen des Objekts im Verhältnis zum Objekt selbst gefüllt.   
+      </apiDesc></apiParam><apiParam><apiItemName>propagateColorTransform</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Wenn „true“, wird die Farbtransformation des Ziels auf den Bitmaperfassungsvorgang angewendet. 
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Erstellt eine BitmapData-Darstellung des Zielobjekts.
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.utils:DataItem"><apiName>DataItem</apiName><shortdesc>
+  Die DataItem-Klasse stellt ein dynamisches Objekt mit bindbaren Eigenschaften dar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>mx.utils:ObjectProxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DataItem-Klasse stellt ein dynamisches Objekt mit bindbaren Eigenschaften dar. Dies bedeutet, dass der Flex-Datenbindungsmechanismus erkennt, wenn sich Eigenschaften eines DataItem während der Laufzeit ändern. Beispiel: Ein Spark-DataGrid-Elementrenderer greift auf Datenbindung für eine Eigenschaft der Elemente im Datenprovider des Steuerelements zurück. Aufgrund der Datenbindung aktualisiert der Elementrenderer automatisch, wenn sich die Eigenschaft während der Laufzeit ändert.
+ 
+  <p>Diese Klasse ist für die Verwendung in MXML vorgesehen, um Objektliterale zu definieren, deren Eigenschaften bindbar sein müssen. Sie wird für gewöhnlich verwendet, um die Datenprovider-Elemente List oder DataGrid in einer MXML-Datei für kleine Anwendungen oder Beispiele mit Elementrenderern zu definieren, die an ihre Daten gebunden sind. Nichttriviale Anwendungen oder Anwendungen, bei denen Leistung eine große Rolle spielt, müssen eine <codeph>[bindbare]</codeph> Klasse mit einem festen Satz stark typisierter Eigenschaften definieren und diese Klasse zum Definieren von Datenproviderelementen verwenden.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.utils:DataItem:DataItem"><apiName>DataItem</apiName><shortdesc>
+      Konstruktor
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.utils:MultiDPIBitmapSource"><apiName>MultiDPIBitmapSource</apiName><shortdesc>
+  Diese Klasse stellt eine Liste mit Bitmaps für verschiedene Laufzeitdichten bereit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Diese Klasse stellt eine Liste mit Bitmaps für verschiedene Laufzeitdichten bereit. Sie wird als Quelle für BitmapImage oder Image und als Symbol einer Schaltfläche bereitgestellt. Die Komponenten verwenden für die Auswahl des anzuzeigenden Bilds die Application.runtimeDPI.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.utils:MultiDPIBitmapSource:getSource"><apiName>getSource</apiName><shortdesc>
+      Wählt basierend auf der gegebenen DPI eine der sourceXXXdpi-Eigenschaften.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Eine der sourceXXXdpi-Eigenschaften basierend auf der gewünschten DPI.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>desiredDPI</apiItemName><apiType value="Number"/><apiDesc>gewünschte DPI.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wählt basierend auf der gegebenen DPI eine der sourceXXXdpi-Eigenschaften. Diese Funktion verarbeitet das Fallback auf verschiedene sourceXXXdpi-Eigenschaften, wenn die angegebene „null“ ist. Die Strategie ist, die nächsthöhere Eigenschaft zu wählen, wenn sie nicht „null“ ist; anschließend wird eine niedrigere Eigenschaft zurückgegeben, wenn sie nicht „null“ ist; zum Schluss wird nur „null“ zurückzugeben.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.utils:MultiDPIBitmapSource:source160dpi"><apiName>source160dpi</apiName><shortdesc>
+      Die zu verwendende Quelle, wenn die Application.runtimeDPI „DPIClassification.DPI_160“ lautet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Die zu verwendende Quelle, wenn die <codeph>Application.runtimeDPI</codeph> <codeph>DPIClassification.DPI_160</codeph> lautet.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.utils:MultiDPIBitmapSource:source240dpi"><apiName>source240dpi</apiName><shortdesc>
+      Die zu verwendende Quelle, wenn die Application.runtimeDPI „DPIClassification.DPI_240“ lautet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Die zu verwendende Quelle, wenn die <codeph>Application.runtimeDPI</codeph> <codeph>DPIClassification.DPI_240</codeph> lautet.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.utils:MultiDPIBitmapSource:source320dpi"><apiName>source320dpi</apiName><shortdesc>
+      Die zu verwendende Quelle, wenn die Application.runtimeDPI „DPIClassification.DPI_320“ lautet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.6"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Die zu verwendende Quelle, wenn die <codeph>Application.runtimeDPI</codeph> <codeph>DPIClassification.DPI_320</codeph> lautet.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

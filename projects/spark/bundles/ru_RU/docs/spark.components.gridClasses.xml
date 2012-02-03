@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.gridClasses"><apiName>spark.components.gridClasses</apiName><apiDetail/><apiClassifier id="spark.components.gridClasses:GridColumn"><apiName>GridColumn</apiName><shortdesc>
+  Класс GridColumn определяет столбец элемента управления сетки Spark, например Spark DataGrid или Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:GridColumn&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:GridColumn
+    <strong>Properties</strong>
+    dataField="null"
+    dataTipField="null"
+    dataTipFormatter="null"
+    dataTipFunction="null"
+    editable="true"
+    formatter="null"
+    headerRenderer="null"
+    headerText="<i>value of dataField</i>"
+    imeMode="null"
+    itemEditor="null"
+    itemRenderer="null"
+    itemRendererFunction="null"
+    labelFunction="null"
+    maxWidth="NaN"
+    minWidth="20"
+    rendererIsEditable="false"
+    resizeable="true"
+    showDataTips="undefined"
+    sortable="true"
+    sortCompareFunction="null"
+    sortDescending="false"
+    visible="true"
+    width="NaN"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GridColumn определяет столбец элемента управления сетки Spark, например Spark DataGrid или Grid. Каждый элемент поставщика данных для элемента управления соответствует одной строке сетки. Класс GridColumn указывает поле элемента поставщика данных, значение которого должно отобразиться в столбце. Он также указывает средство визуализации элементов, используемое для отображения этого значения, редактор элементов, используемый для изменения значения, и другие свойства столбца.
+   </apiDesc><example conref="GridColumnExample.mxml"><swfblock conref="examples/GridColumnExample.swf"/></example><example conref="GridColumnVisibilityExample.mxml"><swfblock conref="examples/GridColumnVisibilityExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridColumn:GridColumn"><apiName>GridColumn</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Исходное значение свойств <codeph>dataField</codeph> и <codeph>headerText</codeph>. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridColumn:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      Преобразование указанного элемента поставщика данных в зависящую от столбца строку datatip.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Зависящая от столбца строка для указанного элемента поставщика данных или <codeph>ERROR_TEXT</codeph>.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Значение <codeph>grid.dataProvider.getItemAt(rowIndex)</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразование указанного элемента поставщика данных в зависящую от столбца строку datatip. 
+     
+      <p>Этот метод использует значения <codeph>dataTipField</codeph> и <codeph>dataTipFunction</codeph>. Если для свойств указано значение null, он использует соответствующие свойства из связанного элемента управления сетки. Если для свойства <codeph>dataTipField</codeph> также указано значение null в элементе управления сетки, то следует использовать свойство <codeph>dataField</codeph>.</p>
+     
+      <p>Если значение <codeph>dataTipFunction</codeph> и <codeph>dataTipFormatter</codeph> равно null, то значение этого метода аналогично <codeph>item[dataTipField].toString()</codeph>. Если указан <codeph>dataTipFormatter</codeph>, значение этого метода аналогично <codeph>dataTipFormatter.format(item[dataTipField])</codeph>. Если при обработке <codeph>dataField</codeph> элемента возникает ошибка, возвращается <codeph>ERROR_TEXT</codeph>.</p>
+     
+      <p>Если свойства <codeph>item</codeph> и <codeph>dataTipFunction</codeph> имеют ненулевое значение, то этот метод возвращает <codeph>dataTipFunction(item, this)</codeph>, где вторым аргументом является GridColumn.</p> 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridColumn:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      Преобразование указанного элемента поставщика данных в зависящую от столбца строку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Зависящая от столбца строка для указанного элемента dataProvider или ERROR_TEXT.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Значение <codeph>grid.dataProvider.getItemAt(rowIndex)</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразование указанного элемента поставщика данных в зависящую от столбца строку. Этот метод используется для инициализации свойства <codeph>label</codeph> средства визуализации элементов.
+     
+      <p>Если для <codeph>labelFunction</codeph> указано значение null и <codeph>dataField</codeph> является строкой, не содержащей символы сепаратора имени поля, и форматтер - null, тогда этот метод эквивалентен:</p>
+           <pre>item[dataField].toString()</pre>   
+     
+      <p>Если форматтер был указан, то значение этого метода:</p>
+     
+      <pre>formatter.format(item[dataField])</pre>
+           <p>Если <codeph>dataField</codeph> представлен отдельным путем ".", то этот метод выполняет поиск каждого последовательного элемента пути. Например, если <codeph>="foo.bar.baz"</codeph>, этот метод возвращает строку на основе значения <codeph>item.foo.bar.baz</codeph>. Если при обработке <codeph>dataField</codeph> элемента возникает ошибка, возвращается ERROR_TEXT.</p>
+     
+      <p>Если <codeph>item</codeph> и <codeph>labelFunction</codeph> не являются null, то этот метод возвращает <codeph>labelFunction(item, this)</codeph>, где вторым аргументом является этот GridColumn.</p> 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridColumn:itemToRenderer"><apiName>itemToRenderer</apiName><shortdesc>
+      Преобразование указанного элемента поставщика данных в зависящую от столбца фабрику средства визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Зависящая от столбца фабрика средства визуализации для указанного элемента dataProvider.
+     
+      </apiDesc><apiType value="mx.core:IFactory"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Значение <codeph>grid.dataProvider.getItemAt(rowIndex)</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразование указанного элемента поставщика данных в зависящую от столбца фабрику средства визуализации элементов. По умолчанию этот метод вызывает <codeph>itemRendererFunction</codeph>, если его значение не null, в противном случае он возвращает значение свойства <codeph>itemRenderer</codeph> столбца.
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridColumn:ERROR_TEXT"><apiName>ERROR_TEXT</apiName><shortdesc>
+      Возвращаемое значение метода itemToLabel() или itemToDataTip(), если не удается обработать соответствующее имя (путь) свойства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Возвращаемое значение метода <codeph>itemToLabel()</codeph> или <codeph>itemToDataTip()</codeph>, если не удается обработать соответствующее имя (путь) свойства. Значение этой константы - строка с одиночным пробелом: <codeph>" "</codeph>.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      Позиция этого столбца в списке столбцов сетки или -1, если сетка этого столбца - null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Позиция этого столбца в списке столбцов сетки или -1, если сетка этого столбца - null.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataField:get"><apiName>dataField</apiName><shortdesc>
+      Имя поля или свойства элемента поставщика данных, связанного со столбцом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Имя поля или свойства элемента поставщика данных, связанного со столбцом. Данное свойство или свойство <codeph>labelFunction</codeph> необходимо установить для каждого GridColumn, чтобы вычислить отображаемый текст для средства визуализации элементов. Если установлено значение свойств <codeph>dataField</codeph> и <codeph>labelFunction</codeph>, данные отображаются с помощью <codeph>labelFunction</codeph> и сортируются с применением <codeph>dataField</codeph>.   
+           <p>Это значение данного свойства не обязательно является строкой, отображаемой в заголовке столбца. Это свойство используется только для получения доступа к данным в поставщике данных. Дополнительную информацию см. в описании свойства <codeph>headerText</codeph>.</p>
+     
+      <p>Если в столбце или его сетке указано свойство <codeph>labelFunction</codeph>, то dataField не используется.</p>
+          
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/labelFunction"><linktext>labelFunction</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      Имя поля в поставщике данных для отображения в качестве всплывающей подсказки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Имя поля в поставщике данных для отображения в качестве всплывающей подсказки. Если для <codeph>showDataTips</codeph> указано значение <codeph>true</codeph>, то связанный элемент управления сетки по умолчанию выполняет поиск свойства с именем <codeph>label</codeph> в каждом элементе поставщика данных и отображает его. Однако если поставщик данных не содержит свойство <codeph>label</codeph>, можно установить свойство <codeph>dataTipField</codeph> для определения другого имени свойства. Например, если пользователь просматривает группу имен лиц, извлеченных из базы данных, может быть установлено значение FullName.
+           <p><codeph>GridColumn.dataTipField</codeph> имеет приоритет над этим свойством.</p>
+     
+      <p>Если в столбце или его сетке указано значение для свойства <codeph>dataTipFunction</codeph>, то свойство <codeph>dataTipField</codeph> игнорируется.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/dataTipFunction"><linktext>dataTipFunction</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipFormatter:get"><apiName>dataTipFormatter</apiName><shortdesc>
+      Указывает средство форматирования, используемое методом столбца itemToDataTip() для преобразования элементов поставщика данных в строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFormatterChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.formatters:IFormatter"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает средство форматирования, используемое методом столбца <codeph>itemToDataTip()</codeph> для преобразования элементов поставщика данных в строки.
+     
+      <p>Если <codeph>styleParent</codeph> средства форматирования не указан, он устанавливается как сетка столбца и средство форматирования наследует стиль <codeph>locale</codeph> сетки.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/formatter"><linktext>Средство форматирования</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      Определяет функцию обратного вызова, выполняемую в каждом элементе поставщика данных для определения всплывающей подсказки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет функцию обратного вызова, выполняемую в каждом элементе поставщика данных для определения всплывающей подсказки. Это свойство используется методом <codeph>itemToDataTip</codeph>.
+     
+      <p>Если для <codeph>showDataTips</codeph> указано значение <codeph>true</codeph>, то столбец по умолчанию выполняет поиск свойства с именем <codeph>label</codeph> в каждом элементе поставщика данных и отображает его как всплывающую подсказку. Однако для некоторых поставщиков данных не определено свойство <codeph>label</codeph> или другие свойства, используемые для отображения данных в строках. </p>
+           <p>Например, существует поставщик данных, содержащий поля lastName и firstName, но в качестве всплывающей подсказки требуется отображение полных имен. Для свойства <codeph>dataTipFunction</codeph> можно определить функцию, возвращающую отдельную строку, содержащую значения обоих полей. Для обработки форматирования и локализации также можно использовать свойство <codeph>dataTipFunction</codeph>.</p>
+     
+      <p>Для функции <codeph>dataTipFunction</codeph> необходимо определить следующую подпись:
+     
+      <pre>dataTipFunction(item:Object, column:GridColumn):String</pre>
+           Параметр <codeph>item</codeph> является элементом поставщика данных для всей строки. Второй параметр представлен этим объектом столбца.</p>
+           <p>Типичная функция может связывать свойства firstName и lastName элемента или выполнять пользовательское форматирование в свойстве со значением Date.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataTipField"><linktext>dataTipField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:editable:get"><apiName>editable</apiName><shortdesc>
+      Определяет, являются ли элементы в столбце редактируемыми.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="editableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, являются ли элементы в столбце редактируемыми. Если установлено значение <codeph>true</codeph> и свойство <codeph>editable</codeph> связанной сетки также имеет значение <codeph>true</codeph>, элементы столбца доступны для редактирования и для их редактирования по отдельности необходимо выбрать требуемый элемент с помощью мыши или перейти к нему с использованием клавиши F2.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:formatter:get"><apiName>formatter</apiName><shortdesc>
+      Указывает средство форматирования, используемое методом столбца itemToLabel() для преобразования элементов поставщика данных в строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="formatterChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.formatters:IFormatter"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает средство форматирования, используемое методом столбца <codeph>itemToLabel()</codeph> для преобразования элементов поставщика данных в строки.
+     
+      <p>Если <codeph>styleParent</codeph> средства форматирования не указан, он устанавливается как сетка столбца и средство форматирования наследует стиль <codeph>locale</codeph> сетки.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataTipFormatter"><linktext>dataTipFormatter</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:grid:get"><apiName>grid</apiName><shortdesc>
+      Объект Grid, связанный с этим столбцом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="gridChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      Объект Grid, связанный с этим столбцом.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:headerRenderer:get"><apiName>headerRenderer</apiName><shortdesc>
+      Фабрика для класса IGridItemRenderer, используемая в качестве заголовка столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Фабрика для класса IGridItemRenderer, используемая в качестве заголовка столбца. При неопределенном значении компонент темы оформления <codeph>columnHeaderGroup</codeph> элемента управления DataGrid определяет стандартное средство визуализации заголовка.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/headerText"><linktext>headerText</linktext></link><link href="spark.components.gridClasses.xml#IGridItemRenderer"><linktext>IGridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:headerText:get"><apiName>headerText</apiName><shortdesc>
+      Текст заголовка данного столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerTextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Текст заголовка данного столбца. По умолчанию значение свойства <codeph>dataField</codeph> используется связанным элементом управления Grid в качестве текста заголовка.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:imeMode:get"><apiName>imeMode</apiName><shortdesc conref="spark.components.gridClasses.GridItemEditor#imeMode">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.components.gridClasses.GridItemEditor#imeMode">
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemEditor:get"><apiName>itemEditor</apiName><shortdesc>
+      Фабрика для класса IGridItemEditor, которая используется для редактирования отдельных ячеек сетки в столбце.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemEditorChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      Фабрика для класса IGridItemEditor, которая используется для редактирования отдельных ячеек сетки в столбце. Если для свойства указано значение null и владелец сетки столбца представлен элементом управления DataGrid, то используется значение свойства <codeph>itemEditor</codeph> элемента управления DataGrid. Если редактор элементов не указан элементом управления DataGrid, следует использовать класс DefaultGridItemEditor.
+     
+      <p>Редактор элементов по умолчанию представлен классом DefaultGridItemEditor, с помощью которого редактируется поле обычного текста. Для создания пользовательских средств визуализации элементов используются подклассы класса GridItemEditor. Пользовательский редактор элементов может записывать данные во всей строке сетки, чтобы определить расширенный редактор. </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#DefaultGridItemEditor"><linktext>spark.components.gridClasses.DefaultGridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridItemEditor"><linktext>spark.components.gridClasses.GridItemEditor</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemRendererFunction:get"><apiName>itemRendererFunction</apiName><shortdesc>
+      Если выбрано значение этого свойства, оно должно быть идемпотентной функцией, возвращающей IFactory средства визуализации элементов на основе объекта поставщика данных и параметром столбцов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если выбрано значение этого свойства, оно должно быть идемпотентной функцией, возвращающей IFactory средства визуализации элементов на основе объекта поставщика данных и параметром столбцов. При указании значения для свойства <codeph>itemRendererFunction</codeph> можно использовать более одного редактора элементов в этом столбце.
+     
+      <p>Функция, указанная для свойства <codeph>itemRendererFunction</codeph>, должна иметь следующую подпись:</p>
+           <pre>itemRendererFunction(item:Object, column:GridColumn):IFactory</pre>
+           <p>Параметр <codeph>item</codeph> является элементом поставщика данных для всей строки. Второй параметр представлен этим объектом столбца.</p> 
+     
+      <p>Ниже приведен пример функции редактора элементов:</p>
+      <pre>
+      function myItemRendererFunction(item:Object, column:GridColumn):IFactory
+      {
+          return (item is Array) ? myArrayItemRenderer : myItemRenderer;
+      }
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      Фабрика для класса IGridItemRenderer, используемая для отображения отдельных ячеек сетки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Фабрика для класса IGridItemRenderer, используемая для отображения отдельных ячеек сетки. Если значение не указано, используется значение свойства <codeph>itemRenderer</codeph> из связанного элемента управления сетки.
+     
+      <p>Средством визуализации элементов по умолчанию является класс DefaultGridItemRenderer, отображающий элемент данных в виде текста. Для создания пользовательских средств визуализации элементов используются подклассы класса GridItemRenderer. Пользовательское средство визуализации элементов может выполнять доступ к данным из всей строки сетки, чтобы определить расширенное визуальное представление сетки. </p>
+     
+      <p>Значением по умолчанию является значение свойства <codeph>itemRenderer</codeph> из связанного элемента управления сетки или null.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/dataField"><linktext>dataField</linktext></link><link href="spark.skins.spark.xml#DefaultGridItemRenderer"><linktext>spark.skins.spark.DefaultGridItemRenderer</linktext></link><link href="spark.components.gridClasses.xml#GridItemRenderer"><linktext>spark.components.gridClasses.GridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      Идемпотентная функция, преобразующая элемент поставщика данных в зависящую от столбца строку, используемую для инициализации свойства label средства визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Идемпотентная функция, преобразующая элемент поставщика данных в зависящую от столбца строку, используемую для инициализации свойства <codeph>label</codeph> средства визуализации.
+     
+      <p>Функция label используется для объединения значений различных поставщиков данных в одной строке. Если указано, то это свойство используется методом <codeph>itemToLabel()</codeph>, который вычисляет значение каждого свойства <codeph>label</codeph> средства визуализации элементов в этом столбце.</p>
+           <p>Функция, указанная для свойства <codeph>labelFunction</codeph>, должна иметь следующую подпись:</p>
+           <pre>labelFunction(item:Object, column:GridColumn):String</pre>
+           <p>Параметр <codeph>item</codeph> является элементом поставщика данных для всей строки. Второй параметр представлен этим объектом столбца.</p>
+           <p>Типичная функция label может связывать свойства firstName и lastName элемента поставщика данных или выполнять пользовательское форматирование в свойстве со значением Date.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataField"><linktext>dataField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      Максимальная ширина столбца в пикселах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Максимальная ширина столбца в пикселах. Если значение указано, макет сетки применяет меньшее из значений ширины <codeph>typicalItem</codeph> и <codeph>maxWidth</codeph> к ширине макета столбца. Если этот размер этого столбца может изменяться, то это свойство ограничивает ширину столбца, которую может указать пользователь. Установка этого свойства не изменит свойства <codeph>width</codeph> или <codeph>minWidth</codeph>.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      Минимальная ширина столбца в пикселах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>20
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Минимальная ширина столбца в пикселах. Если значение указано, макет сетки применяет большее из значений ширины <codeph>typicalItem</codeph> и <codeph>minWidth</codeph> к ширине макета столбца. Если этот размер этого столбца может изменяться, то это свойство ограничивает минимальный размер столбца, который может указать пользователь. Установка этого свойства не изменит свойства <codeph>width</codeph> или <codeph>maxWidth</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:rendererIsEditable:get"><apiName>rendererIsEditable</apiName><shortdesc>
+      Определяет возможность редактирования элементов управления средства визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="rendererIsEditableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет возможность редактирования элементов управления средства визуализации элементов. Если столбец доступен для редактирования, фокусируемые элементы управления в средстве визуализации элементов получают фокус клавиатуры, когда пользователь начинает редактирование средства визуализации.
+           <p>При установке для этого свойства значения <codeph>true</codeph> ячейка, в пределах которой пользователь щелкает кнопкой мыши, становится редактируемой. Поскольку ячейка доступна для редактирования, DataGrid отображает компонент темы оформления <codeph>editorIndicator</codeph> поверх компонента темы оформления <codeph>selectionIndicator</codeph>. Поэтому индикатор для выбора ячейки отображается только после завершения сеанса редактирования. В пользовательской теме оформления можно удалить или изменить компонент темы оформления <codeph>editorIndicator</codeph>, чтобы отобразить компонент <codeph>selectionIndicator</codeph>. Например, измените свойство <codeph>alpha</codeph> компонента <codeph>editorIndicator</codeph> для отображения <codeph>selectionIndicator</codeph> или установите размер editorIndicator меньше размера ячейки.</p>
+     
+      <p>При установке для этого свойства значения <codeph>true</codeph> пользователь должен обеспечить проверку и сохранение введенных данных, которые собраны средством визуализации элементов. Если средство визуализации элементов содержит переопределение метода <codeph>IGridItemRenderer.prepare()</codeph>, необходимо удостовериться, что несохраненные изменения полей ввода не переопределены. Например, <codeph>rendererIsEditable</codeph> имеет значение <codeph>true</codeph> и средство визуализации содержит один элемент TextInput, который отображает значение <codeph>data.myDataField</codeph>. Если метод <codeph>prepare()</codeph> средства визуализации устанавливает свойство <codeph>text</codeph> элемента управления TextInput, то метод <codeph>prepare()</codeph> не должен устанавливать свойство <codeph>text</codeph> при наличии изменений в состоянии ожидания.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:resizable:get"><apiName>resizable</apiName><shortdesc>
+      Указывает, разрешено ли пользователю изменять ширину столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resizableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, разрешено ли пользователю изменять ширину столбца. Если <codeph>true</codeph> и свойство <codeph>resizableColumns</codeph> связанной сетки также имеет значение <codeph>true</codeph>, пользователь может перетаскивать линии сетки между заголовками столбца для изменения размера столбца. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      Определяет, отображаются ли всплывающие подсказки в столбце.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showDataTipsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, отображаются ли всплывающие подсказки в столбце. Если установлено значение <codeph>true</codeph>, всплывающие подсказки для текста отображаются в строках. Datatips – это всплывающие подсказки, указывающие на то, что текст является слишком длинным для этой строки.   
+     
+      <p>Если значение этого свойства не указано, то по умолчанию свойство <codeph>showDataTips</codeph> связанной сетки определяет, будут ли отображаться всплывающие подсказки. Если это свойство указано, свойство <codeph>showDataTips</codeph> сетки игнорируется.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/getShowDataTips"><linktext>getShowDataTips</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortCompareFunction:get"><apiName>sortCompareFunction</apiName><shortdesc>
+      Функция, которая сравнивает два элемента во время сортировки элементов данных в столбце.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortCompareFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Функция, которая сравнивает два элемента во время сортировки элементов данных в столбце. Если указывается значение свойства <codeph>labelFunction</codeph>, обычно необходимо указать <codeph>sortCompareFunction</codeph>.
+           <p>Подпись sortCompareFunction должна соответствовать следующему:</p>
+           <pre>sortCompareFunction(obj1:Object, obj2:Object, column:GridColumn):int</pre>
+     
+      <p>Функция должна возвратить значение, полученное на основе сравнения объектов: </p>
+      <ul>
+        <li>-1, если obj1 должен отображаться перед obj2 в порядке возрастания. </li>
+        <li>0, если obj1 = obj2. </li>
+        <li>1, если obj1 должен отображаться после obj2 в порядке возрастания.</li>
+      </ul>
+      
+      <p>Функция может использовать параметр столбца для записи общих функций сравнения.</p>
+     
+      <p><b>Примечание.</b> Параметры <codeph>obj1</codeph> и <codeph>obj2</codeph> являются едиными элементами поставщика данных, а не только данными элемента.</p>
+     
+      <p>Если dataProvider не является ICollectionView, то это свойство не действует.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortDescending:get"><apiName>sortDescending</apiName><shortdesc>
+      Если true, для этого столбца выполняется сортировка по убыванию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortDescendingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если <codeph>true</codeph>, для этого столбца выполняется сортировка по убыванию. Например, если <codeph>dataField</codeph> столбца содержит числовое значение, то в первой строке будет указано наиболее высокое значение в этом столбце. 
+           <p>Установка этого свойства не инициирует начало сортировки; устанавливается лишь направление сортировки. Сортировка выполняется при вызове метода <codeph>dataProvider.refresh()</codeph>.</p>
+     
+      <p>Если поставщик данных не является ICollectionView, то это свойство не оказывает влияния.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortField:get"><apiName>sortField</apiName><shortdesc>
+      Возвращает SortField, используемый для сортировки коллекции по dataField столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.collections:SortField</apiValueClassifier></apiValueDef><apiDesc>
+      Возвращает SortField, используемый для сортировки коллекции по <codeph>dataField</codeph> столбца.
+      
+      <p>Если определено свойство <codeph>sortCompareFunction</codeph>, автоматически устанавливается <codeph>compareFunction</codeph> SortField.</p>
+     
+      <p>Если свойство <codeph>sortCompareFunction</codeph> не указано и <codeph>dataField</codeph> представлен сложными данными, функция сравнения SortField присваивается закрытию в функции сравнения по умолчанию, которая обрабатывает сложный <codeph>dataField</codeph>.</p>
+           <p>Если свойства <codeph>sortCompareFunction</codeph> и <codeph>dataField</codeph> не указаны, но определено свойство <codeph>labelFunction</codeph>, то оно присваивает <codeph>compareFunction</codeph> закрытию, которое выполняет базовое сравнение строк в <codeph>labelFunction</codeph>, примененной к объектам данных.</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.collections.xml#SortField"><linktext>spark.collections.SortField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortable:get"><apiName>sortable</apiName><shortdesc>
+      Если true и поставщик данных сетки представлен ICollectionView, а также если свойство sortableColumns связанной сетки имеет значение true, то этот столбец поддерживает интерактивную сортировку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если <codeph>true</codeph> и поставщик данных сетки представлен ICollectionView, а также если свойство <codeph>sortableColumns</codeph> связанной сетки имеет значение <codeph>true</codeph>, то этот столбец поддерживает интерактивную сортировку. Как правило, заголовок столбца обрабатывает нажатия кнопки мыши посредством установки свойства <codeph>sort</codeph> поставщика данных в объекте Sort, SortField которого представлен <codeph>dataField</codeph> этого столбца.
+      
+      <p>Если поставщик данных не является ICollectionView, то это свойство не оказывает влияния.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:visible:get"><apiName>visible</apiName><shortdesc>
+      Если true, этот столбец будет отображен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="visibleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если <codeph>true</codeph>, этот столбец отображается. Если <codeph>false</codeph>, место для этого столбца не назначается и он будет отсутствовать в макете.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:width:get"><apiName>width</apiName><shortdesc>
+      Ширина столбца в пикселах.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ширина столбца в пикселах. Если значение указано, макет сетки игнорирует свое свойство <codeph>typicalItem</codeph> и свойства <codeph>minWidth</codeph> и <codeph>maxWidth</codeph> этого столбца.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridVisualElement"><apiName>IGridVisualElement</apiName><shortdesc>
+  Этот интерфейс предоставляет метод, который могут использовать динамически созданные визуальные элементы для собственной настройки перед отображением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Этот интерфейс предоставляет метод, который могут использовать динамически созданные визуальные элементы для собственной настройки перед отображением. Он вызывается при необходимости, когда создается или повторно используется визуальный элемент, созданный в фабрике. Этот метод не предназначен для прямого вызова.
+ 
+  <p>Это необязательный интерфейс для всех визуальных элементов, созданных в фабрике, кроме элементов itemRenderer: <codeph>caretIndicator</codeph>, <codeph>hoverIndicator</codeph>, <codeph>editorIndicator</codeph>, <codeph>selectionIndicator</codeph>, <codeph>columnSeparator</codeph>, <codeph>rowSeparator</codeph>, <codeph>alternatingRowColorsBackground</codeph> (см. DataGrid), <codeph>sortIndicator</codeph> (см. GridColumnHeaderGroup). Он обычно используется для настройки созданных визуальных элементов с использованием значений стиля DataGrid. Например, чтобы использовать значение стиля symbolColor в DataGrid для цвета заливки символа вставки, можно определить метод <codeph>prepareGridVisualElement()</codeph> следующим образом:</p> 
+ 
+  <p>
+  <pre>
+  public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+  {
+      caretStroke.color = grid.dataGrid.getStyle("caretColor");
+  }
+  </pre>
+  </p>        
+ 
+  <p>Параметры <codeph>rowIndex</codeph> и <codeph>columnIndex</codeph> указывают ячейку, которую заполнит визуальный элемент. Если <codeph>columnIndex</codeph> = -1, то визуальный элемент занимает строку сетки. Если <codeph>rowIndex</codeph> = -1, то визуальный элемент занимает столбец сетки.</p>
+ 
+  <p>Дополнительные примеры см. в описании DataGridSkin.mxml. Обратите внимание, что визуальные элементы пользовательской темы оформления DataGrid могут не использовать этот интерфейс, если дополнительные возможности не требуются.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.components.gridClasses:IGridVisualElement:spark.components.gridClasses:IGridVisualElement:prepareGridVisualElement"><apiName>prepareGridVisualElement</apiName><shortdesc> 
+      Этот метод вызывается перед отображением визуального элемента сетки, чтобы этот элемент мог выполнить собственную настройку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>grid</apiItemName><apiOperationClassifier>spark.components:Grid</apiOperationClassifier><apiDesc>Объект Grid, связанный с этим визуальным элементом.
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>Координата строки ячейки, которую заполнит визуальный элемент, или -1.
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Координата столбца ячейки, которую заполнит визуальный элемент, или -1.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Этот метод вызывается перед отображением визуального элемента сетки, чтобы этот элемент мог выполнить собственную настройку. Параметры метода указывают, какую ячейку, строку (если columnIndex = -1) или столбец (если rowIndex = -1) заполнит визуальный элемент.
+     
+      <p>Если визуальный элемент создан с использованием компонента темы оформления DataGrid на основе значений фабрики, например selectionIndicator или hoverIndicator, то <codeph>grid.dataGrid</codeph> будет представлять DataGrid, компонентом темы оформления которого является сетка.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.components.gridClasses:CellPosition"><apiName>CellPosition</apiName><shortdesc>
+  Класс CellPosition определяет структуру данных, используемую классами сетки данных Spark для представления выбранных ячеек в элементе управления</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс CellPosition определяет структуру данных, используемую классами сетки данных Spark для представления выбранных ячеек в элементе управления Каждая выбранная ячейка представляется при помощи экземпляра данного класса.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid/selectedCell"><linktext>spark.components.DataGrid.selectedCell</linktext></link><link href="spark.components.xml#DataGrid/selectedCells"><linktext>spark.components.DataGrid.selectedCells</linktext></link><link href="spark.components.xml#Grid/selectedCell"><linktext>spark.components.Grid.selectedCell</linktext></link><link href="spark.components.xml#Grid/selectedCells"><linktext>spark.components.Grid.selectedCells</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:CellPosition:CellPosition"><apiName>CellPosition</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Отсчитываемый от 0 индекс строки ячейки. Значение -1 указывает, что это значение не установлено.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Отсчитываемый от 0 индекс столбца ячейки. Значение -1 указывает, что это значение не установлено.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:CellPosition:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      Отсчитываемый от 0 индекс столбца ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Отсчитываемый от 0 индекс столбца ячейки. Значение -1 указывает, что это значение не установлено.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellPosition:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      Отсчитываемый от 0 индекс строки ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Отсчитываемый от 0 индекс строки ячейки. Значение -1 указывает, что это значение не установлено.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IDataGridElement"><apiName>IDataGridElement</apiName><shortdesc>
+  Визуальные элементы средства управления Spark DataGrid, которые должны оставаться в синхронизации с макетом сетки, при этом положение прокрутки должно реализовывать этот интерфейс.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Визуальные элементы средства управления Spark DataGrid, которые должны оставаться в синхронизации с макетом сетки, при этом положение прокрутки должно реализовывать этот интерфейс. При добавлении компонента темы оформления <codeph>grid</codeph> элемента управления DataGrid устанавливается свойство <codeph>IDataGridElement.dataGrid</codeph>. Ответом объекта IDataGridElements может являться добавление прослушивателей событий при изменении положения прокрутки. Если изменение элемента управления DataGrid влияет на макет его строки или столбца, все объекты IDataGridElements становятся недействительными.
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="spark.components.gridClasses:IDataGridElement:spark.components.gridClasses:IDataGridElement:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      Элемент управления DataGrid, связанный с этим элементом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      Элемент управления DataGrid, связанный с этим элементом.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:DefaultGridItemEditor"><apiName>DefaultGridItemEditor</apiName><shortdesc>Класс DefaultGridItemEditor определяет средство визуализации элементов по умолчанию, используемое элементами управления сетки Spark, например DataGrid и Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.gridClasses:GridItemEditor</apiBaseClassifier></apiClassifierDef><apiDesc>Класс DefaultGridItemEditor определяет средство визуализации элементов по умолчанию, используемое элементами управления сетки Spark, например DataGrid и Grid. DefaultGridItemEditor отображает элемент управления текстовой области. Укажите новое значение ячейки в редакторе элементов.
+      
+      <p>Вместо использования DefaultGridItemEditor можно создать пользовательский редактор элементов. Редактор элементов должен обеспечивать реализацию интерфейса spark.components.gridClasses.IGridItemEditor. Обычно для создания редактора элементов используются подклассы класса spark.components.gridClasses.GridItemEditor.</p>
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#IGridItemEditor"><linktext>spark.components.gridClasses.IGridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridItemEditor"><linktext>spark.components.gridClasses.GridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:DefaultGridItemEditor:DefaultGridItemEditor"><apiName>DefaultGridItemEditor</apiName><shortdesc>Конструктор.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>Конструктор.</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:DefaultGridItemEditor:textArea"><apiName>textArea</apiName><shortdesc>Компонент TextArea редактора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="Bindable"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:TextArea</apiValueClassifier></apiValueDef><apiDesc>Компонент TextArea редактора. 
+    
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridSelectionMode"><apiName>GridSelectionMode</apiName><shortdesc>
+  Класс GridSelectionMode определяет допустимые значения констант для свойства selectionMode элементов управления Spark DataGrid и Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GridSelectionMode определяет допустимые значения констант для свойства <codeph>selectionMode</codeph> элементов управления Spark DataGrid и Grid.
+  
+  <p>Использование констант в ActionsScript проиллюстрировано в следующем примере: </p>
+  <pre>
+    myDG.selectionMode = GridSelectionMode.MULTIPLE_CELLS;
+  </pre>
+ 
+  <p>Использование значения String констант в MXML проиллюстрировано в следующем примере:</p>
+  <pre>
+    &lt;s:DataGrid id="myGrid" width="350" height="150"
+        selectionMode="multipleCells"> 
+        ...
+    &lt;/s:DataGrid> 
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid/selectionMode"><linktext>spark.components.DataGrid.selectionMode</linktext></link><link href="spark.components.xml#Grid/selectionMode"><linktext>spark.components.Grid.selectionMode</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridSelectionMode:GridSelectionMode"><apiName>GridSelectionMode</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:GridSelectionMode:MULTIPLE_CELLS"><apiName>MULTIPLE_CELLS</apiName><shortdesc>
+      Указывает, что можно выбрать одну или несколько ячеек.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multipleCells</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что можно выбрать одну или несколько ячеек.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:MULTIPLE_ROWS"><apiName>MULTIPLE_ROWS</apiName><shortdesc>
+      Указывает, что можно выбрать одну или несколько строк.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multipleRows</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что можно выбрать одну или несколько строк.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:NONE"><apiName>NONE</apiName><shortdesc>
+      Указывает, что выбор не допускается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что выбор не допускается.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:SINGLE_CELL"><apiName>SINGLE_CELL</apiName><shortdesc>
+      Указывает, что можно выбрать одну ячейку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>singleCell</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что можно выбрать одну ячейку.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:SINGLE_ROW"><apiName>SINGLE_ROW</apiName><shortdesc>
+      Указывает, что можно выбрать одну строку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>singleRow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что можно выбрать одну строку.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:CellRegion"><apiName>CellRegion</apiName><shortdesc>
+  Класс CellRegion определяет структуру данных, используемую классами сетки данных Spark для представления прямоугольной области ячеек в элементе управления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс CellRegion определяет структуру данных, используемую классами сетки данных Spark для представления прямоугольной области ячеек в элементе управления. Начало координат области указывается в свойствах <codeph>rowIndex</codeph> и <codeph>columnIndex</codeph>. Расширение области указывается в свойствах <codeph>rowCount</codeph> и <codeph>columnCount</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:CellRegion:CellRegion"><apiName>CellRegion</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Отсчитываемый от 0 индекс строки ячейки начала координат. Значение -1 указывает, что это значение не установлено.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Отсчитываемый от 0 индекс столбца ячейки начала координат. Значение -1 указывает, что это значение не установлено.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowCount</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Количество строк в области ячейки.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnCount</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Количество столбцов в области сетки.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:CellRegion:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      Количество столбцов в области сетки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Количество столбцов в области сетки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      Отсчитываемый от 0 индекс столбца начала координат области ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Отсчитываемый от 0 индекс столбца начала координат области ячейки. Значение -1 указывает, что это значение не установлено.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      Количество строк в области ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Количество строк в области ячейки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      Отсчитываемый от 0 индекс строки начала координат области ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Отсчитываемый от 0 индекс строки начала координат области ячейки. Значение -1 указывает, что это значение не установлено.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridLayer"><apiName>GridLayer</apiName><shortdesc>
+  Класс GridLayer определяет контейнер, используемый для слоев визуальных элементов средства управления Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GridLayer определяет контейнер, используемый для слоев визуальных элементов средства управления Grid. Элемент управления Grid создает визуальные элементы, добавляет их в свои слои при необходимости и управляет их макетом.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridLayer:GridLayer"><apiName>GridLayer</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.components.gridClasses:GridItemRenderer"><apiName>GridItemRenderer</apiName><shortdesc>
+  Класс GridItemRenderer определяет базовый класс для пользовательских средств визуализации элементов для элементов управления сетки Spark, например DataGrid и Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><Exclude kind="property" name="transitions"/><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.components.gridClasses:IGridItemRenderer</apiBaseInterface><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GridItemRenderer определяет базовый класс для пользовательских средств визуализации элементов для элементов управления сетки Spark, например DataGrid и Grid. Средства визуализации элементов сетки необходимы только для отображения зависящих от столбцов аспектов данных. Они не должны отображать индикаторы выбора или наведения, дополнительный цвет фона (при его наличии) или разделители строк и столбцов.
+ 
+  <p>Средства визуализации элементов связаны с каждым столбцом сетки. Средство визуализации элементов устанавливается для столбца с помощью свойства <codeph>GridColumn.itemRenderer</codeph>.</p> 
+ 
+  <p>По умолчанию средство визуализации элементов не усекается в соответствии с границами ячейки. Если средство визуализации выходит за границы ячейки, установите для <codeph>clipAndEnableScrolling</codeph> значение <codeph>true</codeph>, чтобы выполнить усечение средства визуализации в соответствии с границами ячейки.</p>
+ 
+  <p>Переходы в средствах визуализации элементов DataGrid не поддерживаются. В классе GridItemRenderer выключено свойство <codeph>transitions</codeph>, поэтому установка этого свойства не будет иметь эффект.</p>
+ 
+  <p><b>Рекомендации по повышению производительности</b></p>
+  
+  <p>Производительность прокрутки и запуска DataGrid непосредственно зависит от сложности средства визуализации элементов и количества таких средств, отображаемых в средстве прокрутки DataGrid. Поскольку пользовательские экземпляры GridItemRenderer постоянно используются, очень важно сделать их определения как можно более простыми и эффективными.</p>
+  
+  <p>Если действия средства визуализации ограничены отображением одной или нескольких строк текста, разработчикам следует обратить внимание на класс DefaultItemRenderer, который выполняет эти действия более продуктивно. Использование класса UITextFieldGridItemRenderer вместо развертываемого в Windows приложения позволяет повысить производительность работы. Наиболее эффективным способом использования GridItemRenderer для отображения dataField элемента GridColumn в виде текста является присвоение элементу отображения текста GridItemRenderer значения <codeph>id="labelDisplay"</codeph>. Компонент labelDisplay должен являться подклассом <codeph>TextBase</codeph>, например <codeph>Label</codeph> или <codeph>RichText</codeph>. Этот подход можно использовать вместо DefaultGridItemRenderer, если средство визуализации элементов содержит дополнительные элементы, которые не зависят от его данных, например границы или другие графические элементы.</p>
+  
+  <p>Если средство визуализации элементов содержит несколько визуальных элементов, свойства которых зависят от его данных, для определения значений этих свойств можно использовать привязку данных. Этот подход возвращает удобный для чтения и использования код MXML, производительность которого может быть достаточно высокой при условии ограничения количества видимых средств визуализации элементов (см. свойства <codeph>requestedRowCount</codeph> и <codeph>requestedColumnCount</codeph> элемента DataGrid). Самым эффективным способом настройки такого типа средств визуализации элементов является внесение необходимых изменений в метод <codeph>prepare()</codeph>. Поскольку метод <codeph>prepare()</codeph> вызывается при каждом отображении средства визуализации элементов, очень важно, чтобы код этого метода был максимально эффективным. Если средство визуализации элементов сохраняет состояние, например кэширует внутренние значения, для удаления состояния используется метод <codeph>discard()</codeph>. Метод <codeph>discard()</codeph> вызывается при каждом перемещении средства визуализации элементов во внутренний свободный список DataGrid, откуда возможно его повторное использование.</p>
+  
+  <p>Элементы GridItemRenderer должны быть максимально простыми. Для достижения максимальной производительности необходимо минимизировать количество компонентов и уменьшить глубину иерархии. Если допустимо, для определения макета вместо ограничений следует использовать явные позиции и размеры. Высокая производительность DataGrid обеспечивается значением по умолчанию <codeph>variableRowHeight="false"</codeph>, а также значениями по умолчанию <codeph>showDataTips="false"</codeph> и <codeph>clipAndEnableScrolling="false"</codeph>.</p>
+  
+  <p>Описанные здесь примеры различных конфигураций GridItemRenderer доступны в разделе примеров.</p>
+ 
+  </apiDesc><example conref="GridItemRendererExample.mxml"><swfblock conref="examples/GridItemRendererExample.swf"/></example><example conref="GridItemRendererCustomBindingExample.mxml"><swfblock conref="examples/GridItemRendererCustomBindingExample.swf"/></example><example conref="GridItemRendererCustomPrepareExample.mxml"><swfblock conref="examples/GridItemRendererCustomPrepareExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemRenderer"><linktext>spark.components.gridClasses.GridColumn.itemRenderer</linktext></link><link href="spark.skins.spark.xml#DefaultGridItemRenderer"><linktext>spark.skins.spark.DefaultGridItemRenderer</linktext></link></related-links><adobeApiEvent id="spark.components.gridClasses:GridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Передается при изменении свойства data.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Передается при изменении свойства<codeph>data</codeph>.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.gridClasses:GridItemRenderer:GridItemRenderer"><apiName>GridItemRenderer</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridItemRenderer:discard"><apiName>discard</apiName><shortdesc>
+      
+      Вызывается из метода updateDisplayList() вышестоящего элемента средства визуализации элементов, если определено, что это средство визуализации больше не является видимым.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>willBeRecycled</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если это средство визуализации будет добавлено к внутреннему свободному списку владельца для повторного использования.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Вызывается из метода <codeph>updateDisplayList()</codeph> вышестоящего элемента средства визуализации элементов, если определено, что это средство визуализации больше не является видимым. Если для параметра <codeph>willBeRecycled</codeph> устанавливается значение <codeph>true</codeph>, то владелец добавляет это средство визуализации к внутреннему свободному списку для повторного использования. Реализации могут использовать этот метод, чтобы удалить любые свойства средства визуализации, которые больше не являются необходимыми.
+     
+      <p>Этот метод не предназначен для прямого вызова. Он вызывается реализацией DataGrid.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemRenderer:protected:getCurrentRendererState"><apiName>getCurrentRendererState</apiName><shortdesc>
+      Возвращает имя состояния, которое должно быть применено к средству визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>String, указывающая имя состояния, которое должно быть применено к средству визуализации. 
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает имя состояния, которое должно быть применено к средству визуализации. Например, основное средство визуализации элементов возвращает строки normal, hovered или selected для определения состояния средства визуализации. Если используются действия касания (или действия мыши при игнорировании выбора), также возвращаются значения down и downAndSelected.
+     
+      <p>Подкласс GridItemRenderer должен перезаписать этот метод, чтобы возвратить значение, если заданное поведение отличается от поведения по умолчанию.</p>
+     
+      <p>Тремя основными состояниями в Flex 4.0 были "normal", "hovered" и "selected". В Flex 4.5 добавлены состояния "down" и "downAndSelected".</p>
+      
+      <p>Ниже представлен полный набор поддерживаемых состояний (в порядке приоретности): 
+        <ul>
+          <li>dragging</li>
+          <li>downAndSelected</li>
+          <li>selectedAndShowsCaret</li>
+          <li>hoveredAndShowsCaret</li>
+          <li>normalAndShowsCaret</li>
+          <li>down</li>
+          <li>selected</li>
+          <li>hovered</li>
+          <li>normal</li>
+        </ul>
+      </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemRenderer:prepare"><apiName>prepare</apiName><shortdesc>
+      
+      Вызывается из метода updateDisplayList() вышестоящего элемента средства визуализации элементов после установки всех свойств этого средства визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>hasBeenRecycled</apiItemName><apiType value="Boolean"/><apiDesc> <codeph>true</codeph>, если это средство визуализации используется повторно.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Вызывается из метода <codeph>updateDisplayList()</codeph> вышестоящего элемента средства визуализации элементов после установки всех свойств этого средства визуализации. Для параметра <codeph>hasBeenRecycled</codeph> устанавливается значение <codeph>false</codeph>, если это средство визуализации не использовалось ранее, т. е. используется впервые. Метод вызывается непосредственно перед тем, как средство визуализации станет видимым, и при каждом его отображении вследствие изменения свойства средства визуализации или явного запроса на повторное отображение. 
+     
+      <p>Этот метод можно использовать для настройки всех визуальных элементов и свойств средства визуализации. Использование этого метода может быть более эффективным, чем привязка свойств <codeph>data</codeph> к свойствам визуальных элементов. Примечание. Поскольку метод <codeph>prepare()</codeph> вызывается достаточно часто, очень важно обеспечить эффективность его кода.</p>
+     
+      <p>Метод <codeph>prepare()</codeph> может многократно вызываться перед вызовом метода <codeph>discard()</codeph>.</p>
+     
+      <p>Этот метод не предназначен для прямого вызова. Он вызывается реализацией DataGrid.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridItemRenderer:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      
+      Индекс столбца для ячейки этого средства визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      Индекс столбца для ячейки этого средства визуализации элементов. Это значение аналогично <codeph>column.columnIndex</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:column:get"><apiName>column</apiName><shortdesc>
+      
+      Объект GridColumn, представляющий столбец, связанный с этим средством визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Объект GridColumn, представляющий столбец, связанный с этим средством визуализации элементов.  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Значение элемента поставщика данных для строки сетки, соответствующей средству визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значение элемента поставщика данных для строки сетки, соответствующей средству визуализации элементов. Это значение соответствует объекту, возвращенному после вызова метода <codeph>dataProvider.getItemAt(rowIndex)</codeph>.
+     
+      <p>Средства визуализации элементов могут изменить определение этого свойства, чтобы получить доступ к данным во всей строке сетки. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:down:get"><apiName>down</apiName><shortdesc>
+      
+      Для этого свойства устанавливается значение true, если в ячейке сетки происходит одно из двух входящих действий: нажатие кнопки мыши или касание сенсорного экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Для этого свойства устанавливается значение <codeph>true</codeph>, если в ячейке сетки происходит одно из двух входящих действий: нажатие кнопки мыши или касание сенсорного экрана. Для свойства <codeph>down</codeph> восстанавливается значение <codeph>false</codeph>, когда пользователь отпускает кнопку мыши или больше не касается сенсорного экрана, а также если курсор или точка касания выходит за пределы ячейки сетки.   
+     
+      <p>В отличие от средства визуализации элементов списка, средство визуализации элементов сетки не отвечает монопольно за отображение индикатора down. Сетка визуализирует индикатор down для выделенной строки или ячейки. Визуальные свойства средства визуализации элементов могут изменяться при нажатии.</p>   
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:dragging:get"><apiName>dragging</apiName><shortdesc>
+      
+      Содержит значение true, если перемещается средство визуализации элементов, обычно в рамках операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="draggingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      Содержит значение <codeph>true</codeph>, если перемещается средство визуализации элементов, обычно в рамках операции перетаскивания. В настоящее время элемент управления Spark DataGrid не поддерживает перетаскивание.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:grid:get"><apiName>grid</apiName><shortdesc>
+      Возвращает сетку, связанную с этим средством визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      Возвращает сетку, связанную с этим средством визуализации элементов. Это значение аналогично <codeph>column.grid</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:hovered:get"><apiName>hovered</apiName><shortdesc>
+      
+      Содержит значение true, если на средство визуализации элементов наведен курсор мыши и selectionMode сетки имеет значение GridSelectionMode.SINGLE_CELL или GridSelectionMode.MULTIPLE_CELLS, а также если курсор мыши находится в пределах строки, к которой относится средство визуализации элементов, и для selectionMode сетки установлено значение GridSelectionMode.SINGLE_ROW или GridSelectionMode.MULTIPLE_ROWS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Содержит значение <codeph>true</codeph>, если на средство визуализации элементов наведен курсор мыши и selectionMode сетки имеет значение <codeph>GridSelectionMode.SINGLE_CELL</codeph> или <codeph>GridSelectionMode.MULTIPLE_CELLS</codeph>, а также если курсор мыши находится в пределах строки, к которой относится средство визуализации элементов, и для selectionMode сетки установлено значение <codeph>GridSelectionMode.SINGLE_ROW</codeph> или <codeph>GridSelectionMode.MULTIPLE_ROWS</codeph>.
+     
+      <p>В отличие от средства визуализации элементов списка, средства визуализации элементов сетки не отвечают монопольно за отображение того, что на средство визуализации элементов или строку, к которой оно принадлежит, наведен курсор мыши. Сетка автоматически отображает компонент темы оформления hoverIndicator для строки или ячейки, на которую наведен курсор мыши. Свойства средств визуализации элементов сетки могут изменяться, если на них наведен курсор мыши.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:labelDisplay:get"><apiName>labelDisplay</apiName><shortdesc>
+      Дополнительный визуальный компонент в средстве визуализации элементов для отображения свойства label.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelDisplayChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:TextBase</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Дополнительный визуальный компонент в средстве визуализации элементов для отображения свойства <codeph>label</codeph>. Если это свойство используется для определения визуального компонента, то свойство <codeph>text</codeph> этого компонента синхронизируется со свойством <codeph>label</codeph> средства визуализации элементов.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:label:get"><apiName>label</apiName><shortdesc conref="IGridItemRenderer#label">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="IGridItemRenderer#label">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      
+      Отсчитываемый от нуля индекс строки визуализируемой ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="rowIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Отсчитываемый от нуля индекс строки визуализируемой ячейки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:selected:get"><apiName>selected</apiName><shortdesc>
+      
+      Содержит значение true, если ячейка средства визуализации элементов является частью текущего выбора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="selectedChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Содержит значение <codeph>true</codeph>, если ячейка средства визуализации элементов является частью текущего выбора.
+     
+      <p> В отличие от средства визуализации списка, средства визуализации элементов сетки не отвечают монопольно за отображение того, что они являются частью выбранной области. Сетка автоматически отображает компонент темы оформления selectionIndicator для выбранных строк или ячеек. Средство визуализации элементов может также изменить свои визуальные свойства для выражения того, что оно является компонентом выбора.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:showsCaret:get"><apiName>showsCaret</apiName><shortdesc>
+      
+      Содержит значение true, если ячейка средства визуализации элементов обозначается символом вставки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showsCaretChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Содержит значение <codeph>true</codeph>, если ячейка средства визуализации элементов обозначается символом вставки.
+     
+      <p> В отличие от средства визуализации элементов списка, средства визуализации элементов сетки не отвечают монопольно за отображение того, что их соответствующие ячейки или строки содержат символ вставки. Сетка автоматически отображает компонент темы оформления caretIndicator для строки или ячейки, содержащей символ вставки. Средство визуализации элементов также может изменить свои визуальные свойства для выражения того, что оно содержит символ вставки.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridItemEditor"><apiName>IGridItemEditor</apiName><shortdesc>
+  Интерфейс IGridItemEditor определяет интерфейс, который должны реализовать редакторы элементов для элементов управления Spark DataGrid и Spark Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerComponent</apiBaseInterface><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IGridItemEditor определяет интерфейс, который должны реализовать редакторы элементов для элементов управления Spark DataGrid и Spark Grid. Элементы управления DataGrid и Grid рассматриваются как владельцы средства визуализации элементов или как компоненты хоста редактора элементов.
+ 
+  <p>Все свойства редактора элементов устанавливаются владельцем в начале сеанса редактирования. Свойство <codeph>data</codeph> устанавливается последним. При установке свойства <codeph>data</codeph> редактор элементов должен определить значение элементов управления редактора. Затем редактор вызывает метод <codeph>prepare()</codeph>. Реализации IGridItemEditor должны изменить метод <codeph>prepare()</codeph>, чтобы внести окончательные изменения в его свойства или любой аспект его визуальных элементов. При закрытии редактора вызывается метод <codeph>discard()</codeph>.</p>
+  
+  <p>После закрытия редактора можно сохранить или отменить введенные значения. Если значения необходимо сохранить, редактор вызывает функцию <codeph>save()</codeph>, чтобы записать новые значения в элемент поставщика данных, соответствующий строке редактируемой ячейки. </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:discard"><apiName>discard</apiName><shortdesc>
+      Вызывается непосредственно перед закрытием редактора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается непосредственно перед закрытием редактора. Этот метод используется для любой окончательной очистки, например для очистки любых элементов, установленных в методе <codeph>prepare()</codeph>.
+      
+      <p>Не вызывайте этот метод напрямую. Он должен вызываться только элементом управления, в котором содержится редактор элементов.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:prepare"><apiName>prepare</apiName><shortdesc>
+      Вызывается после создания и определения размера редактора, но перед его отображением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Вызывается после создания и определения размера редактора, но перед его отображением. Этот метод используется для настройки внешнего вида редактора, добавления прослушивателей событий и задания других начальных условий, перед тем как редактор будет отображаться.
+      
+      <p>Не вызывайте этот метод напрямую. Он должен вызываться только элементом управления, в котором содержится редактор элементов.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:save"><apiName>save</apiName><shortdesc>
+      Сохраняет значение в редакторе в поставщик данных владельца средства визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> при успешной операции сохранения, в противном случае - <codeph>false</codeph>.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Сохраняет значение в редакторе в поставщик данных владельца средства визуализации элементов. Этот метод обновляет элемент поставщика данных, соответствующий строке редактируемой ячейки. Эта функция вызывает <codeph>GridItemEditor.validate()</codeph> для проверки того, можно ли сохранить данные. Если данные недействительны, то они не будут сохранены и редактор не будет закрыт.
+     
+      <p>Не вызывайте этот метод напрямую. Он должен вызываться только элементом управления, в котором содержится редактор элементов. Для сохранения и выхода из редактора вызовите метод <codeph>endItemEditorSession()</codeph> владельца средства визуализации элементов.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link></related-links></apiOperation><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:columnIndex:get"><apiName>columnIndex</apiName><shortdesc> 
+      Отсчитываемый от нуля индекс редактируемого столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+      Отсчитываемый от нуля индекс редактируемого столбца.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:column:get"><apiName>column</apiName><shortdesc>
+      Столбец редактируемой ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      Столбец редактируемой ячейки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      Элемент управления, которому принадлежит этот редактор элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      Элемент управления, которому принадлежит этот редактор элементов.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:rowIndex:get"><apiName>rowIndex</apiName><shortdesc> 
+      Отсчитываемый от нуля индекс редактируемой ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc> 
+      Отсчитываемый от нуля индекс редактируемой ячейки.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridItemEditor"><apiName>GridItemEditor</apiName><shortdesc>
+  Класс GridItemEditor определяет базовый класс для пользовательских редакторов элементов для элементов управления сетки Spark, например DataGrid и Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:GridItemEditor&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:GridItemEditor
+    <strong>Properties</strong>
+    column="null"
+    data="null"
+    imeMode="null"
+    itemRenderer="null"
+    rowIndex="0"
+    value="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.components.gridClasses:IGridItemEditor</apiBaseInterface><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс GridItemEditor определяет базовый класс для пользовательских редакторов элементов для элементов управления сетки Spark, например DataGrid и Grid. В редакторе элементов можно редактировать значение ячейки сетки и затем сохранить это значение в поставщике данных элемента управления.
+   <p>Редакторы элементов связаны с каждым столбцом сетки. Редактор элементов устанавливается для столбца с помощью свойства <codeph>GridColumn.itemEditor</codeph>.</p> 
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemEditor"><linktext>spark.components.gridClasses.GridColumn.itemEditor</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridItemEditor:GridItemEditor"><apiName>GridItemEditor</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridItemEditor:discard"><apiName>discard</apiName><shortdesc>
+      
+      Вызывается непосредственно перед закрытием редактора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Вызывается непосредственно перед закрытием редактора. Этот метод используется для любой окончательной очистки, например для очистки любых элементов, установленных в методе <codeph>prepare()</codeph>.
+      
+      <p>Не вызывайте этот метод напрямую. Он должен вызываться только элементом управления, в котором содержится редактор элементов.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:prepare"><apiName>prepare</apiName><shortdesc>
+      
+      Вызывается после создания и определения размера редактора, но перед его отображением.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Вызывается после создания и определения размера редактора, но перед его отображением. Этот метод используется для настройки внешнего вида редактора, добавления прослушивателей событий и задания других начальных условий, перед тем как редактор будет отображаться.
+      
+      <p>Не вызывайте этот метод напрямую. Он должен вызываться только элементом управления, в котором содержится редактор элементов.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:save"><apiName>save</apiName><shortdesc>
+      
+      Сохраняет значение в редакторе в поставщик данных владельца средства визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> при успешной операции сохранения, в противном случае - <codeph>false</codeph>.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Сохраняет значение в редакторе в поставщик данных владельца средства визуализации элементов. Этот метод обновляет элемент поставщика данных, соответствующий строке редактируемой ячейки. Эта функция вызывает <codeph>GridItemEditor.validate()</codeph> для проверки того, можно ли сохранить данные. Если данные недействительны, то они не будут сохранены и редактор не будет закрыт.
+     
+      <p>Не вызывайте этот метод напрямую. Он должен вызываться только элементом управления, в котором содержится редактор элементов. Для сохранения и выхода из редактора вызовите метод <codeph>endItemEditorSession()</codeph> владельца средства визуализации элементов.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:protected:validate"><apiName>validate</apiName><shortdesc>
+      Проверяет, является ли значение в редакторе допустимым и может ли быть сохранено.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc><codeph>true</codeph>, если значение в редакторе является допустимым. В противном случае возвращает <codeph>false</codeph>.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Проверяет, является ли значение в редакторе допустимым и может ли быть сохранено.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridItemEditor:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+       
+      Отсчитываемый от нуля индекс редактируемого столбца.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+       
+      Отсчитываемый от нуля индекс редактируемого столбца.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:column:get"><apiName>column</apiName><shortdesc>
+      
+      Столбец редактируемой ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      Столбец редактируемой ячейки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      
+      Элемент управления, которому принадлежит этот редактор элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      
+      Элемент управления, которому принадлежит этот редактор элементов.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:data:get"><apiName>data</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      Флаг, указывающий на необходимость активации IME при получении компонентом фокуса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Флаг, указывающий на необходимость активации IME при получении компонентом фокуса.
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      Указывает режим редактора методов ввода (IME).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает режим редактора методов ввода (IME). IME позволяет пользователям вводить текст на китайском, японском и корейском языках. Режим IME устанавливается при перемещении фокуса на элемент управления и возвращается к предыдущему значению при потере фокуса этим элементом управления.
+          <p>Класс flash.system.IMEConversionMode определяет константы для допустимых значений этого свойства. Можно также указать значение <codeph>null</codeph> и не указывать IME.</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      Средство визуализации элементов, связанное с редактируемой ячейкой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:IGridItemRenderer</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Средство визуализации элементов, связанное с редактируемой ячейкой.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+       
+      Отсчитываемый от нуля индекс редактируемой ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+       
+      Отсчитываемый от нуля индекс редактируемой ячейки.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:value:get"><apiName>value</apiName><shortdesc> 
+      По умолчанию это свойство инициализируется методом установщика свойства data.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      По умолчанию это свойство инициализируется методом установщика свойства <codeph>data</codeph>. Значение по умолчанию этого свойства представлено данными ячейки из поставщика данных элемента управления сетки. Редактор элементов может использовать это свойство для инициализации визуальных элементов в редакторе элементов.
+           <p>По умолчанию метод <codeph>save()</codeph> записывает значение этого свойства в поставщик данных элемента управления сетки, когда редактор закрывается после сохранения. </p>
+     
+      <p>Многие пользовательские средства визуализации элементов изменяют методы получателя и установщика этого свойства. При изменении метода установщика инициализируется редактор на основе значения ячейки. При изменении метода получателя возвращается новое значение ячейки в метод <codeph>save()</codeph>. </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridItemRenderer"><apiName>IGridItemRenderer</apiName><shortdesc>
+  Реализацию интерфейса IGridItemRenderer выполняют средства визуализации элементов DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Реализацию интерфейса IGridItemRenderer выполняют средства визуализации элементов DataGrid. DataGrid использует этот API, чтобы предоставить средству визуализации элементов информацию, необходимую для визуализации одного элемента <i>cell</i> сетки или заголовка.  
+ 
+  <p>Все свойства средства визуализации элементов устанавливаются во время выполнения метода <codeph>updateDisplayList()</codeph> его вышестоящего элемента. После установки свойств вызывается метод<codeph>prepare()</codeph> средства визуализации элементов. Реализация IGridItemRenderer должна изменить метод <codeph>prepare()</codeph>, чтобы окончательно отредактировать его свойства или любой аспект его визуальных элементов. Как правило, метод <codeph>prepare()</codeph> используется для настройки визуальных элементов средства визуализации на основе свойства <codeph>data</codeph>.</p>
+ 
+  <p>Если средство визуализации элементов больше не требуется, так как оно будет добавлено к внутреннему свободному списку многократно используемых средств визуализации или больше не будет использоваться, вызывается метод <codeph>discard()</codeph> в IGridItemRenderer.</p> 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiOperation id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:discard"><apiName>discard</apiName><shortdesc>
+      Вызывается из метода updateDisplayList() вышестоящего элемента средства визуализации элементов, если определено, что это средство визуализации больше не является видимым.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>willBeRecycled</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, если это средство визуализации будет добавлено к внутреннему свободному списку владельца для повторного использования.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается из метода <codeph>updateDisplayList()</codeph> вышестоящего элемента средства визуализации элементов, если определено, что это средство визуализации больше не является видимым. Если для параметра <codeph>willBeRecycled</codeph> устанавливается значение <codeph>true</codeph>, то владелец добавляет это средство визуализации к внутреннему свободному списку для повторного использования. Реализации могут использовать этот метод, чтобы удалить любые свойства средства визуализации, которые больше не являются необходимыми.
+     
+      <p>Этот метод не предназначен для прямого вызова. Он вызывается реализацией DataGrid.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:prepare"><apiName>prepare</apiName><shortdesc>
+      Вызывается из метода updateDisplayList() вышестоящего элемента средства визуализации элементов после установки всех свойств этого средства визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>hasBeenRecycled</apiItemName><apiType value="Boolean"/><apiDesc> <codeph>true</codeph>, если это средство визуализации используется повторно.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается из метода <codeph>updateDisplayList()</codeph> вышестоящего элемента средства визуализации элементов после установки всех свойств этого средства визуализации. Для параметра <codeph>hasBeenRecycled</codeph> устанавливается значение <codeph>false</codeph>, если это средство визуализации не использовалось ранее, т. е. используется впервые. Метод вызывается непосредственно перед тем, как средство визуализации станет видимым, и при каждом его отображении вследствие изменения свойства средства визуализации или явного запроса на повторное отображение. 
+     
+      <p>Этот метод можно использовать для настройки всех визуальных элементов и свойств средства визуализации. Использование этого метода может быть более эффективным, чем привязка свойств <codeph>data</codeph> к свойствам визуальных элементов. Примечание. Поскольку метод <codeph>prepare()</codeph> вызывается достаточно часто, очень важно обеспечить эффективность его кода.</p>
+     
+      <p>Метод <codeph>prepare()</codeph> может многократно вызываться перед вызовом метода <codeph>discard()</codeph>.</p>
+     
+      <p>Этот метод не предназначен для прямого вызова. Он вызывается реализацией DataGrid.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      Индекс столбца для ячейки этого средства визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс столбца для ячейки этого средства визуализации элементов. Это значение аналогично <codeph>column.columnIndex</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:column:get"><apiName>column</apiName><shortdesc>
+      Объект GridColumn, представляющий столбец, связанный с этим средством визуализации элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      Объект GridColumn, представляющий столбец, связанный с этим средством визуализации элементов.  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:down:get"><apiName>down</apiName><shortdesc>
+      Для этого свойства устанавливается значение true, если в ячейке сетки происходит одно из двух входящих действий: нажатие кнопки мыши или касание сенсорного экрана.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Для этого свойства устанавливается значение <codeph>true</codeph>, если в ячейке сетки происходит одно из двух входящих действий: нажатие кнопки мыши или касание сенсорного экрана. Для свойства <codeph>down</codeph> восстанавливается значение <codeph>false</codeph>, когда пользователь отпускает кнопку мыши или больше не касается сенсорного экрана, а также если курсор или точка касания выходит за пределы ячейки сетки.   
+     
+      <p>В отличие от средства визуализации элементов списка, средство визуализации элементов сетки не отвечает монопольно за отображение индикатора down. Сетка визуализирует индикатор down для выделенной строки или ячейки. Визуальные свойства средства визуализации элементов могут изменяться при нажатии.</p>   
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:dragging:get"><apiName>dragging</apiName><shortdesc>
+      Содержит значение true, если перемещается средство визуализации элементов, обычно в рамках операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Содержит значение <codeph>true</codeph>, если перемещается средство визуализации элементов, обычно в рамках операции перетаскивания. В настоящее время элемент управления Spark DataGrid не поддерживает перетаскивание.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:grid:get"><apiName>grid</apiName><shortdesc>
+      Сетка, связанная с этим средством визуализации элементов; как правило, является значением column.grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      Сетка, связанная с этим средством визуализации элементов; как правило, является значением <codeph>column.grid</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:hovered:get"><apiName>hovered</apiName><shortdesc>
+      Содержит значение true, если на средство визуализации элементов наведен курсор мыши и selectionMode сетки имеет значение GridSelectionMode.SINGLE_CELL или GridSelectionMode.MULTIPLE_CELLS, а также если курсор мыши находится в пределах строки, к которой относится средство визуализации элементов, и для selectionMode сетки установлено значение GridSelectionMode.SINGLE_ROW или GridSelectionMode.MULTIPLE_ROWS.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Содержит значение <codeph>true</codeph>, если на средство визуализации элементов наведен курсор мыши и selectionMode сетки имеет значение <codeph>GridSelectionMode.SINGLE_CELL</codeph> или <codeph>GridSelectionMode.MULTIPLE_CELLS</codeph>, а также если курсор мыши находится в пределах строки, к которой относится средство визуализации элементов, и для selectionMode сетки установлено значение <codeph>GridSelectionMode.SINGLE_ROW</codeph> или <codeph>GridSelectionMode.MULTIPLE_ROWS</codeph>.
+     
+      <p>В отличие от средства визуализации элементов списка, средства визуализации элементов сетки не отвечают монопольно за отображение того, что на средство визуализации элементов или строку, к которой оно принадлежит, наведен курсор мыши. Сетка автоматически отображает компонент темы оформления hoverIndicator для строки или ячейки, на которую наведен курсор мыши. Свойства средств визуализации элементов сетки могут изменяться, если на них наведен курсор мыши.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:label:get"><apiName>label</apiName><shortdesc>
+      String для отображения в средстве визуализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      String для отображения в средстве визуализации.  
+     
+      <p>Класс GridItemRenderer автоматически копирует значение этого свойства в свойство <codeph>text</codeph> своего элемента <codeph>labelDisplay</codeph>, если этот элемент был указан. Сетка устанавливает <codeph>label</codeph> для значения, возвращенного методом <codeph>itemToLabel()</codeph> столбца.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridItemRenderer"><linktext>spark.components.gridClasses.GridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      Отсчитываемый от нуля индекс строки визуализируемой ячейки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Отсчитываемый от нуля индекс строки визуализируемой ячейки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:selected:get"><apiName>selected</apiName><shortdesc>
+      Содержит значение true, если ячейка средства визуализации элементов является частью текущего выбора.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Содержит значение <codeph>true</codeph>, если ячейка средства визуализации элементов является частью текущего выбора.
+     
+      <p> В отличие от средства визуализации списка, средства визуализации элементов сетки не отвечают монопольно за отображение того, что они являются частью выбранной области. Сетка автоматически отображает компонент темы оформления selectionIndicator для выбранных строк или ячеек. Средство визуализации элементов может также изменить свои визуальные свойства для выражения того, что оно является компонентом выбора.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:showsCaret:get"><apiName>showsCaret</apiName><shortdesc>
+      Содержит значение true, если ячейка средства визуализации элементов обозначается символом вставки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Содержит значение <codeph>true</codeph>, если ячейка средства визуализации элементов обозначается символом вставки.
+     
+      <p> В отличие от средства визуализации элементов списка, средства визуализации элементов сетки не отвечают монопольно за отображение того, что их соответствующие ячейки или строки содержат символ вставки. Сетка автоматически отображает компонент темы оформления caretIndicator для строки или ячейки, содержащей символ вставки. Средство визуализации элементов также может изменить свои визуальные свойства для выражения того, что оно содержит символ вставки.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:ComboBoxGridItemEditor"><apiName>ComboBoxGridItemEditor</apiName><shortdesc>Класс ComboBoxGridItemEditor определяет средство визуализации элементов для использования с элементами управления сетки Spark, например DataGrid и Grid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.binding:IBindingClient</apiBaseInterface><apiBaseClassifier>spark.components.gridClasses:GridItemEditor</apiBaseClassifier></apiClassifierDef><apiDesc>Класс ComboBoxGridItemEditor определяет средство визуализации элементов для использования с элементами управления сетки Spark, например DataGrid и Grid. ComboBoxGridItemEditor отображает раскрывающийся список значений ячейки. Выберите новое значение для ячейки.
+      
+      <p>Ниже представлен пример того, как GridColumn использует ComboBoxGridItemEditor в качестве редактора элементов:</p>
+      
+      <pre>
+        &lt;s:GridColumn dataField="quant" 
+            headerText="Qty">
+                &lt;s:itemEditor>
+                    &lt;fx:Component>
+                        &lt;s:ComboBoxGridItemEditor>
+                            &lt;s:dataProvider>
+                                &lt;s:ArrayList>
+                                    &lt;fx:int>0&lt;/fx:int>
+                                    &lt;fx:int>1&lt;/fx:int>
+                                    &lt;fx:int>2&lt;/fx:int>
+                                    &lt;fx:int>3&lt;/fx:int>
+                                &lt;/s:ArrayList>
+                            &lt;/s:dataProvider>
+                        &lt;/s:ComboBoxGridItemEditor>
+                    &lt;/fx:Component>
+                &lt;/s:itemEditor>
+        &lt;/s:GridColumn>
+      </pre>
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:ComboBoxGridItemEditor:ComboBoxGridItemEditor"><apiName>ComboBoxGridItemEditor</apiName><shortdesc>Конструктор.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>Конструктор.</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:ComboBoxGridItemEditor:comboBox"><apiName>comboBox</apiName><shortdesc>Элемент управления ComboBox редактора элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="Bindable"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:ComboBox</apiValueClassifier></apiValueDef><apiDesc>Элемент управления ComboBox редактора элементов. 
+        
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:ComboBoxGridItemEditor:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+              Поставщик данных для элемента ComboBox в редакторе элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="comboBoxGridItemEditorDataProviderChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:IList"/></apiValueDef><apiDesc>
+              Поставщик данных для элемента ComboBox в редакторе элементов.
+                           </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

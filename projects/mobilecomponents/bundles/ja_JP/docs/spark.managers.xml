@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.managers"><apiName>spark.managers</apiName><apiDetail/><apiClassifier id="spark.managers:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+  PersistenceManager クラスは、FxAppCache という名前のローカル共有オブジェクトによって返される基本パーシスタンスマネージャーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.managers:IPersistenceManager</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PersistenceManager クラスは、FxAppCache という名前のローカル共有オブジェクトによって返される基本パーシスタンスマネージャーです。初期化すると、ID と一致するローカル共有オブジェクトが読み込まれます。 ローカル共有オブジェクトが見つからない場合は、ローカル共有オブジェクトが作成されます。
+ 
+  <p>マネージャーを使用して値を格納するときには、すべての値を共有オブジェクトに適切に書き込めることが重要になります。 クラスまたは非標準フラッシュプリミティブを格納する複雑なオブジェクトを適切に動作させるには、flash.net.IExternalizable インターフェイスを実装する必要があります。 非互換のオブジェクトを保存しても RTE が発生することはありませんが、そのデータを読み込む際に未定義の動作が作成されます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.utils.IExternalizable.xml"><linktext>flash.utils.IExternalizable</linktext></link></related-links><apiConstructor id="spark.managers:PersistenceManager:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.managers:PersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      
+      パーシスタンスマネージャーが格納中のすべてのデータを消去します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      パーシスタンスマネージャーが格納中のすべてのデータを消去します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      
+      パーシスタンスマネージャーに格納されているプロパティの値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>パーシスタンスマネージャーに格納されているプロパティの値です。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>プロパティキーです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      パーシスタンスマネージャーに格納されているプロパティの値を返します。プロパティはキーと値のペアとして保存されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:load"><apiName>load</apiName><shortdesc>
+      
+      パーシスタンスマネージャーを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>操作が正常に完了した場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      パーシスタンスマネージャーを初期化します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:save"><apiName>save</apiName><shortdesc>
+      
+      パーシスタンスマネージャーによって管理されているデータをディスクまたは別の外部記憶域ファイルにフラッシュします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>操作が正常に完了した場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      パーシスタンスマネージャーによって管理されているデータをディスクまたは別の外部記憶域ファイルにフラッシュします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      
+      パーシスタンスマネージャーに値を格納します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>値を格納するために使用するキー.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>格納する値オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      パーシスタンスマネージャーに値を格納します。プロパティはキーと値のペアとして保存されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.managers:IPersistenceManager"><apiName>IPersistenceManager</apiName><shortdesc>
+  IPersistenceManager は、すべてのパーシスタンスマネージャーが実装する必要があるインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IPersistenceManager は、すべてのパーシスタンスマネージャーが実装する必要があるインターフェイスを定義します。これらのオブジェクトは、アプリケーションセッション間のデータを残します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.managers.xml#PersistenceManager"><linktext>spark.managers.PersistenceManager</linktext></link></related-links><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      パーシスタンスマネージャーが格納中のすべてのデータを消去します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      パーシスタンスマネージャーが格納中のすべてのデータを消去します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      パーシスタンスマネージャーに格納されているプロパティの値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>パーシスタンスマネージャーに格納されているプロパティの値です。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>プロパティキーです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      パーシスタンスマネージャーに格納されているプロパティの値を返します。プロパティはキーと値のペアとして保存されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:load"><apiName>load</apiName><shortdesc>
+      パーシスタンスマネージャーを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>操作が正常に完了した場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      パーシスタンスマネージャーを初期化します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:save"><apiName>save</apiName><shortdesc>
+      パーシスタンスマネージャーによって管理されているデータをディスクまたは別の外部記憶域ファイルにフラッシュします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>操作が正常に完了した場合は <codeph>true</codeph> です。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      パーシスタンスマネージャーによって管理されているデータをディスクまたは別の外部記憶域ファイルにフラッシュします。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      パーシスタンスマネージャーに値を格納します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>値を格納するために使用するキー.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>格納する値オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      パーシスタンスマネージャーに値を格納します。プロパティはキーと値のペアとして保存されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

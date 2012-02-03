@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections.errors"><apiName>mx.collections.errors</apiName><apiDetail/><apiClassifier id="mx.collections.errors:ItemPendingError"><apiName>ItemPendingError</apiName><shortdesc>
+  Dieser Fehler wird ausgelöst, wenn der Abruf eines Element aus einer Sammlungsansicht einen asynchronen Aufruf erfordert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Dieser Fehler wird ausgelöst, wenn der Abruf eines Element aus einer Sammlungsansicht einen asynchronen Aufruf erfordert. Dieser Fehler tritt auf, wenn die Basisdaten von einer Remote-Quelle kommen und die Daten lokal nicht verfügbar sind.
+ 
+  <p>Wenn der Empfänger dieses Fehlers eine Verständigung darüber benötigt, wann das angeforderte Element verfügbar wird (also wenn der asynchrone Aufruf abgeschlossen ist), muss die <codeph>addResponder()</codeph>-Methode verwendet und ein Objekt festgelegt werden, das die <codeph>mx.rpc.IResponder</codeph>-Schnittstelle unterstützt, um zu reagieren, sobald das Element verfügbar ist. Die <codeph>mx.collections.ItemResponder</codeph>-Klasse implementiert die IResponder-Schnittstelle und unterstützt eine <codeph>data</codeph>-Eigenschaft.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#ItemResponder"><linktext>mx.collections.ItemResponder</linktext></link><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link></related-links><apiConstructor id="mx.collections.errors:ItemPendingError:ItemPendingError"><apiName>ItemPendingError</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Eine Meldung, die Informationen über die Fehlerursache enthält.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  <p>Wird vom Flex Framework aufgerufen, wenn ein Element angefordert wird, das nicht lokal verfügbar ist.</p>
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections.errors:ItemPendingError:addResponder"><apiName>addResponder</apiName><shortdesc>
+	  addResponder fügt einen Responder einem Array von Respondern hinzu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>responder</apiItemName><apiOperationClassifier>mx.rpc:IResponder</apiOperationClassifier><apiDesc>Eine Ereignisprozedur wird bei Abschluss der asynchronen Anforderung aufgerufen.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  <codeph>addResponder</codeph> fügt einen Responder einem Array von Respondern hinzu. Das Objekt, das dem Responder-Parameter zugewiesen wurde, muss die mx.rpc.IResponder-Schnittstelle implementieren.
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link><link href="mx.collections.xml#ItemResponder"><linktext>mx.collections.ItemResponder</linktext></link></related-links></apiOperation><apiValue id="mx.collections.errors:ItemPendingError:responders:get"><apiName>responders</apiName><shortdesc>
+      Ein Array von IResponder-Prozeduren, die aufgerufen werden, wenn die asynchrone Anforderung abgeschlossen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Ein Array von IResponder-Prozeduren, die aufgerufen werden, wenn die asynchrone Anforderung abgeschlossen ist.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections.errors:SortError"><apiName>SortError</apiName><shortdesc>
+  Dieser Fehler wird ausgelöst, wenn eine Sort-Klasse nicht korrekt konfiguriert ist, beispielsweise wenn die Suchkriterien ungültig sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Dieser Fehler wird ausgelöst, wenn eine Sort-Klasse nicht korrekt konfiguriert ist, beispielsweise wenn die Suchkriterien ungültig sind.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:SortError:SortError"><apiName>SortError</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Eine Meldung, die Informationen über die Fehlerursache enthält.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections.errors:CursorError"><apiName>CursorError</apiName><shortdesc>
+  Dieser Fehler wird von einem Sammlungs-Cursor ausgelöst.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Dieser Fehler wird von einem Sammlungs-Cursor ausgelöst. Fehler dieser Klasse werden von Klassen ausgelöst, die die IViewCursor-Schnittstelle implementieren.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:CursorError:CursorError"><apiName>CursorError</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Eine Meldung, die Informationen über die Fehlerursache enthält.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections.errors:CollectionViewError"><apiName>CollectionViewError</apiName><shortdesc>
+  Die CollectionViewError-Klasse stellt allgemeine Fehler in einer Sammlung dar, die nicht mit bestimmten Vorgängen wie beispielsweise einer Cursor-Suche verbunden sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die <codeph>CollectionViewError</codeph>-Klasse stellt allgemeine Fehler in einer Sammlung dar, die nicht mit bestimmten Vorgängen wie beispielsweise einer Cursor-Suche verbunden sind. Fehler dieser Klasse werden von der ListCollectionView-Klasse ausgelöst.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections.errors:CollectionViewError:CollectionViewError"><apiName>CollectionViewError</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Eine Meldung, die Informationen über die Fehlerursache enthält.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

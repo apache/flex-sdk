@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.dataGridClasses"><apiName>mx.controls.dataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.dataGridClasses:FTEDataGridItemRenderer"><apiName>FTEDataGridItemRenderer</apiName><shortdesc>
+  FTEDataGridItemRenderer クラスは、FTEText で使用される DataGrid コントロールのデフォルトのアイテムレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier>mx.core:UIFTETextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FTEDataGridItemRenderer クラスは、FTEText で使用される DataGrid コントロールのデフォルトのアイテムレンダラーを定義します。デフォルトでは、アイテムレンダラーはグリッド内の各アイテムに関連付けられているテキストを描画します。
+ 
+  <p>カスタムアイテムレンダラーを作成することにより、デフォルトのアイテムレンダラーをオーバーライドできます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.DataGrid.xml"><linktext>mx.controls.DataGrid</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.dataGridClasses:FTEDataGridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  data プロパティが変更されたときに送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>data</codeph> プロパティが変更されたときに送出されます。
+ 
+  <p>コンポーネントをアイテムレンダラーとして使う場合、<codeph>data</codeph> プロパティは表示するデータを保持します。 このイベントを受け取って、<codeph>data</codeph> プロパティが変更されたときにコンポーネントを更新することができます。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:FTEDataGridItemRenderer"><apiName>FTEDataGridItemRenderer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:clearStyle"><apiName>clearStyle</apiName><shortdesc conref="mx.core.UIComponent#clearStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#clearStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:initProtoChain"><apiName>initProtoChain</apiName><shortdesc>
+      inheritingStyles オブジェクトと nonInheritingStyles オブジェクト、およびそれらのプロトチェーンを設定して、getStyle() メソッドが機能するようにします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>inheritingStyles</codeph> オブジェクトと <codeph>nonInheritingStyles</codeph> オブジェクト、およびそれらのプロトチェーンを設定して、<codeph>getStyle()</codeph> メソッドが機能するようにします。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.core.UIComponent#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:protected:toolTipShowHandler"><apiName>toolTipShowHandler</apiName><shortdesc>
+      ツールヒントを配置するイベントハンドラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:ToolTipEvent"/><apiDesc>イベントオブジェクト。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ツールヒントを配置するイベントハンドラーです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+      Flex がこの ILayoutManagerClient で LayoutManager.invalidateDisplayList() メソッドを呼び出すと、表示リストの更新時にこの関数が呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Flex がこの ILayoutManagerClient で <codeph>LayoutManager.invalidateDisplayList()</codeph> メソッドを呼び出すと、表示リストの更新時にこの関数が呼び出されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+      Flex がこの ILayoutManagerClient で LayoutManager.invalidateProperties() メソッドを呼び出すと、プロパティ値の処理時にこの関数が呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Flex がこの ILayoutManagerClient で <codeph>LayoutManager.invalidateProperties()</codeph> メソッドを呼び出すと、プロパティ値の処理時にこの関数が呼び出されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:validateSize"><apiName>validateSize</apiName><shortdesc>
+      Flex がこの ILayoutManagerClient で LayoutManager.invalidateSize() メソッドを呼び出すと、測定の実行時にこの関数が呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合、このメソッドをオブジェクトの子で呼び出します。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex がこの ILayoutManagerClient で <codeph>LayoutManager.invalidateSize()</codeph> メソッドを呼び出すと、測定の実行時にこの関数が呼び出されます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      IDataRenderer インターフェイスによって定義された data プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      IDataRenderer インターフェイスによって定義された <codeph>data</codeph> プロパティの実装です。
+     
+      <p>値は無視されます。 <codeph>listData</codeph> プロパティのみが使用されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      IDropInListItemRenderer インターフェイスによって定義された listData プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      IDropInListItemRenderer インターフェイスによって定義された <codeph>listData</codeph> プロパティの実装です。 レンダラーのテキストは listData の <codeph>label</codeph> プロパティに設定されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:FTEDataGridItemRenderer:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      このオブジェクトのインラインの継承スタイルの記憶域です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.styles:CSSStyleDeclaration"/></apiValueDef><apiDesc>
+      このオブジェクトのインラインの継承スタイルの記憶域です。 この CSSStyleDeclaration オブジェクトは、継承スタイルを設定するためにこのコンポーネントで初めて <codeph>setStyle()</codeph> メソッドが呼び出されたときに作成されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:MXDataGridItemRenderer"><apiName>MXDataGridItemRenderer</apiName><shortdesc>
+  MXDataGridItemRenderer クラスは、MX DataGrid コントロールで使用する Spark アイテムレンダラーを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="listData"/><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:MXDataGridItemRenderer&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:MXItemRenderer
+    <strong>Properties</strong>
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:MXItemRenderer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MXDataGridItemRenderer クラスは、MX DataGrid コントロールで使用する Spark アイテムレンダラーを定義します。このクラスでは、MX DataGrid コントロールで Spark アイテムレンダラーアーキテクチャを使用できます。 
+ 
+  </apiDesc><example conref="MXDataGridItemRenderer.mxml"><swfblock conref="examples/MXDataGridItemRenderer.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.DataGrid.xml"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:MXDataGridItemRenderer:MXDataGridItemRenderer"><apiName>MXDataGridItemRenderer</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:MXDataGridItemRenderer:dataGridListData:get"><apiName>dataGridListData</apiName><shortdesc>
+      IDropInListItemRenderer インターフェイスによって定義された listData プロパティの実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.controls.dataGridClasses:DataGridListData"/></apiValueDef><apiDesc>
+      IDropInListItemRenderer インターフェイスによって定義された <codeph>listData</codeph> プロパティの実装です。 このプロパティを使用して、アイテムレンダラーによって表示されるデータアイテムに関する情報にアクセスします。     
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

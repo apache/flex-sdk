@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.remoting.mxml"><apiName>mx.rpc.remoting.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.remoting.mxml:Operation"><apiName>Operation</apiName><shortdesc>
+ 在 MXML 文档中创建 RemoteObject 时为其使用的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseClassifier>mx.rpc.remoting:Operation</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 在 MXML 文档中创建 RemoteObject 时为其使用的操作。
+  
+  </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="mx.rpc.remoting.mxml:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+  在 MXML 文件中使用 &amp;lt;mx:RemoteObject&amp;gt; 标记来表示 HTTPService 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>
+ The &lt;mx:RemoteObject&gt; tag accepts the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:RemoteObject
+  <b>Properties</b>
+  concurrency="multiple|single|last"
+  destination="<i>No default.</i>"
+  id="<i>No default.</i>"
+  endpoint="<i>No default.</i>"
+  showBusyCursor="false|true"
+  source="<i>No default.</i>" (currently, Adobe ColdFusion only)
+  makeObjectsBindable="false|true"
+  
+  <b>Events</b>
+  fault="<i>No default.</i>"
+  result="<i>No default.</i>"  
+ /&gt;
+ </pre>
+ </p>
+ 
+ <p>
+ &lt;mx:RemoteObject&gt; can have multiple &lt;mx:method&gt; tags, which have the following tag attributes:
+ </p>
+ <pre>
+ &lt;mx:method
+  <b>Properties</b>
+  concurrency="multiple|single|last"
+  name="<i>No default, required.</i>"
+  makeObjectsBindable="false|true"
+         
+ <b>Events</b>
+  fault="<i>No default.</i>"
+  result="<i>No default.</i>"
+ /&gt;
+ </pre>
+ <p>
+ It then can have a single &lt;mx:arguments&gt; child tag which is an array of objects that is passed
+ in order.
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.rpc.mxml:IMXMLSupport</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>mx.rpc.remoting:RemoteObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+  在 MXML 文件中使用 &lt;mx:RemoteObject> 标记来表示 HTTPService 对象。此标记使您可以访问使用 Action Message Format (AMF) 编码的 Java 对象的方法。
+
+ </apiDesc><example conref="RemoteObjectExample.mxml"/></apiClassifierDetail><apiConstructor id="mx.rpc.remoting.mxml:RemoteObject:RemoteObject"><apiName>RemoteObject</apiName><shortdesc>
+     创建一个新的 RemoteObject。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>destination</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>RemoteObject 的目标，应与 services-config.xml 文件中的目标名称匹配。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     创建一个新的 RemoteObject。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.remoting.mxml:RemoteObject:getOperation"><apiName>getOperation</apiName><shortdesc>
+     返回给定名称的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>为此名称执行的操作。
+      
+      </apiDesc><apiOperationClassifier>mx.rpc:AbstractOperation</apiOperationClassifier></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>操作的名称。
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     返回给定名称的操作。如果之前没有创建该操作，则将在此调用过程中创建一个新的 <codeph>mx.rpc.remoting.mxml.Operation</codeph>。通常只需在服务变量之后命名操作即可访问操作 (<codeph>myService.someOperation</codeph>)，但如果 Operation 的名称恰好与服务上所定义的方法（如 <codeph>setCredentials</codeph>）相匹配，则可以改用此方法来获取 Operation。
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.remoting.mxml:RemoteObject:initialized"><apiName>initialized</apiName><shortdesc>
+     如果使用标签设置 RemoteObject，则由 MXML 编译器自动调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>此 RemoteObject 所在的 MXML 文档
+     </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>此 RemoteObject 在文档中的 ID
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     如果使用标签设置 RemoteObject，则由 MXML 编译器自动调用。如果通过 ActionScript 创建 RemoteObject，则可能希望自行调用此方法（因为它对验证任何参数都非常有用）。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins.halo"><apiName>mx.skins.halo</apiName><apiDetail/><apiClassifier id="mx.skins.halo:DefaultDragImage"><apiName>DefaultDragImage</apiName><shortdesc>
+  ドラッグアンドドロップ操作用のデフォルトのドラッグプロキシイメージです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseClassifier>mx.core:SpriteAsset</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ドラッグアンドドロップ操作用のデフォルトのドラッグプロキシイメージです。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.managers.xml#DragManager"><linktext>mx.managers.DragManager</linktext></link></related-links><apiConstructor id="mx.skins.halo:DefaultDragImage:DefaultDragImage"><apiName>DefaultDragImage</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:BrokenImageBorderSkin"><apiName>BrokenImageBorderSkin</apiName><shortdesc>
+  コンテンツがロードできなかった場合の、SWFLoader コンポーネントまたは Image コンポーネントの境界線のスキンです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  コンテンツがロードできなかった場合の、SWFLoader コンポーネントまたは Image コンポーネントの境界線のスキンです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:BrokenImageBorderSkin:BrokenImageBorderSkin"><apiName>BrokenImageBorderSkin</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:BusyCursor"><apiName>BusyCursor</apiName><shortdesc>
+  操作の実行中に表示されるカーソルの外観を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:FlexSprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  操作の実行中に表示されるカーソルの外観を定義します。例えば、SWFLoader クラスがアセットをロードする間があります。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:BusyCursor:BusyCursor"><apiName>BusyCursor</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>styleManager</apiItemName><apiOperationClassifier>mx.styles:IStyleManager2</apiOperationClassifier><apiData>null</apiData><apiDesc>- カーソルを作成するオブジェクトに関連付けられているスタイルマネージャーです。このスタイルマネージャーは、ビジーカーソルで使用されるクラスを決定するカーソルマネージャーのスタイル宣言を取得するために使用します。styleManager が null の場合は、トップレベルスタイルマネージャーが使用されます。
+     
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ListDropIndicator"><apiName>ListDropIndicator</apiName><shortdesc>
+  リストコントロールのドロップインジケーターのスキンです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  リストコントロールのドロップインジケーターのスキンです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ListDropIndicator:ListDropIndicator"><apiName>ListDropIndicator</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.skins.halo:ListDropIndicator:direction"><apiName>direction</apiName><shortdesc>
+	  スキンが水平の線を描画するか、垂直の線を描画するかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>horizontal</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  スキンが水平の線を描画するか、垂直の線を描画するかを指定します。 デフォルトは水平の線です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins.halo:HaloFocusRect"><apiName>HaloFocusRect</apiName><shortdesc>
+  フォーカスインジケーターのスキンを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  フォーカスインジケーターのスキンを定義します。 これは、フォーカスを持っているときにコントロール周辺に表示される矩形です。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:HaloFocusRect:HaloFocusRect"><apiName>HaloFocusRect</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ToolTipBorder"><apiName>ToolTipBorder</apiName><shortdesc>
+  ToolTip のスキンです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:RectangularBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ToolTip のスキンです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ToolTipBorder:ToolTipBorder"><apiName>ToolTipBorder</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.filters"><apiName>mx.filters</apiName><apiDetail/><apiClassifier id="mx.filters:BaseDimensionFilter"><apiName>BaseDimensionFilter</apiName><shortdesc>
+  一部の Spark フィルターの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  一部の Spark フィルターの基本クラスです。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.filters:BaseDimensionFilter:BaseDimensionFilter"><apiName>BaseDimensionFilter</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.filters:BaseDimensionFilter:blurX:get"><apiName>blurX</apiName><shortdesc>
+      水平方向のぼかし量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      水平方向のぼかし量。指定できる値は 0 ～ 255 です。1 以下の値を指定すると、元のイメージがそのままコピーされます。デフォルト値は 4 です。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:blurY:get"><apiName>blurY</apiName><shortdesc>
+      垂直方向のぼかし量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      垂直方向のぼかし量。指定できる値は 0 ～ 255 です。1 以下の値を指定すると、元のイメージがそのままコピーされます。デフォルト値は 4 です。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:knockout:get"><apiName>knockout</apiName><shortdesc>
+      オブジェクトにノックアウト効果を適用するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      オブジェクトにノックアウト効果を適用するかどうかを指定します。ノックアウト効果を適用すると、オブジェクトの塗りが透明になり、ドキュメントの背景色が表示されます。true を指定すると、ノックアウト効果が適用されます。デフォルト値は false で、ノックアウト効果は適用されません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:quality:get"><apiName>quality</apiName><shortdesc>
+      フィルターを適用する回数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      フィルターを適用する回数。デフォルト値は、フィルターを 1 回適用することに相当する BitmapFilterQuality.LOW です。値 BitmapFilterQuality.MEDIUM はフィルターを 2 回適用します。値 BitmapFilterQuality.HIGH はフィルターを 3 回適用します。フィルターに設定された値が小さいほど、速くレンダリングできます。多くのアプリケーションでは、quality の値は低、中、または高で十分です。最大 15 までの値を使用してさまざまな効果を出すことができますが、値が大きくなるほどレンダリング速度が低下します。quality の値を増やす代わりに、blurX と blurY の値を増やすだけで、同様の効果が得られます。この方法を実行すると、より高速にレンダリングされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.filters:BaseDimensionFilter:strength:get"><apiName>strength</apiName><shortdesc>
+      インプリントの強さまたは広がりです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      インプリントの強さまたは広がりです。値が大きいほど、濃い色がインプリントされるので、グローと背景との間のコントラストが強くなります。指定できる値は 0 ～ 255 です。値を 0 にすると、フィルターが適用されなくなります。デフォルト値は 1 です。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.filters:IBitmapFilter"><apiName>IBitmapFilter</apiName><shortdesc>
+     一部の Spark フィルターで使用されるインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+     一部の Spark フィルターで使用されるインターフェイスです。
+    
+     </apiDesc></apiClassifierDetail><apiOperation id="mx.filters:IBitmapFilter:mx.filters:IBitmapFilter:clone"><apiName>clone</apiName><shortdesc>
+         フィルターのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元の BitmapFilter インスタンスとプロパティがすべて同じである新しい BitmapFilter インスタンスです。
+        
+         </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+         フィルターのコピーを返します。
+        
+         </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.filters:BaseFilter"><apiName>BaseFilter</apiName><shortdesc>
+     一部の Spark フィルターの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+     一部の Spark フィルターの基本クラスです。
+    
+     </apiDesc></apiClassifierDetail><apiConstructor id="mx.filters:BaseFilter:BaseFilter"><apiName>BaseFilter</apiName><shortdesc>
+         コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiData>null</apiData><apiDesc>フィルターを適用するターゲット。
+        
+         </apiDesc></apiParam></apiConstructorDef><apiDesc>
+         コンストラクターです。
+        
+         </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.filters:BaseFilter:notifyFilterChanged"><apiName>notifyFilterChanged</apiName><shortdesc>
+         フィルターの変更時に変更イベントを伝播します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+         フィルターの変更時に変更イベントを伝播します。
+        
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.filters:BaseFilter:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+         ストリング「change」です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         ストリング「<codeph>change</codeph>」です。フィルターの変更時にイベントで使用されます。
+        
+         </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

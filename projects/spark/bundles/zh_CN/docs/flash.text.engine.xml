@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="flash.text.engine"><apiName>flash.text.engine</apiName><apiDetail/><apiClassifier id="flash.text.engine:ITextSupport"><apiName>ITextSupport</apiName><shortdesc>
+  ITextSupport 接口由希望实现内联 IME 的对象实现，或包含应在 web 中可搜索或可访问的文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  ITextSupport 接口由希望实现内联 IME 的对象实现，或包含应在 web 中可搜索或可访问的文本。 
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:getTextInRange"><apiName>getTextInRange</apiName><shortdesc> 
+	  从实现 ITextSupport 的组件获取指定的文本范围。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果请求范围内无可用文本，或如果两个索引之一或两个索引都无效，则返回已请求文本或 <codeph>null</codeph>。<codeph/><codeph/>
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>startIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>可选；指定了要检索的文本范围开始位置的整数。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>可选；指定了要检索的文本范围结束位置的整数。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  从实现 ITextSupport 的组件获取指定的文本范围。要检索组件中的所有文本，不要为 <codeph>startIndex</codeph> 和 <codeph>endIndex</codeph> 指定值。希望支持内嵌 IME 或 Web 搜索功能的组件应该覆盖此方法。覆盖此方法的组件应该确保 <codeph>startIndex</codeph> 和 <codeph>endIndex</codeph> 的默认值 <codeph>-1</codeph> 受支持。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectRange"><apiName>selectRange</apiName><shortdesc> 
+	  在实现 ITextSupport 的组件中设置选定文本的范围。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/><apiDesc>从零开始的字符索引值位于选区的锚点结尾
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/><apiDesc>从零开始的字符索引值位于选区的活动端。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  在实现 ITextSupport 的组件中设置选定文本的范围。如果任一参数超出边界，则不应该更改此选区。希望支持内嵌 IME 的组件应该覆盖此方法。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:canReconvert:get"><apiName>canReconvert</apiName><shortdesc>
+	  指示实现 ITextSupport 的组件是否支持汉字重选（具有可编辑的文本）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  指示实现 ITextSupport 的组件是否支持汉字重选（具有可编辑的文本）。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectionActiveIndex:get"><apiName>selectionActiveIndex</apiName><shortdesc> 
+	  当前所选内容中最后一个字符从零开始的字符索引值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+	  当前所选内容中最后一个字符从零开始的字符索引值。希望支持内联 IME 或辅助功能的组件应该覆盖此方法。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectionAnchorIndex:get"><apiName>selectionAnchorIndex</apiName><shortdesc> 
+	  当前所选内容中第一个字符从零开始的字符索引值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+	  当前所选内容中第一个字符从零开始的字符索引值。希望支持内联 IME 或辅助功能的组件应该覆盖此方法。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

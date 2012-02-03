@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics.shaderClasses"><apiName>mx.graphics.shaderClasses</apiName><apiDetail/><apiClassifier id="mx.graphics.shaderClasses:LuminosityShader"><apiName>LuminosityShader</apiName><shortdesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Luminanz“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Luminanz“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht. Diese Füllmethode steht nicht originär in Flash zur Verfügung, sondern in Tools wie Adobe Illustrator und Adobe Photoshop. 
+ 
+  <p>Die Füllmethode „Luminanz“ kann bei Flex-Gruppen- und Grafikelementen festgelegt werden. Das Aussehen in Tools wie Adobe Illustrator und Adobe Photoshop wird mithilfe dieses Blend-Shaders imitiert.</p>  
+ 
+  </apiDesc><example conref="LuminosityShaderExample.mxml"><swfblock conref="examples/LuminosityShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:LuminosityShader:LuminosityShader"><apiName>LuminosityShader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:SoftLightShader"><apiName>SoftLightShader</apiName><shortdesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Weiches Licht“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Weiches Licht“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht. Diese Füllmethode steht nicht originär in Flash zur Verfügung, sondern in Tools wie Adobe Illustrator und Adobe Photoshop. 
+ 
+  <p>Die Füllmethode „Weiches Licht“ kann bei Flex-Gruppen- und Grafikelementen festgelegt werden. Das Aussehen in Tools wie Adobe Illustrator und Adobe Photoshop wird mithilfe dieses Blend-Shaders imitiert.</p>  
+ 
+  </apiDesc><example conref="SoftLightShaderExample.mxml"><swfblock conref="examples/SoftLightShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:SoftLightShader:SoftLightShader"><apiName>SoftLightShader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:HueShader"><apiName>HueShader</apiName><shortdesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Farbton“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Farbton“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht. Diese Füllmethode steht nicht originär in Flash zur Verfügung, sondern in Tools wie Adobe Illustrator und Adobe Photoshop. 
+ 
+  <p>Die Füllmethode „Farbton“ kann bei Flex-Gruppen- und Grafikelementen festgelegt werden. Das Aussehen in Tools wie Adobe Illustrator und Adobe Photoshop wird mithilfe dieses Blend-Shaders imitiert.</p>  
+ 
+  </apiDesc><example conref="HueShaderExample.mxml"><swfblock conref="examples/HueShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:HueShader:HueShader"><apiName>HueShader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorShader"><apiName>ColorShader</apiName><shortdesc>
+  Die ColorShader-Klasse erstellt einen Blend-Shader, der der Füllmethode „Farbe“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ColorShader-Klasse erstellt einen Blend-Shader, der der Füllmethode „Farbe“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht. Diese Füllmethode steht nicht originär in Flash zur Verfügung, sondern in Tools wie Adobe Illustrator und Adobe Photoshop. Die Füllmethode „Farbe“ kann bei Flex-Gruppen- und Grafikelementen festgelegt werden. Das Aussehen in Tools wie Adobe Illustrator und Adobe Photoshop wird mithilfe dieses Blend-Shaders imitiert.  
+ 
+  </apiDesc><example conref="ColorShaderExample.mxml"><swfblock conref="examples/ColorShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorShader:ColorShader"><apiName>ColorShader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ExclusionShader"><apiName>ExclusionShader</apiName><shortdesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Ausschluss“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Ausschluss“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht. Diese Füllmethode steht nicht originär in Flash zur Verfügung, sondern in Tools wie Adobe Illustrator und Adobe Photoshop. 
+ 
+  <p>Die Füllmethode „Ausschluss“ kann bei Flex-Gruppen- und Grafikelementen festgelegt werden. Das Aussehen in Tools wie Adobe Illustrator und Adobe Photoshop wird mithilfe dieses Blend-Shaders imitiert.</p>  
+ 
+  </apiDesc><example conref="ExclusionShaderExample.mxml"><swfblock conref="examples/ExclusionShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ExclusionShader:ExclusionShader"><apiName>ExclusionShader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorDodgeShader"><apiName>ColorDodgeShader</apiName><shortdesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Farbig abwedeln“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Farbig abwedeln“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht. Diese Füllmethode steht nicht originär in Flash zur Verfügung, sondern in Tools wie Adobe Illustrator und Adobe Photoshop. 
+ 
+  <p>Die Füllmethode „Farbig abwedeln“ kann bei Flex-Gruppen- und Grafikelementen festgelegt werden. Das Aussehen in Tools wie Adobe Illustrator und Adobe Photoshop wird mithilfe dieses Blend-Shaders imitiert.</p>
+ 
+  </apiDesc><example conref="ColorDodgeShaderExample.mxml"><swfblock conref="examples/ColorDodgeShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorDodgeShader:ColorDodgeShader"><apiName>ColorDodgeShader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:ColorBurnShader"><apiName>ColorBurnShader</apiName><shortdesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Farbig nachbelichten“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Farbig nachbelichten“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht. Diese Füllmethode steht nicht originär in Flash zur Verfügung, sondern in Tools wie Adobe Illustrator und Adobe Photoshop. 
+ 
+  <p>Die Füllmethode „Farbig nachbelichten“ kann bei Flex-Gruppen- und Grafikelementen festgelegt werden und das Aussehen in Tools wie Adobe Illustrator und Adobe Photoshop wird mithilfe dieses Blend-Shaders imitiert.</p>  
+ 
+  </apiDesc><example conref="ColorBurnShaderExample.mxml"><swfblock conref="examples/ColorBurnShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:ColorBurnShader:ColorBurnShader"><apiName>ColorBurnShader</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor. 
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:LuminosityMaskShader"><apiName>LuminosityMaskShader</apiName><shortdesc>
+  Erstellt einen Blend-Shader, der der Maskierungsoption „Luminanz“ (auch als digitale Maskierung bezeichnet) in Adobe Creative Suite-Tools entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Erstellt einen Blend-Shader, der der Maskierungsoption „Luminanz“ (auch als digitale Maskierung bezeichnet) in Adobe Creative Suite-Tools entspricht. Dieser Maskentyp steht nicht originär in Flash zur Verfügung, sondern in Tools wie Adobe Illustrator und Adobe Photoshop. 
+ 
+  <p>Der Maskentyp „Luminanz“ kann bei Flex-Gruppen- und Grafikelementen festgelegt werden. Das Aussehen in Tools wie Adobe Illustrator und Adobe Photoshop wird mithilfe dieses Blend-Shaders imitiert.</p>
+  
+  </apiDesc><example conref="LuminosityMaskShaderExample.mxml"><swfblock conref="examples/LuminosityMaskShaderExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/maskType"><linktext>spark.primitives.supportClasses.GraphicElement.maskType</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/maskType"><linktext>spark.components.supportClasses.GroupBase.maskType</linktext></link></related-links><apiConstructor id="mx.graphics.shaderClasses:LuminosityMaskShader:LuminosityMaskShader"><apiName>LuminosityMaskShader</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor. 
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics.shaderClasses:LuminosityMaskShader:mode:get"><apiName>mode</apiName><shortdesc>
+      Ein Hilfsfeld, das berücksichtigt, ob luminosityClip und/oder luminosityInvert aktiviert oder deaktiviert sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Ein Hilfsfeld, das berücksichtigt, ob luminosityClip und/oder luminosityInvert aktiviert oder deaktiviert sind. 
+     
+      <ul>
+       <li>mode 0 = luminosityClip deaktiviert, luminosityInvert deaktiviert</li>
+       <li>mode 1 = luminosityClip deaktiviert, luminosityInvert aktiviert</li>
+       <li>mode 2 = luminosityClip aktiviert, luminosityInvert deaktiviert</li>
+       <li>mode 3 = luminosityClip aktiviert, luminosityInvert aktiviert </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/luminosityClip"><linktext>spark.primitives.supportClasses.GraphicElement.luminosityClip</linktext></link><link href="" invalidHref="spark.primitives.supportClasses.xml#GraphicElement/luminosityInvert"><linktext>spark.primitives.supportClasses.GraphicElement.luminosityInvert</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/luminosityClip"><linktext>spark.components.supportClasses.GroupBase.luminosityClip</linktext></link><link href="" invalidHref="spark.components.supportClasses.xml#GroupBase/luminosityInvert"><linktext>spark.components.supportClasses.GroupBase.luminosityInvert</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.graphics.shaderClasses:SaturationShader"><apiName>SaturationShader</apiName><shortdesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Sättigung“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Shader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Erstellt einen Blend-Shader, der der Füllmethode „Sättigung“ für integrierte RGB-Farben in Adobe Creative Suite-Tools entspricht. Diese Füllmethode steht nicht originär in Flash zur Verfügung, sondern in Tools wie Adobe Illustrator und Adobe Photoshop. 
+ 
+  <p>Die Füllmethode „Sättigung“ kann bei Flex-Gruppen- und Grafikelementen festgelegt werden. Das Aussehen in Tools wie Adobe Illustrator und Adobe Photoshop wird mithilfe dieses Blend-Shaders imitiert.</p>  
+ 
+  </apiDesc><example conref="SaturationShaderExample.mxml"><swfblock conref="examples/SaturationShaderExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.graphics.shaderClasses:SaturationShader:SaturationShader"><apiName>SaturationShader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

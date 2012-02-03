@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging"><apiName>mx.logging</apiName><apiDetail/><apiClassifier id="mx.logging:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+  Représente les informations de journal d’un événement de journalisation unique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Représente les informations de journal d’un événement de journalisation unique. Le système de journalisation distribue un événement unique chaque fois qu’un processus demande la consignation d’informations. Cet événement peut être collecté par n’importe quel objet en vue d’un stockage ou d’un formatage.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogEvent:LogEvent"><apiName>LogEvent</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiData/><apiDesc>Chaîne contenant les données de journal.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Niveau de cet événement consigné. Valeurs valides :
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> désigne les événements dangereux qui provoquent au final un échec de l’application.</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.</li>
+	 
+        <li><codeph>LogEventLevel.INFO</codeph> désigne les messages d’information indiquant la progression générale de l’application.</li>
+	 
+        <li><codeph>LogEventLevel.DEBUG</codeph> désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.</li>
+	 
+        <li><codeph>LogEventLevel.ALL</codeph> permet de pour forcer une cible à traiter tous les messages.</li>
+      </ul>
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+	 
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogEvent:getLevelString"><apiName>getLevelString</apiName><shortdesc>
+      Renvoie une valeur de chaîne représentant le niveau spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Niveau spécifié, en anglais.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="uint"/><apiDesc>Niveau pour lequel une chaîne est souhaitée.
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie une valeur de chaîne représentant le niveau spécifié.
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogEvent:LOG"><apiName>LOG</apiName><shortdesc>
+      Constante de type d’événement identifiant un événement de journalisation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>log</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Constante de type d’événement identifiant un événement de journalisation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:level"><apiName>level</apiName><shortdesc>
+      Permet d’accéder au niveau de cet événement consigné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Permet d’accéder au niveau de cet événement consigné. Valeurs valides :
+        <ul>
+          <li><codeph>LogEventLogEventLevel.INFO</codeph> désigne les messages d’information indiquant la progression générale de l’application.</li>
+     
+          <li><codeph>LogEventLevel.DEBUG</codeph> désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.</li>
+     
+          <li><codeph>LogEventLevel.ERROR</codeph> désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.</li>
+     
+          <li><codeph>LogEventLevel.WARN</codeph> désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.</li>
+     
+          <li><codeph>LogEventLevel.FATAL</codeph> désigne les événements dangereux qui provoquent au final un échec de l’application.</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEvent:message"><apiName>message</apiName><shortdesc>
+      Permet d’accéder au message consigné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Permet d’accéder au message consigné.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+  Cette classe fournit la fonctionnalité de base requise par la structure de journalisation d’une implémentation cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILoggingTarget</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Cette classe fournit la fonctionnalité de base requise par la structure de journalisation d’une implémentation cible. Elle gère la validation des expressions de filtrage et fournit une propriété de niveau par défaut. Aucune implémentation de la méthode <codeph>logEvent()</codeph> n’est fournie.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:AbstractTarget:AbstractTarget"><apiName>AbstractTarget</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:AbstractTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      Configure le journal spécifié pour cette cible</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>Journal ILogger devant être écouté par cette cible.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Configure cette cible de sorte qu’elle utilise le journal spécifié. Permet à cette cible de recevoir les événements consignés du journal spécifié.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:initialized"><apiName>initialized</apiName><shortdesc>
+      Appelé une fois que l’objet d’implémentation a été créé et que toutes les propriétés spécifiées sur la balise ont été affectées.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Document MXML qui a créé cet objet.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Utilisé par le document pour faire référence à cet objet. Si l’objet est une propriété profonde du document, la valeur de l’ID est null.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelé une fois que l’objet d’implémentation a été créé et que toutes les propriétés spécifiées sur la balise ont été affectées.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:logEvent"><apiName>logEvent</apiName><shortdesc>
+      Cette méthode traite un événement LogEvent issu d’un journal associé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.logging:LogEvent</apiOperationClassifier><apiDesc>Evénement issu d’un journal associé.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode traite un événement <codeph>LogEvent</codeph> issu d’un journal associé. Une cible utilise cette méthode pour convertir l’événement au format adapté à la transmission, au stockage ou à l’affichage. Cette méthode est appelée uniquement si le niveau de l’événement est dans la zone de portée du niveau de la cible.
+     
+      <p><b><i>REMARQUE : les descendants doivent utiliser une autre méthode pour qu’elle soit utile.</i></b></p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:AbstractTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      Arrête la réception par cette cible des événements du journal spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>Journal ILogger devant être ignoré par cette cible.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Arrête la réception par cette cible des événements du journal spécifié.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:AbstractTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      Les filtres sont utilisés conjointement avec le paramètre level pour fournir un mappage pseudo-hiérarchique permettant de traiter uniquement les événements d’une certaine catégorie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Les filtres sont utilisés conjointement avec le paramètre <codeph>level</codeph> pour fournir un mappage pseudo-hiérarchique permettant de traiter uniquement les événements d’une certaine catégorie.
+      <p>
+      Chaque journal appartient à une catégorie. Par convention, ces catégories sont mappées au nom qualifié complet de la classe dans laquelle le journal est utilisé. Par exemple, un journal qui consigne les messages pour la classe <codeph>mx.rpc.soap.WebService</codeph> utilise "mx.rpc.soap.WebService" comme paramètre de l’appel de méthode <codeph>Log.getLogger()</codeph>. Lorsque des messages sont envoyés dans cette catégorie, seules les cibles dont le filtre correspond à la catégorie reçoivent une notification concernant ces événements. Les expressions de filtrage peuvent inclure un caractère de correspondance générique, indiqué par un astérisque. Le caractère générique doit être le caractère le plus à droite dans l’expression. Exemple : rpc~~, mx.~~ ou ~~. Si une expression non valide est spécifiée, une erreur <codeph>InvalidFilterError</codeph> est renvoyée. Si les valeurs <codeph>null</codeph> ou [] sont spécifiées, les filtres prennent par défaut la valeur ["~~"].
+      </p>
+      <p>Par exemple :
+         <pre>
+               var traceLogger:ILoggingTarget = new TraceTarget();
+               traceLogger.filters = ["mx.rpc.~~", "mx.messaging.~~"];
+               Log.addTarget(traceLogger);
+         </pre>
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:id:get"><apiName>id</apiName><shortdesc>
+       Permet d’accéder à l’ID de cette cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+       Permet d’accéder à l’ID de cette cible. L’ID est affecté au moment de l’exécution par le compilateur mxml s’il est utilisé comme balise mxml ou en interne s’il est utilisé dans un bloc de script.
+       
+       </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:AbstractTarget:level:get"><apiName>level</apiName><shortdesc>
+      Permet d’accéder au niveau actuel de cette cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Permet d’accéder au niveau actuel de cette cible. Valeurs valides :
+        <ul>
+          <li><codeph>LogEventLevel.FATAL (1000)</codeph> désigne les événements dangereux qui provoquent au final un échec de l’application.</li>
+     
+          <li><codeph>LogEventLevel.ERROR (8)</codeph> désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.</li>
+     
+          <li><codeph>LogEventLevel.WARN (6)</codeph> désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.</li>
+     
+          <li><codeph>LogEventLevel.INFO (4)</codeph> désigne les messages d’information indiquant la progression générale de l’application.</li>
+     
+          <li><codeph>LogEventLevel.DEBUG (2)</codeph> désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.</li>
+     
+          <li><codeph>LogEventLevel.ALL (0)</codeph> permet de forcer une cible à traiter tous les messages.</li>
+        </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:LogEventLevel"><apiName>LogEventLevel</apiName><shortdesc>
+  Classe statique contenant les constantes à utiliser dans la propriété level.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe statique contenant les constantes à utiliser dans la propriété <codeph>level</codeph>.
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.logging:LogEventLevel:ALL"><apiName>ALL</apiName><shortdesc>
+      Force une cible à traiter tous les messages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Force une cible à traiter tous les messages.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:DEBUG"><apiName>DEBUG</apiName><shortdesc>
+      Désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:ERROR"><apiName>ERROR</apiName><shortdesc>
+      Désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>8</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:FATAL"><apiName>FATAL</apiName><shortdesc>
+      Désigne les événements dangereux qui provoquent au final un échec de l’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1000</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Désigne les événements dangereux qui provoquent au final un échec de l’application.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:INFO"><apiName>INFO</apiName><shortdesc>
+      Désigne les messages d’information indiquant la progression générale de l’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Désigne les messages d’information indiquant la progression générale de l’application.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging:LogEventLevel:WARN"><apiName>WARN</apiName><shortdesc>
+      Désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>6</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILoggingTarget"><apiName>ILoggingTarget</apiName><shortdesc>
+  Toutes les implémentations de cible de journal de cette structure de journalisation doivent implémenter cette interface.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Toutes les implémentations de cible de journal de cette structure de journalisation doivent implémenter cette interface.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:addLogger"><apiName>addLogger</apiName><shortdesc>
+      Configure le journal spécifié pour cette cible</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>Journal ILogger écouté par cette cible.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Configure cette cible de sorte qu’elle utilise le journal spécifié. Permet à cette cible de recevoir les événements consignés du journal spécifié.
+      
+      <p><b>Remarque : </b>cette méthode est appelée par la structure ; vous ne devez pas l’appeler manuellement.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:removeLogger"><apiName>removeLogger</apiName><shortdesc>
+      Arrête la réception par cette cible des événements du journal spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>logger</apiItemName><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier><apiDesc>Journal ILogger ignoré par cette cible.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Arrête la réception par cette cible des événements du journal spécifié.
+      
+      <p><b>Remarque : </b>cette méthode est appelée par la structure ; vous ne devez pas l’appeler manuellement.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:filters:get"><apiName>filters</apiName><shortdesc>
+      Les filtres sont utilisés conjointement avec le paramètre level pour fournir un mappage pseudo-hiérarchique permettant de traiter uniquement les événements d’une certaine catégorie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Les filtres sont utilisés conjointement avec le paramètre <codeph>level</codeph> pour fournir un mappage pseudo-hiérarchique permettant de traiter uniquement les événements d’une certaine catégorie.
+      
+      <p>Chaque journal appartient à une catégorie. Par convention, ces catégories sont mappées au nom qualifié complet de la classe dans laquelle le journal est utilisé. Par exemple, un journal qui consigne les messages pour la classe <codeph>mx.rpc.soap.WebService</codeph> utilise <codeph>"mx.rpc.soap.WebService"</codeph> comme paramètre de l’appel <codeph>Log.getLogger()</codeph>. Lorsque des messages sont envoyés dans cette catégorie, seules les cibles dont le filtre correspond à la catégorie reçoivent une notification concernant ces événements. Les expressions de filtrage peuvent inclure un caractère de correspondance générique, indiqué par un astérisque. Le caractère générique doit être le caractère le plus à droite dans l’expression. Exemple : rpc~~, mx.~~ ou ~~. Si une expression non valide est spécifiée, une erreur <codeph>InvalidFilterError</codeph> est renvoyée. Les espaces ainsi que les caractères suivants ne sont pas autorisés dans les expressions de filtrage : []~$^&amp;\/(){}&lt;>+=`!#%?,:;’"@.</p>
+      
+      </apiDesc><example>
+      <pre>
+      var traceLogger:ILoggingTarget = new TraceTarget();
+      traceLogger.filters = [ "mx.rpc.~~", "mx.messaging.~~" ];
+      Log.addTarget(traceLogger);
+      </pre>
+      
+      </example></apiValueDetail></apiValue><apiValue id="mx.logging:ILoggingTarget:mx.logging:ILoggingTarget:level:get"><apiName>level</apiName><shortdesc>
+      Permet d’accéder au niveau actuel de cette cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      Permet d’accéder au niveau actuel de cette cible. Valeurs valides :
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> désigne les événements dangereux qui provoquent au final un échec de l’application.</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph> désigne les messages d’information indiquant la progression générale de l’application.</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.</li>
+     
+        <li><codeph>LogEventLevel.ALL</codeph> permet de pour forcer une cible à traiter tous les messages.</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:ILogger"><apiName>ILogger</apiName><shortdesc>
+  Tous les journaux de cette structure de journalisation doivent implémenter cette interface.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Tous les journaux de cette structure de journalisation doivent implémenter cette interface.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:debug"><apiName>debug</apiName><shortdesc>
+      Consigne les données spécifiées en utilisant le niveau LogEventLevel.DEBUG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEventLevel.DEBUG</codeph>. <codeph>LogEventLevel.DEBUG</codeph> désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.
+      
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.debug("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:error"><apiName>error</apiName><shortdesc>
+      Consigne les données spécifiées en utilisant le niveau LogEventLevel.ERROR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEventLevel.ERROR</codeph>. <codeph>LogEventLevel.ERROR</codeph> désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.
+      
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.error("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:fatal"><apiName>fatal</apiName><shortdesc>
+      Consigne les données spécifiées en utilisant le niveau LogEventLevel.FATAL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEventLevel.FATAL</codeph>. <codeph>LogEventLevel.FATAL</codeph> désigne les événements dangereux qui provoquent au final un échec de l’application.
+     
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.fatal("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:info"><apiName>info</apiName><shortdesc>
+      Consigne les données spécifiées en utilisant le niveau LogEvent.INFO.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEvent.INFO</codeph>. <codeph>LogEventLevel.INFO</codeph> désigne les messages d’information indiquant la progression générale de l’application.
+      
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+     
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.info("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:log"><apiName>log</apiName><shortdesc>
+      Consigne les données spécifiées au niveau indiqué.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>Niveau auquel ces informations doivent être consignées. Valeurs valides :
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> désigne les événements dangereux qui provoquent au final un échec de l’application.</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph> désigne les messages d’information indiquant la progression générale de l’application.</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Consigne les données spécifiées au niveau indiqué.
+      
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.log(LogEventLevel.DEBUG, "here is some channel info {0} and {1}", LogEventLevel.DEBUG, 15.4, true);
+     
+      // This will log the following String as a DEBUG log message:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+     
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.logging:ILogger:mx.logging:ILogger:warn"><apiName>warn</apiName><shortdesc>
+      Consigne les données spécifiées en utilisant le niveau LogEventLevel.WARN.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEventLevel.WARN</codeph>. <codeph>LogEventLevel.WARN</codeph> désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.
+          
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+      
+      </apiDesc><example>
+      <pre>
+      // Get the logger for the mx.messaging.Channel "category"
+      // and send some data to it.
+      var logger:ILogger = Log.getLogger("mx.messaging.Channel");
+      logger.warn("here is some channel info {0} and {1}", 15.4, true);
+     
+      // This will log the following String:
+      //   "here is some channel info 15.4 and true"
+      </pre>
+      
+      </example></apiOperationDetail></apiOperation><apiValue id="mx.logging:ILogger:mx.logging:ILogger:category:get"><apiName>category</apiName><shortdesc>
+      Valeur de catégorie du journal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Valeur de catégorie du journal.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.logging:Log"><apiName>Log</apiName><shortdesc>
+  Fournit des fonctions de journalisation pseudo-hiérarchique offrant différentes options de format et de sortie.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Fournit des fonctions de journalisation pseudo-hiérarchique offrant différentes options de format et de sortie. Le système de journal se compose de deux composants principaux : le journal et une cible. Vous pouvez utiliser le journal pour envoyer des informations vers une cible. La cible est responsable du formatage et de la sortie générale des données de journal.
+  <p>
+  Les journaux sont des occurrences singleton créées pour une catégorie d’informations particulière. En général, la catégorie correspond au nom de package du composant souhaitant consigner des informations. La catégorie permet aux utilisateurs d’indiquer quelles informations les intéressent. Il est possible de sélectionner et d’associer plusieurs catégories à l’aide d’expressions régulières. Ainsi, l’utilisateur peut configurer la collecte d’informations de journalisation plus ou moins précises. Imaginons par exemple que vous souhaitez collecter toutes les informations de journalisation des packages « mx.messaging » et « mx.rpc » et générer la sortie de ces packages au format XML. Pour collecter toutes les informations de journalisation de la catégorie « mx.messaging », sous-packages et composants y compris, vous devez utiliser une expression générique, par exemple « mx.messaging.~~ ». Pour plus d’informations, voir l’exemple de code ci-dessous.
+  </p>
+  <p>Les cibles fournissent le mécanisme de sortie des données consignées. En général, ce mécanisme porte sur le formatage, la transmission ou le stockage, mais toutes les possibilités offertes par la VM sont envisageables. Deux cibles sont fournies : <codeph>MiniDebugTarget</codeph> et <codeph>TraceTarget</codeph>. Ces deux outils d’écriture recueillent les informations du journal actuel et les renvoient vers un dispositif d’affichage et/ou de stockage. Les cibles indiquent également quelles données de journal doivent être produites.
+  </p>
+ 
+  </apiDesc><example>
+  <pre>
+  ... 
+  import mx.logging.targets.
+  import mx.logging.
+ 
+  private function initLogging():void {
+      // Create a target.
+      var logTarget:TraceTarget = new TraceTarget();
+ 
+      // Log only messages for the classes in the mx.rpc.and 
+      // mx.messaging packages.
+      logTarget.filters=["mx.rpc.,"mx.messaging.];
+ 
+      // Log all log levels.
+      logTarget.level = LogEventLevel.ALL;
+ 
+      // Add date, time, category, and log level to the output.
+      logTarget.includeDate = true;
+      logTarget.includeTime = true;
+      logTarget.includeCategory = true;
+      logTarget.includeLevel = true;
+ 
+      // Begin logging.
+      Log.addTarget(logTarget);
+  } 
+  ...
+  </pre>
+  
+  </example></apiClassifierDetail><apiOperation id="mx.logging:Log:addTarget"><apiName>addTarget</apiName><shortdesc>
+      Permet à la cible spécifiée de commencer à recevoir des notifications concernant les événements de journal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>Cible spécifique devant collecter les événements de journal.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Permet à la cible spécifiée de commencer à recevoir des notifications concernant les événements de journal.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:flush"><apiName>flush</apiName><shortdesc>
+      Cette méthode supprime du cache tous les journaux actifs.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Cette méthode supprime du cache tous les journaux actifs. Les appels ultérieurs de la méthode <codeph>getLogger()</codeph> retournent de nouvelles occurrences des journaux et non des occurrences antérieures associées à la même catégorie. Cette méthode est conçue pour être utilisée uniquement à des fins de débogage.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:getLogger"><apiName>getLogger</apiName><shortdesc>
+      Retourne le journal associé à la catégorie spécifiée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Occurrence d’un objet de journal pour le nom spécifié. Si le nom n’existe pas, une nouvelle occurrence portant le nom spécifié est retournée.
+      
+      </apiDesc><apiOperationClassifier>mx.logging:ILogger</apiOperationClassifier></apiReturn><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>Catégorie du journal à retourner.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Retourne le journal associé à la catégorie spécifiée. Si la catégorie indiquée n’existe pas, une nouvelle occurrence du journal est retournée et associée à cette catégorie. Les noms des catégories doivent être composés d’au moins un caractère, mais ils ne peuvent contenir aucun espace, ni aucun des caractères suivants : []~$^&amp;\/(){}&lt;>+=`!#%?,:;’"@ Cette méthode renvoie une erreur <codeph>InvalidCategoryError</codeph> si la syntaxe de la catégorie spécifiée n’est pas correcte.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:hasIllegalCharacters"><apiName>hasIllegalCharacters</apiName><shortdesc>
+      Cette méthode vérifie que la valeur de chaîne spécifiée ne contient pas de caractère non autorisé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc><codeph>true</codeph> si au moins un caractère non autorisé est détecté ; <codeph>false</codeph> dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="String"/><apiDesc>Chaîne dans laquelle les éventuels caractères non autorisés doivent être recherchés. Les caractères suivants ne sont pas valides : []~$^&amp;\/(){}&lt;>+=`!#%?,:;’"@
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Cette méthode vérifie que la valeur de chaîne spécifiée ne contient pas de caractère non autorisé.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isDebug"><apiName>isDebug</apiName><shortdesc>
+      Indique si un événement de journal de niveau debug sera traité par une cible de journal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true si un événement de journal de niveau debug sera consigné ; false dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Indique si un événement de journal de niveau debug sera traité par une cible de journal.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isError"><apiName>isError</apiName><shortdesc>
+      Indique si un événement de journal de niveau error sera traité par une cible de journal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true si un événement de journal de niveau error sera consigné ; false dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Indique si un événement de journal de niveau error sera traité par une cible de journal.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isFatal"><apiName>isFatal</apiName><shortdesc>
+      Indique si un événement de journal de niveau fatal sera traité par une cible de journal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true si un événement de journal de niveau fatal sera consigné ; false dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Indique si un événement de journal de niveau fatal sera traité par une cible de journal.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isInfo"><apiName>isInfo</apiName><shortdesc>
+      Indique si un événement de journal de niveau info sera traité par une cible de journal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true si un événement de journal de niveau info sera consigné ; false dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Indique si un événement de journal de niveau info sera traité par une cible de journal.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:isWarn"><apiName>isWarn</apiName><shortdesc>
+      Indique si un événement de journal de niveau warn sera traité par une cible de journal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>true si un événement de journal de niveau warn sera consigné ; false dans le cas contraire.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Indique si un événement de journal de niveau warn sera traité par une cible de journal.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:Log:removeTarget"><apiName>removeTarget</apiName><shortdesc>
+      Arrête la réception par la cible spécifiée des notifications concernant les événements de journal.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.logging:ILoggingTarget</apiOperationClassifier><apiDesc>Cible spécifique devant collecter les événements de journal.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Arrête la réception par la cible spécifiée des notifications concernant les événements de journal.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.logging:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+  Journal utilisé au sein de la structure de journalisation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.logging:ILogger</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Journal utilisé au sein de la structure de journalisation. Cette classe distribue les événements concernant chaque message consigné par le biais de la méthode <codeph>log()</codeph>.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging:LogLogger:LogLogger"><apiName>LogLogger</apiName><shortdesc>
+	  Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>category</apiItemName><apiType value="String"/><apiDesc>Catégorie pour laquelle ce journal envoie des messages.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Constructeur.
+         
+          </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging:LogLogger:debug"><apiName>debug</apiName><shortdesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau LogEventLevel.DEBUG.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEventLevel.DEBUG</codeph>. <codeph>LogEventLevel.DEBUG</codeph> désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.
+      
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:error"><apiName>error</apiName><shortdesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau LogEventLevel.ERROR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEventLevel.ERROR</codeph>. <codeph>LogEventLevel.ERROR</codeph> désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.
+      
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:fatal"><apiName>fatal</apiName><shortdesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau LogEventLevel.FATAL.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEventLevel.FATAL</codeph>. <codeph>LogEventLevel.FATAL</codeph> désigne les événements dangereux qui provoquent au final un échec de l’application.
+     
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:info"><apiName>info</apiName><shortdesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau LogEvent.INFO.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEvent.INFO</codeph>. <codeph>LogEventLevel.INFO</codeph> désigne les messages d’information indiquant la progression générale de l’application.
+      
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:log"><apiName>log</apiName><shortdesc>
+	  
+      Consigne les données spécifiées au niveau indiqué.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>level</apiItemName><apiType value="int"/><apiDesc>Niveau auquel ces informations doivent être consignées. Valeurs valides :
+      <ul>
+        <li><codeph>LogEventLevel.FATAL</codeph> désigne les événements dangereux qui provoquent au final un échec de l’application.</li>
+     
+        <li><codeph>LogEventLevel.ERROR</codeph> désigne les événements d’erreur susceptibles de permettre la poursuite de l’exécution de l’application.</li>
+     
+        <li><codeph>LogEventLevel.WARN</codeph> désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.</li>
+     
+        <li><codeph>LogEventLevel.INFO</codeph> désigne les messages d’information indiquant la progression générale de l’application.</li>
+     
+        <li><codeph>LogEventLevel.DEBUG</codeph> désigne les messages d’information détaillés, qui sont particulièrement utiles lors du débogage d’une application.</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Consigne les données spécifiées au niveau indiqué.
+      
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.logging:LogLogger:warn"><apiName>warn</apiName><shortdesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau LogEventLevel.WARN.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>msg</apiItemName><apiType value="String"/><apiDesc>Informations à consigner. Cette chaîne peut contenir des marqueurs spéciaux sous la forme {x}, où x est un index de base zéro remplacé, le cas échéant, par les paramètres supplémentaires trouvés à cet index.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>Paramètres supplémentaires pouvant être remplacés dans le paramètre de chaîne à chaque emplacement "{<codeph>x</codeph>}", où <codeph>x</codeph> est une valeur d’index entière (de base zéro) issue du tableau de valeurs spécifié.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Consigne les données spécifiées en utilisant le niveau <codeph>LogEventLevel.WARN</codeph>. <codeph>LogEventLevel.WARN</codeph> désigne les événements susceptibles d’empêcher le bon fonctionnement de l’application.
+          
+      <p>La chaîne spécifiée pour la journalisation peut contenir des accolades entourant un index indiquant les paramètres supplémentaires à insérer dans la chaîne avant de la consigner. Exemple : « le premier paramètre supplémentaire était {0} et le deuxième {1} » devient « le premier paramètre supplémentaire était 10 et le deuxième 15 » lors d’un appel utilisant 10 et 15 comme paramètres.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging:LogLogger:category:get"><apiName>category</apiName><shortdesc>
+	  Catégorie pour laquelle ce journal envoie des messages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+	  Catégorie pour laquelle ce journal envoie des messages.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

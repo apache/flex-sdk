@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.binding.utils"><apiName>mx.binding.utils</apiName><apiDetail/><apiClassifier id="mx.binding.utils:ChangeWatcher"><apiName>ChangeWatcher</apiName><shortdesc>
+  Класс ChangeWatcher определяет методы дополнительных функций, которые можно использовать с привязываемыми свойствами Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ChangeWatcher определяет методы дополнительных функций, которые можно использовать с привязываемыми свойствами Flex. Эти методы позволяют определить обработчик события при каждом обновлении привязываемого свойства.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.binding.utils:ChangeWatcher:ChangeWatcher"><apiName>ChangeWatcher</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>access</apiItemName><apiType value="Object"/></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>next</apiItemName><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier><apiData>null</apiData></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. Не для общего использования. Этот метод вызывается только из метода <codeph>watch()</codeph>. Для получения информации об использовании параметра см. описание метода <codeph>watch()</codeph>.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.binding.utils:ChangeWatcher:canWatch"><apiName>canWatch</apiName><shortdesc>
+      Позволяет определить, предоставляет ли хост событие привязки данных для свойства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Значение <codeph>true</codeph>, если <codeph>host</codeph> предоставляет события change для <codeph>name</codeph>.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Хост свойства. Для получения дополнительной информации см. описание метода <codeph>watch()</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Имя свойства. Для получения дополнительной информации см. описание метода <codeph>watch()</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Устанавливает значение <codeph>true</codeph>, если вызов обработчика выполняется только для фиксирующих событий изменений. Для получения дополнительной информации см. описание метода <codeph>watch()</codeph>.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Позволяет определить, предоставляет ли хост событие привязки данных для свойства. 
+     
+      <p>ПРИМЕЧАНИЕ. Метод <codeph>canWatch()</codeph> не поддерживает цепочки свойств. Они поддерживаются методом <codeph>watch()</codeph>.</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:getEvents"><apiName>getEvents</apiName><shortdesc>
+      Возвращает все события привязки для привязываемого свойства в хост-объекте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Объект формы <codeph>{ eventName: isCommitting, ... }</codeph>, содержащей все события изменений для свойства.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Хост свойства. Для получения дополнительной информации см. описание метода <codeph>watch()</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>Имя свойства или последовательности свойств. Для получения дополнительной информации см. описание метода <codeph>watch()</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Контролирует включение не фиксирующих событий изменений в возвращаемое значение.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает все события привязки для привязываемого свойства в хост-объекте.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:getValue"><apiName>getValue</apiName><shortdesc>
+      Извлекает текущее значение наблюдаемого свойства или последовательности свойств или null, если значение хост-объекта равно null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Текущее значение наблюдаемого свойства или последовательности свойств.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Извлекает текущее значение наблюдаемого свойства или последовательности свойств или null, если значение хост-объекта равно null. Например:
+      <pre>
+      watch(obj, ["a","b","c"], ...).getValue() === obj.a.b.c
+      </pre>
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:isWatching"><apiName>isWatching</apiName><shortdesc>
+      Возвращает значение true, если каждый наблюдатель в последовательности привязан по крайней мере к одному событию change.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение <codeph>true</codeph>, если каждый наблюдатель в последовательности привязан по крайней мере к одному событию change.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает значение <codeph>true</codeph>, если каждый наблюдатель в последовательности привязан по крайней мере к одному событию change. Обратите внимание, что использование метода <codeph>isWatching()</codeph> зависит от хоста, так как различные хосты могут предоставлять различные события change для выбранного свойства наблюдателя.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:reset"><apiName>reset</apiName><shortdesc>
+      Сбрасывает этот экземпляр ChangeWatcher для использования нового хост-объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newHost</apiItemName><apiType value="Object"/><apiDesc>Новый хост свойства. Для получения дополнительной информации см. описание метода <codeph>watch()</codeph>.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Сбрасывает этот экземпляр ChangeWatcher для использования нового хост-объекта. Этот метод можно вызвать для повторного использования экземпляра наблюдателя в другом хосте.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:setHandler"><apiName>setHandler</apiName><shortdesc>
+      Выполняет настройку функции обработчика.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/><apiDesc>Функция обработчика. Значением этого аргумента не должно быть null.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Выполняет настройку функции обработчика.
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:unwatch"><apiName>unwatch</apiName><shortdesc>
+      Отсоединяет этот экземпляр ChangeWatcher и его функцию обработчика от текущего хоста.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Отсоединяет этот экземпляр ChangeWatcher и его функцию обработчика от текущего хоста. Метод <codeph>reset()</codeph> можно использовать для прикрепления экземпляра ChangeWatcher или наблюдения этого свойства или последовательности свойств в другом хост-объекте.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:ChangeWatcher:watch"><apiName>watch</apiName><shortdesc>
+      Создает и запускает экземпляр ChangeWatcher.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Экземпляр ChangeWatcher, если для аргумента <codeph>chain</codeph> указано хотя бы одно имя свойства, в противном случае – значение null. Следует отметить, что возвращенный наблюдатель не обязательно успешно обнаружил и присоединился к событиям изменений, так как со стороны хоста могло не быть предоставленных событий для этого свойства или последовательности свойств. Для определения состояния наблюдателя можно воспользоваться методом <codeph>isWatching()</codeph>.
+           </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Объект, в котором размещается наблюдаемое свойство или последовательность свойств. Метод <codeph>reset()</codeph> можно использовать для изменения значения аргумента <codeph>host</codeph> после создания экземпляра ChangeWatcher. В <codeph>host</codeph> сохраняется список <codeph>handler</codeph> для вызова при изменении свойства <codeph>prop</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>Значение, указывающее наблюдаемое свойство или последовательность. Допустимые значения:
+      <ul>
+        <li>Строка, содержащая имя общедоступного привязываемого свойства хост-объекта.</li>
+             <li>Объект в форме: <codeph>{ name: <i>имя свойства</i>, getter: function(host) { return host[name] } }</codeph>. Объект содержит имя общедоступного привязываемого свойства и функцию получателя для этого свойства.</li>
+             <li>Непустой массив, содержащий любую комбинацию первых двух вариантов. Представляет последовательность привязываемых свойств, доступных из хоста. Например, для наблюдения за свойством <codeph>host.a.b.c</codeph>метод вызывается в виде: <codeph>watch(host, ["a","b","c"], ...)</codeph>.</li>
+      </ul>
+           <p>Примечание. Свойство или свойства, имена которых указаны в аргументе <codeph>chain</codeph>, должны быть общедоступными, так как метод <codeph>describeType()</codeph> подавляет любую информацию о не общедоступных свойствах, в т.ч. метаданные о возможности привязки, сканируемые ChangeWatcher при поиске событий изменений, которые предоставлены для этого свойства. Однако функцию получателя, предоставленную при использовании вышеописанной формы аргумента <codeph>{ name, getter }</codeph>, можно использовать для связывания произвольно вычисленного значения с именованным (общедоступным) свойством.</p>
+           </apiDesc></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/><apiDesc>Функция обработчика события, вызываемая при изменении значения наблюдаемого свойства (или любого свойства в наблюдаемой последовательности свойств). Сигнал об изменении подается, когда любой хост-объект в последовательности наблюдателя передает событие, указанное в теге метаданных <codeph>[Bindable]</codeph> этого хост-объекта для соответствующего наблюдаемого свойства. Событие по умолчанию имеет имя <codeph>propertyChange</codeph>.
+           <p>Объект события, передаваемый привязываемым свойством, поступает в функцию обработчика без изменения. По умолчанию Flex передает объект события типа PropertyChangeEvent. Однако при использовании тега метаданных <codeph>[Bindable]</codeph> для определения привязываемого свойства можно определить другой тип события.</p>
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение <codeph>true</codeph>, если вызов обработчика выполняется только для фиксирующих событий изменений; значение <codeph>false</codeph>, если вызов обработчика выполняется как для фиксирующих, так и для не фиксирующих событий изменений. Примечание. Наличие для свойства не фиксирующих событий изменений указывается в теге метаданных <codeph>[NonCommittingChangeEvent(&lt;event-name>)]</codeph>. Обычно эти теги используются для указания изменений значений на уровне мелких структурных единиц, например изменения в текстовом поле до подтверждения.
+           </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>(default = false) Определяет, является ли ссылка на <codeph>handler</codeph> «сильной» или «слабой». При «сильной» ссылке, указанной по умолчанию, <codeph>handler</codeph> не будет собран сборщиком мусора. «Слабая» ссылка не выполняет эту функцию.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Создает и запускает экземпляр ChangeWatcher. Один экземпляр ChangeWatcher может наблюдать одно свойство или последовательность свойств. Последовательность свойств – это последовательность свойств, доступных из объекта хоста. Например, выражение <codeph>obj.a.b.c</codeph> содержит последовательность свойств (a, b, c).
+           </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#PropertyChangeEvent"><linktext>mx.events.PropertyChangeEvent</linktext></link></related-links></apiOperation><apiValue id="mx.binding.utils:ChangeWatcher:useWeakReference"><apiName>useWeakReference</apiName><shortdesc>
+      Определяет, является ли ссылка на handler «сильной» или «слабой».</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, является ли ссылка на <codeph>handler</codeph> «сильной» или «слабой». При «сильной» ссылке, указанной по умолчанию, <codeph>handler</codeph> не будет собран сборщиком мусора. «Слабая» ссылка не выполняет эту функцию.
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.binding.utils:BindingUtils"><apiName>BindingUtils</apiName><shortdesc>
+  Класс BindingUtils определяет методы дополнительных функций для выполнения привязки данных из ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс BindingUtils определяет методы дополнительных функций для выполнения привязки данных из ActionScript. Определенные в этом классе методы можно использовать для настройки привязки данных.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.binding.utils:BindingUtils:bindProperty"><apiName>bindProperty</apiName><shortdesc>
+      Выполняет привязку общедоступного свойства, свойство prop в объекте site, к привязываемому свойству или последовательности свойств.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Экземпляр ChangeWatcher, если для аргумента <codeph>chain</codeph> указано по крайней мере одно имя свойства; в противном случае – null. 
+      
+      </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>site</apiItemName><apiType value="Object"/><apiDesc>Объект, определяющий привязываемое к <codeph>chain</codeph> свойство.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prop</apiItemName><apiType value="String"/><apiDesc>Определенное в объекте <codeph>site</codeph> имя привязываемого общедоступного свойства. При изменении значения <codeph>chain</codeph> свойство получит текущее значение <codeph>chain</codeph>. 
+           </apiDesc></apiParam><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Объект, в котором размещается наблюдаемое свойство или последовательность свойств. В <codeph>host</codeph> сохраняется список <codeph>site</codeph> для обновления при изменении свойства <codeph>prop</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>Значение, указывающее наблюдаемое свойство или последовательность. Допустимые значения:
+      <ul>
+        <li>Строка, содержащая имя общедоступного привязываемого свойства хост-объекта.</li>
+     
+        <li>Объект в форме: <codeph>{ name: <i>имя свойства</i>, getter: function(host) { return host[<i>имя свойства</i>] } }</codeph>. Этот объект должен содержать имя и функцию получателя для общедоступного привязываемого свойства хост-объекта.</li>
+     
+        <li>Непустой массив, содержащий комбинацию первых двух вариантов, которая представляет собой последовательность привязываемых свойств, доступных из хоста. Например, для выполнения привязки свойства <codeph>host.a.b.c</codeph> метод вызывается в следующем виде: <codeph>bindProperty(site, prop, host, ["a","b","c"])</codeph>.</li>
+      </ul>
+           <p>Примечание. Свойство или свойства, имена которых указаны в аргументе <codeph>chain</codeph>, должны быть общедоступными, так как метод <codeph>describeType()</codeph> подавляет любую информацию о не общедоступных свойствах, в т.ч. метаданные о возможности привязки, сканируемые ChangeWatcher при поиске событий изменений, которые предоставлены для этого свойства. Однако функцию получателя, предоставленную при использовании вышеописанной формы аргумента <codeph>{ name, getter }</codeph>, можно использовать для связывания произвольно вычисленного значения с именованным (общедоступным) свойством.</p>
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Значение <codeph>true</codeph>, если вызов обработчика выполняется только для фиксирующих событий изменений; значение <codeph>false</codeph>, если вызов обработчика выполняется как для фиксирующих, так и для не фиксирующих событий изменений. Примечание. Наличие для свойства не фиксирующих событий изменений указывается в теге метаданных <codeph>[NonCommittingChangeEvent(&lt;event-name>)]</codeph>. Обычно эти теги используются для указания изменений значений на уровне мелких структурных единиц, например изменения в текстовом поле до подтверждения.
+           </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет, является ли ссылка на <codeph>site</codeph> «сильной» или «слабой». При «сильной» ссылке, указанной по умолчанию, <codeph>site</codeph> не будет собран сборщиком мусора. «Слабая» ссылка не выполняет эту функцию. Добавлено для Flex 4.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Выполняет привязку общедоступного свойства, свойство <codeph>prop</codeph> в объекте <codeph>site</codeph>, к привязываемому свойству или последовательности свойств. При успешном создании экземпляра ChangeWatcher выполняется инициализация <codeph>prop</codeph> в соответствии с текущим значением <codeph>chain</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.binding.utils:BindingUtils:bindSetter"><apiName>bindSetter</apiName><shortdesc>
+      Выполняет привязку функции установщика, setter, к привязываемому свойству или последовательности свойств.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Экземпляр ChangeWatcher, если для аргумента <codeph>chain</codeph> указано по крайней мере одно имя свойства; в противном случае – null. 
+      
+      </apiDesc><apiOperationClassifier>mx.binding.utils:ChangeWatcher</apiOperationClassifier></apiReturn><apiParam><apiItemName>setter</apiItemName><apiType value="Function"/><apiDesc>Метод установщика, запускаемый с аргументом текущего значения <codeph>chain</codeph> при изменении этого значения.
+           </apiDesc></apiParam><apiParam><apiItemName>host</apiItemName><apiType value="Object"/><apiDesc>Хост свойства. Для получения дополнительной информации см. описание метода <codeph>bindProperty()</codeph>. В <codeph>host</codeph> сохраняется список <codeph>setter</codeph> для обновления при изменении свойства <codeph>prop</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>chain</apiItemName><apiType value="Object"/><apiDesc>Имя свойства или последовательности свойств. Для получения дополнительной информации см. описание метода <codeph>bindProperty()</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>commitOnly</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Устанавливает значение <codeph>true</codeph>, если вызов обработчика выполняется только для фиксирующих событий изменений. Для получения дополнительной информации см. описание метода <codeph>bindProperty()</codeph>.
+           </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет, является ли ссылка на <codeph>setter</codeph> «сильной» или «слабой». При «сильной» ссылке, указанной по умолчанию, <codeph>setter</codeph> не будет собран сборщиком мусора. «Слабая» ссылка не выполняет эту функцию. Добавлено для Flex 4.
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Выполняет привязку функции установщика, <codeph>setter</codeph>, к привязываемому свойству или последовательности свойств. Если экземпляр ChangeWatcher успешно создан, то вызывается функция установщика. Установщик должен иметь следующую подпись функции:
+           <pre>
+      function mySetterFunction(object:Object):void {
+          //Do whatever you want with the value of the bound property.
+      }</pre> 
+           <p>где <codeph>object</codeph> содержит текущее значение <codeph>chain</codeph>.</p>
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

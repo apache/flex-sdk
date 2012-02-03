@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.graphics"><apiName>mx.graphics</apiName><apiDetail/><apiClassifier id="mx.graphics:ImageSnapshot"><apiName>ImageSnapshot</apiName><shortdesc>
+  Flex UIComponent など、flash.display.IBitmapDrawable を実装する Flash コンポーネントのスナップショットをキャプチャするのに使用するヘルパークラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Flex UIComponent など、<codeph>flash.display.IBitmapDrawable</codeph> を実装する Flash コンポーネントのスナップショットをキャプチャするのに使用するヘルパークラスです。
+ 
+  <p>このクラスのインスタンスは、クライアント側イメージの PDF ファイルを生成するために、RemoteObject として Adobe の LiveCycle Data Services に送信できます。<codeph>contentType</codeph>、<codeph>width</codeph>、および <codeph>height</codeph> プロパティ以外の、イメージの追加プロパティを指定する必要がある場合、<codeph>properties</codeph> オブジェクトに名前と値のペアを設定する必要があります。</p>
+ 
+  <p>Flex の以前のバージョンでは、これらの追加プロパティは ImageSnapshot インスタンス自体に設定していました。 設定を可能にするために、このクラスは動的でしたが、Flex の今後のバージョンでは、このクラスは動的でなくなる可能性があります。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics:ImageSnapshot:ImageSnapshot"><apiName>ImageSnapshot</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>width</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>イメージの幅です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>イメージの高さです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>イメージを含むバイト配列です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>contentType</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>イメージのエンコーダーのタイプ（PNGEncoder または JPEGEncoder）です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:ImageSnapshot:captureBitmapData"><apiName>captureBitmapData</apiName><shortdesc>
+      BitmapData として UI コンポーネントの生のスナップショットを取得するユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>キャプチャされたスナップショットを表す BitmapData オブジェクトです。ソースに境界線が表示されていない場合は null になります。
+      
+      </apiDesc><apiType value="flash.display:BitmapData"/></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="flash.display:IBitmapDrawable"/><apiDesc><codeph>flash.display.IBitmapDrawable</codeph> インターフェイスを実装するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>matrix</apiItemName><apiType value="flash.geom:Matrix"/><apiData>null</apiData><apiDesc>キャプチャしたビットマップの座標を拡大 / 縮小、回転、または変換するために使用される Matrix オブジェクトです。 マトリックス変換をイメージに適用したくない場合は、（デフォルトの new Matrix() コンストラクターを使用して作成される）単位マトリックスにこのパラメーターを設定するか、null 値を渡してください。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>colorTransform</apiItemName><apiType value="flash.geom:ColorTransform"/><apiData>null</apiData><apiDesc>ビットマップのカラー値を調整するために使用する ColorTransform オブジェクトです。オブジェクトが提供されない場合、ビットマップイメージのカラーは変換されません。このパラメーターを渡す必要があるが、イメージを変換したくない場合、このパラメーターを、デフォルトの new ColorTransform() コンストラクターを使って作成される ColorTransform オブジェクトに設定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>blendMode</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>結果として生成されるビットマップに適用されるブレンドモードを指定する、flash.display.BlendMode クラスのストリング値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>clipRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>描画するソースオブジェクトの領域を定義する矩形オブジェクトです。この値を指定しない場合、クリッピングは発生せず、ソースオブジェクト全体が描画されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>smoothing</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>拡大および縮小時に BitmapData オブジェクトのスムージングを行うかどうかを決定するブール値です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      BitmapData として UI コンポーネントの生のスナップショットを取得するユーティリティメソッドです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:ImageSnapshot:captureImage"><apiName>captureImage</apiName><shortdesc>
+      コンポーネントのスナップショットを取得し、それを特定の解像度（dpi 単位）に拡大 / 縮小し、特定のイメージ形式にエンコードするユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>キャプチャされエンコードされたスナップショットと関連するイメージメタデータを格納する ImageSnapshot です。
+      
+      </apiDesc><apiOperationClassifier>mx.graphics:ImageSnapshot</apiOperationClassifier></apiReturn><apiParam><apiItemName>source</apiItemName><apiType value="flash.display:IBitmapDrawable"/><apiDesc><codeph>flash.display.IBitmapDrawable</codeph> インターフェイスを実装するオブジェクトです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dpi</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>dpi（1 インチあたりのドット数）単位の解像度です。 解像度を指定しない場合、デフォルトでは現在の画面の解像度が使用されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>encoder</apiItemName><apiOperationClassifier>mx.graphics.codec:IImageEncoder</apiOperationClassifier><apiData>null</apiData><apiDesc>生のビットマップをエンコードするのに使用されるイメージ形式です。 エンコーダーは PNGEncoder と JPEGEncoder の 2 つがあります。 エンコーダーを指定しない場合、デフォルトは PNGEncoder です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleLimited</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Flash におけるビットマップの最大の幅および高さは 2880 ピクセルです。scaleLimited を true に設定した場合、解像度は 2880 ピクセル以内に収まるように比率を保ちながら縮小されます。scaleLimited を false に設定した場合、小さいスナップショットウィンドウが使用され、大きいイメージをキャプチャするために、それらが結合されます。 デフォルト値は true です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      コンポーネントのスナップショットを取得し、それを特定の解像度（dpi 単位）に拡大 / 縮小し、特定のイメージ形式にエンコードするユーティリティメソッドです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:ImageSnapshot:encodeImageAsBase64"><apiName>encodeImageAsBase64</apiName><shortdesc>
+      ImageSnapshot を Base-64 でエンコードされたストリングに変換するユーティリティメソッドです。このストリングは、XML などのテキストベースの直列化形式で転送できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>base64 でエンコードされたスナップショットを表す文字列です。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>snapshot</apiItemName><apiOperationClassifier>mx.graphics:ImageSnapshot</apiOperationClassifier><apiDesc><codeph>mx.graphics.ImageSnapshot</codeph> としてキャプチャされたイメージです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ImageSnapshot を Base-64 でエンコードされたストリングに変換するユーティリティメソッドです。このストリングは、XML などのテキストベースの直列化形式で転送できます。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.graphics.xml#ImageSnapshot/captureImage"><linktext>captureImage</linktext></link></related-links></apiOperation><apiValue id="mx.graphics:ImageSnapshot:MAX_BITMAP_DIMENSION"><apiName>MAX_BITMAP_DIMENSION</apiName><shortdesc>
+      Bitmap の最大の幅および高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2880</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      Bitmap の最大の幅および高さです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:defaultEncoder"><apiName>defaultEncoder</apiName><shortdesc>
+      イメージをキャプチャするために使用される、デフォルトの mx.graphics.codec.IImageEncoder 実装です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Class"/></apiValueDef><apiDesc>
+      イメージをキャプチャするために使用される、デフォルトの <codeph>mx.graphics.codec.IImageEncoder</codeph> 実装です。 実装は PNGEncoder と JPEGEncoder の 2 つがあります。 デフォルトのエンコーダーでは、PNG 形式が使用されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:contentType:get"><apiName>contentType</apiName><shortdesc>
+      このスナップショットをキャプチャするために使用されたイメージエンコード形式の MIME コンテンツタイプです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      このスナップショットをキャプチャするために使用されたイメージエンコード形式の MIME コンテンツタイプです。 PNG 形式のイメージの場合、MIME タイプは "image/png" です。 JPG イメージまたは JPEG イメージの場合、MIME タイプは "image/jpeg" です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:data:get"><apiName>data</apiName><shortdesc>
+      イメージスナップショットを表すエンコードされたデータです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.utils:ByteArray"/></apiValueDef><apiDesc>
+      イメージスナップショットを表すエンコードされたデータです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:height:get"><apiName>height</apiName><shortdesc>
+      ピクセル単位で表したイメージの高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      ピクセル単位で表したイメージの高さです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:properties:get"><apiName>properties</apiName><shortdesc>
+      イメージの追加プロパティを指定する名前と値のペアを含む Object です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>{}
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      イメージの追加プロパティを指定する名前と値のペアを含む Object です。
+     
+      <p>通常、PDF ファイルを生成するために ImageSnapshot インスタンスを Adobe の LiveCycle Data Services に送信する場合に限り、このような情報を指定します。 既存の空の Object に対してオブジェクト全体を設定すること、または個々の名前と値のペアを設定することができます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:ImageSnapshot:width:get"><apiName>width</apiName><shortdesc>
+     ピクセル単位で表したイメージの幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+     ピクセル単位で表したイメージの幅です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:GradientStroke"><apiName>GradientStroke</apiName><shortdesc>
+  GradientStroke クラスを使用すると、グラデーションの塗りの線を指定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IStroke</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GradientStroke クラスを使用すると、グラデーションの塗りの線を指定できます。GradientEntry クラスと共に GradientStroke クラスを使用して、グラデーション線を定義します。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:GradientStroke:GradientStroke"><apiName>GradientStroke</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>ピクセル単位の線の太さを指定します。 このパラメーターはオプションであり、デフォルト値は <codeph>1</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>ピクセル全体に対して線をヒンティングするかどうかを指定するブール値。この値は、曲線のアンカーの位置と線のサイズ自身の両方に影響を与えます。<codeph>pixelHinting</codeph> を <codeph>true</codeph> に設定すると、全ピクセル幅に線幅がヒンティングされます。 <codeph>pixelHinting</codeph> を <codeph>false</codeph> に設定すると、曲線と直線で非連続が発生することがあります。このパラメーターはオプションであり、デフォルト値は <codeph>false</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>使用する拡大 / 縮小モードを指定する LineScaleMode クラスの値です。 有効な値は、<codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> および <codeph>LineScaleMode.VERTICAL</codeph> です。 このパラメーターはオプションであり、デフォルト値は <codeph>LineScaleMode.NORMAL</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>線の終端のキャップの種類を指定する CapsStyle クラスの値です。有効な値は、<codeph>CapsStyle.NONE</codeph>、<codeph>CapsStyle.ROUND</codeph> および <codeph>CapsStyle.SQUARE</codeph> です。 <codeph>null</codeph> 値は、<codeph>CapsStyle.ROUND</codeph> と同等です。 このパラメーターはオプションであり、デフォルト値は <codeph>CapsStyle.ROUND</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>角で使用する接合点の外観の種類を指定する JointStyle クラスの値です。有効な値は、<codeph>JointStyle.BEVEL</codeph>、<codeph>JointStyle.MITER</codeph> および <codeph>JointStyle.ROUND</codeph> です。 <codeph>null</codeph> 値は、<codeph>JointStyle.ROUND</codeph> と同等です。 このパラメーターはオプションであり、デフォルト値は <codeph>JointStyle.ROUND</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>マイターが切り取られる限度を示す数値です。有効な値の範囲は 1 ～ 255 で、この範囲を超えた値は 1 または 255 に丸められます。この値は、<codeph>jointStyle</codeph> プロパティを <codeph>miter</codeph> に設定した場合にのみ有効です。 <codeph>miterLimit</codeph> の値により、線の接合点を越えてマイターを延長できる長さが決定します。マイターを延長できる長さは、この値と線の <codeph>thickness</codeph> が乗算されたものです。例えば、<codeph>miterLimit</codeph> の値が 2.5 で、<codeph>thickness</codeph> が 10 ピクセルの場合、マイターは 25 ピクセルで切り取られます。 このパラメーターはオプションであり、デフォルト値は <codeph>3</codeph> です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:GradientStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+	  指定の Graphics オブジェクトにプロパティを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>プロパティを適用する Graphics オブジェクトです。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>線を適用するシェイプの境界。 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  指定の Graphics オブジェクトにプロパティを適用します。
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:GradientStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      
+      この線を表す GraphicsStroke オブジェクトを生成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>この線を表す Drawing API-2 GraphicsStroke オブジェクト。 
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>線の境界ボックス。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      この線を表す GraphicsStroke オブジェクトを生成します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:GradientStroke:caps:get"><apiName>caps</apiName><shortdesc>
+      線の終端の外観を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CapsStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      線の終端の外観を指定します。
+     
+      <p>有効な値は、<codeph>CapsStyle.NONE</codeph>、<codeph>CapsStyle.ROUND</codeph> および <codeph>CapsStyle.SQUARE</codeph> です。 <codeph>null</codeph> 値は、<codeph>CapsStyle.ROUND</codeph> と同等です。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.CapStyle.xml"><linktext>flash.display.CapStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      角で使用する接合点の外観の種類を指定する JointStyle クラスの値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>JointStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      角で使用する接合点の外観の種類を指定する JointStyle クラスの値です。
+     
+      <p>有効な値は、<codeph>JointStyle.BEVEL</codeph>、<codeph>JointStyle.MITER</codeph> および <codeph>JointStyle.ROUND</codeph> です。 <codeph>null</codeph> 値は、<codeph>JointStyle.ROUND</codeph> と同等です。 </p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.JointStyle.xml"><linktext>flash.display.JointStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      マイターが切り取られる限度を示す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マイターが切り取られる限度を示す数値です。 
+     
+      <p>有効な値の範囲は 1 から 255 で、この範囲を超えた値は 1 または 255 に丸められます。</p>
+     
+      <p>この値は、<codeph>jointStyle</codeph> プロパティを <codeph>JointStyle.MITER</codeph> に設定した場合にのみ有効です。</p>
+     
+      <p><codeph>miterLimit</codeph> プロパティの値により、線の接合点を越えてマイターを延長できる長さが決定します。マイターを延長できる長さは、この値と線の <codeph>thickness</codeph> が乗算されたものです。例えば、<codeph>miterLimit</codeph> の値が 2.5 で、<codeph>thickness</codeph> が 10 ピクセルの場合、マイターは 25 ピクセルで切り取られます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientStroke:pixelHinting:get"><apiName>pixelHinting</apiName><shortdesc>
+      ピクセル全体に対して線をヒンティングするかどうかを指定するブール値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ピクセル全体に対して線をヒンティングするかどうかを指定するブール値です。
+     
+      <p>この値は、曲線のアンカーの位置と線のサイズ自身の両方に影響を与えます。</p>
+     
+      <p><codeph>pixelHinting</codeph> を <codeph>true</codeph> に設定すると、全ピクセル幅に線幅がヒンティングされます。 <codeph>pixelHinting</codeph> を <codeph>false</codeph> に設定すると、曲線と直線で非連続が発生することがあります。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      使用する拡大 / 縮小モードを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      使用する拡大 / 縮小モードを指定します。有効な値は次のとおりです。
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph> — オブジェクトが拡大 / 縮小される場合、常に線の太さが拡大 / 縮小されます（デフォルト）。
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph> — 線の太さを拡大 / 縮小しません。
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph> — オブジェクトを垂直方向にのみ<i/>拡大 / 縮小する場合は、線の太さを拡大 / 縮小しません。 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph> — オブジェクトを水平方向にのみ<i/>拡大 / 縮小する場合は、線の太さを拡大 / 縮小しません。 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.LineScaleMode.xml"><linktext>flash.display.LineScaleMode</linktext></link></related-links></apiValue><apiValue id="mx.graphics:GradientStroke:weight:get"><apiName>weight</apiName><shortdesc>
+      ピクセル単位の線の太さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ピクセル単位の線の太さです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:IFill"><apiName>IFill</apiName><shortdesc>
+  塗りを実行するクラスが実装する必要のあるインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  塗りを実行するクラスが実装する必要のあるインターフェイスを定義します。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link></related-links><apiOperation id="mx.graphics:IFill:mx.graphics:IFill:begin"><apiName>begin</apiName><shortdesc>
+	  塗りを開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>塗る対象となる Graphics オブジェクトです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc><codeph>target</codeph> 内の塗りのサイズを定義する Rectangle オブジェクトです。 Rectangle のサイズが <codeph>target</codeph> のサイズより大きい場合は、塗りは切り取られます。 Rectangle のサイズが <codeph>target</codeph> のサイズより小さい場合は、塗りは <codeph>target</codeph> 全体に拡張されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  塗りを開始します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:IFill:mx.graphics:IFill:end"><apiName>end</apiName><shortdesc>
+	  塗りを終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>塗る対象となる Graphics オブジェクトです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  塗りを終了します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.graphics:GradientEntry"><apiName>GradientEntry</apiName><shortdesc>
+  GradientEntry クラスは、グラデーションの塗りの一部としてトランジションを制御するオブジェクトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:GradientEntry&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GradientEntry
+    <b>Properties</b>
+    alpha="1.0"
+    color="0x000000"
+    ratio="NaN"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GradientEntry クラスは、グラデーションの塗りの一部としてトランジションを制御するオブジェクトを定義します。 このクラスを LinearGradient クラスと RadialGradient クラスと共に使用して、グラデーションの塗りを定義します。 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link></related-links><apiConstructor id="mx.graphics:GradientEntry:GradientEntry"><apiName>GradientEntry</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>このグラデーションエントリのカラーです。 デフォルト値は 0x000000（黒）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ratio</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>グラフィックエレメント内で、関連付けられているカラーが 100 ％ でサンプリングされる場所です。Flex は、比率値が欠損している GradientEntries を均等に配置します。 デフォルト値は NaN です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>グラデーションにおけるこのエントリのアルファ値です。 このパラメーターはオプションです。 デフォルト値は 1.0 です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:GradientEntry:alpha:get"><apiName>alpha</apiName><shortdesc>
+      グラデーションの塗りの透明度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      グラデーションの塗りの透明度です。 有効な値は、0.0（不可視）～ 1.0（不透明）の範囲です。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientEntry:color:get"><apiName>color</apiName><shortdesc>
+      グラデーションの塗りのカラー値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+      グラデーションの塗りのカラー値です。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientEntry:ratio:get"><apiName>ratio</apiName><shortdesc>
+      パーセンテージは 0.0 から 1.0 なので、グラフィックエレメント内で、関連付けられているカラーが 100 ％ でサンプリングされる場所です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      パーセンテージは 0.0 から 1.0 なので、グラフィックエレメント内で、関連付けられているカラーが 100 ％ でサンプリングされる場所です。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapFillMode"><apiName>BitmapFillMode</apiName><shortdesc>
+  BitmapFillMode クラスは、レイアウトシステムにより指定される次元での BitmapImage の塗りつぶし方法を決定するサイズ変更モードの列挙を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BitmapFillMode クラスは、レイアウトシステムにより指定される次元での BitmapImage の塗りつぶし方法を決定するサイズ変更モードの列挙を定義します。
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Image/fillMode"><linktext>spark.components.Image.fillMode</linktext></link><link href="" invalidHref="spark.primitives.xml#BitmapImage/fillMode"><linktext>spark.primitives.BitmapImage.fillMode</linktext></link></related-links><apiValue id="mx.graphics:BitmapFillMode:CLIP"><apiName>CLIP</apiName><shortdesc>
+      ビットマップは領域の端で終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>clip</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ビットマップは領域の端で終了します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFillMode:REPEAT"><apiName>REPEAT</apiName><shortdesc>
+      領域を塗りつぶすためにビットマップが繰り返されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>repeat</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      領域を塗りつぶすためにビットマップが繰り返されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFillMode:SCALE"><apiName>SCALE</apiName><shortdesc>
+      領域を塗りつぶすためにビットマップの塗りが伸縮します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>scale</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      領域を塗りつぶすためにビットマップの塗りが伸縮します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RadialGradient"><apiName>RadialGradient</apiName><shortdesc>
+  RadialGradient クラスにより、塗りのカラーにおいて段階的なカラー変化を指定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RadialGradient&gt;</code> tag
+  inherits all the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:RadialGradient
+    <b>Properties</b>
+    angle="0"
+    focalPointRatio="0"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadialGradient クラスにより、塗りのカラーにおいて段階的なカラー変化を指定できます。 放射状グラデーションは、グラフィックエレメントの中心から放射状に広がる塗りパターンを定義します。 一連の GradientEntry オブジェクトを RadialGradient オブジェクトの <codeph>entries</codeph> 配列に追加して、グラデーションの塗りを構成するカラーを定義します。
+  
+  <p>MXML で、次の例のように一連の GradientEntry オブジェクトを追加して RadialGradient を定義します。
+  <pre>
+  &lt;mx:fill>
+      &lt;mx:RadialGradient>
+          &lt;mx:entries>
+              &lt;mx:GradientEntry color="0xC5C551" ratio="0.00" alpha="0.5"/>
+              &lt;mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+              &lt;mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+          &lt;/mx:entries>
+      &lt;/mx:RadialGradient>
+  &lt;/mx:fill>
+  </pre>
+  </p>
+  
+  <p>次の例のように、ActionScript で任意のグラフィックエレメントの塗りとして RadialGradient を定義することもできます。
+  <pre>
+  
+  &lt;?xml version="1.0"?>
+  &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+      &lt;mx:Script>
+      import flash.display.Graphics;
+      import flash.geom.Rectangle;
+      import mx.graphics.GradientEntry;
+      import mx.graphics.RadialGradient;
+  
+      private function init():void
+      {
+          var w:Number = 200;
+          var h:Number = 200;
+  
+          var s:Sprite = new Sprite();
+          // Add the new Sprite to the display list.
+          rawChildren.addChild(s);    
+  
+          var g:Graphics = s.graphics;
+          g.lineStyle(1, 0x33CCFF, 1.0);
+  
+          var fill:RadialGradient = new RadialGradient();
+          
+          var g1:GradientEntry = new GradientEntry(0xFFCC66, 0.00, 0.5);
+          var g2:GradientEntry = new GradientEntry(0x000000, 0.33, 0.5);
+          var g3:GradientEntry = new GradientEntry(0x99FF33, 0.66, 0.5);
+          
+          fill.entries = [ g1, g2, g3 ];
+  
+          // Set focal point to upper left corner.
+          fill.angle = 45;
+          fill.focalPointRatio = -0.8;
+  
+          // Draw a box and fill it with the RadialGradient.
+          g.moveTo(0, 0);
+          fill.begin(g,new Rectangle(0, 0, w, h));
+          g.lineTo(w, 0);
+          g.lineTo(w, h);
+          g.lineTo(0, h);
+          g.lineTo(0, 0);      
+          fill.end(g);
+      }
+      &lt;/mx:Script>
+  &lt;/mx:Application>
+  </pre>  
+  </p>  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#LinearGradient"><linktext>mx.graphics.LinearGradient</linktext></link><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:RadialGradient:RadialGradient"><apiName>RadialGradient</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:RadialGradient:begin"><apiName>begin</apiName><shortdesc>
+      
+	  塗りを開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>塗る対象となる Graphics オブジェクトです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc><codeph>target</codeph> 内の塗りのサイズを定義する Rectangle オブジェクトです。 Rectangle のサイズが <codeph>target</codeph> のサイズより大きい場合は、塗りは切り取られます。 Rectangle のサイズが <codeph>target</codeph> のサイズより小さい場合は、塗りは <codeph>target</codeph> 全体に拡張されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  塗りを開始します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:RadialGradient:end"><apiName>end</apiName><shortdesc>
+      
+	  塗りを終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>塗る対象となる Graphics オブジェクトです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  塗りを終了します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:RadialGradient:focalPointRatio:get"><apiName>focalPointRatio</apiName><shortdesc>
+      放射状の塗りの開始位置を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      放射状の塗りの開始位置を設定します。
+     
+      <p>有効な値の範囲は <codeph>-1.0</codeph> ～ <codeph>1.0</codeph> です。 値 <codeph>-1.0</codeph> は、境界を表す矩形の左にある焦点（グラデーションの塗りの開始位置）を設定します。 値 <codeph>1.0</codeph> は、境界を表す矩形の右にある焦点を設定します。
+      
+      <p><codeph>angle</codeph> プロパティと組み合わせてこのプロパティを使用する場合、この値は焦点が存在する中心からの距離を指定します。 例えば、角度が 45 度で <codeph>focalPointRatio</codeph> が 0.25 の場合、焦点は中心よりわずかに右下になります。 <codeph>focalPointRatio</codeph> を <codeph>0</codeph> に設定すると、焦点は境界を表す矩形の中央に合わせられます。</p>
+      <codeph>focalPointRatio</codeph> を <codeph>1</codeph> に設定すると、焦点は境界を表す矩形の右下隅に合わせられます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradient:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      グラデーション変換の水平方向の縮尺です。これにより、（非回転の）グラデーションの幅が定義されます。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      グラデーション変換の水平方向の縮尺です。これにより、（非回転の）グラデーションの幅が定義されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradient:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      グラデーション変換の垂直方向の縮尺です。これにより、（非回転の）グラデーションの高さが定義されます。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      グラデーション変換の垂直方向の縮尺です。これにより、（非回転の）グラデーションの高さが定義されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:IStroke"><apiName>IStroke</apiName><shortdesc>
+  線を定義するクラスが実装する必要のあるインターフェイスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  線を定義するクラスが実装する必要のあるインターフェイスを定義します。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.graphics:IStroke:mx.graphics:IStroke:apply"><apiName>apply</apiName><shortdesc>
+	  指定の Graphics オブジェクトにプロパティを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>プロパティを適用する Graphics オブジェクトです。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>線を適用するシェイプの境界。 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  指定の Graphics オブジェクトにプロパティを適用します。
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:IStroke:mx.graphics:IStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      この線を表す GraphicsStroke オブジェクトを生成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>この線を表す Drawing API-2 GraphicsStroke オブジェクト。 
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>線の境界ボックス。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      この線を表す GraphicsStroke オブジェクトを生成します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      角で使用する線の交点の外観を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      角で使用する線の交点の外観を指定します。有効な値は、<codeph>JointStyle.ROUND</codeph>、<codeph>JointStyle.MITER</codeph>、および <codeph>JointStyle.BEVEL</codeph> です。
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.JoingStyle.xml"><linktext>flash.display.JoingStyle</linktext></link></related-links></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      マイターが切り取られる限度を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マイターが切り取られる限度を示します。有効な値の範囲は 0 ～ 255 です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      使用する拡大 / 縮小モードを指定する LineScaleMode クラスの値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      使用する拡大 / 縮小モードを指定する LineScaleMode クラスの値です。 有効な値は次のとおりです。
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph> — オブジェクトが拡大 / 縮小される場合、常に線の太さが拡大 / 縮小されます（デフォルト）。
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph> — 線の太さを拡大 / 縮小しません。
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph> — オブジェクトを垂直方向にのみ<i/>拡大 / 縮小する場合は、線の太さを拡大 / 縮小しません。 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph> — オブジェクトを水平方向にのみ<i/>拡大 / 縮小する場合は、線の太さを拡大 / 縮小しません。 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.LineScaleMode.xml"><linktext>flash.display.LineScaleMode</linktext></link></related-links></apiValue><apiValue id="mx.graphics:IStroke:mx.graphics:IStroke:weight:get"><apiName>weight</apiName><shortdesc>
+	  ピクセル単位の線の太さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  ピクセル単位の線の太さです。 グラフの線の多くは、デフォルト値が 1 ピクセルです。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapFill"><apiName>BitmapFill</apiName><shortdesc> 
+  ビットマップまたは他の DisplayObject で画面の領域を塗る場合に使用する値のセットを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  ビットマップまたは他の DisplayObject で画面の領域を塗る場合に使用する値のセットを定義します。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link><link href="" invalidHref="flash.display.Bitmap.xml"><linktext>flash.display.Bitmap</linktext></link><link href="" invalidHref="flash.display.BitmapData.xml"><linktext>flash.display.BitmapData</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="mx.graphics:BitmapFill:BitmapFill"><apiName>BitmapFill</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:BitmapFill:protected:compoundTransform"><apiName>compoundTransform</apiName><shortdesc>
+      マトリックスおよび便利な変換プロパティ（x、y、rotation）を保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.geom:CompoundTransform</apiValueClassifier></apiValueDef><apiDesc>
+      マトリックスおよび便利な変換プロパティ（<codeph>x</codeph>、<codeph>y</codeph>、<codeph>rotation</codeph>）を保持します。compoundTransform は、<codeph>matrix</codeph> プロパティが設定されているときにのみ作成されます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:alpha:get"><apiName>alpha</apiName><shortdesc>
+      塗りの透明度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0. 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      塗りの透明度です。有効な値は、0.0（不可視）～ 1.0（不透明）の範囲です。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:fillMode:get"><apiName>fillMode</apiName><shortdesc>
+      次元内でのビットマップ塗りつぶしの方法を決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>&lt;code>BitmapFillMode.SCALE&lt;/code>
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      次元内でのビットマップ塗りつぶしの方法を決定します。タグ内でこのプロパティの値を設定する場合は、（「repeat」などの）ストリングを使用します。ActionScript でこのプロパティの値を設定する場合は、（<codeph>BitmapFillMode.CLIP</codeph> などの）定数を使用します。 <codeph>BitmapFillMode.CLIP</codeph>（"clip"）に設定すると、ビットマップは領域の端で終了します。<codeph>BitmapFillMode.REPEAT</codeph>（"repeat"）に設定すると、ビットマップは領域を塗りつぶすために繰り返されます。<codeph>BitmapFillMode.SCALE</codeph>（"scale""）に設定すると、ビットマップは領域を塗りつぶすために伸縮されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:matrix:get"><apiName>matrix</apiName><shortdesc>
+      マトリックス変換に使用する値の配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/></apiValueDef><apiDesc>
+      マトリックス変換に使用する値の配列です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:offsetX:get"><apiName>offsetX</apiName><shortdesc>
+      ビットマップが原点から水平方向にオフセットになっている距離です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue><apiDeprecated replacement="x" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      ビットマップが原点から水平方向にオフセットになっている距離です。 この調整は、回転と伸縮の後に行われます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:offsetY:get"><apiName>offsetY</apiName><shortdesc>
+      ビットマップが原点から垂直方向にオフセットになっている距離です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue><apiDeprecated replacement="y" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      ビットマップが原点から垂直方向にオフセットになっている距離です。 この調整は、回転と伸縮の後に行われます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:originX:get"><apiName>originX</apiName><shortdesc>
+      ビットマップの塗りの水平方向の原点です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0 
+      
+      </apiDefaultValue><apiDeprecated replacement="transformX" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      ビットマップの塗りの水平方向の原点です。 ビットマップの塗りはオフセットで、この点が原点に表示されます。 この点を中心に、ビットマップの伸縮と回転が行われます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:originY:get"><apiName>originY</apiName><shortdesc>
+      ビットマップの塗りの垂直方向の原点です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0 
+      
+      </apiDefaultValue><apiDeprecated replacement="transformY" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      ビットマップの塗りの垂直方向の原点です。 ビットマップの塗りはオフセットで、この点が原点に表示されます。 この点を中心に、ビットマップの伸縮と回転が行われます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:repeat:get"><apiName>repeat</apiName><shortdesc>
+      ビットマップを繰り返して領域を埋めるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue><apiDeprecated replacement="fillMode" sinceVersion="4.0"/></apiValueDef><apiDesc>
+      ビットマップを繰り返して領域を埋めるかどうかを指定します。 塗りつぶされた領域の端に向かって外側に塗りをタイルするには <codeph>true</codeph> に設定します。 領域の端で塗りを終了するには <codeph>false</codeph> に設定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:rotation:get"><apiName>rotation</apiName><shortdesc>
+      ビットマップの回転角度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ビットマップの回転角度です。 有効な値の範囲は 0.0 ～ 360.0 です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      塗りの際にビットマップを水平方向に伸縮させるパーセントで、0.0 ～ 1.0 の範囲です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      塗りの際にビットマップを水平方向に伸縮させるパーセントで、0.0 ～ 1.0 の範囲です。1.0 の場合は、ビットマップはナチュラルサイズで塗られます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      塗りの際にビットマップを垂直方向に伸縮させるパーセントで、0.0 ～ 1.0 の範囲です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      塗りの際にビットマップを垂直方向に伸縮させるパーセントで、0.0 ～ 1.0 の範囲です。1.0 の場合は、ビットマップはナチュラルサイズで塗られます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:smooth:get"><apiName>smooth</apiName><shortdesc>
+      塗りの際にビットマップデータをスムージング処理するかどうかを示すフラグです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      塗りの際にビットマップデータをスムージング処理するかどうかを示すフラグです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:source:get"><apiName>source</apiName><shortdesc>
+      ビットマップの塗りに使用するソースです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ビットマップの塗りに使用するソースです。 塗りは、次のようなさまざまなグラフィックソースからレンダリングできます。 
+      <ul>
+       <li>Bitmap インスタンスまたは BitmapData インスタンス。</li>
+       <li>DisplayObject のサブクラスを表すクラス。 BitmapFill によりクラスがインスタンス化され、そのビットマップレンダリングが作成されます。</li>
+       <li>DisplayObject のインスタンス。 BitmapFill は、塗りのためにそのインスタンスを Bitmap にコピーします。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:transformX:get"><apiName>transformX</apiName><shortdesc>
+      塗りの x 位置の変換ポイントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      塗りの x 位置の変換ポイントです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:transformY:get"><apiName>transformY</apiName><shortdesc>
+      塗りの y 位置の変換ポイントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      塗りの y 位置の変換ポイントです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:x:get"><apiName>x</apiName><shortdesc>
+      x 軸方向に各ポイントを平行移動する距離です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      x 軸方向に各ポイントを平行移動する距離です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapFill:y:get"><apiName>y</apiName><shortdesc>
+      y 軸方向に各ポイントを平行移動する距離です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      y 軸方向に各ポイントを平行移動する距離です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:LinearGradient"><apiName>LinearGradient</apiName><shortdesc>
+  LinearGradient クラスを使用すると、グラフィックエレメントの塗りを指定できます。グラデーションでは塗りのカラーにおける段階的なカラー変化が指定されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:LinearGradient&gt;</code> tag
+  inherits all the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:LinearGradient
+    <b>Properties</b>
+    angle="0"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>mx.graphics:GradientBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LinearGradient クラスを使用すると、グラフィックエレメントの塗りを指定できます。グラデーションでは塗りのカラーにおける段階的なカラー変化が指定されます。 一連の GradientEntry オブジェクトを LinearGradient オブジェクトの <codeph>entries</codeph> 配列に追加して、グラデーションの塗りを構成するカラーを定義します。
+  
+  <p>MXML で、次の例のように一連の GradientEntry オブジェクトを追加して LinearGradient を定義します。
+  <pre>
+  &lt;mx:fill>
+  	&lt;mx:LinearGradient>
+  		&lt;mx:entries>
+  			&lt;mx:GradientEntry color="0xC5C551" ratio="0.00" alpha="0.5"/>
+  			&lt;mx:GradientEntry color="0xFEFE24" ratio="0.33" alpha="0.5"/>
+  			&lt;mx:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+  		&lt;/mx:entries>
+  	&lt;/mx:LinearGradient>
+  &lt;/mx:fill>
+  </pre>
+  </p>
+  
+  <p>次の例のように、ActionScript で任意のグラフィックエレメントの塗りとして LinearGradient を定義することもできます。
+  <pre>
+  
+  &lt;?xml version="1.0"?>
+  &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+  	&lt;mx:Script>
+  	import flash.display.Graphics;
+  	import flash.geom.Rectangle;
+  	import mx.graphics.GradientEntry;
+  	import mx.graphics.LinearGradient;
+  
+  	private function init():void
+      {
+  		var w:Number = 200;
+  		var h:Number = 200;
+  
+  		var s:Sprite = new Sprite();
+  		// Add the new Sprite to the display list.
+  		rawChildren.addChild(s);	
+  
+  		var g:Graphics = s.graphics;
+  		g.lineStyle(1, 0x33CCFF, 1.0);
+  
+  		var fill:LinearGradient = new LinearGradient();
+  		
+  		var g1:GradientEntry = new GradientEntry(0xFFCC66, 0.00, 0.5);
+  		var g2:GradientEntry = new GradientEntry(0x000000, 0.33, 0.5);
+  		var g3:GradientEntry = new GradientEntry(0x99FF33, 0.66, 0.5);
+    		
+   		fill.entries = [ g1, g2, g3 ];
+  		fill.angle = 240;
+  
+   		// Draw a box and fill it with the LinearGradient.
+  		g.moveTo(0, 0);
+  		fill.begin(g, new Rectangle(0, 0, w, h));
+  		g.lineTo(w, 0);
+  		g.lineTo(w, h);
+  		g.lineTo(0, h);
+  		g.lineTo(0, 0);		
+  		fill.end(g);
+  	}
+  	&lt;/mx:Script>
+  &lt;/mx:Application>
+  </pre>  
+  </p>  
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:LinearGradient:LinearGradient"><apiName>LinearGradient</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:LinearGradient:begin"><apiName>begin</apiName><shortdesc>
+	  
+	  塗りを開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>塗る対象となる Graphics オブジェクトです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc><codeph>target</codeph> 内の塗りのサイズを定義する Rectangle オブジェクトです。 Rectangle のサイズが <codeph>target</codeph> のサイズより大きい場合は、塗りは切り取られます。 Rectangle のサイズが <codeph>target</codeph> のサイズより小さい場合は、塗りは <codeph>target</codeph> 全体に拡張されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  塗りを開始します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:LinearGradient:end"><apiName>end</apiName><shortdesc>
+	  
+	  塗りを終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>塗る対象となる Graphics オブジェクトです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  塗りを終了します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:LinearGradient:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      グラデーション変換の水平方向の縮尺です。これにより、（非回転の）グラデーションの幅が定義されます。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      グラデーション変換の水平方向の縮尺です。これにより、（非回転の）グラデーションの幅が定義されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+  ドロップシャドウは、通常 DropShadowFilter クラスを使用して作成されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ドロップシャドウは、通常 DropShadowFilter クラスを使用して作成されます。 しかし、DropShadowFilter はすべてのビットマップフィルター同様、多くの計算処理が伴う可能性があります。 DropShadowFilter が DisplayObject に適用されると、オブジェクトの外観が変更されるたびにドロップシャドウが再計算されます。 DisplayObject が（例えば Resize effect を使用して）アニメーション化されている場合、ドロップシャドウがあることでアニメーションの更新レートが損なわれます。
+ 
+  <p>このクラスは、一般的なケースでドロップシャドウを最適化します。 端がピクセル境界に当たる矩形のオブジェクトにドロップシャドウを適用する場合は、DropShadowFilter を直接使用せずにこのクラスを使用する必要があります。</p>
+ 
+  <p>このクラスは、DropShadowFilter に渡される最初の 4 つのパラメーターである <codeph>alpha</codeph>、<codeph>angle</codeph>、<codeph>color</codeph> および <codeph>distance</codeph> を受け入れます。 また、このクラスは影を落としている矩形のオブジェクトの 4 隅の隅半径を受け入れます。</p>
+ 
+  <p>これらの 8 つの値が設定されると、このクラスは画面外ビットマップでドロップシャドウをあらかじめ計算します。 <codeph>drawShadow()</codeph> メソッドが呼び出されると、あらかじめ計算されたドロップシャドウが渡された Graphics オブジェクトにコピーされます。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.DropShadowFilter.xml"><linktext>flash.filters.DropShadowFilter</linktext></link><link href="" invalidHref="flash.display.DisplayObject.xml"><linktext>flash.display.DisplayObject</linktext></link></related-links><apiConstructor id="mx.graphics:RectangularDropShadow:RectangularDropShadow"><apiName>RectangularDropShadow</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:RectangularDropShadow:drawShadow"><apiName>drawShadow</apiName><shortdesc>
+      画面上のシャドウをレンダリングします。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>影を描画する Graphics オブジェクトです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Graphics オブジェクトの位置を基準にしたドロップシャドウの水平方向のオフセットです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Graphics オブジェクトの位置を基準にしたドロップシャドウの垂直方向のオフセットです。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>シャドウの幅（ピクセル単位）です。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>シャドウの高さ（ピクセル単位）です。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+      画面上のシャドウをレンダリングします。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:RectangularDropShadow:alpha:get"><apiName>alpha</apiName><shortdesc conref="flash.filters.DropShadowFilter#alpha">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#alpha">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:angle:get"><apiName>angle</apiName><shortdesc conref="flash.filters.DropShadowFilter#angle">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#angle">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blRadius:get"><apiName>blRadius</apiName><shortdesc>
+      影を落としている角丸矩形の左下隅の角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      影を落としている角丸矩形の左下隅の角丸の半径です。 非角丸矩形の場合はゼロの場合があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blurX:get"><apiName>blurX</apiName><shortdesc>
+      水平方向のぼかし量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      水平方向のぼかし量。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:blurY:get"><apiName>blurY</apiName><shortdesc>
+      垂直方向のぼかし量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      垂直方向のぼかし量。
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:brRadius:get"><apiName>brRadius</apiName><shortdesc>
+      影を落としている角丸矩形の右下隅の角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      影を落としている角丸矩形の右下隅の角丸の半径です。 非角丸矩形の場合はゼロの場合があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:color:get"><apiName>color</apiName><shortdesc conref="flash.filters.DropShadowFilter#color">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#color">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:distance:get"><apiName>distance</apiName><shortdesc conref="flash.filters.DropShadowFilter#distance">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="flash.filters.DropShadowFilter#distance">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:tlRadius:get"><apiName>tlRadius</apiName><shortdesc>
+      影を落としている角丸矩形の左上隅の角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      影を落としている角丸矩形の左上隅の角丸の半径です。 非角丸矩形の場合はゼロの場合があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RectangularDropShadow:trRadius:get"><apiName>trRadius</apiName><shortdesc>
+      影を落としている角丸矩形の右上隅の角丸の半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      影を落としている角丸矩形の右上隅の角丸の半径です。 非角丸矩形の場合はゼロの場合があります。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:SolidColor"><apiName>SolidColor</apiName><shortdesc> 
+  アルファ値を指定したカラーなどを含む、カラーの表現を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="color"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IFill</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  アルファ値を指定したカラーなどを含む、カラーの表現を定義します。 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#IFill"><linktext>mx.graphics.IFill</linktext></link></related-links><apiConstructor id="mx.graphics:SolidColor:SolidColor"><apiName>SolidColor</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>カラーを指定します。 デフォルト値は 0x000000（黒）です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>透明度のレベルを指定します。 有効な値の範囲は 0.0（完全に透明）から 1.0（完全に不透明）です。 デフォルト値は 1.0 です。
+ 	  
+ 	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:SolidColor:begin"><apiName>begin</apiName><shortdesc>
+	  
+	  塗りを開始します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>塗る対象となる Graphics オブジェクトです。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc><codeph>target</codeph> 内の塗りのサイズを定義する Rectangle オブジェクトです。 Rectangle のサイズが <codeph>target</codeph> のサイズより大きい場合は、塗りは切り取られます。 Rectangle のサイズが <codeph>target</codeph> のサイズより小さい場合は、塗りは <codeph>target</codeph> 全体に拡張されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  塗りを開始します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:SolidColor:end"><apiName>end</apiName><shortdesc>
+	  
+	  塗りを終了します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>塗る対象となる Graphics オブジェクトです。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+	  塗りを終了します。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:SolidColor:alpha:get"><apiName>alpha</apiName><shortdesc>
+	  カラーの透明度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  カラーの透明度です。 有効な値は、0.0（不可視）～ 1.0（不透明）の範囲です。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColor:color:get"><apiName>color</apiName><shortdesc>
+	  カラー値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef><apiDesc>
+	  カラー値です。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:RadialGradientStroke"><apiName>RadialGradientStroke</apiName><shortdesc>
+  RadialGradientStroke クラスにより、グラデーションの塗りの線を指定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.graphics:GradientStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadialGradientStroke クラスにより、グラデーションの塗りの線を指定できます。GradientEntry クラスと共に RadialGradientStroke クラスを使用して、グラデーション線を定義します。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:RadialGradientStroke:RadialGradientStroke"><apiName>RadialGradientStroke</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>ピクセル単位の線の太さを指定します。 このパラメーターはオプションであり、デフォルト値は <codeph>1</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>ピクセル全体に対して線をヒンティングするかどうかを指定するブール値。この値は、曲線のアンカーの位置と線のサイズ自身の両方に影響を与えます。<codeph>pixelHinting</codeph> を <codeph>true</codeph> に設定すると、全ピクセル幅に線幅がヒンティングされます。 <codeph>pixelHinting</codeph> を <codeph>false</codeph> に設定すると、曲線と直線で非連続が発生することがあります。このパラメーターはオプションであり、デフォルト値は <codeph>false</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>使用する拡大 / 縮小モードを指定する LineScaleMode クラスの値です。 有効な値は、<codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> および <codeph>LineScaleMode.VERTICAL</codeph> です。 このパラメーターはオプションであり、デフォルト値は <codeph>LineScaleMode.NORMAL</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>線の終端のキャップの種類を指定する CapsStyle クラスの値です。有効な値は、<codeph>CapsStyle.NONE</codeph>、<codeph>CapsStyle.ROUND</codeph> および <codeph>CapsStyle.SQUARE</codeph> です。 <codeph>null</codeph> 値は、<codeph>CapsStyle.ROUND</codeph> と同等です。 このパラメーターはオプションであり、デフォルト値は <codeph>CapsStyle.ROUND</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>角で使用する接合点の外観の種類を指定する JointStyle クラスの値です。有効な値は、<codeph>JointStyle.BEVEL</codeph>、<codeph>JointStyle.MITER</codeph> および <codeph>JointStyle.ROUND</codeph> です。 <codeph>null</codeph> 値は、<codeph>JointStyle.ROUND</codeph> と同等です。 このパラメーターはオプションであり、デフォルト値は <codeph>JointStyle.ROUND</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>マイターが切り取られる限度を示す数値です。有効な値の範囲は 1 ～ 255 で、この範囲を超えた値は 1 または 255 に丸められます。この値は、<codeph>jointStyle</codeph> プロパティを <codeph>miter</codeph> に設定した場合にのみ有効です。 <codeph>miterLimit</codeph> の値により、線の接合点を越えてマイターを延長できる長さが決定します。マイターを延長できる長さは、この値と線の <codeph>thickness</codeph> が乗算されたものです。例えば、<codeph>miterLimit</codeph> の値が 2.5 で、<codeph>thickness</codeph> が 10 ピクセルの場合、マイターは 25 ピクセルで切り取られます。 このパラメーターはオプションであり、デフォルト値は <codeph>3</codeph> です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:RadialGradientStroke:focalPointRatio:get"><apiName>focalPointRatio</apiName><shortdesc>
+      放射状の塗りの開始位置を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      放射状の塗りの開始位置を設定します。
+     
+      <p>有効な値の範囲は <codeph>-1.0</codeph> ～ <codeph>1.0</codeph> です。 値 <codeph>-1.0</codeph> は、境界を表す矩形の左にある焦点（グラデーションの塗りの開始位置）を設定します。 値 <codeph>1.0</codeph> は、境界を表す矩形の右にある焦点を設定します。
+      
+      <p><codeph>angle</codeph> プロパティと組み合わせてこのプロパティを使用する場合、この値は焦点が存在する中心からの距離を指定します。 例えば、角度が 45 度で <codeph>focalPointRatio</codeph> が 0.25 の場合、焦点は中心よりわずかに右下になります。 <codeph>focalPointRatio</codeph> を <codeph>0</codeph> に設定すると、焦点は境界を表す矩形の中央に合わせられます。</p>
+      <codeph>focalPointRatio</codeph> を <codeph>1</codeph> に設定すると、焦点は境界を表す矩形の右下隅に合わせられます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradientStroke:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      グラデーション変換の水平方向の縮尺です。これにより、（非回転の）グラデーションの幅が定義されます。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      グラデーション変換の水平方向の縮尺です。これにより、（非回転の）グラデーションの幅が定義されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:RadialGradientStroke:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      グラデーション変換の垂直方向の縮尺です。これにより、（非回転の）グラデーションの高さが定義されます。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      グラデーション変換の垂直方向の縮尺です。これにより、（非回転の）グラデーションの高さが定義されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:LinearGradientStroke"><apiName>LinearGradientStroke</apiName><shortdesc>
+  LinearGradientStroke クラスにより、グラデーションの塗りの線を指定できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.graphics:GradientStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LinearGradientStroke クラスにより、グラデーションの塗りの線を指定できます。 GradientEntry クラスと共に LinearGradientStroke クラスを使用して、グラデーション線を定義します。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.graphics.xml#Stroke"><linktext>mx.graphics.Stroke</linktext></link><link href="mx.graphics.xml#GradientEntry"><linktext>mx.graphics.GradientEntry</linktext></link><link href="mx.graphics.xml#RadialGradient"><linktext>mx.graphics.RadialGradient</linktext></link><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:LinearGradientStroke:LinearGradientStroke"><apiName>LinearGradientStroke</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>ピクセル単位の線の太さを指定します。 このパラメーターはオプションであり、デフォルト値は <codeph>1</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>ピクセル全体に対して線をヒンティングするかどうかを指定するブール値。この値は、曲線のアンカーの位置と線のサイズ自身の両方に影響を与えます。<codeph>pixelHinting</codeph> を <codeph>true</codeph> に設定すると、全ピクセル幅に線幅がヒンティングされます。 <codeph>pixelHinting</codeph> を <codeph>false</codeph> に設定すると、曲線と直線で非連続が発生することがあります。このパラメーターはオプションであり、デフォルト値は <codeph>false</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>使用する拡大 / 縮小モードを指定する LineScaleMode クラスの値です。 有効な値は、<codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> および <codeph>LineScaleMode.VERTICAL</codeph> です。 このパラメーターはオプションであり、デフォルト値は <codeph>LineScaleMode.NONE</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>線の終端のキャップの種類を指定する CapsStyle クラスの値です。有効な値は、<codeph>CapsStyle.NONE</codeph>、<codeph>CapsStyle.ROUND</codeph> および <codeph>CapsStyle.SQUARE</codeph> です。 <codeph>null</codeph> 値は、<codeph>CapsStyle.ROUND</codeph> と同等です。 このパラメーターはオプションであり、デフォルト値は <codeph>CapsStyle.ROUND</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>角で使用する接合点の外観の種類を指定する JointStyle クラスの値です。有効な値は、<codeph>JointStyle.BEVEL</codeph>、<codeph>JointStyle.MITER</codeph> および <codeph>JointStyle.ROUND</codeph> です。 <codeph>null</codeph> 値は、<codeph>JointStyle.ROUND</codeph> と同等です。 このパラメーターはオプションであり、デフォルト値は <codeph>JointStyle.ROUND</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>マイターが切り取られる限度を示す数値です。有効な値の範囲は 1 ～ 255 で、この範囲を超えた値は 1 または 255 に丸められます。この値は、<codeph>jointStyle</codeph> プロパティを <codeph>miter</codeph> に設定した場合にのみ有効です。 <codeph>miterLimit</codeph> の値により、線の接合点を越えてマイターを延長できる長さが決定します。マイターを延長できる長さは、この値と線の <codeph>thickness</codeph> が乗算されたものです。例えば、<codeph>miterLimit</codeph> の値が 2.5 で、<codeph>thickness</codeph> が 10 ピクセルの場合、マイターは 25 ピクセルで切り取られます。 このパラメーターはオプションであり、デフォルト値は <codeph>3</codeph> です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:LinearGradientStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  指定の Graphics オブジェクトにプロパティを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>プロパティを適用する Graphics オブジェクトです。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>線を適用するシェイプの境界。 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  指定の Graphics オブジェクトにプロパティを適用します。
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:LinearGradientStroke:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      グラデーション変換の水平方向の縮尺です。これにより、（非回転の）グラデーションの幅が定義されます。
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      グラデーション変換の水平方向の縮尺です。これにより、（非回転の）グラデーションの幅が定義されます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:SolidColorStroke"><apiName>SolidColorStroke</apiName><shortdesc>
+  SolidColorStroke クラスは、線のプロパティを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SolidColorStroke&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SolidColorStroke
+    <b>Properties</b>
+    alpha="1.0"
+    caps="round|none|square"
+    color="0x000000"
+    joints="round|bevel|miter"
+    miterLimit="3"
+    pixelHinting="false|true"
+    scaleMode="normal|none|horizontal|vertical"
+    weight="1 (<i>in most cases</i>)"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.graphics:IStroke</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SolidColorStroke クラスは、線のプロパティを定義します。SolidColorStroke オブジェクトは MXML で定義できますが、アプリケーションで表示するためには、その SolidColorStroke を別のオブジェクトに関連付ける必要があります。次の例では、2 つの SolidColorStroke オブジェクトを定義して、それらを LineChart コントロールの horizontalAxisRenderer で使用します。
+  
+  <pre>
+  ...
+  &lt;mx:SolidColorStroke id="ticks" color="0xFF0000" weight="1"/>
+  &lt;mx:SolidColorStroke id="mticks" color="0x0000FF" weight="1"/>
+  
+  &lt;mx:LineChart id="mychart" dataProvider="{ndxa}">
+      &lt;mx:horizontalAxisRenderer>
+          &lt;mx:AxisRenderer placement="bottom" canDropLabels="true">
+              &lt;mx:tickStroke>{ticks}&lt;/mx:tickStroke>
+              &lt;mx:minorTickStroke>{mticks}&lt;/mx:minorTickStroke>
+          &lt;/mx:AxisRenderer>
+      &lt;/mx:horizontalAxisRenderer>
+  &lt;/LineChart>
+  ...
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:SolidColorStroke:SolidColorStroke"><apiName>SolidColorStroke</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>線の色を指定します。 デフォルト値は 0x000000（黒）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>ピクセル単位の線の太さを指定します。 デフォルト値は 1 です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>0.0 ～ 1.0 の範囲でアルファ値を指定します。 デフォルト値は 1.0（不透明）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>ピクセル全体に対して線をヒンティングするかどうかを指定します。この値は、曲線のアンカーの位置と線のサイズ自身の両方に影響を与えます。 デフォルト値は false です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>使用する拡大 / 縮小モードを指定する LineScaleMode クラスの値です。 有効な値は、<codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> および <codeph>LineScaleMode.VERTICAL</codeph> です。 このパラメーターはオプションであり、デフォルト値は <codeph>LineScaleMode.NORMAL</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>線の終端のキャップの種類を指定します。有効な値は、<codeph>CapsStyle.ROUND</codeph>、<codeph>CapsStyle.SQUARE</codeph>、および <codeph>CapsStyle.NONE</codeph> です。デフォルト値は <codeph>CapsStyle.ROUND</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>round</apiData><apiDesc>角で使用する接合点の外観の種類を指定します。有効な値は、<codeph>JointStyle.ROUND</codeph>、<codeph>JointStyle.MITER</codeph>、および <codeph>JointStyle.BEVEL</codeph> です。デフォルト値は <codeph>JointStyle.ROUND</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>3</apiData><apiDesc>マイターが切り取られる限度を示します。有効な値の範囲は 1 から 255 です。デフォルト値は 3 です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.graphics:SolidColorStroke:apply"><apiName>apply</apiName><shortdesc>
+      
+	  指定の Graphics オブジェクトにプロパティを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>graphics</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>プロパティを適用する Graphics オブジェクトです。
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>線を適用するシェイプの境界。 
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。  
+     
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  指定の Graphics オブジェクトにプロパティを適用します。
+	   
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.graphics:SolidColorStroke:createGraphicsStroke"><apiName>createGraphicsStroke</apiName><shortdesc>
+      
+      この線を表す GraphicsStroke オブジェクトを生成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>この線を表す Drawing API-2 GraphicsStroke オブジェクト。 
+      
+      </apiDesc><apiType value="flash.display:GraphicsStroke"/></apiReturn><apiParam><apiItemName>targetBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>線の境界ボックス。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>targetOrigin</apiItemName><apiType value="flash.geom:Point"/><apiDesc>ターゲットの座標系でシェイプの原点 (0,0) を定義するポイントです。 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      この線を表す GraphicsStroke オブジェクトを生成します。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.graphics:SolidColorStroke:alpha:get"><apiName>alpha</apiName><shortdesc>
+      線の透明度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0. 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      線の透明度です。 有効な値は、0.0（不可視）～ 1.0（不透明）の範囲です。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:caps:get"><apiName>caps</apiName><shortdesc>
+      線の終端のキャップの種類を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>CapsStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      線の終端のキャップの種類を指定します。有効な値は、<codeph>CapsStyle.ROUND</codeph>、<codeph>CapsStyle.SQUARE</codeph>、および <codeph>CapsStyle.NONE</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:color:get"><apiName>color</apiName><shortdesc>
+      線のカラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000 (black). 
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      線のカラーです。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:joints:get"><apiName>joints</apiName><shortdesc>
+      角で使用する接合点の外観の種類を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>JointStyle.ROUND
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      角で使用する接合点の外観の種類を指定します。有効な値は、<codeph>JointStyle.ROUND</codeph>、<codeph>JointStyle.MITER</codeph>、および <codeph>JointStyle.BEVEL</codeph> です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:miterLimit:get"><apiName>miterLimit</apiName><shortdesc>
+      マイターが切り取られる限度を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>3
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マイターが切り取られる限度を示します。有効な値の範囲は 1 から 255 です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:pixelHinting:get"><apiName>pixelHinting</apiName><shortdesc>
+      ピクセル全体に対して線をヒンティングするかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ピクセル全体に対して線をヒンティングするかどうかを指定します。この値は、曲線のアンカーの位置と線のサイズ自身の両方に影響を与えます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:scaleMode:get"><apiName>scaleMode</apiName><shortdesc>
+      使用する拡大 / 縮小モードを指定する LineScaleMode クラスの値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>LineScaleMode.NORMAL
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      使用する拡大 / 縮小モードを指定する LineScaleMode クラスの値です。 有効な値は次のとおりです。
+     
+      <ul>
+      <li>
+      <codeph>LineScaleMode.NORMAL</codeph> — オブジェクトが拡大 / 縮小される場合、常に線の太さが拡大 / 縮小されます（デフォルト）。
+      </li>
+      <li>
+      <codeph>LineScaleMode.NONE</codeph> — 線の太さを拡大 / 縮小しません。
+      </li>
+      <li>
+      <codeph>LineScaleMode.VERTICAL</codeph> — オブジェクトを垂直方向にのみ<i/>拡大 / 縮小する場合は、線の太さを拡大 / 縮小しません。 
+      </li>
+      <li>
+      <codeph>LineScaleMode.HORIZONTAL</codeph> — オブジェクトを水平方向にのみ<i/>拡大 / 縮小する場合は、線の太さを拡大 / 縮小しません。 
+      </li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:SolidColorStroke:weight:get"><apiName>weight</apiName><shortdesc>
+      ピクセル単位の線の太さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ピクセル単位の線の太さです。 チャートの多くは、デフォルト値が 1 ピクセルです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:GradientBase"><apiName>GradientBase</apiName><shortdesc>
+  GradientBase クラスは、LinearGradient、LinearGradientStroke および RadialGradient の基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="entries"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GradientBase クラスは、LinearGradient、LinearGradientStroke および RadialGradient の基本クラスです。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.graphics:GradientBase:GradientBase"><apiName>GradientBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.graphics:GradientBase:GRADIENT_DIMENSION"><apiName>GRADIENT_DIMENSION</apiName><shortdesc>
+      未変換のグラデーションの幅と高さの値
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1638.4</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      未変換のグラデーションの幅と高さの値
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:protected:compoundTransform"><apiName>compoundTransform</apiName><shortdesc>
+      マトリックスおよび便利な変換プロパティ（x、y、rotation）を保持します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.geom:CompoundTransform</apiValueClassifier></apiValueDef><apiDesc>
+      マトリックスおよび便利な変換プロパティ（<codeph>x</codeph>、<codeph>y</codeph>、<codeph>rotation</codeph>）を保持します。compoundTransform は、<codeph>matrix</codeph> プロパティが設定されているときにのみ作成されます。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:angle:get"><apiName>angle</apiName><shortdesc>
+      デフォルトでは、LinearGradientStroke はコントロールの左から右へのトランジションを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue><apiDeprecated replacement="rotation"/></apiValueDef><apiDesc>
+      デフォルトでは、LinearGradientStroke はコントロールの左から右へのトランジションを定義します。 トランジションの方向を制御するには、<codeph>angle</codeph> プロパティを使用します。 例えば値が 180.0 の場合、トランジションは左から右ではなく、右から左に行われます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:entries:get"><apiName>entries</apiName><shortdesc>
+      グラデーションの塗りのパターンを定義する GradientEntry オブジェクトの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      グラデーションの塗りのパターンを定義する GradientEntry オブジェクトの配列です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:interpolationMethod:get"><apiName>interpolationMethod</apiName><shortdesc>
+      使用する補間メソッドを指定する InterpolationMethod クラスの値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>InterpolationMethod.RGB
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      使用する補間メソッドを指定する InterpolationMethod クラスの値です。
+     
+      <p>有効な値は、<codeph>InterpolationMethod.LINEAR_RGB</codeph> および <codeph>InterpolationMethod.RGB</codeph> です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:matrix:get"><apiName>matrix</apiName><shortdesc>
+      マトリックス変換に使用する値の配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Matrix"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マトリックス変換に使用する値の配列です。
+     
+      <p>グラデーションの <codeph>scaleX</codeph> および <codeph>scaleY</codeph> プロパティはピクセルを表しますが、マトリックスのスケールプロパティは乗数を表します。したがって互換性はありません。もう 1 つの違いは、ほとんどの変換プロパティ（<codeph>x</codeph>、<codeph>y</codeph>、<codeph>scaleX</codeph>、および <codeph>scaleY</codeph>）は NaN 値をサポートしますが、マトリックスはサポートしません。NaN 値は、グラデーションが適切な値を選択することを意味します。</p>
+      
+      <p><codeph>scaleX</codeph> および <codeph>scaleY</codeph> プロパティは、マトリックスでは表すことができません。マトリックスが設定された後は、<codeph>scaleX</codeph> および <codeph>scaleY</codeph> を設定できません。また、<codeph>x</codeph> および <codeph>y</codeph> を NaN に設定することもできません。マトリックスの設定は null に戻すことができ、すべての便利な変換プロパティもデフォルト値にリセットされます。</p>
+      
+      <p>マトリックスを設定すると、グラデーション描画ロジックは、グラフィックエレメントの境界に合わせてグラデーションを拡大 / 縮小します。その後、グラデーションをグラフィックエレメントの左上隅に配置します。最後に、マトリックス変換を適用します。</p>
+    
+      <p>デフォルトでは、LinearGradientStroke はコントロールの左から右へのトランジションを定義します。 トランジションの方向を制御するには、<codeph>rotation</codeph> プロパティを使用します。例えば値が 180.0 の場合、トランジションは左から右ではなく、右から左に行われます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:rotation:get"><apiName>rotation</apiName><shortdesc>
+      デフォルトでは、LinearGradientStroke はコントロールの左から右へのトランジションを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      デフォルトでは、LinearGradientStroke はコントロールの左から右へのトランジションを定義します。 トランジションの方向を制御するには、<codeph>rotation</codeph> プロパティを使用します。例えば値が 180.0 の場合、トランジションは左から右ではなく、右から左に行われます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:spreadMethod:get"><apiName>spreadMethod</apiName><shortdesc>
+      使用する spread メソッドを指定する SpreadMethod クラスの値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>SpreadMethod.PAD
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      使用する spread メソッドを指定する SpreadMethod クラスの値です。
+     
+      <p>有効な値は <codeph>SpreadMethod.PAD</codeph>、<codeph>SpreadMethod.REFLECT</codeph>、および <codeph>SpreadMethod.REPEAT</codeph> です。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:x:get"><apiName>x</apiName><shortdesc>
+      x 軸方向に各ポイントを平行移動する距離です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      x 軸方向に各ポイントを平行移動する距離です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:GradientBase:y:get"><apiName>y</apiName><shortdesc>
+      y 軸方向に各ポイントを平行移動する距離です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      y 軸方向に各ポイントを平行移動する距離です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapScaleMode"><apiName>BitmapScaleMode</apiName><shortdesc>
+  BitmapScaleMode クラスは、fillMode が mx.graphics.BitmapFillMode.SCALE に設定されている場合に、BitmapImage がイメージコンテンツを拡大および縮小する方法を決定する拡大 / 縮小モードの列挙を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BitmapScaleMode クラスは、<codeph>fillMode</codeph> が <codeph>mx.graphics.BitmapFillMode.SCALE</codeph> に設定されている場合に、BitmapImage がイメージコンテンツを拡大および縮小する方法を決定する拡大 / 縮小モードの列挙を定義します。
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Image/scaleMode"><linktext>spark.components.Image.scaleMode</linktext></link><link href="" invalidHref="spark.primitives.xml#BitmapImage/scaleMode"><linktext>spark.primitives.BitmapImage.scaleMode</linktext></link></related-links><apiValue id="mx.graphics:BitmapScaleMode:LETTERBOX"><apiName>LETTERBOX</apiName><shortdesc>
+      ビットマップの塗りは、オリジナルのコンテンツの縦横比を維持しながら拡大 / 縮小されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>letterbox</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ビットマップの塗りは、オリジナルのコンテンツの縦横比を維持しながら拡大 / 縮小されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapScaleMode:STRETCH"><apiName>STRETCH</apiName><shortdesc>
+      領域を塗りつぶすためにビットマップの塗りが伸縮します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>stretch</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      領域を塗りつぶすためにビットマップの塗りが伸縮します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapScaleMode:ZOOM"><apiName>ZOOM</apiName><shortdesc>
+      ビットマップの塗りは、オリジナルのコンテンツの縦横比を維持しながら拡大 / 縮小およびトリミングされ、レターボックスまたはピラーボックスは表示されません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="11"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>zoom</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ビットマップの塗りは、オリジナルのコンテンツの縦横比を維持しながら拡大 / 縮小およびトリミングされ、レターボックスまたはピラーボックスは表示されません。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:BitmapSmoothingQuality"><apiName>BitmapSmoothingQuality</apiName><shortdesc>
+  スムージング画質モードの列挙です。スムージング画質モードは、fillMode が BitmapFillMode.SCALE で、smooth が true のときに、BitmapImage のイメージコンテンツをどのように拡大 / 縮小するかを決定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  スムージング画質モードの列挙です。スムージング画質モードは、fillMode が BitmapFillMode.SCALE で、<codeph>smooth</codeph> が true のときに、BitmapImage のイメージコンテンツをどのように拡大 / 縮小するかを決定します。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.graphics:BitmapSmoothingQuality:DEFAULT"><apiName>DEFAULT</apiName><shortdesc>
+      拡大 / 縮小時にデフォルトのスムージングアルゴリズムが使用されます。ステージの画質と一致します（stage.quality)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>default</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      拡大 / 縮小時にデフォルトのスムージングアルゴリズムが使用されます。ステージの画質と一致します（stage.quality)。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.graphics:BitmapSmoothingQuality:HIGH"><apiName>HIGH</apiName><shortdesc>
+      拡大 / 縮小時に、高画質のスムージングアルゴリズムが使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>high</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      拡大 / 縮小時に、高画質のスムージングアルゴリズムが使用されます。より高い画質の拡大 / 縮小（ダウンサンプル済み）が必要な場合に使用します。このオプションは、イメージがオリジナルのイメージの縦横比と同じサイズに拡大縮小されたときに最も高い効果を発揮します。高い画質のサムネールを生成する場合に便利なオプションです。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.graphics:Stroke"><apiName>Stroke</apiName><shortdesc>
+  Stroke クラスは、線のプロパティを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Stroke&gt;</code> tag inherits all the tag attributes
+  of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Stroke
+    <b>Properties</b>
+    alpha="1.0"
+    caps="null|none|round|square"
+    color="0x000000"
+    joints="null|bevel|miter|round"
+    miterLimit="1"
+    pixelHinting="false|true"
+    scaleMode="normal|none|horizontal|vertical"
+    weight="1 (<i>in most cases</i>)"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="SolidColorStroke" sinceVersion="4.0"/><apiBaseClassifier>mx.graphics:SolidColorStroke</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Stroke クラスは、線のプロパティを定義します。 Stroke オブジェクトは MXML で定義できますが、アプリケーションで表示するためには別のオブジェクトに関連付ける必要があります。 次の例では、2 つの Stroke オブジェクトを定義して、それを LineChart コントロールの horizontalAxisRenderer で使用します。
+  
+  <pre>
+  ...
+  &lt;mx:Stroke id="ticks" color="0xFF0000" weight="1"/>
+  &lt;mx:Stroke id="mticks" color="0x0000FF" weight="1"/>
+  
+  &lt;mx:LineChart id="mychart" dataProvider="{ndxa}">
+      &lt;mx:horizontalAxisRenderer>
+          &lt;mx:AxisRenderer placement="bottom" canDropLabels="true">
+              &lt;mx:tickStroke>{ticks}&lt;/mx:tickStroke>
+              &lt;mx:minorTickStroke>{mticks}&lt;/mx:minorTickStroke>
+          &lt;/mx:AxisRenderer>
+      &lt;/mx:horizontalAxisRenderer>
+  &lt;/LineChart>
+  ...
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.Graphics.xml"><linktext>flash.display.Graphics</linktext></link></related-links><apiConstructor id="mx.graphics:Stroke:Stroke"><apiName>Stroke</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>線の色を指定します。 デフォルト値は 0x000000（黒）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>weight</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>ピクセル単位の線の太さを指定します。 デフォルト値は 0 です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>0.0 ～ 1.0 の範囲でアルファ値を指定します。 デフォルト値は 1.0（不透明）です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>pixelHinting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>ピクセル全体に対して線をヒンティングするかどうかを指定します。この値は、曲線のアンカーの位置と線のサイズ自身の両方に影響を与えます。 デフォルト値は false です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleMode</apiItemName><apiType value="String"/><apiData>normal</apiData><apiDesc>使用する拡大 / 縮小モードを指定する LineScaleMode クラスの値です。 有効な値は、<codeph>LineScaleMode.HORIZONTAL</codeph>、<codeph>LineScaleMode.NONE</codeph>、<codeph>LineScaleMode.NORMAL</codeph> および <codeph>LineScaleMode.VERTICAL</codeph> です。 このパラメーターはオプションであり、デフォルト値は <codeph>LineScaleMode.NORMAL</codeph> です。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>caps</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>線の終端のキャップの種類を指定します。有効な値は、<codeph>"round"</codeph>、<codeph>"square"</codeph> および <codeph>"none"</codeph> です。 デフォルト値は <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>joints</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>角で使用する接合点の外観の種類を指定します。有効な値は、<codeph>"round"</codeph>、<codeph>"miter"</codeph> および <codeph>"bevel"</codeph> です。 デフォルト値は <codeph>null</codeph> です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>miterLimit</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>マイターが切り取られる限度を示します。有効な値の範囲は 1 から 255 です。デフォルト値は 1 です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

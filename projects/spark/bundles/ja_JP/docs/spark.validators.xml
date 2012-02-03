@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.validators"><apiName>spark.validators</apiName><apiDetail/><apiClassifier id="spark.validators:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+  CurrencyValidator クラスは、ストリングがロケールの規則に基づいた有効な通貨額であるかどうかを確認します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:CurrencyValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+ <pre>
+  &lt;s:CurrencyValidator
+    <strong>Properties</strong>
+    currencyISOCode="<i>locale specified string or customized by user</i>."
+    currencyStringError="Currency name is repeated or not correct."
+    currencySymbol="<i>locale specified string or customized by user</i>."
+    negativeCurrencyFormat="<i>locale specified string or customized by user</i>."
+    negativeCurrencyFormatError="The negative format of the input currency is incorrect."
+    positiveCurrencyFormat="<i>locale specified string or customized by user</i>."
+    positiveCurrencyFormatError="The positive format of the input currency is incorrect."
+  /&gt;
+  </pre>
+ 
+    
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:NumberValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>CurrencyValidator</codeph> クラスは、ストリングがロケールの規則に基づいた有効な通貨額であるかどうかを確認します。このクラスでは、ロケール ID を指定するために <codeph>locale</codeph> スタイルを使用します。
+ 
+  <p>このバリデーターでは、通貨ストリングが（<codeph>minValue</codeph> プロパティと <codeph>maxValue</codeph> プロパティで）指定した範囲に収まっていること、整数であること（<codeph>domain</codeph> プロパティで指定）、負でないこと（<codeph>allowNegative</codeph> プロパティで指定）、負と正の数を正しく指定していること、正しい通貨 ISO コードまたは通貨記号が使用されていること、<codeph>fractionalDigits</codeph> の指定数を超えていないことを検証できます。デフォルトのプロパティ値の設定には、<codeph>flash.globalization.CurrencyFormatter</codeph> クラスが使用されるため、ロケール固有の値がオペレーティングシステムによって提供されます。</p>
+ 
+  <p><codeph>flash.globalization.CurrencyFormatter</codeph> クラスでは、ロケール固有データの提供用に、基盤となるオペレーティングシステムを使用します。オペレーティングシステムで通貨フォーマットを提供しない場合、このクラスが代替機能を提供します。</p>
+ 
+  </apiDesc><example conref="CurrencyValidatorExample1.mxml"><swfblock conref="examples/CurrencyValidatorExample1.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link></related-links><apiConstructor id="spark.validators:CurrencyValidator:CurrencyValidator"><apiName>CurrencyValidator</apiName><shortdesc>
+      所定のロケールの規則に従って通貨額を表す数字を検証するために、新しい CurrencyValidator オブジェクトを構築します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      所定のロケールの規則に従って通貨額を表す数字を検証するために、新しい <codeph>CurrencyValidator</codeph> オブジェクトを構築します。
+      <p>
+      このクラスのロケールは <codeph>locale</codeph> スタイルプロパティによって提供されます。<codeph>locale</codeph> スタイルは、次のいくつかの方法で設定できます。
+      </p>
+      <ul>
+      <li>
+      <codeph>UIComponent</codeph> の <codeph>addStyleClient</codeph> メソッドを呼び出すことによって <codeph>UIComponent</codeph> からスタイルを継承する。
+      </li>
+      <li>
+      MXML 宣言内でクラスを使用し、宣言を格納するドキュメントからロケールを継承する。
+      </li>
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:CurrencyValidator id="cv" />
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      MXML 宣言を使用し、代入のリスト内でロケールの値を指定する。
+      </li>
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:CurrencyValidator id="cv_turkish" locale="tr-TR" />
+      &lt;/fx:Declarations>
+      </pre>
+      <li>
+      setStyle メソッド（例えば、<codeph>cv.setStyle("locale", "tr-TR")</codeph>）を呼び出す。
+      </li>
+      </ul>
+      <p>
+      <codeph>locale</codeph> スタイルが上記のいずれかの手法で設定されていない場合は、このクラスのインスタンスが <codeph>StyleClient</codeph> として <codeph>topLevelApplication</codeph> に追加されるため、<codeph>locale</codeph> 依存のプロパティ getter または <codeph>locale</codeph> 依存のメソッドが呼び出されるときに、<codeph>topLevelApplication</codeph> オブジェクトから <codeph>locale</codeph> が継承されます。
+      </p>         
+      <p>通貨ストリングフォーマットに関連するプロパティは、ロケールに基づくデフォルト値に設定されます。</p>
+     
+      <p><b>注意：</b>代替のロケールが使用されると、通貨プロパティが en_US のデフォルトの値に設定されます。そのため、検証で意図する通貨と一致しない場合があります。 通貨額を検証する前に、<codeph>currencySymbol</codeph> および <codeph>currencyISOCode</codeph> プロパティの値を調べることをお勧めします。
+      </p>
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.xml#CurrencyFormatter/actualLocaleIDName"><linktext>flash.globalization.CurrencyFormatter.actualLocaleIDName</linktext></link></related-links></apiConstructor><apiOperation id="spark.validators:CurrencyValidator:validateCurrency"><apiName>validateCurrency</apiName><shortdesc>
+      カスタム検証関数からバリデーターを呼び出す便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>ValidationResult</codeph> オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。<codeph/>
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証する通貨の数字文字列です。数字文字列では、unicode のマイナス記号 0x2212、0xFE63、0xFF0D と、ascii のマイナスを使用できます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc><codeph>value</codeph> パラメーターで指定したサブフィールドのテキスト表現です。 例えば、<codeph>value</codeph> パラメーターで value.number を指定する場合、<codeph>baseField</codeph> の値は "number" です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      カスタム検証関数からバリデーターを呼び出す便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。 呼び出し元は返された配列の <codeph>ValidationResult</codeph> オブジェクトで検証ステータスをチェックする必要があります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link><link href="" invalidHref="flash.globalization.CurrencyFormatter.xml"><linktext>flash.globalization.CurrencyFormatter</linktext></link></related-links></apiOperation><apiValue id="spark.validators:CurrencyValidator:currencyISOCode:get"><apiName>currencyISOCode</apiName><shortdesc>
+      使用されているロケールの 3 文字の ISO 4217 通貨コードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      使用されているロケールの 3 文字の ISO 4217 通貨コードです。
+     
+      <p>このプロパティは、<codeph>validate()</codeph> メソッドを使用して、入力通貨額内の通貨ストリングつまり通貨記号を検証するときに使用します。
+      </p>
+     
+      <p>このプロパティは、使用される実際のロケールに基づいて、コンストラクターによって初期化されます。代替のロケールが使用される場合、このプロパティは、代替のロケールで優先されるデフォルトの通貨コードを反映します。</p>
+     
+      <p>デフォルト値は実際のロケールおよびオペレーティングシステムによって異なります。<codeph/></p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/validate()"><linktext>validate()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:currencyStringError:get"><apiName>currencyStringError</apiName><shortdesc>
+      通貨記号または通貨の ISO コードが繰り返されているか間違った場所にある場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"Currency name is repeated or not correct."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      通貨記号または通貨の ISO コードが繰り返されているか間違った場所にある場合に発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:currencySymbol:get"><apiName>currencySymbol</apiName><shortdesc>
+      使用されるロケールの通貨記号または文字列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      使用されるロケールの通貨記号または文字列です。
+     
+      <p>このプロパティは、<codeph>validate()</codeph> メソッドで通貨額を検証するときに、通貨記号として使用されます。検証ストリング内の通貨記号または通貨名は、<codeph>currencySymbol</codeph> プロパティの値または <codeph>currencyISOCode</codeph> プロパティの値と一致している必要があります。 </p>
+     
+      <p>このプロパティは、使用される実際のロケールに基づいて、コンストラクターによって初期化されます。代替のロケールが使用される場合、このプロパティは、代替のロケールで優先されるデフォルトの通貨記号を反映します。</p>
+     
+      <p>デフォルト値は実際のロケールおよびオペレーティングシステムによって異なります。<codeph/></p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link><link href="spark.validators.xml#CurrencyValidator/setCurrency()"><linktext>setCurrency()</linktext></link><link href="spark.validators.xml#CurrencyValidator/formattingWithCurrencySymbolIsSafe()"><linktext>formattingWithCurrencySymbolIsSafe()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencyISOCode"><linktext>currencyISOCode</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:negativeCurrencyFormatError:get"><apiName>negativeCurrencyFormatError</apiName><shortdesc>
+      入力通貨ストリングの負の数のフォーマットが正しくないときに発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative format of the input currency is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      入力通貨ストリングの負の数のフォーマットが正しくないときに発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:negativeCurrencyFormat:get"><apiName>negativeCurrencyFormat</apiName><shortdesc>
+       負の通貨額の検証パターンを示す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>割り当てられた値が 0～15 の場合。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+       負の通貨額の検証パターンを示す数値です。このプロパティは、通貨額の数値部分に関連する通貨記号とマイナス記号または括弧の位置を定義します。 このプロパティは、入力通貨ストリングが負の金額についてこのパターンに従っているかどうかを検証するために使用します。
+     
+       <p>このプロパティの値は、下の表で定義された定数のいずれかになります。
+      </p>
+     
+      <ul>
+       <li>「¤」記号は通貨ストリング内での currencyISOCode または currencySymbol の場所を表します。
+       </li>
+       <li>「-」文字は negativeNumberSymbol の場所を表します。</li>
+       <li>「n」文字は通貨金額を表します。</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>負の金額のフォーマットの種類</entry>
+                <entry>フォーマットパターン</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(¤n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-¤n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤-n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>¤n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>(n¤)</entry>
+            </row><row>
+                <entry>5</entry>
+                <entry>-n¤</entry>
+            </row><row>
+                <entry>6</entry>
+                <entry>n-¤</entry>
+            </row><row>
+                <entry>7</entry>
+                <entry>n¤-</entry>
+            </row><row>
+                <entry>8</entry>
+                <entry>-n ¤</entry>
+            </row><row>
+                <entry>9</entry>
+                <entry>-¤ n</entry>
+            </row><row>
+                <entry>10</entry>
+                <entry>n ¤-</entry>
+            </row><row>
+                <entry>11</entry>
+                <entry>¤ n-</entry>
+            </row><row>
+                <entry>12</entry>
+                <entry>¤ -n</entry>
+            </row><row>
+                <entry>13</entry>
+                <entry>n- ¤</entry>
+            </row><row>
+                <entry>14</entry>
+                <entry>(¤ n)</entry>
+            </row><row>
+                <entry>15</entry>
+                <entry>(n ¤)</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>デフォルト値は実際のロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.validators.xml#CurrencyValidator/negativeSymbol"><linktext>negativeSymbol</linktext></link></related-links></apiValue><apiValue id="spark.validators:CurrencyValidator:positiveCurrencyFormatError:get"><apiName>positiveCurrencyFormatError</apiName><shortdesc>
+      正の数の通貨フォーマットが正しくないときに発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The positive format of the input currency is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      正の数の通貨フォーマットが正しくないときに発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:CurrencyValidator:positiveCurrencyFormat:get"><apiName>positiveCurrencyFormat</apiName><shortdesc>
+        正の通貨額の検証パターンを示す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>割り当てられた値が 0～3 の場合。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+        正の通貨額の検証パターンを示す数値です。このプロパティは、通貨額の数値部分に関連する通貨記号の位置を定義します。 このプロパティは、入力通貨ストリングが正の金額についてこのパターンに従っているかどうかを検証するために使用します。
+     
+       <p>このプロパティの値は、下の表で定義された定数のいずれかになります。
+      </p>
+     
+      <ul>
+       <li>「¤」記号は通貨ストリング内での <codeph>currencyISOCode</codeph> または <codeph>currencySymbol</codeph> の場所を表します。</li>
+       <li>「n」文字は通貨ストリング内での <codeph>currencyISOCode</codeph> または <codeph>currencySymbol</codeph> の場所を表します。</li>
+      </ul>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>正の金額のフォーマットの種類</entry>
+                <entry>フォーマットパターン</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>¤n</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>n¤</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>¤ n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n ¤</entry>
+            </row></tbody></tgroup></adobetable>
+     
+      <p>デフォルト値は実際のロケールおよびオペレーティングシステムによって異なります。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#CurrencyValidator/currencySymbol"><linktext>currencySymbol</linktext></link><link href="spark.validators.xml#CurrencyValidator/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.validators:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+  NumberValidator クラスは、ストリングがロケールの規則に基づいた有効な数値であるかどうかを確認します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;spark:NumberValidator&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:NumberValidator
+    <strong>Properties</strong>
+    negativeNumberFormat="<i>locale specified string or customized by user</i>."
+    negativeNumberFormatError="The negative format of the input number is incorrect."
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.validators.supportClasses:NumberValidatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumberValidator クラスは、ストリングがロケールの規則に基づいた有効な数値であるかどうかを確認します。<codeph>int</codeph>、<codeph>uint</codeph> および <codeph>Number</codeph> オブジェクトを表すストリングを検証できます。
+ 
+  <p>このクラスでは、要求されたロケール ID を指定するために <codeph>locale</codeph> スタイルを使用します。</p>
+ 
+  <p>このバリデーターでは、入力が（<codeph>minValue</codeph> プロパティと <codeph>maxValue</codeph> プロパティで）指定した範囲に収まっていること、整数であること（<codeph>domain</codeph> プロパティで指定）、負でないこと（<codeph>allowNegative</codeph> プロパティで指定）、負と正の数を正しく指定していること、<codeph>fractionalDigits</codeph> の指定数を超えていないことを検証できます。デフォルトのプロパティ値の設定には、<codeph>flash.globalization.NumberFormatter</codeph> が使用されるため、ロケール固有の値がオペレーティングシステムによって提供されます。</p>
+ 
+  <p><codeph>NumberValidator</codeph> クラスは MXML 宣言で使用したり、または ActionScript コードで使用したりすることができます。このクラスでは、<codeph>flash.globalization.NumberFormatter</codeph> クラスで必要な、要求されたロケール ID を指定するためにロケールスタイルが使用され、バインド可能なメソッドおよびプロパティを持ちます。</p>
+  
+  </apiDesc><example conref="NumberValidatorExample1.mxml"><swfblock conref="examples/NumberValidatorExample1.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.NumberFormatter.xml"><linktext>flash.globalization.NumberFormatter</linktext></link></related-links><apiConstructor id="spark.validators:NumberValidator:NumberValidator"><apiName>NumberValidator</apiName><shortdesc>
+      所定のロケールの規則に基づいて数字を検証するために、新しい NumberValidator オブジェクトを構築します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      所定のロケールの規則に基づいて数字を検証するために、新しい NumberValidator オブジェクトを構築します。
+      <p>
+      このクラスのロケールは <codeph>locale</codeph> スタイルによって提供されます。 <codeph>locale</codeph> スタイルは、次のいくつかの方法で設定できます。
+      </p>
+      <ul>
+      <li>         
+      <codeph>UIComponent</codeph> の <codeph>addStyleClient</codeph> メソッドを呼び出すことによって <codeph>UIComponent</codeph> からスタイルを継承する。
+      </li>
+      <li>
+      MXML 宣言内でクラスを使用し、宣言を格納するドキュメントからロケールを継承する。
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:NumberValidator id="nv" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+      <li>
+      MXML 宣言を使用し、代入のリスト内でロケールの値を指定する。
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:NumberValidator id="nv_French_France" locale="fr_FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+      <li>
+      <codeph>setStyle</codeph> メソッドを呼び出す。例：<codeph>nv.setStyle("locale", "fr-FR")</codeph>
+      </li>
+      </ul>
+      <p>
+      <codeph>locale</codeph> スタイルが上記のいずれかの手法で設定されていない場合は、このクラスのインスタンスが <codeph>StyleClient</codeph> として <codeph>topLevelApplication</codeph> に追加されるため、<codeph>locale</codeph> 依存のプロパティ getter または <codeph>locale</codeph> 依存のメソッドが呼び出されるときに、<codeph>topLevelApplication</codeph> オブジェクトから <codeph>locale</codeph> が継承されます。
+      </p>   
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.validators:NumberValidator:validateNumber"><apiName>validateNumber</apiName><shortdesc>
+      カスタム検証関数からバリデーターを呼び出す便利なメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>ValidationResult</codeph> オブジェクトの配列です。このオブジェクトは、検証が行われるフィールドごとに 1 つ含まれます。<codeph/><codeph/>
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>検証する数字文字列です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>baseField</apiItemName><apiType value="String"/><apiDesc><codeph>value</codeph> オブジェクトで指定したサブフィールドのテキスト表現です。 例えば、<codeph>value</codeph> パラメーターで value.number を指定する場合、<codeph>baseField</codeph> の値は "number" です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      カスタム検証関数からバリデーターを呼び出す便利なメソッドです。 他の標準 Flex バリデーターにもそれぞれ同様の便利なメソッドがあります。 呼び出し元は返された配列の <codeph>ValidationResult</codeph> オブジェクトで検証ステータスをチェックする必要があります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.validators.ValidationResult.xml"><linktext>mx.validators.ValidationResult</linktext></link></related-links></apiOperation><apiValue id="spark.validators:NumberValidator:negativeNumberFormatError:get"><apiName>negativeNumberFormatError</apiName><shortdesc>
+      入力数値の負の数のフォーマットが、negativeNumberFormat プロパティで指定されたパターンに従わない場合に発生するエラーメッセージを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"The negative format of the input number is incorrect."
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      入力数値の負の数のフォーマットが、negativeNumberFormat プロパティで指定されたパターンに従わない場合に発生するエラーメッセージを表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.validators:NumberValidator:negativeNumberFormat:get"><apiName>negativeNumberFormat</apiName><shortdesc>
+      負の数の検証パターンを示す数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiException><apiDesc>割り当てられた値が 0～4 の数字でない場合。
+     
+      </apiDesc><apiItemName>ArgumentError</apiItemName><apiOperationClassifier>ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc>
+      負の数の検証パターンを示す数値です。このパターンは、検証される数字の数値部分に関連するマイナス記号または括弧の位置を定義します。
+     
+      <p>次の表は、負の数の有効なフォーマットの概要を示しています。負の数が検証されるとき、マイナス記号は <codeph>negativeSymbol</codeph> プロパティの値を表し、「n」の文字は数値を表します。</p>
+     
+        <adobetable class="innertable">
+            
+            
+            
+            
+            
+            
+        <tgroup cols="2"><tbody><row>
+                <entry>負の数のフォーマットの種類</entry>
+                <entry>形式</entry>
+            </row><row>
+                <entry>0</entry>
+                <entry>(n)</entry>
+            </row><row>
+                <entry>1</entry>
+                <entry>-n</entry>
+            </row><row>
+                <entry>2</entry>
+                <entry>- n</entry>
+            </row><row>
+                <entry>3</entry>
+                <entry>n-</entry>
+            </row><row>
+                <entry>4</entry>
+                <entry>n -</entry>
+            </row></tbody></tgroup></adobetable>
+     
+     
+      デフォルト値は実際のロケールおよびオペレーティングシステムによって異なります。<codeph/><codeph/>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.validators.xml#NumberValidator/negativeSymbol"><linktext>negativeSymbol</linktext></link><link href="spark.validators.xml#NumberValidator/format()"><linktext>format()</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

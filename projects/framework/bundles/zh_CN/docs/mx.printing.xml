@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.printing"><apiName>mx.printing</apiName><apiDetail/><apiClassifier id="mx.printing:FlexPrintJobScaleType"><apiName>FlexPrintJobScaleType</apiName><shortdesc>
+  FlexPrintJob.addObject() 方法参数的 scaleType 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlexPrintJob.addObject() 方法参数的 <codeph>scaleType</codeph> 属性的值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.printing.xml#FlexPrintJob/addObject()"><linktext>FlexPrintJob.addObject()</linktext></link></related-links><apiValue id="mx.printing:FlexPrintJobScaleType:FILL_PAGE"><apiName>FILL_PAGE</apiName><shortdesc>
+	  将对象缩放到至少一整页那么大；也就是说，选择较大的 MATCH_WIDTH 或 MATCH_HEIGHT 缩放类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fillPage</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  将对象缩放到至少一整页那么大；也就是说，选择较大的 MATCH_WIDTH 或 MATCH_HEIGHT 缩放类型。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_HEIGHT"><apiName>MATCH_HEIGHT</apiName><shortdesc>
+	  缩放对象以填充可用页面高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchHeight</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  缩放对象以填充可用页面高度。如果得到的对象宽度超出页面宽度，则输出会扩展到多个页面。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_WIDTH"><apiName>MATCH_WIDTH</apiName><shortdesc>
+	  缩放对象以填充可用页面宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchWidth</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  缩放对象以填充可用页面宽度。如果得到的对象高度超出页面高度，则输出会扩展到多个页面。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:NONE"><apiName>NONE</apiName><shortdesc>
+	  不要缩放输出。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  不要缩放输出。打印页面的尺寸与屏幕上的对象相同。如果对象高度、宽度或两个尺寸都超出页面宽度或高度，则输出会扩展到多个页面中。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:SHOW_ALL"><apiName>SHOW_ALL</apiName><shortdesc>
+	  缩放对象以适合在单个页面中填充一个尺寸；也就是说，选择 MATCH_WIDTH 或 MATCH_HEIGHT 缩放类型中较小的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>showAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  缩放对象以适合在单个页面中填充一个尺寸；也就是说，选择 MATCH_WIDTH 或 MATCH_HEIGHT 缩放类型中较小的值。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.printing:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+  FlexPrintJob 类是 flash.printing.PrintJob 类的包装对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlexPrintJob 类是 flash.printing.PrintJob 类的包装对象。它支持自动对多个页面上的输出进行切片和分页，并且将网格内容进行缩放以适合打印机的页面大小。
+ 
+  </apiDesc><example conref="FormPrintHeader.mxml"/><example conref="FormPrintFooter.mxml"/><example conref="FormPrintView.mxml"/><example conref="PrintDataGridExample.mxml"><swfblock conref="examples/PrintDataGridExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.printing:FlexPrintJob:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.printing:FlexPrintJob:addObject"><apiName>addObject</apiName><shortdesc>
+      将 UIComponent 对象添加到正在打印的对象列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>要打印的对象。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleType</apiItemName><apiType value="String"/><apiData>matchWidth</apiData><apiDesc>用于控制对象如何置于一个或多个打印页面上的缩放技术。必须是 FlexPrintJobScaleType 类中定义的常量值之一。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 UIComponent 对象添加到正在打印的对象列表。返回 <codeph>start()</codeph> 方法后调用此方法。每次调用此方法都会启动新页面，因此您应该在页面大小的区块中编排对象格式。可以使用 PrintDataGrid 类来将数据网格扩展到多个页面中。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.printing.PrintDataGrid.xml"><linktext>PrintDataGrid</linktext></link><link href="mx.printing.xml#FlexPrintJobScaleType"><linktext>FlexPrintJobScaleType</linktext></link></related-links></apiOperation><apiOperation id="mx.printing:FlexPrintJob:send"><apiName>send</apiName><shortdesc>
+      将添加的对象发送到打印机以开始打印。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      将添加的对象发送到打印机以开始打印。使用 <codeph>addObject()</codeph> 方法添加打印页面后调用此方法。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.printing:FlexPrintJob:start"><apiName>start</apiName><shortdesc>
+      初始化 PrintJob 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果出现“打印”对话框时，用户单击“确定”，则返回 <codeph>true</codeph>；如果用户单击“取消”或出现错误，则返回 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      初始化 PrintJob 对象。向用户显示操作系统打印机对话框。返回此调用后，Flex 会设置 <codeph>pageWidth</codeph> 和 <codeph>pageHeight</codeph> 属性。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.printing:FlexPrintJob:pageHeight:get"><apiName>pageHeight</apiName><shortdesc>
+      打印机页面上可打印区域的高度；不包括用户设置的任何边距。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      打印机页面上可打印区域的高度；不包括用户设置的任何边距。在返回 start() 方法后设置它。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:pageWidth:get"><apiName>pageWidth</apiName><shortdesc>
+      打印机页面上可打印区域的宽度；不包括用户设置的任何边距。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      打印机页面上可打印区域的宽度；不包括用户设置的任何边距。返回 <codeph>start()</codeph> 方法后设置此属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:printAsBitmap:get"><apiName>printAsBitmap</apiName><shortdesc>
+      指定是以位图 (true) 还是以向量格式 (false) 打印作业内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是以位图 (<codeph>true</codeph>) 还是以向量格式 (<codeph>false</codeph>) 打印作业内容。以位图打印支持包含具有 alpha 透明度或颜色效果的位图图像的输出。如果内容不包含具有 alpha 透明度或颜色效果的任何位图图像，则您可以通过将 <codeph>printAsBitmap</codeph> 属性设置为 <codeph>false</codeph> 以较高质量向量格式打印。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

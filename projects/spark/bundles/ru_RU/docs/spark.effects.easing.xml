@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.easing"><apiName>spark.effects.easing</apiName><apiDetail/><apiClassifier id="spark.effects.easing:IEaser"><apiName>IEaser</apiName><shortdesc>
+  Интерфейс IEaser реализуется классами, обеспечивающими функциональные возможности замедления времени для класса Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IEaser реализуется классами, обеспечивающими функциональные возможности замедления времени для класса Animation. При реализации необходимо обеспечить функцию <codeph>ease()</codeph>, принимающую и возвращающую значение доли в соответствии с требуемой реакцией при замедлении. Простой пример: LinearEase возвращает входную долю, поскольку замедление, выполненное этим средством замедления, не было осуществлено. Другой пример: возможна запись средства замедления в обратном порядке, для которого возвращается обратная доля, вычисляемая по формуле (1 - <codeph>fraction</codeph>).
+ 
+  <p>Путем замедления значений долей времени, затраченного в ходе анимации, эти классы обеспечивают замедление результирующих значений анимации, однако при этом они связаны только с дробными значениями, относящимися ко времени, а не к определенным типам объектов.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Animation"><linktext>spark.effects.animation.Animation</linktext></link></related-links><apiOperation id="spark.effects.easing:IEaser:spark.effects.easing:IEaser:ease"><apiName>ease</apiName><shortdesc>
+      Принимает долю, представляющую время, затраченное на анимацию (значение в диапазоне от 0,0 до 1,0) и возвращает новое значение затраченного времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение замедления для затраченного времени. Как правило, это значение должно быть ограничено диапазоном от 0,0 и 1,0, несмотря на то что существует возможность возвращать значения, находящиеся вне этого диапазона. Следует отметить, что результаты возврата таких значений являются неопределенными и зависят от того, какие эффекты используются этими значениями замедления. Например, объект, перемещаемый в линейном режиме, вполне может иметь вычисленные координаты, находящиеся за пределами его начальной и конечной точки, однако для других типов значений (например, цвета) требуемые эффекты могут быть не реализованы, если для них применяются временные значения, инициирующие превышение их конечных значений.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля затраченного времени анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Принимает долю, представляющую время, затраченное на анимацию (значение в диапазоне от 0,0 до 1,0), и возвращает новое значение затраченного времени. Это значение применяется для вычисления значений анимированного свойства. Изменять анимацию свойства можно путем изменения значения доли затраченного времени.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Bounce"><apiName>Bounce</apiName><shortdesc>
+  Класс Bounce реализует функциональные возможности замедления, моделируя гравитацию с целью отображения перемещения и колебания целевого объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Bounce реализует функциональные возможности замедления, моделируя гравитацию с целью отображения перемещения и колебания целевого объекта. Движение целевого объекта эффекта ускоряется до конечного значения, и затем несколько раз выполняется колебание относительно конечного значения. 
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Bounce:Bounce"><apiName>Bounce</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Bounce:ease"><apiName>ease</apiName><shortdesc>
+      
+      Принимает долю, представляющую время, затраченное на анимацию (значение в диапазоне от 0,0 до 1,0) и возвращает новое значение затраченного времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение замедления для затраченного времени. Как правило, это значение должно быть ограничено диапазоном от 0,0 и 1,0, несмотря на то что существует возможность возвращать значения, находящиеся вне этого диапазона. Следует отметить, что результаты возврата таких значений являются неопределенными и зависят от того, какие эффекты используются этими значениями замедления. Например, объект, перемещаемый в линейном режиме, вполне может иметь вычисленные координаты, находящиеся за пределами его начальной и конечной точки, однако для других типов значений (например, цвета) требуемые эффекты могут быть не реализованы, если для них применяются временные значения, инициирующие превышение их конечных значений.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля затраченного времени анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Принимает долю, представляющую время, затраченное на анимацию (значение в диапазоне от 0,0 до 1,0), и возвращает новое значение затраченного времени. Это значение применяется для вычисления значений анимированного свойства. Изменять анимацию свойства можно путем изменения значения доли затраченного времени.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:Linear"><apiName>Linear</apiName><shortdesc>
+  Класс Linear обеспечивает определение замедления на трех этапах: ускорение, равномерное воспроизведение и замедление.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Linear&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Linear
+    id="ID"
+    easeInFraction="0" 
+    easeOutFraction="0"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Linear обеспечивает определение замедления на трех этапах: ускорение, равномерное воспроизведение и замедление. После начала анимации она воспроизводится в ускоренном режиме в течение времени, определенного в свойстве <codeph>easeInFraction</codeph>, затем на следующем этапе воспроизведения используется равномерный (линейный) режим воспроизведения, после чего скорость воспроизведения будет уменьшаться до завершения периода, определенного свойством <codeph>easeOutFraction</codeph>.
+ 
+  <p>Значения замедления для этих трех этапов рассчитываются таким образом, что поведение в виде непрерывного ускорения, линейного перемещения и равномерного замедления будет реализовано на протяжении периодов анимации определенной продолжительности.</p>
+  
+  <p>Для достижения строго линейного перемещения следует установить значение 0,0 в свойствах <codeph>easeInFraction</codeph> и <codeph>easeOutFraction</codeph>. Следует отметить, что если значения ускорения или замедления не равны 0,0, то воспроизведение на протяжении среднего этапа осуществляется со скоростью, отличной от скорости при строгом линейном перемещении. На среднем этапе реализуется равномерное движение, однако скорость этого движения определяется отношением продолжительности этого этапа к общей продолжительности анимации.</p>
+  
+  </apiDesc><example conref="LinearEffectExample.mxml"><swfblock conref="examples/LinearEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Linear:Linear"><apiName>Linear</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Доля общей продолжительности на этапе ускорения между 0,0 и 1,0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>easeOutFraction</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Доля общей продолжительности на этапе замедления между 0,0 и 1,0.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Linear:ease"><apiName>ease</apiName><shortdesc>
+      Вычисляет значения периода замедления на основе свойств easeInFraction и easeOutFraction.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Период замедления анимации.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Затраченное время анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вычисляет значение периода замедления на основе свойств <codeph>easeInFraction</codeph> и <codeph>easeOutFraction</codeph>. Если <codeph>fraction</codeph> меньше <codeph>easeInFraction</codeph>, то значение вычисляется на основе ускорения до фазы линейного движения. Если <codeph>fraction</codeph> больше <codeph>easeInFraction</codeph> и разности <codeph>(1-easeOutFraction)</codeph>, значение рассчитывается на основе этапа линейного перемещения между этапами ускорения и замедления. В противном случае значение вычисляется на основе постоянного замедления между этапом линейного перемещения и 0,0.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:Linear:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      Доля периода ускорения анимации в диапазоне от 0,0 до 1,0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Доля периода ускорения анимации в диапазоне от 0,0 до 1,0. Значения свойств <codeph>easeOutFraction</codeph> и <codeph>easeInFraction</codeph> должны удовлетворять уравнению <codeph>easeOutFraction + easeInFraction &lt;= 1</codeph>, причем все оставшееся время расходуется на этап линейного перемещения.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:Linear:easeOutFraction:get"><apiName>easeOutFraction</apiName><shortdesc>
+      Процентное значение периода замедления анимации в диапазоне от 0,0 до 1,0.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Процентное значение периода замедления анимации в диапазоне от 0,0 до 1,0. Значения свойств <codeph>easeOutFraction</codeph> и <codeph>easeInFraction</codeph> должны удовлетворять уравнению <codeph>easeOutFraction + easeInFraction &lt;= 1</codeph>, причем все оставшееся время расходуется на этап линейного перемещения.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Power"><apiName>Power</apiName><shortdesc>
+  Класс Power определяет функциональные возможности замедления с использованием полиномиальных выражений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Power&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Power
+    id="ID"
+    exponent="2"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Power определяет функциональные возможности замедления с использованием полиномиальных выражений. Замедление включает в себя два этапа: ускорение или этап ease in, заменяемый этапом замедления или этапом ease out. Соотношение ускорения и замедления на основе свойства <codeph>exponent</codeph>. Чем выше значение свойства <codeph>exponent</codeph>, тем более длительными являются ускорение и замедление. Для указания процентной доли этапа ускорения анимации используется свойство <codeph>easeInFraction</codeph>.
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Power:Power"><apiName>Power</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc>Доля общей продолжительности на этапе ускорения между 0,0 и 1,0.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>exponent</apiItemName><apiType value="Number"/><apiData>2</apiData><apiDesc>Свойство exponent, используемое в расчете замедления.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.easing:Power:exponent:get"><apiName>exponent</apiName><shortdesc>
+      Свойство exponent, используемое в расчете замедления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>2
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Свойство exponent, используемое в расчете замедления. Чем выше значение свойства <codeph>exponent</codeph>, тем более длительными являются ускорение и замедление. Например, для обеспечения квадратичной реакции в свойстве <codeph>exponent</codeph> установите значение 2. Для обеспечения кубической реакции в свойстве <codeph>exponent</codeph> установите значение 3. 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Elastic"><apiName>Elastic</apiName><shortdesc>
+  Класс Elastic реализует функциональную возможность замедления, при которой движение определяется экспоненциально затухающей синусоидой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Elastic реализует функциональную возможность замедления, при которой движение определяется экспоненциально затухающей синусоидой. Целевой объект эффекта замедляется до конечного значения и продолжает движение за пределами конечного значения. При этом он совершает колебательные движения относительно конечного значения со все меньшими шагами до достижения конечного значения. 
+ 
+  </apiDesc><example conref="BounceElasticEffectExample.mxml"><swfblock conref="examples/BounceElasticEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Elastic:Elastic"><apiName>Elastic</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:Elastic:ease"><apiName>ease</apiName><shortdesc>
+      
+      Принимает долю, представляющую время, затраченное на анимацию (значение в диапазоне от 0,0 до 1,0) и возвращает новое значение затраченного времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение замедления для затраченного времени. Как правило, это значение должно быть ограничено диапазоном от 0,0 и 1,0, несмотря на то что существует возможность возвращать значения, находящиеся вне этого диапазона. Следует отметить, что результаты возврата таких значений являются неопределенными и зависят от того, какие эффекты используются этими значениями замедления. Например, объект, перемещаемый в линейном режиме, вполне может иметь вычисленные координаты, находящиеся за пределами его начальной и конечной точки, однако для других типов значений (например, цвета) требуемые эффекты могут быть не реализованы, если для них применяются временные значения, инициирующие превышение их конечных значений.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля затраченного времени анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Принимает долю, представляющую время, затраченное на анимацию (значение в диапазоне от 0,0 до 1,0), и возвращает новое значение затраченного времени. Это значение применяется для вычисления значений анимированного свойства. Изменять анимацию свойства можно путем изменения значения доли затраченного времени.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.easing:EasingFraction"><apiName>EasingFraction</apiName><shortdesc>
+  Класс EasingFraction определяет константы для свойства easeInFraction класса EaseInOutBase.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс EasingFraction определяет константы для свойства <codeph>easeInFraction</codeph> класса EaseInOutBase.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.easing.xml#EaseInOutBase"><linktext>EaseInOutBase</linktext></link><link href="spark.effects.easing.xml#EaseInOutBase/easeInFraction"><linktext>EaseInOutBase.easeInFraction</linktext></link></related-links><apiValue id="spark.effects.easing:EasingFraction:IN_OUT"><apiName>IN_OUT</apiName><shortdesc>
+      Указывает на то, что экземпляр замедления обеспечивает ускорение на протяжении первой половины периода и замедление в течение оставшейся половины.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0.5</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Указывает на то, что экземпляр замедления обеспечивает ускорение на протяжении первой половины периода и замедление в течение оставшейся половины. Это соответствует установке значения 0,5 в свойстве <codeph>easeInFraction</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:IN"><apiName>IN</apiName><shortdesc>
+      Указывает на то, что вся анимация воспроизводится экземпляром замедления в ускоренном режиме.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Указывает на то, что вся анимация воспроизводится экземпляром замедления в ускоренном режиме. Это соответствует установке значения 1,0 свойства <codeph>easeInFraction</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.easing:EasingFraction:OUT"><apiName>OUT</apiName><shortdesc>
+      Указывает на то, что вся анимация воспроизводится экземпляром замедления в замедленном режиме.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Указывает на то, что вся анимация воспроизводится экземпляром замедления в замедленном режиме. Это соответствует установке значения 0,0 в свойстве <codeph>easeInFraction</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.easing:Sine"><apiName>Sine</apiName><shortdesc>
+  Класс Sine определяет функциональные возможности замедления с использованием функции Sine.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Sine&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Sine
+    id="ID"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.easing:EaseInOutBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Sine определяет функциональные возможности замедления с использованием функции Sine. Замедление включает в себя два этапа: ускорение или этап ease in, заменяемый этапом замедления или этапом ease out. Для указания процентной доли этапа ускорения анимации используется свойство <codeph>easeInFraction</codeph>.
+ 
+  </apiDesc><example conref="SinePowerEffectExample.mxml"><swfblock conref="examples/SinePowerEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects.easing:Sine:Sine"><apiName>Sine</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>0.5</apiData><apiDesc>Задает значение свойства <codeph>easeInFraction</codeph>. Значением по умолчанию является <codeph>EasingFraction.IN_OUT</codeph>, обеспечивающее ускорение в первой половине временного промежутка и замедление в оставшейся части.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects.easing:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+  Класс EaseInOutBase является базовым классом, обеспечивающим возможности замедления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:EaseInOutBase&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:EaseInOutBase
+    id="ID"
+    easeInFraction="0.5"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.easing:IEaser</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс EaseInOutBase является базовым классом, обеспечивающим возможности замедления. Класс EaseInOutBase определяет замедление как процесс, включающий два этапа: ускорение или этап ease in и последующее замедление или этап ease out. Поведение этого класса по умолчанию обеспечивает возвращение линейной интерполяции для обоих этапов замедления. Для определения более сложного поведения можно создать подкласс класса EaseInOutBase.
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.easing:EaseInOutBase:EaseInOutBase"><apiName>EaseInOutBase</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>easeInFraction</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Задает значение свойства <codeph>easeInFraction</codeph>. Значением по умолчанию является <codeph>EasingFraction.IN_OUT</codeph>, обеспечивающее ускорение в первой половине временного промежутка и замедление в оставшейся части.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeIn"><apiName>easeIn</apiName><shortdesc>
+      Возвращает значение, представляющее долю замедления в ходе этапа ускорения анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Значение, представляющее значение замедления для этого этапа анимации.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля затраченного времени этапа ускорения анимации в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение, представляющее долю замедления в ходе этапа ускорения анимации. Значение, возвращенное этим классом, является долей, представляющей линейную интерполяцию доли. Более сложное поведение реализуется с помощью подклассов класса EaseInOutBase.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:protected:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Возвращает значение, представляющее долю замедления в ходе этапа замедления анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Значение, представляющее значение замедления для этого этапа анимации.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля затраченного времени этапа замедления в диапазоне от 0,0 до 1,0.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает значение, представляющее долю замедления в ходе этапа замедления анимации. Значение, возвращенное этим классом, является долей, представляющей линейную интерполяцию доли. Более сложное поведение реализуется с помощью подклассов класса EaseInOutBase.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.easing:EaseInOutBase:ease"><apiName>ease</apiName><shortdesc>
+      Принимает долю, представляющую время, затраченное на анимацию (значение в диапазоне от 0,0 до 1,0) и возвращает новое значение затраченного времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Период замедления анимации.
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля затраченного времени анимации.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Принимает долю, представляющую время, затраченное на анимацию (значение в диапазоне от 0,0 до 1,0), и возвращает новое значение затраченного времени. Это значение применяется для вычисления значений анимированного свойства. Изменять анимацию свойства можно путем изменения значения доли затраченного времени. Для класса EaseInOutBase этот метод обеспечивает вычисление значения периода замедления на основе свойства <codeph>easeInFraction</codeph>. Если значение <codeph>fraction</codeph> меньше значения <codeph>easeInFraction</codeph> из этого метода вызывается метод <codeph>easeIn()</codeph>. В противном случае вызывается метод <codeph>easeOut()</codeph>. Ожидается, что эти функции будут переопределены в подклассе.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.easing:EaseInOutBase:easeInFraction:get"><apiName>easeInFraction</apiName><shortdesc>
+      Процентная доля периода ускоренного воспроизведения анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>.5
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Процентная доля периода ускоренного воспроизведения анимации. Этот коэффициент обеспечивает неявную установку параметра easeOut, равного (1 - <codeph>easeIn</codeph>), таким образом, что все время, не затраченное на ускоренное воспроизведение, будет потрачено на замедление. Например, для получения уравнения замедления, в котором половина времени тратится на ускорение, а вторая половина на замедление, в свойстве <codeph>easeIn</codeph> устанавливается значение 0,5.
+     
+      <p>Действительны значения от 0,0 до 1,0.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

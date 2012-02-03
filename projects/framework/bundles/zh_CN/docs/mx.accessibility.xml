@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.accessibility"><apiName>mx.accessibility</apiName><apiDetail/><apiClassifier id="mx.accessibility:AccConst"><apiName>AccConst</apiName><shortdesc>
+  AccConst 类定义在 Microsoft Active Accessibility (MSAA) 规范中定义的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AccConst 类定义在 Microsoft Active Accessibility (MSAA) 规范中定义的常量。这些常量用于实现 AccessibilityImplementation 的子类。
+ 
+  <p>由于 Flash Player 使用 MSAA 提供辅助功能，因此本文件中的常量名称与 Microsoft MSAA SDK 中的名称完全相同，但描述略有修改。阅读这些描述时，请记住将 Flash Player 视为“MSAA 服务器应用程序”，因为 SWF 中的 DisplayObject 通过称为 IAccessible 的 COM 接口向 MSAA 客户端（如屏幕阅读器）提供 MSAA 信息。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_ACCELERATORCHANGE"><apiName>EVENT_OBJECT_ACCELERATORCHANGE</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象的 MSAA KeyboardShortcut 属性已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8012</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象的 MSAA KeyboardShortcut 属性已更改。
+     
+      <p>MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_CONTENTSCROLLED"><apiName>EVENT_OBJECT_CONTENTSCROLLED</apiName><shortdesc>
+      一个 MSAA 事件，指示窗口对象的滚动已结束。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8015</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示窗口对象的滚动已结束。(MSAA 2.0)
+     
+      <p>与类似事件 (EVENT_SYSTEM_SCROLLEND) 不同，此事件将与滚动窗口本身相关联。水平滚动和垂直滚动没有区别。</p>
+     
+      <p>应在滚动操作完成时发布此事件，操作包括拖动滚动条、转动鼠标滚轮、键盘导航等。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_CREATE"><apiName>EVENT_OBJECT_CREATE</apiName><shortdesc>
+      一个 MSAA 事件，指示已创建某个对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已创建某个对象。
+     
+      <p>系统针对以下用户界面元素发送此事件：脱字号 (^)、标题控件、列表视图控件、选项卡控件、工具栏控件、树视图控件和窗口对象。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。服务器必须先针对某个对象的所有子对象发送此事件，然后才能针对其父对象发送此事件。服务器必须确保，在父对象发送此事件时，已完全创建所有子对象，并且子对象可以接受来自客户端的 IAccessible 调用。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DEFACTIONCHANGE"><apiName>EVENT_OBJECT_DEFACTIONCHANGE</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象的 MSAA DefaultAction 属性已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8011</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象的 MSAA DefaultAction 属性已更改。
+     
+      <p>系统针对对话框发送此事件。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DESCRIPTIONCHANGE"><apiName>EVENT_OBJECT_DESCRIPTIONCHANGE</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象的 MSAA Description 属性已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象的 MSAA Description 属性已更改。
+     
+      <p>MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_DESTROY"><apiName>EVENT_OBJECT_DESTROY</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象已受到破坏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象已受到破坏。
+     
+      <p>系统针对以下用户界面元素发送此事件：脱字号 (^)、标题控件、列表视图控件、选项卡控件、工具栏控件、树视图控件和窗口对象。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。不一定会针对子对象发送此事件。但是，当某个对象（父对象）发送此事件时，客户端会假定该对象的所有子对象都已受到破坏。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_FOCUS"><apiName>EVENT_OBJECT_FOCUS</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象已经接收键盘焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象已经接收键盘焦点。
+     
+      <p>系统针对以下用户界面元素发送此事件：列表视图控件、菜单栏、弹出菜单、切换窗口、选项卡控件、树视图控件和窗口对象。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_HELPCHANGE"><apiName>EVENT_OBJECT_HELPCHANGE</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象的 MSAA Help 属性已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8010</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象的 MSAA Help 属性已更改。
+     
+      <p>MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_HIDE"><apiName>EVENT_OBJECT_HIDE</apiName><shortdesc>
+      一个 MSAA 事件，指示要隐藏某个对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示要隐藏某个对象。
+     
+      <p>系统针对以下用户界面元素发送此事件：脱字号 (^) 和光标。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。当针对某个父对象生成此事件时，所有子对象都已隐藏。因此，服务器应用程序不需要针对子对象发送此事件。隐藏的对象包括 STATE_SYSTEM_INVISIBLE 标志，而显示的对象则不包括该标志。EVENT_OBJECT_HIDE 事件还指示已设置 STATE_SYSTEM_INVISIBLE 标志。因此，在这种情况下，服务器不需要发送 EVENT_STATE_CHANGE 事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_INVOKED"><apiName>EVENT_OBJECT_INVOKED</apiName><shortdesc>
+      指示已调用某个对象的 MSAA 事件，例如用户单击了一个按钮。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8013</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      指示已调用某个对象的 MSAA 事件，例如用户单击了一个按钮。(MSAA 2.0)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_LOCATIONCHANGE"><apiName>EVENT_OBJECT_LOCATIONCHANGE</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象已更改位置、形状或大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象已更改位置、形状或大小。
+     
+      <p>系统针对以下用户界面元素发送此事件：脱字号 (^) 和窗口对象。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。此事件是为了响应已更改的对象层次结构中的顶级对象（而不是该顶级对象可能包含的任何子对象）而生成的。例如，如果用户调整窗口大小，系统将针对窗口发送此通知，而不会针对随之更改的菜单栏、标题栏、滚动条或其他对象发送通知。当父窗口移动时，系统不会针对每个非浮动的子窗口发送此事件。但是，如果应用程序由于调整自身而显式调整子窗口大小，系统将针对已调整大小的子窗口发送多个事件。如果将某个对象的 State 属性设置为 STATE_SYSTEM_FLOATING，则在该对象每次更改位置时，服务器都应发送 EVENT_OBJECT_LOCATIONCHANGE。如果某个对象不包含此状态，则服务器应只在该对象相对于其父对象移动时触发此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_NAMECHANGE"><apiName>EVENT_OBJECT_NAMECHANGE</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象的 MSAA Name 属性已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象的 MSAA Name 属性已更改。
+     
+      <p>系统针对以下用户界面元素发送此事件：复选框、光标、列表视图控件、按压按钮、单选按钮、状态栏控件、树视图控件和窗口对象。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_PARENTCHANGE"><apiName>EVENT_OBJECT_PARENTCHANGE</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象拥有新的父对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象拥有新的父对象。
+     
+      <p>MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_REORDER"><apiName>EVENT_OBJECT_REORDER</apiName><shortdesc>
+      指示容器对象添加、删除、重新排序子对象的 MSAA 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      指示容器对象添加、删除、重新排序子对象的 MSAA 事件。
+     
+      <p>系统针对以下用户界面元素发送此事件：标题控件、列表视图控件、工具栏控件和窗口对象。MSAA 服务器应用程序根据情况针对其具有辅助功能的对象发送此事件。例如，当列表视图对象的子元素数量或元素顺序更改时，该对象将生成此事件。当子窗口的 Z 顺序发生更改时，父窗口也会发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONADD"><apiName>EVENT_OBJECT_SELECTIONADD</apiName><shortdesc>
+      一个 MSAA 事件，指示已选择容器对象中的项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已选择容器对象中的项。
+     
+      <p>系统针对以下用户界面元素发送此事件：列表框、列表视图控件和树视图控件。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。此事件指出现有选定内容中已添加一个子项。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONREMOVE"><apiName>EVENT_OBJECT_SELECTIONREMOVE</apiName><shortdesc>
+      一个 MSAA 事件，指示已取消选择容器对象中的项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8008</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已取消选择容器对象中的项。
+     
+      <p>系统针对以下用户界面元素发送此事件：列表框、列表视图控件和树视图控件。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。此事件指出现有选定内容中已删除一个子项。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTIONWITHIN"><apiName>EVENT_OBJECT_SELECTIONWITHIN</apiName><shortdesc>
+      一个 MSAA 事件，指示容器对象内发生了大量选择更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8009</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示容器对象内发生了大量选择更改。
+     
+      <p>系统针对列表框发送此事件。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。当控件内的所选项发生大量更改时可能发送此事件。此事件将通知客户端已发生许多选择更改（而不是发送若干 EVENT_OBJECT_SELECTIONADD 或 EVENT_OBJECT_SELECTIONREMOVE 事件）。客户端通过调用容器对象的 IAccessible::get_accSelection 方法并枚举所选项，即可查询所选项。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SELECTION"><apiName>EVENT_OBJECT_SELECTION</apiName><shortdesc>
+      一个 MSAA 事件，指示容器对象内的选定内容已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示容器对象内的选定内容已更改。
+     
+      <p>系统针对以下用户界面元素发送此事件：列表视图控件、选项卡控件、树视图控件和窗口对象。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。此事件指出单个选定内容，即已在某个容器（该容器以前不包含任何所选子对象）中选择一个子对象，或者由选择一个子对象改为选择另一个子对象。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_SHOW"><apiName>EVENT_OBJECT_SHOW</apiName><shortdesc>
+      一个 MSAA 事件，指示要显示某个隐藏对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示要显示某个隐藏对象。
+     
+      <p>系统针对以下用户界面元素发送此事件：脱字号 (^)、光标和窗口对象。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。客户端可以假定在父对象发送此事件时，已显示所有子对象。因此，服务器应用程序不需要针对子对象发送此事件。隐藏的对象包括 STATE_SYSTEM_INVISIBLE 标志，而显示的对象则不包括该标志。EVENT_OBJECT_SHOW 事件还指示已清除 STATE_SYSTEM_INVISIBLE 标志。因此，在这种情况下，服务器不需要发送 EVENT_STATE_CHANGE 事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_STATECHANGE"><apiName>EVENT_OBJECT_STATECHANGE</apiName><shortdesc>
+      一个 MSAA 事件，指示对象状态已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示对象状态已更改。
+     
+      <p>系统针对以下用户界面元素发送此事件：复选框、组合框、标题控件、按压按钮、单选按钮、滚动条、工具栏控件、树视图控件、上下箭头控件和窗口对象。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。例如，在按压或释放按钮对象后，或者在启用或禁用某个对象后，会发生状态更改。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_TEXTSELECTIONCHANGED"><apiName>EVENT_OBJECT_TEXTSELECTIONCHANGED</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象的文本选定内容已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8014</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象的文本选定内容已更改。(MSAA 2.0)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_OBJECT_VALUECHANGE"><apiName>EVENT_OBJECT_VALUECHANGE</apiName><shortdesc>
+      一个 MSAA 事件，指示某个对象的 MSAA Value 属性已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个对象的 MSAA Value 属性已更改。
+     
+      <p>系统针对以下用户界面元素发送此事件：编辑控件、标题控件、热键控件、进度栏控件、滚动条、滑块控件和上下箭头控件。MSAA 服务器应用程序针对其具有辅助功能的对象发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_ALERT"><apiName>EVENT_SYSTEM_ALERT</apiName><shortdesc>
+      一个 MSAA 事件，指示已生成警告。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0002</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已生成警告。
+     
+      <p>无论何时发生用户可能需要知晓的重要用户界面更改，MSAA 服务器应用程序都会发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CAPTUREEND"><apiName>EVENT_SYSTEM_CAPTUREEND</apiName><shortdesc>
+      一个 MSAA 事件，指示窗口已丢失鼠标捕获。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0009</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示窗口已丢失鼠标捕获。
+     
+      <p>此事件由系统发送；MSAA 服务器应用程序从不发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CAPTURESTART"><apiName>EVENT_SYSTEM_CAPTURESTART</apiName><shortdesc>
+      一个 MSAA 事件，指示窗口已收到鼠标捕获。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0008</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示窗口已收到鼠标捕获。
+     
+      <p>此事件由系统发送；MSAA 服务器应用程序从不发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CONTEXTHELPEND"><apiName>EVENT_SYSTEM_CONTEXTHELPEND</apiName><shortdesc>
+      一个 MSAA 事件，指示窗口已退出上下文相关帮助模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示窗口已退出上下文相关帮助模式。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_CONTEXTHELPSTART"><apiName>EVENT_SYSTEM_CONTEXTHELPSTART</apiName><shortdesc>
+      一个 MSAA 事件，指示窗口已进入上下文相关帮助模式。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示窗口已进入上下文相关帮助模式。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DIALOGEND"><apiName>EVENT_SYSTEM_DIALOGEND</apiName><shortdesc>
+      一个 MSAA 事件，指示已关闭某个对话框。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0011</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已关闭某个对话框。
+     
+      <p>此事件由系统针对标准对话框发送。MSAA 服务器应用程序针对自定义对话框发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DIALOGSTART"><apiName>EVENT_SYSTEM_DIALOGSTART</apiName><shortdesc>
+      一个 MSAA 事件，指示已显示某个对话框。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0010</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已显示某个对话框。
+     
+      <p>此事件由系统针对标准对话框发送。MSAA 服务器应用程序针对自定义对话框（与对话框作用相同但不是以标准方式创建的窗口）发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DRAGDROPEND"><apiName>EVENT_SYSTEM_DRAGDROPEND</apiName><shortdesc>
+      一个 MSAA 事件，指示某个应用程序要退出拖放模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个应用程序要退出拖放模式。
+     
+      <p>必须由支持拖放操作的应用程序（而不是系统）发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_DRAGDROPSTART"><apiName>EVENT_SYSTEM_DRAGDROPSTART</apiName><shortdesc>
+      一个 MSAA 事件，指示某个应用程序要进入拖放模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示某个应用程序要进入拖放模式。
+     
+      <p>必须由支持拖放操作的应用程序（而不是系统）发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_FOREGROUND"><apiName>EVENT_SYSTEM_FOREGROUND</apiName><shortdesc>
+      一个 MSAA 事件，指示前景窗口已更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0003</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示前景窗口已更改。
+     
+      <p>即使前景窗口更改为同一线程内的其他窗口，系统仍会发送此事件。MSAA 服务器应用程序从不发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUEND"><apiName>EVENT_SYSTEM_MENUEND</apiName><shortdesc>
+      一个 MSAA 事件，指示菜单栏中的某个菜单已关闭。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0005</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示菜单栏中的某个菜单已关闭。
+     
+      <p>系统针对标准菜单发送此事件。MSAA 服务器应用程序针对自定义菜单发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUPOPUPEND"><apiName>EVENT_SYSTEM_MENUPOPUPEND</apiName><shortdesc>
+      一个 MSAA 事件，指示已关闭某个弹出菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0007</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已关闭某个弹出菜单。
+     
+      <p>系统针对标准菜单发送此事件。MSAA 服务器应用程序针对自定义菜单发送此事件。当关闭某个弹出菜单时，客户端几乎在 EVENT_SYSTEM_MENUEND 事件后立即收到此消息。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUPOPUPSTART"><apiName>EVENT_SYSTEM_MENUPOPUPSTART</apiName><shortdesc>
+      一个 MSAA 事件，指示已显示某个弹出菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0006</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已显示某个弹出菜单。
+     
+      <p>系统针对标准菜单发送此事件。MSAA 服务器应用程序针对自定义菜单（与菜单作用相同但不是以标准方式创建的用户界面元素）发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MENUSTART"><apiName>EVENT_SYSTEM_MENUSTART</apiName><shortdesc>
+      一个 MSAA 事件，指示已选择菜单栏中的某个菜单项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0004</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已选择菜单栏中的某个菜单项。
+     
+      <p>系统针对标准菜单发送此事件。MSAA 服务器应用程序针对自定义菜单（与菜单作用相同但不是以标准方式创建的用户界面元素）发送此事件。系统可以触发多个不一定具有对应 EVENT_SYSTEM_MENUEND 事件的 EVENT_SYSTEM_MENUSTART 事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MINIMIZEEND"><apiName>EVENT_SYSTEM_MINIMIZEEND</apiName><shortdesc>
+      一个 MSAA 事件，指示已最小化或最大化窗口对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0017</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已最小化或最大化窗口对象。
+     
+      <p>此事件由系统发送；MSAA 服务器应用程序从不发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MINIMIZESTART"><apiName>EVENT_SYSTEM_MINIMIZESTART</apiName><shortdesc>
+      一个 MSAA 事件，指示要最小化或最大化窗口对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0016</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示要最小化或最大化窗口对象。
+     
+      <p>此事件由系统发送；MSAA 服务器应用程序从不发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MOVESIZEEND"><apiName>EVENT_SYSTEM_MOVESIZEEND</apiName><shortdesc>
+      一个 MSAA 事件，指示移动窗口或调整窗口大小操作已完成。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示移动窗口或调整窗口大小操作已完成。
+     
+      <p>此事件由系统发送；MSAA 服务器应用程序从不发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_MOVESIZESTART"><apiName>EVENT_SYSTEM_MOVESIZESTART</apiName><shortdesc>
+      一个 MSAA 事件，指示要移动窗口或调整窗口大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x000A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示要移动窗口或调整窗口大小。
+     
+      <p>此事件由系统发送；MSAA 服务器应用程序从不发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SCROLLINGEND"><apiName>EVENT_SYSTEM_SCROLLINGEND</apiName><shortdesc>
+      一个 MSAA 事件，指示已在滚动条上结束滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0013</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已在滚动条上结束滚动。
+     
+      <p>系统针对附加到窗口的滚动条或针对标准滚动条控件发送此事件。MSAA 服务器应用程序针对自定义滚动条发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SCROLLINGSTART"><apiName>EVENT_SYSTEM_SCROLLINGSTART</apiName><shortdesc>
+      一个 MSAA 事件，指示已在滚动条上开始滚动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0012</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已在滚动条上开始滚动。
+     
+      <p>系统针对附加到窗口的滚动条或针对标准滚动条控件发送此事件。MSAA 服务器应用程序针对自定义滚动条（与滚动条作用相同但不是以标准方式创建的用户界面元素）发送此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SOUND"><apiName>EVENT_SYSTEM_SOUND</apiName><shortdesc>
+      一个 MSAA 事件，指示已播放声音。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0001</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示已播放声音。
+     
+      <p>即使听不到声音（如没有声音文件或声卡），系统仍会在播放系统声音（如针对菜单播放的声音）时发送此事件。自定义用户界面元素生成声音时，MSAA 服务器应用程序会发送此事件。</p> 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SWITCHEND"><apiName>EVENT_SYSTEM_SWITCHEND</apiName><shortdesc>
+      一个 MSAA 事件，指示用户已释放 Alt+Tab 键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0015</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示用户已释放 Alt+Tab 键。
+     
+      <p>此事件由系统发送；MSAA 服务器应用程序从不发送此事件。如果用户按 Alt+Tab 键时只有一个应用程序在运行，则系统将发送没有对应 EVENT_SYSTEM_SWITCHSTART 事件的此事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:EVENT_SYSTEM_SWITCHSTART"><apiName>EVENT_SYSTEM_SWITCHSTART</apiName><shortdesc>
+      一个 MSAA 事件，指示用户已按下 Alt+Tab 键激活切换窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x0014</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 事件，指示用户已按下 Alt+Tab 键激活切换窗口。
+     
+      <p>此事件由系统发送；MSAA 服务器应用程序从不发送此事件。如果用户按 Alt+Tab 键时只有一个应用程序在运行，则系统将发送没有对应 EVENT_SYSTEM_SWITCHSTART 事件的 EVENT_SYSTEM_SWITCHEND 事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ALERT"><apiName>ROLE_SYSTEM_ALERT</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示应通知用户的警告或情况。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示应通知用户的警告或情况。
+     
+      <p>此角色只应该用于包含一条警告但与其他用户界面元素（如消息框、图形、文本或声音）没有关联的对象。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ANIMATION"><apiName>ROLE_SYSTEM_ANIMATION</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示动画控件，该控件包含随时间变化的内容，如像幻灯软片一样显示一系列位图帧的控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x36</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示动画控件，该控件包含随时间变化的内容，如像幻灯软片一样显示一系列位图帧的控件。
+     
+      <p>通常会在复制文件或执行其他某个耗费时间的任务时显示动画控件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_APPLICATION"><apiName>ROLE_SYSTEM_APPLICATION</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个应用程序的主窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xE</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个应用程序的主窗口。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BORDER"><apiName>ROLE_SYSTEM_BORDER</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个窗口边框。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x13</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个窗口边框。
+     
+      <p>由单个对象表示整个边框，而不是每个边均由一个单独的对象表示。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONDROPDOWNGRID"><apiName>ROLE_SYSTEM_BUTTONDROPDOWNGRID</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示可以下拉网格的按钮。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示可以下拉网格的按钮。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONDROPDOWN"><apiName>ROLE_SYSTEM_BUTTONDROPDOWN</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示可以下拉项目列表的按钮。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x38</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示可以下拉项目列表的按钮。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_BUTTONMENU"><apiName>ROLE_SYSTEM_BUTTONMENU</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示可以下拉菜单的按钮。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x39</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示可以下拉菜单的按钮。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CARET"><apiName>ROLE_SYSTEM_CARET</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示系统脱字号 (^)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x7</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示系统脱字号 (^)。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CELL"><apiName>ROLE_SYSTEM_CELL</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示表格内的一个单元格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示表格内的一个单元格。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHARACTER"><apiName>ROLE_SYSTEM_CHARACTER</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示卡通形象的图形对象，如通常会在向应用程序用户提供帮助时显示的 Microsoft Office 助手。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示卡通形象的图形对象，如通常会在向应用程序用户提供帮助时显示的 Microsoft Office 助手。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHART"><apiName>ROLE_SYSTEM_CHART</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示用于呈示数据的图形图像。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x11</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示用于呈示数据的图形图像。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CHECKBUTTON"><apiName>ROLE_SYSTEM_CHECKBUTTON</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个复选框控件，该控件是可以独立于其他选项单独打开或关闭的选项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个复选框控件，该控件是可以独立于其他选项单独打开或关闭的选项。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CLIENT"><apiName>ROLE_SYSTEM_CLIENT</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个窗口的客户端区域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xA</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个窗口的客户端区域。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CLOCK"><apiName>ROLE_SYSTEM_CLOCK</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示显示时间的控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示显示时间的控件。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COLUMNHEADER"><apiName>ROLE_SYSTEM_COLUMNHEADER</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个列标题，列标题为表格中的某个列提供视觉标签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x19</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个列标题，列标题为表格中的某个列提供视觉标签。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COLUMN"><apiName>ROLE_SYSTEM_COLUMN</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示表格内的一列单元格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示表格内的一列单元格。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_COMBOBOX"><apiName>ROLE_SYSTEM_COMBOBOX</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个组合框。组合框是带关联列表框的编辑控件，用于提供一组预定义的选项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个组合框。组合框是带关联列表框的编辑控件，用于提供一组预定义的选项。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_CURSOR"><apiName>ROLE_SYSTEM_CURSOR</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示系统鼠标指针。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x6</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示系统鼠标指针。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIAGRAM"><apiName>ROLE_SYSTEM_DIAGRAM</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示用于绘制数据图表的图形图像。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x35</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示用于绘制数据图表的图形图像。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIALOG"><apiName>ROLE_SYSTEM_DIALOG</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个对话框或消息框。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x12</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个对话框或消息框。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DIAL"><apiName>ROLE_SYSTEM_DIAL</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个刻度盘或旋钮。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x31</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个刻度盘或旋钮。
+     
+      <p>该对象也可以是带有类似于速度计的只读对象。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DOCUMENT"><apiName>ROLE_SYSTEM_DOCUMENT</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个文档窗口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个文档窗口。
+     
+      <p>文档窗口始终包含于应用程序窗口中。此角色只应用于多文档界面 (MDI) 窗口，并且指的是包含 MDI 标题栏的对象。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_DROPLIST"><apiName>ROLE_SYSTEM_DROPLIST</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个下拉列表框。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个下拉列表框。
+     
+      <p>该对象显示一个项，同时允许用户显示替代值列表并从中选择其他项。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_EQUATION"><apiName>ROLE_SYSTEM_EQUATION</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个算术等式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x37</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个算术等式。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GRAPHIC"><apiName>ROLE_SYSTEM_GRAPHIC</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个图片。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x28</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个图片。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GRIP"><apiName>ROLE_SYSTEM_GRIP</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个特殊的鼠标指针，该指针允许用户操作窗口等用户界面元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个特殊的鼠标指针，该指针允许用户操作窗口等用户界面元素。
+     
+      <p>例如，用户可以在窗口右下角单击并拖动大小调整手柄，以调整窗口大小。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_GROUPING"><apiName>ROLE_SYSTEM_GROUPING</apiName><shortdesc>
+      一个 MSAA 角色，指示对象对其他对象进行逻辑分组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x14</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象对其他对象进行逻辑分组。
+     
+      <p>执行分组的对象与其包含的对象之间可能是也可能不是父子关系。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_HELPBALLOON"><apiName>ROLE_SYSTEM_HELPBALLOON</apiName><shortdesc>
+      一个 MSAA 角色，指示对象以工具提示或帮助气球形式显示帮助。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象以工具提示或帮助气球形式显示帮助。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_HOTKEYFIELD"><apiName>ROLE_SYSTEM_HOTKEYFIELD</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示带热键的字段，该字段允许用户输入键击组合或一系列键击。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x32</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示带热键的字段，该字段允许用户输入键击组合或一系列键击。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_INDICATOR"><apiName>ROLE_SYSTEM_INDICATOR</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示指示符（如指向当前项的指针图形）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x27</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示指示符（如指向当前项的指针图形）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_IPADDRESS"><apiName>ROLE_SYSTEM_IPADDRESS</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个针对 Internet 协议 (IP) 地址设计的编辑控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个针对 Internet 协议 (IP) 地址设计的编辑控件。编辑控件针对 IP 地址的不同部分分为各个段。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LINK"><apiName>ROLE_SYSTEM_LINK</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示指向某个内容的链接。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示指向某个内容的链接。
+     
+      <p>此对象的外观可能类似于文本或图形，但其行为类似于按钮。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LISTITEM"><apiName>ROLE_SYSTEM_LISTITEM</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示列表框中的项，或者表示组合框、下拉列表框或下拉组合框的列表部分。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x22</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示列表框中的项，或者表示组合框、下拉列表框或下拉组合框的列表部分。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_LIST"><apiName>ROLE_SYSTEM_LIST</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个列表框，用户可以使用列表框选择一个或多个项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x21</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个列表框，用户可以使用列表框选择一个或多个项。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUBAR"><apiName>ROLE_SYSTEM_MENUBAR</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示菜单栏。菜单栏通常显示在窗口标题栏下方，可供用户从中选择菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示菜单栏。菜单栏通常显示在窗口标题栏下方，可供用户从中选择菜单。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUITEM"><apiName>ROLE_SYSTEM_MENUITEM</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示菜单项。菜单项是指菜单中供用户选择的项，用于执行命令、选择选项或显示另一个菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xC</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示菜单项。菜单项是指菜单中供用户选择的项，用于执行命令、选择选项或显示另一个菜单。
+     
+      <p>菜单项在功能上等效于按压按钮、单选按钮、复选框或菜单。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_MENUPOPUP"><apiName>ROLE_SYSTEM_MENUPOPUP</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示菜单。菜单显示一个选项列表，用户可以在列表中进行选择以执行某个操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xB</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示菜单。菜单显示一个选项列表，用户可以在列表中进行选择以执行某个操作。
+     
+      <p>所有菜单类型都必须具有该角色，包括在菜单栏中进行选择后所显示的下拉菜单，以及单击鼠标右键时显示的快捷菜单。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINEBUTTON"><apiName>ROLE_SYSTEM_OUTLINEBUTTON</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示像大纲项一样导航的多个项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示像大纲项一样导航的多个项。您可以使用向上和向下箭头在大纲中移动。但是，展开和折叠菜单时不是通过使用向左和向右箭头键，而是将焦点定位于该项，并按空格键或 Enter 键。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINEITEM"><apiName>ROLE_SYSTEM_OUTLINEITEM</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示大纲结构或树结构中的某一项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x24</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示大纲结构或树结构中的某一项。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_OUTLINE"><apiName>ROLE_SYSTEM_OUTLINE</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示大纲结构或树结构，如树视图控件。树视图控件分层显示列表，通常允许用户展开和折叠分支。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x23</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示大纲结构或树结构，如树视图控件。树视图控件分层显示列表，通常允许用户展开和折叠分支。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PAGETABLIST"><apiName>ROLE_SYSTEM_PAGETABLIST</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示页选项卡控件的容器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示页选项卡控件的容器。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PAGETAB"><apiName>ROLE_SYSTEM_PAGETAB</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个页选项卡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x25</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个页选项卡。通常，页选项卡控件的唯一子对象是包含关联页内容的 ROLE_SYSTEM_GROUPING 对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PANE"><apiName>ROLE_SYSTEM_PANE</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示框架或文档窗口内的窗格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示框架或文档窗口内的窗格。
+     
+      <p>用户可以在窗格之间或者当前窗格的内容内部进行导航，但无法在不同窗格的各项间进行导航。因此，窗格表示某种分组级别，该级别低于框架窗口或文档，但高于各个控件。通常，用户根据上下文按 Tab、F6 或 Ctrl+Tab 键在窗格间进行导航。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PROGRESSBAR"><apiName>ROLE_SYSTEM_PROGRESSBAR</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个进度条，以向用户动态显示操作完成进度的百分比。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x30</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个进度条，以向用户动态显示操作完成进度的百分比。
+     
+      <p>此控件通常不需要用户进行输入。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PROPERTYPAGE"><apiName>ROLE_SYSTEM_PROPERTYPAGE</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个属性表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x26</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个属性表。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_PUSHBUTTON"><apiName>ROLE_SYSTEM_PUSHBUTTON</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个按压按钮控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个按压按钮控件。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_RADIOBUTTON"><apiName>ROLE_SYSTEM_RADIOBUTTON</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示某个选项按钮（也称为单选按钮）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2D</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示某个选项按钮（也称为单选按钮）。
+     
+      <p>该选项是一组相互排斥的选项之一。假定具有该属性的共享单个父对象的所有对象属于相互排斥的一组对象。必要时可以使用 ROLE_SYSTEM_GROUPING 对象将这些对象分为单独的组。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ROWHEADER"><apiName>ROLE_SYSTEM_ROWHEADER</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个行标题，为表格中的某个行提供视觉标签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个行标题，为表格中的某个行提供视觉标签。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_ROW"><apiName>ROLE_SYSTEM_ROW</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示表格内的一行单元格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1C</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示表格内的一行单元格。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SCROLLBAR"><apiName>ROLE_SYSTEM_SCROLLBAR</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示垂直或水平滚动条，该滚动条可以是客户端区域的一部分，也可以用在控件中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示垂直或水平滚动条，该滚动条可以是客户端区域的一部分，也可以用在控件中。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SEPARATOR"><apiName>ROLE_SYSTEM_SEPARATOR</apiName><shortdesc>
+      一个 MSAA 角色，指示使用对象将一个空间可视地分为两个区域，如分隔符菜单项或在窗口内分隔拆分窗格的分隔条。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x15</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示使用对象将一个空间可视地分为两个区域，如分隔符菜单项或在窗口内分隔拆分窗格的分隔条。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SLIDER"><apiName>ROLE_SYSTEM_SLIDER</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个滑块，用户可以使用该滑块在最大值和最小值之间按给定增量调整设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x33</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个滑块，用户可以使用该滑块在最大值和最小值之间按给定增量调整设置。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SOUND"><apiName>ROLE_SYSTEM_SOUND</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示与各种系统事件相关联的系统声音。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x5</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示与各种系统事件相关联的系统声音。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SPINBUTTON"><apiName>ROLE_SYSTEM_SPINBUTTON</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示微调框，用户可以使用该控件增加或减少与微调框关联的单独的“伙伴”控件中显示的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x34</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示微调框，用户可以使用该控件增加或减少与微调框关联的单独的“伙伴”控件中显示的值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_SPLITBUTTON"><apiName>ROLE_SYSTEM_SPLITBUTTON</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示工具栏上的一个按钮，紧邻该按钮处有一个下拉列表图标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3E</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示工具栏上的一个按钮，紧邻该按钮处有一个下拉列表图标。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_STATICTEXT"><apiName>ROLE_SYSTEM_STATICTEXT</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示只读文本，如其他控件的标签或对话框内的说明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x29</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示只读文本，如其他控件的标签或对话框内的说明。
+     
+      <p>无法修改或选择静态文本。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_STATUSBAR"><apiName>ROLE_SYSTEM_STATUSBAR</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个状态栏，该区域通常位于窗口底部，其中显示有关当前操作、应用程序状态或所选对象的信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x17</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个状态栏，该区域通常位于窗口底部，其中显示有关当前操作、应用程序状态或所选对象的信息。
+     
+      <p>状态栏可以包含多个区域，用于显示不同种类的信息。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TABLE"><apiName>ROLE_SYSTEM_TABLE</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个表，表中包含多行和多列单元格，还可以包含行标题和列标题。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x18</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个表，表中包含多行和多列单元格，还可以包含行标题和列标题。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TEXT"><apiName>ROLE_SYSTEM_TEXT</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示可编辑的或只读的可选文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2A</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示可编辑的或只读的可选文本。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TITLEBAR"><apiName>ROLE_SYSTEM_TITLEBAR</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示窗口的标题栏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示窗口的标题栏。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TOOLBAR"><apiName>ROLE_SYSTEM_TOOLBAR</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示一个工具栏。工具栏是控件分组，用于使用户能够方便地访问经常使用的功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x16</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示一个工具栏。工具栏是控件分组，用于使用户能够方便地访问经常使用的功能。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_TOOLTIP"><apiName>ROLE_SYSTEM_TOOLTIP</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示提供有用提示的工具提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0xD</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示提供有用提示的工具提示。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_WHITESPACE"><apiName>ROLE_SYSTEM_WHITESPACE</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示其他对象间的空白。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x3B</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示其他对象间的空白。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:ROLE_SYSTEM_WINDOW"><apiName>ROLE_SYSTEM_WINDOW</apiName><shortdesc>
+      一个 MSAA 角色，指示对象表示窗口框架。窗口框架通常包含一些子对象，如标题栏、客户端以及窗口中通常包含的其他对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x9</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 角色，指示对象表示窗口框架。窗口框架通常包含一些子对象，如标题栏、客户端以及窗口中通常包含的其他对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_ADDSELECTION"><apiName>SELFLAG_ADDSELECTION</apiName><shortdesc>
+      一个 MSAA 选择标志，该标志将对象添加到当前选定内容，这可能会造成选定内容不连续。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 选择标志，该标志将对象添加到当前选定内容，这可能会造成选定内容不连续。
+     
+      <p>此标志如果不与 SELFLAG_TAKEFOCUS 结合使用，则它不会更改焦点或选择锚点。SELFLAG_ADDSELECTION | SELFLAG_TAKEFOCUS 的行为等效于将某一项手动添加到选定内容，方法是按住 Ctrl 键，同时在 Windows 资源管理器中单击未选择的对象。</p>
+     
+      <p>此标志无法与 SELFLAG_REMOVESELECTION 或 SELFLAG_TAKESELECTION 结合使用。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_EXTENDSELECTION"><apiName>SELFLAG_EXTENDSELECTION</apiName><shortdesc>
+      一个 MSAA 选择标志，用于更改选定内容，以便选择锚点与此对象之间的所有对象都采用锚点对象的选择状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 选择标志，用于更改选定内容，以便选择锚点与此对象之间的所有对象都采用锚点对象的选择状态。
+     
+      <p>也就是说，如果未选择锚点对象，则这些对象也会从选定内容中删除；如果已选择锚点对象，则会扩展选定内容的范围，以包含此对象及其与锚点对象之间的所有对象。可以通过将此标志与 SELFLAG_ADDSELECTION 或 SELFLAG_REMOVESELECTION 结合使用来设置选择状态。</p>
+     
+      <p>此标志如果不与 SELFLAG_TAKEFOCUS 结合使用，则它不会更改焦点或选择锚点。SELFLAG_EXTENDSELECTION | SELFLAG_TAKEFOCUS 的行为等效于将某一项手动添加到选定内容，方法是按住 Shift 键，同时在 Windows 资源管理器中单击未选择的对象。</p>
+     
+      <p>此标志无法与 SELFLAG_TAKESELECTION 结合使用。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_NONE"><apiName>SELFLAG_NONE</apiName><shortdesc>
+      表示缺少任何 MSAA 选择标志的常量。</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      表示缺少任何 MSAA 选择标志的常量。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_REMOVESELECTION"><apiName>SELFLAG_REMOVESELECTION</apiName><shortdesc>
+      一个 MSAA 选择标志，该标志将对象从当前选定内容中删除，这可能会造成选定内容不连续。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 选择标志，该标志将对象从当前选定内容中删除，这可能会造成选定内容不连续。
+     
+      <p>此标志如果不与 SELFLAG_TAKEFOCUS 结合使用，则它不会更改焦点或选择锚点。SELFLAG_REMOVESELECTION | SELFLAG_TAKEFOCUS 的行为等效于从选定内容中手动删除某一项，方法是按住 Ctrl 键，同时在 Windows 资源管理器中单击已选择的对象。</p>
+     
+      <p>此标志无法与 SELFLAG_ADDSELECTION 或 SELFLAG_TAKESELECTION 结合使用。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_TAKEFOCUS"><apiName>SELFLAG_TAKEFOCUS</apiName><shortdesc>
+      一个 MSAA 选择标志，用于将焦点设置到对象，使该对象成为选择锚点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 选择标志，用于将焦点设置到对象，使该对象成为选择锚点。
+     
+      <p>此标志单独使用，它不更改选定内容，其行为类似于以下手动移动焦点方法：在 Windows 资源管理器或任何多项选择列表框中，按住 Ctrl 键同时按箭头键。</p>
+     
+      <p>如果对象具有 STATE_SYSTEM_MULTISELECTABLE 状态，则 SELFLAG_TAKEFOCUS 可以与以下值结合使用：
+      <ul>
+        <li>SELFLAG_TAKESELECTION</li>
+        <li>SELFLAG_EXTENDSELECTION</li>
+        <li>SELFLAG_ADDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION</li>
+        <li>SELFLAG_ADDSELECTION | SELFLAG_EXTENDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION | SELFLAG_EXTENDSELECTION</li>
+      </ul></p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_TAKESELECTION"><apiName>SELFLAG_TAKESELECTION</apiName><shortdesc>
+      一个 MSAA 选择标志，用于选择对象同时取消选择容器中的所有其他对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 选择标志，用于选择对象同时取消选择容器中的所有其他对象。
+     
+      <p>此标志如果不与 SELFLAG_TAKEFOCUS 结合使用，则它不会更改焦点或选择锚点。SELFLAG_TAKESELECTION | SELFLAG_TAKEFOCUS 的行为等效于在 Windows 资源管理器中单击某一项。</p>
+     
+      <p>此标志不得与以下标志结合使用：
+      <ul>
+        <li>SELFLAG_ADDSELECTION</li>
+        <li>SELFLAG_REMOVESELECTION</li>
+        <li>SELFLAG_EXTENDSELECTION</li>
+      </ul></p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:SELFLAG_VALID"><apiName>SELFLAG_VALID</apiName><shortdesc>
+      一个表示所有有效 MSAA 选择标志的位掩码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1F</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个表示所有有效 MSAA 选择标志的位掩码。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_HIGH"><apiName>STATE_SYSTEM_ALERT_HIGH</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象显示应立即传达给用户的重要信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象显示应立即传达给用户的重要信息。
+     
+      <p>例如，当电池水平达到低水平临界点时，电池水平指示器会转到此状态，然后，盲人辅助实用程序会立即向用户通告此信息，并且屏幕缩放程序会滚动屏幕，以便用户看到电池水平指示器。此状态还适用于用户在继续操作之前必须完成的所有提示或操作。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_LOW"><apiName>STATE_SYSTEM_ALERT_LOW</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象显示低优先级信息，这些信息对于客户而言可能不太重要。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象显示低优先级信息，这些信息对于客户而言可能不太重要。
+     
+      <p>例如，如果 Word 更改工具栏上 TipWizard 按钮的外观以指示存在用户提示时，可以使用此状态。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ALERT_MEDIUM"><apiName>STATE_SYSTEM_ALERT_MEDIUM</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象显示不需要立即传达给用户的重要信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象显示不需要立即传达给用户的重要信息。
+     
+      <p>例如，当电池水平指示器开始达到较低水平时，会生成一个中等程度的警告。此时盲人辅助实用程序会发出一个声音，从而让用户知道产生了重要信息，但实际上不会打断用户的工作。这样，用户可以在方便时查询警告信息。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_ANIMATED"><apiName>STATE_SYSTEM_ANIMATED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象外观正在迅速或连续地更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象外观正在迅速或连续地更改。
+     
+      <p>应将偶尔以动画形式使用（不是始终使用）的图形描述为 ROLE_SYSTEM_GRAPHIC，其 State 属性设置为 STATE_SYSTEM_ANIMATED。不应使用此状态来指示对象位置正发生更改。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_BUSY"><apiName>STATE_SYSTEM_BUSY</apiName><shortdesc>
+      一个 MSAA 状态标志，指示此时对象无法接受输入。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示此时对象无法接受输入。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_CHECKED"><apiName>STATE_SYSTEM_CHECKED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示已选中对象的复选框。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示已选中对象的复选框。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_COLLAPSED"><apiName>STATE_SYSTEM_COLLAPSED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示已隐藏此对象中具有 ROLE_SYSTEM_OUTLINEITEM 角色的子对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x400</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示已隐藏此对象中具有 ROLE_SYSTEM_OUTLINEITEM 角色的子对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_DEFAULT"><apiName>STATE_SYSTEM_DEFAULT</apiName><shortdesc>
+      一个 MSAA 状态标志，指示默认按钮或菜单项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x100</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示默认按钮或菜单项。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_EXPANDED"><apiName>STATE_SYSTEM_EXPANDED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示已显示此对象中具有 ROLE_SYSTEM_OUTLINEITEM 角色的子对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x200</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示已显示此对象中具有 ROLE_SYSTEM_OUTLINEITEM 角色的子对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_EXTSELECTABLE"><apiName>STATE_SYSTEM_EXTSELECTABLE</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象可以使用 IAccessible::accSelect 方法中的 SELFLAG_EXTENDSELECTION 扩展其选定内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象可以使用 IAccessible::accSelect 方法中的 SELFLAG_EXTENDSELECTION 扩展其选定内容。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FLOATING"><apiName>STATE_SYSTEM_FLOATING</apiName><shortdesc>
+      一个 MSAA 状态标志，指示不会将对象剪裁到其父对象的边界，并且对象不会在其父对象移动时自动移动。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示不会将对象剪裁到其父对象的边界，并且对象不会在其父对象移动时自动移动。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FOCUSABLE"><apiName>STATE_SYSTEM_FOCUSABLE</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象位于活动窗口中，并可以接收键盘焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x100000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象位于活动窗口中，并可以接收键盘焦点。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_FOCUSED"><apiName>STATE_SYSTEM_FOCUSED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象当前具有键盘焦点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象当前具有键盘焦点。
+     
+      <p>请不要混淆对象焦点与对象选择。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_HASPOPUP"><apiName>STATE_SYSTEM_HASPOPUP</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象具有弹出菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象具有弹出菜单。(MSAA 2.0)
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_HOTTRACKED"><apiName>STATE_SYSTEM_HOTTRACKED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象当前正由鼠标进行热跟踪，即对象外观已更改，以指示鼠标指针位于该对象之上。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x80</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象当前正由鼠标进行热跟踪，即对象外观已更改，以指示鼠标指针位于该对象之上。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_INVISIBLE"><apiName>STATE_SYSTEM_INVISIBLE</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象已隐藏或不可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象已隐藏或不可见。
+     
+      <p>列表框中的文件名列表可能包含数百个名称，但用户只能看到若干名称。其余文件名由父对象剪裁掉，并且应设置为 STATE_SYSTEM_INVISIBLE。</p>
+      <p>始终不可见的对象应设置为 STATE_SYSTEM_OFFSCREEN。请注意，即使将一个对象视为可见（即不设置 STATE_SYSTEM_INVISIBLE 标志），但如果它被其他应用程序遮挡，用户也看不到它。例如，如果某个对象显示在应用程序主窗口中，则即使它被对话框遮挡，也将它视为可见。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_LINKED"><apiName>STATE_SYSTEM_LINKED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示已链接对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x400000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示已链接对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MARQUEED"><apiName>STATE_SYSTEM_MARQUEED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象显示滚动或移动的文本或图形。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象显示滚动或移动的文本或图形。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MIXED"><apiName>STATE_SYSTEM_MIXED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示状态尚未确定，该状态选择为三状态复选框或工具栏按钮。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示状态尚未确定，该状态选择为三状态复选框或工具栏按钮。
+     
+      <p>既未选中也未取消选中复选框，因此该复选框处于第三种状态或混合状态。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MOVEABLE"><apiName>STATE_SYSTEM_MOVEABLE</apiName><shortdesc>
+      一个 MSAA 状态标志，指示可以移动对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示可以移动对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_MULTISELECTABLE"><apiName>STATE_SYSTEM_MULTISELECTABLE</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象可以接受多项选择（即 IAccessible::accSelect 方法的 SELFLAG_ADDSELECTION 有效）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象可以接受多项选择（即 IAccessible::accSelect 方法的 SELFLAG_ADDSELECTION 有效）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_NORMAL"><apiName>STATE_SYSTEM_NORMAL</apiName><shortdesc>
+      表示缺少任何 MSAA 状态标志的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      表示缺少任何 MSAA 状态标志的常量。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_OFFSCREEN"><apiName>STATE_SYSTEM_OFFSCREEN</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象没有屏幕表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x10000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象没有屏幕表示形式。
+     
+      <p>声音或警告对象将具有此状态，始终不可见的隐藏窗口也具有此状态。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_PRESSED"><apiName>STATE_SYSTEM_PRESSED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示已按下对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示已按下对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_PROTECTED"><apiName>STATE_SYSTEM_PROTECTED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象是受密码保护的编辑控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20000000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象是受密码保护的编辑控件。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_READONLY"><apiName>STATE_SYSTEM_READONLY</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象是只读的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x40</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象是只读的。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELECTABLE"><apiName>STATE_SYSTEM_SELECTABLE</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象可以接受选择。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x200000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象可以接受选择。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELECTED"><apiName>STATE_SYSTEM_SELECTED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示已选择对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示已选择对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SELFVOICING"><apiName>STATE_SYSTEM_SELFVOICING</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象可以使用文字转语音 (TTS) 工具来描述自身。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x80000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象可以使用文字转语音 (TTS) 工具来描述自身。
+     
+      <p>当具有此状态的对象存在焦点时，基于语音的辅助功能不应通告信息，因为对象会自动通告自身的信息。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_SIZEABLE"><apiName>STATE_SYSTEM_SIZEABLE</apiName><shortdesc>
+      一个 MSAA 状态标志，指示可以调整对象大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x20000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示可以调整对象大小。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_TRAVERSED"><apiName>STATE_SYSTEM_TRAVERSED</apiName><shortdesc>
+      一个 MSAA 状态标志，指示已遍历对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x800000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示已遍历对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_UNAVAILABLE"><apiName>STATE_SYSTEM_UNAVAILABLE</apiName><shortdesc>
+      一个 MSAA 状态标志，指示对象不可用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个 MSAA 状态标志，指示对象不可用。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccConst:STATE_SYSTEM_VALID"><apiName>STATE_SYSTEM_VALID</apiName><shortdesc>
+      一个表示所有有效 MSAA 状态标志的位掩码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0x7FFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      一个表示所有有效 MSAA 状态标志的位掩码。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.accessibility:UIComponentAccProps"><apiName>UIComponentAccProps</apiName><shortdesc>
+  UIComponentAccProps 是 AccessibilityProperties 的子类，供各个 UIComponent 使用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.accessibility:AccessibilityProperties</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UIComponentAccProps 是 AccessibilityProperties 的子类，供各个 UIComponent 使用。该子类用于向表单、工具提示和错误工具提示提供辅助功能。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:UIComponentAccProps:UIComponentAccProps"><apiName>UIComponentAccProps</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>此 AccessibilityProperties 实例使其具有辅助功能的 UIComponent 实例。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:UIComponentAccProps:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 UIComponent 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 UIComponent 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 UIComponent 实例时，会将这些实例的 <codeph>accessibilityProperties</codeph> 属性设置为该类的实例。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:UIComponentAccProps:protected:eventHandler"><apiName>eventHandler</apiName><shortdesc>
+      一般事件处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      一般事件处理函数。所有 UIComponentAccProps 子类都必须实现该方法，以侦听来自其主组件的事件。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.accessibility:UIComponentAccProps:protected:master"><apiName>master</apiName><shortdesc>
+      对 UIComponent 自身的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      对 UIComponent 自身的引用。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.accessibility:AccImpl"><apiName>AccImpl</apiName><shortdesc>
+  AccImpl 是 MX 和 Spark 组件的 Flex 基础辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.accessibility:AccessibilityImplementation</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AccImpl 是 MX 和 Spark 组件的 Flex 基础辅助功能实现类。
+ 
+  <p>该类是 Flash Player 的 AccessibilityImplementation 类的子类。</p>
+ 
+  <p>当创建 MX 或 Spark 组件时，组件的 <codeph>accessibilityImplementation</codeph> 属性将设置为此类的某个子类的实例。然后，Flash Player 将使用此对象允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作该组件。有关辅助功能实施类和 MSAA 的附加信息，请参阅 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>Flash Player 对于具有辅助功能的对象不支持真实层次结构。如果 DisplayObject 具有 <codeph>accessibilityImplementation</codeph> 对象，则会忽略其子代的 <codeph>accessibilityImplementation</codeph> 对象。不过，Player 确实允许组件的辅助功能实现类向内部部件公开 MSAA 信息。（例如，List 可公开有关其中的项目的 MSAA 信息。）</p>
+ 
+  <p>子代（内部部件）的数量以及用于标识子代的子代 ID 可以通过 <codeph>getChildIDArray()</codeph> 方法确定。在 Player 的 AccessibilityImplementation 基类中，此方法只返回 <codeph>null</codeph>。Flex 的 AccImpl 类会覆盖此方法，以便返回一个空数组。它还提供了一个受保护的实用程序方法 <codeph>createChildIDArray()</codeph>，其子类以及内部部件可以在各自的覆盖中使用。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>组件及其内部部件的 MSAA 角色可以通过 <codeph>get_accRole()</codeph> 方法确定。在 Player 的 AccessibilityImplementation 基类中，此方法会引发运行时错误，因为应该使用子类来覆盖它。Flex 的 AccImpl 类具有受保护的 <codeph>role</codeph> 属性（该属性的子类通常在各自的构造函数中设置），并且该类会覆盖 <codeph>get_accRole()</codeph> 以便返回此属性。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>组件及其内部部件的 MSAA 名称可以通过 <codeph>get_accName()</codeph> 方法确定。在 Player 的 AccessibilityImplementation 基类中，此方法只返回 <codeph>null</codeph>。Flex 的 AccImpl 类会覆盖它，以便按以下方式构造名称，该名称以空字符串开头，并且用一个空格来分隔所添加的各个部分：
+  <ul>
+    <li>如果正在请求简单子代（如组合框项或列表框项），则只返回子代的默认名称。下面的其余步骤仅适用于组件自身 (childID 0)。</li>
+   <li>如果组件位于 Form 内部： 
+     <ul>
+       <li>如果 Form 中具有 FormHeading 且组件位于 FormItem 内部，则会添加标题文本。如果希望避免这种情况，则开发人员应将 FormHeading 的 <codeph>accessibilityName</codeph> 设置为一个空格 (" ")。</li>
+       <li>如果需要该字段，则会添加与区域设置相关的字符串“需要的字段”。</li>
+       <li>如果组件位于 FormItem 内部，则会添加 FormItem 标签文本。如果希望避免这种情况，则开发人员应将 FormItem 的 <codeph>accessibilityName</codeph> 设置为一个空格 (" ")。</li>
+    </ul></li>
+  <li>然后，将按以下方式确定组件名称：
+    <ul>
+      <li>如果组件的 <codeph>accessibilityName</codeph>（即 <codeph>accessibilityProperties.name</codeph>）是一个空格，则不会添加任何组件名称。</li>
+      <li>否则，如果指定了组件的名称（即，不是 null 并且不为空），则会添加该名称。</li>
+      <li>否则，将调用由 AccImpl 定义且由每个子类实现的受保护的 <codeph>getName()</codeph> 方法来提供默认名称。（例如，ButtonAccImpl 实现 <codeph>getName()</codeph>，以便将 Button 的默认名称指定为所显示的标签。）如果不为空，则会添加 <codeph>getName()</codeph> 的返回值。</li>
+      <li>否则（如果 <codeph>getName()</codeph> 返回了空值），如果设置了组件的 <codeph>toolTip</codeph> 属性，则会添加该字符串。</li>
+      <li>如果设置了组件的 <codeph>errorString</codeph> 属性，则会添加该字符串。</li>
+    </ul></li>
+  </ul></p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>MSAA 描述只能通过组件的 <codeph>accessibilityProperties</codeph> 对象确定，而不能通过组件的 <codeph>accessibilityImplementation</codeph> 对象确定。因此，在 AccessibilityImplementation、AccImpl 或 AccImpl 的任何子类中都没有与该描述相关的逻辑。在 Flex 中设置描述的正常方式是使用 UIComponent 的 <codeph>accessibilityDescription</codeph> 属性，该属性仅设置 <codeph>accessibilityProperties.description</codeph>。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>组件及其内部部件的 MSAA 状态可以通过 <codeph>get_accState()</codeph> 方法确定。在 Player 的 AccessibilityImplementation 基类中，此方法会引发运行时错误，因为应该使用子类来覆盖它。Flex 的 AccImpl 类不会覆盖它，但会提供受保护的实用程序方法 <codeph>getState()</codeph>，供子类在各自的覆盖中使用。<codeph>getState()</codeph> 方法按以下各项的组合确定状态：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（如果此组件或任何祖代的“已启用”为 false）</li>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED（如果组件自身已获得焦点，没有为组件的子部件设置焦点）</li>
+  </ul>
+  请注意，默认情况下假定所有组件都可获得焦点，因此对于不可获得焦点的组件（如标签）的辅助功能实现类，必须清除此状态标志。当组件的状态为不可用时，辅助功能实现类会删除可获得焦点状态。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>组件及其内部部件的 MSAA 值可以通过 <codeph>get_accValue()</codeph> 方法确定。在 Player 的 AccessibilityImplementation 基类中，此方法只返回 <codeph>null</codeph>。Flex 的 AccImpl 类不会覆盖它，但 TextInput 之类的组件的子类会覆盖。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>组件的内部部件的 MSAA 位置（而非组件自身）可以通过 <codeph>get_accLocation()</codeph> 方法确定。当 childID 为 0 时，从不会调用此方法；Flash Player 而是根据由 <codeph>getBounds()</codeph> 确定的边界矩形来确定组件的 MSAA 位置。Flex 的 AccImpl 类不会覆盖此方法；但带有内部部件的组件的子类会覆盖。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>组件及其内部部件的 MSAA DefaultAction 可以通过 <codeph>get_accDefaultAction()</codeph> 方法确定。在 Player 的 AccessibilityImplementation 基类中，此方法只返回 <codeph>null</codeph>。Flex 的 AccImpl 类不会覆盖它，但带有默认操作的子类会覆盖。这些子类还会覆盖 AccessibilityImplementation 的 <codeph>accDoDefaultAction()</codeph> 方法，以便执行它们公开的默认操作。</p>
+ 
+  <p><b>其他</b></p>
+ 
+  <p>在显示或隐藏对象时，会发送 MSAA 事件 EVENT_OBJECT_SHOW 和 EVENT_OBJECT_HIDE。这些事件的对应状态将由 Flash Player 处理，Flash Player 不会呈示处于隐藏状态的任何 MSAA 组件。在显示组件时，将会对 AccImpl 使用涉及的这些状态。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.accessibility:AccImpl:AccImpl"><apiName>AccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.accessibility:AccImpl:protected:eventHandler"><apiName>eventHandler</apiName><shortdesc>
+      一般事件处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      一般事件处理函数。所有 AccImpl 子类都必须实现该方法，以侦听来自其主组件的事件。 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:getFormName"><apiName>getFormName</apiName><shortdesc>
+      用于支持表单辅助功能的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier></apiParam></apiOperationDef><apiDesc>
+      用于支持表单辅助功能的方法。从该 AccImpl 类中的 get_accName() 调用。还从 UIComponentAccProps 构造函数调用。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:protected:getName"><apiName>getName</apiName><shortdesc>
+      返回具有辅助功能的组件的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+      返回具有辅助功能的组件的名称。所有子类都必须实现该方法而不是实现 get_accName()。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:protected:getState"><apiName>getState</apiName><shortdesc>
+      实用程序方法，用于确定具有辅助功能的组件的状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="uint"/></apiReturn><apiParam><apiItemName>childID</apiItemName><apiType value="uint"/></apiParam></apiOperationDef><apiDesc>
+      实用程序方法，用于确定具有辅助功能的组件的状态。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.accessibility:AccImpl:isAncestorDisabled"><apiName>isAncestorDisabled</apiName><shortdesc>
+      如果组件的“已启用”设置为 false，则返回 true。</shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果组件的祖代为“已禁用”，则为 true。
+     </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>要检查祖代是否为“已禁用”的 UIComponent。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果组件的“已启用”设置为 false，则返回 true。不检查给定组件自身。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.accessibility:AccImpl:protected:master"><apiName>master</apiName><shortdesc>
+      对此 AccImpl 实例使其具有辅助功能的 UIComponent 实例的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.core:UIComponent</apiValueClassifier></apiValueDef><apiDesc>
+      对此 AccImpl 实例使其具有辅助功能的 UIComponent 实例的引用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccImpl:protected:role"><apiName>role</apiName><shortdesc>
+      要具有辅助功能的组件的辅助功能角色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      要具有辅助功能的组件的辅助功能角色。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.accessibility:AccImpl:protected:eventsToHandle:get"><apiName>eventsToHandle</apiName><shortdesc>
+      所有子类都必须返回要侦听的事件的字符串数组来覆盖此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      所有子类都必须返回要侦听的事件的字符串数组来覆盖此函数。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

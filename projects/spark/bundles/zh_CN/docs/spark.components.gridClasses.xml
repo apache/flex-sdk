@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components.gridClasses"><apiName>spark.components.gridClasses</apiName><apiDetail/><apiClassifier id="spark.components.gridClasses:GridColumn"><apiName>GridColumn</apiName><shortdesc>
+  GridColumn 类定义 Spark 网格控件（如 Spark DataGrid 或 Grid 控件）的列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:GridColumn&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:GridColumn
+    <strong>Properties</strong>
+    dataField="null"
+    dataTipField="null"
+    dataTipFormatter="null"
+    dataTipFunction="null"
+    editable="true"
+    formatter="null"
+    headerRenderer="null"
+    headerText="<i>value of dataField</i>"
+    imeMode="null"
+    itemEditor="null"
+    itemRenderer="null"
+    itemRendererFunction="null"
+    labelFunction="null"
+    maxWidth="NaN"
+    minWidth="20"
+    rendererIsEditable="false"
+    resizeable="true"
+    showDataTips="undefined"
+    sortable="true"
+    sortCompareFunction="null"
+    sortDescending="false"
+    visible="true"
+    width="NaN"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridColumn 类定义 Spark 网格控件（如 Spark DataGrid 或 Grid 控件）的列。控件的每个数据提供程序项都对应于网格中的一行。GridColumn 类指定数据提供程序项的字段，其值将在列中显示。还指定用于显示该值的项呈示器、用于更改该值的项编辑器以及列的其它属性。
+   </apiDesc><example conref="GridColumnExample.mxml"><swfblock conref="examples/GridColumnExample.swf"/></example><example conref="GridColumnVisibilityExample.mxml"><swfblock conref="examples/GridColumnVisibilityExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridColumn:GridColumn"><apiName>GridColumn</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc><codeph>dataField</codeph> 和 <codeph>headerText</codeph> 属性的初始值。 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridColumn:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      将指定的数据提供程序项转换为特定于列的数据提示字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定的数据提供程序项的特定于列的字符串或 <codeph>ERROR_TEXT</codeph>。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc><codeph>grid.dataProvider.getItemAt(rowIndex)</codeph> 的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定的数据提供程序项转换为特定于列的数据提示字符串。 
+     
+      <p>此方法使用 <codeph>dataTipField</codeph> 和 <codeph>dataTipFunction</codeph> 值。如果这些属性为 null，将使用关联的网格控件中对应的属性。如果网格控件中的 <codeph>dataTipField</codeph> 属性也是 null，则使用 <codeph>dataField</codeph> 属性。</p>
+     
+      <p>如果 <codeph>dataTipFunction</codeph> 和 <codeph>dataTipFormatter</codeph> 为 null，则该方法的值与 <codeph>item[dataTipField].toString()</codeph> 的值相同。如果 <codeph>dataTipFormatter</codeph> 已指定，则该方法的值与 <codeph>dataTipFormatter.format(item[dataTipField])</codeph> 的值相同。如果解析项的 <codeph>dataField</codeph> 时导致引发错误，则将返回 <codeph>ERROR_TEXT</codeph>。</p>
+     
+      <p>如果 <codeph>item</codeph> 和 <codeph>dataTipFunction</codeph> 都不是 null，则此方法返回 <codeph>dataTipFunction(item, this)</codeph>，其中第二个参数是此 GridColumn。</p> 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridColumn:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      将指定的数据提供程序项转换为特定于列的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定的 dataProvider 项的特定于列的字符串或 ERROR_TEXT。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc><codeph>grid.dataProvider.getItemAt(rowIndex)</codeph> 的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定的数据提供程序项转换为特定于列的字符串。此方法用于初始化项呈示器的 <codeph>label</codeph> 属性。
+     
+      <p>如果 <codeph>labelFunction</codeph> 为 null，且 <codeph>dataField</codeph> 是一个不包含“.”字段名分隔符的字符串，且格式化程序为 null，则此方法等同于：</p>
+           <pre>item[dataField].toString()</pre>   
+     
+      <p>如果格式化程序已指定，则此方法的值为：</p>
+     
+      <pre>formatter.format(item[dataField])</pre>
+           <p>如果 <codeph>dataField</codeph> 是以“.”分隔的路径，则此方法查找各个连续的路径元素。例如，如果为 <codeph>"foo.bar.baz"</codeph>，则此方法基于 <codeph>item.foo.bar.baz</codeph> 的值返回一个字符串。如果解析项的 <codeph>dataField</codeph> 时导致引发错误，则返回 ERROR_TEXT。</p>
+     
+      <p>如果 <codeph>item</codeph> 和 <codeph>labelFunction</codeph> 都不是 null，则此方法返回 <codeph>labelFunction(item, this)</codeph>，其中第二个参数是此 GridColumn。</p> 
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridColumn:itemToRenderer"><apiName>itemToRenderer</apiName><shortdesc>
+      将指定的数据提供程序项转换为特定于列的项呈示器工厂。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定的 dataProvider 项的特定于列的项呈示器工厂。
+     
+      </apiDesc><apiType value="mx.core:IFactory"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc><codeph>grid.dataProvider.getItemAt(rowIndex)</codeph> 的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定的数据提供程序项转换为特定于列的项呈示器工厂。默认情况下，如果此方法为非 null，它将调用 <codeph>itemRendererFunction</codeph>，否则，仅返回列的 <codeph>itemRenderer</codeph> 属性的值。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridColumn:ERROR_TEXT"><apiName>ERROR_TEXT</apiName><shortdesc>
+      如果解析相应的属性名称（路径）失败，则为 itemToLabel() 或 itemToDataTip() 方法的返回值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      如果解析相应的属性名称（路径）失败，则为 <codeph>itemToLabel()</codeph> 或 <codeph>itemToDataTip()</codeph> 方法的返回值。此常量的值为单个空格字符串：<codeph>" "</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      此列在网格的列列表中的位置；如果此列的网格为 null，则为 -1。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      此列在网格的列列表中的位置；如果此列的网格为 null，则为 -1。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataField:get"><apiName>dataField</apiName><shortdesc>
+      与列关联的数据提供程序项目中字段或属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      与列关联的数据提供程序项目中字段或属性的名称。需要对每个 GridColumn 设置此属性或 <codeph>labelFunction</codeph> 属性，才可计算项呈示器的可显示文本。如果设置了 <codeph>dataField</codeph> 和 <codeph>labelFunction</codeph> 属性，则使用 <codeph>labelFunction</codeph> 显示数据并使用 <codeph>dataField</codeph> 对数据排序。  
+           <p>此属性的值不一定是列标题中显示的 String。此属性只用于访问数据提供程序中的数据。有关详细信息，请参阅 <codeph>headerText</codeph> 属性。</p>
+     
+      <p>如果列或其网格指定 <codeph>labelFunction</codeph>，则不使用 dataField。</p>
+          
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/labelFunction"><linktext>labelFunction</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      数据提供程序中显示为数据提示的字段名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数据提供程序中显示为数据提示的字段名称。默认情况下，如果 <codeph>showDataTips</codeph> 为 <codeph>true</codeph>，则关联的网格控件在每个数据提供程序项中查找名为 <codeph>label</codeph> 的属性并进行显示。然而，如果数据提供程序不包含 <codeph>label</codeph> 属性，则可以设置 <codeph>dataTipField</codeph> 属性以指定其它属性名称。例如，在用户查看数据库中包含的一组用户名时，可以将值设置为“FullName”。
+           <p><codeph>GridColumn.dataTipField</codeph> 的优先级比此属性高。</p>
+     
+      <p>如果此列或其网格指定了 <codeph>dataTipFunction</codeph> 属性的值，则忽略 <codeph>dataTipField</codeph> 属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/dataTipFunction"><linktext>dataTipFunction</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipFormatter:get"><apiName>dataTipFormatter</apiName><shortdesc>
+      指定列的 itemToDataTip() 方法用来将数据提供程序项转换为字符串的格式化程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFormatterChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.formatters:IFormatter"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定列的 <codeph>itemToDataTip()</codeph> 方法用来将数据提供程序项转换为字符串的格式化程序。
+     
+      <p>如果格式化程序的 <codeph>styleParent</codeph> 未指定，它将被设置为列的网格，这样格式化程序就可以继承网格的<codeph/>区域设置样式。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/formatter"><linktext>格式化程序</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      指定在数据提供程序每个项目上运行的回调函数，以确定其数据提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定在数据提供程序每个项目上运行的回调函数，以确定其数据提示。此属性由 <codeph>itemToDataTip</codeph> 方法使用。
+     
+      <p>默认情况下，如果 <codeph>showDataTips</codeph> 为 <codeph>true</codeph>，则该列在每个数据提供程序项中查找名为 <codeph>label</codeph> 的属性，并将其显示为它的数据提示。不过，某些数据提供程序没有 <codeph>label</codeph> 属性，也没有其它可用于显示行中数据的属性。</p>
+           <p>例如，您具有包含 lastName 和 firstName 字段的数据提供程序，但您希望将全名显示为数据提示。可以为 <codeph>dataTipFunction</codeph> 属性指定一个函数，该函数返回包含这两个字段值的单个 String。还可以使用 <codeph>dataTipFunction</codeph> 属性来处理格式和本地化。</p>
+     
+      <p><codeph>dataTipFunction</codeph> 函数的签名必须与以下内容相匹配：
+     
+      <pre>dataTipFunction(item:Object, column:GridColumn):String</pre>
+           <codeph>item</codeph> 参数为整个行的数据提供程序项。第二个参数是此列对象。</p>
+           <p>典型的函数可能连接项的 firstName 和 lastName 属性，或对 Date 值属性设置某种自定义格式。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToDataTip"><linktext>itemToDataTip</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataTipField"><linktext>dataTipField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:editable:get"><apiName>editable</apiName><shortdesc>
+      指示是否能对列中的项目进行编辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="editableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示是否能对列中的项目进行编辑。如果为 <codeph>true</codeph>，并且关联的网格的 <codeph>editable</codeph> 属性也为 <codeph>true</codeph>，则列中的项目是可编辑的，且可以通过以下方法编辑单个项目：单击所选项目，或导航到项目并按 F2 键。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:formatter:get"><apiName>formatter</apiName><shortdesc>
+      指定列的 itemToLabel() 方法用来将数据提供程序项转换为字符串的格式化程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="formatterChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.formatters:IFormatter"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定列的 <codeph>itemToLabel()</codeph> 方法用来将数据提供程序项转换为字符串的格式化程序。
+     
+      <p>如果格式化程序的 <codeph>styleParent</codeph> 未指定，它将被设置为列的网格，这样格式化程序就可以继承网格的<codeph/>区域设置样式。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataTipFormatter"><linktext>dataTipFormatter</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:grid:get"><apiName>grid</apiName><shortdesc>
+      与此列关联的 Grid 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="gridChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      与此列关联的 Grid 对象。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:headerRenderer:get"><apiName>headerRenderer</apiName><shortdesc>
+      用作此列标题的 IGridItemRenderer 类的类工厂。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      用作此列标题的 IGridItemRenderer 类的类工厂。如果未指定，则 DataGrid 控件的 <codeph>columnHeaderGroup</codeph> 外观部件定义默认标题呈示器。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/headerText"><linktext>headerText</linktext></link><link href="spark.components.gridClasses.xml#IGridItemRenderer"><linktext>IGridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:headerText:get"><apiName>headerText</apiName><shortdesc>
+      此列的标题文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerTextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      此列的标题文本。默认情况下，关联的网格控件使用 <codeph>dataField</codeph> 属性的值作为标题文本。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:imeMode:get"><apiName>imeMode</apiName><shortdesc conref="spark.components.gridClasses.GridItemEditor#imeMode">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.components.gridClasses.GridItemEditor#imeMode">
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemEditor:get"><apiName>itemEditor</apiName><shortdesc>
+      用于编辑此列中各个网格单元格的 IGridItemEditor 类的类工厂。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemEditorChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      用于编辑此列中各个网格单元格的 IGridItemEditor 类的类工厂。如果此属性为 null，且列网格的所有者为 DataGrid 控件，则使用 DataGrid 控件的 <codeph>itemEditor</codeph> 属性的值。如果 DataGrid 控件未指定任何项编辑器，则使用 DefaultGridItemEditor 类。
+     
+      <p>默认的项编辑器是 DefaultGridItemEditor 类，可用于编辑简单的文本字段。可以通过创建 GridItemEditor 类的子类来创建自定义项呈示器。自定义项编辑器可以在网格的整个行中写入数据，以定义更复杂的编辑器。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#DefaultGridItemEditor"><linktext>spark.components.gridClasses.DefaultGridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridItemEditor"><linktext>spark.components.gridClasses.GridItemEditor</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemRendererFunction:get"><apiName>itemRendererFunction</apiName><shortdesc>
+      如果已指定，则此属性的值必须为幂函数，该函数根据其数据提供程序项和列参数返回项呈示器 IFactory。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果已指定，则此属性的值必须为幂函数，该函数根据其数据提供程序项和列参数返回项呈示器 IFactory。为 <codeph>itemRendererFunction</codeph> 属性指定值可以在此列中使用多个项呈示器。
+     
+      <p>为 <codeph>itemRendererFunction</codeph> 属性指定的函数必须具有以下签名：</p>
+           <pre>itemRendererFunction(item:Object, column:GridColumn):IFactory</pre>
+           <p><codeph>item</codeph> 参数为整个行的数据提供程序项。第二个参数是此列对象。</p> 
+     
+      <p>项呈示器函数的示例如下所示：</p>
+      <pre>
+      function myItemRendererFunction(item:Object, column:GridColumn):IFactory
+      {
+          return (item is Array) ? myArrayItemRenderer : myItemRenderer;
+      }
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      用于呈示各个网格单元格的 IGridItemRenderer 类的类工厂。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      用于呈示各个网格单元格的 IGridItemRenderer 类的类工厂。如果未指定，则使用关联的网格控件的 <codeph>itemRenderer</codeph> 属性的值。
+     
+      <p>默认项呈示器为 DefaultGridItemRenderer 类，它可将数据项显示为文本。可以通过创建 GridItemRenderer 类的子类来创建自定义项呈示器。自定义项呈示器可以访问网格的整个行中的数据，以定义单元格的更复杂视觉表示。 </p>
+     
+      <p>默认值为关联的网格控件的 <codeph>itemRenderer</codeph> 属性的值，或为 null。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/dataField"><linktext>dataField</linktext></link><link href="spark.skins.spark.xml#DefaultGridItemRenderer"><linktext>spark.skins.spark.DefaultGridItemRenderer</linktext></link><link href="spark.components.gridClasses.xml#GridItemRenderer"><linktext>spark.components.gridClasses.GridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      将数据提供程序项转换为特定于列的字符串的幂函数，该字符串用于初始化项呈示器的 label 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      将数据提供程序项转换为特定于列的字符串的幂函数，该字符串用于初始化项呈示器的 <codeph>label</codeph> 属性。
+     
+      <p>可以使用 label 函数将多个数据提供程序项的值合并为单个字符串。如果已指定，此属性由 <codeph>itemToLabel()</codeph> 方法使用，该方法计算此列中每个项呈示器的 <codeph>label</codeph> 属性的值。</p>
+           <p>为 <codeph>labelFunction</codeph> 属性指定的函数必须具有以下签名：</p>
+           <pre>labelFunction(item:Object, column:GridColumn):String</pre>
+           <p><codeph>item</codeph> 参数为整个行的数据提供程序项。第二个参数是此列对象。</p>
+           <p>典型的 label 函数可以连接数据提供程序项的 firstName 和 lastName 属性，或对 Date 值属性设置某种自定义格式。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/itemToLabel"><linktext>itemToLabel</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/dataField"><linktext>dataField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      此列的最大宽度，以像素为单位。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此列的最大宽度，以像素为单位。如果已指定，网格布局使用 <codeph>typicalItem</codeph> 和 <codeph>maxWidth</codeph> 的宽度之间的较小值作为列的布局宽度。如果此列可调整大小，则此属性会限制用户可调整的最大列宽。设置此属性不更改 <codeph>width</codeph> 或 <codeph>minWidth</codeph> 属性。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      此列的最小宽度，以像素为单位。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>20
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此列的最小宽度，以像素为单位。如果已指定，网格布局将使用 <codeph>typicalItem</codeph> 和 <codeph>minWidth</codeph> 的宽度之间的较大值作为列的布局宽度。如果此列可调整大小，则此属性会限制用户可调整的最小列宽。设置此属性不更改 <codeph>width</codeph> 或 <codeph>maxWidth</codeph> 属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:rendererIsEditable:get"><apiName>rendererIsEditable</apiName><shortdesc>
+      确定是否能对项呈示器的任意控件进行编辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="rendererIsEditableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      确定是否能对项呈示器的任意控件进行编辑。如果列是可编辑的，则当用户开始编辑项呈示器时，项呈示器中的可聚焦控件将聚焦于键盘。
+           <p>如果将此属性设置为 <codeph>true</codeph>，则用户可以通过单击单元格内部来使单元格可编辑。由于单元格可编辑，因此 DataGrid 显示 <codeph>editorIndicator</codeph> 外观部件，该外观部件显示在 <codeph>selectionIndicator</codeph> 外观部件之上。因此，在完成编辑会话之前，用户无法看到单元格选择的指示符。您可以创建自定义外观来删除或修改 <codeph>editorIndicator</codeph> 外观部件，以便显示 <codeph>selectionIndicator</codeph> 外观部件。例如，可以设置 <codeph>editorIndicator</codeph> 的 <codeph>alpha</codeph> 属性以显示 <codeph>selectionIndicator</codeph>，或更改 editorIndicator 的大小使其小于单元格。</p>
+     
+      <p>如果将此属性设置为 <codeph>true</codeph>，则您需要验证和保存由项呈示器收集的输入。如果项呈示器包含 <codeph>IGridItemRenderer.prepare()</codeph> 方法的覆盖，则您必须确保不会覆盖未保存的输入字段。例如，<codeph>rendererIsEditable</codeph> 为 <codeph>true</codeph>，且呈示器包含单个 TextInput 元素，该元素显示 <codeph>data.myDataField</codeph> 的值。如果呈示器的 <codeph>prepare()</codeph> 方法设置 TextInput 控件的 <codeph>text</codeph> 属性，则当存在暂挂的更改时，<codeph>prepare()</codeph> 方法不得设置 <codeph>text</codeph> 属性。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:resizable:get"><apiName>resizable</apiName><shortdesc>
+      指示是否允许用户调整列宽大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resizableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示是否允许用户调整列宽大小。如果为 <codeph>true</codeph>，且关联网格的 <codeph>resizableColumns</codeph> 属性也为 <codeph>true</codeph>，则用户可以拖动列标题之间的网格线以调整列大小。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      指示是否在列中显示数据提示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showDataTipsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示是否在列中显示数据提示。如果为 <codeph>true</codeph>，则显示行中文本的数据提示。数据提示是一些工具提示，用于显示对行而言过长的文本。   
+     
+      <p>如果未定义此属性的值（默认情况），则关联网格的 <codeph>showDataTips</codeph> 属性决定是否显示数据提示。如果已设置此属性，则忽略网格的 <codeph>showDataTips</codeph> 属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn/getShowDataTips"><linktext>getShowDataTips</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortCompareFunction:get"><apiName>sortCompareFunction</apiName><shortdesc>
+      对此列中的数据元素排序时比较两个元素的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortCompareFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      对此列中的数据元素排序时比较两个元素的函数。如果指定 <codeph>labelFunction</codeph> 属性的值，通常还提供 <codeph>sortCompareFunction</codeph>。
+           <p>sortCompareFunction 的签名必须与以下内容匹配：</p>
+           <pre>sortCompareFunction(obj1:Object, obj2:Object, column:GridColumn):int</pre>
+     
+      <p>函数应该基于对象比较结果返回值： </p>
+      <ul>
+        <li>如果按升序顺序 obj1 应出现在 obj2 前面，则返回 -1。 </li>
+        <li>如果 obj1 = obj2，则返回 0。 </li>
+        <li>如果按升序顺序 obj1 应出现在 obj2 后面，则返回 1。</li>
+      </ul>
+      
+      <p>此函数可以使用列参数编写通用的 compare 函数。</p>
+     
+      <p><b>注意：</b><codeph>obj1</codeph> 和 <codeph>obj2</codeph> 参数是整个数据提供程序元素，而不只是项目数据。</p>
+     
+      <p>如果 dataProvider 不是 ICollectionView，则此属性不起作用。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortDescending:get"><apiName>sortDescending</apiName><shortdesc>
+      如果为 true，则按降序顺序对此列排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortDescendingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则按降序顺序对此列排序。例如，如果列的 <codeph>dataField</codeph> 包含数字值，则包含此列中最大值的行将为第一行。 
+           <p>设置此属性不会开始进行排序；这只是在设置排序方向。在调用 <codeph>dataProvider.refresh()</codeph> 方法时，执行排序。</p>
+     
+      <p>如果数据提供程序不是 ICollectionView，则此属性不起作用。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortField:get"><apiName>sortField</apiName><shortdesc>
+      返回 SortField（可用于按此列的 dataField 对集合进行排序）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.collections:SortField</apiValueClassifier></apiValueDef><apiDesc>
+      返回 SortField（可用于按此列的 <codeph>dataField</codeph> 对集合进行排序）。
+      
+      <p>如果已定义 <codeph>sortCompareFunction</codeph> 属性，则自动设置 SortField 的 <codeph>compareFunction</codeph>。</p>
+     
+      <p>如果未定义 <codeph>sortCompareFunction</codeph> 属性，且 <codeph>dataField</codeph> 较复杂，则将 SortField 的 compare 函数指定给封装默认 compare 函数的闭包，以处理复杂的 <codeph>dataField</codeph>。</p>
+           <p>如果未定义 <codeph>sortCompareFunction</codeph> 和 <codeph>dataField</codeph> 属性，但已定义 <codeph>labelFunction</codeph> 属性，则将 <codeph>compareFunction</codeph> 指定给一个闭包，以对应用于数据对象的 <codeph>labelFunction</codeph> 执行基本字符串比较。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.collections.xml#SortField"><linktext>spark.collections.SortField</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridColumn:sortable:get"><apiName>sortable</apiName><shortdesc>
+      如果为 true，网格的数据提供程序为 ICollectionView，且关联网格的 sortableColumns 属性为 ture，则此列支持交互式排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortableChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，网格的数据提供程序为 ICollectionView，且关联网格的 <codeph>sortableColumns</codeph> 属性为 <codeph>true</codeph>，则此列支持交互式排序。通常，列标题通过将数据提供程序的 <codeph>sort</codeph> 属性设置为 Sort 对象（该对象的 SortField 为此列的 <codeph>dataField</codeph>）来处理鼠标单击操作。
+      
+      <p>如果数据提供程序不是 ICollectionView，则此属性不起作用。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:visible:get"><apiName>visible</apiName><shortdesc>
+      如果为 true，则显示此列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="visibleChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则显示此列。如果为 <codeph>flase</codeph>，则不会为此列分配任何空间；此列不会包含在布局中。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridColumn:width:get"><apiName>width</apiName><shortdesc>
+      此列的宽度，以像素为单位。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此列的宽度，以像素为单位。如果已指定，则网格布局将忽略其 <codeph>typicalItem</codeph> 属性和此列的 <codeph>minWidth</codeph> 和 <codeph>maxWidth</codeph> 属性。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridVisualElement"><apiName>IGridVisualElement</apiName><shortdesc>
+  动态创建的可视元素可使用此接口提供的方法，在显示这些元素之前进行自我配置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  动态创建的可视元素可使用此接口提供的方法，在显示这些元素之前进行自我配置。当创建或重用工厂生成的可视元素时，需要调用此方法。不可直接调用此方法。
+ 
+  <p>所有工厂生成的可视元素都可以使用此接口，除了以下 itemRenderer：<codeph>caretIndicator</codeph>、<codeph>hoverIndicator</codeph>、<codeph>editorIndicator</codeph>、<codeph>selectionIndicator</codeph>、<codeph>columnSeparator</codeph>、<codeph>rowSeparator</codeph>、<codeph>alternatingRowColorsBackground</codeph>（请参阅 DataGrid）、<codeph>sortIndicator</codeph>（请参阅 GridColumnHeaderGroup）。这通常用于使用 DataGrid 样式的值来配置生成的可视元素。例如，要对插入标记的填充颜色使用 DataGrid“symbolColor”样式的值，需要定义 <codeph>prepareGridVisualElement()</codeph> 方法，如下所示：</p> 
+ 
+  <p>
+  <pre>
+  public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+  {
+      caretStroke.color = grid.dataGrid.getStyle("caretColor");
+  }
+  </pre>
+  </p>        
+ 
+  <p><codeph>rowIndex</codeph> 和 <codeph>columnIndex</codeph> 参数指定可视元素要占用的单元格。如果 <codeph>columnIndex</codeph> = -1，则可视元素占用 Grid 行。如果 <codeph>rowIndex</codeph> = -1，则可视元素占用 Grid 列。</p>
+ 
+  <p>DataGridSkin.mxml 中有更多像这样的示例。请注意，如果不需要添加的灵活性，则自定义 DataGrid 外观可视元素可以选择不实现此接口。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.components.gridClasses:IGridVisualElement:spark.components.gridClasses:IGridVisualElement:prepareGridVisualElement"><apiName>prepareGridVisualElement</apiName><shortdesc> 
+      在呈示 Grid 可视元素之前调用此方法，使元素可以对自身进行配置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>grid</apiItemName><apiOperationClassifier>spark.components:Grid</apiOperationClassifier><apiDesc>与此可视元素关联的 Grid。
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiDesc>可视元素要占用的单元格行坐标，或者为 -1。
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>可视元素要占用的单元格列坐标，或者为 -1。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      在呈示 Grid 可视元素之前调用此方法，使元素可以对自身进行配置。此方法的参数指定可视元素将占用的单元格、行（如果 columnIndex=-1）或列（如果 rowIndex=-1）。
+     
+      <p>如果可视元素是由使用工厂值的 DataGrid 外观部件生成的，如 selectionIndicator 或 hoverIndicator，则 <codeph>grid.dataGrid</codeph> 是其外观部件为网格的 DataGrid。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.components.gridClasses:CellPosition"><apiName>CellPosition</apiName><shortdesc>
+  CellPosition 类定义 Spark 数据网格类用于表示控件中所选单元格的数据结构。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CellPosition 类定义 Spark 数据网格类用于表示控件中所选单元格的数据结构。每个所选单元格由此类的一个实例表示。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid/selectedCell"><linktext>spark.components.DataGrid.selectedCell</linktext></link><link href="spark.components.xml#DataGrid/selectedCells"><linktext>spark.components.DataGrid.selectedCells</linktext></link><link href="spark.components.xml#Grid/selectedCell"><linktext>spark.components.Grid.selectedCell</linktext></link><link href="spark.components.xml#Grid/selectedCells"><linktext>spark.components.Grid.selectedCells</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:CellPosition:CellPosition"><apiName>CellPosition</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>单元格的从零开始的行索引。-1 值指示未设置值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>单元格的从零开始的列索引。-1 值指示未设置值。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:CellPosition:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      单元格的从零开始的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      单元格的从零开始的列索引。-1 值指示未设置值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellPosition:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      单元格的从零开始的行索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      单元格的从零开始的行索引。-1 值指示未设置值。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IDataGridElement"><apiName>IDataGridElement</apiName><shortdesc>
+  必须与网格布局与滚动位置保持同步的 Spark DataGrid 控件的可视元素必须实现此接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  必须与网格布局与滚动位置保持同步的 Spark DataGrid 控件的可视元素必须实现此接口。添加 DataGrid 控件的 <codeph>grid</codeph> 外观部件之后，设置 <codeph>IDataGridElement.dataGrid</codeph> 属性。IDataGridElements 对象可以通过添加滚动位置更改的事件侦听器来进行响应。当对 DataGrid 控件所做的更改影响了其行或列布局时，所有 IDataGridElements 对象都将无效。
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="spark.components.gridClasses:IDataGridElement:spark.components.gridClasses:IDataGridElement:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      与此元素相关联的 DataGrid 控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      与此元素相关联的 DataGrid 控件。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:DefaultGridItemEditor"><apiName>DefaultGridItemEditor</apiName><shortdesc>DefaultGridItemEditor 类定义 Spark 网格控件（例如 DataGrid 和 Grid）使用的默认项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components.gridClasses:GridItemEditor</apiBaseClassifier></apiClassifierDef><apiDesc>DefaultGridItemEditor 类定义 Spark 网格控件（例如 DataGrid 和 Grid）使用的默认项呈示器。DefaultGridItemEditor 显示文本区域控件。在文本编辑器中输入单元格的新值。
+      
+      <p>可以创建自定义项编辑器，而不是使用 DefaultGridItemEditor。项编辑器必须实现 spark.components.gridClasses.IGridItemEditor 接口。通常，可以将项编辑器创建为 spark.components.gridClasses.GridItemEditor 类的子类。</p>
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#IGridItemEditor"><linktext>spark.components.gridClasses.IGridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridItemEditor"><linktext>spark.components.gridClasses.GridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:DefaultGridItemEditor:DefaultGridItemEditor"><apiName>DefaultGridItemEditor</apiName><shortdesc>构造函数。</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>构造函数。</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:DefaultGridItemEditor:textArea"><apiName>textArea</apiName><shortdesc>编辑器的 TextArea 组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="Bindable"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:TextArea</apiValueClassifier></apiValueDef><apiDesc>编辑器的 TextArea 组件。 
+    
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridSelectionMode"><apiName>GridSelectionMode</apiName><shortdesc>
+  GridSelectionMode 类定义 Spark DataGrid 和 Grid 控件的 selectionMode 属性的有效常量值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridSelectionMode 类定义 Spark DataGrid 和 Grid 控件的 <codeph>selectionMode</codeph> 属性的有效常量值。
+  
+  <p>在 ActionsScript 中使用常量，如下例所示： </p>
+  <pre>
+    myDG.selectionMode = GridSelectionMode.MULTIPLE_CELLS;
+  </pre>
+ 
+  <p>在 MXML 中，使用常量的 String 值，如下例所示：</p>
+  <pre>
+    &lt;s:DataGrid id="myGrid" width="350" height="150"
+        selectionMode="multipleCells"> 
+        ...
+    &lt;/s:DataGrid> 
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid/selectionMode"><linktext>spark.components.DataGrid.selectionMode</linktext></link><link href="spark.components.xml#Grid/selectionMode"><linktext>spark.components.Grid.selectionMode</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridSelectionMode:GridSelectionMode"><apiName>GridSelectionMode</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:GridSelectionMode:MULTIPLE_CELLS"><apiName>MULTIPLE_CELLS</apiName><shortdesc>
+      指定可以选择一个或多个单元格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multipleCells</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定可以选择一个或多个单元格。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:MULTIPLE_ROWS"><apiName>MULTIPLE_ROWS</apiName><shortdesc>
+      指定可以选择一行或多行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multipleRows</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定可以选择一行或多行。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:NONE"><apiName>NONE</apiName><shortdesc>
+      指定不允许选择任何内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定不允许选择任何内容。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:SINGLE_CELL"><apiName>SINGLE_CELL</apiName><shortdesc>
+      指定可以选择一个单元格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>singleCell</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定可以选择一个单元格。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridSelectionMode:SINGLE_ROW"><apiName>SINGLE_ROW</apiName><shortdesc>
+      指定可以选择一行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>singleRow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定可以选择一行。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:CellRegion"><apiName>CellRegion</apiName><shortdesc>
+  CellRegion 类定义 Spark 数据网格类用于表示控件中单元格的矩形区域的数据结构。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CellRegion 类定义 Spark 数据网格类用于表示控件中单元格的矩形区域的数据结构。区域的原点由 <codeph>rowIndex</codeph> 和 <codeph>columnIndex</codeph> 属性指定。区域的范围由 <codeph>rowCount</codeph> 和 <codeph>columnCount</codeph> 属性指定。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:CellRegion:CellRegion"><apiName>CellRegion</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>原点单元格的从零开始的行索引。-1 值指示未设置值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>原点单元格的从零开始的列索引。-1 值指示未设置值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowCount</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>单元格区域中的行数。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnCount</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>单元格区域中的列数。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:CellRegion:columnCount:get"><apiName>columnCount</apiName><shortdesc>
+      单元格区域中的列数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      单元格区域中的列数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      单元格区域原点的从零开始的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      单元格区域原点的从零开始的列索引。-1 值指示未设置值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:rowCount:get"><apiName>rowCount</apiName><shortdesc>
+      单元格区域中的行数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      单元格区域中的行数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:CellRegion:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      单元格区域原点的从零开始的行索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      单元格区域原点的从零开始的行索引。-1 值指示未设置值。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridLayer"><apiName>GridLayer</apiName><shortdesc>
+  GridLayer 类定义的容器用于 Grid 控件可视元素的层。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridLayer 类定义的容器用于 Grid 控件可视元素的层。Grid 控件根据需要创建可视元素并将其添加到其层中，并负责其布局。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridLayer:GridLayer"><apiName>GridLayer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.components.gridClasses:GridItemRenderer"><apiName>GridItemRenderer</apiName><shortdesc>
+  GridItemRenderer 类定义 Spark 网格控件（例如 DataGrid 和 Grid）的自定义项呈示器的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><Exclude kind="property" name="transitions"/><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.components.gridClasses:IGridItemRenderer</apiBaseInterface><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridItemRenderer 类定义 Spark 网格控件（例如 DataGrid 和 Grid）的自定义项呈示器的基类。仅在显示特定于列方面的数据时才需要使用项呈示器。它们不负责显示选定内容或悬浮提示指示符、替代背景色（如果有）或行/列分隔符。
+ 
+  <p>项呈示器与网格的每一列相关联。使用 <codeph>GridColumn.itemRenderer</codeph> 属性设置列的项呈示器。</p> 
+ 
+  <p>默认情况下，项呈示器不会剪切至单元格的边界。如果您的呈示器扩展到单元格的边界之外，则您可以将 <codeph>clipAndEnableScrolling</codeph> 设置为 <codeph>true</codeph>，以将呈示器剪切至单元格的边界。</p>
+ 
+  <p>不支持 DataGrid 项呈示器中的转换。GridItemRenderer 类已禁用了其 <codeph>transitions</codeph> 属性，因此对此进行设置也无效。</p>
+ 
+  <p><b>效率注意事项</b></p>
+  
+  <p>DataGrid 滚动和启动性能与项呈示器复杂性以及 DataGrid 的 Scroller 中可见的项呈示器的数目直接相关。自定义 GridItemRenderer 实例需要被多次使用和重用，因此尽可能简单和高效地定义它们非常重要。</p>
+  
+  <p>如果项呈示器的职责仅限于显示一行或多行文本，则开发人员应慎重考虑使用 DefaultItemRenderer 类，它使用起来非常经济（将仅部署在 Windows 上的应用程序，用户转而使用 UITextFieldGridItemRenderer 类可以获得一些其它的性能）。使用 GridItemRenderer 将 GridColumn 的 dataField 显示为文本的最高效方式是通过 <codeph>id="labelDisplay"</codeph> 标识 GridItemRenderer 的文本显示元素。labelDisplay 组件必须为类似于 <codeph>Label</codeph> 或 <codeph>RichText</codeph> 的 <codeph>TextBase</codeph> 子类。如果项呈示器中包含一些不依赖于项呈示器数据的其它元素，例如边框或其它图形元素，您可以采取此种方法，而不只使用 DefaultGridItemRenderer。</p>
+  
+  <p>包含属性依赖于项呈示器数据的多个可视元素的项呈示器可以使用数据绑定定义这些属性的值。该方法将产生易于阅读和维护的 MXML 代码，如果可见项呈示器的数目有限，它的性能可能合适（请参阅 DataGrid <codeph>requestedRowCount</codeph> 和 <codeph>requestedColumnCount</codeph> 属性）。配置此类项呈示器的最高效方式是覆盖其 <codeph>prepare()</codeph> 方法并在那儿进行工作。每次重新显示呈示器时都会调用呈示器的 <codeph>prepare()</codeph> 方法，因此对其进行高效编码很重要。如果项呈示器处于某种状态，例如它在缓存内部值，您可以使用其 <codeph>discard()</codeph> 方法清除其状态。每次将呈示器移动到 DataGrid 的内部空闲列表以重用时都会调用 <codeph>discard()</codeph> 方法。</p>
+  
+  <p>GridItemRenderer 应尽可能简单。要获得最佳性能，请将组件数目以及层次结构的深度降到最低。如果此方法适用，您可以使用显式位置和大小定义布局，而无需使用约束。带有 <codeph>variableRowHeight="false"</codeph>（默认值）的 DataGrid 会更好地执行，这同样适用于 <codeph>showDataTips="false"</codeph>（默认值）和 <codeph>clipAndEnableScrolling="false"</codeph>（默认值）。</p>
+  
+  <p>此处介绍的各种 GridItemRenderer 配置示例可以在示例部分中找到。</p>
+ 
+  </apiDesc><example conref="GridItemRendererExample.mxml"><swfblock conref="examples/GridItemRendererExample.swf"/></example><example conref="GridItemRendererCustomBindingExample.mxml"><swfblock conref="examples/GridItemRendererCustomBindingExample.swf"/></example><example conref="GridItemRendererCustomPrepareExample.mxml"><swfblock conref="examples/GridItemRendererCustomPrepareExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemRenderer"><linktext>spark.components.gridClasses.GridColumn.itemRenderer</linktext></link><link href="spark.skins.spark.xml#DefaultGridItemRenderer"><linktext>spark.skins.spark.DefaultGridItemRenderer</linktext></link></related-links><adobeApiEvent id="spark.components.gridClasses:GridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  当 data 属性更改时进行分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>data</codeph> 属性更改时进行分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components.gridClasses:GridItemRenderer:GridItemRenderer"><apiName>GridItemRenderer</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridItemRenderer:discard"><apiName>discard</apiName><shortdesc>
+      
+      在已确定此呈示器将不再可见时，从项呈示器父代的 updateDisplayList() 方法调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>willBeRecycled</apiItemName><apiType value="Boolean"/><apiDesc>如果要将此呈示器添加到所有者的内部空闲列表以重用，则为 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      在已确定此呈示器将不再可见时，从项呈示器父代的 <codeph>updateDisplayList()</codeph> 方法调用。如果 <codeph>willBeRecycled</codeph> 参数设置为 <codeph>true</codeph>，则所有者将此呈示器添加到其内部空闲列表以重用。实现可使用此方法清除任何不再需要的呈示器属性。
+     
+      <p>不可直接调用此方法。它将被 DataGrid 实现调用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemRenderer:protected:getCurrentRendererState"><apiName>getCurrentRendererState</apiName><shortdesc>
+      返回要应用到呈示器的状态的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>指定要应用到呈示器的状态的名称的字符串。 
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回要应用到呈示器的状态的名称。例如，一个基本项呈示器返回字符串“normal”、“hovered”或“selected”以指定呈示器的状态。在处理 touch 交互（或在选择被忽略的情况下的 mouse 交互）时，也可返回“down”和“downAndSelected”。
+     
+      <p>如果所需的行为与默认行为不同，则 GridItemRenderer 的子类必须覆盖此方法才会返回值。</p>
+     
+      <p>在 Flex 4.0 中，三种主要状态为“normal”、“hovered”和“selected”。在 Flex 4.5 中，添加了“down”和“downAndSelected”。</p>
+      
+      <p>支持的完整状态集如下所示（按照优先级的顺序）： 
+        <ul>
+          <li>dragging</li>
+          <li>downAndSelected</li>
+          <li>selectedAndShowsCaret</li>
+          <li>hoveredAndShowsCaret</li>
+          <li>normalAndShowsCaret</li>
+          <li>down</li>
+          <li>selected</li>
+          <li>hovered</li>
+          <li>normal</li>
+        </ul>
+      </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemRenderer:prepare"><apiName>prepare</apiName><shortdesc>
+      
+      在设置了呈示器的所有属性后，从项呈示器父代的 updateDisplayList() 方法调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>hasBeenRecycled</apiItemName><apiType value="Boolean"/><apiDesc> 如果正在重用此呈示器，则为 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      在设置了呈示器的所有属性后，从项呈示器父代的 <codeph>updateDisplayList()</codeph> 方法调用。如果以前从未使用过此呈示器，则 <codeph>hasBeenRecycled</codeph> 参数为 <codeph>false</codeph>，表示此呈示器不可再生。当呈示器将要可见时，每次因呈示器属性更改而重新显示呈示器时，或显式请求重新显示时，调用此方法。 
+     
+      <p>此方法可以用来配置呈示器的所有可视元素和属性。使用此方法与将 <codeph>data</codeph> 属性绑定到可视元素属性相比，效率会更高。注意：由于 <codeph>prepare()</codeph> 方法经常被调用，因此请确保已对其进行高效编码。</p>
+     
+      <p>在调用 <codeph>discard()</codeph> 方法之前，可能会多次调用 <codeph>prepare()</codeph> 方法。</p>
+     
+      <p>不可直接调用此方法。它将被 DataGrid 实现调用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridItemRenderer:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      
+      此项呈示器的单元格的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      此项呈示器的单元格的列索引。这是与 <codeph>column.columnIndex</codeph> 相同的值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:column:get"><apiName>column</apiName><shortdesc>
+      
+      表示与此项呈示器相关联的列的 GridColumn 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="columnChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      表示与此项呈示器相关联的列的 GridColumn 对象。  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      与项呈示器相对应的网格行的数据提供程序项的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      与项呈示器相对应的网格行的数据提供程序项的值。此值与调用 <codeph>dataProvider.getItemAt(rowIndex)</codeph> 方法所返回的对象相对应。
+     
+      <p>项呈示器可以覆盖此属性定义以访问网格的整个行的数据。 </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:down:get"><apiName>down</apiName><shortdesc>
+      
+      在网格单元格中发生以下两个输入动作之一时，该属性设置为 true：按鼠标按键或按触摸屏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      在网格单元格中发生以下两个输入动作之一时，该属性设置为 <codeph>true</codeph>：按鼠标按键或按触摸屏。当释放鼠标按键、用户的手指离开触摸屏或将鼠标/触摸拖离网格单元格时，<codeph>down</codeph> 属性重置为 <codeph>false</codeph>。   
+     
+      <p>与 List 项呈示器不同，Grid 项呈示器不专门负责显示按下指示符。Grid 本身为所选行或单元格呈示按下指示符。项呈示器还可以更改其 visual 属性以强调正在按此项呈示器。</p>   
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:dragging:get"><apiName>dragging</apiName><shortdesc>
+      
+      如果正在拖动项呈示器（通常作为拖放操作的一部分），则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="draggingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      如果正在拖动项呈示器（通常作为拖放操作的一部分），则包含 <codeph>true</codeph>。目前，Spark DataGrid 控件不支持拖放操作。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:grid:get"><apiName>grid</apiName><shortdesc>
+      返回与此项呈示器相关联的 Grid。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      返回与此项呈示器相关联的 Grid。这是与 <codeph>column.grid</codeph> 相同的值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:hovered:get"><apiName>hovered</apiName><shortdesc>
+      
+      如果项呈示器位于鼠标下，而 Grid 的 selectionMode 为 GridSelectionMode.SINGLE_CELL 或 GridSelectionMode.MULTIPLE_CELLS，或者如果鼠标在项呈示器所属的行中，而 Grid 的 selectionMode 为 GridSelectionMode.SINGLE_ROW 或 GridSelectionMode.MULTIPLE_ROWS，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      如果项呈示器位于鼠标下，而 Grid 的 selectionMode 为 <codeph>GridSelectionMode.SINGLE_CELL</codeph> 或 <codeph>GridSelectionMode.MULTIPLE_CELLS</codeph>，或者如果鼠标在项呈示器所属的行中，而 Grid 的 selectionMode 为 <codeph>GridSelectionMode.SINGLE_ROW</codeph> 或 <codeph>GridSelectionMode.MULTIPLE_ROWS</codeph>，则包含 <codeph>true￼</codeph>。
+     
+      <p>与 List 项呈示器不同，Grid 项呈示器不专门负责显示内容以指明呈示器或其行位于鼠标下。Grid 本身为悬浮行或单元格自动显示 hoverIndicator 外观部件。Grid 项呈示器还可以更改其属性以强调在此项呈示器上悬浮。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:labelDisplay:get"><apiName>labelDisplay</apiName><shortdesc>
+      项呈示器中用于显示 label 属性的可选可视组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelDisplayChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:TextBase</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      项呈示器中用于显示 <codeph>label</codeph> 属性的可选可视组件。如果使用此属性指定可视组件，则组件的 <codeph>text</codeph> 属性与项呈示器的 <codeph>label</codeph> 属性保持同步。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:label:get"><apiName>label</apiName><shortdesc conref="IGridItemRenderer#label">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="IGridItemRenderer#label">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      
+      正在呈示的单元格的从零开始的行索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="rowIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      正在呈示的单元格的从零开始的行索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:selected:get"><apiName>selected</apiName><shortdesc>
+      
+      如果项呈示器的单元格属于当前选定内容，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="selectedChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      如果项呈示器的单元格属于当前选定内容，则包含 <codeph>true</codeph>。
+     
+      <p> 与 List 项呈示器不同，Grid 项呈示器不专门负责显示内容以指明它们是选定内容的一部分。Grid 本身为选定行或单元格自动显示 selectionIndicator 外观部件。项呈示器还可以更改其 visual 属性以强调它属于选定内容。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemRenderer:showsCaret:get"><apiName>showsCaret</apiName><shortdesc>
+      
+      如果插入标记指明项呈示器的单元格，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showsCaretChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      如果插入标记指明项呈示器的单元格，则包含 <codeph>true</codeph>。
+     
+      <p> 与 List 项呈示器不同，Grid 项呈示器不专门负责显示内容以指明它们的单元格或行含有插入标记。Grid 本身为插入标记行或单元格自动显示 caretIndicator 外观部件。项呈示器还可以更改其 visual 属性以强调它含有插入标记。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridItemEditor"><apiName>IGridItemEditor</apiName><shortdesc>
+  IGridItemEditor 接口定义 Spark DataGrid 和 Spark Grid 控件的项编辑器必须实现的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerComponent</apiBaseInterface><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IGridItemEditor 接口定义 Spark DataGrid 和 Spark Grid 控件的项编辑器必须实现的接口。将 DataGrid 和 Grid 控件引用为项呈示器所有者或项编辑器的主机组件。
+ 
+  <p>项编辑器的所有属性都由所有者在启动编辑器会话期间设置。<codeph>data</codeph> 属性是最后一个设置的属性。在设置 <codeph>data</codeph> 属性之后，项编辑器应设置编辑器控件的值。然后，调用编辑器的 <codeph>prepare()</codeph> 方法。IGridItemEditor 实现应覆盖 <codeph>prepare()</codeph> 方法，从而对其属性或其可视元素的任何方面进行任何最终调整。在关闭编辑器时，将调用 <codeph>discard()</codeph> 方法。</p>
+  
+  <p>在关闭编辑器时，可以保存或取消输入的值。如果保存，编辑器将调用 <codeph>save()</codeph> 函数以在与已编辑的单元格的行相对应的数据提供程序元素中写入新值。 </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:discard"><apiName>discard</apiName><shortdesc>
+      恰好在关闭编辑器之前调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      恰好在关闭编辑器之前调用。使用此方法执行任何最后清理，如清理在 <codeph>prepare()</codeph> 方法中设置的任何内容。
+      
+      <p>无需直接调用此方法。应仅由承载项编辑器的控件来调用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:prepare"><apiName>prepare</apiName><shortdesc>
+      在已创建编辑器并设置其大小之后，而编辑器可见之前调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      在已创建编辑器并设置其大小之后，而编辑器可见之前调用。在编辑器可见之前，使用此方法调整编辑器的外观、添加事件侦听器或执行任何其它初始化。
+      
+      <p>无需直接调用此方法。应仅由承载项编辑器的控件来调用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:save"><apiName>save</apiName><shortdesc>
+      将编辑器中的值保存到项呈示器所有者的数据提供程序中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果保存操作成功，则为 <codeph>true</codeph>，否则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      将编辑器中的值保存到项呈示器所有者的数据提供程序中。此方法更新与已编辑的单元格的行相对应的数据提供程序元素。此函数调用 <codeph>GridItemEditor.validate()</codeph> 以验证是否可以保存数据。如果数据无效，则不保存数据，且不关闭编辑器。
+     
+      <p>无需直接调用此方法。应仅由承载项编辑器的控件来调用。要保存并关闭编辑器，请调用项呈示器所有者的 <codeph>endItemEditorSession()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link></related-links></apiOperation><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:columnIndex:get"><apiName>columnIndex</apiName><shortdesc> 
+      正在编辑的从零开始的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+      正在编辑的从零开始的列索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:column:get"><apiName>column</apiName><shortdesc>
+      正在编辑的单元格的列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      正在编辑的单元格的列。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      拥有此项编辑器的控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      拥有此项编辑器的控件。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemEditor:spark.components.gridClasses:IGridItemEditor:rowIndex:get"><apiName>rowIndex</apiName><shortdesc> 
+      正在编辑的单元格的从零开始的行索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc> 
+      正在编辑的单元格的从零开始的行索引。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:GridItemEditor"><apiName>GridItemEditor</apiName><shortdesc>
+  GridItemEditor 类定义 Spark 网格控件（例如 DataGrid 和 Grid）的自定义项编辑器的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[<p>The <code>&lt;s:GridItemEditor&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:GridItemEditor
+    <strong>Properties</strong>
+    column="null"
+    data="null"
+    imeMode="null"
+    itemRenderer="null"
+    rowIndex="0"
+    value="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.components.gridClasses:IGridItemEditor</apiBaseInterface><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridItemEditor 类定义 Spark 网格控件（例如 DataGrid 和 Grid）的自定义项编辑器的基类。可以使用项编辑器编辑网格的单元格的值，然后将该值保存回控件的数据提供程序。
+   <p>项编辑器与网格的每一列相关联。使用 <codeph>GridColumn.itemEditor</codeph> 属性设置列的项编辑器。</p> 
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemEditor"><linktext>spark.components.gridClasses.GridColumn.itemEditor</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:GridItemEditor:GridItemEditor"><apiName>GridItemEditor</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components.gridClasses:GridItemEditor:discard"><apiName>discard</apiName><shortdesc>
+      
+      恰好在关闭编辑器之前调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      恰好在关闭编辑器之前调用。使用此方法执行任何最后清理，如清理在 <codeph>prepare()</codeph> 方法中设置的任何内容。
+      
+      <p>无需直接调用此方法。应仅由承载项编辑器的控件来调用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:prepare"><apiName>prepare</apiName><shortdesc>
+      
+      在已创建编辑器并设置其大小之后，而编辑器可见之前调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      在已创建编辑器并设置其大小之后，而编辑器可见之前调用。在编辑器可见之前，使用此方法调整编辑器的外观、添加事件侦听器或执行任何其它初始化。
+      
+      <p>无需直接调用此方法。应仅由承载项编辑器的控件来调用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:save"><apiName>save</apiName><shortdesc>
+      
+      将编辑器中的值保存到项呈示器所有者的数据提供程序中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果保存操作成功，则为 <codeph>true</codeph>，否则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      将编辑器中的值保存到项呈示器所有者的数据提供程序中。此方法更新与已编辑的单元格的行相对应的数据提供程序元素。此函数调用 <codeph>GridItemEditor.validate()</codeph> 以验证是否可以保存数据。如果数据无效，则不保存数据，且不关闭编辑器。
+     
+      <p>无需直接调用此方法。应仅由承载项编辑器的控件来调用。要保存并关闭编辑器，请调用项呈示器所有者的 <codeph>endItemEditorSession()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:GridItemEditor:protected:validate"><apiName>validate</apiName><shortdesc>
+      测试编辑器中的数据是否有效并可以保存。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>如果编辑器中的数据有效，则为 <codeph>true</codeph>，否则返回 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      测试编辑器中的数据是否有效并可以保存。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:GridItemEditor:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+       
+      正在编辑的从零开始的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+       
+      正在编辑的从零开始的列索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:column:get"><apiName>column</apiName><shortdesc>
+      
+      正在编辑的单元格的列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      正在编辑的单元格的列。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:dataGrid:get"><apiName>dataGrid</apiName><shortdesc>
+      
+      拥有此项编辑器的控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      
+      拥有此项编辑器的控件。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:data:get"><apiName>data</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，用于指示当组件获得焦点时是否应启用 IME。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      指定 IME（输入法编辑器）模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定 IME（输入法编辑器）模式。IME 使用户能够用中文、日文和韩文输入文本。当控件获得焦点时，Flex 设置指定的 IME 模式；当该控件失去焦点时，则将其设置回为先前的值。
+          <p>flash.system.IMEConversionMode 类定义此属性的有效值的常量。您还可以指定 <codeph>null</codeph> 不指定任何 IME 模式。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      与已编辑的单元格相关联的项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:IGridItemRenderer</apiValueClassifier><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      与已编辑的单元格相关联的项呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+       
+      正在编辑的单元格的从零开始的行索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+       
+      正在编辑的单元格的从零开始的行索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:GridItemEditor:value:get"><apiName>value</apiName><shortdesc> 
+      默认情况下，由 data 属性的 setter 方法初始化此属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="valueChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      默认情况下，由 <codeph>data</codeph> 属性的 setter 方法初始化此属性。此属性的默认值为网格控件的数据提供程序中的单元格数据。项编辑器可以使用此属性初始化项编辑器中的任何可视元素。
+           <p>默认情况下，当执行保存操作后关闭编辑器时，<codeph>save()</codeph> 方法将此属性的值写入回网格控件的数据提供程序。 </p>
+     
+      <p>许多自定义项呈示器覆盖此属性的 getter 和 setter 方法。覆盖 setter 方法以根据单元格值初始化编辑器。覆盖 getter 方法以将新的单元格值返回到 <codeph>save()</codeph> 方法。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:IGridItemRenderer"><apiName>IGridItemRenderer</apiName><shortdesc>
+  DataGrid 项呈示器必须实现 IGridItemRenderer 接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  DataGrid 项呈示器必须实现 IGridItemRenderer 接口。DataGrid 使用此 API 为项呈示器提供呈示一个网格或标题<i>单元格</i>所需的信息。  
+ 
+  <p>呈示器的所有属性都在执行父代的 <codeph>updateDisplayList()</codeph> 方法期间设置。设置完属性后，将调用项呈示器的 <codeph>prepare()</codeph> 方法。IGridItemRenderer 实现应覆盖 <codeph>prepare()</codeph> 方法，从而对其属性或其可视元素的任何方面进行任何最终调整。通常 <codeph>prepare()</codeph> 用来基于 <codeph>data</codeph> 属性配置呈示器的可视元素。</p>
+ 
+  <p>如果不再需要项呈示器（由于要将它添加到内部可重用呈示器“空闲”列表中或不再需要它），则调用 IGridItemRenderer <codeph>discard()</codeph> 方法。</p> 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><apiOperation id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:discard"><apiName>discard</apiName><shortdesc>
+      在已确定此呈示器将不再可见时，从项呈示器父代的 updateDisplayList() 方法调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>willBeRecycled</apiItemName><apiType value="Boolean"/><apiDesc>如果要将此呈示器添加到所有者的内部空闲列表以重用，则为 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在已确定此呈示器将不再可见时，从项呈示器父代的 <codeph>updateDisplayList()</codeph> 方法调用。如果 <codeph>willBeRecycled</codeph> 参数设置为 <codeph>true</codeph>，则所有者将此呈示器添加到其内部空闲列表以重用。实现可使用此方法清除任何不再需要的呈示器属性。
+     
+      <p>不可直接调用此方法。它将被 DataGrid 实现调用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:prepare"><apiName>prepare</apiName><shortdesc>
+      在设置了呈示器的所有属性后，从项呈示器父代的 updateDisplayList() 方法调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>hasBeenRecycled</apiItemName><apiType value="Boolean"/><apiDesc> 如果正在重用此呈示器，则为 <codeph>true</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在设置了呈示器的所有属性后，从项呈示器父代的 <codeph>updateDisplayList()</codeph> 方法调用。如果以前从未使用过此呈示器，则 <codeph>hasBeenRecycled</codeph> 参数为 <codeph>false</codeph>，表示此呈示器不可再生。当呈示器将要可见时，每次因呈示器属性更改而重新显示呈示器时，或显式请求重新显示时，调用此方法。 
+     
+      <p>此方法可以用来配置呈示器的所有可视元素和属性。使用此方法与将 <codeph>data</codeph> 属性绑定到可视元素属性相比，效率会更高。注意：由于 <codeph>prepare()</codeph> 方法经常被调用，因此请确保已对其进行高效编码。</p>
+     
+      <p>在调用 <codeph>discard()</codeph> 方法之前，可能会多次调用 <codeph>prepare()</codeph> 方法。</p>
+     
+      <p>不可直接调用此方法。它将被 DataGrid 实现调用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:columnIndex:get"><apiName>columnIndex</apiName><shortdesc>
+      此项呈示器的单元格的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      此项呈示器的单元格的列索引。这是与 <codeph>column.columnIndex</codeph> 相同的值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:column:get"><apiName>column</apiName><shortdesc>
+      表示与此项呈示器相关联的列的 GridColumn 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      表示与此项呈示器相关联的列的 GridColumn 对象。  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:down:get"><apiName>down</apiName><shortdesc>
+      在网格单元格中发生以下两个输入动作之一时，该属性设置为 true：按鼠标按键或按触摸屏。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      在网格单元格中发生以下两个输入动作之一时，该属性设置为 <codeph>true</codeph>：按鼠标按键或按触摸屏。当释放鼠标按键、用户的手指离开触摸屏或将鼠标/触摸拖离网格单元格时，<codeph>down</codeph> 属性重置为 <codeph>false</codeph>。   
+     
+      <p>与 List 项呈示器不同，Grid 项呈示器不专门负责显示按下指示符。Grid 本身为所选行或单元格呈示按下指示符。项呈示器还可以更改其 visual 属性以强调正在按此项呈示器。</p>   
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:dragging:get"><apiName>dragging</apiName><shortdesc>
+      如果正在拖动项呈示器（通常作为拖放操作的一部分），则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果正在拖动项呈示器（通常作为拖放操作的一部分），则包含 <codeph>true</codeph>。目前，Spark DataGrid 控件不支持拖放操作。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:grid:get"><apiName>grid</apiName><shortdesc>
+      与此项呈示器相关联的 Grid，通常是 column.grid 的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      与此项呈示器相关联的 Grid，通常是 <codeph>column.grid</codeph> 的值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:hovered:get"><apiName>hovered</apiName><shortdesc>
+      如果项呈示器位于鼠标下，而 Grid 的 selectionMode 为 GridSelectionMode.SINGLE_CELL 或 GridSelectionMode.MULTIPLE_CELLS，或者如果鼠标在项呈示器所属的行中，而 Grid 的 selectionMode 为 GridSelectionMode.SINGLE_ROW 或 GridSelectionMode.MULTIPLE_ROWS，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果项呈示器位于鼠标下，而 Grid 的 selectionMode 为 <codeph>GridSelectionMode.SINGLE_CELL</codeph> 或 <codeph>GridSelectionMode.MULTIPLE_CELLS</codeph>，或者如果鼠标在项呈示器所属的行中，而 Grid 的 selectionMode 为 <codeph>GridSelectionMode.SINGLE_ROW</codeph> 或 <codeph>GridSelectionMode.MULTIPLE_ROWS</codeph>，则包含 <codeph>true￼</codeph>。
+     
+      <p>与 List 项呈示器不同，Grid 项呈示器不专门负责显示内容以指明呈示器或其行位于鼠标下。Grid 本身为悬浮行或单元格自动显示 hoverIndicator 外观部件。Grid 项呈示器还可以更改其属性以强调在此项呈示器上悬浮。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:label:get"><apiName>label</apiName><shortdesc>
+      要在项呈示器中显示的 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      要在项呈示器中显示的 String。  
+     
+      <p>如果 <codeph>labelDisplay</codeph> 元素已指定，GridItemRenderer 类会自动将该属性的值复制到该元素的 <codeph>text</codeph> 属性。Grid 将 <codeph>label</codeph> 设置为由列的 <codeph>itemToLabel()</codeph> 方法返回的值。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridItemRenderer"><linktext>spark.components.gridClasses.GridItemRenderer</linktext></link></related-links></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:rowIndex:get"><apiName>rowIndex</apiName><shortdesc>
+      正在呈示的单元格的从零开始的行索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+      正在呈示的单元格的从零开始的行索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:selected:get"><apiName>selected</apiName><shortdesc>
+      如果项呈示器的单元格属于当前选定内容，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果项呈示器的单元格属于当前选定内容，则包含 <codeph>true</codeph>。
+     
+      <p> 与 List 项呈示器不同，Grid 项呈示器不专门负责显示内容以指明它们是选定内容的一部分。Grid 本身为选定行或单元格自动显示 selectionIndicator 外观部件。项呈示器还可以更改其 visual 属性以强调它属于选定内容。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:IGridItemRenderer:spark.components.gridClasses:IGridItemRenderer:showsCaret:get"><apiName>showsCaret</apiName><shortdesc>
+      如果插入标记指明项呈示器的单元格，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果插入标记指明项呈示器的单元格，则包含 <codeph>true</codeph>。
+     
+      <p> 与 List 项呈示器不同，Grid 项呈示器不专门负责显示内容以指明它们的单元格或行含有插入标记。Grid 本身为插入标记行或单元格自动显示 caretIndicator 外观部件。项呈示器还可以更改其 visual 属性以强调它含有插入标记。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components.gridClasses:ComboBoxGridItemEditor"><apiName>ComboBoxGridItemEditor</apiName><shortdesc>ComboBoxGridItemEditor 类定义 Spark 网格控件（例如 DataGrid 和 Grid）所使用的项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.binding:IBindingClient</apiBaseInterface><apiBaseClassifier>spark.components.gridClasses:GridItemEditor</apiBaseClassifier></apiClassifierDef><apiDesc>ComboBoxGridItemEditor 类定义 Spark 网格控件（例如 DataGrid 和 Grid）所使用的项呈示器。ComboBoxGridItemEditor 显示单元格值的下拉列表。选择一个值，以便为单元格设置新值。
+      
+      <p>下例显示了将 ComboBoxGridItemEditor 用作其项编辑器的 GridColumn：</p>
+      
+      <pre>
+        &lt;s:GridColumn dataField="quant" 
+            headerText="Qty">
+                &lt;s:itemEditor>
+                    &lt;fx:Component>
+                        &lt;s:ComboBoxGridItemEditor>
+                            &lt;s:dataProvider>
+                                &lt;s:ArrayList>
+                                    &lt;fx:int>0&lt;/fx:int>
+                                    &lt;fx:int>1&lt;/fx:int>
+                                    &lt;fx:int>2&lt;/fx:int>
+                                    &lt;fx:int>3&lt;/fx:int>
+                                &lt;/s:ArrayList>
+                            &lt;/s:dataProvider>
+                        &lt;/s:ComboBoxGridItemEditor>
+                    &lt;/fx:Component>
+                &lt;/s:itemEditor>
+        &lt;/s:GridColumn>
+      </pre>
+      
+      </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links><apiConstructor id="spark.components.gridClasses:ComboBoxGridItemEditor:ComboBoxGridItemEditor"><apiName>ComboBoxGridItemEditor</apiName><shortdesc>构造函数。</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>构造函数。</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.components.gridClasses:ComboBoxGridItemEditor:comboBox"><apiName>comboBox</apiName><shortdesc>项编辑器的 ComboBox 控件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="Bindable"/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:ComboBox</apiValueClassifier></apiValueDef><apiDesc>项编辑器的 ComboBox 控件。 
+        
+          </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components.gridClasses:ComboBoxGridItemEditor:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+              项编辑器中组合框的数据提供程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="comboBoxGridItemEditorDataProviderChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.collections:IList"/></apiValueDef><apiDesc>
+              项编辑器中组合框的数据提供程序。
+                           </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

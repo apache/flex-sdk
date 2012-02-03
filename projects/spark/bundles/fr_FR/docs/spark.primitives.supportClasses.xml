@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.primitives.supportClasses"><apiName>spark.primitives.supportClasses</apiName><apiDetail/><apiClassifier id="spark.primitives.supportClasses:StrokedElement"><apiName>StrokedElement</apiName><shortdesc>
+  La classe StrokedElement est la classe de base pour tous les éléments graphiques qui ont un trait, y compris Line, Ellipse, Path et Rect. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:GraphicElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe StrokedElement est la classe de base pour tous les éléments graphiques qui ont un trait, y compris Line, Ellipse, Path et Rect. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.primitives.supportClasses:StrokedElement:StrokedElement"><apiName>StrokedElement</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives.supportClasses:StrokedElement:protected:beginDraw"><apiName>beginDraw</apiName><shortdesc>
+      Définissez le traçage de cet élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique à dessiner. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Définissez le traçage de cet élément. Il s’agit de la première étape parmi les trois étapes effectuées pendant le processus de traçage. Dans cette étape, les propriétés de trait sont appliquées. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:StrokedElement:protected:draw"><apiName>draw</apiName><shortdesc>
+      Tracer l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique à dessiner. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Tracer l’élément. Il s’agit de la seconde étape parmi les trois étapes effectuées pendant le processus de traçage. Remplacez cette méthode pour implémenter votre dessin. Le trait (et le remplissage, le cas échéant) ont été définis dans la méthode <codeph>beginDraw()</codeph>. Votre remplacement ne doit contenir que des appels à des méthodes de traçage, telles que<codeph>moveTo()</codeph>, <codeph>curveTo()</codeph> et <codeph>drawRect()</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:StrokedElement:protected:endDraw"><apiName>endDraw</apiName><shortdesc>
+      Finalisez le traçage de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique pour terminer le traçage. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Finalisez le traçage de cet élément. Il s’agit de la dernière étape parmi les trois étapes effectuées pendant le processus de traçage. Dans cette étape, les remplissages sont fermés. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:StrokedElement:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      
+      Trace l’élément et/ou dimensionne et positionne son contenu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Indique la largeur du composant, en pixels, des coordonnées du composant, quelle que soit la valeur de la propriété <codeph>scaleX</codeph> du composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Indique la hauteur du composant, en pixels, des coordonnées du composant, quelle que soit la valeur de la propriété <codeph>scaleY</codeph> du composant.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Trace l’élément et/ou dimensionne et positionne son contenu. Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe de l’objet GraphicElement.
+     
+      <p>Vous n’appelez pas cette méthode directement. Flex appelle la méthode <codeph>updateDisplayList()</codeph> lorsque le composant est ajouté à un conteneur <codeph>IGraphicElementContainer</codeph> tel que Group par le biais de la méthode <codeph>addElement()</codeph> et lorsque la méthode <codeph>invalidateDisplayList()</codeph> de l’élément est appelée. </p>
+     
+      <p>Cette méthode est celle où vous procéderiez au traçage par programmation à l’aide des méthodes sur l’objet displayObject de l’élément telles que <codeph>graphics.drawRect()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives.supportClasses:StrokedElement:stroke:get"><apiName>stroke</apiName><shortdesc>
+      Trait utilisé par cet élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.graphics:IStroke"/></apiValueDef><apiDesc>
+      Trait utilisé par cet élément. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives.supportClasses:GraphicElement"><apiName>GraphicElement</apiName><shortdesc>
+  Classe de base pour définir des éléments graphiques individuels. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.core:IGraphicElement</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseInterface>mx.core:ILayoutElement</apiBaseInterface><apiBaseInterface>mx.core:IVisualElement</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Classe de base pour définir des éléments graphiques individuels. Les types d’éléments graphiques incluent : 
+  <ul>
+   <li>Formes </li>
+   <li>Texte</li>
+   <li>Images pixellisées</li>
+  </ul>
+  
+  <p>Lorsque vous définissez un élément graphique, vous spécifiez une taille explicite pour l’élément ; en d’autres termes, vous ne pouvez pas utiliser le dimensionnement de pourcentage comme vous le faites pour spécifier la taille d’un contrôle. </p>
+  
+  <p>Les limites TBound sont les limites d’un objet dans son espace de coordonnées parent. Les limites UBound sont les limites d’un objet dans son propre espace de coordonnées.</p>
+  
+  <p>Si vous définissez la matrice transform.matrix par déclaration dans MXML, il remplace les valeurs de toutes les propriétés de transformation (rotation, scaleX, scaleY, x et y). Si vous définissez la matrice transform.matrix ou les propriétés de transformation dans ActionScript, alors la dernière valeur réglée est utilisée. </p>  
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.primitives.supportClasses:GraphicElement:canShareWithNext"><apiName>canShareWithNext</apiName><shortdesc>
+      
+      Renvoie true si cette classe IGraphicElement est compatible et peut partager des objets d’affichage avec la classe IGraphicElement suivante dans la séquence.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> lorsque cet élément est compatible avec l’élément précédent dans la séquence.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>spark.core:IGraphicElement</apiOperationClassifier><apiDesc>Elément venant après cet élément dans la séquence. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Renvoie <codeph>true</codeph> si cette classe IGraphicElement est compatible et peut partager des objets d’affichage avec la classe IGraphicElement suivante dans la séquence.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:canShareWithPrevious"><apiName>canShareWithPrevious</apiName><shortdesc>
+      
+      Renvoie true si cette classe IGraphicElement est compatible et peut partager des objets d’affichage avec la classe IGraphicElement précédente dans la séquence.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> lorsque cet élément est compatible avec l’élément précédent dans la séquence.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>spark.core:IGraphicElement</apiOperationClassifier><apiDesc>Elément venant avant cet élément dans la séquence. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Renvoie <codeph>true</codeph> si cette classe IGraphicElement est compatible et peut partager des objets d’affichage avec la classe IGraphicElement précédente dans la séquence.
+     
+      <p>Dans certains cas, l’élément peut être transmis à l’objet <codeph>IGraphicElementContainer</codeph> dans un appel à la méthode <codeph>setSharedDisplayObject()</codeph>. Dans ces cas, cette méthode n’est pas appelée. </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:canSkipMeasurement"><apiName>canSkipMeasurement</apiName><shortdesc>
+      Détermine si l’appel à la méthode measure() peut être ignoré. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> lorsque la méthode <codeph>measureSizes()</codeph> peut ignorer l’appel à la méthode <codeph>measure()</codeph>. Par exemple, la valeur est généralement la valeur <codeph>true</codeph> lorsque les propriétés <codeph>explicitWidth</codeph> et <codeph>explicitHeight</codeph> sont défini. Pour les chemins, la valeur est <codeph>true</codeph> lorsque les limites du chemin n’ont pas changé.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Détermine si l’appel à la méthode <codeph>measure()</codeph> peut être ignoré.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:commitProperties"><apiName>commitProperties</apiName><shortdesc>
+      Traite le jeu de propriétés sur l’élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Traite le jeu de propriétés sur l’élément. Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe.
+     
+      <p>Vous n’appelez pas cette méthode directement. Flex appelle la méthode <codeph>commitProperties()</codeph> lorsque vous utilisez la méthode <codeph>addElement()</codeph> pour ajouter un élément à un conteneur <codeph>IGraphicElementContainer</codeph> tel que Group, ou lorsque vous appelez la méthode <codeph>invalidateProperties()</codeph> de l’élément. Les appels de la méthode <codeph>commitProperties()</codeph> sont réalisés avant les appels de la méthode <codeph>measure()</codeph>. Ainsi, vous pouvez définir des valeurs de propriété susceptibles d’être utilisées par la méthode <codeph>measure()</codeph>.</p>
+     
+      <p>Certains éléments possèdent des propriétés qui interagissent entre elles. En règle générale, il est préférable de traiter toutes ces propriétés en même temps au démarrage pour éviter d’avoir à réaliser plusieurs fois les mêmes opérations.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:createDisplayObject"><apiName>createDisplayObject</apiName><shortdesc>
+      
+      Crée un nouvel objet DisplayObject où cet élément IGraphicElement est tracé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet d’affichage créé.
+     
+      </apiDesc><apiType value="flash.display:DisplayObject"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Crée un nouvel objet DisplayObject où cet élément IGraphicElement est tracé. 
+      
+      <p>Les appels suivants à l’accesseur Get de la propriété <codeph>displayObject</codeph> doivent renvoyer le même objet d’affichage. </p>
+     
+      <p>Une fois la classe DisplayObject créée, la classe <codeph>IGraphicElementContainer</codeph> parent transmet les objets d’affichage au reste des éléments dans la séquence. </p>
+     
+      <p>La classe <codeph>IGraphicElementContainer</codeph> garantit que cette méthode est appelée uniquement lorsque cela est nécessaire.</p>
+     
+      <p>Si l’élément veut participer au partage de l’objet DisplayObject, le nouvel objet DisplayObject doit implémenter IShareableDisplayObject. Cette interface est utilisée par la classe <codeph>IGraphicElementContainer</codeph> pour gérer l’invalidation et le retraçage de la séquence d’éléments graphiques et n’est généralement pas directement utilisée par le développeur.</p>
+     
+      <p>Pour réévaluer les séquences partagées, appelez la méthode <codeph>invalidateGraphicElementSharing()</codeph> sur l’objet <codeph>IGraphicElementContainer</codeph>.</p>
+     
+      <p>Pour forcer l’objet <codeph>IGraphicElementContainer</codeph> à supprimer la classe DisplayObject actuelle de l’élément de sa liste d’affichage et à recalculer le partage des objets d’affichage, appelez la méthode <codeph>discardDisplayObject()</codeph> sur l’objet <codeph>IGraphicElementContainer</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getBoundsXAtSize"><apiName>getBoundsXAtSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getBoundsYAtSize"><apiName>getBoundsYAtSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getLayoutBoundsHeight"><apiName>getLayoutBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getLayoutBoundsWidth"><apiName>getLayoutBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getLayoutBoundsX"><apiName>getLayoutBoundsX</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getLayoutBoundsY"><apiName>getLayoutBoundsY</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getLayoutMatrix3D"><apiName>getLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Matrix3D"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getLayoutMatrix"><apiName>getLayoutMatrix</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Matrix"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getMaxBoundsHeight"><apiName>getMaxBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getMaxBoundsWidth"><apiName>getMaxBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getMinBoundsHeight"><apiName>getMinBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getMinBoundsWidth"><apiName>getMinBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getPreferredBoundsHeight"><apiName>getPreferredBoundsHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:getPreferredBoundsWidth"><apiName>getPreferredBoundsWidth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:getStrokeExtents"><apiName>getStrokeExtents</apiName><shortdesc>
+      Renvoie la quantité de pixels occupée par le trait de chaque côté des limites de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Rectangle des étendues du trait. Les propriétés <codeph>left</codeph>, <codeph>right</codeph>, <codeph>top</codeph> et <codeph>bottom</codeph> du rectangle représentent l’étendue du trait pour le côté respectif du cadre de sélection de l’élément. 
+     
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Si la valeur est <codeph>true</codeph>, les étendues du trait sont calculées dans l’espace de coordonnées parent (après l’application des transformations de l’élément). 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Renvoie la quantité de pixels occupée par le trait de chaque côté des limites de l’élément. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:initialized"><apiName>initialized</apiName><shortdesc>
+      Appelée automatiquement par le compilateur MXML lorsqu’une occurrence GraphicElement est créée en utilisant une balise MXML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>Document MXML contenant cette occurrence GraphicElement (non utilisée). 
+      </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>Id MXML de cette occurrence GraphicElement. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Appelée automatiquement par le compilateur MXML lorsqu’une occurrence GraphicElement est créée en utilisant une balise MXML. Si vous créez l’occurrence GraphicElement via ActionScript vous devez définir la propriété <codeph>id</codeph> manuellement. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:invalidateDisplayList"><apiName>invalidateDisplayList</apiName><shortdesc>
+      L’appel de cette méthode provoque l’appel de la méthode validateDisplayList() de l’élément avant le rendu de la liste d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      L’appel de cette méthode provoque l’appel de la méthode <codeph>validateDisplayList()</codeph> de l’élément avant le rendu de la liste d’affichage.
+     
+      <p>Les sous-classes doivent procéder au remplacement et effectuer leurs tâches dans <codeph>updateDisplayList()</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:invalidateDisplayObjectSharing"><apiName>invalidateDisplayObjectSharing</apiName><shortdesc>
+      Méthode d’utilitaire qui avertit l’hôte que cet élément a changé et que son calque doit être mis à jour. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Méthode d’utilitaire qui avertit l’hôte que cet élément a changé et que son calque doit être mis à jour. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:invalidateLayoutDirection"><apiName>invalidateLayoutDirection</apiName><shortdesc>
+     </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:invalidateParentSizeAndDisplayList"><apiName>invalidateParentSizeAndDisplayList</apiName><shortdesc>
+      Méthode d’assistance permettant d’invalider la taille du parent et la liste d’affichage si cet objet affecte sa présentation (includeInLayout est défini sur true). </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Méthode d’assistance permettant d’invalider la taille du parent et la liste d’affichage si cet objet affecte sa présentation (includeInLayout est défini sur true). 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:invalidateProperties"><apiName>invalidateProperties</apiName><shortdesc>
+      L’appel de cette méthode provoque l’appel de la méthode validateProperties() de l’élément avant le rendu de la liste d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      L’appel de cette méthode provoque l’appel de la méthode <codeph>validateProperties()</codeph> de l’élément avant le rendu de la liste d’affichage.
+     
+      <p>Les sous-classes doivent effectuer leurs tâches dans <codeph>commitProperties()</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:invalidateSize"><apiName>invalidateSize</apiName><shortdesc>
+      L’appel de cette méthode provoque l’appel de la méthode validateSize() de l’élément avant le rendu de la liste d’affichage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      L’appel de cette méthode provoque l’appel de la méthode <codeph>validateSize()</codeph> de l’élément avant le rendu de la liste d’affichage.
+     
+      <p>Les sous-classes doivent procéder au remplacement et effectuer leur mesure dans <codeph>measure()</codeph>. Par défaut, lorsque <codeph>explicitWidth</codeph> et <codeph>explicitHeight</codeph> sont définis, la méthode <codeph>measure()</codeph> n’est pas appelée. Pour remplacer ce comportement par défaut, les sous-classes doit remplacer <codeph>skipMeasure()</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:localToGlobal"><apiName>localToGlobal</apiName><shortdesc>
+     Convertit l’objet point des coordonnées de l’objet (locales) vers les coordonnées de la scène (globales).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet Point dont les coordonnées sont relatives à la scène.
+     
+     </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>point</apiItemName><apiType value="flash.geom:Point"/><apiDesc>Nom ou identifiant d’un point créé avec la classe Point, qui spécifie les coordonnées x et y en tant que propriétés.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Convertit l’objet point des coordonnées de l’objet (locales) vers les coordonnées de la scène (globales).
+     
+     <p>Cette méthode permet de convertir les coordonnées x et y des valeurs qui se rapportent à l’origine (0,0) d’un objet spécifique (coordonnées locales) en valeurs qui se rapportent à l’origine de la scène (coordonnées globales).</p>
+     
+     <p>Pour utiliser cette méthode, commencez par créer une occurrence de la classe Point. Les valeurs x et y que vous affectez représentent des coordonnées locales dans la mesure où elles se référent à l’origine de l’objet principal.</p>
+     
+     <p>Vous transmettez ensuite l’occurrence de Point que vous avez créée en tant que paramètre à la méthode localToGlobal(). La méthode renvoie un nouvel objet Point avec des valeurs x et y qui se rapportent à l’origine de la scène et non pas à l’origine de l’objet.</p>
+     
+     </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/localToGlobal"><linktext>flash.display.DisplayObject.localToGlobal</linktext></link></related-links></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:measure"><apiName>measure</apiName><shortdesc>
+      Calcule la taille par défaut de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Calcule la taille par défaut de l’élément. Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe de l’objet GraphicElement.
+     
+      <p>Vous n’appelez pas cette méthode directement. Flex appelle la méthode <codeph>measure()</codeph> lorsque l'élément est ajouté à un conteneur <codeph>IGraphicElementContainer</codeph> tel que Group par le biais de la méthode <codeph>addElement()</codeph> et lorsque la méthode <codeph>invalidateSize()</codeph> de l’élément est appelée. </p>
+     
+      <p>Par défaut, vous définissez une hauteur et une largeur explicites d’un élément, et Flex n’appelle pas la méthode <codeph>measure()</codeph>, même si vous appelez explicitement la méthode <codeph>invalidateSize()</codeph>. Pour remplacer ce comportement, remplacez la méthode <codeph>skipMeasure()</codeph>.</p>
+     
+      <p>Dans votre remplacement de cette méthode, vous devez définir les propriétés <codeph>measuredWidth</codeph> et <codeph>measuredHeight</codeph> pour définir la taille par défaut. Si vous le souhaitez, vous pouvez définir les propriétés <codeph>measuredX</codeph> et <codeph>measuredY</codeph> pour définir le coin supérieur gauche des limites mesurées par défaut par rapport à l’origine de l’élément.</p>
+     
+      <p>Le point de mesure conceptuel de la méthode <codeph>measure()</codeph> permet à l’élément de fournir ses propres limites naturelles ou intrinsèques comme valeur par défaut. Par conséquent, les propriétés <codeph>measuredWidth</codeph> et <codeph>measuredHeight</codeph> doivent être déterminées par des facteurs comme :</p>
+      <ul>
+         <li>La quantité de texte que le composant doit afficher.</li>
+         <li>La taille d’une image JPEG affichée par le composant.</li>
+      </ul>
+     
+      <p>Dans certains cas, aucune méthode intrinsèque ne permet de déterminer les valeurs par défaut. Par exemple, la méthode <codeph>measure()</codeph> d’un élément GreenCircle simple peut simplement définir measuredWidth = 100 et measuredHeight = 100 pour indiquer une taille par défaut raisonnable. Dans d’autres cas, comme le contrôle TextArea, un calcul approprié (comme rechercher la hauteur et la largeur correctes qui permettront d’afficher tout le texte et respecteront les proportions d’un rectangle d’or) peut s’avérer trop long pour que cela en vaille la peine.</p>
+     
+      <p>L’implémentation par défaut de <codeph>measure()</codeph> définit les valeurs des propriétés <codeph>measuredWidth</codeph>, <codeph>measuredHeight</codeph>, <codeph>measuredX</codeph> et <codeph>measuredY</codeph> sur <codeph>0</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:parentChanged"><apiName>parentChanged</apiName><shortdesc>
+      
+      Appelé par l’objet IGraphicElementContainer lorsqu’un élément IGraphicElement est ajouté ou supprimé à partir du composant hôte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiOperationClassifier>spark.core:IGraphicElementContainer</apiOperationClassifier><apiDesc>L’objet <codeph>IGraphicElementContainer</codeph> de cet élément <codeph>IGraphicElement</codeph>.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Appelé par l’objet <codeph>IGraphicElementContainer</codeph> lorsqu’un élément IGraphicElement est ajouté ou supprimé à partir du composant hôte.
+      <p>En règle générale, vous n’avez pas besoin d’appeler cette méthode.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:preferredHeightPreTransform"><apiName>preferredHeightPreTransform</apiName><shortdesc>
+      Utilisé pour l’implémentation de l’interface ILayoutElement ; renvoie la valeur explicite de la prétransformation de hauteur mesurée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Valeur explicite de la prétransformation de hauteur mesurée.
+     
+      </apiDesc><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      Utilisé pour l’implémentation de l’interface ILayoutElement ; renvoie la valeur explicite de la prétransformation de hauteur mesurée.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:preferredWidthPreTransform"><apiName>preferredWidthPreTransform</apiName><shortdesc>
+      Utilisé pour l’implémentation de l’interface ILayoutElement ; renvoie la valeur explicite de la prétransformation de largeur mesurée. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Valeur explicite de la prétransformation de hauteur mesurée.
+     
+      </apiDesc><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      Utilisé pour l’implémentation de l’interface ILayoutElement ; renvoie la valeur explicite de la prétransformation de largeur mesurée. 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:setLayoutBoundsPosition"><apiName>setLayoutBoundsPosition</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newBoundsX</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>newBoundsY</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:setLayoutBoundsSize"><apiName>setLayoutBoundsSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:setLayoutMatrix3D"><apiName>setLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="flash.geom:Matrix3D"/></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:setLayoutMatrix"><apiName>setLayoutMatrix</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="flash.geom:Matrix"/></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:setSharedDisplayObject"><apiName>setSharedDisplayObject</apiName><shortdesc>
+      
+      Détermine si cet élément peut ou non se tracer lui-même sur l’objet sharedDisplayObject de la séquence. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie <codeph>true</codeph> lorsque cet objet IGraphicElement peut se tracer lui-même sur l’objet DisplayObject partagé de la séquence.
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>sharedDisplayObject</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Objet DisplayObject partagé.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Détermine si cet élément peut ou non se tracer lui-même sur l’objet <codeph>sharedDisplayObject</codeph> de la séquence.
+     
+      <p>En général, les implémenteurs renvoient <codeph>true</codeph> lorsque cet objet IGraphicElement peut se tracer de manière cumulée dans la propriété <codeph>graphics </codeph> de l’objet DisplayObject partagé. Dans tous les cas où cet objet IGraphicElement doit définir sur les objets DisplayObject des propriétés ne s’appliquant pas au reste des éléments de la séquence, cette méthode doit retourner <codeph>false</codeph>. Par exemple, il peut s’agit des propriétés rotation, scale, transform, mask, alpha, filters, color transform, 3D et layer.</p>
+     
+      <p>Lorsque cette méthode renvoie <codeph>true</codeph>, les appels suivants à l’accesseur Get de la propriété <codeph>displayObject</codeph> doivent renvoyer le même objet d’affichage.</p>
+     
+      <p>Dans certains cas, la propriété <codeph>sharedDisplayObject</codeph> peut être l’objet <codeph>IGraphicElementContainer</codeph> lui-même. Dans les autres cas, l’objet DisplayObject est créé par le premier élément de la séquence.</p> 
+      
+      <p>Lorsque cet élément IGraphicElement doit reconstruire sa séquence, il avertit l’objet <codeph>IGraphicElementContainer</codeph> en appelant sa méthode <codeph>invalidateGraphicElementSharing()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:transformAround"><apiName>transformAround</apiName><shortdesc conref="mx.core.ILayoutElement#transformAround()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>transformCenter</apiItemName><apiType value="flash.geom:Vector3D"/></apiParam><apiParam><apiItemName>scale</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>rotation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>translation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>postLayoutScale</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>postLayoutRotation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>postLayoutTranslation</apiItemName><apiType value="flash.geom:Vector3D"/><apiData>null</apiData></apiParam><apiParam><apiItemName>invalidateLayout</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiOperationDef><apiDesc conref="mx.core.ILayoutElement#transformAround()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:transformHeightForLayout"><apiName>transformHeightForLayout</apiName><shortdesc>
+      Transforme la taille de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Renvoie la hauteur transformée. La transformation est la matrice de transformation de présentation de cet élément. 
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Largeur de prétransformation cible. 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Hauteur de prétransformation cible. 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Lorsque <codeph>la valeur true</codeph>, le renvoyé le cadre de sélection se trouve autour de la transformée élément dans son espace parent (l'élément la transformation est appliqué en premier).  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Transforme la taille de l’élément. 
+     
+      <p>Cette méthode calcule le cadre de sélection de l'élément graphique comme si la largeur de l'élément/hauteur propriétés ont été définies pour le transmis dans les valeurs. La méthode renvoie la hauteur du cadre de sélection.</p>
+     
+      <p>En général, cette méthode n'est pas utilisée par les développeurs. Au lieu de cela, vous devez implémenter ou de remplacer les méthodes définies par l'interface ILayoutElement.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:transformPointToParent"><apiName>transformPointToParent</apiName><shortdesc>
+     Méthode utilitaire permettant de transformer un point spécifié dans les coordonnées locales de cet objet en emplacement dans les coordonnées du parent de l’objet. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>localPosition</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>Le point à transformer, spécifié dans les coordonnées locales de l’objet. 
+     </apiDesc></apiParam><apiParam><apiItemName>position</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>Point Vector3D qui contiendra le résultat antérieur à la présentation. Si null, le paramètre est ignoré. 
+     </apiDesc></apiParam><apiParam><apiItemName>postLayoutPosition</apiItemName><apiType value="flash.geom:Vector3D"/><apiDesc>Point Vector3D qui contiendra le résultat postérieur à la présentation. Si null, le paramètre est ignoré. 
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Méthode utilitaire permettant de transformer un point spécifié dans les coordonnées locales de cet objet en emplacement dans les coordonnées du parent de l’objet. Les résultats antérieur et postérieur à la mise en forme sont définis sur les paramètres <codeph>position</codeph> et <codeph>postLayoutPosition</codeph>, s’ils n’ont pas la valeur null. 
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:transformWidthForLayout"><apiName>transformWidthForLayout</apiName><shortdesc>
+      Transforme la taille de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Renvoie la largeur transformée. La transformation est la matrice de transformation de présentation de cet élément. 
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Largeur de prétransformation cible. 
+      
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Hauteur de prétransformation cible. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>postLayoutTransform</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Lorsque <codeph>la valeur true</codeph>, le renvoyé le cadre de sélection se trouve autour de la transformée élément dans son espace parent (l'élément la transformation est appliqué en premier).  
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Transforme la taille de l’élément. 
+      
+      <p>Cette méthode calcule le cadre de sélection de l'élément graphique comme si la largeur de l'élément/hauteur propriétés ont été définies pour le transmis dans les valeurs. La méthode renvoie la largeur du cadre de sélection.</p>
+     
+      <p>En général, cette méthode n'est pas utilisée par les développeurs. Au lieu de cela, vous devez implémenter ou de remplacer les méthodes définies par l'interface ILayoutElement.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      Trace l’élément et/ou dimensionne et positionne son contenu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>Indique la largeur du composant, en pixels, des coordonnées du composant, quelle que soit la valeur de la propriété <codeph>scaleX</codeph> du composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>Indique la hauteur du composant, en pixels, des coordonnées du composant, quelle que soit la valeur de la propriété <codeph>scaleY</codeph> du composant.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Trace l’élément et/ou dimensionne et positionne son contenu. Il s’agit d’une méthode avancée que vous pouvez remplacer lorsque vous créez une sous-classe de l’objet GraphicElement.
+     
+      <p>Vous n’appelez pas cette méthode directement. Flex appelle la méthode <codeph>updateDisplayList()</codeph> lorsque le composant est ajouté à un conteneur <codeph>IGraphicElementContainer</codeph> tel que Group par le biais de la méthode <codeph>addElement()</codeph> et lorsque la méthode <codeph>invalidateDisplayList()</codeph> de l’élément est appelée. </p>
+     
+      <p>Cette méthode est celle où vous procéderiez au traçage par programmation à l’aide des méthodes sur l’objet displayObject de l’élément telles que <codeph>graphics.drawRect()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+      
+      Appelé par l’objet IGraphicElementContainer pour retracer cet élément dans sa propriété displayObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Appelé par l’objet <codeph>IGraphicElementContainer</codeph> pour retracer cet élément dans sa propriété <codeph>displayObject</codeph>.
+     
+      <p>Si l’élément est le premier dans la séquence (<codeph>displayObjectSharingMode</codeph> est défini sur <codeph>DisplayObjectSharingMode.OWNS_SHARED_OBJECT</codeph>) il doit alors supprimer les graphiques de l’objet <codeph>displayObject</codeph> et les configurer au besoin pour tracer le reste des éléments.</p>
+     
+      <p>L’élément doit toujours être redessiné même s’il n’a pas été modifié depuis le dernier appel de la méthode <codeph>validateDisplayList()</codeph>. L’objet <codeph>IGraphicElementContainer</codeph> parent retracera l’ensemble de la séquence si l’un quelconque de ses éléments a besoin d’être retracé.</p>
+     
+      <p>Pour que cette méthode soit appelée, notifiez l’objet <codeph>IGraphicElementContainer</codeph> en appelant sa méthode <codeph>invalidateGraphicElementSize()</codeph>. </p>  
+     
+      <p>Cette méthode peut être appelée même si cet élément n’a pas notifié l’objet <codeph>IGraphicElementContainer</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:validateNow"><apiName>validateNow</apiName><shortdesc>
+      Valide et met à jour les propriétés et la mise en forme de cet objet en appelant immédiatement les méthodes validateProperties(), validateSize() et validateDisplayList() lorsque cela est nécessaire.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Valide et met à jour les propriétés et la mise en forme de cet objet en appelant immédiatement les méthodes <codeph>validateProperties()</codeph>, <codeph>validateSize()</codeph> et <codeph>validateDisplayList()</codeph> lorsque cela est nécessaire.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+      Utilisé par la logique de présentation pour valider les propriétés d’un composant par l’appel de la méthode commitProperties().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Utilisé par la logique de présentation pour valider les propriétés d’un composant par l’appel de la méthode <codeph>commitProperties()</codeph>. En général, les sous-classes doivent remplacer la méthode <codeph>commitProperties()</codeph> et non pas cette méthode.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:GraphicElement:validateSize"><apiName>validateSize</apiName><shortdesc>
+      
+      Appelé par l’objet IGraphicElementContainer pour valider la taille de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Appelé par l’objet <codeph>IGraphicElementContainer</codeph> pour valider la taille de cet élément.
+     
+      <p>Lorsque la taille de l’élément change et est sur le point d’affecter la présentation de l’objet <codeph>IGraphicElementContainer</codeph>, il incombe à l’implémenteur d’invalider la taille et la liste d’affichage du parent.</p>
+     
+      <p>Pour garantir que cette méthode soit appelée, notifiez l’objet <codeph>IGraphicElementContainer</codeph> en appelant sa méthode <codeph>invalidateGraphicElementSize()</codeph>.</p>
+     
+      <p>Cette méthode peut être appelée même si cet élément n’a pas notifié l’objet <codeph>IGraphicElementContainer</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives.supportClasses:GraphicElement:protected:layoutFeatures"><apiName>layoutFeatures</apiName><shortdesc>
+      Contiennent tous les détails d’implémentation relatifs à la manière dont l’objet GraphicElement implémente la prise en charge de transformation et de présentation. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:AdvancedLayoutFeatures"/></apiValueDef><apiDesc>
+      Contiennent tous les détails d’implémentation relatifs à la manière dont l’objet GraphicElement implémente la prise en charge de transformation et de présentation. Dans la plupart des cas, il n’est normalement pas nécessaire de modifier cette propriété. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:alpha:get"><apiName>alpha</apiName><shortdesc>
+      Niveau de transparence de l’élément graphique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Niveau de transparence de l’élément graphique. Les valeurs possibles sont les valeurs décimales comprises entre 0 (entièrement transparent) et 1 (entièrement opaque). Par exemple, une valeur de 0,25 signifie que l’élément a 25 % d’opacité. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:alwaysCreateDisplayObject:get"><apiName>alwaysCreateDisplayObject</apiName><shortdesc>
+      Spécifie que cet objet GraphicElement doit être associé à sa propre classe DisplayObject et rendu dans cette dernière.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie que cet objet GraphicElement doit être associé à sa propre classe DisplayObject et rendu dans cette dernière.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:baselinePosition:get"><apiName>baselinePosition</apiName><shortdesc>
+      Coordonnée y de la ligne de base de la première ligne de texte du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Coordonnée y de la ligne de base de la première ligne de texte du composant. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:baseline:get"><apiName>baseline</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:blendMode:get"><apiName>blendMode</apiName><shortdesc>
+      Valeur de la classe BlendMode qui spécifie le mode de fusion à utiliser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>auto
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Valeur de la classe BlendMode qui spécifie le mode de fusion à utiliser. 
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/blendMode"><linktext>flash.display.DisplayObject.blendMode</linktext></link><link href="" invalidHref="flash.display.BlendMode.xml"><linktext>flash.display.BlendMode</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:bottom:get"><apiName>bottom</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:depth:get"><apiName>depth</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:designLayer:get"><apiName>designLayer</apiName><shortdesc conref="mx.core.IVisualElement#designLayer">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:DesignLayer"/></apiValueDef><apiDesc conref="mx.core.IVisualElement#designLayer">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:displayObjectSharingMode:get"><apiName>displayObjectSharingMode</apiName><shortdesc>
+      
+      Indique l’association entre cette interface IGraphicElement et ses objets d’affichage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Indique l’association entre cette interface IGraphicElement et ses objets d’affichage. L’objet <codeph>IGraphicElementContainer</codeph> gère cette propriété et les valeurs correspondent à l’une des classes Enum DisplayObjectSharingMode.
+     
+      <ul> 
+        <li>Une valeur de <codeph>DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT</codeph> indique que l’interface possède exclusivement la classe DisplayObject correspondant à sa propriété <codeph>displayObject</codeph>.</li>
+     
+        <li>Une valeur de <codeph>DisplayObjectSharingMode.OWNS_SHARED_OBJECT</codeph> indique que l’interface IGraphicElement possède la classe DisplayObject correspondant à sa propriété <codeph>displayObject</codeph> mais que d’autres interfaces IGraphicElement utilisent/tracent cet objet d’affichage également. En fonction de l’implémentation spécifique, l’interface IGraphicElement peut exécuter une certaine gestion de l’objet d’affichage. Par exemple, la classe de base GraphicElement supprime la transformation de l’objet d’affichage, réinitialise sa visibilité, alpha, etc. propriétés à leurs valeurs par défaut et supprime en outre les images sur tous les appels <codeph>validateDisplayList()</codeph>.</li>
+     
+        <li>Une valeur de <codeph>DisplayObjectSharingMode.OWNS_SHARED_OBJECT</codeph> indique que l’interface IGraphicElement possède exclusivement la classe DisplayObject correspondant à sa propriété <codeph>displayObject</codeph>. Il existe une ou plusieurs interfaces IGraphicElement qui se tracent dans le même objet displayObject et le premier élément qui trace a son mode défini sur <codeph>DisplayObjectMode.OWNS_SHARED_OBJECT</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:displayObject:get"><apiName>displayObject</apiName><shortdesc>
+      
+      Objet DisplayObject partagé où cet élément IGraphicElement est tracé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      
+      Objet DisplayObject partagé où cet élément IGraphicElement est tracé. 
+     
+      <p>Les implémenteurs ne doivent pas créer l’objet DisplayObject ici, mais dans la méthode <codeph>createDisplayObject.</codeph></p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:protected:drawX:get"><apiName>drawX</apiName><shortdesc>
+      Position x où l’élément doit être tracé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position x où l’élément doit être tracé. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:protected:drawY:get"><apiName>drawY</apiName><shortdesc>
+      Position y où l’élément doit être tracé. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position y où l’élément doit être tracé. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:protected:drawnDisplayObject:get"><apiName>drawnDisplayObject</apiName><shortdesc>
+      Objet DisplayObject actuel, sur lequel est tracé l’élément GraphicElement. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      Objet DisplayObject actuel, sur lequel est tracé l’élément GraphicElement. En règle générale, il équivaut à la propriété <codeph>displayObject</codeph>. Les sous-classes doivent exécuter les commandes de dessin de cette propriété plutôt que sur <codeph>displayObject</codeph>.  
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:explicitHeight:get"><apiName>explicitHeight</apiName><shortdesc>
+      Nombre définissant la hauteur explicite du composant en pixels, dans les coordonnées du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la hauteur explicite du composant en pixels, dans les coordonnées du composant.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitHeight"><linktext>mx.core.UIComponent.explicitHeight</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:explicitMaxHeight:get"><apiName>explicitMaxHeight</apiName><shortdesc>
+      Hauteur maximale recommandée du composant à prendre en compte par le parent lors de la présentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Hauteur maximale recommandée du composant à prendre en compte par le parent lors de la présentation. Cette valeur est exprimée dans les coordonnées du composant, en pixels.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMaxHeight"><linktext>mx.core.UIComponent.explicitMaxHeight</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:explicitMaxWidth:get"><apiName>explicitMaxWidth</apiName><shortdesc>
+      Largeur maximale recommandée du composant à prendre en compte par le parent lors de la présentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Largeur maximale recommandée du composant à prendre en compte par le parent lors de la présentation. Cette valeur est exprimée dans les coordonnées du composant, en pixels.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMaxWidth"><linktext>mx.core.UIComponent.explicitMaxWidth</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:explicitMinHeight:get"><apiName>explicitMinHeight</apiName><shortdesc>
+      Hauteur minimale recommandée du composant à prendre en compte par le parent lors de la présentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Hauteur minimale recommandée du composant à prendre en compte par le parent lors de la présentation. Cette valeur est exprimée dans les coordonnées du composant, en pixels. 
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMinHeight"><linktext>mx.core.UIComponent.explicitMinHeight</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:explicitMinWidth:get"><apiName>explicitMinWidth</apiName><shortdesc> 
+      Largeur minimale recommandée du composant à prendre en compte par le parent lors de la présentation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc> 
+      Largeur minimale recommandée du composant à prendre en compte par le parent lors de la présentation. Cette valeur est dans les coordonnées du composant, en pixels. 
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitMinWidth"><linktext>mx.core.UIComponent.explicitMinWidth</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:explicitWidth:get"><apiName>explicitWidth</apiName><shortdesc>
+      Nombre définissant la largeur explicite du composant en pixels, dans les coordonnées du composant.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Nombre définissant la largeur explicite du composant en pixels, dans les coordonnées du composant.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/explicitWidth"><linktext>mx.core.UIComponent.explicitWidth</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:filters:get"><apiName>filters</apiName><shortdesc>
+      Tableau indexé contenant tous les objets filtre actuellement associés à l’élément graphique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Tableau indexé contenant tous les objets filtre actuellement associés à l’élément graphique. Le package mx.filters contient des classes qui définissent des filtres spécifiques.
+      
+      <p>L’accesseur Get propriété renvoie une copie du tableau de filtres. La valeur de la propriété filters ne peut être modifiée via le l’accesseur Set. </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.filters.xml#BevelFilter"><linktext>spark.filters.BevelFilter</linktext></link><link href="spark.filters.xml#BlurFilter"><linktext>spark.filters.BlurFilter</linktext></link><link href="spark.filters.xml#ColorMatrixFilter"><linktext>spark.filters.ColorMatrixFilter</linktext></link><link href="spark.filters.xml#ConvolutionFilter"><linktext>spark.filters.ConvolutionFilter</linktext></link><link href="spark.filters.xml#DisplacementMapFilter"><linktext>spark.filters.DisplacementMapFilter</linktext></link><link href="spark.filters.xml#DropShadowFilter"><linktext>spark.filters.DropShadowFilter</linktext></link><link href="spark.filters.xml#GlowFilter"><linktext>spark.filters.GlowFilter</linktext></link><link href="spark.filters.xml#GradientBevelFilter"><linktext>spark.filters.GradientBevelFilter</linktext></link><link href="spark.filters.xml#GradientFilter"><linktext>spark.filters.GradientFilter</linktext></link><link href="spark.filters.xml#GradientGlowFilter"><linktext>spark.filters.GradientGlowFilter</linktext></link><link href="spark.filters.xml#ShaderFilter"><linktext>spark.filters.ShaderFilter</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:protected:hasComplexLayoutMatrix:get"><apiName>hasComplexLayoutMatrix</apiName><shortdesc>
+      Renvoie true si la classe GraphicElement possède des propriétés de transformation de non-translation (x,y) 
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Renvoie true si la classe GraphicElement possède des propriétés de transformation de non-translation (x,y) 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:hasLayoutMatrix3D:get"><apiName>hasLayoutMatrix3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:height:get"><apiName>height</apiName><shortdesc>
+      Hauteur de l’élément graphique.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Hauteur de l’élément graphique.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:horizontalCenter:get"><apiName>horizontalCenter</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:id:get"><apiName>id</apiName><shortdesc>
+      Identité du composant. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Identité du composant. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:includeInLayout:get"><apiName>includeInLayout</apiName><shortdesc>
+      Spécifie si cet élément est inclus dans la présentation du parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Spécifie si cet élément est inclus dans la présentation du parent.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:is3D:get"><apiName>is3D</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:layoutDirection:get"><apiName>layoutDirection</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:left:get"><apiName>left</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:luminosityClip:get"><apiName>luminosityClip</apiName><shortdesc>
+      Propriété qui contrôle si le masque de luminosité écrête le contenu masqué. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Propriété qui contrôle si le masque de luminosité écrête le contenu masqué. Cette propriété a un effet uniquement si un masque de type MaskType.LUMINOSITY a été appliqué à l’élément graphique.   
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.primitives.supportClasses.xml#GraphicElement/maskType"><linktext>maskType</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:luminosityInvert:get"><apiName>luminosityInvert</apiName><shortdesc>
+      Une propriété qui contrôle le calcul de la valeur de couleur RVB d’un élément graphique masqué par un masque de luminosité. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false 
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Une propriété qui contrôle le calcul de la valeur de couleur RVB d’un élément graphique masqué par un masque de luminosité. Si elle est définie sur true, la valeur de couleur RVB d’un pixel dans le contenu source est inversée et multipliée par la région correspondante dans le masque. Si elle est définie sur false, la valeur de couleur RVB d’un pixel dans le contenu source est utilisée directement.  
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.primitives.supportClasses.xml#GraphicElement/maskType"><linktext>maskType</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:maskType:get"><apiName>maskType</apiName><shortdesc>
+      Définit la façon dont le masque est appliqué à l’élément GraphicElement. Les valeurs possibles sont MaskType.CLIP, MaskType.ALPHA et MaskType.LUMINOSITY. Masquage d’écrêtage : lors d’un masquage en mode écrêtage, un masque d’écrêtage est réduit à 1 bit. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>MaskType.CLIP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <p>Définit la façon dont le masque est appliqué à l’élément GraphicElement. </p> 
+     
+      <p>Les valeurs possibles sont <codeph>MaskType.CLIP</codeph>, <codeph>MaskType.ALPHA</codeph> et <codeph>MaskType.LUMINOSITY</codeph>.</p>  
+     
+      <p><b>Masquage d’écrêtage </b></p>
+     
+      <p>Lors d’un masquage en mode écrêtage, un masque d’écrêtage est réduit à 1 bit. Cela signifie qu’un masque n’affecte pas l’opacité d’un pixel dans le contenu source ; il ne modifie pas la valeur, si le pixel correspondant dans le masque possède une valeur alpha autre que zéro ou le rend complètement transparent, si la valeur alpha du pixel du masque est égale à zéro. </p>
+     
+      <p>Lors de l’utilisation du masquage d’écrêtage, seul le chemin actuel ainsi que les vecteurs et les remplissages de forme définis par le masque sont utilisés pour déterminer l’effet sur le contenu source. Les traits et les filtres de bitmap définis sur le masque sont ignorés. Toute zone remplie du masque est considérée comme étant remplie et applique ce rendu au contenu source. Le type et les paramètres du remplissage ne sont pas pertinents ; une couleur en aplat, de dégradé ou un remplissage bitmap dans un masque s’appliquent au contenu source sous-jacent, quelles que soient les valeurs alpha du remplissage de masque. </p>
+      
+      <p>Les objets BitmapGraphics sont traités comme des rectangles remplis de bitmaps lorsqu’ils sont utilisés dans un masque d’écrêtage. Par conséquent, la couche alpha du bitmap source n’est pas pertinente lorsqu’une partie d’un masque, le bitmap, affecte le masque de la même manière qu’un rectangle au remplissage uniforme de dimensions équivalentes. </p>
+     
+      <p><b>Masquage alpha </b></p>
+     
+      <p>En mode alpha, l’opacité de chaque pixel du contenu source est multipliée par l’opacité de la région correspondante du masque. Par exemple, un pixel du contenu source d’une opacité de 1 qui est masqué par une région d’opacité de .5 produira une opacité de .5. Un pixel source d’une opacité de .8 masqué par une région d’une opacité de .5 affichera une opacité de .4. </p>
+     
+      <p>Conceptuellement parlant, le masquage alpha équivaut à restituer le masque et le contenu source transformés en surfaces RVBA distinctes et à multiplier la couche alpha du contenu du masque avec la couche alpha du contenu source. Tout le contenu du masque est rendu dans sa surface avant la composition dans la surface du contenu source. Par conséquent, tous les fonctionnalités FXG, comme les traits, les filtres de bitmap et l’opacité de remplissage affecte la composition finale du contenu. </p>
+     
+      <p>Lorsque vous êtes en mode alpha, la composition de la couche alpha des données bitmap est effectuée normalement dans la couche alpha du masque et influe sur le rendu final du contenu. Cela est valable pour les chemins et les formes remplies de bitmaps BitmapGraphics. </p>
+     
+      <p><b>Masquage de luminosité</b></p>
+     
+      <p>Un masque de luminosité, parfois appelé « masque léger », fonctionne de manière analogue à un masque alpha, sauf que l’opacité et la valeur de couleur RVB d’un pixel dans le contenu source sont multipliées par l’opacité et la valeur de couleur RVB de la région correspondante dans le masque. </p>
+     
+      <p>Conceptuellement parlant, le masquage de luminosité équivaut à restituer le masque et le contenu source transformés en surfaces RVBA distinctes et à multiplier la couche alpha et la valeur de couleur RVB du contenu du masque avec la couche alpha et la valeur de couleur RVB du contenu source. Tout le contenu du masque est rendu dans sa surface avant la composition dans la surface du contenu source. Par conséquent, tous les fonctionnalités FXG, comme les traits, les filtres de bitmap et l’opacité de remplissage affecte la composition finale du contenu. </p>
+     
+      <p>Le masquage de luminosité n’est pas une fonctionnalité native de Flash, mais est disponible dans des outils Adobe Creative Suite tels qu’Adobe Illustrator et Adobe Photoshop. Pour obtenir l’effet visuel d’un masque de luminosité dans le contenu rendu par Flash, un élément graphique spécifiant un masque de luminosité instancie en fait un filtre Shader qui simule l’aspect visuel d’un masque de luminosité tel qu’il est rendu dans les outils Adobe Creative Suite. </p>
+     
+      <p>Les objets masqués par des masques de luminosité peuvent définir des propriétés pour contrôler la valeur de couleur RVB et l’écrêtage du masque. Voir les attributs de luminosityInvert et luminosityClip. </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.core.MarkType.xml"><linktext>spark.core.MarkType</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:mask:get"><apiName>mask</apiName><shortdesc>
+      L’objet d’affichage appelant est masqué par l’objet mask spécifié.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      L’objet d’affichage appelant est masqué par l’objet mask spécifié. Si l’objet d’affichage de masque n’est pas dans la liste d’affichage, il y est ajouté en tant qu’enfant de displayObject. L’objet mask en tant que tel n’est pas dessiné. Réglez mask sur null pour supprimer le masque. Pour utiliser une autre élément GraphicElement en tant que masque, enveloppez-le dans un objet Group ou un autre conteneur.  
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#DisplayObject/mask"><linktext>flash.display.DisplayObject.mask</linktext></link></related-links></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:maxHeight:get"><apiName>maxHeight</apiName><shortdesc conref="mx.core.UIComponent#maxHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#maxHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:maxWidth:get"><apiName>maxWidth</apiName><shortdesc conref="mx.core.UIComponent#maxWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#maxWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc conref="mx.core.UIComponent#measuredHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#measuredHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc conref="mx.core.UIComponent#measuredWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#measuredWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:measuredX:get"><apiName>measuredX</apiName><shortdesc>
+      Coin supérieur gauche des limites mesurées par défaut par rapport à l’origine de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Coin supérieur gauche des limites mesurées par défaut par rapport à l’origine de l’élément.      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:measuredY:get"><apiName>measuredY</apiName><shortdesc>
+      Coin supérieur gauche des limites mesurées par défaut par rapport à l’origine de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Coin supérieur gauche des limites mesurées par défaut par rapport à l’origine de l’élément.      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:minHeight:get"><apiName>minHeight</apiName><shortdesc conref="mx.core.UIComponent#minHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:minWidth:get"><apiName>minWidth</apiName><shortdesc conref="mx.core.UIComponent#minWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#minWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:protected:needsDisplayObject:get"><apiName>needsDisplayObject</apiName><shortdesc>
+      La valeur est true si l’élément requiert un objet DisplayObject exclusif. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      La valeur est true si l’élément requiert un objet DisplayObject exclusif. Les développeurs n’appelent généralement pas directement cette méthode, mais la remplacent dans leurs sous-classes pour indiquer qu’un objet DisplayObject exclusif est nécessaire. En règle générale, une sous-classe a besoin d’un objet DisplayObject lorsqu’elle doit définir ses propriétés. Voici quelques exemples de propriétés DisplayObject : <codeph>filters</codeph>, <codeph>blendMode</codeph>, <codeph>mask</codeph>, <codeph>rotation</codeph>, <codeph>alpha</codeph>. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:owner:get"><apiName>owner</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:parent:get"><apiName>parent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:percentHeight:get"><apiName>percentHeight</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:percentWidth:get"><apiName>percentWidth</apiName><shortdesc conref="mx.core.UIComponent#percentWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.core.UIComponent#percentWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:postLayoutTransformOffsets:get"><apiName>postLayoutTransformOffsets</apiName><shortdesc conref="mx.core.IVisualElement#postLayoutTransformOffsets">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.geom:TransformOffsets"/></apiValueDef><apiDesc conref="mx.core.IVisualElement#postLayoutTransformOffsets">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:right:get"><apiName>right</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:rotationX:get"><apiName>rotationX</apiName><shortdesc>
+     Indique la rotation de l’axe des x de l’occurrence de l’élément, en degrés, à partir de son orientation d’origine par rapport au conteneur 3D parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     Indique la rotation de l’axe des x de l’occurrence de l’élément, en degrés, à partir de son orientation d’origine par rapport au conteneur 3D parent. Les valeurs comprises entre 0 et 180 représentent la rotation en sens horaire ; les valeurs comprises entre 0 et -180 représentent la rotation en sens anti-horaire. Les valeurs hors de cette plage sont ajoutées ou soustraites de 360 pour obtenir une valeur comprise dans la plage. Cette propriété est ignorée lors du calcul par une présentation 2D Flex.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:rotationY:get"><apiName>rotationY</apiName><shortdesc>
+     Indique la rotation de l’axe des y de l’occurrence DisplayObject, en degrés, à partir de son orientation d’origine par rapport au conteneur 3D parent.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     Indique la rotation de l’axe des y de l’occurrence DisplayObject, en degrés, à partir de son orientation d’origine par rapport au conteneur 3D parent. Les valeurs comprises entre 0 et 180 représentent la rotation en sens horaire ; les valeurs comprises entre 0 et -180 représentent la rotation en sens anti-horaire. Les valeurs hors de cette plage sont ajoutées ou soustraites de 360 pour obtenir une valeur comprise dans la plage. Cette propriété est ignorée lors du calcul par une présentation 2D Flex.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:rotationZ:get"><apiName>rotationZ</apiName><shortdesc>
+      Indique la rotation de l’élément, en degrés, à partir du point de transformation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Indique la rotation de l’élément, en degrés, à partir du point de transformation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:rotation:get"><apiName>rotation</apiName><shortdesc>
+      Indique la rotation de l’élément, en degrés, à partir du point de transformation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Indique la rotation de l’élément, en degrés, à partir du point de transformation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      Echelle horizontale (pourcentage) de l’élément telle qu’elle est appliquée à partir du point de transformation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Echelle horizontale (pourcentage) de l’élément telle qu’elle est appliquée à partir du point de transformation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      Echelle verticale (pourcentage) de l’élément telle qu’elle est appliquée à partir du point de transformation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Echelle verticale (pourcentage) de l’élément telle qu’elle est appliquée à partir du point de transformation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:scaleZ:get"><apiName>scaleZ</apiName><shortdesc>
+      Echelle z (pourcentage) de l’élément telle qu’elle est appliquée à partir du point de transformation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Echelle z (pourcentage) de l’élément telle qu’elle est appliquée à partir du point de transformation.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:top:get"><apiName>top</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:transformX:get"><apiName>transformX</apiName><shortdesc>
+      Point de transformation de la position x de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Point de transformation de la position x de l’élément. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:transformY:get"><apiName>transformY</apiName><shortdesc>
+      Point de transformation de la position y de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Point de transformation de la position y de l’élément. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:transformZ:get"><apiName>transformZ</apiName><shortdesc>
+      Point de transformation de la position z de l’élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Point de transformation de la position z de l’élément. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:transform:get"><apiName>transform</apiName><shortdesc conref="mx.core.IFlexDisplayObject#transform">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Transform"/></apiValueDef><apiDesc conref="mx.core.IFlexDisplayObject#transform">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:verticalCenter:get"><apiName>verticalCenter</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:visible:get"><apiName>visible</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:width:get"><apiName>width</apiName><shortdesc>
+      Largeur de l’élément graphique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Largeur de l’élément graphique. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:x:get"><apiName>x</apiName><shortdesc>
+      Position x de l’élément graphique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position x de l’élément graphique. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:y:get"><apiName>y</apiName><shortdesc>
+      Position y de l’élément graphique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position y de l’élément graphique. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.primitives.supportClasses:GraphicElement:z:get"><apiName>z</apiName><shortdesc>
+      Position z de l’élément graphique. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Position z de l’élément graphique. 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.primitives.supportClasses:FilledElement"><apiName>FilledElement</apiName><shortdesc>
+  La classe FilledElement est la classe de base des éléments graphiques comportant un trait et un remplissage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.primitives.supportClasses:StrokedElement</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe FilledElement est la classe de base des éléments graphiques comportant un trait et un remplissage. Il s’agit d’une classe de base, non utilisée directement dans MXML ou ActionScript. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.primitives.supportClasses:FilledElement:FilledElement"><apiName>FilledElement</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Constructeur. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.primitives.supportClasses:FilledElement:protected:beginDraw"><apiName>beginDraw</apiName><shortdesc>
+      
+      Définissez le traçage de cet élément. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique à dessiner. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Définissez le traçage de cet élément. Il s’agit de la première étape parmi les trois étapes effectuées pendant le processus de traçage. Dans cette étape, les propriétés de trait sont appliquées. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.primitives.supportClasses:FilledElement:protected:endDraw"><apiName>endDraw</apiName><shortdesc>
+      
+      Finalisez le traçage de cet élément.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>g</apiItemName><apiType value="flash.display:Graphics"/><apiDesc>Elément graphique pour terminer le traçage. 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Finalisez le traçage de cet élément. Il s’agit de la dernière étape parmi les trois étapes effectuées pendant le processus de traçage. Dans cette étape, les remplissages sont fermés. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.primitives.supportClasses:FilledElement:fill:get"><apiName>fill</apiName><shortdesc>
+      Objet qui définit les propriétés du remplissage. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.graphics:IFill"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Objet qui définit les propriétés du remplissage. S’il n’est pas défini, l’objet est tracé sans remplissage. 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

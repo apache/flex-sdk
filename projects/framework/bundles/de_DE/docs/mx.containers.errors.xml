@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.containers.errors"><apiName>mx.containers.errors</apiName><apiDetail/><apiClassifier id="mx.containers.errors:ConstraintError"><apiName>ConstraintError</apiName><shortdesc>
+  Dieser Fehler wird ausgelöst, wenn ein Beschränkungsausdruck nicht korrekt konfiguriert ist, beispielsweise wenn der GridColumn-Verweis ungültig ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Dieser Fehler wird ausgelöst, wenn ein Beschränkungsausdruck nicht korrekt konfiguriert ist, beispielsweise wenn der GridColumn-Verweis ungültig ist.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.containers.errors:ConstraintError:ConstraintError"><apiName>ConstraintError</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="String"/><apiDesc>Eine Meldung, die Informationen über die Fehlerursache enthält.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

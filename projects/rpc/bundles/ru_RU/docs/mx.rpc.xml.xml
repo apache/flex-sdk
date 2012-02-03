@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.xml"><apiName>mx.rpc.xml</apiName><apiDetail/><apiClassifier id="mx.rpc.xml:IXMLEncoder"><apiName>IXMLEncoder</apiName><shortdesc>
+ Кодирует граф объекта ActionScript в XML на основе схемы XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Кодирует граф объекта ActionScript в XML на основе схемы XML.
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:encode"><apiName>encode</apiName><shortdesc>
+     Кодирует значение ActionScript в виде XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает кодировку XML данного значения ActionScript.
+      
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Значение ActionScript, которое требуется кодировать в виде XML.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>QName элемента <codeph>element</codeph> схемы XML с описанием способа кодировки значения или имени для использования в кодированном узле XML, если также указан тип параметра.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>QName определения <codeph>simpleType</codeph> или <codeph>complexType</codeph> схемы XML с описанием способа кодировки значения.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>Если в схеме отсутствует элемент верхнего уровня и тип с описанием способа кодировки данного значения, возможно предоставление пользовательского определения элемента.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Кодирует значение ActionScript в виде XML.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:reset"><apiName>reset</apiName><shortdesc>
+     Устанавливает кодер в начальное состояние со сбросом любой области схемы до верхнего уровня.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Устанавливает кодер в начальное состояние со сбросом любой области схемы до верхнего уровня.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:strictNillability:get"><apiName>strictNillability</apiName><shortdesc>
+     Если для strictNillability установлено значение true, значения null кодируются по правилам схемы XML (в определении требуется установка значения true для nillable).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Если для strictNillability установлено значение <codeph>true</codeph>, значения null кодируются по правилам схемы XML (в определении требуется установка значения true для nillable). Если для strictNillability установлено значение <codeph>false</codeph>, значения null всегда кодируются с атрибутом <codeph>xsi:nil = true</codeph>. Значение по умолчанию равно <codeph>false</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+     Функция, которая используется для удаления специальных символов XML перед кодированием любого простого содержимого.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+     Функция, которая используется для удаления специальных символов XML перед кодированием любого простого содержимого.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:QualifiedResourceManager"><apiName>QualifiedResourceManager</apiName><shortdesc>
+ QualifiedResourceManager представляет собой вспомогательный класс, который определяет порядок добавления ресурсов и отображает целевое пространство имен для одного или нескольких ресурсов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ QualifiedResourceManager представляет собой вспомогательный класс, который определяет порядок добавления ресурсов и отображает целевое пространство имен для одного или нескольких ресурсов.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.xml:QualifiedResourceManager:QualifiedResourceManager"><apiName>QualifiedResourceManager</apiName><shortdesc>
+     Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.xml:QualifiedResourceManager:addResource"><apiName>addResource</apiName><shortdesc>
+     Добавляет ресурс к потенциальному массиву ресурсов для данного пространства имен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>ns</apiItemName><apiType value="Namespace"/><apiDesc>Пространство имен для массива ресурсов.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>resource</apiItemName><apiType value="Object"/><apiDesc>Ресурс, который требуется добавить.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Добавляет ресурс к потенциальному массиву ресурсов для данного пространства имен.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResourcesForNamespace"><apiName>getResourcesForNamespace</apiName><shortdesc>
+     Возвращает массив ресурсов для данного целевого пространства имен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив ресурсов.
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>ns</apiItemName><apiType value="Namespace"/><apiDesc>пространство имен для массива ресурсов.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Возвращает массив ресурсов для данного целевого пространства имен.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResourcesForURI"><apiName>getResourcesForURI</apiName><shortdesc>
+     Возвращает массив ресурсов для данного целевого URI.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив ресурсов.
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>URI для массива ресурсов.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Возвращает массив ресурсов для данного целевого URI.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResources"><apiName>getResources</apiName><shortdesc>
+     Получает массив всех ресурсов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив ресурсов.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+     Получает массив всех ресурсов.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:QualifiedResourceManager:protected:resourcesMap"><apiName>resourcesMap</apiName><shortdesc>
+     Отображает Namespace.uri для массива ресурсов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Отображает <codeph>Namespace.uri</codeph> для <codeph>массива ресурсов</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:QualifiedResourceManager:protected:resources"><apiName>resources</apiName><shortdesc>
+     Этот массив используется для сохранения порядка ресурсов, в котором они были добавлены, с целью использования этого порядка при поиске ресурсов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     Этот массив используется для сохранения порядка ресурсов, в котором они были добавлены, с целью использования этого порядка при поиске ресурсов.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:SimpleXMLEncoder"><apiName>SimpleXMLEncoder</apiName><shortdesc>
+ Класс SimpleXMLEncoder принимает объекты ActionScript и кодирует их в XML с использованием сериализации по умолчанию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Класс SimpleXMLEncoder принимает объекты ActionScript и кодирует их в XML с использованием сериализации по умолчанию.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.xml:SimpleXMLEncoder:SimpleXMLEncoder"><apiName>SimpleXMLEncoder</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>myXML</apiItemName><apiType value="flash.xml:XMLDocument"/><apiDesc>Объект XML.
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.xml:SimpleXMLEncoder:encodeValue"><apiName>encodeValue</apiName><shortdesc>
+      Кодирует объект ActionScript в XML с использованием сериализации по умолчанию.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект XMLNode. 
+     </apiDesc><apiType value="flash.xml:XMLNode"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>Объект ActionScript, который требуется закодировать.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>Полное имя нижестоящего узла.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>parentNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>XMLNode, в который требуется поместить кодированное значение.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Кодирует объект ActionScript в XML с использованием сериализации по умолчанию.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:SimpleXMLDecoder"><apiName>SimpleXMLDecoder</apiName><shortdesc>
+  Класс SimpleXMLDecoder выполняет десериализацию XML в граф объектов ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SimpleXMLDecoder выполняет десериализацию XML в граф объектов ActionScript. Этот класс используется в том случае, если информация о схеме недоступна.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:SimpleXMLDecoder:decodeXML"><apiName>decodeXML</apiName><shortdesc>
+      Преобразовывает дерево XMLNodes в дерево объектов ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Дерево объектов ActionScript.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>XMLNode, который требуется преобразовать в дерево объектов ActionScript.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразовывает дерево XMLNodes в дерево объектов ActionScript.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SimpleXMLDecoder:getLocalName"><apiName>getLocalName</apiName><shortdesc>
+     Возвращает локальное имя XMLNode.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Локальное имя XMLNode.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>xmlNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>XMLNode. 
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Возвращает локальное имя XMLNode.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:IXMLSchemaInstance"><apiName>IXMLSchemaInstance</apiName><shortdesc>
+ Тип ActionScript должен реализовать этот интерфейс в том случае, если кодировщику на основе схемы XML (например, клиенту WebService SOAP) требуется предоставить инструкции по конкретному определению типов, которое он должен использовать для кодирования экземпляров данного типа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Тип ActionScript должен реализовать этот интерфейс в том случае, если кодировщику на основе схемы XML (например, клиенту WebService SOAP) требуется предоставить инструкции по конкретному определению типов, которое он должен использовать для кодирования экземпляров данного типа.
+ 
+ <p>Учтите, что анонимные объекты ActionScript могут также указывать полный тип путем включения объекта в экземпляр mx.utils.ObjectProxy и установки для свойства <codeph>object_proxy::type</codeph> соответствующего значения QName.</p>
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.utils.ObjectProxy.xml"><linktext>mx.utils.ObjectProxy</linktext></link></related-links><apiValue id="mx.rpc.xml:IXMLSchemaInstance:mx.rpc.xml:IXMLSchemaInstance:xsiType:get"><apiName>xsiType</apiName><shortdesc>
+     При кодировании экземпляров ActionScript в виде XML кодировщику может потребоваться определение типов для конкретной реализации, если связанный complexType для схемы XML является абстрактным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="QName"/></apiValueDef><apiDesc>
+     При кодировании экземпляров ActionScript в виде XML кодировщику может потребоваться определение типов для конкретной реализации, если связанный complexType для схемы XML является абстрактным. Это свойство позволяет экземпляру с контролем типов указать конкретную реализацию в виде QName для представления <codeph>xsi:type</codeph>.
+     
+     <p>
+     Учтите, что метаданные <codeph>[Transient]</codeph> могут применяться к реализациям этого свойства с целью его исключения в течение сериализации объекта.
+     </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:SchemaTypeRegistry"><apiName>SchemaTypeRegistry</apiName><shortdesc>
+ XMLDecoder использует этот класс для отображения типа схемы XML по QName для класса ActionScript с целью обеспечения возможности создания объектов со строгим контролем типов при декодировании содержимого.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ XMLDecoder использует этот класс для отображения типа схемы XML по QName для класса ActionScript с целью обеспечения возможности создания объектов со строгим контролем типов при декодировании содержимого. Если тип является неполным, URI для QName может иметь значение null или значение в виде пустой строки.
+ <p>
+ Учтите, что для создания нового экземпляра данного типа требуемый класс должен иметь ссылку в SWF и конструктор по умолчанию для XMLDecoder. В противном случае для сохранения кодированных свойств будет использоваться анонимный объект.
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getClass"><apiName>getClass</apiName><shortdesc>
+     Выполняет поиск зарегистрированного класса для данного типа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает класс для данного типа или значение null для незарегистрированного типа.
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Представление в виде QName или строки для имени типа.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Выполняет поиск зарегистрированного класса для данного типа.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getCollectionClass"><apiName>getCollectionClass</apiName><shortdesc>
+     Возвращает класс для типа коллекции, представленного данным значением Qname или строкой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает класс для типа коллекции, представленного данным значением Qname или строкой.
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Представление в виде QName или строки для имени типа коллекции.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Возвращает класс для типа коллекции, представленного данным значением Qname или строкой.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getInstance"><apiName>getInstance</apiName><shortdesc>
+     Возвращает единственный экземпляр одного класса путем его создания, если он еще не существует.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Возвращает единственный экземпляр одного класса путем его создания, если он еще не существует.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.xml:SchemaTypeRegistry</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+     Возвращает единственный экземпляр одного класса путем его создания, если он еще не существует.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:registerClass"><apiName>registerClass</apiName><shortdesc>
+     Отображает тип QName для определения класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Представление в виде QName или строки для имени типа.
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="Object"/><apiDesc>Собственно класс или имя класса в виде строки.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Отображает тип QName для определения класса. Определение может быть представлено в виде строки полного имени класса или экземпляра собственно класса.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:registerCollectionClass"><apiName>registerCollectionClass</apiName><shortdesc>
+     Отображает имя типа для класса коллекции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Представление в виде QName или строки для имени типа.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="Object"/><apiDesc>Собственно класс или имя класса в виде строки.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Отображает имя типа для класса коллекции. Коллекция является типом массива верхнего уровня или реализацией <codeph>mx.collections.IList</codeph>. Определение может быть представлено в виде строки полного имени класса или экземпляра собственно класса.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:unregisterClass"><apiName>unregisterClass</apiName><shortdesc>
+     Удаляет класс из реестра для данного типа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Представление в виде QName или строки для имени типа.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Удаляет класс из реестра для данного типа.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:unregisterCollectionClass"><apiName>unregisterCollectionClass</apiName><shortdesc>
+     Удаляет класс коллекции из реестра для данного типа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Представление в виде QName или строки для имени типа коллекции.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Удаляет класс коллекции из реестра для данного типа.
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:IXMLDecoder"><apiName>IXMLDecoder</apiName><shortdesc>
+ Декодирует документ XML в граф объекта ActionScript на основе определений схемы XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Декодирует документ XML в граф объекта ActionScript на основе определений схемы XML.
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:decode"><apiName>decode</apiName><shortdesc>
+     Декодирует документ XML в объект ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает объект ActionScript, декодированный из данного документа XML.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="any"/><apiDesc>Экземпляр XML для декодирования в объект ActionScript. Может являться экземпляром XML, XMLList с длиной 1 или допустимой строкой XML.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>QName элемента <codeph>element</codeph> схемы XML с описанием способа декодирования значения или имени для декодируемого значения, если также указан параметр типа.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>QName определения <codeph>simpleType</codeph> или <codeph>complexType</codeph> схемы XML с описанием способа декодирования значения.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>Если в схеме отсутствует элемент верхнего уровня и тип с описанием способа декодирования этого значения, возможно предоставление пользовательского определения элемента.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Декодирует документ XML в объект ActionScript.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:reset"><apiName>reset</apiName><shortdesc>
+     Устанавливает декодер в начальное состояние со сбросом любой области схемы до верхнего уровня и освобождает текущий документ XML путем установки для него нулевого значения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Устанавливает декодер в начальное состояние со сбросом любой области схемы до верхнего уровня и освобождает текущий документ XML путем установки для него нулевого значения.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Если для makeObjectsBindable установлено значение true, выполняется включение анонимных объектов и массивов с целью обеспечения для них возможности привязки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Если для makeObjectsBindable установлено значение <codeph>true</codeph>, выполняется включение анонимных объектов и массивов с целью обеспечения для них возможности привязки. Для включения объектов используется <codeph>mx.utils.ObjectProxy</codeph>, для массивов – <codeph>mx.collections.ArrayCollection</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:recordXSIType:get"><apiName>recordXSIType</apiName><shortdesc>
+     Если для recordXSIType установлено значение true, а закодированный complexType имеет атрибут xsi:type, то информация о типе будет записана в декодированном экземпляре, если для него предусмотрен строгий контроль типов и реализация mx.rpc.xml. IXMLSchemaInstance, либо если он является анонимным mx.utils.ObjectProxy.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Если для recordXSIType установлено значение <codeph>true</codeph>, а закодированный complexType имеет атрибут <codeph>xsi:type</codeph>, то информация о типе будет записана в декодированном экземпляре, если для него предусмотрен строгий контроль типов и реализация <codeph>mx.rpc.xml. IXMLSchemaInstance</codeph>, либо если он является анонимным <codeph>mx.utils.ObjectProxy</codeph>. Эта информация о типе может использоваться для последующей обработки декодированных объектов и определения использованной конкретной реализации потенциально абстрактного типа. Значением по умолчанию является false.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:typeRegistry:get"><apiName>typeRegistry</apiName><shortdesc>
+     Отображает типы схем XML по QName в классах ActionScript для создания объектов со строгим контролем типов при декодировании содержимого.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc.xml:SchemaTypeRegistry</apiValueClassifier></apiValueDef><apiDesc>
+     Отображает типы схем XML по QName в классах ActionScript для создания объектов со строгим контролем типов при декодировании содержимого.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

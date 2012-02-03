@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.preloaders"><apiName>spark.preloaders</apiName><apiDetail/><apiClassifier id="spark.preloaders:SplashScreenImage"><apiName>SplashScreenImage</apiName><shortdesc>
+  SplashScreenImage クラスを使用して、モバイルデバイスの特性に基づいて様々なスプラッシュ画面イメージを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion><DefaultProperty name="mxmlContent"/></asMetadata><asCustoms><mxml><![CDATA[ 
+  <p>The <code>&lt;s:SplashScreenImage&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no new tag attributes:</p>
+  
+  <pre>
+  &lt;s:SplashScreenImage xmlns:fx="http://ns.adobe.com/mxml/2009" 
+      xmlns:s="library://ns.adobe.com/flex/spark"&gt;
+  
+      &lt;!-- Define one or more SplashScreenImageSource. --&gt;
+      &lt;s:SplashScreenImageSource 
+          source="&#64;Embed('assets/logoDefault.jpg')"/&gt;
+          
+      &lt;s:SplashScreenImageSource 
+          source="&#64;Embed('assets/logo240Portrait.jpg')"
+          dpi="240" 
+          aspectRatio="portrait"/&gt;
+   
+  &lt;/s:SplashScreenImage&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SplashScreenImage クラスを使用して、モバイルデバイスの特性に基づいて様々なスプラッシュ画面イメージを指定します。例えば、デバイスの DPI、方向または解像度に基づいてスプラッシュ画面用に様々なイメージを使用できます。
+ 
+  <p>通常、SplashScreenImage クラスは MXML ファイルに定義します。 SplahsScreenImageSource クラスを使用して、様々なイメージの選択肢および対応するデバイス構成を定義します。 次に、アプリケーションの <codeph>splashScreenImage</codeph> プロパティに <codeph>SplashScreenImage</codeph> MXML コンポーネントの名前を設定します。</p> 
+ 
+  <p>どの SplahsScreenImageSource 定義がモバイルデバイスに最もよく一致するかを決定する手順は次のとおりです。</p>
+  
+  <ol>
+    <li>モバイルデバイスの設定に一致するすべての SplashScreenImageSource 定義を特定します。 次の場合に一致します。 
+        <ul>
+          <li>SplashScreenImageSource 定義に、その設定が明示的に定義されていない場合。 例えば、<codeph>dpi</codeph> プロパティが設定されていなければ、どのデバイスの DPI とも一致します。</li>
+          <li><codeph>dpi</codeph> または <codeph>aspectRatio</codeph> プロパティの場合は、モバイルデバイスの対応する設定にプロパティが正確に一致する必要があります。 </li>
+          <li><codeph>minResolution</codeph> プロパティの場合、<codeph>Stage.stageWidth</codeph> および <codeph>Stage.stageHeight</codeph> プロパティの大きいほうが、<codeph>minResolution</codeph> 以上であれば、デバイスの設定とプロパティが一致します。</li>
+        </ul>
+    </li>
+    <li>デバイスと一致する SplashScreenImageSource 定義が複数ある場合は、次のようにします。 
+          <ul>
+            <li>明示的な設定の数が一番多いものを選択します。 例えば、<codeph>dpi</codeph> と <codeph>aspectRatio</codeph> の両方のプロパティが指定された SplashScreenImageSource 定義は、<codeph>dpi</codeph> プロパティのみが指定された定義よりもよく一致しています。</li>
+            <li>それでも複数の一致がある場合は、<codeph>minResolution</codeph> 値が一番高いものを選択します。</li>
+            <li>それでも複数の一致がある場合は、コンポーネントで最初に定義されているものを選択します。</li>
+          </ul>
+    </li>
+  </ol>
+   <p><b>メモ：</b>このクラスは、アプリケーションの MXML にインラインで設定することはできません。 別の MXML ファイルに定義して、アプリケーションの <codeph>splashScreenImage</codeph> プロパティを使用して参照する必要があります。</p>
+   </apiDesc><example conref="DynamicSplashScreenExample1.mxml"/><example conref="DynamicSplashScreenExample1HomeView.mxml"/><example conref="SplashScreenImage1.mxml"/></apiClassifierDetail><related-links><link href="spark.preloaders.xml#SplashScreenImageSource"><linktext>spark.preloaders.SplashScreenImageSource</linktext></link><link href="" invalidHref="spark.components.xml#Application/splashScreenImage"><linktext>spark.components.Application.splashScreenImage</linktext></link></related-links><apiConstructor id="spark.preloaders:SplashScreenImage:SplashScreenImage"><apiName>SplashScreenImage</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.preloaders:SplashScreenImage:getImageClass"><apiName>getImageClass</apiName><shortdesc>
+      指定したデバイスパラメーターに最も一致する SplashScreenImageSource のクラスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>スプラッシュ画面イメージとして表示されるイメージのクラスです。
+           </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>aspectRatio</apiItemName><apiType value="String"/><apiDesc><codeph>flash.display.StageAspectRatio.PORTRAIT</codeph> または <codeph>flash.display.StageAspectRatio.LANDSCAPE</codeph> のうちの大きいほうです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dpi</apiItemName><apiType value="Number"/><apiDesc>モバイルデバイスの DPI です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resolution</apiItemName><apiType value="Number"/><apiDesc>モバイルデバイスの大きいほうのサイズのピクセル単位の解像度です。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したデバイスパラメーターに最も一致する SplashScreenImageSource のクラスを返します。
+     
+      <p>このメソッドは直接呼び出さないでください。Flex で内部的に呼び出されます。</p>
+     
+      <p>最も一致する SplashScreenImageSource インスタンスを選択する Flex のデフォルトロジックをオーバーライドする必要がある場合は、SplashScreenImage コンポーネントのこのメソッドをオーバーライドします。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.StageAspectRatio.xml"><linktext>flash.display.StageAspectRatio</linktext></link></related-links></apiOperation><apiOperation id="spark.preloaders:SplashScreenImage:initialized"><apiName>initialized</apiName><shortdesc>
+      実装オブジェクトが作成され、MXML タグに指定されたすべてのコンポーネントプロパティが初期化された後に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>このオブジェクトを作成した MXML ドキュメントです。
+           </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc><codeph>document</codeph> がこのオブジェクトを参照するために使用する識別子です。オブジェクトが <codeph>document</codeph> の deep プロパティである場合、<codeph>id</codeph> は null になります。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      実装オブジェクトが作成され、MXML タグに指定されたすべてのコンポーネントプロパティが初期化された後に呼び出されます。
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.preloaders:SplashScreenImage:mxmlContent:get"><apiName>mxmlContent</apiName><shortdesc>
+      この SplashScreenImage の SplashScreenImageSource のソースです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      この <codeph>SplashScreenImage</codeph> の SplashScreenImageSource のソースです。通常、このメソッドは直接呼び出さないでください。代わりに、SplashScreenImageSource 定義をインラインで SplashScreenImage コンポーネントの MXML ファイルに追加します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.preloaders:SplashScreenImageSource"><apiName>SplashScreenImageSource</apiName><shortdesc>
+  SplashScreenImageSource クラスを使用して、DPI、方向、解像度などの特定のデバイス設定でスプラッシュ画面として表示するクラス（通常は埋め込みイメージ）を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[ 
+  <p>The <code>&lt;s:SplashScreenImageSource&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:SplashScreenImageSource
+   <strong>Properties</strong>
+    aspectRatio="null"
+    dpi="NaN"
+    minResolution="NaN"
+    source="null"
+  &gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SplashScreenImageSource クラスを使用して、DPI、方向、解像度などの特定のデバイス設定でスプラッシュ画面として表示するクラス（通常は埋め込みイメージ）を指定します。
+   <p>通常、1 つ以上の SplashScreenImageSource オブジェクトを使用して MXML に SplashScreenImage クラスを定義し、アプリケーションの <codeph>splashScreenImage</codeph> プロパティにそのクラスを設定します。</p>
+   <p>SplashScreenImageSource の 3 つの異なる定義が指定された SplashScreenImage コンポーネントを次に示します。</p>
+   <pre>
+    &lt;?xml version="1.0" encoding="utf-8"?> 
+    &lt;s:SplashScreenImage xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"> 
+     
+        &lt;!-- Default splashscreen image. --> 
+        &lt;s:SplashScreenImageSource 
+            source="@Embed('assets/logoDefault.jpg')"/> 
+        
+        &lt;s:SplashScreenImageSource 
+            source="@Embed('assets/logo240Portrait.jpg')" 
+            dpi="240" 
+            aspectRatio="portrait"/> 
+        
+        &lt;s:SplashScreenImageSource 
+            source="@Embed('assets/logo240Landscape.jpg')" 
+            dpi="240" 
+            aspectRatio="landscape"/> 
+        
+    &lt;/s:SplashScreenImage>      
+  </pre>
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.preloaders.xml#SplashScreenImage"><linktext>spark.preloaders.SplashScreenImage</linktext></link><link href="" invalidHref="spark.components.xml#Application/splashScreenImage"><linktext>spark.components.Application.splashScreenImage</linktext></link></related-links><apiConstructor id="spark.preloaders:SplashScreenImageSource:SplashScreenImageSource"><apiName>SplashScreenImageSource</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.preloaders:SplashScreenImageSource:aspectRatio"><apiName>aspectRatio</apiName><shortdesc>
+      モバイルデバイスに必要な縦横比です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      モバイルデバイスに必要な縦横比です。このプロパティは、<codeph>flash.display.StageAspectRatio.PORTRAIT</codeph> または <codeph>flash.display.StageAspectRatio.LANDSCAPE</codeph> のどちらかに指定できます。
+     
+      <p>設定しないと、<codeph>SplashScreenImage</codeph> はこのプロパティを無視します。</p> 
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.StageAspectRatio.xml"><linktext>flash.display.StageAspectRatio</linktext></link></related-links></apiValue><apiValue id="spark.preloaders:SplashScreenImageSource:dpi"><apiName>dpi</apiName><shortdesc>
+      関連するイメージを表示するために必要なデバイスの DPI です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>NaN</apiData><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      関連するイメージを表示するために必要なデバイスの DPI です。
+      
+      <p>NaN という値は、SplashScreenImage によってプロパティが無視されるという意味です。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.preloaders:SplashScreenImageSource:minResolution"><apiName>minResolution</apiName><shortdesc>  
+      イメージを表示するために必要なモバイルデバイス解像度の最小サイズです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>NaN</apiData><apiType value="Number"/><apiDefaultValue>NaN
+     
+      </apiDefaultValue></apiValueDef><apiDesc>  
+      イメージを表示するために必要なモバイルデバイス解像度の最小サイズです。デバイス解像度は、ステージの幅と高さのピクセル単位の最大値になります。<codeph>minResolution</codeph> プロパティの値は、<codeph>Stage.stageWidth</codeph> および <codeph>Stage.stageHeight</codeph> プロパティの大きいほうの値と比較されます。 これら 2 つの値の大きいほうは、<codeph>minResolution</codeph> プロパティ以上である必要があります。
+     
+      <p>このプロパティを使用すれば、デバイスのピクセル解像度に基づいて様々なイメージを表示できます。</p>
+           <p>NaN という値は、SplashScreenImage によってプロパティが無視されるという意味です。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.preloaders:SplashScreenImageSource:source"><apiName>source</apiName><shortdesc>
+      定義されたデバイス設定用に使用するスプラッシュ画面のイメージクラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="3"/><apiTool description="" name="Flex" version="4.6"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      定義されたデバイス設定用に使用するスプラッシュ画面のイメージクラスです。一般に、このプロパティは、埋め込みリソースに設定します。
+     
+      <p>次に実際の使用例を示します。</p>
+           <pre>
+            &lt;s:SplashScreenImageSource 
+                source="@Embed('assets/logo240Portrait.jpg')" 
+                dpi="240" 
+                aspectRatio="portrait"/> 
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.preloaders.xml#SplashScreenImage"><linktext>spark.preloaders.SplashScreenImage</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.preloaders:SplashScreen"><apiName>SplashScreen</apiName><shortdesc>
+  SplashScreen クラスは、Mobile Flex アプリケーション用のデフォルトのプリローダーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.preloaders:IPreloaderDisplay</apiBaseInterface><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SplashScreen クラスは、Mobile Flex アプリケーション用のデフォルトのプリローダーです。開発者は、アプリケーションプロパティ <codeph>splashScreenImage</codeph>、<codeph>splashScreenScaleMode</codeph>、および <codeph>splashScreenMinimumDisplayTime</codeph> を使用してイメージクラスとサイズ変更モードを指定できます。 SplashScreen は、デバイスの方向を監視し、イメージを更新することで、方向が常に StageOrientation.DEFAULT であるかのようにイメージが画面に表示されるようにします。
+   </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.xml#Application/splashScreenImage"><linktext>spark.components.Application.splashScreenImage</linktext></link><link href="" invalidHref="spark.components.xml#Application/splashScreenScaleMode"><linktext>spark.components.Application.splashScreenScaleMode</linktext></link><link href="" invalidHref="spark.components.xml#Application/splashScreenMinimumDisplayTime"><linktext>spark.components.Application.splashScreenMinimumDisplayTime</linktext></link></related-links><apiConstructor id="spark.preloaders:SplashScreen:SplashScreen"><apiName>SplashScreen</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.preloaders:SplashScreen:initialize"><apiName>initialize</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.preloaders.DownloadProgressBar#initialize()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.preloaders:SplashScreen:stageHeight:get"><apiName>stageHeight</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageHeight">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.preloaders:SplashScreen:stageWidth:get"><apiName>stageWidth</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#stageWidth">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.preloaders:SplashScreen:preloader:set"><apiName>preloader</apiName><shortdesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc conref="mx.preloaders.DownloadProgressBar#preloader">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

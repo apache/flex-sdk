@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.printing"><apiName>mx.printing</apiName><apiDetail/><apiClassifier id="mx.printing:FlexPrintJobScaleType"><apiName>FlexPrintJobScaleType</apiName><shortdesc>
+  Значения свойства scaleType параметра метода FlexPrintJob.addObject().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Значения свойства <codeph>scaleType</codeph> параметра метода FlexPrintJob.addObject().
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.printing.xml#FlexPrintJob/addObject()"><linktext>FlexPrintJob.addObject()</linktext></link></related-links><apiValue id="mx.printing:FlexPrintJobScaleType:FILL_PAGE"><apiName>FILL_PAGE</apiName><shortdesc>
+	  Масштабирует объект для полного заполнения, по крайней мере, одной страницы, т. е. обеспечивает выбор большего из типов масштабирования MATCH_WIDTH или MATCH_HEIGHT.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fillPage</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Масштабирует объект для полного заполнения, по крайней мере, одной страницы, т. е. обеспечивает выбор большего из типов масштабирования MATCH_WIDTH или MATCH_HEIGHT.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_HEIGHT"><apiName>MATCH_HEIGHT</apiName><shortdesc>
+	  Масштабирует объект для заполнения доступного пространства страницы по высоте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchHeight</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Масштабирует объект для заполнения доступного пространства страницы по высоте. Если ширина получившегося объекта превышает ширину страницы, итоговый объект размещается на нескольких страницах.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:MATCH_WIDTH"><apiName>MATCH_WIDTH</apiName><shortdesc>
+	  Масштабирует объект для заполнения доступного пространства страницы по ширине.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>matchWidth</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Масштабирует объект для заполнения доступного пространства страницы по ширине. Если высота итогового объекта превышает высоту страницы, итоговый объект размещается на нескольких страницах.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:NONE"><apiName>NONE</apiName><shortdesc>
+	  Не обеспечивает масштабирование итогового объекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Не обеспечивает масштабирование итогового объекта. Напечатанная страница имеет те же размеры, что и объект на экране. Если высота или ширина объекта, либо оба измерения превышают ширину или высоту страницы, итоговый объект размещается на нескольких страницах.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJobScaleType:SHOW_ALL"><apiName>SHOW_ALL</apiName><shortdesc>
+	  Масштабирует объект для размещения его на одной странице путем заполнения одного измерения, т.е. обеспечивает выбор наименьшего из типов масштабирования MATCH_WIDTH или MATCH_HEIGHT.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>showAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Масштабирует объект для размещения его на одной странице путем заполнения одного измерения, т.е. обеспечивает выбор наименьшего из типов масштабирования MATCH_WIDTH или MATCH_HEIGHT.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.printing:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+  Класс FlexPrintJob является оболочкой для класса flash.printing.PrintJob.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс FlexPrintJob является оболочкой для класса flash.printing.PrintJob. В нем поддерживаются автоматическое разделение и разбиение выходящего объекта на несколько страниц и масштабирование содержимого сетки в соответствии с размером страницы принтера.
+ 
+  </apiDesc><example conref="FormPrintHeader.mxml"/><example conref="FormPrintFooter.mxml"/><example conref="FormPrintView.mxml"/><example conref="PrintDataGridExample.mxml"><swfblock conref="examples/PrintDataGridExample.swf"/></example></apiClassifierDetail><apiConstructor id="mx.printing:FlexPrintJob:FlexPrintJob"><apiName>FlexPrintJob</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.printing:FlexPrintJob:addObject"><apiName>addObject</apiName><shortdesc>
+      Добавляет объект UIComponent в список распечатываемых объектов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier><apiDesc>Объект, который должен быть распечатан.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>scaleType</apiItemName><apiType value="String"/><apiData>matchWidth</apiData><apiDesc>Метод масштабирования, используемый для управления размещением объекта на одной или нескольких печатных страницах. Значением должно представлять собой одну из констант, определенных в классе FlexPrintJobScaleType.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет объект UIComponent в список распечатываемых объектов. Этот метод вызывается после получения результата вызова метода <codeph>start()</codeph>. После каждого вызова этого метода создается новая страница, поэтому объекты должны быть отформатированы в пределах фрагментов, имеющих размеры страниц. Для охвата сетки данных на нескольких страницах можно использовать класс PrintDataGrid.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.printing.PrintDataGrid.xml"><linktext>PrintDataGrid</linktext></link><link href="mx.printing.xml#FlexPrintJobScaleType"><linktext>FlexPrintJobScaleType</linktext></link></related-links></apiOperation><apiOperation id="mx.printing:FlexPrintJob:send"><apiName>send</apiName><shortdesc>
+      Обеспечивает отправку добавленных объектов на принтер для запуска процесса печати.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает отправку добавленных объектов на принтер для запуска процесса печати. Этот метод должен быть вызван после применения метода <codeph>addObject()</codeph> для добавления печатаемых страниц.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.printing:FlexPrintJob:start"><apiName>start</apiName><shortdesc>
+      Обеспечивает инициализацию объекта PrintJob.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение <codeph>true</codeph> устанавливается в том случае, если при появлении диалогового окна «Печать» пользователь нажал кнопку «OK», а значение <codeph>false</codeph> при нажатии кнопки «Отмена» или возникновении ошибки.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Обеспечивает инициализацию объекта PrintJob. Отображает диалоговое окно принтера операционной системы для пользователя. После получения результата вызова в среде Flex устанавливаются свойства <codeph>pageWidth</codeph> и <codeph>pageHeight</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.printing:FlexPrintJob:pageHeight:get"><apiName>pageHeight</apiName><shortdesc>
+      Высота области печати на странице принтера; не включает установленные пользователем поля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Высота области печати на странице принтера; не включает установленные пользователем поля. Устанавливается после получения результата вызова метода start().
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:pageWidth:get"><apiName>pageWidth</apiName><shortdesc>
+      Ширина области печати на странице принтера; не включает установленные пользователем поля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Ширина области печати на странице принтера; не включает установленные пользователем поля. Значение этого свойства устанавливается после получения результата вызова метода <codeph>start()</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.printing:FlexPrintJob:printAsBitmap:get"><apiName>printAsBitmap</apiName><shortdesc>
+      Определяет, в каком формате должно быть распечатано содержимое задания: в растровом (true) или векторном (false).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, в каком формате должно быть распечатано содержимое задания: в растровом (<codeph>true</codeph>) или векторном (<codeph>false</codeph>). При печати в растровом формате поддерживаются выходные объекты, включающие растровое изображение с прозрачностью альфа-канала или цветовыми эффектами. Если содержимое не включает растровые изображения с прозрачностью альфа-канала или цветовыми эффектами, можно выполнить печать в векторном формате с более высоким качеством, установив значение <codeph>false</codeph> для свойства <codeph>printAsBitmap</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

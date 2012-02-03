@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.xml" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.xml</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.xml:XMLNode" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">XMLNode</apiName><shortdesc class="- topic/shortdesc ">
+ Класс XMLNode представляет устаревший объект XML, который использовался в ActionScript 2.0 и был переименован в ActionScript 3.0.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode, XMLNode object, built-in class
+ </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Класс XMLNode представляет устаревший объект XML, который использовался в ActionScript 2.0 и в ActionScript 3.0 был переименован. Вместо него в ActionScript 3.0 следует использовать новый <xref href="../../XML.html" class="- topic/xref ">XML</xref>-класс верхнего уровня и связанные классы с поддержкой E4X (ECMAScript для XML). Класс XMLNode является обратно совместимым.
+ 
+ </apiDesc><example conref="examples\XMLDocumentExample.as" class="- topic/example "> В следующем примере показано, как классы XMLDocument и XMLNode используются для разбора и форматирования XML-документа. Вместо загрузки внешнего XML-файла для создания и разбора XML-документа используется класс XML верхнего уровня. 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.xml.XMLDocument;
+    import flash.xml.XMLNode;
+    import flash.xml.XMLNodeType;
+
+    public class XMLDocumentExample extends Sprite {
+        public function XMLDocumentExample() {
+            var result:XMLDocument = new XMLDocument();
+            result.ignoreWhite = true;
+            result.parseXML(getXMLString());
+
+            var books:Array = parseBooks(result.firstChild);
+            trace("books: \n" + books);
+        }
+
+        private function parseBooks(node:XMLNode):Array {
+            var books:Array = new Array();
+
+            var kids:Array = node.childNodes;
+            for each(var item:XMLNode in kids) {
+                parseBook(item, books);
+            }
+
+            return books;
+        }
+
+        private function parseBook(node:XMLNode, books:Array):void {
+            var item:Book = new Book();
+            item.setPublisher(node.attributes.publisher);
+            item.setName(node.attributes.name);
+            books.push(item);
+        }
+
+        private function getXMLString():String {
+            var list:XML = &lt;books>
+                                &lt;book publisher="Addison-Wesley" name="Design Patterns" />
+                                &lt;book publisher="Addison-Wesley" name="The Pragmatic Programmer" />
+                                &lt;book publisher="Addison-Wesley" name="Test Driven Development" />
+                                &lt;book publisher="Addison-Wesley" name="Refactoring to Patterns" />
+                                &lt;book publisher="O'Reilly Media" name="The Cathedral &amp; the Bazaar" />
+                                &lt;book publisher="O'Reilly Media" name="Unit Test Frameworks" />
+                            &lt;/books>;
+            return list.toXMLString();
+        }
+    }
+
+}
+class Book {
+    private var publisher:String;
+    private var name:String;
+
+    public function setPublisher(publisher:String):void {
+        this.publisher = publisher;
+    }
+
+    public function setName(name:String):void {
+        this.name = name;
+    }
+
+    public function toString():String {
+        return "[Book name: " + name + " publisher: " + publisher + "]\n";
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="#XML" class="- topic/link "><linktext class="- topic/linktext ">XML</linktext></link><link href="flash.xml.xml#XMLDocument" class="- topic/link "><linktext class="- topic/linktext ">flash.xml.XMLDocument</linktext></link></related-links><apiConstructor id="flash.xml:XMLNode:XMLNode" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">XMLNode</apiName><shortdesc class="- topic/shortdesc ">
+ Создает новый объект XMLNode.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">new XMLNode, new, constructor
+ </keyword></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">type</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Тип узла: 1 в случае элемента XML и 3 в случае текстового узла.
+ </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">value</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Текст XML разбирается, и в результате создается новый объект XMLNode. 
+ 
+ 
+ 
+ 
+ 
+ </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Создает новый объект XMLNode. Для создания объекта XMLNode следует использовать конструктор перед вызовом каких-либо методов класса XMLNode.
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Примечание. </b>Пользуйтесь методами <codeph class="+ topic/ph pr-d/codeph ">createElement()</codeph> и <codeph class="+ topic/ph pr-d/codeph ">createTextNode()</codeph> для добавления элементов и текстовых узлов в дерево XML-документа.</p>
+ 
+ </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLDocument/createElement()" class="- topic/link "><linktext class="- topic/linktext ">XMLDocument.createElement()</linktext></link><link href="flash.xml.xml#XMLDocument/createTextNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLDocument.createTextNode()</linktext></link></related-links></apiConstructor><apiOperation id="flash.xml:XMLNode:appendChild" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">appendChild</apiName><shortdesc class="- topic/shortdesc ">
+	  
+	 Добавляет указанный узел к списку дочерних узлов объекта XML.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.appendchild, appendchild
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">node</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.xml:XMLNode</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">XMLNode, представляющий узел, который необходимо переместить из текущего местоположения в список дочерних узлов объекта <codeph class="+ topic/ph pr-d/codeph ">my_xml</codeph>.
+	 
+	 
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	  
+	 Добавляет указанный узел к списку дочерних узлов объекта XML. Данный метод применяется непосредственно на узле, на который ссылается параметр <codeph class="+ topic/ph pr-d/codeph ">childNode</codeph>. Он не добавляет копию узла. Если добавляемый узел уже существует в другой древовидной структуре, при добавлении узла в новое местоположение он будет удален из текущего места. Если параметр <codeph class="+ topic/ph pr-d/codeph ">childNode</codeph> относится к узлу, который уже существует в другой древовидной структуре XML, добавляемый дочерний узел помещается в новое дерево после того, как он удаляется из текущего родительского узла.
+	 
+	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.xml:XMLNode:cloneNode" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">cloneNode</apiName><shortdesc class="- topic/shortdesc ">
+	  
+	 Формирует и возвращает новый узел XML того же типа, с тем же именем, значением и атрибутами, что и заданный объект XML.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.clonenode, clodenode
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект XMLNode.
+	 
+	 
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.xml:XMLNode</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">deep</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Логическое значение: при значении <codeph class="+ topic/ph pr-d/codeph ">true</codeph> дочерние узлы указанного объекта XML рекурсивно клонируются.
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	  
+	 Формирует и возвращает новый узел XML того же типа, с тем же именем, значением и атрибутами, что и заданный объект XML. При назначении параметру <codeph class="+ topic/ph pr-d/codeph ">deep</codeph> значения <codeph class="+ topic/ph pr-d/codeph ">true</codeph> все дочерние узлы рекурсивно клонируются, и в результате получается точная копия дерева документа объекта. 
+	 <p class="- topic/p ">Клон возвращаемого узла более не связан с деревом клонированного элемента. Следовательно, <codeph class="+ topic/ph pr-d/codeph ">nextSibling</codeph>, <codeph class="+ topic/ph pr-d/codeph ">parentNode</codeph> и <codeph class="+ topic/ph pr-d/codeph ">previousSibling</codeph> принимают значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>. Если параметр <codeph class="+ topic/ph pr-d/codeph ">deep</codeph> имеет значение <codeph class="+ topic/ph pr-d/codeph ">false</codeph> или узел <codeph class="+ topic/ph pr-d/codeph ">my_xml</codeph> не имеет дочерних узлов, <codeph class="+ topic/ph pr-d/codeph ">firstChild</codeph> и <codeph class="+ topic/ph pr-d/codeph ">lastChild</codeph> также принимают значение null.</p>
+	 
+	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.xml:XMLNode:getNamespaceForPrefix" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getNamespaceForPrefix</apiName><shortdesc class="- topic/shortdesc ">
+	 Возвращает URI пространства имен, связанный с заданным префиксом узла.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><refpath>
+	 </refpath></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Область имен, ассоциируемая с указанным префиксом. 
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">prefix</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Префикс, для которого метод возвращает ассоциируемую область имен.
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Возвращает URI пространства имен, связанный с заданным префиксом узла. Для определения URI <codeph class="+ topic/ph pr-d/codeph ">getPrefixForNamespace()</codeph> производит поиск в иерархии XML от узла (по мере необходимости) и возвращает URI области имен первого определения <codeph class="+ topic/ph pr-d/codeph ">xmlns</codeph> для данного <codeph class="+ topic/ph pr-d/codeph ">prefix</codeph>.
+	 
+	 <p class="- topic/p ">Если область имен не определена ля указанного префикса, метод возвращает значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>.</p>
+	 
+	 <p class="- topic/p ">Если в качестве <codeph class="+ topic/ph pr-d/codeph ">prefix</codeph> указана пустая строка (<codeph class="+ topic/ph pr-d/codeph ">""</codeph>), а для узла определена область имен по умолчанию (как, например, здесь: <codeph class="+ topic/ph pr-d/codeph ">xmlns="http://www.example.com/"</codeph>), метод возвращает URI области имен по умолчанию.
+	 </p>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/getPrefixForNamespace()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.getPrefixForNamespace()</linktext></link><link href="flash.xml.xml#XMLNode/namespaceURI" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.namespaceURI</linktext></link></related-links></apiOperation><apiOperation id="flash.xml:XMLNode:getPrefixForNamespace" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getPrefixForNamespace</apiName><shortdesc class="- topic/shortdesc ">
+	 Возвращает префикс, связанный с заданным URI пространства имен узла.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Префикс, ассоциируемый с указанной областью имен. 
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ns</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">URI области имен, для которого метод возвращает ассоциируемый префикс.
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Возвращает префикс, связанный с заданным URI пространства имен узла. Для определения префикса <codeph class="+ topic/ph pr-d/codeph ">getPrefixForNamespace()</codeph> производит поиск в иерархии XML от узла (по мере необходимости) и возвращает префикс первого определения <codeph class="+ topic/ph pr-d/codeph ">xmlns</codeph> с URI области имен, соответствующим <codeph class="+ topic/ph pr-d/codeph ">ns</codeph>.
+	 
+	 <p class="- topic/p ">Если для данного URI не задан <codeph class="+ topic/ph pr-d/codeph ">xmlns</codeph>, метод возвращает <codeph class="+ topic/ph pr-d/codeph ">null</codeph>. Если данному URI присвоен <codeph class="+ topic/ph pr-d/codeph ">xmlns</codeph>, но с этим присваиванием не ассоциирован префикс, метод возвращает пустую строку (<codeph class="+ topic/ph pr-d/codeph ">""</codeph>).
+	 </p>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/getNamespaceForPrefix()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.getNamespaceForPrefix()</linktext></link><link href="flash.xml.xml#XMLNode/namespaceURI" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.namespaceURI</linktext></link></related-links></apiOperation><apiOperation id="flash.xml:XMLNode:hasChildNodes" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">hasChildNodes</apiName><shortdesc class="- topic/shortdesc ">
+	 Показывает, есть ли у заданного объекта XMLNode дочерние узлы.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.haschildnodes, haschildnodes, has child nodes
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Возвращает значение <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, если у указанного объекта XMLNode есть дочерние узлы, в остальных случаях возвращает <codeph class="+ topic/ph pr-d/codeph ">false</codeph>.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Показывает, есть ли у заданного объекта XMLNode дочерние узлы. Данное свойство принимает значение <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, если у объекта XMLNode есть дочерние узлы, в остальных случаях — значение <codeph class="+ topic/ph pr-d/codeph ">false</codeph>.
+	 
+	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.xml:XMLNode:insertBefore" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">insertBefore</apiName><shortdesc class="- topic/shortdesc ">
+	 Добавляет новый дочерний узел в список дочерних узлов объекта XML перед узлом beforeNode.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.insertbefore, insertbefore, insert before
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">node</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.xml:XMLNode</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект XMLNode, который необходимо добавить.
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">before</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.xml:XMLNode</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект XMLNode до точки добавления <codeph class="+ topic/ph pr-d/codeph ">childNode</codeph>.
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Добавляет новый дочерний узел в список дочерних узлов объекта XML перед узлом <codeph class="+ topic/ph pr-d/codeph ">beforeNode</codeph>. Если параметр <codeph class="+ topic/ph pr-d/codeph ">beforeNode</codeph> не определен или имеет значение null, узел добавляется с помощью метода <codeph class="+ topic/ph pr-d/codeph ">appendChild()</codeph>. Если <codeph class="+ topic/ph pr-d/codeph ">beforeNode</codeph> не является дочерним узлом <codeph class="+ topic/ph pr-d/codeph ">my_xml</codeph>, добавление не выполняется.
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/cloneNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.cloneNode()</linktext></link></related-links></apiOperation><apiOperation id="flash.xml:XMLNode:removeNode" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">removeNode</apiName><shortdesc class="- topic/shortdesc ">
+	 Удаляет заданный объект XML из его родительского объекта.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.removenode, removenode, remove node
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Удаляет заданный объект XML из его родительского объекта. Также удаляет всех потомков узла.
+	 
+	 
+	 
+	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.xml:XMLNode:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 Вычисляет заданный объект XMLNode, формирует текстовое представление структуры XML, включая узел, его дочерние объекты и атрибуты, и возвращает результат в виде строки.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.tostring, tostring
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Строка, представляющая объект XMLNode.
+	 
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Вычисляет заданный объект XMLNode, формирует текстовое представление структуры XML, включая узел, его дочерние объекты и атрибуты, и возвращает результат в виде строки. 
+	 
+	 <p class="- topic/p ">При работе с объектами XMLDocument верхнего уровня (созданными с помощью конструктора) метод <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.toString()</codeph> выводит объявление документа XML (хранится в свойстве <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.xmlDecl</codeph>) перед объявлением <codeph class="+ topic/ph pr-d/codeph ">DOCTYPE</codeph> документа (хранится в свойстве <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.docTypeDecl</codeph>) и перед текстовым представлением всех узлов XML в объекте. XML-объявление не выводится, если свойство <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.xmlDecl</codeph> имеет значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>. Декларация <codeph class="+ topic/ph pr-d/codeph ">DOCTYPE</codeph> не выводится, если свойство <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.docTypeDecl</codeph> имеет значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>.</p>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLDocument/docTypeDecl" class="- topic/link "><linktext class="- topic/linktext ">XMLDocument.docTypeDecl</linktext></link><link href="flash.xml.xml#XMLDocument/xmlDecl" class="- topic/link "><linktext class="- topic/linktext ">XMLDocument.xmlDecl</linktext></link></related-links></apiOperation><apiValue id="flash.xml:XMLNode:firstChild" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">firstChild</apiName><shortdesc class="- topic/shortdesc ">
+	 Оценивает указанный объект XMLDocument и ссылается на первый дочерний узел в списке дочерних узлов родительского узла.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.firstchild, first child
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.xml:XMLNode</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Оценивает указанный объект XMLDocument и ссылается на первый дочерний узел в списке дочерних узлов родительского узла. Это свойство принимает значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>, если для узла не существует дочерних узлов. Это свойство не определено (имеет значение <codeph class="+ topic/ph pr-d/codeph ">undefined</codeph>), если узел является текстовым. Это свойство работает в режиме только для чтения, его невозможно использовать для обработки дочерних узлов. Для обработки дочерних узлов используйте методы <codeph class="+ topic/ph pr-d/codeph ">appendChild()</codeph>, <codeph class="+ topic/ph pr-d/codeph ">insertBefore()</codeph> и <codeph class="+ topic/ph pr-d/codeph ">removeNode()</codeph>.
+	 
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/appendChild()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.appendChild()</linktext></link><link href="flash.xml.xml#XMLNode/insertBefore()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.insertBefore()</linktext></link><link href="flash.xml.xml#XMLNode/removeNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.removeNode()</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:lastChild" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">lastChild</apiName><shortdesc class="- topic/shortdesc ">
+	 Значение XMLNode, ссылающееся на последний узел того же уровня в списке дочерних узлов вышестоящего узла.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.lastchild, lastchild, last child
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.xml:XMLNode</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Значение XMLNode, ссылающееся на последний узел того же уровня в списке дочерних узлов вышестоящего узла. Свойство <codeph class="+ topic/ph pr-d/codeph ">XMLNode.lastChild</codeph> принимает значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>, если для узла не существует дочерних узлов. Это свойство невозможно использовать для обработки дочерних узлов. Для обработки дочерних узлов используйте методы <codeph class="+ topic/ph pr-d/codeph ">appendChild()</codeph>, <codeph class="+ topic/ph pr-d/codeph ">insertBefore()</codeph> и <codeph class="+ topic/ph pr-d/codeph ">removeNode()</codeph>.
+	 
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/appendChild()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.appendChild()</linktext></link><link href="flash.xml.xml#XMLNode/insertBefore()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.insertBefore()</linktext></link><link href="flash.xml.xml#XMLNode/removeNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.removeNode()</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:nextSibling" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">nextSibling</apiName><shortdesc class="- topic/shortdesc ">
+	 Значение XMLNode, ссылающееся на следующий родственный элемент того же уровня в списке дочерних узлов родительского узла.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.nextsibling, next sibling
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.xml:XMLNode</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Значение XMLNode, ссылающееся на следующий родственный элемент того же уровня в списке дочерних узлов родительского узла. Это свойство принимает значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>, если для узла не существует следующего родственного элемента того же уровня. Это свойство невозможно использовать для обработки дочерних узлов. Для обработки дочерних узлов используйте методы <codeph class="+ topic/ph pr-d/codeph ">appendChild()</codeph>, <codeph class="+ topic/ph pr-d/codeph ">insertBefore()</codeph> и <codeph class="+ topic/ph pr-d/codeph ">removeNode()</codeph>.
+	 
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/firstChild" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.firstChild</linktext></link><link href="flash.xml.xml#XMLNode/appendChild()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.appendChild()</linktext></link><link href="flash.xml.xml#XMLNode/insertBefore()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.insertBefore()</linktext></link><link href="flash.xml.xml#XMLNode/removeNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.removeNode()</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:nodeName" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">nodeName</apiName><shortdesc class="- topic/shortdesc ">
+	 Строковое представление имени узла объекта XMLNode.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.nodename, node name
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Строковое представление имени узла объекта XMLNode. Если объект XMLNode является элементом XML (<codeph class="+ topic/ph pr-d/codeph ">nodeType == 1</codeph>), <codeph class="+ topic/ph pr-d/codeph ">nodeName</codeph> — это имя метки, представляющей узел в XML-файле. Например, <codeph class="+ topic/ph pr-d/codeph ">TITLE</codeph> — это параметр <codeph class="+ topic/ph pr-d/codeph ">nodeName</codeph> метки <codeph class="+ topic/ph pr-d/codeph ">TITLE</codeph> в формате HTML. Если объект XMLNode является текстовым узлом (<codeph class="+ topic/ph pr-d/codeph ">nodeType == 3</codeph>), то nodeName принимает значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>.
+	 
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/nodeType" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.nodeType</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:nodeType" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">nodeType</apiName><shortdesc class="- topic/shortdesc ">
+	 Значение константы nodeType: XMLNodeType.ELEMENT_NODE в случае элемента XML или XMLNodeType.TEXT_NODE в случае текстового узла.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XML.nodetype, node type
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Значение константы <codeph class="+ topic/ph pr-d/codeph ">nodeType</codeph>: <codeph class="+ topic/ph pr-d/codeph ">XMLNodeType.ELEMENT_NODE</codeph> в случае элемента XML или <codeph class="+ topic/ph pr-d/codeph ">XMLNodeType.TEXT_NODE</codeph> в случае текстового узла. 
+	 <p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">nodeType</codeph> является числовой величиной, которая определена списком NodeType, приведенным в рекомендации W3C DOM для Уровня 1: <xref href="http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html" scope="external" class="- topic/xref ">http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html</xref>. В следующей таблице приведены значения:</p>
+	 <p class="- topic/p "><adobetable class="+ topic/table adobe-d/adobetable "><row class="- topic/row "><entry class="- topic/entry ">4</entry><entry class="- topic/entry ">CDATA_SECTION_NODE</entry></row><tgroup cols="2" class="- topic/tgroup "><thead class="- topic/thead "><row class="- topic/row "><entry align="left" class="- topic/entry ">Целое значение</entry><entry align="left" class="- topic/entry ">Определенная константа</entry></row></thead><tbody class="- topic/tbody "><row class="- topic/row "><entry class="- topic/entry ">1</entry><entry class="- topic/entry ">ELEMENT_NODE</entry></row><row class="- topic/row "><entry class="- topic/entry ">3</entry><entry class="- topic/entry ">TEXT_NODE</entry></row><row class="- topic/row "><entry class="- topic/entry ">5</entry><entry class="- topic/entry ">ENTITY_REFERENCE_NODE</entry></row><row class="- topic/row "><entry class="- topic/entry ">7</entry><entry class="- topic/entry ">PROCESSING_INSTRUCTION_NODE</entry></row><row class="- topic/row "><entry class="- topic/entry ">9</entry><entry class="- topic/entry ">DOCUMENT_NODE</entry></row><row class="- topic/row "><entry class="- topic/entry ">11</entry><entry class="- topic/entry ">DOCUMENT_FRAGMENT_NODE</entry></row></tbody></tgroup></adobetable></p>
+	 <p class="- topic/p ">Встроенный в программу Flash Player класс XMLNode поддерживает только значения <codeph class="+ topic/ph pr-d/codeph ">XMLNodeType.ELEMENT_NODE</codeph> и <codeph class="+ topic/ph pr-d/codeph ">XMLNodeType.TEXT_NODE</codeph>.</p>
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNodeType/TEXT_NODE" class="- topic/link "><linktext class="- topic/linktext ">XMLNodeType.TEXT_NODE</linktext></link><link href="flash.xml.xml#XMLNodeType/ELEMENT_NODE" class="- topic/link "><linktext class="- topic/linktext ">XMLNodeType.ELEMENT_NODE</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:nodeValue" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">nodeValue</apiName><shortdesc class="- topic/shortdesc ">
+	 Значение узла объекта XMLDocument.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.nodevalue, nodevalue, node value
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Значение узла объекта XMLDocument. Если объект XMLDocument является текстовым узлом, значение <codeph class="+ topic/ph pr-d/codeph ">nodeType</codeph> — 3, а <codeph class="+ topic/ph pr-d/codeph ">nodeValue</codeph> — это текст узла. Если объект XMLDocument является элементом XML (<codeph class="+ topic/ph pr-d/codeph ">nodeType</codeph> имеет значение 1), то <codeph class="+ topic/ph pr-d/codeph ">nodeValue</codeph> принимает значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph> и работает в режиме только для чтения.
+	 
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/nodeType" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.nodeType</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:parentNode" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">parentNode</apiName><shortdesc class="- topic/shortdesc ">
+	 Значение XMLNode, которое ссылается на родительский узел указанного объекта XML, либо возвращает значение null при отсутствии родительского узла для данного узла.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.parentnode, parentnode, parent node
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.xml:XMLNode</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Значение XMLNode, которое ссылается на родительский узел указанного объекта XML, либо возвращает значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph> при отсутствии родительского узла для данного узла. Это свойство работает в режиме только для чтения, его невозможно использовать для обработки дочерних узлов. Для обработки дочерних узлов используйте методы <codeph class="+ topic/ph pr-d/codeph ">appendChild()</codeph>, <codeph class="+ topic/ph pr-d/codeph ">insertBefore()</codeph> и <codeph class="+ topic/ph pr-d/codeph ">removeNode()</codeph>.
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/appendChild()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.appendChild()</linktext></link><link href="flash.xml.xml#XMLNode/insertBefore()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.insertBefore()</linktext></link><link href="flash.xml.xml#XMLNode/removeNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.removeNode()</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:previousSibling" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">previousSibling</apiName><shortdesc class="- topic/shortdesc ">
+	 Значение XMLNode, ссылающееся на предыдущий родственный элемент того же уровня в списке дочерних узлов родительского узла.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.previousSibling, previousSibling
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.xml:XMLNode</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Значение XMLNode, ссылающееся на предыдущий родственный элемент того же уровня в списке дочерних узлов родительского узла. Свойство имеет значение null, если для узла не существует предыдущего родственного элемента того же уровня. Это свойство невозможно использовать для обработки дочерних узлов. Для обработки дочерних узлов используйте методы <codeph class="+ topic/ph pr-d/codeph ">appendChild()</codeph>, <codeph class="+ topic/ph pr-d/codeph ">insertBefore()</codeph> и <codeph class="+ topic/ph pr-d/codeph ">removeNode()</codeph>.
+	 
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/lastChild" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.lastChild</linktext></link><link href="flash.xml.xml#XMLNode/appendChild()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.appendChild()</linktext></link><link href="flash.xml.xml#XMLNode/insertBefore()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.insertBefore()</linktext></link><link href="flash.xml.xml#XMLNode/removeNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.removeNode()</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:attributes:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">attributes</apiName><shortdesc class="- topic/shortdesc ">
+	 Объект, содержащий все атрибуты заданного экземпляра XMLNode.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.attributes, attributes
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Object</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Объект, содержащий все атрибуты заданного экземпляра XMLNode. Объект XMLNode.attributes содержит по одной переменной для каждого атрибута экземпляра XMLNode. Так как эти переменные определены как часть объекта, они обычно принимаются за свойства объекта. Значение каждого атрибута хранится в соответствующем свойстве в виде строки. Например, если существует атрибут с именем <codeph class="+ topic/ph pr-d/codeph ">color</codeph>, значение этого атрибута можно получить, задав имя свойства <codeph class="+ topic/ph pr-d/codeph ">color</codeph>, как показано в следующем примере: 
+	 <pre xml:space="preserve" class="- topic/pre ">
+	 var myColor:String = doc.firstChild.attributes.color
+	 </pre>
+	 
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.xml:XMLNode:childNodes:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">childNodes</apiName><shortdesc class="- topic/shortdesc ">
+	 Массив дочерних узлов указанного объекта XMLNode.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">XMLNode.childnodes, childnodes
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Array</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Массив дочерних узлов указанного объекта XMLNode. Каждый элемент массива является ссылкой на объект XMLNode, которым представлен дочерний узел. Это свойство типа только для чтения, и его невозможно использовать для обработки дочерних узлов. Для обработки дочерних узлов пользуйтесь методами <codeph class="+ topic/ph pr-d/codeph ">appendChild()</codeph>, <codeph class="+ topic/ph pr-d/codeph ">insertBefore()</codeph> и <codeph class="+ topic/ph pr-d/codeph ">removeNode()</codeph>. 
+	 
+	 <p class="- topic/p ">Данное свойство не определено для текстовых узлов (<codeph class="+ topic/ph pr-d/codeph ">nodeType == 3</codeph>).</p>
+	 
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/nodeType" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.nodeType</linktext></link><link href="flash.xml.xml#XMLNode/appendChild()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.appendChild()</linktext></link><link href="flash.xml.xml#XMLNode/insertBefore()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.insertBefore()</linktext></link><link href="flash.xml.xml#XMLNode/removeNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.removeNode()</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:localName:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">localName</apiName><shortdesc class="- topic/shortdesc ">
+	 Локальная часть имени узла XML.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Локальная часть имени узла XML. Это имя элемента без префикса области имен. Например, у узла <codeph class="+ topic/ph pr-d/codeph ">&lt;contact:mailbox/>ivan@example.ru&lt;/contact:mailbox></codeph> есть локальное имя mailbox и префикс contact, которые составляют полное имя элемента contact.mailbox.
+	 
+	 <p class="- topic/p ">Префикс области имен доступен через свойство <codeph class="+ topic/ph pr-d/codeph ">prefix</codeph> объекта узла XML. Свойство <codeph class="+ topic/ph pr-d/codeph ">nodeName</codeph> возвращает полное имя (включая префикс и локальное имя).</p>
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.xml:XMLNode:namespaceURI:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">namespaceURI</apiName><shortdesc class="- topic/shortdesc ">
+	 Если у узла XML есть префикс, namespaceURI является значением объявления xmlns для этого префикса (URI), который обычно называют URI области имен.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">URI области имен, к которому относится префикс узла XML. 
+	 
+	 </apiTipText></apiTipTexts></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Если у узла XML есть префикс, <codeph class="+ topic/ph pr-d/codeph ">namespaceURI</codeph> является значением объявления <codeph class="+ topic/ph pr-d/codeph ">xmlns</codeph> для этого префикса (URI), который обычно называют URI области имен. Объявление <codeph class="+ topic/ph pr-d/codeph ">xmlns</codeph> содержится в текущем узле или в узле, расположенном выше в иерархии XML. 
+	 
+	 <p class="- topic/p ">Если у узла XML нет префикса, значение свойства <codeph class="+ topic/ph pr-d/codeph ">namespaceURI</codeph> зависит от того, определена ли области имен по умолчанию (как в примере <codeph class="+ topic/ph pr-d/codeph ">xmlns="http://www.example.com/"</codeph>). Если существует область имен по умолчанию, значение свойства <codeph class="+ topic/ph pr-d/codeph ">namespaceURI</codeph> является значением области имен по умолчанию. Если области имен по умолчанию не существует, свойство <codeph class="+ topic/ph pr-d/codeph ">namespaceURI</codeph> для этого узла будет пустой строкой (<codeph class="+ topic/ph pr-d/codeph ">""</codeph>).</p>
+	 
+	 <p class="- topic/p ">Можно использовать метод <codeph class="+ topic/ph pr-d/codeph ">getNamespaceForPrefix()</codeph> для определения области имен, ассоциируемой с конкретным префиксом. Свойство <codeph class="+ topic/ph pr-d/codeph ">namespaceURI</codeph> возвращает префикс, ассоциируемый с именем узла.</p>
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/getNamespaceForPrefix()" class="- topic/link "><linktext class="- topic/linktext ">getNamespaceForPrefix()</linktext></link><link href="flash.xml.xml#XMLNode/getPrefixForNamespace()" class="- topic/link "><linktext class="- topic/linktext ">getPrefixForNamespace()</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNode:prefix:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">prefix</apiName><shortdesc class="- topic/shortdesc ">
+	 Префикс имени узла XML.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">
+	 </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Префикс имени узла XML. Например, узел <codeph class="+ topic/ph pr-d/codeph ">&lt;contact:mailbox/>ivan@example.ru&lt;/contact:mailbox></codeph>, префикс contact и локальное имя mailbox, которые составляют полное имя элемента contact.mailbox.
+	 
+	 <p class="- topic/p ">Свойство <codeph class="+ topic/ph pr-d/codeph ">nodeName</codeph> объекта узла XML возвращает полное имя (включая префикс и локальное имя). Локальная часть имени элемента доступна через свойство <codeph class="+ topic/ph pr-d/codeph ">localName</codeph>. </p>
+	 
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.xml:XMLNodeType" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">XMLNodeType</apiName><shortdesc class="- topic/shortdesc ">
+ Класс XMLNodeType содержит константы, используемые с XMLNode.nodeType.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Класс XMLNodeType содержит константы, используемые с <codeph class="+ topic/ph pr-d/codeph ">XMLNode.nodeType</codeph>. Значения определяются списком NodeType, приведенным в рекомендации W3C DOM для Уровня 1: <xref href="http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html" scope="external" class="- topic/xref ">http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html</xref>
+ 
+ </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/nodeType" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.nodeType</linktext></link></related-links><apiValue id="flash.xml:XMLNodeType:ELEMENT_NODE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ELEMENT_NODE</apiName><shortdesc class="- topic/shortdesc ">
+ 	 Показывает, что узел является элементом.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">1</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 	 Показывает, что узел является элементом. Эта константа используется с <codeph class="+ topic/ph pr-d/codeph ">XMLNode.nodeType</codeph>. Значения определяются списком NodeType, приведенным в рекомендации W3C DOM для Уровня 1: <xref href="http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html" scope="external" class="- topic/xref ">http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html</xref>
+ 	 
+ 	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/nodeType" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.nodeType</linktext></link></related-links></apiValue><apiValue id="flash.xml:XMLNodeType:TEXT_NODE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">TEXT_NODE</apiName><shortdesc class="- topic/shortdesc ">
+	 Показывает, что узел является текстовым узлом.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">3</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Показывает, что узел является текстовым узлом. Эта константа используется с <codeph class="+ topic/ph pr-d/codeph ">XMLNode.nodeType</codeph>. Значения определяются списком NodeType, приведенным в рекомендации W3C DOM для Уровня 1: <xref href="http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html" scope="external" class="- topic/xref ">http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html</xref>
+ 	 
+ 	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLNode/nodeType" class="- topic/link "><linktext class="- topic/linktext ">XMLNode.nodeType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.xml:XMLDocument" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">XMLDocument</apiName><shortdesc class="- topic/shortdesc ">
+ Класс XMLDocument представляет устаревший объект XML, который использовался в ActionScript 2.0.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.xml:XMLNode</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Класс XMLDocument представляет устаревший объект XML, который использовался в ActionScript 2.0. В ActionScript 3.0 он был переименован в XMLDocument во избежание конфликтов имен с новым XML-классом ActionScript 3.0. В ActionScript 3.0 рекомендуется использовать новый <xref href="../../XML.html" class="- topic/xref ">XML</xref>-класс и связанные классы, поддерживающие E4X (ECMAScript для XML).
+ 
+ <p class="- topic/p ">Класс XMLDocument, как и XMLNode и XMLNodeType, является обратно совместимым. Функциональность для загрузки XML-документов теперь содержится в классе URLLoader.</p>
+ 
+ </apiDesc><example conref="examples\XMLDocumentExample.as" class="- topic/example "> В следующем примере показано, как классы XMLDocument и XMLNode используются для разбора и форматирования XML-документа. Вместо загрузки внешнего XML-файла для создания и разбора XML-документа используется класс XML верхнего уровня. 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.xml.XMLDocument;
+    import flash.xml.XMLNode;
+    import flash.xml.XMLNodeType;
+
+    public class XMLDocumentExample extends Sprite {
+        public function XMLDocumentExample() {
+            var result:XMLDocument = new XMLDocument();
+            result.ignoreWhite = true;
+            result.parseXML(getXMLString());
+
+            var books:Array = parseBooks(result.firstChild);
+            trace("books: \n" + books);
+        }
+
+        private function parseBooks(node:XMLNode):Array {
+            var books:Array = new Array();
+
+            var kids:Array = node.childNodes;
+            for each(var item:XMLNode in kids) {
+                parseBook(item, books);
+            }
+
+            return books;
+        }
+
+        private function parseBook(node:XMLNode, books:Array):void {
+            var item:Book = new Book();
+            item.setPublisher(node.attributes.publisher);
+            item.setName(node.attributes.name);
+            books.push(item);
+        }
+
+        private function getXMLString():String {
+            var list:XML = &lt;books>
+                                &lt;book publisher="Addison-Wesley" name="Design Patterns" />
+                                &lt;book publisher="Addison-Wesley" name="The Pragmatic Programmer" />
+                                &lt;book publisher="Addison-Wesley" name="Test Driven Development" />
+                                &lt;book publisher="Addison-Wesley" name="Refactoring to Patterns" />
+                                &lt;book publisher="O'Reilly Media" name="The Cathedral &amp; the Bazaar" />
+                                &lt;book publisher="O'Reilly Media" name="Unit Test Frameworks" />
+                            &lt;/books>;
+            return list.toXMLString();
+        }
+    }
+
+}
+class Book {
+    private var publisher:String;
+    private var name:String;
+
+    public function setPublisher(publisher:String):void {
+        this.publisher = publisher;
+    }
+
+    public function setName(name:String):void {
+        this.name = name;
+    }
+
+    public function toString():String {
+        return "[Book name: " + name + " publisher: " + publisher + "]\n";
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.net.xml#URLLoader" class="- topic/link "><linktext class="- topic/linktext ">flash.net.URLLoader</linktext></link><link href="#XML" class="- topic/link "><linktext class="- topic/linktext ">Класс XML</linktext></link></related-links><apiConstructor id="flash.xml:XMLDocument:XMLDocument" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">XMLDocument</apiName><shortdesc class="- topic/shortdesc ">
+	 Создает новый объект XMLDocument.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>The following example creates a new, empty XMLDocument object:
+	 <listing>
+	 var my_xml:XML = new XML();
+	 </listing>
+	 <p class="- topic/p ">The following example creates an XML object by parsing the XML text specified in the <code>source</code> parameter, and populates the newly created XML object with the resulting XML document tree:</p>
+	 <listing>
+	 var other_xml:XML = new XML("&lt;state name=\"California\">&lt;city>San Francisco&lt;/city>&lt;/state>");
+	 </listing>
+	 
+	 </maelexample></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">source</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Текст XML разбирается, и в результате создается новый объект XMLDocument. 
+	 
+	 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Создает новый объект XMLDocument. Для создания объекта XMLDocument следует использовать конструктор, прежде чем вызывать какие-либо методы класса XMLDocument.
+	 <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Примечание. </b>Пользуйтесь методами <codeph class="+ topic/ph pr-d/codeph ">createElement()</codeph> и <codeph class="+ topic/ph pr-d/codeph ">createTextNode()</codeph> для добавления элементов и текстовых узлов в дерево XML-документа.</p>
+	 
+	 </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLDocument/createElement()" class="- topic/link "><linktext class="- topic/linktext ">XMLDocument.createElement()</linktext></link><link href="flash.xml.xml#XMLDocument/createTextNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLDocument.createTextNode()</linktext></link></related-links></apiConstructor><apiOperation id="flash.xml:XMLDocument:createElement" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createElement</apiName><shortdesc class="- topic/shortdesc ">
+	 Создает новый объект XMLNode с именем, заданным параметром.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>The following example creates three XML nodes using the <code>createElement()</code> method:
+	 <listing>
+	 // create an XML document
+	 var doc:XML = new XML();
+	 
+	 // create three XML nodes using createElement()
+	 var element1:XMLNode = doc.createElement("element1");
+	 var element2:XMLNode = doc.createElement("element2");
+	 var element3:XMLNode = doc.createElement("element3");
+	 
+	 // place the new nodes into the XML tree
+	 doc.appendChild(element1);
+	 element1.appendChild(element2);
+	 element1.appendChild(element3);
+	 
+	 trace(doc);
+	 // output: &lt;element1>&lt;element2 />&lt;element3 />&lt;/element1>
+	 </listing>
+	 
+	 </maelexample></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект XMLNode.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.xml:XMLNode</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">name</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Имя метки создаваемого элемента XMLDocument.
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Создает новый объект XMLNode с именем, заданным параметром. Для нового узла изначально не существует родительских и дочерних узлов и родственных элементов того же уровня. Метод возвращает ссылку на вновь созданный объект XMLNode, которым представлен элемент. Этот метод и метод <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.createTextNode()</codeph> являются методами-конструкторами для создания узлов объекта XMLDocument.
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLDocument/createTextNode()" class="- topic/link "><linktext class="- topic/linktext ">XMLDocument.createTextNode()</linktext></link></related-links></apiOperation><apiOperation id="flash.xml:XMLDocument:createTextNode" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">createTextNode</apiName><shortdesc class="- topic/shortdesc ">
+	 Создает новый текстовый узел XML с заданным текстом.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>The following example creates two XML text nodes using the <code>createTextNode()</code> method, and places them into existing XML nodes:
+	 <listing>
+	 // create an XML document
+	 var doc:XML = new XML();
+	 
+	 // create three XML nodes using createElement()
+	 var element1:XMLNode = doc.createElement("element1");
+	 var element2:XMLNode = doc.createElement("element2");
+	 var element3:XMLNode = doc.createElement("element3");
+	 
+	 // place the new nodes into the XML tree
+	 doc.appendChild(element1);
+	 element1.appendChild(element2);
+	 element1.appendChild(element3);
+	 
+	 // create two XML text nodes using createTextNode()
+	 var textNode1:XMLNode = doc.createTextNode("textNode1 String value");
+	 var textNode2:XMLNode = doc.createTextNode("textNode2 String value");
+	 
+	 // place the new nodes into the XML tree
+	 element2.appendChild(textNode1);
+	 element3.appendChild(textNode2);
+	 
+	 trace(doc);
+	 // output (with line breaks added between tags):
+	 // &lt;element1>
+	 //    &lt;element2>textNode1 String value&lt;/element2>
+	 //    &lt;element3>textNode2 String value&lt;/element3>
+	 // &lt;/element1>
+	 </listing>
+	 
+	 
+	 </maelexample></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Объект XMLNode.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.xml:XMLNode</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">text</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Текст для создания нового текстового узла.
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Создает новый текстовый узел XML с заданным текстом. Для нового узла изначально не существует родительских узлов, а у текстового узла не может быть дочерних узлов или родственных элементов того же уровня. Этот метод возвращает ссылку на объект XMLDocument, которым представлен текстовый узел. Этот метод и метод <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.createElement()</codeph> являются методами-конструкторами для создания узлов объекта XMLDocument.
+	 
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.xml.xml#XMLDocument/createElement()" class="- topic/link "><linktext class="- topic/linktext ">XMLDocument.createElement()</linktext></link></related-links></apiOperation><apiOperation id="flash.xml:XMLDocument:parseXML" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">parseXML</apiName><shortdesc class="- topic/shortdesc ">
+	 Разбирает текст XML, указанный в параметре value, и формирует в объекте XMLDocument получившееся дерево XML.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>The following example creates and parses an XML packet:
+	 <listing>
+	 var xml_str:String = "&lt;state name=\"California\">
+	 &lt;city>San Francisco&lt;/city>&lt;/state>"
+	 
+	 // defining the XML source within the XML constructor:
+	 var my1_xml:XML = new XML(xml_str);
+	 trace(my1_xml.firstChild.attributes.name); // output: California
+	 
+	 // defining the XML source using the XML.parseXML method:
+	 var my2_xml:XML = new XML();
+	 my2_xml.parseXML(xml_str);
+	 trace(my2_xml.firstChild.attributes.name); // output: California
+	 </listing>
+	 
+	 </maelexample></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">source</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Текст XML для разбора и передачи указанному объекту XMLDocument.
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Разбирает текст XML, указанный в параметре <codeph class="+ topic/ph pr-d/codeph ">value</codeph>, и формирует в объекте XMLDocument получившееся дерево XML. Все существующие деревья в объекте XMLDocument отбрасываются.
+	 
+	 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.xml:XMLDocument:toString" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">toString</apiName><shortdesc class="- topic/shortdesc ">
+	 Возвращает строковое представление объекта XML.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiIsOverride class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiIsOverride "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Строковое представление объекта XML.
+ 	  
+ 	  </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Возвращает строковое представление объекта XML.
+	 
+ 	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.xml:XMLDocument:docTypeDecl" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">docTypeDecl</apiName><shortdesc class="- topic/shortdesc ">
+	 Показывает сведения об объявлении DOCTYPE для XML-документа.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>The following example uses the <code>XML.docTypeDecl</code> property to set the <code>DOCTYPE</code> declaration for an XML object:
+	 <listing>
+	 <code><em>my_xml</em></code>.<code>docTypeDecl = "&lt;!DOCTYPE greeting SYSTEM \"hello.dtd\">";</code>
+	 </listing>
+	 </maelexample></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Object</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Показывает сведения об объявлении <codeph class="+ topic/ph pr-d/codeph ">DOCTYPE</codeph> для XML-документа. После разбора текста XML и преобразования его в объект XMLDocument свойство <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.docTypeDecl</codeph> объекта XMLDocument получает текст объявления <codeph class="+ topic/ph pr-d/codeph ">DOCTYPE</codeph> XML-документа (например, <codeph class="+ topic/ph pr-d/codeph ">&lt;!DOCTYPE</codeph> <codeph class="+ topic/ph pr-d/codeph "> greeting SYSTEM "hello.dtd"></codeph>). Это свойство задается с помощью строкового представления объявления <codeph class="+ topic/ph pr-d/codeph ">DOCTYPE</codeph>, а не с помощью объекта XMLNode.
+	 <p class="- topic/p ">Синтаксический анализатор XML, встречающийся в предыдущих версиях ActionScript, не проверяет достоверность документа. Объявление <codeph class="+ topic/ph pr-d/codeph ">DOCTYPE</codeph> считывается анализатором и сохраняется в свойстве <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.docTypeDecl</codeph>, но проверка описания типа документа (DTD) при этом не выполняется.</p>
+	 <p class="- topic/p ">Если в ходе разбора не удается обнаружить объявление <codeph class="+ topic/ph pr-d/codeph ">DOCTYPE</codeph>, свойство <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.docTypeDecl</codeph> принимает значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>. Метод <codeph class="+ topic/ph pr-d/codeph ">XML.toString()</codeph> выводит содержимое <codeph class="+ topic/ph pr-d/codeph ">XML.docTypeDecl</codeph> сразу после XML-объявления, сохраняемого в <codeph class="+ topic/ph pr-d/codeph ">XML.xmlDecl</codeph>, и перед любым другим текстом в объекте XML. Если <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.docTypeDecl</codeph> имеет значение null, объявление <codeph class="+ topic/ph pr-d/codeph ">DOCTYPE</codeph> не выводится.</p>
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.xml:XMLDocument:idMap" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">idMap</apiName><shortdesc class="- topic/shortdesc ">
+	 Объект, содержащий узлы XML, которым присвоен атрибут id.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>Create a text file named "idMapTest.xml" containing the following text:
+	 
+	 <listing>&lt;?xml version="1.0"?> 
+	 &lt;doc xml:base="http://example.org/today/" xmlns:xlink="http://www.w3.org/1999/xlink"> 
+	   &lt;head> 
+	     &lt;title>Virtual Library&lt;/title> 
+	   &lt;/head> 
+	   &lt;body> 
+	     &lt;paragraph id="linkP1">See &lt;link xlink:type="simple" xlink:href="new.xml">what's 
+	       new&lt;/link>!&lt;/paragraph> 
+	     &lt;paragraph>Check out the hot picks of the day!&lt;/paragraph> 
+	     &lt;olist xml:base="/hotpicks/"> 
+	       &lt;item> 
+	         &lt;link id="foo" xlink:type="simple" xlink:href="pick1.xml">Hot Pick #1&lt;/link> 
+	       &lt;/item> 
+	       &lt;item> 
+	         &lt;link id="bar" xlink:type="simple" xlink:href="pick2.xml">Hot Pick #2&lt;/link> 
+	       &lt;/item> 
+	       &lt;item> 
+	         &lt;link xlink:type="simple" xlink:href="pick3.xml">Hot Pick #3&lt;/link> 
+	       &lt;/item> 
+	     &lt;/olist>
+	   &lt;/body> 
+	  &lt;/doc>
+	 </listing>
+	 
+	 <p class="- topic/p ">Then create a SWF file in the same directory as the XML file. Include the following
+	 script in the SWF:</p>
+	 
+	 <listing>
+	 var readXML = new XMLDocument();
+	 readXML.load("idMapTest.xml");
+	 readXML.onLoad = function(success) {
+	 	myXML = new XMLDocument();
+	 	myXML.parseXML(readXML);	
+	 	for (var x in myXML.idMap){
+	 		 trace('idMap.' + x + " = " + newline + myXML.idMap[x]);
+	 		 trace('____________' + newline);
+	 	}
+	 }
+	 </listing>
+	 
+	 <p class="- topic/p ">When you test the SWF file, the following output is generated:</p>
+	 
+	 <listing>
+	 idMap.bar = 
+	 &lt;link id="bar" xlink:type="simple" xlink:href="pick2.xml">Hot Pick #2&lt;/link>
+	 ____________
+	 
+	 idMap.foo = 
+	 &lt;link id="foo" xlink:type="simple" xlink:href="pick1.xml">Hot Pick #1&lt;/link>
+	 ____________
+	 
+	 idMap.linkP1 = 
+	 &lt;paragraph id="linkP1">See &lt;link xlink:type="simple" xlink:href="new.xml">what's 
+	 
+	       new&lt;/link>!&lt;/paragraph>
+	 ____________
+	 </listing>
+	 
+	 </maelexample></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">unknown</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Object</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Объект, содержащий узлы XML, которым присвоен атрибут <codeph class="+ topic/ph pr-d/codeph ">id</codeph>. Имена свойств объекта (каждое из которых содержит узел) совпадают со значениями атрибутов <codeph class="+ topic/ph pr-d/codeph ">id</codeph>.
+	 
+	 <p class="- topic/p ">Рассмотрим следующий объект XMLDocument:</p>
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 &lt;employee id='41'>
+	 	&lt;name>
+	 		John Doe
+	 	&lt;/name>
+	 	&lt;address>
+	 		601 Townsend St.
+	 	&lt;/address>
+	 &lt;/employee>
+	 
+	 &lt;employee id='42'>
+	 	&lt;name>
+	 		Jane Q. Public
+	 	&lt;/name>
+	 &lt;/employee>
+	 &lt;department id="IT">
+	 	Information Technology
+	 &lt;/department>
+	 </codeblock>
+	 
+	 <p class="- topic/p ">В данном примере свойство <codeph class="+ topic/ph pr-d/codeph ">idMap</codeph> объекта XMLDocument является объектом с тремя свойствами: <codeph class="+ topic/ph pr-d/codeph ">41</codeph>, <codeph class="+ topic/ph pr-d/codeph ">42</codeph> и <codeph class="+ topic/ph pr-d/codeph ">IT</codeph>. Каждое из этих свойств является объектом XMLNode с подходящим значением <codeph class="+ topic/ph pr-d/codeph ">id</codeph>. Например, свойство <codeph class="+ topic/ph pr-d/codeph ">IT</codeph> объекта <codeph class="+ topic/ph pr-d/codeph ">idMap</codeph> является этим узлом:</p> 
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 &lt;department id="IT">
+	 	Information Technology
+	 &lt;/department>
+	 </codeblock>
+	 
+	 <p class="- topic/p ">Для создания экземпляра свойства <codeph class="+ topic/ph pr-d/codeph ">idMap</codeph> к объекту XMLDocument необходимо применить метод <codeph class="+ topic/ph pr-d/codeph ">parseXML()</codeph>.</p>
+	 
+	 <p class="- topic/p ">Если объектов XMLNode с одинаковым значением <codeph class="+ topic/ph pr-d/codeph ">id</codeph> более одного, подходящим свойством объекта <codeph class="+ topic/ph pr-d/codeph ">idNode</codeph> будет это же свойство последнего разобранного узла. Например:</p>
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 var x1:XML = new XMLDocument("&lt;a id='1'>&lt;b id='2' />&lt;c id='1' />&lt;/a>");
+	 x2 = new XMLDocument();
+	 x2.parseXML(x1);
+	 trace(x2.idMap['1']);
+	 </codeblock>
+	 
+	 Это выведет узел <codeph class="+ topic/ph pr-d/codeph ">&lt;c></codeph>: 
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 <codeph class="+ topic/ph pr-d/codeph ">&lt;c id='1' /></codeph>
+	 </codeblock>
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.xml:XMLDocument:ignoreWhite" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ignoreWhite</apiName><shortdesc class="- topic/shortdesc ">
+	 Если установлено значение true, текстовые узлы, содержащие только пробелы, при разборе игнорируются.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>The following example loads an XML file with a text node that contains only white space; the <code>foyer</code> tag comprises fourteen space characters. To run this example, create a text file named <em>flooring.xml</em>, and copy the following tags into it:
+	 <listing>
+	 &lt;house>
+	    &lt;kitchen>   ceramic tile   &lt;/kitchen>
+	    &lt;bathroom>linoleum&lt;/bathroom>
+	    &lt;foyer>              &lt;/foyer>
+	 &lt;/house>
+	 </listing>
+	 <p class="- topic/p ">Create a new Flash document named <em>flooring.fla</em> and save it to the same directory as the XML file. Place the following code into the main Timeline:</p>
+	 <listing>
+	 // create a new XML object
+	 var flooring:XML = new XML();
+	 
+	 // set the ignoreWhite property to true (default value is false)
+	 flooring.ignoreWhite = true;
+	 
+	 // After loading is complete, trace the XML object
+	 flooring.onLoad = function(success:Boolean) {
+	   trace(flooring);
+	 }
+	 
+	 // load the XML into the flooring object
+	 flooring.load("flooring.xml");
+	 
+	 // output (line breaks added for clarity):
+	 &lt;house>
+	    &lt;kitchen>   ceramic tile   &lt;/kitchen>
+	    &lt;bathroom>linoleum&lt;/bathroom>
+	    &lt;foyer />
+	 &lt;/house>
+	 
+	 </listing>
+	 <p class="- topic/p ">If you then change the setting of <code>flooring.ignoreWhite</code> to <code>false</code>, or simply remove that line of code entirely, the fourteen space characters in the <code>foyer</code> tag will be preserved:</p>
+	 <listing>
+	 ...
+	 // set the ignoreWhite property to false (default value)
+	 flooring.ignoreWhite = false;
+	 ...
+	 // output (line breaks added for clarity):
+	 &lt;house>
+	    &lt;kitchen>   ceramic tile   &lt;/kitchen>
+	    &lt;bathroom>linoleum&lt;/bathroom>
+	    &lt;foyer>              &lt;/foyer>
+	 &lt;/house>
+	 
+	 </listing>
+	 <span class="flashonly"><p class="- topic/p ">The XML_blogTracker.fla and XML_languagePicker.fla files in the ActionScript samples folder also contain a code example. The following are typical paths to this folder:</p>
+	 <ul class="- topic/ul "><li class="- topic/li ">Windows: <i class="+ topic/ph hi-d/i ">boot drive</i>\Program Files\Macromedia\Flash 8\Samples and Tutorials\Samples\ActionScript </li><li class="- topic/li ">Macintosh: <i class="+ topic/ph hi-d/i ">Macintosh HD</i>/Applications/Macromedia Flash 8/Samples and Tutorials/Samples/ActionScript </li><li class="- topic/li "/></ul>
+	 </span>
+	 </maelexample></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Если установлено значение <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, текстовые узлы, содержащие только пробелы, при разборе игнорируются. Текстовые узлы, начинающиеся или заканчивающиеся пробелом, не затрагиваются. Параметр по умолчанию — <codeph class="+ topic/ph pr-d/codeph ">false</codeph>. 
+	 <p class="- topic/p ">Можно назначить свойство <codeph class="+ topic/ph pr-d/codeph ">ignoreWhite</codeph> отдельным объектам XMLDocument, как показано в примере:</p>
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 my_xml.ignoreWhite = true;
+	 </codeblock>
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.xml:XMLDocument:xmlDecl" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">xmlDecl</apiName><shortdesc class="- topic/shortdesc ">
+	 Строка, задающая информацию о XML-объявлении в документе.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Lite" version="4" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>The following example creates a text field called <code>my_txt</code> 
+	 that has the same dimensions as the Stage. The text field displays properties of the XML packet that loads into the SWF file. The doc type declaration displays in <code>my_txt</code>. Add the following ActionScript to your FLA or AS file:
+	 <listing>
+	 <code>var my_fmt:TextFormat = new TextFormat();</code>
+	 <code>my_fmt.font = "_typewriter";</code>
+	 <code>my_fmt.size = 12;</code>
+	 <code>my_fmt.leftMargin = 10;</code>
+	 
+	 <code>this.createTextField("my_txt", this.getNextHighestDepth(), 0, 0, Stage.width, Stage.height);</code>
+	 <code>my_txt.border = true;</code>
+	 <code>my_txt.multiline = true;</code>
+	 <code>my_txt.wordWrap = true;</code>
+	 <code>my_txt.setNewTextFormat(my_fmt);</code>
+	 
+	 <code>var my_xml:XML = new XML();</code>
+	 <code>my_xml.ignoreWhite = true;</code>
+	 <code>my_xml.onLoad = function(success:Boolean) {</code>
+	 <code>  var endTime:Number = getTimer();</code>
+	 <code>  var elapsedTime:Number = endTime-startTime;</code>
+	 <code>  if (success) {</code>
+	 <code>    my_txt.text = "xmlDecl:"+newline+my_xml.xmlDecl+newline+newline;</code>
+	 <code>    my_txt.text += "contentType:"+newline+my_xml.contentType+newline+newline;</code>
+	 <code>    my_txt.text += "docTypeDecl:"+newline+my_xml.docTypeDecl+newline+newline;</code>
+	 <code>    my_txt.text += "packet:"+newline+my_xml.toString()+newline+newline;</code>
+	 <code>  } else {</code>
+	 <code>    my_txt.text = "Unable to load remote XML."+newline+newline;</code>
+	 <code>  }</code>
+	 <code>  my_txt.text += "loaded in: "+elapsedTime+" ms.";</code>
+	 <code>};</code>
+	 <code>my_xml.load("http://www.helpexamples.com/crossdomain.xml");</code>
+	 <code>var startTime:Number = getTimer();</code>
+	 </listing>
+	 </maelexample></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Object</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Строка, задающая информацию о XML-объявлении в документе. После разбора XML-документа и преобразования в объект XMLDocument то свойство устанавливается для XML-объявления в документе. Это свойство задается с помощью строкового представления XML-объявления, а не с помощью объекта XMLNode. Если в ходе разбора не удается обнаружить XML-объявление, свойство принимает значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>. Метод <codeph class="+ topic/ph pr-d/codeph ">XMLDocument.toString()</codeph> выводит содержимое свойства <codeph class="+ topic/ph pr-d/codeph ">XML.xmlDecl</codeph> выше любого другого текста объекта XML. Если свойство <codeph class="+ topic/ph pr-d/codeph ">XML.xmlDecl</codeph> содержит значение <codeph class="+ topic/ph pr-d/codeph ">null</codeph>, XML-объявление не выводится.
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

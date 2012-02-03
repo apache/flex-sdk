@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.easing"><apiName>mx.effects.easing</apiName><apiDetail/><apiClassifier id="mx.effects.easing:Bounce"><apiName>Bounce</apiName><shortdesc>
+  La classe Bounce définit trois fonctions d’accélération pour mettre en œuvre le mouvement de rebond en utilisant les classes d’effet Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Bounce définit trois fonctions d’accélération pour mettre en œuvre le mouvement de rebond au sein des classes d’effet Flex. Pour plus d’informations, voir http://www.robertpenner.com/profmx. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Bounce:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      La méthode easeInOut() combine le mouvement des méthodes easeIn() et easeOut() pour débuter le mouvement de rebond lentement, l’accélérer, puis le ralentir.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeInOut()</codeph> combine le mouvement des méthodes <codeph>easeIn()</codeph> et <codeph>easeOut()</codeph> pour amorcer le rebond lentement, l’accélérer, puis le ralentir. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Bounce:easeIn"><apiName>easeIn</apiName><shortdesc>
+      La méthode easeIn() amorce le mouvement de rebond lentement, puis l’accélère progressivement au cours de son exécution.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeIn()</codeph> amorce le mouvement de rebond lentement, puis l’accélère progressivement au cours de son exécution. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Bounce:easeOut"><apiName>easeOut</apiName><shortdesc>
+      La méthode easeOut() amorce le mouvement de rebond rapidement, puis le ralentit au cours de son exécution.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeOut()</codeph> amorce le mouvement rapidement, puis le ralentit progressivement au cours de son exécution. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Back"><apiName>Back</apiName><shortdesc>
+  La classe Back définit trois fonctions d’accélération qui permettent d’implémenter le mouvement en utilisant les classes d’effet Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Back définit trois fonctions d’accélération qui permettent d’implémenter le mouvement en utilisant les classes d’effet Flex. Pour plus d’informations, voir http://www.robertpenner.com/profmx. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Back:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      La méthode easeInOut() combine le mouvement des méthodes easeIn() et easeOut() pour amorcer le mouvement vers l’arrière, changer sa direction et l’orienter vers la cible, la dépasser légèrement, changer à nouveau de direction et revenir vers la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>s</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie l’importance du dépassement, dont l’ampleur est proportionnelle à la valeur.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeInOut()</codeph> combine le mouvement des méthodes <codeph>easeIn()</codeph> et <codeph>easeOut()</codeph> pour amorcer le mouvement vers l’arrière, changer sa direction et l’orienter vers la cible, la dépasser légèrement, changer à nouveau de direction et revenir vers la cible.
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Back:easeIn"><apiName>easeIn</apiName><shortdesc>
+      La méthode easeIn() amorce le mouvement en opérant un retour en arrière, puis en prenant la direction inverse pour se diriger vers la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>s</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie l’importance du dépassement, dont l’ampleur est proportionnelle à la valeur.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeIn()</codeph> amorce le mouvement en opérant un retour en arrière, puis en prenant la direction inverse pour se diriger vers la cible.
+	 
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Back:easeOut"><apiName>easeOut</apiName><shortdesc>
+      Avec la méthode easeOut(), le mouvement initial prend la direction de la cible, la dépasse légèrement, puis reprend la direction de la cible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>s</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie l’importance du dépassement, dont l’ampleur est proportionnelle à la valeur.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeOut()</codeph> amorce le mouvement vers la cible, la dépasse légèrement, puis revient vers celle-ci.
+	 
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Exponential"><apiName>Exponential</apiName><shortdesc>
+  La classe Exponential définit trois fonctions d’accélération pour mettre en oeuvre le mouvement en utilisant les classes d’effet Flex. Le mouvement est défini par une onde sinusoidale qui se réduit de façon progressive.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Exponential définit trois fonctions d’accélération pour mettre en oeuvre le mouvement en utilisant les classes d’effet Flex. Le mouvement est défini par une onde sinusoidale qui se réduit de façon progressive. Pour plus d’informations, voir http://www.robertpenner.com/profmx. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Exponential:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      La méthode easeInOut() combine le mouvement des méthodes easeIn() et easeOut() : le mouvement démarre lentement, s’accélère, puis ralentit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeInOut()</codeph> combine le mouvement des méthodes <codeph>easeIn()</codeph> et <codeph>easeOut()</codeph> pour amorcer le mouvement lentement, l’accélérer, puis le ralentir. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Exponential:easeIn"><apiName>easeIn</apiName><shortdesc>
+      La méthode easeIn() amorece le mouvement lentement, puis l’accélère progressivement au cours de son exécution.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeIn()</codeph> amorce le mouvement lentement, puis accélère progressivement au cours de son exécution. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Exponential:easeOut"><apiName>easeOut</apiName><shortdesc>
+      La méthode easeOut() amorce le mouvement rapidement, puis ralentit progressivement au cours de son exécution.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeOut()</codeph> amorce le mouvement rapidement, puis ralentit progressivement au cours de son exécution. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Elastic"><apiName>Elastic</apiName><shortdesc>
+  La classe Elastic définit trois fonctions d’accélération pour implémenter le mouvement à l’aide d’une classe d’effets Flex. Le mouvement est défini par une onde sinusoidale qui se réduit de façon progressive.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Elastic définit trois fonctions d’accélération pour implémenter le mouvement à l’aide d’une classe d’effets Flex. Le mouvement est défini par une onde sinusoidale qui se réduit de façon progressive. Pour plus d’informations, voir http://www.robertpenner.com/profmx. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Elastic:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      La méthode easeInOut() combine le mouvement des méthodes easeIn() et easeOut() : le mouvement démarre lentement, s’accélère, puis ralentit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>a</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie l’amplitude de l’onde sinusoïdale.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>p</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie la période de l’onde sinusoïdale.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeInOut()</codeph> combine le mouvement des méthodes <codeph>easeIn()</codeph> et <codeph>easeOut()</codeph> pour amorcer le mouvement lentement, l’accélérer, puis le ralentir. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Elastic:easeIn"><apiName>easeIn</apiName><shortdesc>
+      La méthode easeIn() amorece le mouvement lentement, puis l’accélère progressivement au cours de son exécution.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>a</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie l’amplitude de l’onde sinusoïdale.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>p</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie la période de l’onde sinusoïdale.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeIn()</codeph> amorce le mouvement lentement, puis accélère progressivement au cours de son exécution. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Elastic:easeOut"><apiName>easeOut</apiName><shortdesc>
+      La méthode easeOut() amorce le mouvement rapidement, puis ralentit progressivement au cours de son exécution.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>a</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie l’amplitude de l’onde sinusoïdale.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>p</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>Spécifie la période de l’onde sinusoïdale.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeOut()</codeph> amorce le mouvement rapidement, puis ralentit progressivement au cours de son exécution. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.effects.easing:Circular"><apiName>Circular</apiName><shortdesc>
+  La classe Circular définit trois fonctions d’accélération qui permettent d’implémenter le mouvement circulaire en utilisant les classes d’effet Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe Circular définit trois fonctions d’accélération qui permettent d’implémenter le mouvement circulaire en utilisant les classes d’effet Flex. Pour plus d’informations, voir http://www.robertpenner.com/profmx. 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.effects.easing:Circular:easeInOut"><apiName>easeInOut</apiName><shortdesc>
+      La méthode easeInOut() combine le mouvement des méthodes easeIn() et easeOut() : le mouvement démarre lentement, s’accélère, puis ralentit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeInOut()</codeph> combine le mouvement des méthodes <codeph>easeIn()</codeph> et <codeph>easeOut()</codeph> pour amorcer le mouvement lentement, l’accélérer, puis le ralentir. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Circular:easeIn"><apiName>easeIn</apiName><shortdesc>
+      La méthode easeIn() amorece le mouvement lentement, puis l’accélère progressivement au cours de son exécution.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeIn()</codeph> amorce le mouvement lentement, puis accélère progressivement au cours de son exécution. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.easing:Circular:easeOut"><apiName>easeOut</apiName><shortdesc>
+      La méthode easeOut() amorce le mouvement rapidement, puis ralentit progressivement au cours de son exécution.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nombre correspondant à la position du composant.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>t</apiItemName><apiType value="Number"/><apiDesc>Spécifie l’heure.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>b</apiItemName><apiType value="Number"/><apiDesc>Spécifie la position initiale d’un composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>c</apiItemName><apiType value="Number"/><apiDesc>Spécifie le changement total de position du composant.
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>d</apiItemName><apiType value="Number"/><apiDesc>Spécifie la durée de l’effet, en millisecondes.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      La méthode <codeph>easeOut()</codeph> amorce le mouvement rapidement, puis ralentit progressivement au cours de son exécution. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

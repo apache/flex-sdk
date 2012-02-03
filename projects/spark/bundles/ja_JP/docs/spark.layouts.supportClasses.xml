@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.layouts.supportClasses"><apiName>spark.layouts.supportClasses</apiName><apiDetail/><apiClassifier id="spark.layouts.supportClasses:LayoutBase"><apiName>LayoutBase</apiName><shortdesc>
+  LayoutBase クラスは、すべての Spark レイアウトの基本クラスを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:LayoutBase&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+   <pre>
+  &lt;s:LayoutBase 
+    <strong>Properties</strong>
+    clipAndEnableScrolling="false"
+    dropIndicator="<i>defined by the skin class</i>"
+    horizontalScrollPosition="0"
+    target="null"
+    typicalLayoutElement="null"
+    useVirtualLayout="false"
+    verticalScrollPosition="0"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LayoutBase クラスは、すべての Spark レイアウトの基本クラスを定義します。Spark コンテナで機能するカスタムレイアウトを作成するには、<codeph>LayoutBase</codeph> またはそのサブクラスのいずれかを拡張します。
+   <p>サブクラスでは、少なくとも <codeph>updateDisplayList()</codeph> メソッドと <codeph>measure()</codeph> メソッドを実装する必要があります。updateDisplayList() メソッドは、<codeph>target</codeph> の GroupBase のエレメントの位置とサイズを設定し、measure() メソッドは、<codeph>target</codeph> のデフォルトサイズを計算します。</p>
+   <p>サブクラスでは、<codeph>getElementBoundsAboveScrollRect()</codeph> や <codeph>getElementBoundsBelowScrollRect()</codeph> などのメソッドをオーバーライドして、スクロールバーに接続したときのターゲットの動作方法をカスタマイズできます。</p>
+ 
+  <p>仮想化をサポートするサブクラスでは、<codeph>useVirtualLayout</codeph> プロパティを順守する必要があります。また、このサブクラスでは、<codeph>updateDisplayList()</codeph> 内から <codeph>getVirtualElementAt()</codeph> を使用して、scrollRect 内のレイアウトエレメント（<codeph>getScrollRect()</codeph> の値）のみを取得する必要があります。</p>
+   </apiDesc></apiClassifierDetail><apiConstructor id="spark.layouts.supportClasses:LayoutBase:LayoutBase"><apiName>LayoutBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDragScrollDelta"><apiName>calculateDragScrollDelta</apiName><shortdesc>
+      ドラッグ＆ドロップ動作中の指定された dropLocation までのスクロール距離を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ドラッグスクロールの距離です。ドラッグスクロールが必要ない場合は null です。
+           </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc><codeph>calculateDropLocation()</codeph> メソッドの呼び出しによって以前に取得した、有効な DropLocation オブジェクトです。
+           </apiDesc></apiParam><apiParam><apiItemName>elapsedTime</apiItemName><apiType value="Number"/><apiDesc>ドラッグスクロールが開始してからの経過時間（ミリ秒単位）です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ドラッグ＆ドロップ動作中の指定された <codeph>dropLocation</codeph> までのスクロール距離を計算します。ドラッグスクロール中のスクロール距離を計算するために <codeph>showDropIndicator()</codeph> メソッドによって呼び出されます。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#DropLocation"><linktext>spark.layouts.supportClasses.DropLocation</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndex()"><linktext>calculateDropIndex()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndicatorBounds()"><linktext>calculateDropIndicatorBounds()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDropIndex"><apiName>calculateDropIndex</apiName><shortdesc>
+      ドラッグ＆ドロップ動作中にユーザーが指定された座標でマウスを離した場合に、新しいアイテムを挿入するインデックスを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ドロップインデックスです。指定された座標でドロップ操作を使用できない場合は -1 です。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>ローカル座標系における、ドラッグ＆ドロップ動作の x 座標です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>ドロップターゲットのローカル座標系における、ドラッグ＆ドロップ動作の y 座標です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ドラッグ＆ドロップ動作中にユーザーが指定された座標でマウスを離した場合に、新しいアイテムを挿入するインデックスを返します。<codeph>calculatedDropLocation()</codeph> メソッドによって呼び出されます。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropLocation()"><linktext>calculateDropLocation()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:calculateDropIndicatorBounds"><apiName>calculateDropIndicatorBounds</apiName><shortdesc>
+      ドラッグ＆ドロップ動作の終了時にアイテムが挿入される位置をユーザーに対して視覚的にフィードバックするドロップインジケーターの境界を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>ドロップインジケーターの境界、または null です。
+     
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc><codeph>calculateDropLocation()</codeph> メソッドによって以前に返された有効な DropLocation オブジェクトです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ドラッグ＆ドロップ動作の終了時にアイテムが挿入される位置をユーザーに対して視覚的にフィードバックするドロップインジケーター の境界を計算します。<codeph>showDropIndicator()</codeph> メソッドによって呼び出されます。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#DropLocation"><linktext>spark.layouts.supportClasses.DropLocation</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndex()"><linktext>calculateDropIndex()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDragScrollDelta()"><linktext>calculateDragScrollDelta()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:calculateDropLocation"><apiName>calculateDropLocation</apiName><shortdesc>
+      指定した dragEvent に対するドロップターゲットのデータプロバイダー内でのドロップ位置を計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>このイベントのドロップ位置を返します。ドロップ操作を使用できない場合は null を返します。
+     
+      </apiDesc><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier></apiReturn><apiParam><apiItemName>dragEvent</apiItemName><apiType value="mx.events:DragEvent"/><apiDesc>DragManager によって送出されたドラッグイベントです。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定した <codeph>dragEvent</codeph> に対するドロップターゲットのデータプロバイダー内でのドロップ位置を計算します。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/showDropIndicator()"><linktext>showDropIndicator()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/hideDropIndicator()"><linktext>hideDropIndicator()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:clearVirtualLayoutCache"><apiName>clearVirtualLayoutCache</apiName><shortdesc>
+      useVirtualLayout が true の場合、レイアウトターゲットが変化するときにターゲットでこのメソッドを使用すると、キャッシュされているレイアウト情報をクリアできます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>useVirtualLayout</codeph> が <codeph>true</codeph> の場合、レイアウトターゲットが変化するときにターゲットでこのメソッドを使用すると、キャッシュされているレイアウト情報をクリアできます。   
+     
+      <p>例えば、DataGroup の <codeph>dataProvider</codeph> または <codeph>itemRenderer</codeph> プロパティが変化すると、キャッシュされているエレメントのサイズが無効になります。 </p>
+     
+      <p><codeph>useVirtualLayout</codeph> プロパティが <codeph>false</codeph> に変化すると、このメソッドが自動的に呼び出されます。</p>
+     
+      <p><codeph>useVirtualLayout</codeph> = <codeph>true</codeph> をサポートするサブクラスは、このメソッドをオーバーライドする必要があります。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:elementAdded"><apiName>elementAdded</apiName><shortdesc>
+      レイアウトエレメントが追加されてからターゲットのサイズと表示リストが検証されるまでの間に、ターゲットで呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>追加されたエレメントのインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レイアウトエレメントが追加されてからターゲットのサイズと表示リストが検証されるまでの間に、ターゲットで呼び出されます。各エレメント状態をキャッシュするレイアウト（仮想レイアウトなど）では、このメソッドをオーバーライドしてキャッシュを更新できます。
+     
+      <p>ターゲットでこのメソッドを呼び出す場合は、<codeph>updateDisplayList()</codeph> の呼び出し時に指定したインデックスにレイアウトエレメントが存在することのみが保証されます。例えば、仮想レイアウトを備えた DataGroup は、ターゲットの <codeph>dataProvider</codeph> にアイテムが追加されると、このメソッドを呼び出します。</p>
+     
+      <p>デフォルトでは、このメソッドは何も実行しません。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/elementRemoved"><linktext>elementRemoved</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:elementRemoved"><apiName>elementRemoved</apiName><shortdesc>
+      このメソッドは、レイアウトエレメントが削除されてからターゲットのサイズと表示リストが検証されるまでの間に、ターゲットで呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>追加されたエレメントのインデックスです。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      このメソッドは、レイアウトエレメントが削除されてからターゲットのサイズと表示リストが検証されるまでの間に、ターゲットで呼び出されます。各エレメント状態をキャッシュするレイアウト（仮想レイアウトなど）では、このメソッドをオーバーライドしてキャッシュを更新できます。
+     
+      <p>ターゲットでこのメソッドを呼び出す場合は、<codeph>updateDisplayList()</codeph> の呼び出し時に指定したインデックスにレイアウトエレメントが存在しないことのみが保証されます。例えば、仮想レイアウトを備えた DataGroup は、<codeph>dataProvider</codeph> プロパティにアイテムが追加されると、このメソッドを呼び出します。</p>
+     
+      <p>デフォルトでは、このメソッドは何も実行しません。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/elementAdded"><linktext>elementAdded</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsAboveScrollRect"><apiName>getElementBoundsAboveScrollRect</apiName><shortdesc>
+      scrollRect の上端にまたがっているか、その上にある最初のレイアウトエレメントの境界を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>scrollRect の上端にまたがっているか、その上にある最初のエレメントの境界です。
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>ターゲットの scrollRect です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      scrollRect の上端にまたがっているか、その上にある最初のレイアウトエレメントの境界を返します。
+     
+      <p>これは、<codeph>getVerticalScrollPositionDelta()</codeph> メソッドのデフォルト実装で使用される便利なメソッドです。<codeph>getVerticalScrollPositionDelta()</codeph> のデフォルト実装を利用するサブクラスでは、このメソッドをオーバーライドして、有効な <codeph>top</codeph> プロパティと <codeph>bottom</codeph> プロパティを持つ境界矩形を正確に指定する必要があります。</p>
+     
+      <p>デフォルトでは、このメソッドは、width=0、height=1（上端が <codeph>scrollRect</codeph> の上端より 1 だけ小さい）、および left=0 の矩形を返します。</p>
+     
+      <p>サブクラスでは、このメソッドをオーバーライドして、有効な <codeph>top</codeph> プロパティと <codeph>bottom</codeph> プロパティを持つ境界矩形を正確に指定する必要があります。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightScrollRect"><linktext>getElementBoundsRightScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsBelowScrollRect"><apiName>getElementBoundsBelowScrollRect</apiName><shortdesc>
+      scrollRect の下端にまたがっているか、その下にある最初のレイアウトエレメントの境界を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>scrollRect の下端にまたがっているか、その下にある最初のエレメントの境界です。
+           </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>ターゲットの scrollRect です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      scrollRect の下端にまたがっているか、その下にある最初のレイアウトエレメントの境界を返します。
+           <p>これは、<codeph>getVerticalScrollPositionDelta()</codeph> メソッドのデフォルト実装で使用される便利なメソッドです。<codeph>getVerticalScrollPositionDelta()</codeph> のデフォルト実装を利用するサブクラスでは、このメソッドをオーバーライドして、有効な <codeph>top</codeph> プロパティと <codeph>bottom</codeph> プロパティを持つ境界矩形を正確に指定する必要があります。</p>
+           <p>デフォルトでは、このメソッドは、width=0、height=1（下端が <codeph>scrollRect</codeph> の下端より 1 だけ大きい）、および left=0 の矩形を返します。</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightScrollRect"><linktext>getElementBoundsRightScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsLeftOfScrollRect"><apiName>getElementBoundsLeftOfScrollRect</apiName><shortdesc>
+      scrollRect の左端にまたがっているか、その左にある最初のレイアウトエレメントの境界を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>scrollRect の左端にまたがっているか、その左にある最初のエレメントの境界です。
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>ターゲットの scrollRect です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      scrollRect の左端にまたがっているか、その左にある最初のレイアウトエレメントの境界を返します。
+     
+      <p>これは、<codeph>getHorizontalScrollPositionDelta()</codeph> メソッドのデフォルト実装で使用される便利なメソッドです。<codeph>getHorizontalScrollPositionDelta()</codeph> のデフォルト実装を利用するサブクラスでは、このメソッドをオーバーライドして、有効な <codeph>left</codeph> プロパティと <codeph>right</codeph> プロパティを持つ境界矩形を正確に指定する必要があります。</p>
+     
+      <p>デフォルトでは、このメソッドは、width=1、height=0（左端が <codeph>scrollRect</codeph> の左端より 1 だけ小さい）、および top=0 の矩形を返します。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightOfScrollRect"><linktext>getElementBoundsRightOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getElementBoundsRightOfScrollRect"><apiName>getElementBoundsRightOfScrollRect</apiName><shortdesc>
+      scrollRect の右端にまたがっているか、その右にある最初のレイアウトエレメントの境界を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>scrollRect の右端にまたがっているか、その右にある最初のエレメントの境界です。
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>scrollRect</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>ターゲットの scrollRect です。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      scrollRect の右端にまたがっているか、その右にある最初のレイアウトエレメントの境界を返します。
+     
+      <p>これは、<codeph>getHorizontalScrollPositionDelta()</codeph> メソッドのデフォルト実装で使用される便利なメソッドです。<codeph>getHorizontalScrollPositionDelta()</codeph> のデフォルト実装を利用するサブクラスでは、このメソッドをオーバーライドして、有効な <codeph>left</codeph> プロパティと <codeph>right</codeph> プロパティを持つ境界矩形を正確に指定する必要があります。</p>
+     
+      <p>デフォルトでは、このメソッドは、width=1、height=0（右端が <codeph>scrollRect</codeph> の右端より 1 だけ大きい）、および top=0 の矩形を返します。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getElementBounds"><apiName>getElementBounds</apiName><shortdesc>
+      指定されたエレメントのレイアウト境界を矩形として返します。インデックスが無効の場合、対応するエレメントが null の場合、includeInLayout=false の場合、またはこのレイアウトの target プロパティが null の場合は、null を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定したエレメントのレイアウト境界です。
+           </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>レイアウトエレメントのインデックスです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定されたエレメントのレイアウト境界を矩形として返します。インデックスが無効の場合、対応するエレメントが null の場合、<codeph>includeInLayout=false</codeph> の場合、またはこのレイアウトの <codeph>target</codeph> プロパティが null の場合は、null を返します。
+       
+      <p><codeph>useVirtualLayout=true</codeph> をサポートするレイアウトサブクラスは、このメソッドをオーバーライドして、ビューに表示されていないエレメントの概算値を計算する必要があります。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsX()"><linktext>mx.core.ILayoutElement.getLayoutBoundsX()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsY()"><linktext>mx.core.ILayoutElement.getLayoutBoundsY()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsWidth()"><linktext>mx.core.ILayoutElement.getLayoutBoundsWidth()</linktext></link><link href="" invalidHref="mx.core.xml#ILayoutElement/getLayoutBoundsHeight()"><linktext>mx.core.ILayoutElement.getLayoutBoundsHeight()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getHorizontalScrollPositionDelta"><apiName>getHorizontalScrollPositionDelta</apiName><shortdesc>
+      異なるスクロールオプションを処理するために、水平スクロール位置に対する変更を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>水平方向のスクロール位置に対する変更です。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>次の値を取ります。 
+      <ul>
+      <li> 
+      <codeph>END</codeph> コンテンツ領域に対して scrollRect を右揃えするスクロールデルタを返します。
+      </li>
+      
+      <li> 
+      <codeph>HOME</codeph> コンテンツ領域に対して scrollRect を左揃えするスクロールデルタを返します。
+      </li>
+     
+      <li> 
+      <codeph>LEFT</codeph> scrollRect の左端にまたがっているか、その左にある最初のエレメントに対して scrollRect を左揃えするスクロールデルタを返します。
+      </li>
+     
+      <li>
+      <codeph>PAGE_LEFT</codeph> scrollRect の左端にまたがっているか、その左にある最初のエレメントに対して scrollRect を右揃えするスクロールデルタを返します。
+      </li>
+     
+      <li> 
+      <codeph>PAGE_RIGHT</codeph> scrollRect の右端にまたがっているか、その右にある最初のエレメントに対して scrollRect を左揃えするスクロールデルタを返します。
+      </li>
+     
+      <li> 
+      <codeph>RIGHT</codeph> scrollRect の右端にまたがっているか、その右にある最初のエレメントに対して scrollRect を右揃えするスクロールデルタを返します。
+      </li>
+           </ul>
+     
+      <p>実装では、<codeph>getElementBoundsLeftOfScrollRect()</codeph> と <codeph>getElementBoundsRightOfScrollRect()</codeph> を呼び出して、エレメントの境界を判別します。通常、レイアウトクラスは、<codeph>getHorizontalScrollPositionDelta()</codeph> メソッドではなく、これらのメソッドをオーバーライドします。</p>
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      異なるスクロールオプションを処理するために、水平スクロール位置に対する変更を返します。<codeph>END</codeph>、<codeph>HOME</codeph>、<codeph>LEFT</codeph>、<codeph>PAGE_LEFT</codeph>、<codeph>PAGE_RIGHT</codeph>、および <codeph>RIGHT</codeph> オプションは、NavigationUnit クラスで定義されています。 
+          
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsLeftOfScrollRect"><linktext>getElementBoundsLeftOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsRightOfScrollRect"><linktext>getElementBoundsRightOfScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getHorizontalScrollPositionDelta"><linktext>getHorizontalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getNavigationDestinationIndex"><apiName>getNavigationDestinationIndex</apiName><shortdesc>
+      フォーカスを持っている現在のアイテムと NavigationUnit に関するユーザー入力に基づいてナビゲート先のアイテムを決定する委譲メソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ジャンプ先の次のアイテムのインデックスです。レイアウトで navigationUnit が認識されない場合は、-1 を返します。  
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>currentIndex</apiItemName><apiType value="int"/><apiDesc>フォーカスを持つアイテムの現在のインデックスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>次のナビゲート先のアイテムを決定する NavigationUnit 定数です。  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>arrowKeysWrapFocus</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph> の場合、矢印キーを使用してコンポーネント内を移動するときにどちらかの端に到達すると、位置が折り返されます。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      フォーカスを持っている現在のアイテムと NavigationUnit に関するユーザー入力に基づいてナビゲート先のアイテムを決定する委譲メソッドです。このメソッドは、キーボードナビゲーションを処理するために ListBase のサブクラスで使用されます。ListBase は、ユーザー入力を NavigationUnit 定数にマップします。
+     
+      <p>サブクラスは、このメソッドをオーバーライドして、検出された現在のインデックスとキーストロークに基づくその他の値を計算できます。 </p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getScrollPositionDeltaToElement"><apiName>getScrollPositionDeltaToElement</apiName><shortdesc>
+     指定したインデックスにあるエレメントをビュー内にスクロールするために必要な verticalScrollPosition デルタと horizontalScrollPosition デルタを計算します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>指定したエレメントをビュー内にスクロールする horizontalScrollPosition および verticalScrollPosition のオフセットを含むポイントです。変更が不要の場合は null です。指定したエレメントが部分的に表示されていてスクロール矩形より大きい場合は、そのエレメントが表示可能な唯一のエレメントになるので、null が返されます。指定したインデックスが無効の場合またはターゲットが null の場合は、null が返されます。指定したインデックスにあるエレメントが null の場合または includeInLayout が false の場合は、null が返されます。
+    
+     </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>ビュー内にスクロールするエレメントのインデックスです。
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+     指定したインデックスにあるエレメントをビュー内にスクロールするために必要な <codeph>verticalScrollPosition</codeph> デルタと <codeph>horizontalScrollPosition</codeph> デルタを計算します。
+    
+     <p>このメソッドは、<codeph>verticalScrollPosition</codeph> と <codeph>horizontalScrollPosition</codeph> に対する変更が最小限になるように計算を行います。</p>
+    
+     <p><codeph>clipAndEnableScrolling</codeph> が <codeph>true</codeph> であり、指定したインデックスにあるエレメントをターゲットのスクロール矩形にすべて表示できない場合は、エレメントを完全にスクロール矩形の境界内にスクロールする <codeph>horizontalScrollPosition</codeph> と <codeph>verticalScrollPosition</codeph> に追加するデルタを返します。</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/clipAndEnableScrolling"><linktext>clipAndEnableScrolling</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/verticalScrollPosition"><linktext>verticalScrollPosition</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/horizontalScrollPosition"><linktext>horizontalScrollPosition</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/udpdateScrollRect()"><linktext>udpdateScrollRect()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:getScrollRect"><apiName>getScrollRect</apiName><shortdesc>
+      レイアウト座標のターゲットのスクロール矩形の境界を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>レイアウト座標のターゲットの scrollRect の境界です。ターゲットまたは clipAndEnableScrolling が false の場合は null です。 
+      
+      </apiDesc><apiType value="flash.geom:Rectangle"/></apiReturn></apiOperationDef><apiDesc>
+      レイアウト座標のターゲットのスクロール矩形の境界を返します。レイアウトメソッドでは、ターゲットのスクロール矩形を直接取得しないでください。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:getVerticalScrollPositionDelta"><apiName>getVerticalScrollPositionDelta</apiName><shortdesc>
+      異なるスクロールオプションを処理するために、垂直スクロール位置に対する変更を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>垂直方向のスクロール位置に対する変更です。
+     
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>navigationUnit</apiItemName><apiType value="uint"/><apiDesc>次の値を取ります。 
+      <ul>
+      <li> 
+      <codeph>DOWN</codeph> scrollRect の下端にまたがっているか、その下にある最初のエレメントに対して scrollRect を下揃えするスクロールデルタを返します。
+      </li>
+     
+      <li> 
+      <codeph>END</codeph> コンテンツ領域に対して scrollRect を下揃えするスクロールデルタを返します。
+      </li>
+      
+      <li> 
+      <codeph>HOME</codeph> コンテンツ領域に対して scrollRect を上揃えするスクロールデルタを返します。
+      </li>
+     
+      <li> 
+      <codeph>PAGE_DOWN</codeph> scrollRect の下端にまたがっているか、その下にある最初のエレメントに対して scrollRect を上揃えするスクロールデルタを返します。
+      </li>
+     
+      <codeph>PAGE_UP</codeph>
+      <li>
+      scrollRect の上端にまたがっているか、その上にある最初のエレメントに対して scrollRect を下揃えするスクロールデルタを返します。
+      </li>
+           <li> 
+      <codeph>UP</codeph> scrollRect の上端にまたがっているか、その上にある最初のエレメントに対して scrollRect を上揃えするスクロールデルタを返します。
+      </li>
+           </ul>
+     
+      <p>実装では、<codeph>getElementBoundsAboveScrollRect()</codeph> と <codeph>getElementBoundsBelowScrollRect()</codeph> を呼び出して、エレメントの境界を判別します。通常、レイアウトクラスは、<codeph>getVerticalScrollPositionDelta()</codeph> メソッドではなく、これらのメソッドをオーバーライドします。 </p>
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      異なるスクロールオプションを処理するために、垂直スクロール位置に対する変更を返します。 <codeph>DOWN</codeph>、<codeph>END</codeph>、<codeph>HOME</codeph>、<codeph>PAGE_DOWN</codeph>、<codeph>PAGE_UP</codeph>、および <codeph>UP</codeph> オプションは、NavigationUnit クラスで定義されています。 
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.core.xml#NavigationUnit"><linktext>spark.core.NavigationUnit</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsAboveScrollRect"><linktext>getElementBoundsAboveScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getElementBoundsBelowScrollRect"><linktext>getElementBoundsBelowScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/getVerticalScrollPositionDelta"><linktext>getVerticalScrollPositionDelta</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:hideDropIndicator"><apiName>hideDropIndicator</apiName><shortdesc>
+      showDropIndicator() メソッドによって作成されて、以前に表示したドロップインジケーターを非表示にし、表示リストから削除して、ドラッグスクロールも停止します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>showDropIndicator()</codeph> メソッドによって作成されて、以前に表示したドロップインジケーターを非表示にし、表示リストから削除して、ドラッグスクロールも停止します。
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/showDropIndicator()"><linktext>showDropIndicator()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/dropIndicator"><linktext>dropIndicator</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:measure"><apiName>measure</apiName><shortdesc>
+      ターゲットのデフォルトサイズをそのコンテンツに基づいて測定します。また、必要に応じて、ターゲットのデフォルト最小サイズを測定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ターゲットのデフォルトサイズをそのコンテンツに基づいて測定します。また、必要に応じて、ターゲットのデフォルト最小サイズを測定します。
+           <p>これは、LayoutBase のサブクラスを作成するときにオーバーライドする必要のあるメソッドの 1 つです。これを行う必要のあるもう 1 つのメソッドは、<codeph>updateDisplayList()</codeph> です。これらのメソッドは、直接呼び出しません。Flex は、このメソッドをレイアウトパスの一部として呼び出します。レイアウトパスは、3 つの段階から構成されます。</p>
+           <p>最初に、ターゲットのプロパティが無効の場合、LayoutManager は、ターゲットの <codeph>commitProperties</codeph> メソッドを呼び出します。</p>
+           <p>2 番目に、ターゲットのサイズが無効の場合、LayoutManager は、ターゲットの <codeph>validateSize()</codeph> メソッドを呼び出します。ターゲットの <codeph>validateSize()</codeph> は、次にレイアウトの <codeph>measure()</codeph> を呼び出し、ターゲットのデフォルトサイズを計算します（ターゲットの <codeph>explicitWidth</codeph> プロパティと <codeph>explicitHeight</codeph> プロパティの両方で明示的に指定されなかった場合）。デフォルトサイズが変更された場合、Flex は、ターゲットの表示リストを無効にします。</p>
+           <p>最後に、ターゲットの表示リストが無効の場合、LayoutManager は、ターゲットの <codeph>validateDisplayList</codeph> を呼び出します。ターゲットの <codeph>validateDisplayList</codeph> は次に、レイアウトの <codeph>updateDisplayList</codeph> メソッドを呼び出し、ターゲットのエレメントのサイズと位置を設定します。</p>
+           <p>このメソッドを実装する場合は、ターゲットの <codeph>measuredWidth</codeph> プロパティと <codeph>measuredHeight</codeph> プロパティを設定し、ターゲットのデフォルトサイズを定義する必要があります。必要な場合は、<codeph>measuredMinWidth</codeph> プロパティと <codeph>measuredMinHeight</codeph> プロパティを設定して、デフォルトの最小サイズを定義することもできます。一般的な実装では、ターゲットのエレメントが繰り返し処理され、<codeph>ILayoutElement</codeph> で定義されたメソッドを使用して、エレメントの推奨 / 最小サイズを収集します。次に、ターゲットの <codeph>measuredWidth</codeph>、<codeph>measuredHeight</codeph>、<codeph>measuredMinWidth</codeph> および <codeph>measuredMinHeight</codeph> を設定します。</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList"><linktext>updateDisplayList</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:protected:scrollPositionChanged"><apiName>scrollPositionChanged</apiName><shortdesc>
+      verticalScrollPosition プロパティまたは horizontalScrollPosition プロパティの変更時に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      <codeph>verticalScrollPosition</codeph> プロパティまたは <codeph>horizontalScrollPosition</codeph> プロパティの変更時に呼び出されます。
+           <p>デフォルト実装では、<codeph>updateScrollRect()</codeph> を呼び出すことにより、ターゲットの <codeph>scrollRect</codeph> プロパティが更新されます。サブクラスは、このメソッドをオーバーライドして、現在の <codeph>scrollPosition</codeph> または <codeph>scrollRect</codeph> に基づく別の値を計算できます。</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateScrollRect()"><linktext>updateScrollRect()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:showDropIndicator"><apiName>showDropIndicator</apiName><shortdesc>
+      指定したドロップ位置に基づいて、ドロップインジケーターのサイズ、位置、親を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dropLocation</apiItemName><apiOperationClassifier>spark.layouts.supportClasses:DropLocation</apiOperationClassifier><apiDesc>ドロップインジケーターを表示する位置を指定します。ドロップ位置は <codeph>computeDropLocation()</codeph> メソッドを使用して取得します。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      指定したドロップ位置に基づいて、ドロップインジケーターのサイズ、位置、親を設定します。DropLocation オブジェクトを取得するには <codeph>calculateDropLocation()</codeph> メソッドを使用します。
+           <p>必要条件が満たされた場合は、ドラッグスクロールを開始または停止します。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/dropIndicator"><linktext>dropIndicator</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/hideDropIndicator()"><linktext>hideDropIndicator()</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      ターゲットのエレメントのサイズと位置を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>ターゲットの座標内で、ターゲットの幅をピクセル単位で指定します。
+           </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>ターゲットの座標内で、ターゲットの高さをピクセル単位で指定します。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ターゲットのエレメントのサイズと位置を設定します。
+           <p>これは、LayoutBase のサブクラスを作成するときにオーバーライドする必要のあるメソッドの 1 つです。これを行う必要のあるもう 1 つのメソッドは、<codeph>measure()</codeph> です。これらのメソッドは、直接呼び出しません。Flex は、このメソッドをレイアウトパスの一部として呼び出します。レイアウトパスは、3 つの段階から構成されます。</p>
+           <p>最初に、ターゲットのプロパティが無効の場合、LayoutManager は、ターゲットの <codeph>commitProperties</codeph> メソッドを呼び出します。</p>
+           <p>2 番目に、ターゲットのサイズが無効の場合、LayoutManager は、ターゲットの <codeph>validateSize()</codeph> メソッドを呼び出します。ターゲットの <codeph>validateSize()</codeph> は、次にレイアウトの <codeph>measure()</codeph> を呼び出し、ターゲットのデフォルトサイズを計算します（ターゲットの <codeph>explicitWidth</codeph> プロパティと <codeph>explicitHeight</codeph> プロパティの両方で明示的に指定されなかった場合）。デフォルトサイズが変更された場合、Flex は、ターゲットの表示リストを無効にします。</p>
+           <p>最後に、ターゲットの表示リストが無効の場合、LayoutManager は、ターゲットの <codeph>validateDisplayList</codeph> を呼び出します。ターゲットの <codeph>validateDisplayList</codeph> は次に、レイアウトの <codeph>updateDisplayList</codeph> メソッドを呼び出し、ターゲットのエレメントのサイズと位置を設定します。</p>
+           <p>一般的な実装では、ターゲットのエレメントが繰り返し処理され、<codeph>ILayoutElement</codeph> で定義されるメソッドを使用して、エレメントの配置とサイズ変更を行います。次に、レイアウトは、ターゲットの <codeph>contentWidth</codeph> プロパティと <codeph>contentHeight</codeph> プロパティを計算および設定して、ターゲットのスクロール領域を定義する必要があります。</p>
+           </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/measure"><linktext>measure</linktext></link></related-links></apiOperation><apiOperation id="spark.layouts.supportClasses:LayoutBase:updateScrollRect"><apiName>updateScrollRect</apiName><shortdesc>
+      レイアウトで scrollRect を更新するために、updateDisplayList の最後にターゲットによって呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/><apiDesc>ターゲットの幅です。
+           </apiDesc></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/><apiDesc>ターゲットの高さです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      レイアウトで scrollRect を更新するために、<codeph>updateDisplayList</codeph> の最後にターゲットによって呼び出されます。
+     
+      <p><codeph>clipAndEnableScrolling</codeph> が <codeph>true</codeph> の場合、デフォルトの実装では、ターゲットの <codeph>scrollRect</codeph> の原点は <codeph>verticalScrollPosition</codeph>、<codeph>horizontalScrollPosition</codeph> に設定されます。サイズは、<codeph>width</codeph>、<codeph>height</codeph> パラメーター（ターゲットの伸縮されていない幅と高さ）に設定されます。</p>
+     
+      <p><codeph>clipAndEnableScrolling</codeph> が <codeph>false</codeph> の場合、デフォルト実装では、<codeph>scrollRect</codeph> が null に設定されます。</p>
+      
+      </apiDesc></apiOperationDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/target"><linktext>target</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scrollRect"><linktext>flash.display.DisplayObject.scrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList()"><linktext>updateDisplayList()</linktext></link></related-links></apiOperation><apiValue id="spark.layouts.supportClasses:LayoutBase:clipAndEnableScrolling:get"><apiName>clipAndEnableScrolling</apiName><shortdesc conref="spark.core.IViewport#clipAndEnableScrolling">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#clipAndEnableScrolling">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:dropIndicator:get"><apiName>dropIndicator</apiName><shortdesc>
+      このレイアウトがドラッグ＆ドロップ操作の間にドロップインジケーターに対して使用する DisplayObject です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      このレイアウトがドラッグ＆ドロップ操作の間にドロップインジケーターに対して使用する <codeph>DisplayObject</codeph> です。通常は、このプロパティを直接設定することはなく、代わりにドロップターゲットのスキンクラスで <codeph>dropIndicator</codeph> スキンパーツを定義します。
+     
+      <p>List コントロールは、<codeph>DragEvent.DRAG_ENTER</codeph> イベントが発生すると、このプロパティを設定します。List は、このプロパティの初期値として自身の <codeph>dropIndicator</codeph> スキンパーツを使用します。List は、<codeph>DragEvent.DRAG_EXIT</codeph> イベントが発生すると、このプロパティをクリアします。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:horizontalScrollPosition:get"><apiName>horizontalScrollPosition</apiName><shortdesc conref="spark.core.IViewport#horizontalScrollPosition">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#horizontalScrollPosition">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:target:get"><apiName>target</apiName><shortdesc>
+      このレイアウトによってエレメントが測定され、そのサイズと位置が設定される GroupBase コンテナです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.components.supportClasses:GroupBase</apiValueClassifier><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このレイアウトによってエレメントが測定され、そのサイズと位置が設定される GroupBase コンテナです。
+     
+      <p>サブクラスは、setter をオーバーライドして、ターゲット固有のアクションを実行できます。例えば、3D レイアウトは、ここでターゲットの <codeph>maintainProjectionCenter</codeph> プロパティを設定できます。</p> 
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/updateDisplayList"><linktext>updateDisplayList</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/measure"><linktext>measure</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:typicalLayoutElement:get"><apiName>typicalLayoutElement</apiName><shortdesc>
+      固定の行 / 列サイズが要求されたときに、特定のサイズが指定されていない場合、レイアウトによって使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:ILayoutElement"/><apiDefaultValue>null
+           </apiDefaultValue></apiValueDef><apiDesc>
+      固定の行 / 列サイズが要求されたときに、特定のサイズが指定されていない場合、レイアウトによって使用されます。ビュー内にスクロールされていないレイアウトエレメントのサイズを推定するために仮想レイアウトによって使用されます。
+           <p>次の例に示すように、このプロパティは、コンテナのすべての子の高さを定義するために Flex で使用されるコンポーネントを参照します。</p>
+     
+      <pre>
+      &lt;s:Group>
+        &lt;s:layout>
+          &lt;s:VerticalLayout variableRowHeight="false"
+              typicalLayoutElement="{b3}"/> 
+        &lt;/s:layout>
+        &lt;s:Button id="b1" label="Button 1"/>
+        &lt;s:Button id="b2" label="Button 2"/>
+        &lt;s:Button id="b3" label="Button 3" fontSize="36"/>
+        &lt;s:Button id="b4" label="Button 4" fontSize="24"/>
+      &lt;/s:Group></pre>
+     
+      <p>このプロパティが未設定であり、ターゲットが null 以外の場合は、ターゲットの最初のレイアウトエレメントがキャッシュされ、返されます。</p>
+     
+      <p>デフォルト値は、ターゲットの最初のレイアウトエレメントです。</p>
+           </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.layouts.supportClasses.target.xml"><linktext>target</linktext></link><link href="spark.layouts.xml#VerticalLayout/variableRowHeight"><linktext>spark.layouts.VerticalLayout.variableRowHeight</linktext></link><link href="spark.layouts.xml#HorizontalLayout/variableColumnWidth"><linktext>spark.layouts.HorizontalLayout.variableColumnWidth</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:useVirtualLayout:get"><apiName>useVirtualLayout</apiName><shortdesc>
+      1 つのコンテナには任意の数の子を追加できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      1 つのコンテナには任意の数の子を追加できます。ただし、すべての子にアイテムレンダラーのインスタンスが必要です。コンテナに多数の子が既にある場合、さらに子を追加しようとすると、パフォーマンスが低下することがあります。 
+           <p>すべての子に対してアイテムレンダラーを作成する代わりに、仮想レイアウトを使用するようにコンテナを設定することもできます。仮想レイアウトを使用する場合、コンテナはアイテムレンダラーを再利用し、現在表示されている子に対してのみアイテムレンダラーを作成します。コンテナがスクロールされて現在表示されている子が画面外に移動した場合、新しく画面上に移動してきた子は、前の子のアイテムレンダラーを再利用できます。 </p>
+      
+      <p>仮想レイアウトを使用するようにコンテナを設定するには、コンテナに関連付けられているレイアウトの <codeph>useVirtualLayout</codeph> プロパティを <codeph>true</codeph> に設定します。レイアウトが VerticalLayout、HorizontalLayout または TileLayout に設定された DataGroup または SkinnableDataContainer のみが仮想レイアウトをサポートします。 仮想化をサポートしていないレイアウトサブクラスは、このプロパティを変更しないようにする必要があります。</p>
+           <p><b>メモ：</b><codeph>useVirtualLayout</codeph> を <codeph>true</codeph> に設定すると、BasicLayout クラスはランタイムエラーをスローします。</p>
+     
+      <p><codeph>true</codeph> の場合、仮想化をサポートするレイアウトは、<codeph>getElementAt()</codeph> ではなく <codeph>target.getVirtualElementAt()</codeph> メソッドを使用し、<codeph>getScrollRect()</codeph> の値で表示されると予想されるエレメントのみを取得する必要があります。</p>
+     
+      <p><codeph>￼true￼</codeph> の場合、レイアウトクラスは、レイアウトエレメントを取得してその境界を調べるのではなく、キャッシュされている情報のみに基づいて、<codeph>updateDisplayList()</codeph> メソッド内で <codeph>scrollRect</codeph> と重なるレイアウトエレメントのインデックスを計算できる必要があります。</p>
+     
+      <p>通常、仮想レイアウトは、ビュー内のエレメントについて計算されたサイズと位置に基づいて、<codeph>updateDisplayList()</codeph> メソッドの中でキャッシュされている情報を更新します。</p>
+     
+      <p>同様に、<codeph>measure()</codeph> メソッドを使用する場合、仮想レイアウトは、エレメントを測定するのではなく、<codeph>typicalLayoutElement</codeph> および他のキャッシュされているレイアウト情報を基にして、ターゲットの測定されたサイズプロパティを更新する必要があります。</p>
+     
+      <p>コンテナは、以前に作成されたものの使用されなくなっているアイテムレンダラーをリサイクルすることで、<codeph>useVirtualLayout</codeph> = <codeph>true</codeph> が設定されているレイアウトと協調します。コンテナの最後の <codeph>updateDisplayList()</codeph> の呼び出しの間に要求された <codeph>getVirtualElementAt()</codeph> インデックスの範囲内にインデックスがないアイテムは、現在使用されていないものと見なされます。</p>
+           </apiDesc></apiValueDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/getScrollRect"><linktext>getScrollRect</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/typicalLayoutElement"><linktext>typicalLayoutElement</linktext></link></related-links></apiValue><apiValue id="spark.layouts.supportClasses:LayoutBase:verticalScrollPosition:get"><apiName>verticalScrollPosition</apiName><shortdesc conref="spark.core.IViewport#verticalScrollPosition">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="spark.core.IViewport#verticalScrollPosition">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.layouts.supportClasses:DropLocation"><apiName>DropLocation</apiName><shortdesc>
+  DropLocation クラスには、ドラッグ＆ドロップ操作でドラッグされたデータのドロップ位置を記述する情報が格納されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DropLocation クラスには、ドラッグ＆ドロップ操作でドラッグされたデータのドロップ位置を記述する情報が格納されます。 
+ 
+  <p><codeph>dragOver</codeph> が発生し、<codeph>List</codeph> がレイアウトの <codeph>calculateDropLocation()</codeph> メソッドを呼び出すと、<codeph>DropLocation</codeph> が <codeph>LayoutBase</codeph> クラスによって作成されます。</p>
+ 
+  <p>DropLocation クラスは、ドロップインジケーターの境界やドラッグスクロールデルタの計算などを行うためにレイアウトによって使用されます。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropLocation()"><linktext>spark.layouts.supportClasses.LayoutBase.calculateDropLocation()</linktext></link><link href="spark.layouts.supportClasses.xml#LayoutBase/calculateDropIndicatorBounds()"><linktext>spark.layouts.supportClasses.LayoutBase.calculateDropIndicatorBounds()</linktext></link></related-links><apiConstructor id="spark.layouts.supportClasses:DropLocation:DropLocation"><apiName>DropLocation</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.layouts.supportClasses:DropLocation:dragEvent"><apiName>dragEvent</apiName><shortdesc>
+      この場所に関連付けられている DragEvent です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="mx.events:DragEvent"/></apiValueDef><apiDesc>
+      この場所に関連付けられている <codeph>DragEvent</codeph> です。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:DropLocation:dropIndex"><apiName>dropIndex</apiName><shortdesc>
+      イベントに対応するドロップインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef><apiDesc>
+      イベントに対応するドロップインデックスです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.layouts.supportClasses:DropLocation:dropPoint"><apiName>dropPoint</apiName><shortdesc>
+      レイアウトのターゲットのローカル座標におけるイベントポイントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="flash.geom:Point"/></apiValueDef><apiDesc>
+      レイアウトのターゲットのローカル座標におけるイベントポイントです。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

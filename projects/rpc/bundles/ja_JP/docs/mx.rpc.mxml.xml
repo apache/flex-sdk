@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.mxml"><apiName>mx.rpc.mxml</apiName><apiDetail/><apiClassifier id="mx.rpc.mxml:IMXMLSupport"><apiName>IMXMLSupport</apiName><shortdesc>
+  このインターフェイスを実装すると、MXML ドキュメントで MXML タグを使用して RPC サービスを使用できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  このインターフェイスを実装すると、MXML ドキュメントで MXML タグを使用して RPC サービスを使用できます。
+ 
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.mxml:IMXMLSupport:mx.rpc.mxml:IMXMLSupport:concurrency:get"><apiName>concurrency</apiName><shortdesc>
+      RPC 処理または HTTPService の concurrency 設定です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      RPC 処理または HTTPService の concurrency 設定です。 "multiple"、"last" または "single" のいずれかになります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:IMXMLSupport:mx.rpc.mxml:IMXMLSupport:showBusyCursor:get"><apiName>showBusyCursor</apiName><shortdesc>
+      RPC 処理または HTTPService の実行中にビジーカーソルを表示するかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      RPC 処理または HTTPService の実行中にビジーカーソルを表示するかどうかを示します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.mxml:Concurrency"><apiName>Concurrency</apiName><shortdesc>
+ concurrency は、RPC サービスへの MXML ベースのアクセスを介して設定され、同一サービスに対する複数の呼び出しの処理方法を示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ concurrency は、RPC サービスへの MXML ベースのアクセスを介して設定され、同一サービスに対する複数の呼び出しの処理方法を示します。 デフォルトの concurrency 値は <codeph>multiple</codeph> です。
+  
+  </apiDesc></apiClassifierDetail><apiValue id="mx.rpc.mxml:Concurrency:LAST"><apiName>LAST</apiName><shortdesc>
+     要求を作成すると、クライアントが現在の未解決の要求に関する結果またはフォルトを無視することになります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     要求を作成すると、クライアントが現在の未解決の要求に関する結果またはフォルトを無視することになります。最も新しい要求についての結果またはフォルトのみがクライアントで送出されます。これによってクライアントアプリケーションでのイベント処理が簡単になる可能性があります。しかし、要求の結果またはフォルトを無視しても安全なときにのみこのモードを使用するよう注意してください。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:Concurrency:MULTIPLE"><apiName>MULTIPLE</apiName><shortdesc>
+     既存の要求はキャンセルされません。返されるデータは開発者が責任を持って、イベントストリームを慎重に管理することで整合性を確保する必要があります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multiple</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     既存の要求はキャンセルされません。返されるデータは開発者が責任を持って、イベントストリームを慎重に管理することで整合性を確保する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.mxml:Concurrency:SINGLE"><apiName>SINGLE</apiName><shortdesc>
+     メソッドでは一度に 1 つの要求しか作成できません。要求が未解決の間にさらに要求を作成すると、それらの要求はクライアントでただちにフォルトになり、サーバーに送信されません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>single</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     メソッドでは一度に 1 つの要求しか作成できません。要求が未解決の間にさらに要求を作成すると、それらの要求はクライアントでただちにフォルトになり、サーバーに送信されません。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

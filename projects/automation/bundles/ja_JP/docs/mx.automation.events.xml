@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.events"><apiName>mx.automation.events</apiName><apiDetail/><apiClassifier id="mx.automation.events:AutomationDragEventWithPositionInfo"><apiName>AutomationDragEventWithPositionInfo</apiName><shortdesc>
+	  AutomationDragEventWithPositionInfo クラスは、ドラッグ＆ドロップ操作の一部として送出されるイベントオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.events:AutomationDragEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationDragEventWithPositionInfo クラスは、ドラッグ＆ドロップ操作の一部として送出されるイベントオブジェクトを表します。ただし、これはドロップの位置情報に関係するコンポーネントから送出されます。
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link></related-links><adobeApiEvent id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_COMPLETE_dragComplete"><apiName>dragComplete</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_COMPLETE</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEventWithPositionInfo</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_DROP_dragDrop"><apiName>dragDrop</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_DROP</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEventWithPositionInfo</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_START_dragStart"><apiName>dragStart</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_START</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEventWithPositionInfo</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationDragEventWithPositionInfo:AutomationDragEventWithPositionInfo"><apiName>AutomationDragEventWithPositionInfo</apiName><shortdesc>
+		  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>指定されたドロップアクション。例えば、<codeph>DragManager.MOVE</codeph> などがあります。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Ctrl キーが押されたかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Alt キーが押されたかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Shift キーが押されたかどうかを示します。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>localx</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>スプライトを基準とするイベント発生位置の水平座標です。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>localy</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>スプライトを基準とするイベント発生位置の垂直座標です。
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  コンストラクターです。通常は Flex コントロールによって呼び出され、アプリケーションコードでは使用されません。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_COMPLETE"><apiName>DRAG_COMPLETE</apiName><shortdesc>
+		  dragComplete イベントのイベントオブジェクトの type プロパティ値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragComplete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>type</codeph> プロパティ値を定義します。これは、<codeph>dragComplete</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Alt キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>action</codeph></entry><entry>イベントの元となるアクション。<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> または <codeph>DragManager.NONE</codeph> のいずれかです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Ctrl キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、<codeph>myButton</codeph> が <codeph>currentTarget</codeph> の値となります。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>ドラッグするアイテムです。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>ドロップされたアイテムの親であるオブジェクトです。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Shift キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトはイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用します。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_DROP"><apiName>DRAG_DROP</apiName><shortdesc>
+		  dragDrop イベントのイベントオブジェクトの type プロパティ値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragDrop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>type</codeph> プロパティ値を定義します。これは、<codeph>dragDrop</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Alt キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>action</codeph></entry><entry>イベントの元となるアクション。<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> または <codeph>DragManager.NONE</codeph> のいずれかです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Ctrl キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、<codeph>myButton</codeph> が <codeph>currentTarget</codeph> の値となります。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>ドラッグするアイテムです。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>ドロップされたアイテムの親であるオブジェクトです。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Shift キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトはイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用します。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_START"><apiName>DRAG_START</apiName><shortdesc>
+		  dragStart イベントのイベントオブジェクトの type プロパティ値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragStart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>type</codeph> プロパティ値を定義します。これは、<codeph>dragStart</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Alt キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>action</codeph></entry><entry>イベントの元となるアクション。<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> または <codeph>DragManager.NONE</codeph> のいずれかです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Ctrl キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、<codeph>myButton</codeph> が <codeph>currentTarget</codeph> の値となります。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>ドラッグするアイテムです。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>ドロップされたアイテムの親であるオブジェクトです。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Shift キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトはイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用します。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationRecordEvent"><apiName>AutomationRecordEvent</apiName><shortdesc>
+	  AutomationRecordEvent クラスは、AutomationManager によって送出されるイベントオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationRecordEvent クラスは、AutomationManager によって送出されるイベントオブジェクトを表します。機能テストクラスや、ユーザーによる操作を記録する必要があるその他のクラスで使用されます。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:AutomationRecordEvent:RECORD_record"><apiName>record</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationRecordEvent:RECORD</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationRecordEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationRecordEvent:AutomationRecordEvent"><apiName>AutomationRecordEvent</apiName><shortdesc>
+		  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>record</apiData><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作を防止できるかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>automationObject</apiItemName><apiType value="mx.automation:IAutomationObject"/><apiData>null</apiData><apiDesc>操作を送出する UIComponent を委譲します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>replayableEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>操作を表す基のイベントです。
+		 
+          </apiDesc></apiParam><apiParam><apiItemName>args</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>現在記録中のメソッドに渡される引数の配列です。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>操作の表示可能な名前です。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cacheable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントをイベントキャッシュに保存する場合は <codeph>true</codeph>、保存しない場合は <codeph>false</codeph> です。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>recordTriggeredByCustomHandling</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiConstructorDef><apiDesc>
+		  コンストラクターです。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationRecordEvent:CUSTOM_RECORD"><apiName>CUSTOM_RECORD</apiName><shortdesc>
+		  この定数を使用するために、IAutomationManager の recordCustomAutomationEvent を参照します
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>customRecord</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  この定数を使用するために、IAutomationManager の recordCustomAutomationEvent を参照します
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:RECORD"><apiName>RECORD</apiName><shortdesc>
+		  AutomationRecordEvent.RECORD 定数により type プロパティ値が定義されます。これは record イベントのイベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>record</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>AutomationRecordEvent.RECORD</codeph> 定数により <codeph>type</codeph> プロパティ値が定義されます。これは <codeph>record</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>args</codeph></entry><entry>メソッドのパラメーターの配列です。</entry></row><row><entry><codeph>automationObject</codeph></entry><entry>操作を送出する UIComponent を委譲します。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>true</entry></row><row><entry><codeph>cacheable</codeph></entry><entry>イベントをイベントキャッシュに保存する場合は <codeph>true</codeph>、保存しない場合は <codeph>false</codeph> です。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>methodName</codeph></entry><entry>操作の表示可能な名前です。 </entry></row><row><entry><codeph>replayableEvent</codeph></entry><entry>操作を表す基のイベントです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:args"><apiName>args</apiName><shortdesc>
+		  プロパティ値の配列として直列化されたイベント表現です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+		  プロパティ値の配列として直列化されたイベント表現です。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:automationObject"><apiName>automationObject</apiName><shortdesc>
+		  このイベントを記録する UIComponent のオブジェクトを委譲します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  このイベントを記録する UIComponent のオブジェクトを委譲します。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:cacheable"><apiName>cacheable</apiName><shortdesc>
+		  キャッシュされたイベントの場合は true、それ以外の場合は false が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  キャッシュされたイベントの場合は <codeph>true</codeph>、それ以外の場合は <codeph>false</codeph> が含まれます。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:name"><apiName>name</apiName><shortdesc>
+		  オートメーションイベント名です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  オートメーションイベント名です。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:recordTriggeredByCustomHandling"><apiName>recordTriggeredByCustomHandling</apiName><shortdesc>
+		  このイベントの現在のレコードがカスタムレコードイベントから生じている場合は true、そうでない場合は false が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  このイベントの現在のレコードがカスタムレコードイベントから生じている場合は <codeph>true</codeph>、そうでない場合は <codeph>false</codeph> が含まれます。このフィールドを使用すると、フレームワークでトリガーされたレコードイベントとカスタムレコードとを区別できます。例えば、リストに select イベントがあり、現在、インデックスまたは選択されたアイテムを使用して、選択の詳細が記録されている場合です。しかし、ユーザーは、両方を使用して詳細を記録する場合もありますが、同じイベント名で記録する場合もあります。フレームワークでトリガーされた select イベントと、Automation Manager で recordCustomAutomationEvent() API を使用してトリガーされた select イベントとを区別することはかなり面倒です。recordCustomAutomationEvent() API を使用してイベントがトリガーされた場合、このフラグは true になります。それ以外のすべての場合、フレームワークは、このフラグをデフォルト値で維持します。
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:replayableEvent"><apiName>replayableEvent</apiName><shortdesc>
+		  基になっている操作です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+		  基になっている操作です。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationEvent"><apiName>AutomationEvent</apiName><shortdesc>
+	  AutomationEvent クラスは、AutomationManager によって送出されるイベントオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationEvent クラスは、AutomationManager によって送出されるイベントオブジェクトを表します。機能テストクラスや、ユーザーによる操作を記録する必要があるその他のクラスで使用されます。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:AutomationEvent:BEGIN_RECORD_record"><apiName>record</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationEvent:BEGIN_RECORD</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationEvent:END_RECORD_record"><apiName>record</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationEvent:END_RECORD</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationEvent:AutomationEvent"><apiName>AutomationEvent</apiName><shortdesc>
+		  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>beginRecord</apiData><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作を防止できるかどうかを示します。
+		 
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  コンストラクターです。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationEvent:BEGIN_RECORD"><apiName>BEGIN_RECORD</apiName><shortdesc>
+		  AutomationEvent.BEGIN_RECORD 定数により type プロパティ値が定義されます。これは beginRecord イベントのイベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>beginRecord</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>AutomationEvent.BEGIN_RECORD</codeph> 定数により <codeph>type</codeph> プロパティ値が定義されます。これは <codeph>beginRecord</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>true</entry></row><row><entry><codeph>cacheable</codeph></entry><entry>イベントをイベントキャッシュに保存する場合は <codeph>true</codeph>、保存しない場合は <codeph>false</codeph> です。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationEvent:END_RECORD"><apiName>END_RECORD</apiName><shortdesc>
+		  AutomationEvent.BEGIN_RECORD 定数により type プロパティ値が定義されます。これは endRecord イベントのイベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>endRecord</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>AutomationEvent.BEGIN_RECORD</codeph> 定数により <codeph>type</codeph> プロパティ値が定義されます。これは <codeph>endRecord</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>true</entry></row><row><entry><codeph>cacheable</codeph></entry><entry>イベントをイベントキャッシュに保存する場合は <codeph>true</codeph>、保存しない場合は <codeph>false</codeph> です。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationReplayEvent"><apiName>AutomationReplayEvent</apiName><shortdesc>
+	  AutomationReplayEvent クラスは、AutomationManager によって送出され、機能テストクラスやユーザーの操作を再生する必要のあるその他のクラスで使用されるイベントオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationReplayEvent クラスは、AutomationManager によって送出され、機能テストクラスやユーザーの操作を再生する必要のあるその他のクラスで使用されるイベントオブジェクトを表します。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:AutomationReplayEvent:REPLAY_replay"><apiName>replay</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationReplayEvent:REPLAY</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationReplayEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationReplayEvent:AutomationReplayEvent"><apiName>AutomationReplayEvent</apiName><shortdesc>
+		  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>replay</apiData><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作を防止できるかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>automationObject</apiItemName><apiType value="mx.automation:IAutomationObject"/><apiData>null</apiData><apiDesc>先に操作を送出した UIComponent を委譲します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>replayableEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>再生する必要があるイベントです。
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  コンストラクターです。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationReplayEvent:REPLAY"><apiName>REPLAY</apiName><shortdesc>
+		  AutomationReplayEvent.REPLAY 定数により type プロパティ値が定義されます。これは replay イベントのイベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>replay</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>AutomationReplayEvent.REPLAY</codeph> 定数により <codeph>type</codeph> プロパティ値が定義されます。これは <codeph>replay</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>automationObject</codeph></entry><entry>先に操作を送出した UIComponent を委譲します。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>replayableEvent</codeph></entry><entry>再生する必要があるイベントです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationReplayEvent:automationObject"><apiName>automationObject</apiName><shortdesc>
+		  実際に送出されなかったイベントのターゲットは利用できないので、このイベントが再生される UIComponent オブジェクトを委譲します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  実際に送出されなかったイベントのターゲットは利用できないので、このイベントが再生される UIComponent オブジェクトを委譲します。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationReplayEvent:replayableEvent"><apiName>replayableEvent</apiName><shortdesc>
+		  再生するイベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+		  再生するイベントです。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationReplayEvent:succeeded"><apiName>succeeded</apiName><shortdesc>
+		  再生できた場合は true、それ以外の場合は false が含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  再生できた場合は <codeph>true</codeph>、それ以外の場合は <codeph>false</codeph> が含まれます。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:MarshalledAutomationEvent"><apiName>MarshalledAutomationEvent</apiName><shortdesc>
+	  MarshalledAutomationEvents クラスは、AutomationManager が送出するイベントオブジェクトを表します。つまり、イベントに関連する整列を表しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  MarshalledAutomationEvents クラスは、AutomationManager が送出するイベントオブジェクトを表します。つまり、イベントに関連する整列を表しています。
+	  
+	  </apiDesc></apiClassifierDetail><apiConstructor id="mx.automation.events:MarshalledAutomationEvent:MarshalledAutomationEvent"><apiName>MarshalledAutomationEvent</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam><apiParam><apiItemName>applicationName</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam><apiParam><apiItemName>interAppDataToSubApp</apiItemName><apiType value="Array"/><apiData>null</apiData></apiParam><apiParam><apiItemName>interAppDataToMainApp</apiItemName><apiType value="Array"/><apiData>null</apiData></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.events:MarshalledAutomationEvent:marshal"><apiName>marshal</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.automation.events:MarshalledAutomationEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.automation.events:MarshalledAutomationEvent:BEGIN_RECORDING"><apiName>BEGIN_RECORDING</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>BeginRecording</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_COMPLETE_REQUEST"><apiName>DRAG_DROP_COMPLETE_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>completeDragDrop</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PERFORM_REQUEST_TO_ROOT_APP"><apiName>DRAG_DROP_PERFORM_REQUEST_TO_ROOT_APP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>performDragDropRequestToRootApp</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PERFORM_REQUEST_TO_SUB_APP"><apiName>DRAG_DROP_PERFORM_REQUEST_TO_SUB_APP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>performDragDropRequestToSubApp</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PROXY_RETRIEVE_REPLY"><apiName>DRAG_DROP_PROXY_RETRIEVE_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GiveProxyReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PROXY_RETRIEVE_REQUEST"><apiName>DRAG_DROP_PROXY_RETRIEVE_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GiveProxy</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:END_RECORDING"><apiName>END_RECORDING</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>EndRecording</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:INITIAL_DETAILS_REPLY"><apiName>INITIAL_DETAILS_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>InitialDetailsReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:INITIAL_DETAILS_REQUEST"><apiName>INITIAL_DETAILS_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>InitialDetailsRequest</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:POPUP_HANDLER_REQUEST"><apiName>POPUP_HANDLER_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>HandlePopUp</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:START_POINT_REPLY"><apiName>START_POINT_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>startPointReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:START_POINT_REQUEST"><apiName>START_POINT_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>startPointRequest</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:UNIQUE_APPID_REPLY"><apiName>UNIQUE_APPID_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GetUniqueAppIDReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:UNIQUE_APPID_REQUEST"><apiName>UNIQUE_APPID_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GetUniqueAppID</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:UPDATE_SYCHRONIZATION"><apiName>UPDATE_SYCHRONIZATION</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>UpdateSynchronization</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:applicationName"><apiName>applicationName</apiName><shortdesc>
+		  アプリケーションのアプリケーション名を表す文字列を含みます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  アプリケーションのアプリケーション名を表す <codeph>string</codeph> を含みます。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:interAppDataToMainApp"><apiName>interAppDataToMainApp</apiName><shortdesc>
+		  findObjectIDs の結果の詳細を表すオブジェクトを含みます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+		  findObjectIDs の結果の詳細を表す <codeph>Object</codeph> を含みます。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:interAppDataToSubApp"><apiName>interAppDataToSubApp</apiName><shortdesc>
+		  findObjectIDs の descriptionXML の詳細を表す文字列を含みます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+		  findObjectIDs の descriptionXML の詳細を表す <codeph>string</codeph> を含みます。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:ListItemSelectEvent"><apiName>ListItemSelectEvent</apiName><shortdesc>
+	  ListItemSelectEvent クラスは、Menu、DataGrid、Tree などのリストコントロールのアイテムを、選択または選択解除したときに送出されるイベントオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  ListItemSelectEvent クラスは、Menu、DataGrid、Tree などのリストコントロールのアイテムを、選択または選択解除したときに送出されるイベントオブジェクトを表します。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:DESELECT_deselect"><apiName>deselect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:DESELECT</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:MULTI_SELECT_multiselect"><apiName>multiselect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:MULTI_SELECT</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:SELECT_INDEX_select"><apiName>select</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:SELECT_INDEX</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:SELECT_select"><apiName>select</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:SELECT</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:ListItemSelectEvent:ListItemSelectEvent"><apiName>ListItemSelectEvent</apiName><shortdesc>
+		  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiData>null</apiData><apiDesc>アイテムのアイテムレンダラーオブジェクトです。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>選択アクションをトリガーしたマウスイベントやキーボードイベントなどのイベントです。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベント発生時に Alt キーが押されたかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベント発生時に Ctrl キーが押されたかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベント発生時に Shift キーが押されたかどうかを示します。
+		 
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  コンストラクターです。通常は Flex コントロールによって呼び出され、アプリケーションコードでは使用されません。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:ListItemSelectEvent:DESELECT"><apiName>DESELECT</apiName><shortdesc>
+		  ListItemSelectEvent.DESELECT 定数は type プロパティの値を定義します。これは、以前に選択したアイテムの選択を解除するときに送出されるイベントの、イベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>deselect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>ListItemSelectEvent.DESELECT</codeph> 定数は <codeph>type</codeph> プロパティ値を定義します。これは、以前に選択したアイテムの選択を解除するときに送出されるイベントの、イベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。 イベントの種類によっては無効なプロパティもあります。詳細については、各プロパティの説明を参照してください。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>イベント発生時に Alt キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>イベント発生時に Ctrl キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>アイテムのアイテムレンダラーオブジェクトです。</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>イベント発生時に Shift キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>アクションをトリガーしたマウスイベントやキーボードイベントなどのイベントです。</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.DESELECT</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:MULTI_SELECT"><apiName>MULTI_SELECT</apiName><shortdesc>
+		  ListItemSelectEvent.MULTI_SELECT 定数は type プロパティ値を定義します。これは、複数のアイテムを選択するアクションの一部として 1 つのアイテムを選択するときに送出されるイベントの、イベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multiSelect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>ListItemSelectEvent.MULTI_SELECT</codeph> 定数は <codeph>type</codeph> プロパティ値を定義します。これは、複数のアイテムを選択するアクションの一部として 1 つのアイテムを選択するときに送出されるイベントの、イベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。 イベントの種類によっては無効なプロパティもあります。詳細については、各プロパティの説明を参照してください。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>イベント発生時に Alt キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>イベント発生時に Ctrl キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>アイテムのアイテムレンダラーオブジェクトです。</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>イベント発生時に Shift キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>アクションをトリガーしたマウスイベントやキーボードイベントなどのイベントです。</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.MULTI_SELECT</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:SELECT_INDEX"><apiName>SELECT_INDEX</apiName><shortdesc>
+		  ListItemSelectEvent.SELECT_INDEX 定数は、アイテムのインデックスの選択時に送出されたイベントのイベントオブジェクトの type プロパティの値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>selectIndex</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>ListItemSelectEvent.SELECT_INDEX</codeph> 定数は、アイテムのインデックスの選択時に送出されたイベントのイベントオブジェクトの <codeph>type</codeph> プロパティの値を定義します。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。 イベントの種類によっては無効なプロパティもあります。詳細については、各プロパティの説明を参照してください。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>イベント発生時に Alt キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>イベント発生時に Ctrl キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>itemIndex</codeph></entry><entry>選択されるアイテムのデータプロバイダーインデックスです。</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>イベント発生時に Shift キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>アクションをトリガーしたマウスイベントやキーボードイベントなどのイベントです。</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.SELECT_INDEX</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:SELECT"><apiName>SELECT</apiName><shortdesc>
+		  ListItemSelectEvent.SELECT 定数は、type プロパティ値を定義します。これは、1 つのアイテムを選択するときに送出されるイベントの、イベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>select</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>ListItemSelectEvent.SELECT</codeph> 定数は、<codeph>type</codeph> プロパティの値を定義します。これは、1 つのアイテムを選択するときに送出されるイベントの、イベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。 イベントの種類によっては無効なプロパティもあります。詳細については、各プロパティの説明を参照してください。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>イベント発生時に Alt キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>イベント発生時に Ctrl キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>アイテムのアイテムレンダラーオブジェクトです。</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>イベント発生時に Shift キーが押されたかどうかを示すブール値です。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>アクションをトリガーしたマウスイベントやキーボードイベントなどのイベントです。</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.SELECT</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:altKey"><apiName>altKey</apiName><shortdesc>
+		  イベント発生時に Alt キーが押されたかどうかを、押された場合は true、押されなかった場合は false で示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  イベント発生時に Alt キーが押されたかどうかを、押された場合は <codeph>true</codeph>、押されなかった場合は <codeph>false</codeph> で示します。
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:ctrlKey"><apiName>ctrlKey</apiName><shortdesc>
+		  イベント発生時に Ctrl キーが押されたかどうかを、押された場合は true、押されなかった場合は false で示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  イベント発生時に Ctrl キーが押されたかどうかを、押された場合は <codeph>true</codeph>、押されなかった場合は <codeph>false</codeph> で示します。
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:itemAutomationValue"><apiName>itemAutomationValue</apiName><shortdesc>
+		  選択されるアイテムの automationValue ストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  選択されるアイテムの automationValue ストリングです。選択されたアイテムがコントロールに表示されないときに使用します。 
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:itemIndex"><apiName>itemIndex</apiName><shortdesc>
+		  選択されるアイテムのデータプロバイダーインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+		  選択されるアイテムのデータプロバイダーインデックスです。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+		  選択または選択解除しているアイテムのアイテムレンダラーオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDefaultValue>null
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  選択または選択解除しているアイテムのアイテムレンダラーオブジェクトです。 このプロパティを使用してセルデータにアクセスできます。
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:shiftKey"><apiName>shiftKey</apiName><shortdesc>
+		  イベント発生時に Shift キーが押されたかどうかを、押された場合は true、押されなかった場合は false で示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  イベント発生時に Shift キーが押されたかどうかを、押された場合は <codeph>true</codeph>、押されなかった場合は <codeph>false</codeph> で示します。
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:triggerEvent"><apiName>triggerEvent</apiName><shortdesc>
+		  アイテム選択イベントをトリガーした、キーボードイベントやマウスイベントなどのイベントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/><apiDefaultValue>null
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  アイテム選択イベントをトリガーした、キーボードイベントやマウスイベントなどのイベントです。
+		 
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:TextSelectionEvent"><apiName>TextSelectionEvent</apiName><shortdesc>
+	 TextSelectionEvent クラスでは、テキストフィールド内の選択を追跡できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 TextSelectionEvent クラスでは、テキストフィールド内の選択を追跡できます。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:TextSelectionEvent:TEXT_SELECTION_CHANGE_textSelectionChange"><apiName>textSelectionChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:TextSelectionEvent:TEXT_SELECTION_CHANGE</apiEventType><adobeApiEventClassifier>mx.automation.events:TextSelectionEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:TextSelectionEvent:TextSelectionEvent"><apiName>TextSelectionEvent</apiName><shortdesc>
+		  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>textSelectionChange</apiData><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>選択の開始を示すインデックスです。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>選択の終了を示すインデックスです。
+		  
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  コンストラクターです。
+		  
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:TextSelectionEvent:TEXT_SELECTION_CHANGE"><apiName>TEXT_SELECTION_CHANGE</apiName><shortdesc>
+		  TextSelectionEvent.TEXT_SELECTION_CHANGE 定数により type プロパティ値が定義されます。これは textSelectionChange イベントのイベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>textSelectionChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>TextSelectionEvent.TEXT_SELECTION_CHANGE</codeph> 定数により <codeph>type</codeph> プロパティ値が定義されます。これは <codeph>textSelectionChange</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>beginIndex</codeph></entry><entry>選択の開始を示すインデックスです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>endIndex</codeph></entry><entry>選択の終了を示すインデックスです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:TextSelectionEvent:beginIndex"><apiName>beginIndex</apiName><shortdesc>
+		  選択の開始を示すインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+		  選択の開始を示すインデックスです。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:TextSelectionEvent:endIndex"><apiName>endIndex</apiName><shortdesc>
+		  選択の終了を示すインデックスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+		  選択の終了を示すインデックスです。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationDragEvent"><apiName>AutomationDragEvent</apiName><shortdesc>
+	  AutomationDragEvent クラスは、ドラッグ &amp; ドロップ操作の一部として送出されるイベントオブジェクトを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationDragEvent クラスは、ドラッグ &amp; ドロップ操作の一部として送出されるイベントオブジェクトを表します。
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link></related-links><adobeApiEvent id="mx.automation.events:AutomationDragEvent:DRAG_COMPLETE_dragComplete"><apiName>dragComplete</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEvent:DRAG_COMPLETE</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEvent:DRAG_DROP_dragDrop"><apiName>dragDrop</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEvent:DRAG_DROP</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEvent:DRAG_START_dragStart"><apiName>dragStart</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEvent:DRAG_START</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationDragEvent:AutomationDragEvent"><apiName>AutomationDragEvent</apiName><shortdesc>
+		  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>イベントに関連付けられた動作をキャンセルできるかどうかを指定します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>指定されたドロップアクション。例えば、<codeph>DragManager.MOVE</codeph> などがあります。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Ctrl キーが押されたかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Alt キーが押されたかどうかを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Shift キーが押されたかどうかを示します。
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  コンストラクターです。通常は Flex コントロールによって呼び出され、アプリケーションコードでは使用されません。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationDragEvent:DRAG_COMPLETE"><apiName>DRAG_COMPLETE</apiName><shortdesc>
+		  dragComplete イベントのイベントオブジェクトの type プロパティ値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragComplete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>type</codeph> プロパティ値を定義します。これは、<codeph>dragComplete</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Alt キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>action</codeph></entry><entry>イベントの元となるアクション。<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> または <codeph>DragManager.NONE</codeph> のいずれかです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Ctrl キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、<codeph>myButton</codeph> が <codeph>currentTarget</codeph> の値となります。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>ドラッグするアイテムです。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>ドロップされたアイテムの親であるオブジェクトです。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Shift キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトはイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用します。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:DRAG_DROP"><apiName>DRAG_DROP</apiName><shortdesc>
+		  dragDrop イベントのイベントオブジェクトの type プロパティ値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragDrop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>type</codeph> プロパティ値を定義します。これは、<codeph>dragDrop</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Alt キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>action</codeph></entry><entry>イベントの元となるアクション。<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> または <codeph>DragManager.NONE</codeph> のいずれかです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Ctrl キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、<codeph>myButton</codeph> が <codeph>currentTarget</codeph> の値となります。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>ドラッグするアイテムです。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>ドロップされたアイテムの親であるオブジェクトです。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Shift キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトはイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用します。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:DRAG_START"><apiName>DRAG_START</apiName><shortdesc>
+		  dragStart イベントのイベントオブジェクトの type プロパティ値を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragStart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>type</codeph> プロパティ値を定義します。これは、<codeph>dragStart</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Alt キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>action</codeph></entry><entry>イベントの元となるアクション。<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> または <codeph>DragManager.NONE</codeph> のいずれかです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Ctrl キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、<codeph>myButton</codeph> が <codeph>currentTarget</codeph> の値となります。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>ドラッグするアイテムです。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>ドロップされたアイテムの親であるオブジェクトです。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Shift キーが押されている（<codeph>true</codeph>）か押されていない（<codeph>false</codeph>）かを示します。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトはイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用します。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:action"><apiName>action</apiName><shortdesc>
+		  要求された動作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  要求された動作。 <codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> または <codeph>DragManager.NONE</codeph> のいずれかです。
+		 
+		  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link></related-links></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:draggedItem"><apiName>draggedItem</apiName><shortdesc>
+		  ドラッグされる子の IAutomationObject オブジェクトが含まれます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  ドラッグされる子の IAutomationObject オブジェクトが含まれます。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:dropParent"><apiName>dropParent</apiName><shortdesc>
+		  ドロップされたアイテムの親である IAutomationObject オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  ドロップされたアイテムの親である IAutomationObject オブジェクトです。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:MenuShowEvent"><apiName>MenuShowEvent</apiName><shortdesc>
+	  MenuShowEvent クラスは、menuBar に関連付けられているイベントを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  MenuShowEvent クラスは、menuBar に関連付けられているイベントを表します。
+	 
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:MenuShowEvent:MENU_SHOW_menuShow"><apiName>menuShow</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:MenuShowEvent:MENU_SHOW</apiEventType><adobeApiEventClassifier>mx.automation.events:MenuShowEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:MenuShowEvent:MenuShowEvent"><apiName>MenuShowEvent</apiName><shortdesc>
+		  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントタイプ。イベントの基となるアクションを示します。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.menuClasses:IMenuBarItemRenderer"/><apiData>null</apiData><apiDesc>関連付けられたメニューアイテムの IMenuBarItemRenderer です。
+		 
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  コンストラクターです。通常は Menu オブジェクトによって呼び出されます。 
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:MenuShowEvent:MENU_SHOW"><apiName>MENU_SHOW</apiName><shortdesc>
+		  MenuShowEvent.MENU_SHOW 定数により type プロパティ値が定義されます。これは menuShow イベントのイベントオブジェクトのプロパティ値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>menuShow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>MenuShowEvent.MENU_SHOW</codeph> 定数により、<codeph>type</codeph> プロパティ値が定義されます。これは <codeph>menuShow</codeph> イベントのイベントオブジェクトのプロパティ値です。
+		 
+		  <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>関連付けられているメニューアイテムのアイテムレンダラーです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:MenuShowEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+		  イベントが発生した関連メニューアイテムのアイテムレンダラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.menuClasses:IMenuBarItemRenderer"/></apiValueDef><apiDesc>
+		  イベントが発生した関連メニューアイテムのアイテムレンダラーです。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

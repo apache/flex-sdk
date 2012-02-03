@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.delegates.containers"><apiName>mx.automation.delegates.containers</apiName><apiDetail/><apiClassifier id="mx.automation.delegates.containers:ViewStackAutomationImpl"><apiName>ViewStackAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 ViewStack 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 ViewStack 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.ViewStack.xml"><linktext>mx.containers.ViewStack</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:ViewStackAutomationImpl:ViewStackAutomationImpl"><apiName>ViewStackAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:ViewStack"/><apiDesc>要进行自动化处理的 ViewStack 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:ViewStackAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:BoxAutomationImpl"><apiName>BoxAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 Box 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 Box 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Box.xml"><linktext>mx.containers.Box</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:BoxAutomationImpl:BoxAutomationImpl"><apiName>BoxAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Box"/><apiDesc>要进行自动化处理的 Box 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:BoxAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:CanvasAutomationImpl"><apiName>CanvasAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 Canvas 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 Canvas 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Canvas.xml"><linktext>mx.containers.Canvas</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:CanvasAutomationImpl:CanvasAutomationImpl"><apiName>CanvasAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Canvas"/><apiDesc>要进行自动化处理的 Canvas 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:CanvasAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:TabNavigatorAutomationImpl"><apiName>TabNavigatorAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 TabNavigator 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.containers:ViewStackAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 TabNavigator 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.TabNavigator.xml"><linktext>mx.containers.TabNavigator</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:TabNavigatorAutomationImpl:TabNavigatorAutomationImpl"><apiName>TabNavigatorAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:TabNavigator"/><apiDesc>要进行自动化处理的 TabNavigator 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:TabNavigatorAutomationImpl:protected:componentInitialized"><apiName>componentInitialized</apiName><shortdesc>
+		  初始化组件后调用的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  初始化组件后调用的方法。此方法可用于访问任何子组件并对该组件执行操作。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:TabNavigatorAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:TabNavigatorAutomationImpl:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		  通过为单击的项目分派 MouseEvent 来重播 ItemClickEvents 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>如果重放成功，则为 <codeph>true</codeph>。否则返回<codeph>false</codeph>。
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>interaction</apiItemName><apiType value="flash.events:Event"/><apiDesc>要重放的事件。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  通过为单击的项目分派 MouseEvent 来重播 ItemClickEvents 事件。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:PanelAutomationImpl"><apiName>PanelAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 Panel 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 Panel 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Panel.xml"><linktext>mx.containers.Panel</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:PanelAutomationImpl:PanelAutomationImpl"><apiName>PanelAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Panel"/><apiDesc>要进行自动化处理的 Panel 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:PanelAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:DividedBoxAutomationImpl"><apiName>DividedBoxAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 DividedBox 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 DividedBox 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.DividedBox.xml"><linktext>mx.containers.DividedBox</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:DividedBoxAutomationImpl:DividedBoxAutomationImpl"><apiName>DividedBoxAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:DividedBox"/><apiDesc>要进行自动化处理的 DividedBox 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:DividedBoxAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:DividedBoxAutomationImpl:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		  通过分派 DIVIDER_PRESS 事件，移动所述分隔符，然后分派 DIVIDER_RELEASE 事件来重播 DIVIDER_RELEASE 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>如果重放成功，则为 <codeph>true</codeph>。否则返回<codeph>false</codeph>。     
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>interaction</apiItemName><apiType value="flash.events:Event"/><apiDesc>要重放的事件。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  通过分派 <codeph>DIVIDER_PRESS</codeph> 事件，移动所述分隔符，然后分派 <codeph>DIVIDER_RELEASE</codeph> 事件来重播 <codeph>DIVIDER_RELEASE</codeph> 事件。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:FormItemAutomationImpl"><apiName>FormItemAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 FormItem 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 FormItem 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.FormItem.xml"><linktext>mx.containers.FormItem</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:FormItemAutomationImpl:FormItemAutomationImpl"><apiName>FormItemAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:FormItem"/><apiDesc>要进行自动化处理的 FormItem 对象。
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		  
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:FormItemAutomationImpl:createAutomationIDPartWithRequiredProperties"><apiName>createAutomationIDPartWithRequiredProperties</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam><apiParam><apiItemName>properties</apiItemName><apiType value="Array"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:FormItemAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:AccordionAutomationImpl"><apiName>AccordionAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 Accordion 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 Accordion 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Accordion.xml"><linktext>mx.containers.Accordion</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:AccordionAutomationImpl:AccordionAutomationImpl"><apiName>AccordionAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Accordion"/><apiDesc>要进行自动化处理的 Accordion 对象。
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:AccordionAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:AccordionAutomationImpl:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		 通过为单击的标题分派 MouseEvent 来重播 IndexChangedEvent 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>如果重放成功，则为 <codeph>true</codeph>。否则返回<codeph>false</codeph>。
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>要重放的事件。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 通过为单击的标题分派 <codeph>MouseEvent</codeph> 来重播 <codeph>IndexChangedEvent</codeph> 事件。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.containers:ApplicationAutomationImpl"><apiName>ApplicationAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 Application 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 Application 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:ApplicationAutomationImpl:ApplicationAutomationImpl"><apiName>ApplicationAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:Application"/><apiDesc>要进行自动化处理的 Application 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:ApplicationAutomationImpl:getAutomationChildAt"><apiName>getAutomationChildAt</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="mx.automation:IAutomationObject"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:ApplicationAutomationImpl:getAutomationChildren"><apiName>getAutomationChildren</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.containers:ApplicationAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.containers:ApplicationAutomationImpl:numAutomationChildren:get"><apiName>numAutomationChildren</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.containers:FormAutomationImpl"><apiName>FormAutomationImpl</apiName><shortdesc>
+	 
+	  定义检测 Form 类所需的方法和属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:ContainerAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  定义检测 Form 类所需的方法和属性。 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Form.xml"><linktext>mx.containers.Form</linktext></link></related-links><apiConstructor id="mx.automation.delegates.containers:FormAutomationImpl:FormAutomationImpl"><apiName>FormAutomationImpl</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.containers:Form"/><apiDesc>要进行自动化处理的 Form 对象。     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.containers:FormAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  使用自动化管理器为组件类注册委托类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>应用程序的 SystemManger。
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  使用自动化管理器为组件类注册委托类。
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

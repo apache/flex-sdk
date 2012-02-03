@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.core"><apiName>spark.core</apiName><apiDetail/><apiClassifier id="spark.core:ContainerDestructionPolicy"><apiName>ContainerDestructionPolicy</apiName><shortdesc>
+  Die ContainerCreationPolicy-Klasse definiert die Konstantenwerte für die destructionPolicy-Eigenschaft von Spark-Ansichtsklassen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die ContainerCreationPolicy-Klasse definiert die Konstantenwerte für die <codeph>destructionPolicy</codeph>-Eigenschaft von Spark-Ansichtsklassen.
+   </apiDesc></apiClassifierDetail><related-links><link href="spark.components.supportClasses.xml#ViewNavigatorBase/destructionPolicy"><linktext>spark.components.supportClasses.ViewNavigatorBase.destructionPolicy</linktext></link><link href="spark.components.xml#View/destructionPolicy"><linktext>spark.components.View.destructionPolicy</linktext></link></related-links><apiValue id="spark.core:ContainerDestructionPolicy:AUTO"><apiName>AUTO</apiName><shortdesc>
+      Die Lebensdauer der untergeordneten Elemente des Containers wird automatisch vom Container basierend auf dessen Heuristik verwaltet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>auto</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Die Lebensdauer der untergeordneten Elemente des Containers wird automatisch vom Container basierend auf dessen Heuristik verwaltet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.core:ContainerDestructionPolicy:NEVER"><apiName>NEVER</apiName><shortdesc>
+      Der Container vernichtet nie seine untergeordneten Elemente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>never</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Der Container vernichtet nie seine untergeordneten Elemente.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

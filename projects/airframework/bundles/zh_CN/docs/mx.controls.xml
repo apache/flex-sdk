@@ -1,0 +1,1882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls"><apiName>mx.controls</apiName><apiDetail/><apiClassifier id="mx.controls:FileSystemDataGrid"><apiName>FileSystemDataGrid</apiName><shortdesc>
+  FileSystemDataGrid 控件允许您以数据网格格式显示单个文件系统目录的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="EmbeddedFile" inherit="no" name="fileIcon" owner="mx.controls:FileSystemDataGrid" playerVersion="AIR1.1" type="Class">
+<description>
+  指定表示文件的图标。默认图标位于 Assets.swf 文件中。在 MXML 中，可以使用以下语法来设置此属性：<codeph>fileIcon="@Embed(source='fileIcon.jpg');"</codeph>
+ 
+  </description>
+<default>TreeNodeIcon
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="directoryIcon" owner="mx.controls:FileSystemDataGrid" playerVersion="AIR1.1" type="Class">
+<description>
+  指定表示目录的图标。默认图标位于 Assets.swf 文件中。在 MXML 中，可以使用以下语法来设置此属性：<codeph>directoryIcon="@Embed(source='directoryIcon.jpg');"</codeph>
+ 
+  </description>
+<default>TreeNodeIcon
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="dataProvider"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:FileSystemDataGrid&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:FileSystemDataGrid
+    <strong>Properties</strong>
+    dateFormatString=""
+    directory="<i>null</i>"
+    enumerationMode="directoriesFirst"
+    extensions="<i>null</i>"
+    filterFunction="<i>null</i>"
+    nameCompareFunction="<i>null</i>"
+    selectedPath="<i>null</i>"
+    selectedPaths="<i>null</i>"
+    showExtensions="true"
+    showHidden="false"
+    showIcons="true"
+ 
+    <strong>Styles</strong>
+    directoryIcon="<i>TreeNodeIcon</i>"
+    fileIcon="<i>TreeNodeIcon</i>"
+ 
+    <strong>Events</strong>
+    directoryChange="<i>No default</i>"
+    directoryChanging="<i>No default</i>"
+    fileChoose="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:DataGrid</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FileSystemDataGrid 控件允许您以数据网格格式显示单个文件系统目录的内容。
+ 
+  <p>针对每个项目显示的信息都包括：项目名称（带有可选通用图标）、类型、大小、创建日期和修改日期。为此，FileSystemDataGrid 会自动创建五列（DataGridColumn 实例）－ <codeph>nameColumn</codeph>、<codeph>typeColumn</codeph>、<codeph>sizeColumn</codeph>、<codeph>creationDateColumn</codeph> 和 <codeph>modificationDateColumn</codeph>，并将 <codeph>columns</codeph> 属性设置为一个由这五个实例组成的数组。每个列实例都将自动配置为包含适当的 <codeph>labelFunction</codeph> 和 <codeph>sortCompareFunction</codeph> 等。如果您并非需要所有这五列，或者希望更改其排序，请重置 <codeph>columns</codeph> 属性。如果要自定义某个列（如更改其 <codeph>labelFunction</codeph>），则只需在相应的列对象上重新分配该属性。</p>
+ 
+  <p>要更改显示的数据，需要设置 <codeph>directory</codeph> 属性，而无需使用 <codeph>dataProvider</codeph> 属性。随后，控件将自动通过枚举该目录的内容填充 <codeph>dataProvider</codeph> 属性。您不应亲自设置 <codeph>dataProvider</codeph>。</p>
+ 
+  <p>您需要将 <codeph>directory</codeph> 属性设置为 File 实例，如以下示例所示：</p>
+  <pre>&lt;mx:FileSystemDataGrid directory="{File.desktopDirectory}"/></pre>
+ 
+  <p>您可以设置 <codeph>enumerationMode</codeph> 属性，以指定是显示文件、子目录还是同时显示两者。有三种方式可以同时显示两者：目录优先、文件优先或两者混合。</p>
+ 
+  <p>您可以设置 <codeph>extensions</codeph> 属性以筛选显示的项目，从而仅显示具有指定扩展名的文件。<codeph>showHidden</codeph> 属性确定控件是否显示操作系统通常隐藏的文件和子目录。您可以指定另外一个 <codeph>filterFunction</codeph> 执行自定义筛选，并指定 <codeph>nameCompareFunction</codeph> 执行自定义排序。</p>
+ 
+  <p>由于 AIR 不支持文件系统通知，因此，在创建、删除、移动或重命名文件或子目录时不会自动刷新此控件；也就是说，它可以显示文件系统的过期视图。但是，您可以调用 <codeph>refresh()</codeph> 重新枚举当前的 <codeph>directory</codeph>。例如，当您执行了某个文件操作并已知此操作将导致控件的视图过期时，或者当用户取消激活或重新激活您的应用程序时，您可以选择执行此操作。</p>
+ 
+  <p>您可以使用 <codeph>showIcons</codeph> 属性显示或隐藏图标，使用 <codeph>showExtensions</codeph> 属性显示或隐藏文件扩展名。</p>
+ 
+  <p>该控件提供了 <codeph>findItem()</codeph> 和 <codeph>findIndex()</codeph> 两种方法，您可以使用这两种方法搜索显示的文件和子目录，以查找具有指定 <codeph>nativePath</codeph> 的文件或子目录。</p>
+ 
+  <p>该控件还提供了 <codeph>selectedPath</codeph> 和 <codeph>selectedPaths</codeph> 两个属性，工作原理与 <codeph>selectedItem</codeph> 和 <codeph>selectedItems</codeph> 或者 <codeph>selectedIndex</codeph> 和 <codeph>selectedIndices</codeph> 类似，但允许您通过 <codeph>nativePath</codeph> 字符串指定选择。如果需要显示已预先选择了特定项目的目录，它们将非常有用。因为在这种情况下，您还没有在控件枚举目录时控件将创建的 File 项目，并且不知道其索引将是什么。</p>
+ 
+  <p>该控件允许用户使用鼠标或键盘导航到其它目录。用户可以尝试使用下列方法更改目录：双击子目录；选中子目录后按 Enter 键或 Ctrl-Down；在控件不显示 COMPUTER 目录时按 Ctrl-Up；在存在要导航回的“上一个”目录时按 Ctrl-Left；在存在要导航到的“下一个”目录时按 Ctrl-Right。如果用户试图更改正在显示的目录，则该控件将分派可取消的 <codeph>directoryChanging</codeph> 事件。如果没有通过调用 <codeph>event.preventDefault()</codeph> 取消此事件，则该控件将显示新目录的内容，并且 <codeph>directory</codeph> 属性将发生更改。无论 <codeph>directory</codeph> 属性在何时由于任何原因发生更改，控件都会分派 <codeph>directoryChange</codeph> 事件通知您。</p>
+ 
+  <p>为了支持控件进行“向上”和“向下”导航，FileSystemList 提供了 <codeph>canNavigateUp</codeph> 和 <codeph>canNavigateDown</codeph> 属性，以及 <codeph>navigateUp()</codeph> 和 <codeph>navigateDown()</codeph> 方法。还有一个 <codeph>navigateTo()</codeph>，可导航到任意目录。</p>
+ 
+  <p>该控件可跟踪用户曾经导航到的目录，以便支持控件进行“后退”和“前进”导航。有关详细信息，请参见 <codeph>backHistory</codeph>、<codeph>forwardHistory</codeph>、<codeph>canNavigateBack</codeph> 和 <codeph>canNavigateForward</codeph> 属性，以及 <codeph>navigateBack()</codeph> 和 <codeph>navigateForward()</codeph> 方法。</p>
+ 
+  <p>注意：针对每个项目显示的图标都是通用文件和目录图标，您可以使用 <codeph>fileIcon</codeph> 和 <codeph>directoryIcon</codeph> 样式设置它们。Flex 的基于列表的控件当前支持仅显示嵌入的图标，但不支持在运行时读取的图标。因此，虽然可通过 File 的 <codeph>icon</codeph> 属性在 AIR 中访问操作系统中显示的实际文件系统图标，但这些图标不会显示在 FileSystemDataGrid 中。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.filesystem.File.xml"><linktext>flash.filesystem.File</linktext></link></related-links><adobeApiEvent id="mx.controls:FileSystemDataGrid_mx.events.FileEvent.FILE_CHOOSE_fileChoose"><apiName>fileChoose</apiName><shortdesc>
+  当用户通过双击文件或选择文件并按 Enter 键来选择文件时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.FILE_CHOOSE</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户通过双击文件或选择文件并按 Enter 键来选择文件时分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:FileSystemDataGrid_mx.events.FileEvent.DIRECTORY_OPENING_directoryChanging"><apiName>directoryChanging</apiName><shortdesc>
+  当用户尝试更改此控件显示的目录时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.DIRECTORY_OPENING</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户尝试更改此控件显示的目录时分派此事件。
+ 
+  <p>用户可以尝试使用下列方法更改目录：双击子目录；选中子目录后按 Enter 键或 Ctrl-Down；在控件不显示 COMPUTER 目录时按 Ctrl-Up；在历史记录列表中存在要导航回的“上一个”目录时按 Ctrl-Left；在历史记录列表中存在要导航到的“下一个”目录时按 Ctrl-Right。</p>
+ 
+  <p>此事件是可取消的。如果调用 <codeph>event.preventDefault()</codeph>，则不会更改目录。</p>
+ 
+  <p>更改 <codeph>directory</codeph> 属性后，<codeph>dataProvider</codeph> 会包含新目录中项目的 File 实例，此时将分派 <codeph>directoryChange</codeph> 事件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:FileSystemDataGrid_mx.events.FileEvent.DIRECTORY_CHANGE_directoryChange"><apiName>directoryChange</apiName><shortdesc>
+  当此控件显示的选定目录由于某种原因发生更改时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.DIRECTORY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当此控件显示的选定目录由于某种原因发生更改时分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:FileSystemDataGrid:FileSystemDataGrid"><apiName>FileSystemDataGrid</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:FileSystemDataGrid:clear"><apiName>clear</apiName><shortdesc conref="mx.controls.FileSystemList#clear()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.controls.FileSystemList#clear()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemDataGrid:findIndex"><apiName>findIndex</apiName><shortdesc conref="mx.controls.FileSystemList#findIndex()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="int"/><apiDesc>从零开始的索引；如果在指定的路径中没有找到 File，则为 <codeph>-1</codeph>。
+     
+      </apiDesc></apiReturn><apiParam><apiItemName>nativePath</apiItemName><apiType value="String"/><apiDesc>一个字符串，用于指定 File 项目的 <codeph>nativePath</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.controls.FileSystemList#findIndex()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemDataGrid:findItem"><apiName>findItem</apiName><shortdesc conref="mx.controls.FileSystemList#findItem()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.filesystem:File"/><apiDesc>如果找到了一个具有指定 <codeph>nativePath</codeph> 的 File 实例，则返回该实例；如果没有找到，则返回 <codeph>null</codeph>。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>nativePath</apiItemName><apiType value="String"/><apiDesc>一个字符串，用于指定 File 项目的 <codeph>nativePath</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.controls.FileSystemList#findItem()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemDataGrid:navigateBack"><apiName>navigateBack</apiName><shortdesc>
+      更改此控件可显示 backHistory 数组中上次访问过的目录中的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc><codeph>backHistory</codeph> 数组中要导航到的索引。默认值为 0，指示“最近的返回”目录。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更改此控件可显示 <codeph>backHistory</codeph> 数组中上次访问过的目录中的内容。
+     
+      <p>如果 <codeph>backHistory</codeph> 数组为空，或者指定的索引不在该数组中，则此方法不会产生任何效果。</p>
+     
+      <p>此方法返回时，<codeph>directory</codeph> 属性将包含新目录的 File 实例。枚举新目录之前，<codeph>dataProvider</codeph> 属性暂时为 <codeph>null</codeph>。枚举之后，<codeph>dataProvider</codeph> 属性将包含新目录内容的 File 实例的 ArrayCollection。</p>
+     
+      <p>历史记录列表不会更改。但是，列表中的当前索引会发生更改，这会影响 <codeph>backHistory</codeph> 和 <codeph>forwardHistory</codeph> 属性。此方法返回新值后，这些属性即可获得新的值。</p>
+     
+      <p>以下示例演示如何将此方法与 FileSystemHistoryButton 控件一起使用，以创建一个后退按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Back"
+          enabled="{fileSystemViewer.canNavigateBack}"
+          dataProvider="{fileSystemViewer.backHistory}"
+          click="fileSystemViewer.navigateBack();"
+          itemClick="fileSystemViewer.navigateBack(event.index);"/></pre>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/backHistory"><linktext>backHistory</linktext></link><link href="mx.controls.xml#FileSystemDataGrid/canNavigateBack"><linktext>canNavigateBack</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FileSystemDataGrid:navigateDown"><apiName>navigateDown</apiName><shortdesc>
+      更改此控件可显示所选子目录的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      更改此控件可显示所选子目录的内容。
+     
+      <p>如果没有选中子目录，则此方法不产生任何效果。</p>
+     
+      <p>此方法返回时，<codeph>directory</codeph> 属性将包含新目录的 File 实例。枚举新目录之前，<codeph>dataProvider</codeph> 属性暂时为 <codeph>null</codeph>。枚举之后，<codeph>dataProvider</codeph> 属性将包含新目录内容的 File 实例的 ArrayCollection。</p>
+     
+      <p>以下示例演示如何将此方法与 Button 控件一起使用，以创建一个打开按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:Button label="Open"
+          enabled="{fileSystemViewer.canNavigateDown}"
+          click="fileSystemViewer.navigateDown();"/></pre>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/canNavigateDown"><linktext>canNavigateDown</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FileSystemDataGrid:navigateForward"><apiName>navigateForward</apiName><shortdesc>
+      更改此控件可显示 forwardHistory 数组中上次访问过的目录中的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc><codeph>forwardHistory</codeph> 数组中要导航到的索引。默认值为 0，指示“最近的前往”目录。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更改此控件可显示 <codeph>forwardHistory</codeph> 数组中上次访问过的目录中的内容。
+     
+      <p>如果 <codeph>forwardHistory</codeph> 数组为空，或者指定的索引不在该数组中，则此方法不会产生任何效果。</p>
+     
+      <p>此方法返回时，<codeph>directory</codeph> 属性将包含新目录的 File 实例。枚举新目录之前，<codeph>dataProvider</codeph> 属性暂时为 <codeph>null</codeph>。枚举之后，<codeph>dataProvider</codeph> 属性将包含新目录内容的 File 实例的 ArrayCollection。</p>
+     
+      <p>历史记录列表不会更改。但是，列表中的当前索引会发生更改，这会影响 <codeph>backHistory</codeph> 和 <codeph>forwardHistory</codeph> 属性。此方法返回新值后，这些属性即可获得新的值。</p>
+     
+      <p>以下示例演示如何将此方法与 FileSystemHistoryButton 控件一起使用，以创建一个前进按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Forward"
+          enabled="{fileSystemViewer.canNavigateForward}"
+          dataProvider="{fileSystemViewer.forwardHistory}"
+          click="fileSystemViewer.navigateForward();"
+          itemClick="fileSystemViewer.navigateForward(event.index);"/></pre>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/canNavigateForward"><linktext>canNavigateForward</linktext></link><link href="mx.controls.xml#FileSystemDataGrid/forwardHistory"><linktext>forwardHistory</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FileSystemDataGrid:navigateTo"><apiName>navigateTo</apiName><shortdesc conref="mx.controls.FileSystemList#navigateTo()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>directory</apiItemName><apiType value="flash.filesystem:File"/><apiDesc>一个文件对象，表示文件或目录。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.controls.FileSystemList#navigateTo()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemDataGrid:navigateUp"><apiName>navigateUp</apiName><shortdesc>
+      更改此控件可显示层次结构中上一目录的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      更改此控件可显示层次结构中上一目录的内容。
+     
+      <p>如果此控件当前显示根目录（如 Microsoft Windows 中的 C: 和 D:），则此方法不会产生任何效果。</p>
+     
+      <p>此方法返回时，<codeph>directory</codeph> 属性将包含新目录的 File 实例。枚举新目录之前，<codeph>dataProvider</codeph> 属性暂时为 <codeph>null</codeph>。枚举之后，<codeph>dataProvider</codeph> 属性将包含新目录内容的 File 实例的 ArrayCollection。</p>
+     
+      <p>以下示例演示如何将此属性与 Button 控件一起使用，以创建一个向上按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:Button label="Up"
+          enabled="{fileSystemViewer.canNavigateUp}"
+          click="fileSystemViewer.navigateUp();"/></pre>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/canNavigateUp"><linktext>canNavigateUp</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FileSystemDataGrid:refresh"><apiName>refresh</apiName><shortdesc conref="mx.controls.FileSystemList#refresh()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.controls.FileSystemList#refresh()">
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:FileSystemDataGrid:COMPUTER"><apiName>COMPUTER</apiName><shortdesc conref="mx.controls.FileSystemList#COMPUTER">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="flash.filesystem:File"/></apiValueDef><apiDesc conref="mx.controls.FileSystemList#COMPUTER">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:creationDateColumn"><apiName>creationDateColumn</apiName><shortdesc>
+      DataGridColumn，表示 Created 列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.dataGridClasses:DataGridColumn"/></apiValueDef><apiDesc>
+      DataGridColumn，表示 Created 列。FileSystemDataGrid 控件可自动创建此列。
+     
+      <p>您可以设置 <codeph>creationDateColumn.width</codeph> 等属性来自定义此列。要完全删除此列，或更改列的顺序，请将 <codeph>columns</codeph> 属性设置为一个数组（如 <codeph>[ nameColumn, modificationDateColumn, sizeColumn ]</codeph>）。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:modificationDateColumn"><apiName>modificationDateColumn</apiName><shortdesc>
+      DataGridColumn，表示 Modified 列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.dataGridClasses:DataGridColumn"/></apiValueDef><apiDesc>
+      DataGridColumn，表示 Modified 列。FileSystemDataGrid 控件可自动创建此列。
+     
+      <p>您可以设置 <codeph>modificationDateColumn.width</codeph> 等属性来自定义此列。要完全删除此列，或更改列的顺序，请将 <codeph>columns</codeph> 属性设置为一个数组（如 <codeph>[ nameColumn, modificationDateColumn, sizeColumn ]</codeph>）。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:nameColumn"><apiName>nameColumn</apiName><shortdesc>
+      DataGridColumn 表示 Name 列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.dataGridClasses:DataGridColumn"/></apiValueDef><apiDesc>
+      DataGridColumn 表示 Name 列。FileSystemDataGrid 控件可自动创建此列。
+     
+      <p>您可以设置 <codeph>nameColumn.width</codeph> 等属性来自定义此列。要完全删除此列，或更改列的顺序，请将 <codeph>columns</codeph> 属性设置为一个数组（如 <codeph>[ nameColumn, modificationDateColumn, sizeColumn ]</codeph>）。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:sizeColumn"><apiName>sizeColumn</apiName><shortdesc>
+      DataGridColumn，表示 Size 列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.dataGridClasses:DataGridColumn"/></apiValueDef><apiDesc>
+      DataGridColumn，表示 Size 列。FileSystemDataGrid 控件可自动创建此列。
+     
+      <p>您可以设置 <codeph>sizeColumn.width</codeph> 等属性来自定义此列。要完全删除此列，或更改列的顺序，请将 <codeph>columns</codeph> 属性设置为一个数组（如 <codeph>[ nameColumn, modificationDateColumn, sizeColumn ]</codeph>）。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:typeColumn"><apiName>typeColumn</apiName><shortdesc>
+      DataGridColumn，表示 Type 列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.dataGridClasses:DataGridColumn"/></apiValueDef><apiDesc>
+      DataGridColumn，表示 Type 列。FileSystemDataGrid 控件可自动创建此列。
+     
+      <p>您可以设置 <codeph>typeColumn.width</codeph> 等属性来自定义此列。要完全删除此列，或更改列的顺序，请将 <codeph>columns</codeph> 属性设置为一个数组（如 <codeph>[ nameColumn, modificationDateColumn, sizeColumn ]</codeph>）。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:backHistory:get"><apiName>backHistory</apiName><shortdesc>
+      一个 File 对象 Array，表示用户可以向后导航到的目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="historyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个 File 对象 Array，表示用户可以向后导航到的目录。
+     
+      <p>该 Array 中的第一个项目是历史记录列表中可回退到的下一个目录。最后一个项目是历史记录列表中可回退到的最远的目录。</p>
+     
+      <p>此 Array 可以包含 <codeph>null</codeph> 项目，表示以根目录（如 Microsoft Windows 中的 C:\ 和 D:\）作为内容的并不存在的目录。</p>
+     
+      <p>以下示例演示如何将此属性与 FileSystemHistoryButton 控件一起使用，以实现一个后退按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Back"
+         enabled="{fileSystemViewer.canNavigateBack}"
+         dataProvider="{fileSystemViewer.backHistory}"
+         click="fileSystemViewer.navigateBack();"
+         itemClick="fileSystemViewer.navigateBack(event.index);"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/canNavigateBack"><linktext>canNavigateBack</linktext></link><link href="mx.controls.xml#FileSystemDataGrid/navigateBack()"><linktext>navigateBack()</linktext></link><link href="mx.controls.xml#FileSystemHistoryButton"><linktext>mx.controls.FileSystemHistoryButton</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:canNavigateBack:get"><apiName>canNavigateBack</apiName><shortdesc>
+      一个标志，如果历史记录列表中至少存在一个可供用户向后导航的目录，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="historyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，如果历史记录列表中至少存在一个可供用户向后导航的目录，则为 <codeph>true</codeph>。
+     
+      <p>以下示例演示如何将此属性与 FileSystemHistoryButton 控件一起使用，以实现一个后退按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Back"
+          enabled="{fileSystemViewer.canNavigateBack}"
+          dataProvider="{fileSystemViewer.backHistory}"
+          click="fileSystemViewer.navigateBack();"
+          itemClick="fileSystemViewer.navigateBack(event.index);"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/backHistory"><linktext>backHistory</linktext></link><link href="mx.controls.xml#FileSystemDataGrid/navigateBack()"><linktext>navigateBack()</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:canNavigateDown:get"><apiName>canNavigateDown</apiName><shortdesc>
+      一个标志，如果用户可向下导航至所选目录，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，如果用户可向下导航至所选目录，则为 <codeph>true</codeph>。如果未选中任何项目，或所选项目是一个文件而非目录时，此标志为 <codeph>false</codeph>。
+     
+      <p>以下示例演示如何将此属性与 Button 控件一起使用：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:Button label="Open"
+          enabled="{fileSystemViewer.canNavigateDown}"
+          click="fileSystemViewer.navigateDown();"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/navigateDown()"><linktext>navigateDown()</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:canNavigateForward:get"><apiName>canNavigateForward</apiName><shortdesc>
+      一个标志，如果历史记录列表中至少存在一个可供用户向前导航的目录，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="historyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，如果历史记录列表中至少存在一个可供用户向前导航的目录，则为 <codeph>true</codeph>。
+     
+      <p>以下示例演示如何将此属性与 FileSystemHistoryButton 控件一起使用，以实现一个前进按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Forward"
+          enabled="{fileSystemViewer.canNavigateForward}"
+          dataProvider="{fileSystemViewer.forwardHistory}"
+          click="fileSystemViewer.navigateForward();"
+          itemClick="fileSystemViewer.navigateForward(event.index);"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/forwardHistory"><linktext>forwardHistory</linktext></link><link href="mx.controls.xml#FileSystemDataGrid/navigateForward()"><linktext>navigateForward()</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:canNavigateUp:get"><apiName>canNavigateUp</apiName><shortdesc>
+      一个标志，如果用户可向上导航至父级目录，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，如果用户可向上导航至父级目录，则为 <codeph>true</codeph>。仅当此控件显示根目录（如 Microsoft Windows 中的 C:\ 和 D:\）时，此标志才为 <codeph>false</codeph>。（此时，<codeph>directory</codeph> 属性为 <codeph>COMPUTER</codeph>。）
+     
+      <p>以下示例演示如何将此属性与 Button 控件一起使用：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:Button label="Up"
+          enabled="{fileSystemViewer.canNavigateUp}"
+          click="fileSystemViewer.navigateUp();"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/navigateUp()"><linktext>navigateUp()</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:dateFormatString:get"><apiName>dateFormatString</apiName><shortdesc>
+      一个 String，用于确定 Created 和 Modified 列中的日期格式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      一个 String，用于确定 Created 和 Modified 列中的日期格式。通过设置此属性，可以设置此控件创建的内部 DateFormatter 的 <codeph>formatString</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.formatters.xml#DateFormatter/formatString"><linktext>mx.formatters.DateFormatter.formatString</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:directory:get"><apiName>directory</apiName><shortdesc conref="mx.controls.FileSystemList#directory">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.filesystem:File"/></apiValueDef><apiDesc conref="mx.controls.FileSystemList#directory">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:enumerationMode:get"><apiName>enumerationMode</apiName><shortdesc conref="mx.controls.FileSystemList#enumerationMode">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>FileSystemEnumerationMode.DIRECTORIES_FIRST
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#enumerationMode">
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemEnumerationMode"><linktext>mx.controls.FileSystemEnumerationMode</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:extensions:get"><apiName>extensions</apiName><shortdesc conref="mx.controls.FileSystemList#extensions">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#extensions">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:filterFunction:get"><apiName>filterFunction</apiName><shortdesc conref="mx.controls.FileSystemList#filterFunction">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#filterFunction">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:forwardHistory:get"><apiName>forwardHistory</apiName><shortdesc>
+      一个 File 对象 Array，表示用户可以向前导航到的目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="historyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/><apiDefaultValue>[]
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+      一个 File 对象 Array，表示用户可以向前导航到的目录。
+     
+      <p>该 Array 中的第一个项目是历史记录列表中可前进到的下一个目录。最后一个项目是历史记录列表中可前进到的最远的目录。</p>
+     
+      <p>此 Array 可以包含 <codeph>null</codeph> 项目，表示以根目录（如 Windows 中的 C:\ 和 D:\）作为内容的并不存在的目录。</p>
+     
+      <p>以下示例演示如何将此属性与 FileSystemHistoryButton 控件一起使用，以实现一个前进按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Forward"
+          enabled="{fileSystemViewer.canNavigateForward}"
+          dataProvider="{fileSystemViewer.forwardHistory}"
+          click="fileSystemViewer.navigateForward();"
+          itemClick="fileSystemViewer.navigateForward(event.index);"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemHistoryButton"><linktext>mx.controls.FileSystemHistoryButton</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:nameCompareFunction:get"><apiName>nameCompareFunction</apiName><shortdesc conref="mx.controls.FileSystemList#nameCompareFunction">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#nameCompareFunction">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:selectedPath:get"><apiName>selectedPath</apiName><shortdesc conref="mx.controls.FileSystemList#selectedPath">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#selectedPath">
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedIndex"><linktext>mx.controls.listClasses.ListBase.selectedIndex</linktext></link><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedItem"><linktext>mx.controls.listClasses.ListBase.selectedItem</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:selectedPaths:get"><apiName>selectedPaths</apiName><shortdesc conref="mx.controls.FileSystemList#selectedPaths">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#selectedPaths">
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedIndex"><linktext>mx.controls.listClasses.ListBase.selectedIndex</linktext></link><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedItem"><linktext>mx.controls.listClasses.ListBase.selectedItem</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemDataGrid:showExtensions:get"><apiName>showExtensions</apiName><shortdesc conref="mx.controls.FileSystemList#showExtensions">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.controls.FileSystemList#showExtensions">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:showHidden:get"><apiName>showHidden</apiName><shortdesc conref="mx.controls.FileSystemList#showHidden">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.controls.FileSystemList#showHidden">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:showIcons:get"><apiName>showIcons</apiName><shortdesc conref="mx.controls.FileSystemList#showIcons">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.controls.FileSystemList#showIcons">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemDataGrid:sizeDisplayMode:get"><apiName>sizeDisplayMode</apiName><shortdesc>
+      一个 String，用于指定 Size 列是按字节显示文件大小，还是舍入到最接近的千字节（其中一千字节相当于 1024 字节）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      一个 String，用于指定 Size 列是按字节显示文件大小，还是舍入到最接近的千字节（其中一千字节相当于 1024 字节）。可能值由 FileSystemSizeDisplayMode 类指定。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemSizeDisplayMode"><linktext>mx.controls.FileSystemSizeDisplayMode</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls:FileSystemTree"><apiName>FileSystemTree</apiName><shortdesc>
+  FileSystemTree 控件采用树状结构显示文件系统目录的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="dataProvider"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:FileSystemTree&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:FileSystemTree
+    <strong>Properties</strong>
+    directory="<i>null</i>"
+    enumerationMode="directoriesFirst"
+    extensions="<i>null</i>"
+    filterFunction="<i>null</i>"
+    nameCompareFunction="<i>null</i>"
+    openPaths="<i>null</i>"
+    selectedPath="<i>null</i>"
+    selectedPaths="<i>null</i>"
+    showExtensions="true"
+    showHidden="false"
+    showIcons="true"
+ 
+    <strong>Events</strong>
+    directoryChange="<i>No default</i>"
+    directoryClosing="<i>No default</i>"
+    directoryOpening="<i>No default</i>"
+    fileChoose="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:Tree</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FileSystemTree 控件采用树状结构显示文件系统目录的内容。
+ 
+  <p>您可以通过将 <codeph>directory</codeph> 属性设置为 flash.filesystem.File 类实例来指定显示哪个目录下的内容。（File 实例可以表示目录，也可以表示文件。）每当此属性由于任何原因发生更改时，此控件都会分派 <codeph>directoryChange</codeph> 事件。</p>
+ 
+  <p>可设置 <codeph>enumerationMode</codeph> 属性，以指定是显示此目录的文件、其子目录还是同时显示两者。在每个树节点中同时显示文件和子目录的方式有三种：目录优先、文件优先或两者混合。</p>
+ 
+  <p>可设置 <codeph>extensions</codeph> 属性以过滤列表，从而仅显示具有指定扩展名的文件。（目录上的扩展名将被忽略。）您也可以通过设置 <codeph>filterFunction</codeph> 属性指定自己需要的其他过滤函数。</p>
+ 
+  <p>可使用 <codeph>showExtensions</codeph> 属性显示或隐藏文件扩展名，使用 <codeph>showIcons</codeph> 属性显示或隐藏图标。</p>
+ 
+  <p>通过将 <codeph>nameCompareFunction</codeph> 属性设置为可比较两个文件名或目录名的函数，可在每个树节点中执行自定义排序。</p>
+ 
+  <p>如果用户双击关闭的目录节点或单击其显示图标，此控件将分派 <codeph>directoryOpening</codeph> 事件。如果用户双击打开的目录节点或单击其显示图标，此控件将分派 <codeph>directoryClosing</codeph> 事件。处理函数可以通过调用 <codeph>event.preventDefault()</codeph> 取消上述任一事件，此时不会打开节点。</p>
+ 
+  <p>如果用户双击某个文件节点，此控件将分派 <codeph>select</codeph> 事件。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.filesystem.File.xml"><linktext>flash.filesystem.File</linktext></link></related-links><adobeApiEvent id="mx.controls:FileSystemTree_mx.events.FileEvent.FILE_CHOOSE_fileChoose"><apiName>fileChoose</apiName><shortdesc>
+  当用户通过双击文件或选择文件并按 Enter 键来选择文件时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.FILE_CHOOSE</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户通过双击文件或选择文件并按 Enter 键来选择文件时分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:FileSystemTree_mx.events.FileEvent.DIRECTORY_OPENING_directoryOpening"><apiName>directoryOpening</apiName><shortdesc>
+  当用户使用鼠标或键盘打开目录节点时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.DIRECTORY_OPENING</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户使用鼠标或键盘打开目录节点时分派。
+ 
+  <p>此事件是可取消的。如果调用 <codeph>event.preventDefault()</codeph>，此控件将继续显示当前目录，而不会改为显示双击的子目录。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:FileSystemTree_mx.events.FileEvent.DIRECTORY_CLOSING_directoryClosing"><apiName>directoryClosing</apiName><shortdesc>
+  当用户使用鼠标或键盘关闭打开的目录节点时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.DIRECTORY_CLOSING</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户使用鼠标或键盘关闭打开的目录节点时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:FileSystemTree_mx.events.FileEvent.DIRECTORY_CHANGE_directoryChange"><apiName>directoryChange</apiName><shortdesc>
+  当 directory 属性由于任何原因而发生更改时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.DIRECTORY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>directory</codeph> 属性由于任何原因而发生更改时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:FileSystemTree:FileSystemTree"><apiName>FileSystemTree</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:FileSystemTree:clear"><apiName>clear</apiName><shortdesc>
+      清除列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      清除列表。
+     
+      <p>此方法会将 <codeph>dataProvider</codeph> 设置为 <codeph>null</codeph>，但 <codeph>directory</codeph> 属性保持不变。您可以调用 <codeph>refresh</codeph> 重新填充列表。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemTree:closeSubdirectory"><apiName>closeSubdirectory</apiName><shortdesc>
+      关闭本机文件系统路径指定的子目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>nativePath</apiItemName><apiType value="String"/><apiDesc>一个字符串，用于指定 File 项目的 <codeph>nativePath</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      关闭本机文件系统路径指定的子目录。
+     
+      <p>如果 <codeph>nativePath</codeph> 未指定将显示在此控件中的目录，则此方法不会执行任何操作。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemTree:findIndex"><apiName>findIndex</apiName><shortdesc conref="mx.controls.FileSystemList#findIndex()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="int"/><apiDesc>从零开始的索引；如果在指定的路径中没有找到 File，则为 <codeph>-1</codeph>。
+     
+      </apiDesc></apiReturn><apiParam><apiItemName>nativePath</apiItemName><apiType value="String"/><apiDesc>一个字符串，用于指定 File 项目的 <codeph>nativePath</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.controls.FileSystemList#findIndex()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemTree:findItem"><apiName>findItem</apiName><shortdesc conref="mx.controls.FileSystemList#findItem()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.filesystem:File"/><apiDesc>如果找到了一个具有指定 <codeph>nativePath</codeph> 的 File 实例，则返回该实例；如果没有找到，则返回 <codeph>null</codeph>。
+      
+      </apiDesc></apiReturn><apiParam><apiItemName>nativePath</apiItemName><apiType value="String"/><apiDesc>一个字符串，用于指定 File 项目的 <codeph>nativePath</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.controls.FileSystemList#findItem()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemTree:openSubdirectory"><apiName>openSubdirectory</apiName><shortdesc>
+      打开由本机文件系统路径指定的子目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>nativePath</apiItemName><apiType value="String"/><apiDesc>一个字符串，用于指定 File 项目的 <codeph>nativePath</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      打开由本机文件系统路径指定的子目录。
+     
+      <p>此方法将自动打开到达指定目录需要经过的所有中间目录。</p>
+     
+      <p>如果 <codeph>nativePath</codeph> 指定的文件系统目录不存在，或者该目录不在此控件显示的目录中，则此方法不会执行任何操作。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemTree:refresh"><apiName>refresh</apiName><shortdesc>
+      重新枚举此控件显示的当前目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      重新枚举此控件显示的当前目录。
+     
+      <p>返回此方法后，<codeph>directory</codeph> 属性包含与之前相同目录的 File 实例。重新枚举目录之前，<codeph>dataProvider</codeph> 属性暂时为 <codeph>null</codeph>。枚举之后，<codeph>dataProvider</codeph> 属性将包含此目录内容的 File 实例的 ArrayCollection。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:FileSystemTree:COMPUTER"><apiName>COMPUTER</apiName><shortdesc conref="mx.controls.FileSystemList#COMPUTER">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="flash.filesystem:File"/></apiValueDef><apiDesc conref="mx.controls.FileSystemList#COMPUTER">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemTree:directory:get"><apiName>directory</apiName><shortdesc>
+      此控件显示内容所在的目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.filesystem:File"/><apiDefaultValue>COMPUTER
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此控件显示内容所在的目录。
+     
+      <p>如果将此属性设置为代表现有目录的 File 对象，则 <codeph>dataProvider</codeph> 立即改为 <codeph>null</codeph>。稍后，当此控件再次经 LayoutManager 验证后，它将同步枚举此目录内容，并使用为该目录的文件和子目录生成的 File 对象的 ArrayCollection 填充 <codeph>dataProvider</codeph> 属性。</p>
+     
+      <p>将此属性设置为不代表现有目录的 File 对象将出现错误。将此属性设置为 <codeph>COMPUTER</codeph> 可同步显示根目录，如 Windows 上的 C:、D:。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemTree:enumerationMode:get"><apiName>enumerationMode</apiName><shortdesc conref="mx.controls.FileSystemList#enumerationMode">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>FileSystemEnumerationMode.DIRECTORIES_FIRST
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#enumerationMode">
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemEnumerationMode"><linktext>mx.controls.FileSystemEnumerationMode</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemTree:extensions:get"><apiName>extensions</apiName><shortdesc conref="mx.controls.FileSystemList#extensions">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#extensions">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemTree:filterFunction:get"><apiName>filterFunction</apiName><shortdesc conref="mx.controls.FileSystemList#filterFunction">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#filterFunction">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemTree:nameCompareFunction:get"><apiName>nameCompareFunction</apiName><shortdesc conref="mx.controls.FileSystemList#nameCompareFunction">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#nameCompareFunction">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemTree:openPaths:get"><apiName>openPaths</apiName><shortdesc>
+      File 项目的 nativePath 字符串 Array，用于呈示打开的子目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      File 项目的 <codeph>nativePath</codeph> 字符串 Array，用于呈示打开的子目录。如果未打开子目录，则此 Array 为空。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemTree:selectedPath:get"><apiName>selectedPath</apiName><shortdesc conref="mx.controls.FileSystemList#selectedPath">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#selectedPath">
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedIndex"><linktext>mx.controls.listClasses.ListBase.selectedIndex</linktext></link><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedItem"><linktext>mx.controls.listClasses.ListBase.selectedItem</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemTree:selectedPaths:get"><apiName>selectedPaths</apiName><shortdesc conref="mx.controls.FileSystemList#selectedPaths">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#selectedPaths">
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedIndex"><linktext>mx.controls.listClasses.ListBase.selectedIndex</linktext></link><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedItem"><linktext>mx.controls.listClasses.ListBase.selectedItem</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemTree:showExtensions:get"><apiName>showExtensions</apiName><shortdesc conref="mx.controls.FileSystemList#showExtensions">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#showExtensions">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemTree:showHidden:get"><apiName>showHidden</apiName><shortdesc conref="mx.controls.FileSystemList#showHidden">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#showHidden">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemTree:showIcons:get"><apiName>showIcons</apiName><shortdesc conref="mx.controls.FileSystemList#showIcons">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="mx.controls.FileSystemList#showIcons">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:FileSystemList"><apiName>FileSystemList</apiName><shortdesc>
+  使用 FileSystemList 控件，可以列表格式显示单个文件系统目录的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="EmbeddedFile" inherit="no" name="fileIcon" owner="mx.controls:FileSystemList" playerVersion="AIR1.1" type="Class">
+<description>
+  指定表示文件的图标。默认图标位于 Assets.swf 文件中。在 MXML 中，可以使用以下语法来设置此属性：<codeph>fileIcon="@Embed(source='fileIcon.jpg');"</codeph>
+ 
+  </description>
+<default>TreeNodeIcon
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="directoryIcon" owner="mx.controls:FileSystemList" playerVersion="AIR1.1" type="Class">
+<description>
+  指定表示目录的图标。默认图标位于 Assets.swf 文件中。在 MXML 中，可以使用以下语法来设置此属性：<codeph>directoryIcon="@Embed(source='directoryIcon.jpg');"</codeph>
+ 
+  </description>
+<default>TreeNodeIcon
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="dataProvider"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:FileSystemList&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:FileSystemList
+    <strong>Properties</strong>
+    directory="<i>null</i>"
+    enumerationMode="directoriesFirst"
+    extensions="<i>null</i>"
+    filterFunction="<i>null</i>"
+    nameCompareFunction="<i>null</i>"
+    selectedPath="<i>null</i>"
+    selectedPaths="<i>null</i>"
+    showExtensions="true"
+    showHidden="false"
+    showIcons="true"
+ 
+    <strong>Styles</strong>
+    directoryIcon="<i>TreeNodeIcon</i>"
+    fileIcon="<i>TreeNodeIcon</i>"
+ 
+    <strong>Events</strong>
+    directoryChange="<i>No default</i>"
+    directoryChanging="<i>No default</i>"
+    fileChoose="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:List</apiBaseClassifier></apiClassifierDef><apiDesc>
+  使用 FileSystemList 控件，可以列表格式显示单个文件系统目录的内容。
+ 
+  <p>要更改显示的数据，需要设置 <codeph>directory</codeph> 属性，而无需使用 <codeph>dataProvider</codeph> 属性。随后，控件将自动通过枚举该目录的内容填充 <codeph>dataProvider</codeph> 属性。您不应亲自设置 <codeph>dataProvider</codeph>。</p>
+ 
+  <p>您需要将 <codeph>directory</codeph> 属性设置为 File 实例，如以下示例所示： </p>
+  <pre>
+    &lt;mx:FileSystemList directory="{File.desktopDirectory}"/></pre>
+ 
+  <p>您可以设置 <codeph>enumerationMode</codeph> 属性，以指定是显示文件、子目录还是同时显示两者。有三种方式可以同时显示两者：目录优先、文件优先或两者混合。</p>
+ 
+  <p>您可以设置 <codeph>extensions</codeph> 属性以筛选显示的项目，从而仅显示具有指定扩展名的文件。<codeph>showHidden</codeph> 确定控件是否显示操作系统通常隐藏的文件和子目录。您可以指定另外一个 <codeph>filterFunction</codeph> 执行自定义筛选，并指定 <codeph>nameCompareFunction</codeph> 执行自定义排序。</p>
+ 
+  <p>由于 AIR 不支持文件系统通知，因此，在创建、删除、移动或重命名文件或子目录时不会自动刷新此控件；也就是说，它可以显示文件系统的过期视图。但是，您可以调用 <codeph>refresh()</codeph> 重新枚举当前的 <codeph>directory</codeph>。例如，当您执行了某个文件操作并已知此操作将导致控件的视图过期时，或者当用户取消激活或重新激活您的应用程序时，您可以选择执行此操作。</p>
+ 
+  <p>您可以使用 <codeph>showIcons</codeph> 属性显示或隐藏图标，使用 <codeph>showExtensions</codeph> 属性显示或隐藏文件扩展名。</p>
+ 
+  <p>该控件提供了 <codeph>findItem()</codeph> 和 <codeph>findIndex()</codeph> 两种方法，您可以使用这两种方法搜索显示的文件和子目录，以查找具有指定 <codeph>nativePath</codeph> 的文件或子目录。</p>
+ 
+  <p>该控件还提供了 <codeph>selectedPath</codeph> 和 <codeph>selectedPaths</codeph> 两个属性，工作原理与 <codeph>selectedItem</codeph> 和 <codeph>selectedItems</codeph> 或者 <codeph>selectedIndex</codeph> 和 <codeph>selectedIndices</codeph> 类似，但允许您通过 <codeph>nativePath</codeph> 字符串指定选择。如果需要显示已预先选择了特定项目的目录，它们将非常有用。因为在这种情况下，您还没有在控件枚举目录时控件将创建的 File 项目，并且不知道其索引将是什么。</p>
+ 
+  <p>该控件允许用户使用鼠标或键盘导航到其它目录。用户可以尝试使用下列方法更改目录：双击子目录；选中子目录后按 Enter 键或 Ctrl-Down；在控件不显示 COMPUTER 目录时按 Ctrl-Up；在存在要导航回的“上一个”目录时按 Ctrl-Left；在存在要导航到的“下一个”目录时按 Ctrl-Right。如果用户试图更改正在显示的目录，则该控件将分派可取消的 <codeph>directoryChanging</codeph> 事件。如果没有通过调用 <codeph>event.preventDefault()</codeph> 取消此事件，则该控件将显示新目录的内容，并且 <codeph>directory</codeph> 属性将发生更改。无论 <codeph>directory</codeph> 属性在何时由于任何原因发生更改，控件都会分派 <codeph>directoryChange</codeph> 事件通知您。</p>
+ 
+  <p>为了支持控件进行“向上”和“向下”导航，FileSystemList 提供了 <codeph>canNavigateUp</codeph> 和 <codeph>canNavigateDown</codeph> 属性，以及 <codeph>navigateUp()</codeph> 和 <codeph>navigateDown()</codeph> 方法。还有一个 <codeph>navigateTo()</codeph>，可导航到任意目录。</p>
+ 
+  <p>该控件可跟踪用户曾经导航到的目录，以便支持控件进行“后退”和“前进”导航。有关详细信息，请参见 <codeph>backHistory</codeph>、<codeph>forwardHistory</codeph>、<codeph>canNavigateBack</codeph> 和 <codeph>canNavigateForward</codeph> 属性，以及 <codeph>navigateBack()</codeph> 和 <codeph>navigateForward()</codeph> 方法。</p>
+ 
+  <p>注意：针对每个项目显示的图标都是通用文件和目录图标，您可以使用 <codeph>fileIcon</codeph> 和 <codeph>directoryIcon</codeph> 样式设置它们。Flex 的基于列表的控件当前支持仅显示嵌入的图标，但不支持在运行时读取的图标。因此，FileSystemList 中不显示操作系统中显示的实际文件系统图标，即使可以通过 File 的 <codeph>icon</codeph> 属性在 AIR 中访问它们。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.filesystem.File.xml"><linktext>flash.filesystem.File</linktext></link></related-links><adobeApiEvent id="mx.controls:FileSystemList_mx.events.FileEvent.FILE_CHOOSE_fileChoose"><apiName>fileChoose</apiName><shortdesc>
+  当用户通过双击文件或选择文件并按 Enter 键来选择文件时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.FILE_CHOOSE</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户通过双击文件或选择文件并按 Enter 键来选择文件时分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:FileSystemList_mx.events.FileEvent.DIRECTORY_OPENING_directoryChanging"><apiName>directoryChanging</apiName><shortdesc>
+  当用户尝试更改此控件显示的目录时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.DIRECTORY_OPENING</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户尝试更改此控件显示的目录时分派此事件。
+ 
+  <p>用户可以尝试使用下列方法更改目录：双击子目录；选中子目录后按 Enter 键或 Ctrl-Down；在控件不显示 COMPUTER 目录时按 Ctrl-Up；在历史记录列表中存在要导航回的“上一个”目录时按 Ctrl-Left；在历史记录列表中存在要导航到的“下一个”目录时按 Ctrl-Right。</p>
+ 
+  <p>此事件是可取消的。如果调用 <codeph>event.preventDefault()</codeph>，则不会更改目录。</p>
+ 
+  <p>更改 <codeph>directory</codeph> 属性后，<codeph>dataProvider</codeph> 会包含新目录中项目的 File 实例，此时将分派 <codeph>directoryChange</codeph> 事件。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:FileSystemList_mx.events.FileEvent.DIRECTORY_CHANGE_directoryChange"><apiName>directoryChange</apiName><shortdesc>
+  当此控件显示的目录由于某种原因发生更改时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.DIRECTORY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当此控件显示的目录由于某种原因发生更改时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:FileSystemList:FileSystemList"><apiName>FileSystemList</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:FileSystemList:clear"><apiName>clear</apiName><shortdesc>
+      清除此控件，使其不显示任何项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      清除此控件，使其不显示任何项目。
+     
+      <p>此方法会将 <codeph>dataProvider</codeph> 设置为 <codeph>null</codeph>，但 <codeph>directory</codeph> 属性保持不变。可以调用 <codeph>refresh</codeph> 再次填充此控件。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemList:findIndex"><apiName>findIndex</apiName><shortdesc>
+      返回具有指定本机文件系统路径的 File 项目的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>从零开始的索引；如果在指定的路径中没有找到 File，则为 <codeph>-1</codeph>。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>nativePath</apiItemName><apiType value="String"/><apiDesc>一个字符串，用于指定 File 项目的 <codeph>nativePath</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回具有指定本机文件系统路径的 File 项目的索引。
+     
+      <p>不会搜索符合以下条件的项目：存在于控件的集合中，但由于筛选未能显示。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.filesystem.xml#File/nativePath"><linktext>flash.filesystem.File.nativePath</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FileSystemList:findItem"><apiName>findItem</apiName><shortdesc>
+      搜索此控件中当前显示的 File 实例，并返回一个具有指定 nativePath 属性的实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果找到了一个具有指定 <codeph>nativePath</codeph> 的 File 实例，则返回该实例；如果没有找到，则返回 <codeph>null</codeph>。
+      
+      </apiDesc><apiType value="flash.filesystem:File"/></apiReturn><apiParam><apiItemName>nativePath</apiItemName><apiType value="String"/><apiDesc>一个字符串，用于指定 File 项目的 <codeph>nativePath</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      搜索此控件中当前显示的 File 实例，并返回一个具有指定 <codeph>nativePath</codeph> 属性的实例。
+     
+      <p>不会搜索符合以下条件的 File 实例：存在于控件的集合中，但由于筛选未能显示。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemList:navigateBack"><apiName>navigateBack</apiName><shortdesc>
+      更改此控件可显示 backHistory 数组中上次访问过的目录中的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc><codeph>backHistory</codeph> 数组中要导航到的索引。默认值为 0，指示“最近的返回”目录。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更改此控件可显示 <codeph>backHistory</codeph> 数组中上次访问过的目录中的内容。
+     
+      <p>如果 <codeph>backHistory</codeph> 数组为空，或者指定的索引不在该数组中，则此方法不会产生任何效果。</p>
+     
+      <p>此方法返回时，<codeph>directory</codeph> 属性将包含新目录的 File 实例。枚举新目录之前，<codeph>dataProvider</codeph> 属性暂时为 <codeph>null</codeph>。枚举之后，<codeph>dataProvider</codeph> 属性将包含新目录内容的 File 实例的 ArrayCollection。</p>
+     
+      <p>历史记录列表不会更改。但是，列表中的当前索引会发生更改，这会影响 <codeph>backHistory</codeph> 和 <codeph>forwardHistory</codeph> 属性。此方法返回新值后，这些属性即可获得新的值。</p>
+     
+      <p>以下示例演示如何将此方法与 FileSystemHistoryButton 控件一起使用，以创建一个后退按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Back"
+          enabled="{fileSystemViewer.canNavigateBack}"
+          dataProvider="{fileSystemViewer.backHistory}"
+          click="fileSystemViewer.navigateBack();"
+          itemClick="fileSystemViewer.navigateBack(event.index);"/></pre>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#FileSystemList/backHistory"><linktext>backHistory</linktext></link><link href="mx.controls.xml#FileSystemList/canNavigateBack"><linktext>canNavigateBack</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FileSystemList:navigateDown"><apiName>navigateDown</apiName><shortdesc>
+      更改此控件可显示所选子目录的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      更改此控件可显示所选子目录的内容。
+     
+      <p>如果没有选中子目录，则此方法不产生任何效果。</p>
+     
+      <p>此方法返回时，<codeph>directory</codeph> 属性将包含新目录的 File 实例。枚举新目录之前，<codeph>dataProvider</codeph> 属性暂时为 <codeph>null</codeph>。枚举之后，<codeph>dataProvider</codeph> 属性将包含新目录内容的 File 实例的 ArrayCollection。</p>
+     
+      <p>以下示例演示如何将此方法与 Button 控件一起使用，以创建一个打开按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:Button label="Open"
+          enabled="{fileSystemViewer.canNavigateDown}"
+          click="fileSystemViewer.navigateDown();"/></pre>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#FileSystemList/canNavigateDown"><linktext>canNavigateDown</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FileSystemList:navigateForward"><apiName>navigateForward</apiName><shortdesc>
+      更改此控件可显示 forwardHistory 数组中上次访问过的目录中的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc><codeph>forwardHistory</codeph> 数组中要导航到的索引。默认值为 0，指示“最近的前往”目录。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更改此控件可显示 <codeph>forwardHistory</codeph> 数组中上次访问过的目录中的内容。
+     
+      <p>如果 <codeph>forwardHistory</codeph> 数组为空，或者指定的索引不在该数组中，则此方法不会产生任何效果。</p>
+     
+      <p>此方法返回时，<codeph>directory</codeph> 属性将包含新目录的 File 实例。枚举新目录之前，<codeph>dataProvider</codeph> 属性暂时为 <codeph>null</codeph>。枚举之后，<codeph>dataProvider</codeph> 属性将包含新目录内容的 File 实例的 ArrayCollection。</p>
+     
+      <p>历史记录列表不会更改。但是，列表中的当前索引会发生更改，这会影响 <codeph>backHistory</codeph> 和 <codeph>forwardHistory</codeph> 属性。此方法返回新值后，这些属性即可获得新的值。</p>
+     
+      <p>以下示例演示如何将此方法与 FileSystemHistoryButton 控件一起使用，以创建一个前进按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Forward"
+          enabled="{fileSystemViewer.canNavigateForward}"
+          dataProvider="{fileSystemViewer.forwardHistory}"
+          click="fileSystemViewer.navigateForward();"
+          itemClick="fileSystemViewer.navigateForward(event.index);"/></pre>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#FileSystemList/canNavigateForward"><linktext>canNavigateForward</linktext></link><link href="mx.controls.xml#FileSystemList/forwardHistory"><linktext>forwardHistory</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FileSystemList:navigateTo"><apiName>navigateTo</apiName><shortdesc>
+      更改此控件可显示指定目录的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>directory</apiItemName><apiType value="flash.filesystem:File"/><apiDesc>一个文件对象，表示文件或目录。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更改此控件可显示指定目录的内容。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FileSystemList:navigateUp"><apiName>navigateUp</apiName><shortdesc>
+      更改此控件可显示层次结构中上一目录的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      更改此控件可显示层次结构中上一目录的内容。
+     
+      <p>如果此控件当前显示根目录（如 Microsoft Windows 中的 C: 和 D:），则此方法不会产生任何效果。</p>
+     
+      <p>此方法返回时，<codeph>directory</codeph> 属性将包含新目录的 File 实例。枚举新目录之前，<codeph>dataProvider</codeph> 属性暂时为 <codeph>null</codeph>。枚举之后，<codeph>dataProvider</codeph> 属性将包含新目录内容的 File 实例的 ArrayCollection。</p>
+     
+      <p>以下示例演示如何将此方法与 Button 控件一起使用，以创建一个向上按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:Button label="Up"
+          enabled="{fileSystemViewer.canNavigateUp}"
+          click="fileSystemViewer.navigateUp();"/></pre>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#FileSystemList/canNavigateUp"><linktext>canNavigateUp</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FileSystemList:refresh"><apiName>refresh</apiName><shortdesc>
+      重新枚举此控件显示的当前目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      重新枚举此控件显示的当前目录。
+     
+      <p>由于 AIR 不支持文件系统通知，因此，在创建、删除、移动或重命名文件或子目录时不会自动刷新此控件；也就是说，它可以显示文件系统的过期视图。不过，您可以调用 <codeph>refresh()</codeph> 来重新枚举当前 <codeph>directory</codeph> 以使其保持最新状态。例如，当您执行了某个文件操作并已知此操作将导致控件的视图过期时，或者当用户取消激活或重新激活您的应用程序时，您可以选择执行此操作。</p>
+     
+      <p>此方法将保留所有选定的项目（如果它们仍然存在）和滚动位置（如果第一个可见项目仍然存在）。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:FileSystemList:COMPUTER"><apiName>COMPUTER</apiName><shortdesc>
+      一个可用作 directory 属性值的常量，代表名为“Computer”的伪顶级目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="flash.filesystem:File"/></apiValueDef><apiDesc>
+      一个可用作 <codeph>directory</codeph> 属性值的常量，代表名为“Computer”的伪顶级目录。这个伪目录中包含根目录（如 Windows 上的 C:\ 和 D:\，或 Macintosh 上的 /）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemList:backHistory:get"><apiName>backHistory</apiName><shortdesc>
+      一个 File 对象 Array，表示用户可以向后导航到的目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="historyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个 File 对象 Array，表示用户可以向后导航到的目录。
+     
+      <p>该 Array 中的第一个项目是历史记录列表中可回退到的下一个目录。最后一个项目是历史记录列表中可回退到的最远的目录。</p>
+     
+      <p>此 Array 可以包含 <codeph>null</codeph> 项目，表示以根目录（如 Microsoft Windows 中的 C:\ 和 D:\）作为内容的并不存在的目录。</p>
+     
+      <p>以下示例演示如何将此属性与 FileSystemHistoryButton 控件一起使用，以实现一个后退按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Back"
+          enabled="{fileSystemViewer.canNavigateBack}"
+          dataProvider="{fileSystemViewer.backHistory}"
+          click="fileSystemViewer.navigateBack();"
+          itemClick="fileSystemViewer.navigateBack(event.index);"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemList/canNavigateBack"><linktext>canNavigateBack</linktext></link><link href="mx.controls.xml#FileSystemList/navigateBack()"><linktext>navigateBack()</linktext></link><link href="mx.controls.xml#FileSystemHistoryButton"><linktext>mx.controls.FileSystemHistoryButton</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemList:canNavigateBack:get"><apiName>canNavigateBack</apiName><shortdesc>
+      一个标志，如果历史记录列表中至少存在一个可供用户向后导航的目录，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="historyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，如果历史记录列表中至少存在一个可供用户向后导航的目录，则为 <codeph>true</codeph>。
+     
+      <p>以下示例演示如何将此属性与 FileSystemHistoryButton 控件一起使用，以实现一个后退按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Back"
+          enabled="{fileSystemViewer.canNavigateBack}"
+          dataProvider="{fileSystemViewer.backHistory}"
+          click="fileSystemViewer.navigateBack();"
+          itemClick="fileSystemViewer.navigateBack(event.index);"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemList/backHistory"><linktext>backHistory</linktext></link><link href="mx.controls.xml#FileSystemList/navigateBack()"><linktext>navigateBack()</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemList:canNavigateDown:get"><apiName>canNavigateDown</apiName><shortdesc>
+      一个标志，如果用户可向下导航至所选目录，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，如果用户可向下导航至所选目录，则为 <codeph>true</codeph>。如果未选中任何项目，或所选项目是一个文件而非目录时，此标志为 <codeph>false</codeph>。
+     
+      <p>以下示例演示如何将此属性与 Button 控件一起使用：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:Button label="Open"
+          enabled="{fileSystemViewer.canNavigateDown}"
+          click="fileSystemViewer.navigateDown();"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemList/navigateDown()"><linktext>navigateDown()</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemList:canNavigateForward:get"><apiName>canNavigateForward</apiName><shortdesc>
+      一个标志，如果历史记录列表中至少存在一个可供用户向前导航的目录，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="historyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，如果历史记录列表中至少存在一个可供用户向前导航的目录，则为 <codeph>true</codeph>。
+     
+      <p>以下示例演示如何将此属性与 FileSystemHistoryButton 控件一起使用，以实现一个前进按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Forward"
+          enabled="{fileSystemViewer.canNavigateForward}"
+          dataProvider="{fileSystemViewer.forwardHistory}"
+          click="fileSystemViewer.navigateForward();"
+          itemClick="fileSystemViewer.navigateForward(event.index);"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemList/forwardHistory"><linktext>forwardHistory</linktext></link><link href="mx.controls.xml#FileSystemList/navigateForward()"><linktext>navigateForward()</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemList:canNavigateUp:get"><apiName>canNavigateUp</apiName><shortdesc>
+      一个标志，如果用户可向上导航至父级目录，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，如果用户可向上导航至父级目录，则为 <codeph>true</codeph>。仅当此控件显示根目录（如 Microsoft Windows 中的 C:\ 和 D:\）时，此标志才为 <codeph>false</codeph>。（此时，<codeph>directory</codeph> 属性为 <codeph>COMPUTER</codeph>。）
+     
+      <p>以下示例演示如何将此属性与 Button 控件一起使用：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:Button label="Up"
+          enabled="{fileSystemViewer.canNavigateUp}"
+          click="fileSystemViewer.navigateUp();"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemList/navigateUp()"><linktext>navigateUp()</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemList:directory:get"><apiName>directory</apiName><shortdesc>
+      此控件显示内容所在的目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.filesystem:File"/><apiDefaultValue>COMPUTER
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此控件显示内容所在的目录。
+     
+      <p>如果将此属性设置为代表现有目录的 File 对象，则 <codeph>dataProvider</codeph> 立即改为 <codeph>null</codeph>。稍后，在此控件经 LayoutManager 重新验证后，它将枚举目录的内容并使用生成的代表该目录中文件和子目录的 File 对象的 ArrayCollection 填充 <codeph>dataProvider</codeph> 属性。</p>
+     
+      <p>将此属性设置为不代表现有目录的 File 对象将出现错误。将此属性设置为 <codeph>COMPUTER</codeph> 可同步显示根目录，如 Windows 上的 C:、D:。</p>
+     
+      <p>设置此属性将取消对以前任何所选项目的选择，并会将控件的滚动位置重置到其左上角。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemList:enumerationMode:get"><apiName>enumerationMode</apiName><shortdesc>
+      一个 String，指定此控件是仅显示文件、仅显示子目录，还是两者均显示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>FileSystemEnumerationMode.DIRECTORIES_FIRST
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个 String，指定此控件是仅显示文件、仅显示子目录，还是两者均显示。在两者都显示的情况下，它还可指定子目录显示在文件之前、之后还是与文件混合显示。可能的值由 FileSystemEnumerationMode 类指定。
+     
+      <p>此属性将影响控件中显示哪些子目录和文件，以及它们的显示顺序。不过，它不会影响 <codeph>dataProvider</codeph> 属性中存在哪些 File 实例；此属性通过更改应用于 <codeph>dataProvider</codeph> 的滤镜函数的行为起作用。设置此属性不会导致重新枚举当前 <codeph>directory</codeph>。</p>
+     
+      <p>设置此属性将取消对任何所选项目的选择，并会将控件的滚动位置重置到其左上角。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemEnumerationMode"><linktext>mx.controls.FileSystemEnumerationMode</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemList:extensions:get"><apiName>extensions</apiName><shortdesc>
+      扩展名的 Array，指定在此控件中可以显示哪些文件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      扩展名的 Array，指定在此控件中可以显示哪些文件。例如，如果将此属性设置为 <codeph>[ ".htm", ".html" ]</codeph>，则只显示具有这些扩展名的文件。
+     
+      <p>扩展名不区分大小写，且前面的句点是可选的。例如，指定 <codeph>".HTML"</codeph> 与指定 <codeph>"html"</codeph> 效果相同。</p>
+     
+      <p>即使目录的名称中包含句点，也不受扩展名筛选的影响。</p>
+     
+      <p><codeph>enumerationMode</codeph> 和 <codeph>filterFunction</codeph> 属性也与确定在控件中显示哪些文件相关。例如，如果此属性为 <codeph>[ ".htm", ".html" ]</codeph>，但 <codeph>enumerationMode</codeph> 属性为 <codeph>FileSystemEnumerationMode.DIRECTORIES_ONLY</codeph> 或 <codeph>filterFunction</codeph> 针对某个 .html 文件返回 <codeph>false</codeph>，则不会显示该文件。</p>
+     
+      <p>如果此属性是 <codeph>null</codeph>，则不会进行扩展名筛选，但显示所有文件。如果此属性是空 Array，则会过滤所有扩展名，不显示带有扩展名的任何文件。</p>
+     
+      <p>此属性将影响控件中显示哪些文件。不过，它不会影响 <codeph>dataProvider</codeph> 属性中存在哪些 File 实例；此属性通过更改应用于 <codeph>dataProvider</codeph> 的滤镜函数的行为起作用。设置此属性不会导致重新枚举当前 <codeph>directory</codeph>。</p>
+     
+      <p>设置此属性将取消对任何所选项目的选择，并会将控件的滚动位置重置到其左上角。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemList:filterFunction:get"><apiName>filterFunction</apiName><shortdesc>
+      在应用 enumerationMode 和扩展名属性后，可用来执行其它筛选以确定显示及隐藏哪些文件和子目录的回调函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在应用 <codeph>enumerationMode</codeph> 和 <codeph>extensions</codeph> 属性后，可用来执行其它筛选以确定显示及隐藏哪些文件和子目录的回调函数。
+     
+      <p>该函数必须具有以下特征：</p>
+     
+      <pre>function myFilterFunction(file:File):Boolean</pre>
+     
+      此函数应返回 <codeph>true</codeph> 以表示显示指定的文件或子目录；应返回 <codeph>false</codeph> 以表示隐藏指定的文件或子目录。
+     
+      <p>若要确保将每个枚举的文件和子目录都传递给此函数，<codeph>enumerationMode</codeph> 属性不能为 <codeph>FileSystemEnumerationMode.FILES_ONLY</codeph> 或 <codeph>FileSystemEnumerationMode.DIRECTORIES_ONLY</codeph>，且 <codeph>extensions</codeph> 属性必须是 <codeph>null</codeph>。否则，这些属性将导致在调用此滤镜函数之前进行预筛选。</p>
+     
+      <p>此属性将影响控件中显示哪些子目录和文件。不过，它不会影响 <codeph>dataProvider</codeph> 属性中存在哪些 File 实例；此属性通过更改应用于 <codeph>dataProvider</codeph> 的滤镜函数的行为起作用。设置此属性不会导致重新枚举当前 <codeph>directory</codeph>。</p>
+     
+      <p>设置此属性将取消对任何所选项目的选择，并会将控件的滚动位置重置到其左上角。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemList:forwardHistory:get"><apiName>forwardHistory</apiName><shortdesc>
+      一个 File 对象 Array，表示用户可以向前导航到的目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="historyChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个 File 对象 Array，表示用户可以向前导航到的目录。
+     
+      <p>该 Array 中的第一个项目是历史记录列表中可前进到的下一个目录。最后一个项目是历史记录列表中可前进到的最远的目录。</p>
+     
+      <p>此 Array 可能包含特殊的 <codeph>COMPUTER</codeph> File 对象，它代表内容为根目录（如 Windows 上的 C:\ 和 D:\）的不存在的目录。</p>
+     
+      <p>以下示例演示如何将此属性与 FileSystemHistoryButton 控件一起使用，以实现一个前进按钮：</p>
+     
+      <pre>
+      &lt;mx:FileSystemList id="fileSystemViewer" directory="{File.desktopDirectory}"/>
+      &lt;mx:FileSystemHistoryButton label="Forward"
+          enabled="{fileSystemViewer.canNavigateForward}"
+          dataProvider="{fileSystemViewer.forwardHistory}"
+          click="fileSystemViewer.navigateForward();"
+          itemClick="fileSystemViewer.navigateForward(event.index);"/></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FileSystemList/canNavigateForward"><linktext>canNavigateForward</linktext></link><link href="mx.controls.xml#FileSystemList/navigateForward()"><linktext>navigateForward()</linktext></link><link href="mx.controls.xml#FileSystemHistoryButton"><linktext>mx.controls.FileSystemHistoryButton</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemList:nameCompareFunction:get"><apiName>nameCompareFunction</apiName><shortdesc>
+      可用于更改文件和子目录名称的比较方式以生成排序顺序的回调函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      可用于更改文件和子目录名称的比较方式以生成排序顺序的回调函数。
+     
+      <p>该函数必须具有以下特征：</p>
+     
+      <pre>function myNameCompareFunction(name1:String, name2:String):int</pre>
+     
+      <p>如果 <codeph>name1</codeph> 应排在 <codeph>name2</codeph> 之前，则返回 <codeph>-1</codeph>；如果 <codeph>name1</codeph> 应排在 <codeph>name2</codeph> 之后，则返回 <codeph>1</codeph>；如果名称相同，则返回 <codeph>0</codeph>。</p>
+     
+      <p>如果未设置此属性，则控件将对两个名称执行不区分大小写、依赖区域设置的比较。首先对每个名称调用 String 方法 <codeph>toLocaleLowerCase()</codeph>，然后使用 <codeph>&lt;</codeph> 和 <codeph>></codeph> 运算符进行比较。</p>
+     
+      <p>如果已将 <codeph>enumerationMode</codeph> 设置为 <codeph>FileSystemEnumerationMode.FILES_FIRST</codeph> 或 <codeph>FileSystemEnumerationMode.DIRECTORIES_FIRST</codeph>，则仅使用此方法比较单组文件和目录之内的名称。</p>
+     
+      <p>此属性将影响子目录和文件在控件中的显示顺序。不过，它不会影响 <codeph>dataProvider</codeph> 属性中的 File 实例；它通过更改应用于 <codeph>dataProvider</codeph> 的排序行为起作用。设置此属性不会导致重新枚举当前 <codeph>directory</codeph>。</p>
+     
+      <p>设置此属性将取消对任何所选项目的选择，并会将控件的滚动位置重置到其左上角。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemList:selectedPath:get"><apiName>selectedPath</apiName><shortdesc>
+      表示所选子目录或文件的 File 项目的 nativePath；如果未选定任何项目，则为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示所选子目录或文件的 File 项目的 <codeph>nativePath</codeph>；如果未选定任何项目，则为 <codeph>null</codeph>。
+     
+      <p>如果选择了多个项目，此属性将获得 <codeph>selectedPaths</codeph> 数组中的第一个路径。</p>
+     
+      <p>设置此属性将影响 <codeph>selectedPaths</codeph>、<codeph>selectedItem</codeph>、<codeph>selectedItems</codeph>、<codeph>selectedIndex</codeph> 和 <codeph>selectedIndices</codeph> 属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedIndex"><linktext>mx.controls.listClasses.ListBase.selectedIndex</linktext></link><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedItem"><linktext>mx.controls.listClasses.ListBase.selectedItem</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemList:selectedPaths:get"><apiName>selectedPaths</apiName><shortdesc>
+      表示所选子目录和文件的 File 项目的 nativePath 字符串 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示所选子目录和文件的 File 项目的 <codeph>nativePath</codeph> 字符串 Array。如果未选择任何项目，则此 Array 为空。
+     
+      <p>设置此属性将影响 <codeph>selectedPaths</codeph>、<codeph>selectedItem</codeph>、<codeph>selectedItems</codeph>、<codeph>selectedIndex</codeph> 和 <codeph>selectedIndices</codeph> 属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedIndex"><linktext>mx.controls.listClasses.ListBase.selectedIndex</linktext></link><link href="" invalidHref="mx.controls.listClasses.xml#ListBase/selectedItem"><linktext>mx.controls.listClasses.ListBase.selectedItem</linktext></link></related-links></apiValue><apiValue id="mx.controls:FileSystemList:showExtensions:get"><apiName>showExtensions</apiName><shortdesc>
+      一个标志，指定是否显示文件名称中的扩展名。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指定是否显示文件名称中的扩展名。将此属性设置为 <codeph>true</codeph> 将显示文件扩展名，设置为 <codeph>false</codeph> 将隐藏文件扩展名。始终显示目录名称中的扩展名。
+     
+      <p>设置此属性不会影响显示哪些项目或它们出现的顺序，也不会影响选择哪些项目或滚动位置。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemList:showHidden:get"><apiName>showHidden</apiName><shortdesc>
+      一个标志，指定是否显示操作系统视为隐藏的文件和目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指定是否显示操作系统视为隐藏的文件和目录。将此属性设置为 <codeph>true</codeph> 将显示隐藏的文件和目录，设置为 <codeph>false</codeph> 将隐藏它们。
+     
+      <p>设置此属性将取消对任何所选项目的选择，并会将控件的滚动位置重置到其左上角。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemList:showIcons:get"><apiName>showIcons</apiName><shortdesc>
+      一个标志，指定在文件名称之前显示图标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指定在文件名称之前显示图标。将此属性设置为 <codeph>true</codeph> 将显示图标，设置为 <codeph>false</codeph> 将隐藏图标。
+     
+      <p>您可以设置 <codeph>directoryIcon</codeph> 和 <codeph>fileIcon</codeph> 样式来更改默认图标。此控件无法显示操作系统针对文件显示的实际图标，因为 AIR 不支持该功能。</p>
+     
+      <p>设置此属性不会影响显示哪些项目或它们出现的顺序，也不会影响选择哪些项目或滚动位置。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:FileSystemSizeDisplayMode"><apiName>FileSystemSizeDisplayMode</apiName><shortdesc>
+  FileSystemSizeDisplayMode 类为 FileSystemDataGrid 类的 sizeDisplayMode 属性定义常数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FileSystemSizeDisplayMode 类为 FileSystemDataGrid 类的 <codeph>sizeDisplayMode</codeph> 属性定义常量值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#FileSystemDataGrid/enumerationMode"><linktext>mx.controls.FileSystemDataGrid.enumerationMode</linktext></link></related-links><apiValue id="mx.controls:FileSystemSizeDisplayMode:BYTES"><apiName>BYTES</apiName><shortdesc>
+      指定以字节为单位显示文件大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bytes</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定以字节为单位显示文件大小。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemSizeDisplayMode:KILOBYTES"><apiName>KILOBYTES</apiName><shortdesc>
+      指定以千字节为单位显示文件大小。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>kilobytes</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定以千字节为单位显示文件大小。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:HTML"><apiName>HTML</apiName><shortdesc>
+  HTML 控件允许您显示应用程序中的 HTML 内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="no" name="paddingTop" owner="mx.controls:HTML" playerVersion="AIR1.1" type="Number">
+<description>
+  此控件的顶部边缘与其 HTML 内容区域的顶部边缘之间的像素数目。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingRight" owner="mx.controls:HTML" playerVersion="AIR1.1" type="Number">
+<description>
+  此控件的右边缘与其 HTML 内容区域的右边缘之间的像素数目。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls:HTML" playerVersion="AIR1.1" type="Number">
+<description>
+  此控件的左边缘与其 HTML 内容区域的左边缘之间的像素数目。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingBottom" owner="mx.controls:HTML" playerVersion="AIR1.1" type="Number">
+<description>
+  此控件的底部边缘与其 HTML 内容区域的底部边缘之间的像素数目。
+ 
+  </description>
+<default>0
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:HTML&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:HTML
+    <strong>Properties</strong>
+    data="<i>null</i>"
+    historyPosition="0"
+    htmlHost="<i>null</i>"
+    htmlLoaderFactory="mx.core.ClassFactory"
+    htmlText=""
+    listData="<i>null</i>"
+    location=""
+    paintsDefaultBackground="false"
+    runtimeApplicationDomain="<i>null</i>"
+    userAgent="<i>null</i>"
+ 
+    <strong>Styles</strong>
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="0"
+ 
+    <strong>Events</strong>
+    complete="<i>No default</i>"
+    htmlDOMInitialize="<i>No default</i>"
+    htmlRender="<i>No default</i>"
+    locationChange="<i>No default</i>"
+    uncaughtScriptException="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.managers:IFocusManagerComponent</apiBaseInterface><apiBaseClassifier>mx.core:ScrollControlBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HTML 控件允许您显示应用程序中的 HTML 内容。
+ 
+  <p>可以使用 <codeph>location</codeph> 属性指定在控件中显示其内容的 HTML 页面的 URL，也可以设置 <codeph>htmlText</codeph> 属性来指定包含控件中所显示的 HTML 格式的文本的 String。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="../../flash/html/HTMLLoader.html"><linktext>HTMLLoader</linktext></link></related-links><adobeApiEvent id="mx.controls:HTML_flash.events.HTMLUncaughtScriptExceptionEvent.UNCAUGHT_SCRIPT_EXCEPTION_uncaughtScriptException"><apiName>uncaughtScriptException</apiName><shortdesc>
+  当发生未捕获的 JavaScript 异常时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.HTMLUncaughtScriptExceptionEvent.UNCAUGHT_SCRIPT_EXCEPTION</apiEventType><adobeApiEventClassifier>flash.events.HTMLUncaughtScriptExceptionEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当发生未捕获的 JavaScript 异常时分派。
+ 
+  <p>此事件始终异步调度。此事件的事件处理函数可以调用此控件或其内部 <codeph>htmlLoader</codeph> 的任何方法或访问它们的任何属性。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:HTML_flash.events.Event.LOCATION_CHANGE_locationChange"><apiName>locationChange</apiName><shortdesc>
+  当 location 属性发生变化时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.LOCATION_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当 <codeph>location</codeph> 属性发生变化时分派。
+ 
+  <p>此事件始终异步调度。此事件的事件处理函数可以调用此控件或其内部 <codeph>htmlLoader</codeph> 的任何方法或访问它们的任何属性。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:HTML_flash.events.Event.HTML_RENDER_htmlRender"><apiName>htmlRender</apiName><shortdesc>
+  当首次呈示此控件的 HTML 内容时以及以后每次重新呈示该内容时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.HTML_RENDER</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当首次呈示此控件的 HTML 内容时以及以后每次重新呈示该内容时分派。
+ 
+  <p>因为 HTML 控件可以分派这些事件中的许多事件，所以应避免在 <codeph>render</codeph> 处理函数中进行可能对性能产生重大负面影响的处理。</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:HTML_flash.events.Event.HTML_DOM_INITIALIZE_htmlDOMInitialize"><apiName>htmlDOMInitialize</apiName><shortdesc>
+  在初始化 HTML DOM 后分派，以响应由于设置 location 或 htmlText 属性而导致的加载操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.HTML_DOM_INITIALIZE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在初始化 HTML DOM 后分派，以响应由于设置 <codeph>location</codeph> 或 <codeph>htmlText</codeph> 属性而导致的加载操作。
+ 
+  <p>分派此事件时，尚未执行任何 JavaScript 方法。存在 <codeph>domWindow</codeph> 和 <codeph>domWindow.document</codeph> 对象，但其他 DOM 对象可能不存在。您可以使用此事件将这些属性设置在 <codeph>domWindow</codeph> 和 <codeph>domWindow.document</codeph> 对象上，供 JavaScript 方法以后访问。</p>
+ 
+  <p>此事件的处理函数不应设置任何属性或调用任何方法，因为这会启动另一个加载操作或影响当前加载操作的 URL；这样做会导致 ActionScript 或 JavaScript 异常。</p>
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="mx.controls.location.xml"><linktext>location</linktext></link><link href="" invalidHref="mx.controls.htmlText.xml"><linktext>htmlText</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="mx.controls:HTML_flash.events.Event.COMPLETE_complete"><apiName>complete</apiName><shortdesc>
+  当由设置 location 或 htmlText 属性引发的最后一个加载操作完成后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.COMPLETE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当由设置 <codeph>location</codeph> 或 <codeph>htmlText</codeph> 属性引发的最后一个加载操作完成后分派。
+ 
+  <p>在 HTML DOM 中分派 JavaScript<codeph>load</codeph> 事件后，始终异步分派此事件。</p>
+ 
+  <p>此事件的事件处理函数可以调用此控件或其内部 <codeph>htmlLoader</codeph> 的任何方法或访问它们的任何属性。</p>
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="mx.controls.location.xml"><linktext>location</linktext></link><link href="" invalidHref="mx.controls.htmlText.xml"><linktext>htmlText</linktext></link></related-links></adobeApiEvent><apiConstructor id="mx.controls:HTML:HTML"><apiName>HTML</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:HTML:cancelLoad"><apiName>cancelLoad</apiName><shortdesc>
+      取消正在进行的任何加载操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      取消正在进行的任何加载操作。
+     
+      <p>如果在创建组件的内部 HTMLLoader（<codeph>htmlLoader</codeph> 属性）之前调用此方法，则此方法不会执行任何操作。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:HTML:getHistoryAt"><apiName>getHistoryAt</apiName><shortdesc>
+      返回位于此控件的历史记录列表中指定位置的 HTMLHistoryItem。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>位于指定位置的历史记录条目的 HTMLHistoryItem 对象。
+     
+      </apiDesc><apiType value="flash.html:HTMLHistoryItem"/></apiReturn><apiParam><apiItemName>position</apiItemName><apiType value="int"/><apiDesc>历史记录列表中的位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回位于此控件的历史记录列表中指定位置的 HTMLHistoryItem。
+     
+      <p>如果在创建此组件的内部 HTMLLoader（<codeph>htmlLoader</codeph> 属性）之前调用此方法，则此方法将返回 <codeph>null</codeph>。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.controls.historyPosition.xml"><linktext>historyPosition</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:HTML:historyBack"><apiName>historyBack</apiName><shortdesc>
+      如果可能，在此控件的历史记录列表中向后导航。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果可能，在此控件的历史记录列表中向后导航。
+     
+      <p>调用 HTMLLoader 对象的此方法与在 HTML 内容中调用 JavaScript 的 <codeph>window.history</codeph> 属性的 <codeph>back()</codeph> 方法效果相同。</p>
+     
+      <p>如果在创建组件的内部 HTMLLoader（<codeph>htmlLoader</codeph> 属性）之前调用此方法，则此方法不会执行任何操作。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#HTML/historyPosition"><linktext>historyPosition</linktext></link><link href="mx.controls.xml#HTML/historyForward()"><linktext>historyForward()</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:HTML:historyForward"><apiName>historyForward</apiName><shortdesc>
+      如果可能，在此控件的历史记录列表中向前导航。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果可能，在此控件的历史记录列表中向前导航。
+     
+      <p>调用 HTMLLoader 对象的此方法与在 HTML 内容中调用 JavaScript 的 <codeph>window.history</codeph> 属性的 <codeph>forward()</codeph> 方法效果相同。</p>
+     
+      <p>此函数不引发错误。</p>
+     
+      <p>如果在创建组件的内部 HTMLLoader（<codeph>htmlLoader</codeph> 属性）之前调用此方法，则此方法不会执行任何操作。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#HTML/historyPosition"><linktext>historyPosition</linktext></link><link href="mx.controls.xml#HTML/historyBack()"><linktext>historyBack()</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:HTML:historyGo"><apiName>historyGo</apiName><shortdesc>
+      在此控件的历史记录列表中导航指定数目的步骤。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>steps</apiItemName><apiType value="int"/><apiDesc>历史记录列表中要向前移动（正数）或向后移动（负数）的步骤数。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在此控件的历史记录列表中导航指定数目的步骤。
+     
+      <p>如果步骤数为正数，则此方法向前导航；如果为负数，则向后导航。导航零个步骤与调用 <codeph>reload()</codeph> 等效。</p>
+     
+      <p>此方法与在 HTML 内容中调用 JavaScript 的 <codeph>window.history</codeph> 属性的 <codeph>go()</codeph> 方法等效。</p>
+     
+      <p>如果在创建组件的内部 HTMLLoader（<codeph>htmlLoader</codeph> 属性）之前调用此方法，则此方法不会执行任何操作。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:HTML:reload"><apiName>reload</apiName><shortdesc>
+      从当前位置重新加载 HTML 内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      从当前 <codeph>location</codeph> 重新加载 HTML 内容。
+     
+      <p>如果在创建组件的内部 HTMLLoader（<codeph>htmlLoader</codeph> 属性）之前调用此方法，则此方法不会执行任何操作。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls:HTML:htmlLoader"><apiName>htmlLoader</apiName><shortdesc>
+      呈示此控件的 HTML 内容的内部 HTMLLoader 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.html:HTMLLoader"/></apiValueDef><apiDesc>
+      呈示此控件的 HTML 内容的内部 HTMLLoader 对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:contentHeight:get"><apiName>contentHeight</apiName><shortdesc>
+      HTML 内容的高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      HTML 内容的高度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:contentWidth:get"><apiName>contentWidth</apiName><shortdesc>
+      HTML 内容的宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      HTML 内容的宽度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:data:get"><apiName>data</apiName><shortdesc>
+      用于在项呈示器或项目编辑器中使用组件时将值传递给该组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于在项呈示器或项目编辑器中使用组件时将值传递给该组件。您通常使用数据绑定将 <codeph>data</codeph> 属性的字段绑定到此组件的某个属性。
+     
+      <p>将控件用作嵌入式项呈示器或嵌入式项目编辑器时，Flex 自动将项目的当前值写入此控件的 <codeph>text</codeph> 属性。</p>
+     
+      <p>无法在 MXML 中设置此属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls:HTML:domWindow:get"><apiName>domWindow</apiName><shortdesc>
+      表示此控件中 HTML DOM 的根帧的 JavaScript window 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      表示此控件中 HTML DOM 的根帧的 JavaScript<codeph>window</codeph> 对象。
+     
+      <p>在分派 <codeph>htmlDOMInitialize</codeph> 事件之前，此属性为 <codeph>null</codeph>。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:historyLength:get"><apiName>historyLength</apiName><shortdesc>
+      历史记录列表的总长度，包括向后和向前的条目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      历史记录列表的总长度，包括向后和向前的条目。此属性与 HTML 内容的 <codeph>window.history.length</codeph>JavaScript 属性具有相同的值。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#HTML/historyPosition"><linktext>historyPosition</linktext></link></related-links></apiValue><apiValue id="mx.controls:HTML:historyPosition:get"><apiName>historyPosition</apiName><shortdesc>
+      历史记录列表中的当前位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      历史记录列表中的当前位置。
+     
+      <p>历史记录列表与 HTML 内容的 <codeph>window.history</codeph> 对象对应。低于当前位置的条目为“向前”列表，高于当前位置的条目为“向后”列表。尝试将该位置设置到末尾以外会将此位置设置到末尾处。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:htmlHost:get"><apiName>htmlHost</apiName><shortdesc>
+      HTMLHost 对象用于处理 HTML 内容中某些用户界面元素（如 window.document.title 属性）的更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.html:HTMLHost"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      HTMLHost 对象用于处理 HTML 内容中某些用户界面元素（如 <codeph>window.document.title</codeph> 属性）的更改。
+     
+      <p>若要覆盖 HTMLLoader 的默认行为，请创建 HTMLHost 类的子类，覆盖其成员函数以处理 HTML 内容中的各种用户界面更改，并将此属性设置为子类的实例。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:htmlLoaderFactory:get"><apiName>htmlLoaderFactory</apiName><shortdesc>
+      IFactory，可创建要用作 htmlLoader 的由 HTMLLoader 派生的实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="htmlLoaderFactoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      IFactory，可创建要用作 htmlLoader 的由 HTMLLoader 派生的实例。
+     
+      <p>默认值是 HTMLLoader 的 IFactory。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:htmlText:get"><apiName>htmlText</apiName><shortdesc>
+      指定该控件显示的 HTML 格式的 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="htmlTextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定该控件显示的 HTML 格式的 String。
+     
+      <p>如果设置此属性，<codeph>location</codeph> 属性也会同时被设置为 <codeph>null</codeph>，反之亦然。</p>
+     
+      <p>通过 <codeph>htmlText</codeph> 属性添加的内容放置在应用程序安全沙箱中。如果 AIR 应用程序包括位于应用程序沙箱中的 HTML 控件，且通过设置 <codeph>htmlText</codeph> 属性将远程 HTML 代码直接添加到控件中，则在应用程序沙箱中将执行 HTML 文本中包含的任何脚本。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#HTML/location"><linktext>location</linktext></link></related-links></apiValue><apiValue id="mx.controls:HTML:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      指定 IME（输入法编辑器）模式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定 IME（输入法编辑器）模式。IME 使用户能够用中文、日文和韩文输入文本。当控件获得焦点时，Flex 设置指定的 IME 模式；当该控件失去焦点时，则将其设置回为先前的值。
+     
+      <p>flash.system.IMEConversionMode 类定义此属性的有效值的常量。您还可以指定 <codeph>null</codeph> 不指定任何 IME 模式。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="mx.controls:HTML:listData:get"><apiName>listData</apiName><shortdesc>
+      使用组件作为嵌入式项呈示器或嵌入式项目编辑器时，Flex 将使用 List 控件中的相应数据初始化该组件的 listData 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/><apiDefaultValue>null
+      </apiDefaultValue></apiValueDef><apiDesc>
+      使用组件作为嵌入式项呈示器或嵌入式项目编辑器时，Flex 将使用 List 控件中的相应数据初始化该组件的 <codeph>listData</codeph> 属性。然后，组件可使用 <codeph>listData</codeph> 属性初始化嵌入式项呈示器或嵌入式项目编辑器的 <codeph>data</codeph> 属性。
+     
+      <p>您无需在 MXML 或 ActionScript 中设置此属性；将组件用作嵌入式项呈示器或嵌入式项目编辑器时，Flex 会对其进行设置。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls:HTML:loaded:get"><apiName>loaded</apiName><shortdesc>
+      一个标志，指示是否已将对应于先前加载操作的 JavaScript load 事件传递到此控件的 HTML DOM 中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，指示是否已将对应于先前加载操作的 JavaScript<codeph>load</codeph> 事件传递到此控件的 HTML DOM 中。
+     
+      <p>在分派 <codeph>complete</codeph> 事件之前，此属性为 <codeph>true</codeph>。</p>
+     
+      <p>此属性可能永远不会变为 <codeph>true</codeph>。在这种情况下，也从不会分派 <codeph>complete</codeph> 事件。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:location:get"><apiName>location</apiName><shortdesc>
+      此控件将显示的 HTML 页的 URL。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="locationChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此控件将显示的 HTML 页的 URL。
+     
+      <p>如果设置此属性，<codeph>htmlText</codeph> 属性也会同时被设置为 <codeph>null</codeph>，反之亦然。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#HTML/htmlText"><linktext>htmlText</linktext></link></related-links></apiValue><apiValue id="mx.controls:HTML:paintsDefaultBackground:get"><apiName>paintsDefaultBackground</apiName><shortdesc>
+      此控件的 HTML 内容背景是否为默认的不透明白色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false;
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此控件的 HTML 内容背景是否为默认的不透明白色。
+     
+      <p>如果此属性为 <codeph>false</codeph>，则为此 Flex 控件指定的背景（如果存在）将显示在 HTML 内容后面。</p>
+     
+      <p>但是，如果任何 HTML 元素具有自己的不透明背景颜色（例如，由 style="background-color:gray" 指定），则该背景将显示在该元素后面。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:pdfCapability:get"><apiName>pdfCapability</apiName><shortdesc>
+      用户系统上的 PDF 支持类型，它被定义为整数代码值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      用户系统上的 PDF 支持类型，它被定义为整数代码值。
+     
+      <p>只有在此属性的计算结果为 <codeph>PDFCapability.STATUS_OK</codeph> 时，HTML 对象才能显示 PDF 内容。PDFCapability 类定义用作 <codeph>pdfCapability</codeph> 属性的可能值的常数，如下所示：</p>
+     
+      <adobetable class="innertable">
+        
+        
+        
+        
+        
+      <tgroup cols="2"><thead><row><entry>PDFCapability 常量</entry><entry>意义</entry></row></thead><tbody><row>
+         <entry><codeph>STATUS_OK</codeph></entry>
+         <entry>已检测到足够高版本的 Acrobat Reader（8.1 或更高版本），可以在 HTML 对象中加载 PDF 内容。
+           <p><i>注意：</i>在 Windows 上，如果用户系统上当前正在运行 Acrobat 或 Acrobat Reader 7.x 或更高版本，则即使安装了支持加载 PDF（HTML 对象中已加载）的更高版本，也会使用该版本。在这种情况下，如果 <codeph>pdfCampability</codeph> 属性的值为 <codeph>PDFCapability.STATUS_OK</codeph>，则当 AIR 应用程序尝试将 PDF 内容加载到 HTML 对象时，Acrobat 或 Reader 的较早版本会显示警告，而不出现显示 AIR 运行时的错误消息。如果您的最终用户可能会遇到这种情况，您可以考虑向他们提供说明，以在运行应用程序时关闭 Acrobat。如果 PDF 内容在可以接受的时间范围内未加载，则您可以考虑显示这些说明。</p></entry>
+        </row><row>
+         <entry><codeph>ERROR_INSTALLED_READER_NOT_FOUND</codeph></entry>
+         <entry>未检测到任何 Acrobat Reader 版本。HTML 对象无法显示 PDF 内容。</entry>
+        </row><row>
+         <entry><codeph>ERROR_INSTALLED_READER_TOO_OLD</codeph></entry>
+         <entry>已检测到 Acrobat Reader，但版本太旧。HTML 对象无法显示 PDF 内容。</entry>
+        </row><row>
+         <entry><codeph>ERROR_PREFERED_READER_TOO_OLD</codeph></entry>
+         <entry>已检测到适用版本的 Acrobat Reader（8.1 或更高版本），但设置用于处理 PDF 内容的 Acrobat Reader 版本低于 Reader 8.1。HTML 对象无法显示 PDF 内容。</entry>
+        </row></tbody></tgroup></adobetable>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:runtimeApplicationDomain:get"><apiName>runtimeApplicationDomain</apiName><shortdesc>
+      用于 HTML 的 window.runtime 脚本的 ApplicationDomain。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.system:ApplicationDomain"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于 HTML 的 <codeph>window.runtime</codeph> 脚本的 ApplicationDomain。
+     
+      <p>如果此属性为 <codeph>null</codeph>，或它指定了与 HTML 内容位于不同安全域中的 ApplicationDomain，则 HTML 页将使用此页的域中的默认 <codeph>ApplicationDomain</codeph>。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:HTML:userAgent:get"><apiName>userAgent</apiName><shortdesc>
+      此控件的内容请求中使用的用户代理字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此控件的内容请求中使用的用户代理字符串。
+     
+      <p>通过设置静态 <codeph>URLRequestDefaults.userAgent</codeph> 属性，您可以设置供应用程序域中所有 HTML 控件使用的默认用户代理字符串。如果未为 <codeph>userAgent</codeph> 属性设置任何值（或将其值设置为 <codeph>null</codeph>），则用户代理字符串的值将设置为 <codeph>URLRequestDefaults.userAgent</codeph>。</p>
+     
+      <p>如果既未设置此控件的 <codeph>userAgent</codeph> 属性值，也未设置 <codeph>URLRequestDefaults.userAgent</codeph> 属性值，则用户代理字符串将采用默认值。此默认值随着运行时操作系统（如 Mac OS 或 Windows）、运行时语言和运行时版本而变化，如下面两个示例所示：</p>
+     
+      <pre>
+      "Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) AdobeAIR/1.0"
+      "Mozilla/5.0 (Windows; U; en) AppleWebKit/420+ (KHTML, like Gecko) AdobeAIR/1.0"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.net.xml#URLRequest/userAgent"><linktext>flash.net.URLRequest.userAgent</linktext></link><link href="" invalidHref="flash.net.xml#URLRequestDefaults/userAgent"><linktext>flash.net.URLRequestDefaults.userAgent</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.controls:FlexNativeMenu"><apiName>FlexNativeMenu</apiName><shortdesc>
+  FlexNativeMenu 组件为 AIR 的 NativeMenu 类提供包装。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;mx:FlexNativeMenu&gt</code> tag supports the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:FlexNativeMenu
+    <b>Properties</b>
+    dataDescriptor="<i>mx.controls.treeClasses.DefaultDataDescriptor</i>"
+    dataProvider="<i>undefined</i>"
+    keyEquivalentField="keyEquivalent"
+    keyEquivalentFunction="<i>undefined</i>"
+    keyEquivalentModifiersFunction="<i>undefined</i>"
+    labelField="label"
+    labelFunction="<i>undefined</i>"
+    mnemonicIndexField="mnemonicIndex"
+    mnemonicIndexFunction="<i>undefined</i>"
+    showRoot="true"
+ 
+    <b>Events</b>
+    itemClick="<i>No default</i>"
+    menuShow="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.controls:IFlexContextMenu</apiBaseInterface><apiBaseInterface>mx.automation:IAutomationObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FlexNativeMenu 组件为 AIR 的 NativeMenu 类提供包装。FlexNativeMenu 提供了一种使用 Flex 开发人员熟悉且与其他 Flex 菜单组件一致的技术定义本机操作系统菜单（如窗口、应用程序和上下文菜单）的方法，如使用 MXML 和数据提供程序指定菜单结构。然而，与 Flex 菜单组件不同，FlexNativeMenu 组件定义的菜单由主机操作系统作为 AIR 应用程序的一部分呈示，而不是由 Flex 作为可视组件创建。
+ 
+  <p>与其他 Flex 菜单组件相同的是，要定义由 FlexNativeMenu 组件表示的菜单的结构，需要创建一个数据提供程序（如 XML 层次结构或对象数组），其中包含要用于定义该菜单的数据。可以设置多个属性来定义如何解释数据提供程序数据，如 <codeph>labelField</codeph> 属性指定用于菜单项标签的数据字段，<codeph>keyEquivalentField</codeph> 属性指定定义菜单项的键盘等效快捷方式的字段，<codeph>mnemonicIndexField</codeph> 属性指定标签中用作菜单项助记键字符的索引位置的字段。</p>
+ 
+  <p>FlexNativeMenu 项目的数据提供程序可以指定几个属性来确定项目的显示方式和行为方式，如以下 XML 数据提供程序所示：</p>
+  <pre>
+   &lt;mx:XML format="e4x" id="myMenuData">
+     &lt;root>
+        &lt;menuitem label="MenuItem A">
+            &lt;menuitem label="SubMenuItem A-1" enabled="False"/>
+            &lt;menuitem label="SubMenuItem A-2"/>
+        &lt;/menuitem>
+        &lt;menuitem label="MenuItem B" type="check" toggled="true"/>
+        &lt;menuitem label="MenuItem C" type="check" toggled="false"/>
+        &lt;menuitem type="separator"/>
+        &lt;menuitem label="MenuItem D">
+            &lt;menuitem label="SubMenuItem D-1"/>
+            &lt;menuitem label="SubMenuItem D-2"/>
+            &lt;menuitem label="SubMenuItem D-3"/>
+        &lt;/menuitem>
+    &lt;/root>
+ &lt;/mx:XML></pre>
+ 
+  <p>下表列出了您可以指定的属性及其数据类型、目的，以及数据提供程序表示它们必须采取的方式（如果菜单使用 DefaultDataDescriptor 类分析数据提供程序）：</p>
+ 
+  <adobetable class="innertable">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ <tgroup cols="3"><thead><row><entry>属性</entry><entry>类型</entry><entry>说明</entry></row></thead><tbody><row>
+    <entry><codeph>altKey</codeph></entry>
+    <entry>Boolean</entry>
+    <entry>指定是否需要使用 Alt 键作为此项目等效键的一部分。</entry>
+  </row><row>
+    <entry><codeph>cmdKey</codeph></entry>
+    <entry>Boolean</entry>
+    <entry><b>注意：</b>从 Flex 3.2 起不再推荐使用此属性。请改用 <codeph>commandKey</codeph>。指定是否需要使用 Command 键作为此项目等效键的一部分。</entry>
+  </row><row>
+    <entry><codeph>commandKey</codeph></entry>
+    <entry>Boolean</entry>
+    <entry>指定是否需要使用 Command 键作为此项目等效键的一部分。</entry>
+  </row><row>
+    <entry><codeph>controlKey</codeph></entry>
+    <entry>Boolean</entry>
+    <entry>指定是否需要使用 Ctrl 键作为此项目等效键的一部分。</entry>
+  </row><row>
+    <entry><codeph>ctrlKey</codeph></entry>
+    <entry>Boolean</entry>
+    <entry><b>注意：</b>从 Flex 3.2 起不再推荐使用此属性。请改用 <codeph>controlKey</codeph>。指定是否需要使用 Ctrl 键作为此项目等效键的一部分。</entry>
+  </row><row>
+    <entry><codeph>enabled</codeph></entry>
+    <entry>Boolean</entry>
+    <entry>指定用户可以选择菜单项 (<codeph>true</codeph>)，还是不可以选择菜单项 (<codeph>false</codeph>)。如果未指定，则 Flex 将假定该值为 <codeph>true</codeph> 来处理此项目。如果您使用默认数据说明符，则数据提供程序必须使用 <codeph>enabled</codeph>XML 属性或对象字段来指定此特征。</entry>
+  </row><row>
+    <entry><codeph>keyEquivalent</codeph></entry>
+    <entry>String</entry>
+    <entry>指定一个键盘字符，当按下该字符时会像选择菜单项一样触发事件。菜单的 <codeph>keyEquivalentField</codeph> 或 <codeph>keyEquivalentFunction</codeph> 属性确定数据中指定等效键的字段名称，或确定等效键的函数。（如果数据提供程序采用 E4X XML 格式，则必须指定其中一个属性以分配等效键。）</entry>
+  </row><row>
+    <entry><codeph>label</codeph></entry>
+    <entry>String</entry>
+    <entry>指定控件中显示的文本。此项目适用于除 <codeph>separator</codeph> 之外的所有菜单项类型。菜单的 <codeph>labelField</codeph> 或 <codeph>labelFunction</codeph> 属性确定数据中指定标签的字段名称，或确定标签的函数。（如果数据提供程序采用 E4X XML 格式，则必须指定其中一个属性以显示标签。）如果数据提供程序是字符串数组，则 Flex 使用字符串值作为标签。</entry>
+  </row><row>
+    <entry><codeph>mnemonicIndex</codeph></entry>
+    <entry>整型</entry>
+    <entry>指定标签中用作菜单项助记键的字符的索引位置。菜单的 <codeph>mnemonicIndexField</codeph> 或 <codeph>mnemonicIndexFunction</codeph> 属性确定数据中指定助记键索引的字段名称，或确定助记键索引的函数。（如果数据提供程序采用 E4X XML 格式，则必须指定这些属性之一，以便指定数据中的助记键索引。）此外，您可以紧挨着某个字符在其左侧添加下划线，以此指示标签中的该字符是菜单项的助记键。</entry>
+  </row><row>
+    <entry><codeph>shiftKey</codeph></entry>
+    <entry>Boolean</entry>
+    <entry>指定是否需要使用 Shift 键作为此项目等效键的一部分。</entry>
+  </row><row>
+    <entry><codeph>toggled</codeph></entry>
+    <entry>Boolean</entry>
+    <entry>指定是否选择了检查项目。如果未指定，则 Flex 处理该项目的方式将视同该值为 <codeph>false</codeph> 一样，并且该项目是不选中的。如果您使用默认数据说明符，则数据提供程序必须使用 <codeph>toggled</codeph>XML 属性或对象字段来指定此特征。</entry>
+  </row><row>
+    <entry><codeph>type</codeph></entry>
+    <entry>String</entry>
+    <entry>指定菜单项的类型。有效值为 <codeph>separator</codeph> 和 <codeph>check</codeph>。Flex 将其他所有值或无类型条目的节点视为常规菜单条目。如果您使用默认数据说明符，则数据提供程序必须使用 <codeph>type</codeph>XML 属性或对象字段来指定此特征。</entry>
+  </row></tbody></tgroup></adobetable>
+ 
+  <p>要创建窗口菜单，请将 FlexNativeMenu 设置为窗口的 <codeph>menu</codeph> 属性，或者应在其上显示菜单的 WindowedApplication 实例。要创建应用程序菜单，请分配 FlexNativeMenu 作为应用程序的 WindowedApplication 的 <codeph>menu</codeph> 属性。要分配 FlexNativeMenu 作为部分用户界面的上下文菜单，请调用 FlexNativeMenu 实例的 <codeph>setContextMenu()</codeph> 方法，而将 UI 对象作为参数传递。调用 FlexNativeMenu 组件的 <codeph>display()</codeph> 方法，将该菜单显示为应用程序的任一窗口中的弹出菜单。</p>
+ 
+  <p>要检测何时会触发菜单项命令，请为 <codeph>itemClick</codeph> 事件注册侦听器。您还可以为 <codeph>menuShow</codeph> 事件注册侦听器以确定何时打开任何菜单或子菜单。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.NativeMenu.xml"><linktext>flash.display.NativeMenu</linktext></link><link href="mx.events.xml#FlexNativeMenuEvent"><linktext>mx.events.FlexNativeMenuEvent</linktext></link></related-links><adobeApiEvent id="mx.controls:FlexNativeMenu_mx.events.FlexNativeMenuEvent.ITEM_CLICK_itemClick"><apiName>itemClick</apiName><shortdesc>
+  选择菜单项时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeMenuEvent.ITEM_CLICK</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeMenuEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  选择菜单项时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.controls:FlexNativeMenu_mx.events.FlexNativeMenuEvent.MENU_SHOW_menuShow"><apiName>menuShow</apiName><shortdesc>
+  显示菜单或子菜单前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeMenuEvent.MENU_SHOW</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeMenuEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  显示菜单或子菜单前分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:FlexNativeMenu:FlexNativeMenu"><apiName>FlexNativeMenu</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls:FlexNativeMenu:protected:commitProperties"><apiName>commitProperties</apiName><shortdesc>
+      处理对组件设置的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      处理对组件设置的属性。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/commitProperties()"><linktext>mx.core.UIComponent.commitProperties()</linktext></link></related-links></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:createAutomationIDPartWithRequiredProperties"><apiName>createAutomationIDPartWithRequiredProperties</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam><apiParam><apiItemName>properties</apiItemName><apiType value="Array"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:createAutomationIDPart"><apiName>createAutomationIDPart</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn><apiParam><apiItemName>child</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:display"><apiName>display</apiName><shortdesc>
+      在指定位置弹出此菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>stage</apiItemName><apiType value="flash.display:Stage"/><apiDesc>要显示此菜单的 Stage 对象。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="int"/><apiDesc>相对于要显示此菜单的舞台原点的水平像素数。 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="int"/><apiDesc>相对于要显示此菜单的舞台原点的垂直像素数。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在指定位置弹出此菜单。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:getAutomationChildAt"><apiName>getAutomationChildAt</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="mx.automation:IAutomationObject"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:getAutomationChildren"><apiName>getAutomationChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:invalidateProperties"><apiName>invalidateProperties</apiName><shortdesc conref="mx.core.UIComponent#invalidateProperties()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#invalidateProperties()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:protected:itemToKeyEquivalentModifiers"><apiName>itemToKeyEquivalentModifiers</apiName><shortdesc>
+      基于 keyEquivalentModifiersFunction 属性返回给定数据对象的等效功能键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>基于数据的等效功能键数组.
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>要显示的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基于 <codeph>keyEquivalentModifiersFunction</codeph> 属性，返回给定数据对象的等效功能键。如果这种方法无法将此参数转换为功能键 Array，则返回一个空 Array。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:protected:itemToKeyEquivalent"><apiName>itemToKeyEquivalent</apiName><shortdesc>
+      基于 keyEquivalentField 和 keyEquivalentFunction 属性返回给定数据对象的等效键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>基于数据的等效键。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>要显示的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基于 <codeph>keyEquivalentField</codeph> 和 <codeph>keyEquivalentFunction</codeph> 属性返回给定数据对象的等效键。如果该方法无法将参数转换为字符串，则会返回一个空字符串。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:protected:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      基于 labelField 和 labelFunction 属性，返回用作给定数据对象的菜单项标签的 String。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>根据数据要显示的字符串。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>要显示的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基于 <codeph>labelField</codeph> 和 <codeph>labelFunction</codeph> 属性返回用作给定数据对象的菜单项标签的 String。如果该方法无法将参数转换为 String，则会返回一个空格。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:protected:itemToMnemonicIndex"><apiName>itemToMnemonicIndex</apiName><shortdesc>
+      基于 mnemonicIndexField 和 mnemonicIndexFunction 属性，返回给定数据对象的助记键索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>基于数据的助记键索引。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>要显示的对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      基于 <codeph>mnemonicIndexField</codeph> 和 <codeph>mnemonicIndexFunction</codeph> 属性返回给定数据对象的助记键索引。如果这种方法无法将此参数转换为整数，则返回 -1。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:protected:parseLabelToMnemonicIndex"><apiName>parseLabelToMnemonicIndex</apiName><shortdesc>
+      根据是否存在下划线字符从标签中提取助记键索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>索引。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="String"/><apiDesc>要对其进行分析以提取索引的数据。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      根据是否存在下划线字符从标签中提取助记键索引。如果存在前导下划线字符，则查找该字符并将其用作索引。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:protected:parseLabelToString"><apiName>parseLabelToString</apiName><shortdesc>
+      确定用于 NativeMenuItem 的实际标签，方法为删除下划线字符，然后转换转义下划线字符（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>标签。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="String"/><apiDesc>要对其进行分析以提取标签的数据。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      确定用于 NativeMenuItem 的实际标签，方法为删除下划线字符，然后转换转义下划线字符（如果存在）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:resolveAutomationIDPart"><apiName>resolveAutomationIDPart</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn><apiParam><apiItemName>criteria</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:setContextMenu"><apiName>setContextMenu</apiName><shortdesc>
+      将 InteractiveObject 的上下文菜单设置为基础本机菜单。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="flash.display:InteractiveObject"/><apiDesc>交互式对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将 InteractiveObject 的上下文菜单设置为基础本机菜单。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:unsetContextMenu"><apiName>unsetContextMenu</apiName><shortdesc>
+      取消对已设为基础本机菜单的 InteractiveObject 上下文菜单的设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="flash.display:InteractiveObject"/><apiDesc>交互式对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      取消对已设为基础本机菜单的 InteractiveObject 上下文菜单的设置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:validateNow"><apiName>validateNow</apiName><shortdesc>
+      验证并更新此对象的属性和布局，并重绘该对象（如果需要）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      验证并更新此对象的属性和布局，并重绘该对象（如果需要）。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls:FlexNativeMenu:validateSize"><apiName>validateSize</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.controls:FlexNativeMenu:automationDelegate:get"><apiName>automationDelegate</apiName><shortdesc>
+      处理自动化相关功能的委托对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      处理自动化相关功能的委托对象。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:FlexNativeMenu:automationName:get"><apiName>automationName</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:FlexNativeMenu:automationOwner:get"><apiName>automationOwner</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:FlexNativeMenu:automationParent:get"><apiName>automationParent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:FlexNativeMenu:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:FlexNativeMenu:automationValue:get"><apiName>automationValue</apiName><shortdesc conref="mx.automation.IAutomationObject#automationValue">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc conref="mx.automation.IAutomationObject#automationValue">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:automationVisible:get"><apiName>automationVisible</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:FlexNativeMenu:dataDescriptor:get"><apiName>dataDescriptor</apiName><shortdesc>
+      访问并处理数据提供程序中数据的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.menuClasses:IMenuDataDescriptor"/></apiValueDef><apiDesc>
+      访问并处理数据提供程序中数据的对象。FlexNativeMenu 控件委托数据描述符提供其数据的相关信息。然后，这些数据用于分析和移动数据源。为 FlexNativeMenu 定义的数据描述符可供其所有子菜单和下级菜单使用。
+     
+      <p>如果要将此属性指定为 MXML 中的某个属性，则必须使用对数据描述符的引用，而不是描述符的字符串名称。请使用下列格式设置此属性：</p>
+     
+     <pre>&lt;mx:FlexNativeMenu id="flexNativeMenu" dataDescriptor="{new MyCustomDataDescriptor()}"/></pre>
+     
+      <p>或者，您可以在 MXML 中将该属性指定为嵌套子标签，如下例所示：</p>
+     
+      <pre>&lt;mx:FlexNativeMenu>
+      &lt;mx:dataDescriptor>
+         &lt;myCustomDataDescriptor>
+      &lt;/mx:dataDescriptor>
+      ...</pre>
+     
+      <p>默认值为 DefaultDataDescriptor 类的内部实例。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+      用于定义 NativeMenu 中菜单项结构的对象的层次结构。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="collectionChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>"undefined"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于定义 NativeMenu 中菜单项结构的对象的层次结构。各个数据对象定义菜单项，项目及其子项将成为菜单和子菜单。
+     
+      <p>FlexNativeMenu 控件按如下方式处理源数据对象：</p>
+     
+      <ul>
+        <li>包含有效 XML 文本的 String 将转化为 XML 对象。</li>
+        <li>XMLNode 将转化为 XML 对象。</li>
+        <li>将 XMLList 转换为 XMLListCollection。</li>
+        <li>将实现 ICollectionView 接口的任何对象转换为 ICollectionView。</li>
+        <li>将 Array 转换为 ArrayCollection。</li>
+        <li>将任何其它类型的对象作为 Array 的唯一条目纳入该 Array 中。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:hasRoot:get"><apiName>hasRoot</apiName><shortdesc conref="mx.controls.Menu#hasRoot">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.controls.Menu#hasRoot">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:initialized:get"><apiName>initialized</apiName><shortdesc conref="mx.core.UIComponent#initialized">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#initialized">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:keyEquivalentField:get"><apiName>keyEquivalentField</apiName><shortdesc>
+      数据提供程序中的字段名称，用以确定每个菜单项的等效键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="keyEquivalentChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"keyEquivalent"
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数据提供程序中的字段名称，用以确定每个菜单项的等效键。采用的一系列值在 Keyboard 类中以 <codeph>KEYNAME_XXXX</codeph> 常量定义。例如，查阅该列表了解控制字符（如 Home、Insert 等）的值。
+     
+      <p>设置 <codeph>keyEquivalentFunction</codeph> 属性将导致此属性被忽略。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.ui.Keyboard.xml"><linktext>flash.ui.Keyboard</linktext></link></related-links></apiValue><apiValue id="mx.controls:FlexNativeMenu:keyEquivalentFunction:get"><apiName>keyEquivalentFunction</apiName><shortdesc>
+      确定每个菜单项等效键的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="keyEquivalentFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>"undefined"
+      </apiDefaultValue></apiValueDef><apiDesc>
+      确定每个菜单项等效键的函数。如果省略此属性，则 Flex 将使用 <codeph>keyEquivalentField</codeph> 属性指定的字段或属性的内容。如果指定了此属性，则 Flex 将忽略任何 <codeph>keyEquivalentField</codeph> 属性值。
+     
+      <p><codeph>keyEquivalentFunction</codeph> 属性适用于处理格式化、本地化和平台独立性。</p>
+     
+      <p>等效功能键函数必须采用一个参数，该参数是数据提供程序中的项目，并且必须返回一个 String。</p>
+     
+      <pre><codeph>myKeyEquivalentFunction(item:Object):String</codeph></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.ui.Keyboard.xml"><linktext>flash.ui.Keyboard</linktext></link></related-links></apiValue><apiValue id="mx.controls:FlexNativeMenu:keyEquivalentModifiersFunction:get"><apiName>keyEquivalentModifiersFunction</apiName><shortdesc>
+      确定每个菜单项的等效功能键的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="keyEquivalentModifiersFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>"undefined"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      确定每个菜单项的等效功能键的函数。如果省略此属性，则 Flex 将使用其自身默认的函数来确定功能键的 Array，具体方法是在数据提供者数据中确定是否存在以下（布尔型）字段：<codeph>altKey</codeph>、<codeph>commandKey</codeph>、<codeph>controlKey</codeph> 和 <codeph>shiftKey</codeph>。
+     
+      <p><codeph>keyEquivalentModifiersFunction</codeph> 属性适用于处理格式化、本地化和平台独立性。</p>
+     
+      <p>等效功能键函数必须采用一个参数，该参数是数据提供程序中的项目，并且必须返回一个功能键名称数组。</p>
+     
+      <pre><codeph>myKeyEquivalentModifiersFunction(item:Object):Array</codeph></pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:labelField:get"><apiName>labelField</apiName><shortdesc>
+      数据提供程序中的字段名称，用以确定每个菜单项的显示文本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"label"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数据提供程序中的字段名称，用以确定每个菜单项的显示文本。如果数据提供程序是一个字符串 Array，则 Flex 会将每个字符串值作为标签使用。如果数据提供程序是一个 E4X XML 对象，则必须显式设置此属性。例如，如果 E4X XML 对象中的每个 XML 元素都包含一个“label”属性，其中包含每个菜单项的显示文本，则请将 labelField 设置为 <codeph>"@label"</codeph>。
+     
+      <p>在标签中，您可以通过在字符前添加下划线指定将该字符用作助记键索引。例如，<codeph>"C_ut"</codeph> 标签值将助记键索引设置为 1。只有显示的第一个下划线具有此功能。若要在标签中显示文字下划线字符，您可以使用一条双下划线对其进行转义。例如，<codeph>"C__u_t"</codeph> 标签值可能会生成标签为“C_ut”、助记键索引为 3（“t”字符）的菜单项。如果存在由 <codeph>mnemonicIndexField</codeph> 属性定义的字段，并且设置为大于零的值，则此值将优先于任何用下划线指定的助记键索引值。</p>
+     
+      <p>设置 <codeph>labelFunction</codeph> 属性将导致此属性被忽略。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      用于确定每个菜单项的显示文本的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>"undefined"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      用于确定每个菜单项的显示文本的函数。标签函数必须在数据提供程序中查找一个或多个相应的字段，并返回一个可显示的字符串。
+     
+      <p>如果省略此属性，Flex 将使用 <codeph>labelField</codeph> 属性指定的字段或属性的内容。如果指定了此属性，则 Flex 将忽略任何 <codeph>labelField</codeph> 属性值。</p>
+     
+      <p><codeph>labelFunction</codeph> 属性有助于处理格式化、本地化和平台独立性。</p>
+     
+      <p>标签函数必须采用一个参数，该参数是数据提供程序中的项目，并且必须返回一个字符串。</p>
+     
+      <pre><codeph>myLabelFunction(item:Object):String</codeph></pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:mnemonicIndexField:get"><apiName>mnemonicIndexField</apiName><shortdesc>
+      数据提供程序中的字段名称，用以确定每个菜单项的助记键索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="mnemonicIndexChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"mnemonicIndex"
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      数据提供程序中的字段名称，用以确定每个菜单项的助记键索引。
+     
+      <p>如果此属性指定的字段中包含大于零的数值，则助记键索引将优先于标签中用下划线指定的索引。</p>
+     
+      <p>设置 <codeph>mnemonicIndexFunction</codeph> 属性将导致此属性被忽略。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FlexNativeMenu/labelField"><linktext>labelField</linktext></link></related-links></apiValue><apiValue id="mx.controls:FlexNativeMenu:mnemonicIndexFunction:get"><apiName>mnemonicIndexFunction</apiName><shortdesc>
+      确定每个菜单项的助记键索引的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="mnemonicIndexFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>"undefined"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      确定每个菜单项的助记键索引的函数。
+     
+      <p>如果省略此属性，Flex 将使用 <codeph>mnemonicIndexField</codeph> 属性指定的字段或属性的内容。如果指定了此属性，则 Flex 将忽略任何 <codeph>mnemonicIndexField</codeph> 属性值。</p>
+     
+      <p>如果已定义此属性，并且该函数针对数据项目返回大于零的数值，则返回的助记键索引将优先于标签中用下划线指定的索引。</p>
+     
+      <p><codeph>mnemonicIndexFunction</codeph> 属性适用于处理格式化、本地化和平台独立性。</p>
+     
+      <p>助记键索引函数必须采用一个参数，该参数是数据提供程序中的项目，并且必须返回一个常量。</p>
+     
+      <pre><codeph>myMnemonicIndexFunction(item:Object):int</codeph></pre>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:nativeMenu:get"><apiName>nativeMenu</apiName><shortdesc>
+       返回由此对象管理的 flash.display.NativeMenu；如果不存在，则返回 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nativeMenuUpdate"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeMenu"/></apiValueDef><apiDesc>
+       返回由此对象管理的 flash.display.NativeMenu；如果不存在，则返回 null。如果更改菜单或基础数据提供程序，则可能会丢失直接对基础 NativeMenu 实例所做的任何更改。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:nestLevel:get"><apiName>nestLevel</apiName><shortdesc conref="mx.core.UIComponent#nestLevel">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.core.UIComponent#nestLevel">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:numAutomationChildren:get"><apiName>numAutomationChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:FlexNativeMenu:processedDescriptors:get"><apiName>processedDescriptors</apiName><shortdesc conref="mx.core.UIComponent#processedDescriptors">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#processedDescriptors">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FlexNativeMenu:showInAutomationHierarchy:get"><apiName>showInAutomationHierarchy</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls:FlexNativeMenu:showRoot:get"><apiName>showRoot</apiName><shortdesc>
+      指定是否显示数据提供程序的根节点的布尔值标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否显示数据提供程序的根节点的布尔值标志。
+     
+      <p>如果数据提供程序具有根节点，但 <codeph>showRoot</codeph> 属性设置为 <codeph>false</codeph>，则 FlexNativeMenu 控件显示的顶级菜单项与根节点的直接子节点对应。</p>
+     
+      <p>在使用没有根节点的数据提供程序（如 List 或 Array）时，此标志不起任何作用。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.xml#FlexNativeMenu/hasRoot"><linktext>hasRoot</linktext></link></related-links></apiValue><apiValue id="mx.controls:FlexNativeMenu:updateCompletePendingFlag:get"><apiName>updateCompletePendingFlag</apiName><shortdesc>
+      一个标志，确定某个对象是否已通过所有三个阶段的布局验证（假设需要通过所有验证）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      一个标志，确定某个对象是否已通过所有三个阶段的布局验证（假设需要通过所有验证）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:FileSystemHistoryButton"><apiName>FileSystemHistoryButton</apiName><shortdesc>
+  FileSystemHistoryButton 控件定义包含两个按钮的单个控件：左侧的主按钮和右侧的辅助按钮。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:FileSystemHistoryButton&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:FileSystemHistoryButton
+    <strong>Properties</strong>
+    dataProvider="<i>undefined</i>"
+ 
+    <strong>Events</strong>
+    itemClick="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:PopUpButton</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FileSystemHistoryButton 控件定义包含两个按钮的单个控件：左侧的主按钮和右侧的辅助按钮。
+ 
+  <p>主按钮上可以包含一个文本标签、一个图标，或者两者都包含。当用户单击主按钮时，控件将分派 <codeph>click</codeph> 事件。</p>
+ 
+  <p>单击辅助（右侧）按钮显示一个下拉菜单，该菜单通过 <codeph>dataProvider</codeph> 属性填充。当用户从下拉菜单中选择项目时，控件分派 <codeph>itemClick</codeph> 事件。</p>
+ 
+  <p>通常，使用两个 FileSystemHistoryButton 和一个 FileSystemList 或 FileSystemDataGrid 实现“后退”或“前进”控件，使用户在 FileSystemList 或 FileSystemDataGrid 的导航历史记录中后退或前进。要填充 FileSystemHistoryButton 控件的 <codeph>dataProvider</codeph> 属性，请使用数据绑定将其 <codeph>dataProvider</codeph> 属性设置为 FileSystemList 或 FileSystemDataGrid 控件的 <codeph>backHistory</codeph> 属性或 <codeph>forwardHistory</codeph> 属性。若要启用或禁用它，请将其 <codeph>enabled</codeph> 属性绑定到 FileSystemList 或 FileSystemDataGrid 控件的 <codeph>canNavigateBack</codeph> 或 <codeph>canNavigateForward</codeph> 属性。如果使用数据绑定设置这些属性，则当用户在 FileSystemList 或 FileSystemDataGrid 控件中导航时 Flex 会自动更新它们。</p>
+ 
+  <p>按钮自身不导致导航发生。您必须编写响应 <codeph>click</codeph> 和 <codeph>itemClick</codeph> 事件的事件侦听器以便发挥按钮的作用。通常，代码调用 FileSystemList 或 FileSystemDataGrid 控件的 <codeph>navigateBack()</codeph> 或 <codeph>navigateForward()</codeph> 方法导航控件。对于 <codeph>click</codeph> 事件，不需要向这些方法传递参数。对于 <codeph>itemClick</codeph> 事件，传递 <codeph>event.index</codeph>。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#FileSystemList"><linktext>mx.controls.FileSystemList</linktext></link><link href="mx.controls.xml#FileSystemDataGrid"><linktext>mx.controls.FileSystemDataGrid</linktext></link></related-links><adobeApiEvent id="mx.controls:FileSystemHistoryButton_mx.events.MenuEvent.ITEM_CLICK_itemClick"><apiName>itemClick</apiName><shortdesc>
+  当用户从弹出菜单中选择项目时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.MenuEvent.ITEM_CLICK</apiEventType><adobeApiEventClassifier>mx.events.MenuEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当用户从弹出菜单中选择项目时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:FileSystemHistoryButton:FileSystemHistoryButton"><apiName>FileSystemHistoryButton</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls:FileSystemHistoryButton:dataProvider:get"><apiName>dataProvider</apiName><shortdesc>
+      FileSystemHistoryButton 控件的数据提供程序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      FileSystemHistoryButton 控件的数据提供程序。这应该是包含目录位置的 File 对象集合 — 通常是 FileSystemList 或 FileSystemDataGrid 控件的 <codeph>backHistory</codeph> 或 <codeph>forwardHistory</codeph> 属性。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:FileSystemComboBox"><apiName>FileSystemComboBox</apiName><shortdesc>
+  FileSystemComboBox 控件定义组合框控件，用以从文件系统中的指定目录沿始祖目录链向上导航。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="style" name="editableUpSkin"/><Exclude kind="style" name="editableOverSkin"/><Exclude kind="style" name="editableDownSkin"/><Exclude kind="style" name="editableDisabledSkin"/><Exclude kind="property" name="editable"/><styles><style format="EmbeddedFile" inherit="no" name="directoryIcon" owner="mx.controls:FileSystemComboBox" playerVersion="AIR1.1" type="Class">
+<description>
+  指定表示目录的图标。默认图标位于 Assets.swf 文件中。在 MXML 中，可以使用以下语法来设置此属性：<codeph>directoryIcon="@Embed(source='directoryIcon.jpg');"</codeph>
+ 
+  </description>
+<default>TreeNodeIcon
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="EmbeddedFile" inherit="no" name="computerIcon" owner="mx.controls:FileSystemComboBox" playerVersion="AIR1.1" type="Class">
+<description>
+  指定代表计算机根目录的图标。没有默认的图标。在 MXML 中，可以使用以下语法来设置此属性：<codeph>computerIcon="@Embed(source='computerIcon.jpg');"</codeph>
+ 
+  </description>
+<default>null
+  
+  </default>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="dataProvider"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:FileSystemComboBox&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:FileSystemComboBox
+    <strong>Properties</strong>
+    directory="<i>null</i>"
+    indent="8"
+    showIcons="true"
+ 
+    <strong>Styles</strong>
+    computerIcon="<i>null</i>"
+    directoryIcon="<i>TreeNodeIcon</i>"
+ 
+    <strong>Events</strong>
+    directoryChange="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls:ComboBox</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FileSystemComboBox 控件定义组合框控件，用以从文件系统中的指定目录沿始祖目录链向上导航。此控件通常与 FileSystemList 和 FileSystemTree 控件一起使用，用于更改这些控件显示的当前目录。
+ 
+  <p>与标准的 ComboBox 控件不同，要填充 FileSystemComboBox 控件的 <codeph>dataProvider</codeph> 属性，需要设置 <codeph>directory</codeph> 属性。然后，此控件会自动将 <codeph>dataProvider</codeph> 属性设为 File 对象的 ArrayCollection，其中包含指定目录的所有始祖目录：从 <codeph>COMPUTER</codeph> File 开始，到指定目录结束。</p>
+ 
+  <p>当从下拉列表中选择某个条目时，此控件将分派 <codeph>change</codeph> 事件。分派此事件后，数据提供程序及因此而改变的下拉列表中都将包含所选目录的始祖目录。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.filesystem.File.xml"><linktext>flash.filesystem.File</linktext></link><link href="mx.controls.xml#FileSystemList"><linktext>mx.controls.FileSystemList</linktext></link><link href="mx.controls.xml#FileSystemTree"><linktext>mx.controls.FileSystemTree</linktext></link></related-links><adobeApiEvent id="mx.controls:FileSystemComboBox_mx.events.FileEvent.DIRECTORY_CHANGE_directoryChange"><apiName>directoryChange</apiName><shortdesc>
+  当此控件显示的选定目录由于某种原因发生更改时分派此事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FileEvent.DIRECTORY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FileEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当此控件显示的选定目录由于某种原因发生更改时分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls:FileSystemComboBox:FileSystemComboBox"><apiName>FileSystemComboBox</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls:FileSystemComboBox:COMPUTER"><apiName>COMPUTER</apiName><shortdesc>
+      一个可用作 directory 属性值的常量，代表名为“Computer”的伪顶级目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="flash.filesystem:File"/></apiValueDef><apiDesc>
+      一个可用作 <codeph>directory</codeph> 属性值的常量，代表名为“Computer”的伪顶级目录。这个伪目录中包含根目录（如 Windows 上的 C:\ 和 D:\，或 Macintosh 上的 /）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemComboBox:directory:get"><apiName>directory</apiName><shortdesc>
+      一个代表目录的 File 对象，其始祖目录将显示在此控件中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="directoryChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.filesystem:File"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个代表目录的 File 对象，其始祖目录将显示在此控件中。控件将各个始祖目录作为下拉列表中的单独条目来显示。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemComboBox:indent:get"><apiName>indent</apiName><shortdesc>
+      下拉列表中的各个条目需要缩进的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>8
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      下拉列表中的各个条目需要缩进的像素数目。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemComboBox:showIcons:get"><apiName>showIcons</apiName><shortdesc>
+      一个标志，确定在下拉列表中的目录名称前是否显示标记。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一个标志，确定在下拉列表中的目录名称前是否显示标记。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls:FileSystemEnumerationMode"><apiName>FileSystemEnumerationMode</apiName><shortdesc>
+  FileSystemEnumerationMode 类为 FileSystemList、FileSystemDataGrid 和 FileSystemTree 类的 enumerationMode 属性定义常数值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FileSystemEnumerationMode 类为 FileSystemList、FileSystemDataGrid 和 FileSystemTree 类的 <codeph>enumerationMode</codeph> 属性定义常量值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#FileSystemList/enumerationMode"><linktext>mx.controls.FileSystemList.enumerationMode</linktext></link><link href="mx.controls.xml#FileSystemDataGrid/enumerationMode"><linktext>mx.controls.FileSystemDataGrid.enumerationMode</linktext></link><link href="mx.controls.xml#FileSystemTree/enumerationMode"><linktext>mx.controls.FileSystemTree.enumerationMode</linktext></link></related-links><apiValue id="mx.controls:FileSystemEnumerationMode:DIRECTORIES_FIRST"><apiName>DIRECTORIES_FIRST</apiName><shortdesc>
+      指定先显示目录，再显示文件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoriesFirst</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定先显示目录，再显示文件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemEnumerationMode:DIRECTORIES_ONLY"><apiName>DIRECTORIES_ONLY</apiName><shortdesc>
+      指定显示目录，而不显示文件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoriesOnly</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定显示目录，而不显示文件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemEnumerationMode:FILES_AND_DIRECTORIES"><apiName>FILES_AND_DIRECTORIES</apiName><shortdesc>
+      指定文件和目录混合在一起显示。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>filesAndDirectories</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定文件和目录混合在一起显示。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemEnumerationMode:FILES_FIRST"><apiName>FILES_FIRST</apiName><shortdesc>
+      指定先显示文件，再显示目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>filesFirst</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定先显示文件，再显示目录。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls:FileSystemEnumerationMode:FILES_ONLY"><apiName>FILES_ONLY</apiName><shortdesc>
+      指定显示文件，而不显示目录。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>filesOnly</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      指定显示文件，而不显示目录。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

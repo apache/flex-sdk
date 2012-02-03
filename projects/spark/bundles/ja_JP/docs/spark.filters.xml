@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.filters"><apiName>spark.filters</apiName><apiDetail/><apiClassifier id="spark.filters:GradientBevelFilter"><apiName>GradientBevelFilter</apiName><shortdesc>
+ GradientBevelFilter クラスを使用すると、オブジェクトにグラデーションベベル効果を適用し、表示できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientBevelFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientBevelFilter/&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>spark.filters:GradientFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ GradientBevelFilter クラスを使用すると、オブジェクトにグラデーションベベル効果を適用し、表示できます。グラデーションベベルは、オブジェクトの外側、内側、または上側が斜めになったエッジであり、グラデーションカラーで強調されます。斜めのエッジによってオブジェクトが 3 次元に見えます。このフィルターは、MovieClip、SimpleButton、TextField、Video オブジェクトなどの DisplayObject クラスから継承した表示オブジェクト、および BitmapData オブジェクトに適用できます。
+ 
+ <p>フィルターの使用方法は、フィルターの適用先オブジェクトによって異なります。</p>
+ <ul><li>表示オブジェクトにフィルターを適用する場合は、<codeph>filters</codeph> プロパティを使用します。オブジェクトの <codeph>filters</codeph> プロパティを設定しても、オブジェクトは変更されません。<codeph>filters</codeph> プロパティをクリアすることにより、フィルターを取り消すことができます。 </li>
+ 
+ <li>BitmapData オブジェクトにフィルターを適用するには、<codeph>BitmapData.applyFilter()</codeph> メソッドを使用します。BitmapData オブジェクトで <codeph>applyFilter()</codeph> を呼び出すことによって、ソース BitmapData オブジェクトとフィルターオブジェクトが取得され、フィルターを適用したイメージが生成されます。</li>
+ </ul>
+ 
+ <p>表示オブジェクトにフィルターを適用すると、表示オブジェクトの <codeph>cacheAsBitmap</codeph> プロパティは <codeph>true</codeph> に設定されます。すべてのフィルターをクリアすると、<codeph>cacheAsBitmap</codeph> の元の値が復元されます。</p> 
+ 
+ <p>このフィルターはステージの拡大 / 縮小に対応していますが、通常の拡大 / 縮小、回転、傾斜には対応していません。オブジェクト自体を拡大 / 縮小する場合（<codeph>scaleX</codeph> と <codeph>scaleY</codeph> の値が 1.0 以外に設定されている場合）、フィルター効果は拡大 / 縮小されません。フィルターが拡大 / 縮小されるのは、ユーザーがステージをズームインする場合のみです。</p>
+ 
+ <p>結果として得られるイメージが最大サイズを超えると、フィルターは適用されません。AIR 1.5 および Flash Player 10 における最大サイズは、幅または高さが 8,191 ピクセルで、合計のピクセル数は 16,777,215 ピクセルを超えないようにしてください（つまり、幅が 8,191 ピクセルのイメージでは、高さが 2,048 ピクセルになります）。例えば、フィルターが適用されたサイズの大きいムービークリップをズームインするとき、結果として得られるイメージが最大サイズを超える場合は、フィルターがオフになります。</p>
+ 
+  </apiDesc><example conref="GradientBevelFilterExample.mxml"><swfblock conref="examples/GradientBevelFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#BevelFilter"><linktext>spark.filters.BevelFilter</linktext></link><link href="" invalidHref="flash.filters.GradientBevelFilter.xml"><linktext>flash.filters.GradientBevelFilter</linktext></link><link href="spark.filters.xml#GradientBevelFilter/ratios"><linktext>GradientBevelFilter.ratios</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link></related-links><apiConstructor id="spark.filters:GradientBevelFilter:GradientBevelFilter"><apiName>GradientBevelFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>オフセット距離です。指定できる値は 0 ～ 8 です。 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>角度（度数）です。指定できる値は 0 ～ 360 です。 
+     </apiDesc></apiParam><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>グラデーションで使用する RGB 16 進数カラー値の配列です。例えば、赤は 0xFF0000、青は 0x0000FF などです。
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc><codeph>colors</codeph> 配列内の各色に対応するアルファ透明度の値の配列です。配列の各エレメントに指定できる値は、0 ～ 1 です。例えば、.25 を指定すると、透明度の値として 25% が設定されます。
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>色分布比率の配列です。0 ～ 255 の範囲の値を指定できます。
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平方向のぼかし量。指定できる値は 0 ～ 255 です。1 以下の値を指定すると、元のイメージがそのままコピーされます。デフォルト値は 4 です。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直方向のぼかし量。指定できる値は 0 ～ 255 です。1 以下の値を指定すると、元のイメージがそのままコピーされます。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>インプリントの強さまたは広がりです。値が大きいほど、濃い色がインプリントされるので、ベベルと背景との間のコントラストが強くなります。指定できる値は 0 ～ 255 です。値を 0 にすると、フィルターが適用されなくなります。 
+     
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>フィルターの品質です。次の BitmapFilterQuality 定数を使用します。
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>詳細については、<codeph>quality</codeph> プロパティの説明を参照してください。</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>inner</apiData><apiDesc>ベベル効果の配置です。指定できる値は、BitmapFilterType 定数です。
+     <ul><li><codeph>BitmapFilterType.OUTER</codeph> - ベベルがオブジェクトの外側エッジに配置されます。</li>
+     <li><codeph>BitmapFilterType.INNER</codeph> - ベベルがオブジェクトの内側エッジに配置されます。</li>
+     <li><codeph>BitmapFilterType.FULL</codeph> - ベベルがオブジェクトの上に配置されます。</li>
+     </ul>
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>ノックアウト効果を適用するかどうかを指定します。<codeph>true</codeph> を指定すると、オブジェクトの塗りが透明になり、ドキュメントの背景色が表示されます。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:GradientBevelFilter:clone"><apiName>clone</apiName><shortdesc>
+     このフィルターオブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元の GradientBevelFilter インスタンスとプロパティがすべて同じである新しい GradientBevelFilter インスタンスです。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     このフィルターオブジェクトのコピーを返します。
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.filters:DropShadowFilter"><apiName>DropShadowFilter</apiName><shortdesc>
+ DropShadowFilter クラスは、ドロップシャドウを表示オブジェクトに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:DropShadowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:DropShadowFilter 
+    <strong>Properties</strong>
+    alpha="1"
+    angle="45"
+    color="0xFF0000"
+    distance="4"
+    hideObject="false"
+    inner="false"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ DropShadowFilter クラスは、ドロップシャドウを表示オブジェクトに追加します。シャドウアルゴリズムは、ぼかしフィルターで使用するのと同じボックスフィルターに基づいています。ドロップシャドウのスタイルには複数のオプションがあり、内側シャドウ、外側シャドウ、ノックアウトモードなどがあります。このフィルターは、MovieClip、SimpleButton、TextField、Video オブジェクトなどの DisplayObject クラスから継承した表示オブジェクト、および BitmapData オブジェクトに適用できます。
+ 
+ <p>フィルターの使用方法は、フィルターの適用先オブジェクトによって異なります。</p>
+ <ul><li>表示オブジェクトにフィルターを適用する場合は、DisplayObject から継承した <codeph>filters</codeph> プロパティを使用します。オブジェクトの <codeph>filters</codeph> プロパティを設定しても、オブジェクトは変更されません。<codeph>filters</codeph> プロパティをクリアすることにより、フィルターを取り消すことができます。 </li>
+ 
+ <li>BitmapData オブジェクトにフィルターを適用するには、<codeph>BitmapData.applyFilter()</codeph> メソッドを使用します。BitmapData オブジェクトで <codeph>applyFilter()</codeph> を呼び出すことによって、ソース BitmapData オブジェクトとフィルターオブジェクトが取得され、フィルターを適用したイメージが生成されます。</li>
+ </ul>
+ 
+ <p>表示オブジェクトにフィルターを適用すると、表示オブジェクトの <codeph>cacheAsBitmap</codeph> プロパティの値が <codeph>true</codeph> に設定されます。すべてのフィルターをクリアすると、<codeph>cacheAsBitmap</codeph> の元の値が復元されます。</p>
+ <p>このフィルターはステージの拡大 / 縮小に対応していますが、通常の拡大 / 縮小、回転、傾斜には対応していません。オブジェクト自体が拡大 / 縮小される場合（<codeph>scaleX</codeph> と <codeph>scaleY</codeph> プロパティの値が 1.0 以外に設定されている場合）、フィルターは拡大 / 縮小されません。フィルターが拡大 / 縮小されるのは、ユーザーがステージをズームインする場合のみです。</p>
+ 
+ <p>結果として得られるイメージが最大サイズを超えると、フィルターは適用されません。AIR 1.5 および Flash Player 10 における最大サイズは、幅または高さが 8,191 ピクセルで、合計のピクセル数は 16,777,215 ピクセルを超えないようにしてください（つまり、幅が 8,191 ピクセルのイメージでは、高さが 2,048 ピクセルになります）。例えば、フィルターが適用されたサイズの大きいムービークリップをズームインするとき、結果として得られるイメージが最大サイズを超える場合は、フィルターがオフになります。</p>
+ 
+  </apiDesc><example conref="DropShadowFilterExample.mxml"><swfblock conref="examples/DropShadowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.DropShadowFilter.xml"><linktext>flash.filters.DropShadowFilter</linktext></link></related-links><apiConstructor id="spark.filters:DropShadowFilter:DropShadowFilter"><apiName>DropShadowFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>シャドウのオフセット距離（ピクセル単位）です。 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>0 ～ 360 度で表されるシャドウの角度（浮動小数）です。 
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>シャドウのカラーです。16 進数形式（<i>0xRRGGBB</i>）で指定します。デフォルト値は 0x000000 です。
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>シャドウカラーのアルファ透明度値です。0.0 ～ 1.0 の値を指定できます。例えば .25 と指定すると、透明度は 25% になります。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平方向のぼかし量。指定できる値は 0 ～ 255.0（浮動小数）です。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直方向のぼかし量。指定できる値は 0 ～ 255.0（浮動小数）です。 
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>インプリントの強さまたは広がりです。値が大きいほど、濃い色がインプリントされるので、シャドウと背景との間のコントラストが強くなります。指定できる値は 0 ～ 255.0 です。 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>フィルターを適用する回数。BitmapFilterQuality 定数を使用します。
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>これらの値については、<codeph>quality</codeph> プロパティの説明を参照してください。</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>inner</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>シャドウが内側のシャドウであるかどうかを指定します。<codeph>true</codeph> の場合は、内側シャドウを示します。値 <codeph>false</codeph> は外側シャドウ（オブジェクトの外側のエッジにあるシャドウ）を示します。
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合は、ノックアウト効果を適用します。その結果、オブジェクトの塗りが透明になり、ドキュメントの背景色が表示されます。 
+     </apiDesc></apiParam><apiParam><apiItemName>hideObject</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>オブジェクトが非表示であるかどうかを示します。<codeph>true</codeph> を指定すると、オブジェクト自体は描画されず、シャドウだけが表示されます。 
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterQuality.xml"><linktext>flash.filters.BitmapFilterQuality</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:DropShadowFilter:clone"><apiName>clone</apiName><shortdesc>
+     このフィルターオブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元の DropShadowFilter インスタンスのプロパティをすべて備えた新しい DropShadowFilter インスタンスです。
+     
+      </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     このフィルターオブジェクトのコピーを返します。
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:DropShadowFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      カラーのアルファ透明度の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      カラーのアルファ透明度の値です。指定できる値は 0 ～ 1 です。例えば、.25 を指定すると、透明度の値として 25% が設定されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:angle:get"><apiName>angle</apiName><shortdesc>
+       ベベルの角度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+       ベベルの角度です。有効な値の範囲は 0 ～ 360°です。角度の値は、オブジェクトに対する架空の光源の角度を表し、オブジェクトに対する効果の相対位置を決定します。distance プロパティが 0 に設定された場合、効果がオブジェクトからオフセットされないため、angle プロパティは適用されません。
+     
+       </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:color:get"><apiName>color</apiName><shortdesc>
+      グローのカラーを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      グローのカラーを表します。有効な値は、16 進数形式（0xRRGGBB）です。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      ベベルのオフセット距離です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ベベルのオフセット距離です。この値はピクセル単位で指定します（浮動小数値）。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:hideObject:get"><apiName>hideObject</apiName><shortdesc>
+      オブジェクトが非表示であるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      オブジェクトが非表示であるかどうかを示します。<codeph>true</codeph> を指定すると、オブジェクト自体は描画されず、シャドウだけが表示されます。デフォルトは <codeph>false</codeph> で、オブジェクトが表示されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DropShadowFilter:inner:get"><apiName>inner</apiName><shortdesc>
+      グローが内側グローであるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      グローが内側グローであるかどうかを示します。<codeph>true</codeph> の場合は、内側グローであることを示します。デフォルトは <codeph>false</codeph> (外側グロー) で、オブジェクトの外側のエッジにあるグローが作成されます。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ConvolutionFilter"><apiName>ConvolutionFilter</apiName><shortdesc>
+ConvolutionFilter クラスを使用すると、マトリックス畳み込みフィルター効果を適用できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>The <code>&lt;s:ConvolutionFilter&gt;</code> tag inherits all of the tag 
+ attributes of its superclass and adds the following tag attributes:</p>
+
+ <pre>
+ &lt;s:ConvolutionFilter 
+   <strong>Properties</strong>
+   alpha="1"
+   clamp="true"
+   color="0xFF0000"
+   divisor="1.0"
+   matrix="[]"
+   matrixX="0"
+   matrixY="0"
+   preserveAlpha="true"
+ /&gt;
+ </pre>
+
+]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ConvolutionFilter クラスを使用すると、マトリックス畳み込みフィルター効果を適用できます。畳み込みでは、入力イメージ内のピクセルを、隣接するピクセルと組み合わせて、イメージを作成します。畳み込みを使用すると、ぼかし、エッジ検出、シャープ、エンボス、ベベルなど、幅広いイメージ効果を実現できます。このフィルターは、MovieClip、SimpleButton、TextField、Video オブジェクトなどの DisplayObject クラスから継承した表示オブジェクト、および BitmapData オブジェクトに適用できます。
+
+<p>畳み込みフィルターを作成するには、シンタックス <codeph>new ConvolutionFilter()</codeph> を使用します。フィルターの使用方法は、フィルターの適用先オブジェクトによって異なります。</p>
+<ul><li>ムービークリップ、テキストフィールド、ボタン、およびビデオにフィルターを適用する場合は、DisplayObject から継承した <codeph>filters</codeph> プロパティを使用します。オブジェクトの <codeph>filters</codeph> プロパティを設定しても、オブジェクトは変更されません。<codeph>filters</codeph> プロパティをクリアすることにより、フィルターを取り消すことができます。 </li>
+
+<li>BitmapData オブジェクトにフィルターを適用するには、<codeph>BitmapData.applyFilter()</codeph> メソッドを使用します。BitmapData オブジェクトで <codeph>applyFilter()</codeph> を呼び出すことによって、ソース BitmapData オブジェクトとフィルターオブジェクトが取得され、フィルターを適用したイメージが生成されます。</li>
+</ul>
+
+<p>表示オブジェクトにフィルターを適用すると、オブジェクトの <codeph>cacheAsBitmap</codeph> プロパティの値が <codeph>true</codeph> に設定されます。すべてのフィルターをクリアすると、<codeph>cacheAsBitmap</codeph> の元の値が復元されます。</p>
+
+<p>結果として得られるイメージが最大サイズを超えると、フィルターは適用されません。AIR 1.5 および Flash Player 10 における最大サイズは、幅または高さが 8,191 ピクセルで、合計のピクセル数は 16,777,215 ピクセルを超えないようにしてください（つまり、幅が 8,191 ピクセルのイメージでは、高さが 2,048 ピクセルになります）。例えば、フィルターが適用されたサイズの大きいムービークリップをズームインするとき、結果として得られるイメージが最大サイズを超える場合は、フィルターがオフになります。</p>
+
+ </apiDesc><example conref="ConvolutionFilterExample.mxml"><swfblock conref="examples/ConvolutionFilterExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.filters:ConvolutionFilter:ConvolutionFilter"><apiName>ConvolutionFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>matrixX</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>マトリックスの <i>x</i> 次元（マトリックスの列数）です。デフォルト値は 0 です。
+     </apiDesc></apiParam><apiParam><apiItemName>matrixY</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>マトリックスの <i>y</i> 次元（マトリックスの行数）です。デフォルト値は 0 です。
+     </apiDesc></apiParam><apiParam><apiItemName>matrix</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>マトリックス変換に使用する値の配列です。この配列に含まれる項目数は必ず <codeph>matrixX ~~ matrixY</codeph> に等しくなります。
+     </apiDesc></apiParam><apiParam><apiItemName>divisor</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>マトリックス変換中に使用する除数です。デフォルト値は 1 です。除数がすべてのマトリックス値の合計と等しい場合は、結果全体のカラー強度が均等化されます。値 0 は無視され、代わりにデフォルト値が使用されます。 
+     </apiDesc></apiParam><apiParam><apiItemName>bias</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>マトリックス変換の結果に加算するバイアスです。デフォルト値は 0 です。
+     </apiDesc></apiParam><apiParam><apiItemName>preserveAlpha</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc><codeph>false</codeph> である場合は、アルファ値が保持されず、アルファチャンネルを含め、すべてのチャンネルに畳み込みを適用します。<codeph>true</codeph> である場合は、畳み込みをカラーチャンネルだけに適用します。デフォルト値は <codeph>true</codeph> です。
+     </apiDesc></apiParam><apiParam><apiItemName>clamp</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc><codeph>true</codeph> の場合、ソースイメージの外にあるピクセルに対して、入力イメージの所定のエッジのカラー値を複製するという方法で、必要に応じて境界に沿って入力イメージを拡張します。<codeph>false</codeph> の場合は、別の色を使用します。その色は <codeph>color</codeph> プロパティと <codeph>alpha</codeph> プロパティで指定します。デフォルト値は <codeph>true</codeph> です。 
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>ソースイメージの外にあるピクセルを置換する 16 進数のカラー値です。
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>代替カラーのアルファです。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:ConvolutionFilter:clone"><apiName>clone</apiName><shortdesc> 
+     このフィルターオブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元の ConvolutionMatrixFilter インスタンスとプロパティがすべて同じである新しい ConvolutionFilter インスタンスです。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc> 
+     このフィルターオブジェクトのコピーを返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:ConvolutionFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      カラーのアルファ透明度の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      カラーのアルファ透明度の値です。指定できる値は 0 ～ 1 です。例えば、.25 を指定すると、透明度の値として 25% が設定されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:bias:get"><apiName>bias</apiName><shortdesc>
+      マトリックス変換の結果に加算するバイアス量です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マトリックス変換の結果に加算するバイアス量です。バイアスにより各チャンネルのカラー値が増えるため、暗い色は明るくなります。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:clamp:get"><apiName>clamp</apiName><shortdesc>
+      イメージをクランプする必要があるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      イメージをクランプする必要があるかどうかを示します。true の場合、ソースイメージの外にあるピクセルに対して、入力イメージの各エッジのカラー値を複製するという方法で、必要に応じて境界に沿って入力イメージを拡張します。false の場合は、別の色を使用します。その色は color プロパティと alpha プロパティで指定します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:color:get"><apiName>color</apiName><shortdesc>
+      グローのカラーを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      グローのカラーを表します。有効な値は、16 進数形式（0xRRGGBB）です。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:divisor:get"><apiName>divisor</apiName><shortdesc>
+      マトリックス変換中に使用する除数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1.0
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マトリックス変換中に使用する除数です。デフォルト値は 1 です。序数がすべてのマトリックス値の合計と等しい場合は、結果全体のカラー強度が均等化されます。値 0 は無視され、代わりにデフォルト値が使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrixX:get"><apiName>matrixX</apiName><shortdesc>
+     マトリックスの x 次元（マトリックスの行数）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     マトリックスの x 次元（マトリックスの行数）です。 
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrixY:get"><apiName>matrixY</apiName><shortdesc>
+     マトリックスの y 次元（マトリックスの列数）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     マトリックスの y 次元（マトリックスの列数）です。 
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:matrix:get"><apiName>matrix</apiName><shortdesc>
+      水平方向のぼかし量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      水平方向のぼかし量。指定できる値は 0 ～ 255 です。1 以下の値を指定すると、元のイメージがそのままコピーされます。デフォルト値は 4 です。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ConvolutionFilter:preserveAlpha:get"><apiName>preserveAlpha</apiName><shortdesc>
+      アルファチャンネルがフィルター効果なしで維持されるかどうか、またはカラーチャンネルだけではなくアルファチャンネルにも畳み込みフィルターが適用されるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アルファチャンネルがフィルター効果なしで維持されるかどうか、またはカラーチャンネルだけではなくアルファチャンネルにも畳み込みフィルターが適用されるかどうかを示します。false である場合は、アルファチャンネルを含め、すべてのチャンネルに畳み込みを適用します。true である場合は、畳み込みをカラーチャンネルだけに適用します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:BlurFilter"><apiName>BlurFilter</apiName><shortdesc>
+ BlurFilter クラスを使用すると、表示オブジェクトにぼかし効果を適用できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BlurFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BlurFilter
+    <strong>Properties</strong>
+    blurX="4.0"
+    blurY="4.0"
+    quality="low"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ BlurFilter クラスを使用すると、表示オブジェクトにぼかし効果を適用できます。ぼかし効果は、イメージの細部をぼかします。ソフトフォーカスがかかっているように見えるぼかしから、半透明ガラスを通してイメージを見るようにかすんで見えるガウスぼかしまで作成できます。このフィルターの <codeph>quality</codeph> プロパティを低く設定すると、ソフトフォーカスがかかっているように見えるぼかしになります。<codeph>quality</codeph> プロパティを高く設定すると、ガウスぼかしフィルターに似たものになります。このフィルターは、MovieClip、SimpleButton、TextField、Video オブジェクトなどの DisplayObject クラスから継承した表示オブジェクト、および BitmapData オブジェクトに適用できます。
+ 
+ <p>新しいフィルターを作成するには、コンストラクター <codeph>new BlurFilter()</codeph> を使用します。フィルターの使用方法は、フィルターの適用先オブジェクトによって異なります。</p>
+ <ul><li>ムービークリップ、テキストフィールド、ボタン、およびビデオにフィルターを適用する場合は、DisplayObject から継承した <codeph>filters</codeph> プロパティを使用します。オブジェクトの <codeph>filters</codeph> プロパティを設定しても、オブジェクトは変更されません。<codeph>filters</codeph> プロパティをクリアすることにより、フィルターを取り消すことができます。 </li>
+ 
+ <li>BitmapData オブジェクトにフィルターを適用するには、<codeph>BitmapData.applyFilter()</codeph> メソッドを使用します。BitmapData オブジェクトで <codeph>applyFilter()</codeph> を呼び出すことによって、ソース BitmapData オブジェクトとフィルターオブジェクトが取得され、フィルターを適用したイメージが生成されます。</li>
+ </ul>
+ 
+ <p>表示オブジェクトにフィルターを適用すると、表示オブジェクトの <codeph>cacheAsBitmap</codeph> プロパティは <codeph>true</codeph> に設定されます。すべてのフィルターを削除すると、<codeph>cacheAsBitmap</codeph> の元の値が復元されます。</p>
+ 
+ <p>このフィルターはステージの拡大 / 縮小に対応していますが、通常の拡大 / 縮小、回転、傾斜には対応していません。オブジェクト自体が拡大 / 縮小される場合（<codeph>scaleX</codeph> と <codeph>scaleY</codeph> が 100% に設定されていない場合）、フィルター効果は拡大 / 縮小されません。フィルターが拡大 / 縮小されるのは、ユーザーがステージをズームインする場合のみです。</p>
+ 
+ <p>結果として得られるイメージが最大サイズを超えると、フィルターは適用されません。AIR 1.5 および Flash Player 10 における最大サイズは、幅または高さが 8,191 ピクセルで、合計のピクセル数は 16,777,215 ピクセルを超えないようにしてください（つまり、幅が 8,191 ピクセルのイメージでは、高さが 2,048 ピクセルになります）。例えば、フィルターが適用されたサイズの大きいムービークリップをズームインするとき、結果として得られるイメージが最大サイズを超える場合は、フィルターがオフになります。</p>
+ 
+  </apiDesc><example conref="BlurFilterExample.mxml"><swfblock conref="examples/BlurFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.BlurFilter.xml"><linktext>flash.filters.BlurFilter</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link></related-links><apiConstructor id="spark.filters:BlurFilter:BlurFilter"><apiName>BlurFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平方向のぼかし量。指定できる値は 0 ～ 255.0（浮動小数値）です。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直方向のぼかし量。指定できる値は 0 ～ 255.0（浮動小数値）です。 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>フィルターを適用する回数。品質は flash.filters.BitmapFilterQuality 定数を使用して指定できます。
+     <ul>
+     <li><codeph>flash.filters.BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>flash.filters.BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>flash.filters.BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>高品質にすると、ガウスぼかしに似たものになります。多くのアプリケーションでは、これら 3 つの値で十分です。最大 15 までの値を使用して様々な効果を出すことができますが、値が大きくなるほどレンダリング速度が低下することに注意してください。</p>
+     </apiDesc></apiParam><apiTipTexts><apiTipText>フィルターを初期化します。
+     </apiTipText></apiTipTexts></apiConstructorDef><apiDesc>
+     コンストラクターです。デフォルト値では、ソフトフォーカスのかかったイメージが作成されます。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:BlurFilter:clone"><apiName>clone</apiName><shortdesc>
+     このフィルターオブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元の BlurFilter インスタンスとプロパティがすべて同じである新しい BlurFilter インスタンスです。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     このフィルターオブジェクトのコピーを返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:BlurFilter:blurX:get"><apiName>blurX</apiName><shortdesc>
+      水平方向のぼかし量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      水平方向のぼかし量。指定できる値は 0 ～ 255 です。1 以下の値を指定すると、元のイメージがそのままコピーされます。デフォルト値は 4 です。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BlurFilter:blurY:get"><apiName>blurY</apiName><shortdesc>
+      垂直方向のぼかし量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      垂直方向のぼかし量。指定できる値は 0 ～ 255 です。1 以下の値を指定すると、元のイメージがそのままコピーされます。デフォルト値は 4 です。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BlurFilter:quality:get"><apiName>quality</apiName><shortdesc>
+      フィルターを適用する回数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>"low"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      フィルターを適用する回数。デフォルト値は、フィルターを 1 回適用することに相当する <codeph>BitmapFilterQuality.LOW</codeph> です。値 <codeph>BitmapFilterQuality.MEDIUM</codeph> はフィルターを 2 回適用します。値 <codeph>BitmapFilterQuality.HIGH</codeph> はフィルターを 3 回適用します。フィルターに設定された値が小さいほど、速くレンダリングできます。 
+     
+      <p>多くのアプリケーションでは、quality の値は低、中、または高で十分です。最大 15 までの値を使用してさまざまな効果を出すことができますが、値が大きくなるほどレンダリング速度が低下します。quality の値を増やす代わりに、<codeph>blurX</codeph> と <codeph>blurY</codeph> の値を増やすだけで、同様の効果が得られます。この方法を実行すると、より高速にレンダリングされます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ColorMatrixFilter"><apiName>ColorMatrixFilter</apiName><shortdesc>
+  ColorMatrixFilter クラスを使用すると、入力イメージの各ピクセルの RGBA カラー値とアルファ値に 4 × 5 マトリックス変換を適用することで、新しい RGBA カラー値とアルファ値から成る結果を作成できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ColorMatrixFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ColorMatrixFilter
+    <strong>Properties</strong>
+    matrix="[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorMatrixFilter クラスを使用すると、入力イメージの各ピクセルの RGBA カラー値とアルファ値に 4 × 5 マトリックス変換を適用することで、新しい RGBA カラー値とアルファ値から成る結果を作成できます。これにより、彩度変更、色相回転、輝度アルファ変換など、さまざまな効果を利用できます。このフィルターは、MovieClip、SimpleButton、TextField、Video オブジェクトなどの DisplayObject クラスから継承した表示オブジェクト、および BitmapData オブジェクトに適用できます。
+ 
+  </apiDesc><example conref="ColorMatrixFilterExample.mxml"><swfblock conref="examples/ColorMatrixFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.ColorMatrixFilter.xml"><linktext>flash.filters.ColorMatrixFilter</linktext></link></related-links><apiConstructor id="spark.filters:ColorMatrixFilter:ColorMatrixFilter"><apiName>ColorMatrixFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>matrix</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>4 × 5 のマトリックス構成を持つ 20 個のアイテムの配列です。
+     
+     </apiDesc></apiParam><apiTipTexts><apiTipText>新しい ColorMatrixFilter インスタンスを初期化します。
+     
+     </apiTipText></apiTipTexts></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:ColorMatrixFilter:clone"><apiName>clone</apiName><shortdesc>
+     このフィルターオブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元のインスタンスと同じプロパティをすべて備えた新しい ColorMatrixFilter インスタンスです。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     このフィルターオブジェクトのコピーを返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:ColorMatrixFilter:matrix:get"><apiName>matrix</apiName><shortdesc>
+      レンダリングされたエレメントに適用される 4 × 5 マトリックスを構成する 20 個の倍精度実数のカンマ区切りリストです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      レンダリングされたエレメントに適用される 4 × 5 マトリックスを構成する 20 個の倍精度実数のカンマ区切りリストです。マトリックスは行優先順です。つまり、最初の 5 つのエレメントにベクター [srcR,srcG,srcB,srcA,1] を乗算して出力の赤の値を決定し、次の 5 つが出力の緑の値を決定する、のようになります。
+     
+      <p>値は、配列、または 20 個の数字のカンマ区切りのストリングである必要があります。 </p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:GradientFilter"><apiName>GradientFilter</apiName><shortdesc>
+ グラデーションビジュアルエフェクトを提供するフィルターの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientFilter
+    <strong>Properties</strong>
+    angle="45"
+    distance="4.0"
+    entries="[]"
+    type="inner"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ グラデーションビジュアルエフェクトを提供するフィルターの基本クラスです。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.filters.xml#GradientGlowFilter"><linktext>spark.filters.GradientGlowFilter</linktext></link><link href="spark.filters.xml#GradientBevelFilter"><linktext>spark.filters.GradientBevelFilter</linktext></link></related-links><apiConstructor id="spark.filters:GradientFilter:GradientFilter"><apiName>GradientFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>グラデーションで使用する RGB 16 進数カラー値の配列です。例えば、赤は 0xFF0000、青は 0x0000FF などです。
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc><codeph>colors</codeph> 配列内の各色に対応するアルファ透明度の値の配列です。配列の各エレメントに指定できる値は、0 ～ 1 です。例えば、.25 を指定すると、透明度の値として 25% が設定されます。
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>色分布比率の配列です。0 ～ 255 の範囲の値を指定できます。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.filters:GradientFilter:angle:get"><apiName>angle</apiName><shortdesc>
+      角度（度数）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      角度（度数）です。指定できる値は 0 ～ 360 です。角度の値は、オブジェクトに対する架空の光源の角度を表し、オブジェクトに対する効果の相対位置を決定します。distance が 0 に設定されている場合、効果がオブジェクトからオフセットされないので、angle プロパティはオブジェクトに影響しません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      グローのオフセット距離です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      グローのオフセット距離です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:entries:get"><apiName>entries</apiName><shortdesc>
+      グラデーションの塗りのパターンを定義する GradientEntry オブジェクトの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="propertyChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      グラデーションの塗りのパターンを定義する GradientEntry オブジェクトの配列です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GradientFilter:type:get"><apiName>type</apiName><shortdesc>
+      フィルター効果の配置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>BitmapFilterType.INNER
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      フィルター効果の配置です。指定できる値は、flash.filters.BitmapFilterType 定数です。
+      <ul>
+        <li><codeph>BitmapFilterType.OUTER</codeph> - グローがオブジェクトの外側エッジに配置されます。</li>
+        <li><codeph>BitmapFilterType.INNER</codeph> - グローがオブジェクトの内側エッジに配置されます。</li>
+        <li><codeph>BitmapFilterType.FULL</codeph> - グローがオブジェクトの上に配置されます。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.filters:BevelFilter"><apiName>BevelFilter</apiName><shortdesc> 
+ BevelFilter クラスを使用すると、表示オブジェクトにベベル効果を追加できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:BevelFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:BevelFilter 
+    <strong>Properties</strong>
+    angle="45"
+    distance="4"
+    highlightAlpha="1"
+    highlightColor="0xFFFFFF"
+    shadowAlpha="1"
+    shadowColor="0x000000"
+    type="inner"
+  /&gt;
+  </pre>
+ 
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc> 
+ BevelFilter クラスを使用すると、表示オブジェクトにベベル効果を追加できます。ボタンなどのオブジェクトにベベル効果を適用すると 3 次元的に表現されます。異なるハイライトカラー、シャドウカラー、ベベルのぼかし量、ベベルの角度、ベベルの配置、ノックアウト効果を使用して、ベベルの外観をカスタマイズできます。このフィルターは、MovieClip、SimpleButton、TextField、Video オブジェクトなどの DisplayObject クラスから継承した表示オブジェクト、および BitmapData オブジェクトに適用できます。
+ 
+ <p>新しいフィルターを作成するには、コンストラクター <codeph>new BevelFilter()</codeph> を使用します。フィルターの使用方法は、フィルターの適用先オブジェクトによって異なります。</p>
+ <ul><li>ムービークリップ、テキストフィールド、ボタン、およびビデオにフィルターを適用する場合は、DisplayObject から継承した <codeph>filters</codeph> プロパティを使用します。オブジェクトの <codeph>filters</codeph> プロパティを設定しても、オブジェクトは変更されません。<codeph>filters</codeph> プロパティをクリアすることにより、フィルターを取り消すことができます。 </li>
+ 
+ <li>BitmapData オブジェクトにフィルターを適用するには、<codeph>BitmapData.applyFilter()</codeph> メソッドを使用します。BitmapData オブジェクトで <codeph>applyFilter()</codeph> を呼び出すことによって、ソース BitmapData オブジェクトとフィルターオブジェクトが取得され、フィルターを適用したイメージが生成されます。</li>
+ </ul>
+ 
+ <p>表示オブジェクトにフィルターを適用すると、オブジェクトの <codeph>cacheAsBitmap</codeph> プロパティの値が <codeph>true</codeph> に設定されます。すべてのフィルターを削除すると、<codeph>cacheAsBitmap</codeph> の元の値が復元されます。</p>
+ 
+ <p>このフィルターはステージの拡大 / 縮小に対応していますが、通常の拡大 / 縮小、回転、傾斜には対応していません。オブジェクト自体が拡大 / 縮小される場合（<codeph>scaleX</codeph> と <codeph>scaleY</codeph> プロパティが 100% に設定されていない場合）、フィルターは拡大 / 縮小されません。フィルターが拡大 / 縮小されるのは、ユーザーがステージをズームインする場合のみです。</p>
+ 
+ <p>結果として得られるイメージが最大サイズを超えると、フィルターは適用されません。AIR 1.5 および Flash Player 10 における最大サイズは、幅または高さが 8,191 ピクセルで、合計のピクセル数は 16,777,215 ピクセルを超えないようにしてください（つまり、幅が 8,191 ピクセルのイメージでは、高さが 2,048 ピクセルになります）。例えば、フィルターが適用されたサイズの大きいムービークリップをズームインするとき、結果として得られるイメージが最大サイズを超える場合は、フィルターがオフになります。</p>
+ 
+  </apiDesc><example conref="BevelFilterExample.mxml"><swfblock conref="examples/BevelFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.BevelFilter.xml"><linktext>flash.filters.BevelFilter</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link></related-links><apiConstructor id="spark.filters:BevelFilter:BevelFilter"><apiName>BevelFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>ベベルのオフセット距離（ピクセル単位）です（浮動小数）。 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>ベベルの角度（0 ～ 360 度）です。 
+     </apiDesc></apiParam><apiParam><apiItemName>highlightColor</apiItemName><apiType value="uint"/><apiData>0xFFFFFF</apiData><apiDesc>ベベルのハイライトカラー <i>0xRRGGBB</i> です。 
+     </apiDesc></apiParam><apiParam><apiItemName>highlightAlpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>ハイライトカラーのアルファ透明度の値です。0.0 ～ 1.0 の値を指定できます。例えば .25 と指定すると、透明度は 25% になります。 
+     </apiDesc></apiParam><apiParam><apiItemName>shadowColor</apiItemName><apiType value="uint"/><apiData>0x000000</apiData><apiDesc>ベベルのシャドウカラー <i>0xRRGGBB</i> です。 
+     </apiDesc></apiParam><apiParam><apiItemName>shadowAlpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>シャドウカラーのアルファ透明度の値です。0.0 ～ 1.0 の値を指定できます。例えば .25 と指定すると、透明度は 25% になります。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平方向のぼかし量（ピクセル単位）です。指定できる値は 0 ～ 255.0（浮動小数）です。 
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直方向のぼかし量（ピクセル単位）です。指定できる値は 0 ～ 255.0（浮動小数）です。
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>インプリントの強さまたは広がりです。値が大きいほど、濃い色がインプリントされるので、ベベルと背景との間のコントラストが強くなります。指定できる値は 0 ～ 255.0 です。 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>ベベルの品質です。指定できる値は 0 ～ 15 ですが、多くのアプリケーションでは <codeph>flash.filters.BitmapFilterQuality</codeph> 定数を使用できます。
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>フィルターに設定された値が小さいほど、速くレンダリングできます。指定できる他の数値を使用すると、異なる効果を作り出すことができます。</p>
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>inner</apiData><apiDesc>ベベルの種類です。指定できる値は、次の <codeph>flash.filters.BitmapFilterType</codeph> 定数です。<codeph>BitmapFilterType.INNER</codeph>、<codeph>BitmapFilterType.OUTER</codeph>、または <codeph>BitmapFilterType.FULL</codeph>。 
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph> の場合は、ノックアウト効果を適用します。その結果、オブジェクトの塗りが透明になり、ドキュメントの背景色が表示されます。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterQuality.xml"><linktext>flash.filters.BitmapFilterQuality</linktext></link><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:BevelFilter:clone"><apiName>clone</apiName><shortdesc>
+     このフィルターオブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元の BevelFilter インスタンスとプロパティがすべて同じである新しい BevelFilter インスタンスです。
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     このフィルターオブジェクトのコピーを返します。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:BevelFilter:angle:get"><apiName>angle</apiName><shortdesc>
+       ベベルの角度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>45
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+       ベベルの角度です。有効な値の範囲は 0 ～ 360 です。角度の値は、オブジェクトに対する架空の光源の角度を表し、オブジェクトに対する効果の相対位置を決定します。distance プロパティが 0 に設定された場合、効果がオブジェクトからオフセットされないため、angle プロパティは適用されません。
+     
+       </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:distance:get"><apiName>distance</apiName><shortdesc>
+      ベベルのオフセット距離です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>4
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ベベルのオフセット距離です。この値はピクセル単位で指定します（浮動小数値）。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:highlightAlpha:get"><apiName>highlightAlpha</apiName><shortdesc>
+      ハイライトカラーのアルファ透明度の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ハイライトカラーのアルファ透明度の値です。値には、0 ～ 1 の正規化した値を指定します。例えば、.25 を指定すると、透明度の値として 25％が設定されます。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:highlightColor:get"><apiName>highlightColor</apiName><shortdesc>
+      ベベルのハイライトカラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFFFFFF
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ベベルのハイライトカラーです。指定できる値は、16 進数形式（0xRRGGBB）です。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:shadowAlpha:get"><apiName>shadowAlpha</apiName><shortdesc>
+      シャドウカラーのアルファ透明度の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      シャドウカラーのアルファ透明度の値です。値には、0 ～ 1 の正規化した値を指定します。例えば、.25 を指定すると、透明度の値として 25％が設定されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:shadowColor:get"><apiName>shadowColor</apiName><shortdesc>
+      ベベルのシャドウカラーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ベベルのシャドウカラーです。指定できる値は、16 進数形式（0xRRGGBB）です。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:BevelFilter:type:get"><apiName>type</apiName><shortdesc>
+      フィルター効果の配置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>BitmapFilterType.INNER
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      フィルター効果の配置です。指定できる値は、flash.filters.BitmapFilterType 定数です。
+      <ul>
+        <li><codeph>BitmapFilterType.OUTER</codeph> - グローがオブジェクトの外側エッジに配置されます。</li>
+        <li><codeph>BitmapFilterType.INNER</codeph> - グローがオブジェクトの内側エッジに配置されます。これはデフォルトです。</li>
+        <li><codeph>BitmapFilterType.FULL</codeph> - グローがオブジェクトの上に配置されます。</li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.filters.BitmapFilterType.xml"><linktext>flash.filters.BitmapFilterType</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.filters:GradientGlowFilter"><apiName>GradientGlowFilter</apiName><shortdesc>
+ GradientGlowFilter クラスを使用すると、表示オブジェクトにグラデーショングロー効果を適用できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="entries"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GradientGlowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds no tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GradientGlowFilter/&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>spark.filters:GradientFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ GradientGlowFilter クラスを使用すると、表示オブジェクトにグラデーショングロー効果を適用できます。グラデーショングローとは、制御可能なカラーグラデーションによるリアルな輝きです。グラデーショングローは、オブジェクトの内側エッジや外側エッジの周囲、またはオブジェクトの上に適用できます。このフィルターは、MovieClip、SimpleButton、TextField、Video オブジェクトなどの DisplayObject クラスから継承した表示オブジェクト、および BitmapData オブジェクトに適用できます。
+ 
+ <p>フィルターの使用方法は、フィルターの適用先オブジェクトによって異なります。</p>
+ <ul><li>表示オブジェクトにフィルターを適用する場合は、<codeph>filters</codeph> プロパティを使用します。オブジェクトの <codeph>filters</codeph> プロパティを設定しても、オブジェクトは変更されません。<codeph>filters</codeph> プロパティをクリアすることにより、フィルターを取り消すことができます。 </li>
+ 
+ <li>BitmapData オブジェクトにフィルターを適用するには、<codeph>BitmapData.applyFilter()</codeph> メソッドを使用します。BitmapData オブジェクトで <codeph>applyFilter()</codeph> を呼び出すことによって、ソース BitmapData オブジェクトとフィルターオブジェクトが取得され、フィルターを適用したイメージが生成されます。</li>
+ </ul>
+ 
+ <p>表示オブジェクトにフィルターを適用すると、表示オブジェクトの <codeph>cacheAsBitmap</codeph> プロパティは <codeph>true</codeph> に設定されます。すべてのフィルターをクリアすると、<codeph>cacheAsBitmap</codeph> の元の値が復元されます。</p> 
+ 
+ <p>このフィルターはステージの拡大 / 縮小に対応していますが、通常の拡大 / 縮小、回転、傾斜には対応していません。オブジェクト自体を拡大 / 縮小する場合（<codeph>scaleX</codeph> と <codeph>scaleY</codeph> の値が 1.0 以外に設定されている場合）、フィルター効果は拡大 / 縮小されません。フィルターが拡大 / 縮小されるのは、ユーザーがステージをズームインする場合のみです。</p>
+ 
+ <p>結果として得られるイメージが最大サイズを超えると、フィルターは適用されません。AIR 1.5 および Flash Player 10 における最大サイズは、幅または高さが 8,191 ピクセルで、合計のピクセル数は 16,777,215 ピクセルを超えないようにしてください（つまり、幅が 8,191 ピクセルのイメージでは、高さが 2,048 ピクセルになります）。例えば、フィルターが適用されたサイズの大きいムービークリップをズームインするとき、結果として得られるイメージが最大サイズを超える場合は、フィルターがオフになります。</p>
+ 
+  </apiDesc><example conref="GradientGlowFilterExample.mxml"><swfblock conref="examples/GradientGlowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.filters.xml#GlowFilter"><linktext>spark.filters.GlowFilter</linktext></link><link href="" invalidHref="flash.filters.GradientGlowFilter.xml"><linktext>flash.filters.GradientGlowFilter</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link></related-links><apiConstructor id="spark.filters:GradientGlowFilter:GradientGlowFilter"><apiName>GradientGlowFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>distance</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>グローのオフセット距離です。 
+     </apiDesc></apiParam><apiParam><apiItemName>angle</apiItemName><apiType value="Number"/><apiData>45</apiData><apiDesc>角度（度数）です。指定できる値は 0 ～ 360 です。 
+     </apiDesc></apiParam><apiParam><apiItemName>colors</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>グラデーションを定義する色の配列です。例えば、赤は 0xFF0000、青は 0x0000FF などです。
+     </apiDesc></apiParam><apiParam><apiItemName>alphas</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc><codeph>colors</codeph> 配列内の各色に対応するアルファ透明度の値の配列です。配列の各エレメントに指定できる値は、0 ～ 1 です。例えば、.25 と指定すると、アルファ透明度は 25% になります。
+     </apiDesc></apiParam><apiParam><apiItemName>ratios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>色分布比率の配列です。指定できる値は 0 ～ 255 です。各値は、100% でサンプリングされる色の幅の割合をパーセントで定義します。
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平方向のぼかし量。指定できる値は 0 ～ 255 です。1 以下の値を指定すると、元のイメージがそのままコピーされます。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直方向のぼかし量。指定できる値は 0 ～ 255 です。1 以下の値を指定すると、元のイメージがそのままコピーされます。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>インプリントの強さまたは広がりです。値が大きいほど、濃い色がインプリントされるので、グローと背景との間のコントラストが強くなります。指定できる値は 0 ～ 255 です。値が大きいほど、インプリントが濃くなります。値を 0 にすると、フィルターが適用されなくなります。
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>フィルターを適用する回数。flash.filters.BitmapFilterQuality 定数を使用します。
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>詳細については、<codeph>quality</codeph> プロパティの説明を参照してください。</p>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>outer</apiData><apiDesc>フィルター効果の配置です。指定できる値は、flash.filters.BitmapFilterType 定数です。
+     <ul>
+     <li><codeph>BitmapFilterType.OUTER</codeph> - グローがオブジェクトの外側エッジに配置されます。デフォルトです。</li>
+     <li><codeph>BitmapFilterType.INNER</codeph> - グローがオブジェクトの内側エッジに配置されます。</li>
+     <li><codeph>BitmapFilterType.FULL</codeph> - グローがオブジェクトの上に配置されます。</li>
+     </ul>
+     
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>オブジェクトにノックアウト効果を適用するかどうかを指定します。ノックアウト効果を適用すると、オブジェクトの塗りが透明になり、ドキュメントの背景色が表示されます。<codeph>true</codeph> を指定すると、ノックアウト効果が適用されます。デフォルトは <codeph>false</codeph> で、ノックアウト効果は適用されません。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.filters:GradientGlowFilter:clone"><apiName>clone</apiName><shortdesc>
+     このフィルターオブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元の GradientGlowFilter インスタンスとプロパティがすべて同じである新しい GradientGlowFilter インスタンスです。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     このフィルターオブジェクトのコピーを返します。
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.filters:DisplacementMapFilter"><apiName>DisplacementMapFilter</apiName><shortdesc>
+DisplacementMapFilter クラスは、指定された BitmapData オブジェクト（置き換えマップイメージと言います）のピクセル値を使用して、オブジェクトの置き換え（変位）を実行します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ <p>The <code>&lt;s:DisplacementMapFilter&gt;</code> tag inherits all of the tag 
+ attributes of its superclass and adds the following tag attributes:</p>
+
+ <pre>
+ &lt;s:DisplacementMapFilter 
+   <strong>Properties</strong>
+   alpha="0"
+   color="0x000000"
+   componentX="0"
+   componentY="0"
+   mapBitmap="null"
+   mapPoint="null"
+   mode="wrap"
+   scaleX="0"
+   scaleY="0"
+ /&gt;
+ </pre>
+
+]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+DisplacementMapFilter クラスは、指定された BitmapData オブジェクト（<i>置き換えマップイメージ</i>と言います）のピクセル値を使用して、オブジェクトの置き換え（変位）を実行します。このフィルターを使用して、MovieClip、SimpleButton、TextField、Video オブジェクトなどの DisplayObject クラスから継承したオブジェクト、および BitmapData オブジェクトにワープ効果や斑点効果を適用できます。
+
+<p>フィルターの使用方法は、フィルターの適用先オブジェクトによって異なります。</p>
+<ul><li>表示オブジェクトにフィルターを適用する場合は、表示オブジェクトの <codeph>filters</codeph> プロパティを使用します。オブジェクトの <codeph>filters</codeph> プロパティを設定しても、オブジェクトは変更されません。<codeph>filters</codeph> プロパティをクリアすることにより、フィルターを取り消すことができます。 </li>
+
+<li>BitmapData オブジェクトにフィルターを適用するには、<codeph>BitmapData.applyFilter()</codeph> メソッドを使用します。BitmapData オブジェクトで <codeph>applyFilter()</codeph> を呼び出すことによって、ソース BitmapData オブジェクトとフィルターオブジェクトが取得され、フィルターを適用したイメージが生成されます。</li>
+</ul>
+
+<p>表示オブジェクトにフィルターを適用すると、表示オブジェクトの <codeph>cacheAsBitmap</codeph> プロパティの値が <codeph>true</codeph> に設定されます。すべてのフィルターをクリアすると、<codeph>cacheAsBitmap</codeph> の元の値が復元されます。</p>
+
+<p>このフィルターでは次の式を使用します。</p>
+
+<codeblock>
+dstPixel[x, y] = srcPixel[x + ((componentX(x, y) - 128) ~~ scaleX) / 256, y + ((componentY(x, y) - 128) ~~scaleY) / 256)
+</codeblock>
+
+<p><codeph>componentX(x, y)</codeph> は、<codeph>componentX</codeph> プロパティのカラー値を <codeph>mapBitmap</codeph> プロパティ（<codeph>(x - mapPoint.x ,y - mapPoint.y)</codeph>）から取得します。</p>
+
+<p>フィルターで使用するマップイメージは、ステージの拡大 / 縮小率に一致するように拡大 / 縮小されます。オブジェクト自体を拡大 / 縮小する場合には拡大 / 縮小されません。</p>
+
+<p>このフィルターはステージの拡大 / 縮小に対応していますが、通常の拡大 / 縮小、回転、傾斜には対応していません。オブジェクト自体を拡大 / 縮小する場合（<codeph>scaleX</codeph> と <codeph>scaleY</codeph> プロパティが 1.0 以外に設定されている場合）、フィルター効果は拡大 / 縮小されません。フィルターが拡大 / 縮小されるのは、ユーザーがステージをズームインする場合のみです。</p>
+
+ </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link></related-links><apiConstructor id="spark.filters:DisplacementMapFilter:DisplacementMapFilter"><apiName>DisplacementMapFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>mapBitmap</apiItemName><apiType value="flash.display:BitmapData"/><apiData>null</apiData><apiDesc>置き換えマップデータが含まれる BitmapData オブジェクトです。
+     </apiDesc></apiParam><apiParam><apiItemName>mapPoint</apiItemName><apiType value="flash.geom:Point"/><apiData>null</apiData><apiDesc>マップイメージの左上隅を基準としたターゲット表示オブジェクトの左上隅のオフセットが含まれる値です。
+     </apiDesc></apiParam><apiParam><apiItemName>componentX</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc><i>x</i> の結果を変位させる場合にどのカラーチャンネルをマップイメージで使用するかを指定します。指定できる値は、BitmapDataChannel 定数です。 
+     </apiDesc></apiParam><apiParam><apiItemName>componentY</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc><i>y</i> の結果を変位させる場合にどのカラーチャンネルをマップイメージで使用するかを指定します。指定できる値は、BitmapDataChannel 定数です。 
+     </apiDesc></apiParam><apiParam><apiItemName>scaleX</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>マップ計算の <i>x</i> 置き換え結果を拡大 / 縮小する場合に使用する乗数です。
+     </apiDesc></apiParam><apiParam><apiItemName>scaleY</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>マップ計算の <i>y</i> 置き換え結果を拡大 / 縮小する場合に使用する乗数です。
+     </apiDesc></apiParam><apiParam><apiItemName>mode</apiItemName><apiType value="String"/><apiData>wrap</apiData><apiDesc>フィルターのモードです。指定できる値は、DisplacementMapFilterMode 定数です。
+     </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0</apiData><apiDesc>範囲外置き換えの場合に使用する色を指定します。置き換えの有効範囲は 0.0 ～ 1.0 です。このパラメーターは、<codeph>mode</codeph> を <codeph>DisplacementMapFilterMode.COLOR</codeph> に設定する場合に使用します。
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>0.0</apiData><apiDesc>範囲外置き換えの場合に使用するアルファ値を指定します。0.0 ～ 1.0 に正規化した値を指定します。例えば、.25 を指定すると、透明度の値として 25% が設定されます。このパラメーターは、<codeph>mode</codeph> を <codeph>DisplacementMapFilterMode.COLOR</codeph> に設定する場合に使用します。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.display.BitmapDataChannel.xml"><linktext>flash.display.BitmapDataChannel</linktext></link><link href="" invalidHref="flash.filters.DisplacementMapFilterMode.xml"><linktext>flash.filters.DisplacementMapFilterMode</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:DisplacementMapFilter:clone"><apiName>clone</apiName><shortdesc>
+     このフィルターオブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元のインスタンスと同じプロパティをすべて備えた新しい DisplacementMapFilter インスタンスです。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     このフィルターオブジェクトのコピーを返します。
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:DisplacementMapFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      範囲外置き換えの場合に使用するアルファ透明度値を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      範囲外置き換えの場合に使用するアルファ透明度値を指定します。0.0 ～ 1.0 に正規化した値を指定します。例えば、.25 を指定すると、透明度の値として 25% が設定されます。デフォルト値は 0 です。mode プロパティが DisplacementMapFilterMode.COLOR に設定されている場合は、このプロパティを使用します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:color:get"><apiName>color</apiName><shortdesc>
+      範囲外置き換えの場合に使用する色を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0x000000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      範囲外置き換えの場合に使用する色を指定します。置き換えの有効範囲は 0.0 ～ 1.0 です。この値は、16 進数形式です。color のデフォルト値は 0 です。mode プロパティが DisplacementMapFilterMode.COLOR に設定されている場合は、このプロパティを使用します。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:componentX:get"><apiName>componentX</apiName><shortdesc>
+      x の結果を変位させる場合にどのカラーチャンネルをマップイメージで使用するかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0, meaning no channel.
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      x の結果を変位させる場合にどのカラーチャンネルをマップイメージで使用するかを指定します。指定できる値は、BitmapDataChannel 定数です。
+      <ul>
+        <li><codeph>BitmapDataChannel.ALPHA</codeph></li>
+        <li><codeph>BitmapDataChannel.BLUE</codeph></li>
+        <li><codeph>BitmapDataChannel.GREEN</codeph></li>
+        <li><codeph>BitmapDataChannel.RED</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.BitmapDataChannel.xml"><linktext>flash.display.BitmapDataChannel</linktext></link></related-links></apiValue><apiValue id="spark.filters:DisplacementMapFilter:componentY:get"><apiName>componentY</apiName><shortdesc>
+      y の結果を変位させる場合にどのカラーチャンネルをマップイメージで使用するかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0, meaning no channel.
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      y の結果を変位させる場合にどのカラーチャンネルをマップイメージで使用するかを指定します。指定できる値は、BitmapDataChannel 定数です。
+      <ul>
+        <li><codeph>BitmapDataChannel.ALPHA</codeph></li>
+        <li><codeph>BitmapDataChannel.BLUE</codeph></li>
+        <li><codeph>BitmapDataChannel.GREEN</codeph></li>
+        <li><codeph>BitmapDataChannel.RED</codeph></li>
+      </ul>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mapBitmap:get"><apiName>mapBitmap</apiName><shortdesc>
+      置き換えマップデータが含まれる BitmapData オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:BitmapData"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      置き換えマップデータが含まれる BitmapData オブジェクトです。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mapPoint:get"><apiName>mapPoint</apiName><shortdesc>
+      マップイメージの左上隅を基準としたターゲット表示オブジェクトの左上隅のオフセットが含まれる値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Point"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マップイメージの左上隅を基準としたターゲット表示オブジェクトの左上隅のオフセットが含まれる値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:mode:get"><apiName>mode</apiName><shortdesc>
+      フィルターのモードです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>DisplacementMapFilterMode.WRAP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      フィルターのモードです。指定できる値は、DisplacementMapFilterMode 定数です。
+      <ul>
+        <li><codeph>DisplacementMapFilterMode.WRAP</codeph> - 置き換え値をソースイメージの反対側で折り返します。</li>
+        <li><codeph>DisplacementMapFilterMode.CLAMP</codeph> - 置き換え値をソースイメージのエッジに固定します。</li>
+        <li><codeph>DisplacementMapFilterMode.IGNORE</codeph> - 置き換え値が範囲外である場合、その置き換えを無視して、ソースピクセルを使用します。</li>
+        <li><codeph>DisplacementMapFilterMode.COLOR</codeph> - 置き換え値がイメージの外にある場合、color プロパティと alpha プロパティの値を置き換えます。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      マップ計算の x 置き換え結果を拡大 / 縮小する場合に使用する乗数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マップ計算の x 置き換え結果を拡大 / 縮小する場合に使用する乗数です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:DisplacementMapFilter:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      マップ計算の y 置き換え結果を拡大 / 縮小する場合に使用する乗数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      マップ計算の y 置き換え結果を拡大 / 縮小する場合に使用する乗数です。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:ShaderFilter"><apiName>ShaderFilter</apiName><shortdesc>
+ Flex ShaderFilter クラスを使用すると、Flash の ShaderFilter、Shader および ShaderData クラスを使用してフィルターとして Pixel Bender シェーダーを適用する場合の詳細事項の多くを考慮する必要がなくなります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:ShaderFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:ShaderFilter
+    <strong>Properties</strong>
+    bottomExtension="0"
+    leftExtension="0"
+    precisionHint="full"
+    rightExtension="0"
+    shader="[]"
+    topExtension="0"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+ Flex ShaderFilter クラスを使用すると、Flash の ShaderFilter、Shader および ShaderData クラスを使用してフィルターとして Pixel Bender シェーダーを適用する場合の詳細事項の多くを考慮する必要がなくなります。
+ 
+ <p>ShaderFilter クラスは、Shader オブジェクトのインスタンスまたは（Embed からなどの）Shader の Class の代理のいずれかを使用して初期化する必要があります。続いて、ShaderFilter クラスは基になる Shader に対するプロキシとして機能し、単純な名前付きプロパティとしてスカラーおよび多次元の両方のシェーダー入力パラメーターに直接アクセスするための便利なメカニズムを提供します。</p>
+ 
+ <p>単純なスカラーシェーダー入力パラメーター（FLOAT 型や INT 型など）を設定するには、<codeph>myFilter.radius</codeph> のように、プロパティを直接参照できます。</p>
+ 
+ <p>多次元シェーダー入力パラメーター（FLOAT2 など）の個別のコンポーネントを設定またはアニメーション化するには、プロパティ接尾辞の規則を使用して、個別の値に直接アクセスできます。次のコードは、FLOAT2 プロパティ <codeph>center</codeph> の 1 番目と 2 番目のコンポーネントを設定する 2 つの方法を示しています。<codeph><pre>
+     // 'center' is an input parameter of type FLOAT2.
+     shader.center = [10,20];
+ </pre></codeph>
+ <codeph><pre>
+     // Use property suffix convention to access the first and second component of 'center'. 
+     shader.center_x = 10;
+     shader.center_y = 20;
+ </pre></codeph></p>
+ 
+ <p>サポートされていて使用できるすべてのプロパティ接尾辞は次のとおりです。 </p>
+ 
+ <ul>
+ <li>型 BOOL2、BOOL3、BOOL4、FLOAT2、FLOAT3、FLOAT4、INT2、INT3、または INT4 のシェーダー入力パラメーターの場合、「r g b a」、「x y z w」、または「s t p q」を使用して、それぞれ 1 番目、2 番目、3 番目および 4 番目のコンポーネントにアクセスできます。</li>
+ 
+ <li>型 MATRIX2x2、MATRIX3x3 または MATRIX4x4 のシェーダー入力パラメーターの場合、「a b c d e f g h i j k l m n o p」を使用して、特定のマトリックスのそれぞれ 1 番目から 16 番目のコンポーネントにアクセスできます。</li>
+ </ul>
+ 
+ <p>ShaderFilter のプロパティは（アニメーション化中などに）変化するため、ShaderFilter は自動的に、適用先のビジュアルコンポーネントのフィルター配列に自身を再適用します。</p>
+ 
+  </apiDesc><example>単純な ShaderFilter の例：
+ <codeblock rev="3.0">
+ &lt;?xml version="1.0"?>
+ &lt;s:Application 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009">
+ 
+     &lt;!-- The hypothetical 'spherize' shader applied below has two input parameters, 'center' and 'radius'
+          with the following attributes:
+ 
+          parameter 'center' ==&lt;
+              type: float2
+              minValue: float2(-200,-200)
+              maxValue: float2(800,500)
+              defaultValue: float2(400,250)
+              description: "displacement center"
+  
+          parameter 'radius' ==&lt;
+              type: float
+              minValue: float(.1)
+              maxValue: float(400)
+              defaultValue: float(200)
+              description: "radius"
+     -->
+  
+     &lt;s:Label text="ABCDEF">
+         &lt;s:filters>
+             &lt;s:ShaderFilter shader="@Embed(source='shaders/spherize.pbj')"
+                 radius="25" center_x="50" center_y="15" />
+        &lt;/s:filters>
+     &lt;/s:Label>
+   
+ &lt;/s:Application> 
+ </codeblock>
+  
+  </example></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateFilter"><linktext>spark.effects.AnimateFilter</linktext></link></related-links><apiConstructor id="spark.filters:ShaderFilter:ShaderFilter"><apiName>ShaderFilter</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>shader</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>完全に実現された flash.display.Shader インスタンスまたは Shader を表す Class（Embed からなど）です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.filters:ShaderFilter:bottomExtension:get"><apiName>bottomExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#bottomExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#bottomExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:leftExtension:get"><apiName>leftExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#leftExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#leftExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:precisionHint:get"><apiName>precisionHint</apiName><shortdesc>
+      基になるシェーダーが実行する算術演算の精度です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ShaderPrecision.FULL
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      基になるシェーダーが実行する算術演算の精度です。precisionHint プロパティで使用可能な値セットは、ShaderPrecision クラスの定数によって定義されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Shader.xml"><linktext>flash.display.Shader</linktext></link><link href="" invalidHref="flash.display.ShaderPrecision.xml"><linktext>flash.display.ShaderPrecision</linktext></link></related-links></apiValue><apiValue id="spark.filters:ShaderFilter:rightExtension:get"><apiName>rightExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#rightExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#rightExtension">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:ShaderFilter:shader:get"><apiName>shader</apiName><shortdesc>
+     flash.display.Shader インスタンスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Shader"/></apiValueDef><apiDesc>
+     flash.display.Shader インスタンスです。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.Shader.xml"><linktext>flash.display.Shader</linktext></link></related-links></apiValue><apiValue id="spark.filters:ShaderFilter:topExtension:get"><apiName>topExtension</apiName><shortdesc conref="flash.filters.ShaderFilter#topExtension">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc conref="flash.filters.ShaderFilter#topExtension">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.filters:GlowFilter"><apiName>GlowFilter</apiName><shortdesc>
+ GlowFilter クラスを使用すると、表示オブジェクトにグロー効果を適用できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;s:GlowFilter&gt;</code> tag inherits all of the tag 
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:GlowFilter
+    <strong>Properties</strong>
+    alpha="1"
+    color="0xFF0000"
+    inner="false"
+  /&gt;
+  </pre>
+ 
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.filters:IBitmapFilter</apiBaseInterface><apiBaseClassifier>mx.filters:BaseDimensionFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+ GlowFilter クラスを使用すると、表示オブジェクトにグロー効果を適用できます。グローのスタイルには複数のオプションがあり、内側グロー、外側グロー、ノックアウトモードなどがあります。グローフィルターは、<codeph>distance</codeph> プロパティと <codeph>angle</codeph> プロパティを 0 に設定したドロップシャドウフィルターによく似ています。このフィルターは、MovieClip、SimpleButton、TextField、Video オブジェクトなどの DisplayObject クラスから継承した表示オブジェクト、および BitmapData オブジェクトに適用できます。
+ 
+ <p>フィルターの使用方法は、フィルターの適用先オブジェクトによって異なります。</p>
+ <ul><li>表示オブジェクトにフィルターを適用する場合は、DisplayObject から継承した <codeph>filters</codeph> プロパティを使用します。オブジェクトの <codeph>filters</codeph> プロパティを設定しても、オブジェクトは変更されません。<codeph>filters</codeph> プロパティをクリアすることにより、フィルターを取り消すことができます。 </li>
+ 
+ <li>BitmapData オブジェクトにフィルターを適用するには、<codeph>BitmapData.applyFilter()</codeph> メソッドを使用します。BitmapData オブジェクトで <codeph>applyFilter()</codeph> を呼び出すことによって、ソース BitmapData オブジェクトとフィルターオブジェクトが取得され、フィルターを適用したイメージが生成されます。</li>
+ </ul>
+ 
+ <p>表示オブジェクトにフィルターを適用すると、表示オブジェクトの <codeph>cacheAsBitmap</codeph> プロパティは <codeph>true</codeph> に設定されます。すべてのフィルターをクリアすると、<codeph>cacheAsBitmap</codeph> の元の値が復元されます。</p>
+ 
+ <p>このフィルターはステージの拡大 / 縮小に対応していますが、通常の拡大 / 縮小、回転、傾斜には対応していません。オブジェクト自体が拡大 / 縮小される場合（<codeph>scaleX</codeph> と <codeph>scaleY</codeph> プロパティの値が 1.0 以外に設定されている場合）、フィルターは拡大 / 縮小されません。フィルターが拡大 / 縮小されるのは、ユーザーがステージをズームインする場合のみです。</p>
+ 
+ <p>結果として得られるイメージが最大サイズを超えると、フィルターは適用されません。AIR 1.5 および Flash Player 10 における最大サイズは、幅または高さが 8,191 ピクセルで、合計のピクセル数は 16,777,215 ピクセルを超えないようにしてください（つまり、幅が 8,191 ピクセルのイメージでは、高さが 2,048 ピクセルになります）。例えば、フィルターが適用されたサイズの大きいムービークリップをズームインするとき、結果として得られるイメージが最大サイズを超える場合は、フィルターがオフになります。</p>
+ 
+  </apiDesc><example conref="GlowFilterExample.mxml"><swfblock conref="examples/GlowFilterExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.GlowFilter.xml"><linktext>flash.filters.GlowFilter</linktext></link><link href="" invalidHref="flash.display.xml#BitmapData/applyFilter()"><linktext>flash.display.BitmapData.applyFilter()</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/filters"><linktext>flash.display.DisplayObject.filters</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/cacheAsBitmap"><linktext>flash.display.DisplayObject.cacheAsBitmap</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scaleX"><linktext>flash.display.DisplayObject.scaleX</linktext></link><link href="" invalidHref="flash.display.xml#DisplayObject/scaleY"><linktext>flash.display.DisplayObject.scaleY</linktext></link><link href="" invalidHref="flash.filters.xml#DropShadowFilter/distance"><linktext>flash.filters.DropShadowFilter.distance</linktext></link><link href="" invalidHref="flash.filters.xml#DropShadowFilter/angle"><linktext>flash.filters.DropShadowFilter.angle</linktext></link></related-links><apiConstructor id="spark.filters:GlowFilter:GlowFilter"><apiName>GlowFilter</apiName><shortdesc>
+     コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiData>0xFF0000</apiData><apiDesc>グローのカラーです。16 進数形式（0x<i>RRGGBB</i>）で指定します。デフォルト値は 0xFF0000 です。
+     </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Number"/><apiData>1.0</apiData><apiDesc>カラーのアルファ透明度の値です。指定できる値は 0 ～ 1 です。例えば、.25 を指定すると、透明度の値として 25% が設定されます。
+     </apiDesc></apiParam><apiParam><apiItemName>blurX</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>水平方向のぼかし量。指定できる値は 0 ～ 255（浮動小数）です。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+     </apiDesc></apiParam><apiParam><apiItemName>blurY</apiItemName><apiType value="Number"/><apiData>4.0</apiData><apiDesc>垂直方向のぼかし量。指定できる値は 0 ～ 255（浮動小数）です。2 のべき乗（2、4、8、16、32 など）は、他の値と比べて速くレンダリングできるよう最適化されます。
+     </apiDesc></apiParam><apiParam><apiItemName>strength</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>インプリントの強さまたは広がりです。値が大きいほど、濃い色がインプリントされるので、グローと背景との間のコントラストが強くなります。指定できる値は 0 ～ 255 です。 
+     </apiDesc></apiParam><apiParam><apiItemName>quality</apiItemName><apiType value="int"/><apiData>1</apiData><apiDesc>フィルターを適用する回数。BitmapFilterQuality 定数を使用します。
+     <ul>
+     <li><codeph>BitmapFilterQuality.LOW</codeph></li>
+     <li><codeph>BitmapFilterQuality.MEDIUM</codeph></li>
+     <li><codeph>BitmapFilterQuality.HIGH</codeph></li>
+     </ul>
+     <p>詳細については、<codeph>quality</codeph> プロパティの説明を参照してください。</p>
+     </apiDesc></apiParam><apiParam><apiItemName>inner</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>グローが内側グローであるかどうかを示します。<codeph>true</codeph> の場合は、内側グローであることを示します。値 <codeph>false</codeph> は外側グロー（オブジェクトの外周にあるグロー）を示します。 
+     </apiDesc></apiParam><apiParam><apiItemName>knockout</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>オブジェクトにノックアウト効果を適用するかどうかを指定します。<codeph>true</codeph> を指定すると、オブジェクトの塗りが透明になり、ドキュメントの背景色が表示されます。 
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     コンストラクターです。
+     
+     </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="spark.filters.BitmapFilterQuality.xml"><linktext>BitmapFilterQuality</linktext></link></related-links></apiConstructor><apiOperation id="spark.filters:GlowFilter:clone"><apiName>clone</apiName><shortdesc>
+     このフィルターオブジェクトのコピーを返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>元の GlowFilter インスタンスのプロパティをすべて備えた新しい GlowFilter インスタンスです。
+     
+     </apiDesc><apiType value="flash.filters:BitmapFilter"/></apiReturn></apiOperationDef><apiDesc>
+     このフィルターオブジェクトのコピーを返します。
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.filters:GlowFilter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      カラーのアルファ透明度の値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      カラーのアルファ透明度の値です。指定できる値は 0 ～ 1 です。例えば、.25 を指定すると、透明度の値として 25% が設定されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GlowFilter:color:get"><apiName>color</apiName><shortdesc>
+      グローのカラーを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/><apiDefaultValue>0xFF0000
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      グローのカラーを表します。有効な値は、16 進数形式（0xRRGGBB）です。 
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.filters:GlowFilter:inner:get"><apiName>inner</apiName><shortdesc>
+      グローが内側グローであるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      グローが内側グローであるかどうかを示します。true の場合は、内側グローであることを示します。デフォルトは false（外側グロー）で、オブジェクトの外側のエッジにあるグローを示します。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

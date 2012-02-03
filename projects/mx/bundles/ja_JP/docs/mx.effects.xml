@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects"><apiName>mx.effects</apiName><apiDetail/><apiClassifier id="mx.effects:DefaultListEffect"><apiName>DefaultListEffect</apiName><shortdesc>DefaultListEffect クラスは、データプロバイダー内のデータが変更されたときに List コントロールのアイテムレンダラーに適用される、デフォルトエフェクトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="customFilter"/><Exclude kind="property" name="repeatDelay"/><Exclude kind="property" name="repeatCount"/><Exclude kind="property" name="targets"/><Exclude kind="property" name="target"/><Exclude kind="property" name="dissolve1"/><Exclude kind="property" name="wipeUp1"/><Exclude kind="property" name="shrink"/><Exclude kind="property" name="grow"/><Exclude kind="property" name="fadeOut2"/><Exclude kind="property" name="fadeOut1"/><Exclude kind="property" name="fadeIn2"/><Exclude kind="property" name="fadeIn1"/><Exclude kind="property" name="children"/><Exclude kind="property" name="filter"/><Exclude kind="property" name="perElementOffset"/><Exclude kind="property" name="effectTargetHost"/><Exclude kind="property" name="duration"/><DefaultProperty name="children"/></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The &lt;mx:DefaultListEffect&gt; tag inherits all the members
+  of its parent and adds the following members:</p>
+  <pre>
+  &lt;DefaultListEffect
+    <strong>Properties</strong>
+    color="0xFFFFFF"
+    fadeInDuration="300"
+    fadeOutDuration="300"
+    growDuration="300"
+    removedElementOffset="100"
+    shrinkDuration="300"
+  /&gt;
+  </pre>
+  
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Parallel</apiBaseClassifier></apiClassifierDef><apiDesc>DefaultListEffect クラスは、データプロバイダー内のデータが変更されたときに List コントロールのアイテムレンダラーに適用される、デフォルトエフェクトを定義します。 List コントロール内のアイテムを削除すると、このエフェクトはアイテムをフェードアウトした後、アイテムのサイズを 0 に縮小します。 アイテムを List コントロールに追加すると、このエフェクトはアイテムのスロットを拡張した後、新しいアイテムをフェードインします。 
+  
+ <p>このエフェクトを List コントロールに適用するには、<codeph>itemsChangeEffect</codeph> スタイルプロパティを使用します。 <codeph>itemsChangeEffect</codeph> スタイルプロパティのデフォルト値は、<codeph>undefined</codeph> です。これは、エフェクトを使用しないことを示します。</p>
+  
+ <p>DefaultListEffect エフェクトは再生時にアイテムレンダラーを拡張または縮小するため、List コントロールが行の高さを動的に変更できるように、<codeph>List.variableRowHeight</codeph> プロパティを <codeph>true</codeph> に設定する必要があります。</p>
+ 
+  </apiDesc><example conref="DefaultListEffectExample.mxml"><swfblock conref="examples/DefaultListEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.xml#List"><linktext>mx.controls.List</linktext></link></related-links><apiConstructor id="mx.effects:DefaultListEffect:DefaultListEffect"><apiName>DefaultListEffect</apiName><shortdesc>コンストラクターです。</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>コンストラクターです。</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:DefaultListEffect:color:get"><apiName>color</apiName><shortdesc> 
+          追加および削除されたアイテムをフェードするときに使用される色を表す 16 進値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0xFFFFFF
+          
+          </apiDefaultValue></apiValueDef><apiDesc> 
+          追加および削除されたアイテムをフェードするときに使用される色を表す 16 進値です。
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:fadeInDuration:get"><apiName>fadeInDuration</apiName><shortdesc>
+          追加および削除されたアイテムのレンダラーをフェードインするために使用される持続時間（ミリ秒）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          追加および削除されたアイテムのレンダラーをフェードインするために使用される持続時間（ミリ秒）です。
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:fadeOutDuration:get"><apiName>fadeOutDuration</apiName><shortdesc>
+          追加および削除されたアイテムのレンダラーをフェードアウトするために使用される持続時間（ミリ秒）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          追加および削除されたアイテムのレンダラーをフェードアウトするために使用される持続時間（ミリ秒）です。
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:growDuration:get"><apiName>growDuration</apiName><shortdesc>
+          追加および削除されたアイテムのレンダラーに適用される持続時間（ミリ秒）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          追加および削除されたアイテムのレンダラーに適用される持続時間（ミリ秒）です。
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:removedElementOffset:get"><apiName>removedElementOffset</apiName><shortdesc>
+          同時に削除された複数のアイテムを表すレンダラーに適用されるエフェクト間のオフセット（ミリ秒）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>100
+          
+          </apiDefaultValue></apiValueDef><apiDesc>
+          同時に削除された複数のアイテムを表すレンダラーに適用されるエフェクト間のオフセット（ミリ秒）です。 0 の場合、すべてのレンダラーが同時にフェードおよび縮小されます。
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultListEffect:shrinkDuration:get"><apiName>shrinkDuration</apiName><shortdesc>
+          追加および削除されたアイテムのレンダラーに適用される持続時間（ミリ秒）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+          
+         </apiDefaultValue></apiValueDef><apiDesc>
+          追加および削除されたアイテムのレンダラーに適用される持続時間（ミリ秒）です。
+                   </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:DefaultTileListEffect"><apiName>DefaultTileListEffect</apiName><shortdesc>DefaultTileListEffect クラスは、データプロバイダー内のデータが変更されたときに、TileList コントロールのアイテムレンダラーに適用されるデフォルトエフェクトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="customFilter"/><Exclude kind="property" name="repeatDelay"/><Exclude kind="property" name="repeatCount"/><Exclude kind="property" name="targets"/><Exclude kind="property" name="target"/><Exclude kind="property" name="move1"/><Exclude kind="property" name="fadeOut2"/><Exclude kind="property" name="fadeOut1"/><Exclude kind="property" name="fadeIn2"/><Exclude kind="property" name="fadeIn1"/><Exclude kind="property" name="children"/><Exclude kind="property" name="filter"/><Exclude kind="property" name="perElementOffset"/><Exclude kind="property" name="effectTargetHost"/><Exclude kind="property" name="duration"/><DefaultProperty name="children"/></asMetadata><asCustoms><mxml><![CDATA[
+  
+ <p>The &lt;mx:DefaultTileListEffect&gt; tag inherits all the members
+  of its parent and adds the following members:</p>
+ <pre>
+  &lt;DefaultTileListEffect
+    <strong>Properties</strong>
+    color="0xFFFFFF"
+    fadeInDuration="350"
+    fadeOutDuration="350"
+    moveDuration="300"
+  /&gt;
+ </pre>
+  
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Parallel</apiBaseClassifier></apiClassifierDef><apiDesc>DefaultTileListEffect クラスは、データプロバイダー内のデータが変更されたときに、TileList コントロールのアイテムレンダラーに適用されるデフォルトエフェクトを定義します。 TileList コントロール内のアイテムを削除すると、このエフェクトはアイテムをフェードアウトした後、残りのアイテムを新しい位置に移動します。 アイテムを TileList コントロールに追加すると、このエフェクトは既存のアイテムを新しい位置に移動した後、新しいアイテムをフェードインします。 
+  
+ <p>このエフェクトを TileList コントロールに適用するには、<codeph>itemsChangeEffect</codeph> スタイルプロパティを使用します。 <codeph>itemsChangeEffect</codeph> スタイルプロパティのデフォルト値は、<codeph>undefined</codeph> です。これは、エフェクトを使用しないことを示します。</p>
+  
+ <p>通常は、データエフェクトを適用するときに <codeph>TileList.offscreenExtraRowsOrColumns</codeph> プロパティを設定します。 通常は、TileList コントロールの <codeph>TileList.offscreenExtraRowsOrColumns</codeph> を小さい偶数（2 など）に設定します。 </p>
+  
+  </apiDesc><example conref="DefaultTileListEffectExample.mxml"><swfblock conref="examples/DefaultTileListEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.controls.xml#TileList"><linktext>mx.controls.TileList</linktext></link></related-links><apiConstructor id="mx.effects:DefaultTileListEffect:DefaultTileListEffect"><apiName>DefaultTileListEffect</apiName><shortdesc>コンストラクターです。</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>コンストラクターです。</apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:DefaultTileListEffect:color:get"><apiName>color</apiName><shortdesc> 
+          追加および削除されたアイテムをフェードするときに使用される色を表す 16 進値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0xFFFFFF
+         
+          </apiDefaultValue></apiValueDef><apiDesc> 
+          追加および削除されたアイテムをフェードするときに使用される色を表す 16 進値です。
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultTileListEffect:fadeInDuration:get"><apiName>fadeInDuration</apiName><shortdesc>
+          追加および削除されたアイテムのレンダラーをフェードインするために使用される持続時間（ミリ秒）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>350
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          追加および削除されたアイテムのレンダラーをフェードインするために使用される持続時間（ミリ秒）です。
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultTileListEffect:fadeOutDuration:get"><apiName>fadeOutDuration</apiName><shortdesc>
+          削除および置換されたアイテムのレンダラーをフェードアウトするために使用される持続時間（ミリ秒）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>350
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          削除および置換されたアイテムのレンダラーをフェードアウトするために使用される持続時間（ミリ秒）です。
+                   </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:DefaultTileListEffect:moveDuration:get"><apiName>moveDuration</apiName><shortdesc>
+          エフェクトの一部としてコントロール内で移動されたアイテムのレンダラーに適用される持続時間（ミリ秒）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>300
+         
+          </apiDefaultValue></apiValueDef><apiDesc>
+          エフェクトの一部としてコントロール内で移動されたアイテムのレンダラーに適用される持続時間（ミリ秒）です。
+                   </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:AddItemAction"><apiName>AddItemAction</apiName><shortdesc>
+  AddItemAction クラスは、リストコントロール（List や TileList など）に追加されるアイテムのコントロール、またはコントロール内の既存のアイテムを置換するアイテムのコントロールに、アイテムレンダラーをいつ表示するかを決定するアクションエフェクトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AddItemAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds no new tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:AddItemAction
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddItemAction クラスは、リストコントロール（List や TileList など）に追加されるアイテムのコントロール、またはコントロール内の既存のアイテムを置換するアイテムのコントロールに、アイテムレンダラーをいつ表示するかを決定するアクションエフェクトを定義します。 リストベースのクラスのカスタムデータエフェクトの定義の一部として、このクラスを使用できます。
+   
+  </apiDesc><example conref="AddItemActionEffectExample.mxml"><swfblock conref="examples/AddItemActionEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#AddItemActionInstance"><linktext>mx.effects.effectClasses.AddItemActionInstance</linktext></link></related-links><apiConstructor id="mx.effects:AddItemAction:AddItemAction"><apiName>AddItemAction</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:RemoveChildAction"><apiName>RemoveChildAction</apiName><shortdesc>
+  RemoveChildAction クラスでは、ビューステートを定義する RemoveChild プロパティに対応したアクションエフェクトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/><Alternative owner="mx.effects:RemoveChildAction" replacement="spark.effects.RemoveAction" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RemoveChildAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+
+  <pre>
+  &lt;mx:RemoveChildAction
+    <b>Properties</b>
+    id="ID"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemoveChildAction クラスでは、ビューステートを定義する RemoveChild プロパティに対応したアクションエフェクトを定義します。 RemoveChildAction エフェクトをトランジションの定義範囲で使用することにより、RemoveChild プロパティで定義されたビューステートの変化がトランジションで発生する時期を制御できます。
+  
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="../states/examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#RemoveChildActionInstance"><linktext>mx.effects.effectClasses.RemoveChildActionInstance</linktext></link><link href="" invalidHref="mx.states.RemoveChild.xml"><linktext>mx.states.RemoveChild</linktext></link></related-links><apiConstructor id="mx.effects:RemoveChildAction:RemoveChildAction"><apiName>RemoveChildAction</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:SetPropertyAction"><apiName>SetPropertyAction</apiName><shortdesc>
+  SetPropertyAction クラスでは、ビューステートを定義する SetProperty プロパティに対応したアクションエフェクトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/><Alternative owner="mx.effects:SetPropertyAction" replacement="spark.effects.SetAction" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetPropertyAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SetPropertyAction
+    <b>Properties</b>
+    id="ID"
+    name=""
+    value=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetPropertyAction クラスでは、ビューステートを定義する <codeph>SetProperty</codeph> プロパティに対応したアクションエフェクトを定義します。 SetPropertyAction エフェクトをトランジションの定義範囲で使用することにより、<codeph>SetProperty</codeph> プロパティで定義されたビューステートの変化がトランジションで発生する時期を制御できます。
+  
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="../states/examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#SetPropertyActionInstance"><linktext>mx.effects.effectClasses.SetPropertyActionInstance</linktext></link><link href="" invalidHref="mx.states.SetProperty.xml"><linktext>mx.states.SetProperty</linktext></link></related-links><apiConstructor id="mx.effects:SetPropertyAction:SetPropertyAction"><apiName>SetPropertyAction</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:SetPropertyAction:name"><apiName>name</apiName><shortdesc> 
+	  変更されるプロパティの名前を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  変更されるプロパティの名前を表します。 デフォルトでは、ビューステートを定義したもののうち <codeph>SetProperty</codeph> プロパティの定義からこの値が決定されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:SetPropertyAction:value"><apiName>value</apiName><shortdesc> 
+	  プロパティの新しい値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc> 
+	  プロパティの新しい値を表します。 デフォルトでは、ビューステートを定義したもののうち <codeph>SetProperty</codeph> プロパティの定義からこの値が決定されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:RemoveItemAction"><apiName>RemoveItemAction</apiName><shortdesc>
+  RemoveItemAction クラスは、リストコントロール（List や TileList など）から削除されるアイテムのアイテムレンダラーのコントロール、またはコントロールに追加される新しいアイテムに置換されるアイテムのコントロールから、アイテムレンダラーをいつ非表示にするかを決定するアクションエフェクトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RemoveItemAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds no new tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:RemoveItemAction
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemoveItemAction クラスは、リストコントロール（List や TileList など）から削除されるアイテムのアイテムレンダラーのコントロール、またはコントロールに追加される新しいアイテムに置換されるアイテムのコントロールから、アイテムレンダラーをいつ非表示にするかを決定するアクションエフェクトを定義します。 リストベースのクラスのカスタムデータエフェクトの定義の一部として、このクラスを使用できます。
+   
+  </apiDesc><example conref="AddItemActionEffectExample.mxml"><swfblock conref="examples/AddItemActionEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#RemoveItemActionInstance"><linktext>mx.effects.effectClasses.RemoveItemActionInstance</linktext></link></related-links><apiConstructor id="mx.effects:RemoveItemAction:RemoveItemAction"><apiName>RemoveItemAction</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:Glow"><apiName>Glow</apiName><shortdesc>
+  Glow エフェクトを使用すると、コンポーネントに発光効果を適用できます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:Glow" replacement="spark.effects.AnimateFilter" since="4.0">
+<description>
+  Flex 4 では、Glow ビットマップフィルターと組み合わせて AnimateFilter エフェクトを使用します。
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Glow&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:Glow
+    id="ID"
+    alphaFrom="val"
+    alphaTo="val"
+    blurXFrom="val"
+    blurXTo="val"
+    blurYFrom="val"
+    blurYTo="val"
+    color="<i>themeColor of the application</i>"
+    inner="false|true"
+    knockout="false|true"
+    strength="2"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:TweenEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Glow エフェクトを使用すると、コンポーネントに発光効果を適用できます。 
+ 
+  <p>Glow エフェクトでは、実装の一部として Flash GlowFilter クラスが使用されます。 詳細については、「flash.filters.GlowFilter クラス」を参照してください。 コンポーネントに Glow エフェクトを適用する場合、GlowFilter を適用したり、同じコンポーネントに他の Glow エフェクトを適用することはできません。</p>
+ 
+  </apiDesc><example conref="GlowEffectExample.mxml"><swfblock conref="examples/GlowEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.filters.GlowFilter.xml"><linktext>flash.filters.GlowFilter</linktext></link><link href="mx.effects.effectClasses.xml#GlowInstance"><linktext>mx.effects.effectClasses.GlowInstance</linktext></link></related-links><apiConstructor id="mx.effects:Glow:Glow"><apiName>Glow</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:Glow:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  最初の透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1</apiData><apiType value="Number"/><apiDefaultValue>1
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  最初の透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  最終的な透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  最終的な透明度レベルは 0.0 から 1.0 の範囲です（0.0 = 透明、1.0 = 完全に不透明）。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  水平方向のぼかしの開始量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>5</apiData><apiType value="Number"/><apiDefaultValue>5 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  水平方向のぼかしの開始量を表します。 有効な値の範囲は 0.0 ～ 255.0 です。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  水平方向のぼかしの終了量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  水平方向のぼかしの終了量を表します。 有効な値の範囲は 0.0 ～ 255.0 です。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  垂直方向のぼかしの開始量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>5</apiData><apiType value="Number"/><apiDefaultValue>5
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  垂直方向のぼかしの開始量を表します。 有効な値の範囲は 0.0 ～ 255.0 です。 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  垂直方向のぼかしの終了量を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  垂直方向のぼかしの終了量を表します。 有効な値の範囲は 0.0 ～ 255.0 です。 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:color"><apiName>color</apiName><shortdesc> 
+	  グローのカラーを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/><apiDefaultValue>StyleManager.NOT_A_COLOR
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  グローのカラーを表します。デフォルト値は、アプリケーションの <codeph>themeColor</codeph> スタイルプロパティの値です。このプロパティのデフォルト値は <codeph>StyleManager.NOT_A_COLOR</codeph> です。color プロパティがこのデフォルト値に設定されている場合、エフェクトに対して <codeph>play()</codeph> が呼び出されると、エフェクトインスタンスのカラー値は、アプリケーションの現在の <codeph>themeColor</codeph> スタイルの値に設定されます。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:inner"><apiName>inner</apiName><shortdesc> 
+	  グローが内側グローであるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  グローが内側グローであるかどうかを示します。値が <codeph>true</codeph> の場合は、内側グロー（オブジェクトの外側エッジの内側にあるグロー）になります。 デフォルト値は <codeph>false</codeph> で、外側グロー（オブジェクトの外周にあるグロー）になります。 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:knockout"><apiName>knockout</apiName><shortdesc> 
+	  オブジェクトにノックアウト効果を適用するかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  オブジェクトにノックアウト効果を適用するかどうかを指定します。値が <codeph>true</codeph> の場合は、オブジェクトの塗りのカラーが透明になり、基になるオブジェクトの背景色が表示されます。 デフォルト値は <codeph>false</codeph> で、ノックアウト効果は適用されません。 
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Glow:strength"><apiName>strength</apiName><shortdesc> 
+	  インプリントの強さまたは広がりです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>2</apiData><apiType value="Number"/><apiDefaultValue>2 
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  インプリントの強さまたは広がりです。値が大きいほど、濃い色がインプリントされるので、グローと背景との間のコントラストが強くなります。有効な値の範囲は <codeph>0</codeph> ～ <codeph>255</codeph> です。 
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:Resize"><apiName>Resize</apiName><shortdesc>
+  Resize エフェクトは、指定された時間間隔でコンポーネントの幅、高さ、あるいはその両方の寸法を変更します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:Resize" replacement="spark.effects.Resize" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Resize&gt;</code> tag
+  inherits all of the tag attributes of its superclass, 
+  and adds the following tab attributes:</p>
+  
+  <pre>
+  &lt;mx:Resize
+    id="ID"
+    widthFrom="val"
+    heightFrom="val"
+    widthTo="val"
+    heightTo="val"
+    widthBy="val"
+    heightBy="val"
+    hideChildrenTargets=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:TweenEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Resize エフェクトは、指定された時間間隔でコンポーネントの幅、高さ、あるいはその両方の寸法を変更します。 
+  
+  <p><codeph>widthFrom</codeph>、<codeph>widthTo</codeph> および <codeph>widthBy</codeph> の 3 つのプロパティのうちのいずれか 2 つを指定すると、残りの 1 つは Flex によって自動的に計算されます。 3 つの値をすべて指定すると、<codeph>widthBy</codeph> の値が無視されます。 <codeph>widthBy</codeph> または <codeph>widthTo</codeph> の値のみを指定すると、<codeph>widthFrom</codeph> プロパティはオブジェクトの現在の幅に設定されます。 <codeph>heightFrom</codeph>、<codeph>heightTo</codeph> および <codeph>heightBy</codeph> の 3 つのプロパティ値についても同様です。</p>
+  
+  <p>resize トリガーに Resize エフェクトを指定し、From、To、By の 6 つのプロパティ値をどれも設定しない場合、オブジェクトが現在のサイズから新しいサイズにスムーズに変化するように、これらのプロパティの値が設定されます。</p>
+  
+  </apiDesc><example conref="ResizeEffectExample.mxml"><swfblock conref="examples/ResizeEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#ResizeInstance"><linktext>mx.effects.effectClasses.ResizeInstance</linktext></link><link href="" invalidHref="mx.effects.Tween.xml"><linktext>mx.effects.Tween</linktext></link></related-links><apiConstructor id="mx.effects:Resize:Resize"><apiName>Resize</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:Resize:heightBy"><apiName>heightBy</apiName><shortdesc> 
+	  コンポーネントの高さを変更するピクセル数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  コンポーネントの高さを変更する際のピクセル数を表します。 負の数値を指定することもできます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:heightFrom"><apiName>heightFrom</apiName><shortdesc> 
+	  最初の高さ（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最初の高さ（ピクセル単位）を表します。 省略した場合、現在の高さが使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:heightTo"><apiName>heightTo</apiName><shortdesc> 
+	  最終的な高さ（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最終的な高さ（ピクセル単位）を表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:hideChildrenTargets"><apiName>hideChildrenTargets</apiName><shortdesc>
+	  Panel コンテナの配列を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  Panel コンテナの配列を表します。 これらの Panel コンテナの子は、Resize エフェクトの再生中は非表示になります。
+	 
+	  <p>次の例のように、データバインディングシンタックスを使用して、MXML でこのプロパティを設定します。panelOne および panelTwo はアプリケーションの 2 つの Panel コンテナの名前です。</p>
+	 
+	  <pre>&lt;mx:Resize id="e" heightFrom="100" heightTo="400"
+	 hideChildrenTargets="{[panelOne, panelTwo]}" /></pre>		
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:widthBy"><apiName>widthBy</apiName><shortdesc> 
+	  コンポーネントの幅を変更するピクセル数を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  コンポーネントの幅を変更する際のピクセル数を表します。 負の数値を指定することもできます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:widthFrom"><apiName>widthFrom</apiName><shortdesc> 
+	  初期幅（ピクセル単位）を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  初期幅（ピクセル単位）を表します。 省略した場合、現在の幅が使用されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:Resize:widthTo"><apiName>widthTo</apiName><shortdesc> 
+	  最終的な幅をピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  最終的な幅をピクセル単位で表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:AddChildAction"><apiName>AddChildAction</apiName><shortdesc>
+  AddChildAction クラスでは、ビューステートを定義する AddChild プロパティに対応したアクションエフェクトを定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/><Alternative owner="mx.effects:AddChildAction" replacement="spark.effects.AddAction" since="4.0">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AddChildAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:AddChildAction
+    <b>Properties</b>
+    id="ID"
+    index="-1"
+    relativeTo=""
+    position="index"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddChildAction クラスでは、ビューステートを定義する <codeph>AddChild</codeph> プロパティに対応したアクションエフェクトを定義します。 AddChildAction エフェクトをトランジションの定義範囲で使用することにより、AddChild プロパティで定義されたビューステートの変化がトランジションで発生する時期を制御できます。
+  
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="../states/examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#AddChildActionInstance"><linktext>mx.effects.effectClasses.AddChildActionInstance</linktext></link><link href="" invalidHref="mx.states.AddChild.xml"><linktext>mx.states.AddChild</linktext></link></related-links><apiConstructor id="mx.effects:AddChildAction:AddChildAction"><apiName>AddChildAction</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects:AddChildAction:index"><apiName>index</apiName><shortdesc> 
+	  親の中で子が持つインデックスを表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/><apiDefaultValue>-1
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  親の中で子が持つインデックスを表します。 値が -1 の場合、親の最後の子として子が追加されます。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:AddChildAction:position"><apiName>position</apiName><shortdesc> 
+	  relativeTo プロパティで指定されたオブジェクトを基準にした、表示リスト内での子の位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>index</apiData><apiType value="String"/><apiDefaultValue>"index"
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  <codeph>relativeTo</codeph> プロパティで指定されたオブジェクトを基準にした、表示リスト内での子の位置です。 有効な値は <codeph>"before"</codeph>、<codeph>"after"</codeph>、<codeph>"firstChild"</codeph>、<codeph>"lastChild"</codeph> および <codeph>"index"</codeph> です。<codeph>"index"</codeph> を指定した場合は、<codeph>index</codeph> プロパティを使用して子の位置が決定されます。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects:AddChildAction:relativeTo"><apiName>relativeTo</apiName><shortdesc> 
+	  子コンポーネントが追加される位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc> 
+	  子コンポーネントが追加される位置です。 デフォルトでは、ビューステートを定義したもののうち <codeph>AddChild</codeph> プロパティの定義からこの値が決定されます。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects:WipeUp"><apiName>WipeUp</apiName><shortdesc>
+  WipeUp クラスは、上方向へのワイプエフェクトを定義します。 </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeUp" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Flex 3 の方向固有の Wipe エフェクトは、汎用の方向を使用する、より汎用的な Wipe エフェクトに置き換えられました。新しい Wipe エフェクトを使用して以前と同様の動作を実現するには、<codeph>direction</codeph> パラメーターを適切に設定します。
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeUp&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeUp
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeUp クラスは、上方向へのワイプエフェクトを定義します。 エフェクト適用前または適用後のコンポーネントの状態は不可視にする必要があります。 
+ 
+  <p>このエフェクトは、通常、<codeph>showEffect</codeph> トリガーおよび <codeph>hideEffect</codeph> トリガーとあわせて使用します。 <codeph>showEffect</codeph> トリガーは、コンポーネントの <codeph>visible</codeph> プロパティが <codeph>false</codeph> から <codeph>true</codeph> に変化してコンポーネントが可視状態になるときに発生します。 <codeph>hideEffect</codeph> トリガーは、コンポーネントの <codeph>visible</codeph> プロパティが <codeph>true</codeph> から <codeph>false</codeph> に変化してコンポーネントが不可視状態になるときに発生します。</p>
+ 
+  <p>このエフェクトには <codeph>MaskEffect.show</codeph> プロパティの設定が継承されます。 値が <codeph>true</codeph> に設定されている場合、コンポーネントは可視になります。 値が <codeph>false</codeph> に設定されている場合、コンポーネントは不可視になります。 デフォルト値は <codeph>true</codeph> です。</p>
+  
+  <p>このエフェクトを <codeph>showEffect</codeph> または <codeph>hideEffect</codeph> トリガーで使用するよう指定した場合、<codeph>show</codeph> プロパティが Flex により有効になります。コンポーネントが不可視の場合は <codeph>true</codeph> に、可視の場合は <codeph>false</codeph> に設定されます。</p> 
+  
+  </apiDesc><example conref="WipeUpExample.mxml"><swfblock conref="examples/WipeUpExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeUpInstance"><linktext>mx.effects.effectClasses.WipeUpInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeUp:WipeUp"><apiName>WipeUp</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:WipeLeft"><apiName>WipeLeft</apiName><shortdesc>
+  WipeLeft クラスは、左方向へのワイプエフェクトを定義します。 </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeLeft" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Flex 3 の方向固有の Wipe エフェクトは、汎用の方向を使用する、より汎用的な Wipe エフェクトに置き換えられました。新しい Wipe エフェクトを使用して以前と同様の動作を実現するには、<codeph>direction</codeph> パラメーターを適切に設定します。
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeLeft&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeLeft
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeLeft クラスは、左方向へのワイプエフェクトを定義します。 エフェクト適用前または適用後のコンポーネントの状態は不可視にする必要があります。 
+ 
+  <p>このエフェクトは、通常、<codeph>showEffect</codeph> トリガーおよび <codeph>hideEffect</codeph> トリガーとあわせて使用します。 <codeph>showEffect</codeph> トリガーは、コンポーネントの <codeph>visible</codeph> プロパティが <codeph>false</codeph> から <codeph>true</codeph> に変化してコンポーネントが可視状態になるときに発生します。 <codeph>hideEffect</codeph> トリガーは、コンポーネントの <codeph>visible</codeph> プロパティが <codeph>true</codeph> から <codeph>false</codeph> に変化してコンポーネントが不可視状態になるときに発生します。</p>
+ 
+  <p>このエフェクトには <codeph>MaskEffect.show</codeph> プロパティの設定が継承されます。 値が <codeph>true</codeph> に設定されている場合、コンポーネントは可視になります。 値が <codeph>false</codeph> に設定されている場合、コンポーネントは不可視になります。 デフォルト値は <codeph>true</codeph> です。</p>
+ 
+  <p>このエフェクトを <codeph>showEffect</codeph> または <codeph>hideEffect</codeph> トリガーで使用するよう指定した場合、<codeph>show</codeph> プロパティが Flex により有効になります。コンポーネントが不可視の場合は <codeph>true</codeph> に、可視の場合は <codeph>false</codeph> に設定されます。</p> 
+ 
+  </apiDesc><example conref="WipeLeftExample.mxml"><swfblock conref="examples/WipeLeftExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeLeftInstance"><linktext>mx.effects.effectClasses.WipeLeftInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeLeft:WipeLeft"><apiName>WipeLeft</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:WipeRight"><apiName>WipeRight</apiName><shortdesc>
+  WipeRight クラスは、右方向へのワイプエフェクトを定義します。 </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeRight" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Flex 3 の方向固有の Wipe エフェクトは、汎用の方向を使用する、より汎用的な Wipe エフェクトに置き換えられました。新しい Wipe エフェクトを使用して以前と同様の動作を実現するには、<codeph>direction</codeph> パラメーターを適切に設定します。
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeRight&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeRight
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeRight クラスは、右方向へのワイプエフェクトを定義します。 エフェクト適用前または適用後のコンポーネントの状態は不可視にする必要があります。 
+ 
+  <p>このエフェクトは、通常、<codeph>showEffect</codeph> トリガーおよび <codeph>hideEffect</codeph> トリガーとあわせて使用します。 <codeph>showEffect</codeph> トリガーは、コンポーネントの <codeph>visible</codeph> プロパティが <codeph>false</codeph> から <codeph>true</codeph> に変化してコンポーネントが可視状態になるときに発生します。 <codeph>hideEffect</codeph> トリガーは、コンポーネントの <codeph>visible</codeph> プロパティが <codeph>true</codeph> から <codeph>false</codeph> に変化してコンポーネントが不可視状態になるときに発生します。</p>
+ 
+  <p>このエフェクトには <codeph>MaskEffect.show</codeph> プロパティの設定が継承されます。 値が <codeph>true</codeph> に設定されている場合、コンポーネントは可視になります。 値が <codeph>false</codeph> に設定されている場合、コンポーネントは不可視になります。 デフォルト値は <codeph>true</codeph> です。</p>
+ 
+  <p>このエフェクトを <codeph>showEffect</codeph> または <codeph>hideEffect</codeph> トリガーで使用するよう指定した場合、<codeph>show</codeph> プロパティが Flex により有効になります。コンポーネントが不可視の場合は <codeph>true</codeph> に、可視の場合は <codeph>false</codeph> に設定されます。 </p>
+  
+  </apiDesc><example conref="WipeRightExample.mxml"><swfblock conref="examples/WipeRightExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeRightInstance"><linktext>mx.effects.effectClasses.WipeRightInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeRight:WipeRight"><apiName>WipeRight</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:WipeDown"><apiName>WipeDown</apiName><shortdesc>
+  WipeDown クラスは、下方向へのワイプエフェクトを定義します。 </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.effects:WipeDown" replacement="spark.effects.Wipe" since="4.0">
+<description>
+  Flex 3 の方向固有の Wipe エフェクトは、汎用の方向を使用する、より汎用的な Wipe エフェクトに置き換えられました。新しい Wipe エフェクトを使用して以前と同様の動作を実現するには、<codeph>direction</codeph> パラメーターを適切に設定します。
+ </description>
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WipeDown&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;mx:WipeDown
+    id="ID"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:MaskEffect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeDown クラスは、下方向へのワイプエフェクトを定義します。 エフェクト適用前または適用後のコンポーネントの状態は不可視にする必要があります。 
+ 
+  <p>このエフェクトは、通常、<codeph>showEffect</codeph> トリガーおよび <codeph>hideEffect</codeph> トリガーとあわせて使用します。 <codeph>showEffect</codeph> トリガーは、コンポーネントの <codeph>visible</codeph> プロパティが <codeph>false</codeph> から <codeph>true</codeph> に変化してコンポーネントが可視状態になるときに発生します。 <codeph>hideEffect</codeph> トリガーは、コンポーネントの <codeph>visible</codeph> プロパティが <codeph>true</codeph> から <codeph>false</codeph> に変化してコンポーネントが不可視状態になるときに発生します。</p>
+ 
+  <p>このエフェクトには <codeph>MaskEffect.show</codeph> プロパティの設定が継承されます。 値が <codeph>true</codeph> に設定されている場合、コンポーネントは可視になります。 値が <codeph>false</codeph> に設定されている場合、コンポーネントは不可視になります。 デフォルト値は <codeph>true</codeph> です。</p>
+ 
+  <p>このエフェクトを <codeph>showEffect</codeph> または <codeph>hideEffect</codeph> トリガーで使用するよう指定した場合、<codeph>show</codeph> プロパティが Flex により有効になります。コンポーネントが不可視の場合は <codeph>true</codeph> に、可視の場合は <codeph>false</codeph> に設定されます。</p> 
+  
+  </apiDesc><example conref="WipeDownExample.mxml"><swfblock conref="examples/WipeDownExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#WipeDownInstance"><linktext>mx.effects.effectClasses.WipeDownInstance</linktext></link></related-links><apiConstructor id="mx.effects:WipeDown:WipeDown"><apiName>WipeDown</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects:UnconstrainItemAction"><apiName>UnconstrainItemAction</apiName><shortdesc>
+  UnconstrainItemAction クラスは、アクションエフェクトを定義します。このアクションエフェクトは、アイテムレンダラーが親コントロールのレイアウトアルゴリズムによって配置されることを一時的に停止するためにデータエフェクト定義で使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:UnconstrainItemAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds no new tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:UnconstrainItemAction
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  UnconstrainItemAction クラスは、アクションエフェクトを定義します。このアクションエフェクトは、アイテムレンダラーが親コントロールのレイアウトアルゴリズムによって配置されることを一時的に停止するためにデータエフェクト定義で使用されます。 このエフェクトを使用すると、TileList コントロール内のアイテムレンダラーを、コントロールで定義される通常のグリッドへの配置に限定せずに、自由に移動できます。 TileList コントロールのデフォルトのデータエフェクトクラスである DefaultTileListEffect は、このエフェクトを使用します。
+ 
+  <p>通常は、カスタムデータエフェクトがアイテムレンダラーを移動するときにこのエフェクトを追加します。</p>
+   
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.effectClasses.xml#UnconstrainItemActionInstance"><linktext>mx.effects.effectClasses.UnconstrainItemActionInstance</linktext></link><link href="mx.effects.xml#DefaultTileListEffect"><linktext>mx.effects.DefaultTileListEffect</linktext></link></related-links><apiConstructor id="mx.effects:UnconstrainItemAction:UnconstrainItemAction"><apiName>UnconstrainItemAction</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>このエフェクトでアニメーション化するオブジェクトを表します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

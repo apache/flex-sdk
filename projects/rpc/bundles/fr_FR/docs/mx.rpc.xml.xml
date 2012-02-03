@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.xml"><apiName>mx.rpc.xml</apiName><apiDetail/><apiClassifier id="mx.rpc.xml:IXMLEncoder"><apiName>IXMLEncoder</apiName><shortdesc>
+ Code un graphique d’objet ActionScript vers XML en fonction d’un schéma XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Code un graphique d’objet ActionScript vers XML en fonction d’un schéma XML.
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:encode"><apiName>encode</apiName><shortdesc>
+     Code une valeur ActionScript en tant que XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie un codage XML de la valeur ActionScript donnée.
+      
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>Valeur ActionScript à coder en tant que XML.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>Objet QName d’une propriété <codeph>element</codeph> d’un schéma XML qui décrit comment coder la valeur, ou nom à utiliser pour le nœud XML codé lorsqu’un paramètre de type est aussi spécifié.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>Objet QName d’une définition <codeph>simpleType</codeph> ou <codeph>complexType</codeph> d’un schéma XML décrivant comment coder la valeur.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>Si ni un élément ni un type de niveau supérieur n’existent dans le schéma pour décrire comment coder cette valeur, une définition d’élément personnalisée peut être fournie.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Code une valeur ActionScript en tant que XML.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:reset"><apiName>reset</apiName><shortdesc>
+     Réinitialise le codeur sur sa valeur initiale, ainsi que toute étendue de schéma sur le niveau supérieur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Réinitialise le codeur sur sa valeur initiale, ainsi que toute étendue de schéma sur le niveau supérieur.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:strictNillability:get"><apiName>strictNillability</apiName><shortdesc>
+     Lorsque strictNillability est défini sur true, les valeurs nulles sont codées en fonction des règles de schéma XML (nécessite que nillable=true soit défini dans la définition).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque strictNillability est défini sur <codeph>true</codeph>, les valeurs nulles sont codées en fonction des règles de schéma XML (nécessite que nillable=true soit défini dans la définition). Lorsque strictNillability est défini sur <codeph>false</codeph>, les valeurs nulles sont toujours codées avec l’attribut <codeph>xsi:nil="true"</codeph>. La valeur par défaut est <codeph>false</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLEncoder:mx.rpc.xml:IXMLEncoder:xmlSpecialCharsFilter:get"><apiName>xmlSpecialCharsFilter</apiName><shortdesc>
+     Fonction à utiliser pour ignorer les caractères spéciaux XML avant de coder un contenu simple.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+     Fonction à utiliser pour ignorer les caractères spéciaux XML avant de coder un contenu simple.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:QualifiedResourceManager"><apiName>QualifiedResourceManager</apiName><shortdesc>
+ QualifiedResourceManager est une classe d’aide qui conserve simplement l’ordre dans lequel les ressources ont été ajoutées et mappe un espace de noms cible sur une ou plusieurs ressources.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ QualifiedResourceManager est une classe d’aide qui conserve simplement l’ordre dans lequel les ressources ont été ajoutées et mappe un espace de noms cible sur une ou plusieurs ressources.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.xml:QualifiedResourceManager:QualifiedResourceManager"><apiName>QualifiedResourceManager</apiName><shortdesc>
+     Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+     Constructeur.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.xml:QualifiedResourceManager:addResource"><apiName>addResource</apiName><shortdesc>
+     Ajoute une ressource à un tableau de ressources potentiel pour un espace de noms donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>ns</apiItemName><apiType value="Namespace"/><apiDesc>Espace de noms du tableau de ressources.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>resource</apiItemName><apiType value="Object"/><apiDesc>Ressource à ajouter.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Ajoute une ressource à un tableau de ressources potentiel pour un espace de noms donné.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResourcesForNamespace"><apiName>getResourcesForNamespace</apiName><shortdesc>
+     Retourne un tableau de ressources pour un espace de noms donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau de ressources.
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>ns</apiItemName><apiType value="Namespace"/><apiDesc>Espace de noms du tableau de ressources.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Retourne un tableau de ressources pour un espace de noms donné.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResourcesForURI"><apiName>getResourcesForURI</apiName><shortdesc>
+     Renvoie un tableau de ressources pour un URI donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau de ressources.
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>uri</apiItemName><apiType value="String"/><apiDesc>URI du tableau de ressources.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Renvoie un tableau de ressources pour un URI donné.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:QualifiedResourceManager:getResources"><apiName>getResources</apiName><shortdesc>
+     Obtient un tableau de toutes les ressources.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Tableau de ressources.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+     Obtient un tableau de toutes les ressources.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:QualifiedResourceManager:protected:resourcesMap"><apiName>resourcesMap</apiName><shortdesc>
+     Mappe Namespace.uri sur un tableau de ressources.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Mappe <codeph>Namespace.uri</codeph> sur un <codeph>tableau</codeph> de ressources.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:QualifiedResourceManager:protected:resources"><apiName>resources</apiName><shortdesc>
+     Ce tableau est utilisé pour conserver l’ordre dans lequel les ressources ont été ajoutées afin de prendre en charge l’ordre dans lequel une recherche est effectuée sur ces ressources.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+     Ce tableau est utilisé pour conserver l’ordre dans lequel les ressources ont été ajoutées afin de prendre en charge l’ordre dans lequel une recherche est effectuée sur ces ressources.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:SimpleXMLEncoder"><apiName>SimpleXMLEncoder</apiName><shortdesc>
+ La classe SimpleXMLEncoder extrait les objets ActionScript et les code vers XML à l’aide de la sérialisation par défaut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe SimpleXMLEncoder extrait les objets ActionScript et les code vers XML à l’aide de la sérialisation par défaut.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.xml:SimpleXMLEncoder:SimpleXMLEncoder"><apiName>SimpleXMLEncoder</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>myXML</apiItemName><apiType value="flash.xml:XMLDocument"/><apiDesc>Objet XML.
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.rpc.xml:SimpleXMLEncoder:encodeValue"><apiName>encodeValue</apiName><shortdesc>
+      Code un objet ActionScript vers XML à l’aide de la sérialisation par défaut.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Objet XMLNode.  
+     </apiDesc><apiType value="flash.xml:XMLNode"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>Objet ActionScript à coder.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>qname</apiItemName><apiType value="QName"/><apiDesc>Nom qualifié du nœud enfant.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>parentNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>Nœud XMLNode sous lequel placer la valeur codée.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Code un objet ActionScript vers XML à l’aide de la sérialisation par défaut.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:SimpleXMLDecoder"><apiName>SimpleXMLDecoder</apiName><shortdesc>
+  La classe SimpleXMLDecoder désérialise XML en un graphique d’objets ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe SimpleXMLDecoder désérialise XML en un graphique d’objets ActionScript. Utilisez cette classe lorsqu’aucune information de schéma n’est disponible.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:SimpleXMLDecoder:decodeXML"><apiName>decodeXML</apiName><shortdesc>
+      Convertit un arbre de nœuds XMLNode en un arbre d’objets ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Arbre d’objets ActionScript.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>Nœud XMLNode à convertir en un arbre d’objets ActionScript.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Convertit un arbre de nœuds XMLNode en un arbre d’objets ActionScript.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SimpleXMLDecoder:getLocalName"><apiName>getLocalName</apiName><shortdesc>
+     Renvoie le nom local d’un nœud XMLNode.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Nom local d’un nœud XMLNode.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>xmlNode</apiItemName><apiType value="flash.xml:XMLNode"/><apiDesc>XMLNode.  
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Renvoie le nom local d’un nœud XMLNode.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:IXMLSchemaInstance"><apiName>IXMLSchemaInstance</apiName><shortdesc>
+ Un type ActionScript doit implémenter cette interface lorsqu’il doit instruire un codeur basé sur un schéma XML (par exemple, le client SOAP WebService) avec une définition de type concret à utiliser pendant le codage d’occurrences du type.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Un type ActionScript doit implémenter cette interface lorsqu’il doit instruire un codeur basé sur un schéma XML (par exemple, le client SOAP WebService) avec une définition de type concret à utiliser pendant le codage d’occurrences du type.
+ 
+ <p>Les objets ActionScript anonymes peuvent aussi spécifier un type qualifié en enveloppant un objet dans une occurrence de mx.utils.ObjectProxy et en définissant la propriété <codeph>object_proxy::type</codeph> avec l’objet QName approprié.</p>
+ 
+ </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.utils.ObjectProxy.xml"><linktext>mx.utils.ObjectProxy</linktext></link></related-links><apiValue id="mx.rpc.xml:IXMLSchemaInstance:mx.rpc.xml:IXMLSchemaInstance:xsiType:get"><apiName>xsiType</apiName><shortdesc>
+     Lorsqu’il code des occurrences ActionScript en tant que XML, le codeur peut nécessiter une définition de type pour l’implémentation concrète quand le type complexType de schéma XML associé est abstrait.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="QName"/></apiValueDef><apiDesc>
+     Lorsqu’il code des occurrences ActionScript en tant que XML, le codeur peut nécessiter une définition de type pour l’implémentation concrète quand le type complexType de schéma XML associé est abstrait. Cette propriété permet à une occurrence typée de spécifier l’implémentation concrète d’un objet QName pour représenter le <codeph>xsi:type</codeph>.
+     
+     <p>
+     Les métadonnées <codeph>[Transient]</codeph> peuvent être appliquées à des implémentations de cette propriété pour l’exclure pendant la sérialisation d’objet.
+     </p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.rpc.xml:SchemaTypeRegistry"><apiName>SchemaTypeRegistry</apiName><shortdesc>
+ La classe XMLDecoder utilise cette classe pour mapper un type de schéma XML par un objet QName à une classe ActionScript afin de pouvoir créer des objets fortement typés lors du décodage du contenu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ La classe XMLDecoder utilise cette classe pour mapper un type de schéma XML par un objet QName à une classe ActionScript afin de pouvoir créer des objets fortement typés lors du décodage du contenu. Si le type n’est pas qualifié, l’URI QName peut rester nul ou défini sur la chaîne vide.
+ <p>
+ Il est important de noter que la classe désirée doit être liée dans le SWF et posséder un constructeur par défaut afin que le décodeur XMLDecoder crée une nouvelle occurrence du type. Dans le cas contraire, un objet anonyme est utilisé pour contenir les propriétés décodées.
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getClass"><apiName>getClass</apiName><shortdesc>
+     Recherche une classe enregistrée pour le type donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la classe pour le type donné ou null si le type n’a pas été enregistré.
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Objet QName ou chaîne représentant le nom de type.
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Recherche une classe enregistrée pour le type donné.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getCollectionClass"><apiName>getCollectionClass</apiName><shortdesc>
+     Renvoie la classe pour le type de collecte représenté par l’objet Qname ou la chaîne donnée.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie la classe pour le type de collecte représenté par l’objet Qname ou la chaîne donnée.
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Objet QName ou chaîne représentant le nom de type de collecte.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Renvoie la classe pour le type de collecte représenté par l’objet Qname ou la chaîne donnée.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:getInstance"><apiName>getInstance</apiName><shortdesc>
+     Renvoie l’occurrence unique de cette classe Singleton. La crée si elle n’existe pas déjà.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Renvoie l’occurrence unique de cette classe Singleton. La crée si elle n’existe pas déjà.
+      
+      </apiDesc><apiOperationClassifier>mx.rpc.xml:SchemaTypeRegistry</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+     Renvoie l’occurrence unique de cette classe Singleton. La crée si elle n’existe pas déjà.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:registerClass"><apiName>registerClass</apiName><shortdesc>
+     Mappe un objet QName de type sur une définition de classe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Objet QName ou chaîne représentant le nom de type.
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="Object"/><apiDesc>La classe elle-même ou nom de classe en tant que chaîne.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Mappe un objet QName de type sur une définition de classe. La définition peut être une représentation de chaîne du nom de classe qualifié ou une occurrence de la classe elle-même.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:registerCollectionClass"><apiName>registerCollectionClass</apiName><shortdesc>
+     Mappe un nom de type sur une classe de collecte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Objet QName ou chaîne représentant le nom de type.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="Object"/><apiDesc>La classe elle-même ou nom de classe en tant que chaîne.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Mappe un nom de type sur une classe de collecte. Une collecte est le type de tableau de niveau supérieur ou une implémentation de <codeph>mx.collections.IList</codeph>. La définition peut être une représentation de chaîne du nom de classe qualifié ou une occurrence de la classe elle-même.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:unregisterClass"><apiName>unregisterClass</apiName><shortdesc>
+     Supprime une classe du registre pour le type donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Objet QName ou chaîne représentant le nom de type.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Supprime une classe du registre pour le type donné.
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:SchemaTypeRegistry:unregisterCollectionClass"><apiName>unregisterCollectionClass</apiName><shortdesc>
+     Supprime une classe de collecte du registre pour le type donné.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="Object"/><apiDesc>Objet QName ou chaîne représentant le nom de type de collecte.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Supprime une classe de collecte du registre pour le type donné.
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.rpc.xml:IXMLDecoder"><apiName>IXMLDecoder</apiName><shortdesc>
+ Décode un document XML vers un graphique d’objet ActionScript en fonction des définitions de schéma XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Décode un document XML vers un graphique d’objet ActionScript en fonction des définitions de schéma XML.
+ 
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:decode"><apiName>decode</apiName><shortdesc>
+     Décode un document XML vers un graphique d’objet ActionScript.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Renvoie un objet ActionScript décodé du document XML donné.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>xml</apiItemName><apiType value="any"/><apiDesc>Occurrence XML à décoder vers un objet ActionScript. Il peut s’agir d’une occurrence XML, d’une classe XMLList de longueur 1 ou d’une chaîne constituant des données XML valides.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>Objet QName d’une propriété <codeph>element</codeph> d’un schéma XML qui décrit comment décoder la valeur, ou nom à utiliser pour la valeur décodée lorsqu’un paramètre de type est aussi spécifié.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>type</apiItemName><apiType value="QName"/><apiData>null</apiData><apiDesc>Objet QName d’une définition <codeph>simpleType</codeph> ou <codeph>complexType</codeph> d’un schéma XML décrivant comment décoder la valeur.
+     
+     </apiDesc></apiParam><apiParam><apiItemName>definition</apiItemName><apiType value="XML"/><apiData>null</apiData><apiDesc>Si ni un élément ni un type de niveau supérieur n’existent dans le schéma pour décrire comment décoder cette valeur, une définition d’élément personnalisée peut être fournie.
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Décode un document XML vers un graphique d’objet ActionScript.
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:reset"><apiName>reset</apiName><shortdesc>
+     Réinitialise le décodeur sur son état initial, ainsi que toute étendue de schéma sur le niveau supérieur, et libère le document XML actuel en le définissant sur null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     Réinitialise le décodeur sur son état initial, ainsi que toute étendue de schéma sur le niveau supérieur, et libère le document XML actuel en le définissant sur null.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:makeObjectsBindable:get"><apiName>makeObjectsBindable</apiName><shortdesc>
+     Lorsque makeObjectsBindable est défini sur true, les objets et les tableaux anonymes sont enveloppés afin de pouvoir être liés.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque makeObjectsBindable est défini sur <codeph>true</codeph>, les objets et les tableaux anonymes sont enveloppés afin de pouvoir être liés. Les objets sont enveloppés avec <codeph>mx.utils.ObjectProxy</codeph> et les tableaux avec <codeph>mx.collections.ArrayCollection</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:recordXSIType:get"><apiName>recordXSIType</apiName><shortdesc>
+     Lorsque recordXSIType est défini sur true, si un type complexType codé possède un attribut xsi:type, les informations de type sont enregistrées sur l’occurrence décodée si elles sont fortement typées et implémentent mx.rpc.xml.IXMLSchemaInstance ou sont un proxy mx.utils.ObjectProxy anonyme.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Lorsque recordXSIType est défini sur <codeph>true</codeph>, si un type complexType codé possède un attribut <codeph>xsi:type</codeph>, les informations de type sont enregistrées sur l’occurrence décodée si elles sont fortement typées et implémentent <codeph>mx.rpc.xml.IXMLSchemaInstance</codeph> ou sont un proxy <codeph>mx.utils.ObjectProxy</codeph> anonyme. Ces informations de type peuvent être utilisées pour posttraiter les objets décodés et identifier l’implémentation concrète d’un type potentiellement abstrait ayant été utilisée. La valeur par défaut est false.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.xml:IXMLDecoder:mx.rpc.xml:IXMLDecoder:typeRegistry:get"><apiName>typeRegistry</apiName><shortdesc>
+     Mappe des types de schéma XML par un objet QName sur des classes ActionScript afin de créer des objets fortement typés lors du décodage de contenu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.rpc.xml:SchemaTypeRegistry</apiValueClassifier></apiValueDef><apiDesc>
+     Mappe des types de schéma XML par un objet QName sur des classes ActionScript afin de créer des objets fortement typés lors du décodage de contenu.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

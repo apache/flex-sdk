@@ -1,0 +1,1574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections"><apiName>mx.collections</apiName><apiDetail/><apiClassifier id="mx.collections:IHierarchicalCollectionViewCursor"><apiName>IHierarchicalCollectionViewCursor</apiName><shortdesc>
+  IHierarchicalCollectionViewCursor 接口定义用于双向枚举层次结构集合视图的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IViewCursor</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IHierarchicalCollectionViewCursor 接口定义用于双向枚举层次结构集合视图的接口。此光标提供查找项目当前深度的功能。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.IViewCursor.xml"><linktext>mx.collections.IViewCursor</linktext></link><link href="" invalidHref="mx.controls.IHierarchicalCollectionView.xml"><linktext>mx.controls.IHierarchicalCollectionView</linktext></link></related-links><apiValue id="mx.collections:IHierarchicalCollectionViewCursor:mx.collections:IHierarchicalCollectionViewCursor:currentDepth:get"><apiName>currentDepth</apiName><shortdesc>
+      包含位于此光标引用的源集合中的位置处的节点的深度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      包含位于此光标引用的源集合中的位置处的节点的深度。如果该光标超出了集合末尾，则此属性包含 0。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryField2"><apiName>SummaryField2</apiName><shortdesc>
+  SummaryField2 类代表 SummaryRow 实例中的一个属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.SummaryField2&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SummaryField2
+  <b>Properties </b>
+    dataField="<i>No default</i>"
+    label="<i>No default</i>"
+    summaryOperation="<i>SUM</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SummaryField2 类代表 SummaryRow 实例中的一个属性。每个 SummaryRow 实例都指定一个或多个用于创建数据摘要的 SummayField2 实例。 
+ 
+  <p><b>注意：</b>在先前版本的 Flex 中，您使用了 SummaryField 类来创建摘要数据。SummaryField2 类是 Flex 4 中的新类，提供比 SummaryField 更好的性能。</p>
+ 
+  <p>使用 <codeph>dataField</codeph> 属性指定用于生成摘要的数据字段；使用 <codeph>label</codeph> 属性指定为容纳摘要数据而创建的数据字段的名称；使用 <codeph>summaryOperation</codeph> 属性指定如何为数值字段创建摘要。可以指定下列值之一：<codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> 或 <codeph>COUNT</codeph>。</p>
+  或者可以指定一个 ISummaryCalculator 实现来计算摘要。
+ 
+  <p>以下示例基于 AdvancedDataGrid 控件的数据提供程序的两个字段创建摘要行：</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Min Actual" summaryOperation="MIN"/>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Max Actual" summaryOperation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Min Actual" summaryOperation="MIN"/>
+                  &lt;mx:SummaryField2 dataField="Actual" 
+                    label="Max Actual" summaryOperation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryField2:SummaryField2"><apiName>SummaryField2</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>为其计算摘要的数据字段。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>summaryOperation</apiItemName><apiType value="Object"/><apiData>SUM</apiData><apiDesc>应对子项执行的函数。可以为数值字段指定下列值之一：<codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> 或 <codeph>COUNT</codeph>。或者可以指定一个 ISummaryCalculator 实现来计算摘要。 
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryField2:dataField"><apiName>dataField</apiName><shortdesc>
+     为其计算摘要的数据字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     为其计算摘要的数据字段。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField2:label"><apiName>label</apiName><shortdesc>
+      摘要对象内部使用的属性，它是 SummaryObject 类的一个实例，用于存储摘要信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      摘要对象内部使用的属性，它是 SummaryObject 类的一个实例，用于存储摘要信息。
+     
+      <p>例如，如果将 <codeph>label</codeph> 属性设为“Summary”，则计算的摘要将置于摘要对象中名为“Summary”的属性中。包含摘要数据的 SummaryObject 实例的属性将按以下方式显示：</p>
+     
+      <pre>{Summary:1000}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link><link href="mx.collections.xml#SummaryField2/summaryFunction"><linktext>summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryField2:summaryOperation"><apiName>summaryOperation</apiName><shortdesc>
+       针对子代执行的摘要。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>SUM</apiData><apiType value="Object"/><apiDefaultValue>SUM
+       </apiDefaultValue></apiValueDef><apiDesc>
+       针对子代执行的摘要。此属性的值可以是下列值之一：
+       
+       <ul>
+         <li>对于数值字段：<codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> 或 <codeph>COUNT</codeph>。</li>
+         <li>用于实现自定义 ISummaryCalculator 接口以计算自定义摘要的类的实例。</li>
+       </ul>
+        
+       </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#ISummaryCalculator"><linktext>mx.collections.ISummaryCalculator</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:IHierarchicalCollectionView"><apiName>IHierarchicalCollectionView</apiName><shortdesc>
+  IHierarchicalCollectionView 接口定义用于层次结构数据或分组数据的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ICollectionView</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IHierarchicalCollectionView 接口定义用于层次结构数据或分组数据的接口。通常，将此数据与 AdvancedDataGrid 控件一起使用。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      在数据的特定索引处为数据的节点添加子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果成功添加节点，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>用于定义父节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>用于定义新节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中插入子节点的从零开始的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在数据的特定索引处为数据的节点添加子节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:addChild"><apiName>addChild</apiName><shortdesc>
+      为数据的节点添加子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果成功添加节点，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>用于定义父节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>用于定义新节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      为数据的节点添加子节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:closeNode"><apiName>closeNode</apiName><shortdesc>
+      关闭要隐藏其子项的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      关闭要隐藏其子项的节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getChildren"><apiName>getChildren</apiName><shortdesc>
+      返回子项的集合（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含子节点的 ICollectionView 实例。
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。如果为 <codeph>null</codeph>，则返回顶级节点的集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回子项的集合（如果存在）。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      返回集合中节点的深度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>节点的深度。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回集合中节点的深度。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      返回节点的父项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含作为子项的节点的父节点，如果为顶级节点，则返回 <codeph>null</codeph>；如果无法确定父节点，则返回 <codeph>undefined</codeph>。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点的父项。顶级节点的父项为 <codeph>null</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:openNode"><apiName>openNode</apiName><shortdesc>
+      打开要显示其子项的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      打开要显示其子项的节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      从指定索引处的节点删除子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果成功，则为 <codeph>true</codeph>；如果失败，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>当前作为此子节点父项的节点对象。对于顶级节点，请将 <codeph>parent</codeph> 设置为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要删除的子节点（相对于父项）的从零开始的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从指定索引处的节点删除子节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:removeChild"><apiName>removeChild</apiName><shortdesc>
+      从父节点删除子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果成功删除节点，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>用于定义父节点的 Object；对于顶级节点，为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>用于定义要删除的子节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从父节点删除子节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:hasRoot:get"><apiName>hasRoot</apiName><shortdesc> 
+      一种标志，如果为 true，表示当前数据提供程序具有根节点；例如，层次结构中的单个顶级节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+      一种标志，如果为 <codeph>true</codeph>，表示当前数据提供程序具有根节点；例如，层次结构中的单个顶级节点。XML 和 Object 就是具有根节点的数据类型，而 Lists 和 Arrays 不属于这种数据类型。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:openNodes:get"><apiName>openNodes</apiName><shortdesc>
+      包含数据的所有开型分枝节点的数据提供程序元素的对象 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      包含数据的所有开型分枝节点的数据提供程序元素的对象 Array。
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:showRoot:get"><apiName>showRoot</apiName><shortdesc>
+      指定是否显示数据提供程序的根节点的布尔值标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定是否显示数据提供程序的根节点的布尔值标志。如果源数据具有根节点，并且此属性设置为 <codeph>false</codeph>，则该集合中将不包含根项目。该集合中将仅包含此根项目的后代。  
+     
+      <p>此属性不影响没有根节点的源，如 List 和 Array 对象。</p> 
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#IHierarchicalCollectionView/hasRoot"><linktext>hasRoot</linktext></link></related-links></apiValue><apiValue id="mx.collections:IHierarchicalCollectionView:mx.collections:IHierarchicalCollectionView:source:get"><apiName>source</apiName><shortdesc>
+      IHierarchicalCollectionView 的源数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalData</apiValueClassifier></apiValueDef><apiDesc>
+      IHierarchicalCollectionView 的源数据。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryObject"><apiName>SummaryObject</apiName><shortdesc>
+  在对分组数据执行自定义数据摘要时，SummaryObject 类定义用于存储信息的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  在对分组数据执行自定义数据摘要时，SummaryObject 类定义用于存储信息的对象。使用 <codeph>SummaryRow.summaryObjectFunction</codeph> 属性和 <codeph>SummaryField.summaryFunction property</codeph> 向应用程序添加自定义摘要逻辑。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryObject:SummaryObject"><apiName>SummaryObject</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.collections:SummaryField"><apiName>SummaryField</apiName><shortdesc>
+  SummaryField 类代表 SummaryRow 实例中的一个属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="SummaryField2" sinceVersion="4.0"/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SummaryField 类代表 SummaryRow 实例中的一个属性。每个 SummaryRow 实例都指定一个或多个用于创建数据摘要的 SummayField 实例。 
+ 
+  <p>使用 <codeph>dataField</codeph> 属性指定用于生成摘要的数据字段；使用 <codeph>label</codeph> 属性指定为容纳摘要数据而创建的数据字段的名称；使用 <codeph>operation</codeph> 属性指定如何为数值字段创建摘要。可以指定下列值之一：<codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> 或 <codeph>COUNT</codeph>。</p>
+ 
+  <p>以下示例基于 AdvancedDataGrid 控件的数据提供程序的两个字段创建摘要行：</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  <p>此类已被弃用并被新类 <codeph>SummaryField2</codeph> 取代。在类 <codeph>SummaryField2</codeph> 中不存在属性 <codeph>operation</codeph> 和 <codeph>summaryFunction</codeph>。在 <codeph>SummaryField2</codeph> 中引入了一个新属性 <codeph>summaryOperation</codeph>。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link></related-links><apiConstructor id="mx.collections:SummaryField:SummaryField"><apiName>SummaryField</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>为其计算摘要的数据字段。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>operation</apiItemName><apiType value="String"/><apiData>SUM</apiData><apiDesc>应对子项执行的函数。可以为数值字段指定下列值之一：<codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> 或 <codeph>COUNT</codeph>。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryField:dataField"><apiName>dataField</apiName><shortdesc>
+     为其计算摘要的数据字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     为其计算摘要的数据字段。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField:label"><apiName>label</apiName><shortdesc>
+      摘要对象内部使用的属性，它是 SummaryObject 类的一个实例，用于存储摘要信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      摘要对象内部使用的属性，它是 SummaryObject 类的一个实例，用于存储摘要信息。
+     
+      <p>例如，如果将 <codeph>label</codeph> 属性设为“Summary”，则计算的摘要将置于摘要对象中名为“Summary”的属性中。包含摘要数据的 SummaryObject 实例的属性将按以下方式显示：</p>
+     
+      <pre>{Summary:1000}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link><link href="mx.collections.xml#SummaryField/summaryFunction"><linktext>summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryField:operation"><apiName>operation</apiName><shortdesc>
+      应对子项执行的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>SUM</apiData><apiType value="String"/><apiDefaultValue>SUM
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      应对子项执行的函数。可以为数值字段指定下列值之一：<codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> 或 <codeph>COUNT</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SummaryField:summaryFunction"><apiName>summaryFunction</apiName><shortdesc>
+      指定回调函数以计算自定义数据摘要。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      指定回调函数以计算自定义数据摘要。
+     
+      <p>可将此属性与 <codeph>SummaryRow.summaryObjectFunction</codeph> 属性一起使用，后者定义用于收集供在 AdvancedDataGrid 控件中显示的摘要数据的 SummaryObject 类的实例。</p>
+     
+      <p>该函数签名应如下所示：</p>
+     
+      <pre>
+      function mySummaryFunction(iterator:IViewCursor, dataField:String, operation:String):Object</pre>
+     
+      <p><codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> 和 <codeph>COUNT</codeph> 的内置摘要函数都会返回一个包含摘要数据的 Number。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryRow/summaryObjectFunction"><linktext>mx.collections.SummaryRow.summaryObjectFunction</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:GroupingCollection2"><apiName>GroupingCollection2</apiName><shortdesc>
+  使用 GroupingCollection2 类，您可以在平面数据中创建要显示在 AdvancedDataGrid 控件中的分组数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="grouping"/></asMetadata><asCustoms><mxml><![CDATA[  The <code>&lt;mx.GroupingCollection2&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+   <pre>
+  &lt;mx:GroupingCollection2
+  <b>Properties </b>
+    grouping="<i>No default</i>"
+    source="<i>No default</i>"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+   ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IGroupingCollection2</apiBaseInterface><apiBaseClassifier>mx.collections:HierarchicalData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  使用 GroupingCollection2 类，您可以在平面数据中创建要显示在 AdvancedDataGrid 控件中的分组数据。在平面数据中创建 GroupingCollection2 实例时，可以指定用于创建层次结构的数据的一个或多个字段。
+   <p><b>注意：</b>在先前版本的 Flex 中，您将 GroupingCollection 类与 AdvancedDataGrid 控件一起使用。GroupingCollection2 类是 Flex 4 中的新类，提供比 GroupingCollection 更好的性能。</p>
+   <p>要使用分组数据填充 AdvancedDataGrid 控件，可以在平面数据中创建 GroupingCollection2 类的一个实例，然后将该 GroupingCollection2 实例传递给 AdvancedDataGrid 控件的数据提供程序。要指定平面数据的分组字段，可将一个 Grouping 实例传递给 <codeph>GroupingCollection2.grouping</codeph> 属性。Grouping 实例包含 GroupingField 实例的 Array，每个分组字段一个。 </p>
+   <p>以下示例使用 GroupingCollection2 类定义两个分组字段：Region 和 Territory。</p>
+   <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection2 id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection2> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+   </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:GroupingCollection2:GroupingCollection2"><apiName>GroupingCollection2</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:GroupingCollection2:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      
+      如果异步执行刷新，请取消刷新操作并停止构建组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      如果异步执行刷新，请取消刷新操作并停止构建组。与异步刷新相对应，此方法仅取消由调用带有 <codeph>asynch</codeph> 参数 <codeph>true</codeph> 的 <codeph>refresh()</codeph> 方法启动的刷新。
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:protected:getParent"><apiName>getParent</apiName><shortdesc>
+      返回节点的父项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>包含作为子项的节点的父节点，如果为顶级节点，则返回 <codeph>null</codeph>；如果无法确定父节点，则返回 <codeph>undefined</codeph>。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点的父项。顶级节点的父项为 <codeph>null</codeph>。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:getRoot"><apiName>getRoot</apiName><shortdesc>
+      如果已设置分组属性，则返回 super.source；如果未设置，则返回引用 super.source 的 ICollectionView 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>要返回的对象。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      如果已设置 <codeph>grouping</codeph> 属性，则返回 <codeph>super.source</codeph>；如果未设置，则返回引用 <codeph>super.source</codeph> 的 ICollectionView 实例。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection2:refresh"><apiName>refresh</apiName><shortdesc>
+      
+      对该集合应用分组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>refresh()</codeph> 方法已完成，则为 <codeph>true</codeph>；如果刷新尚未完成，则为 <codeph>false</codeph>，这样可以表示这些项目仍未处理。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>true</codeph>，则定义为异步刷新。默认情况下，为 <codeph>false</codeph>，指示同步刷新。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchCollectionEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>若为 <codeph>true</codeph>，则当形成组时分派事件。为了使性能更佳，可将其设置为 <codeph>false</codeph>。若为 <codeph>true</codeph>，则事件是作为组分派的，且会同步计算摘要以更新控件。注意：如果 <codeph>async</codeph> 为 <codeph>true</codeph>，则会始终将 <codeph>dispatchCollectionEvents</codeph> 设置为 <codeph>true</codeph>。默认情况下，它为 <codeph>false</codeph>，指示将不会分派任何事件。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      对该集合应用分组。该集合不会自动检测对组进行的更改，因此设置 <codeph>grouping</codeph>、<codeph>source</codeph> 或 <codeph>summaries</codeph> 属性后，必须调用 <codeph>refresh()</codeph> 方法以更新该集合。修改集合的 GroupingField（如通过更改 <codeph>caseInsensitive</codeph>、<codeph>compareFunction</codeph> 或 <codeph>groupingFunction</codeph> 属性）时您也调用 <codeph>refresh()</codeph> 方法。
+     
+      <p>可以同步或异步应用 <codeph>refresh()</codeph> 方法。</p>
+      
+      <p>同步调用 <codeph>refresh()</codeph> 时，在该方法返回之前，会一起更新所有组和摘要。这意味着您的应用程序在该调用期间无法执行其它处理操作。客户端应等待 <codeph>kind</codeph> 属性值设置为 <codeph>CollectionEventKind.REFRESH</codeph> 的 CollectionEvent 事件，以确保完成 <codeph>refresh()</codeph> 方法。</p>
+     
+      <p>在异步刷新中，会单独更新所有组和摘要。<codeph>refresh()</codeph> 方法在更新组和摘要之前返回，这样您的应用程序可以继续执行。此外，控件是在刷新过程中更新的，这样用户可以继续与其交互。</p>
+     
+      <p>单独更新组和摘要（而不是一次全部更新）的开销使异步刷新比同步刷新花费的时间更长。但是，对于大型数据集，您的应用程序会在刷新过程中继续操作。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:GroupingCollection2:summaries"><apiName>summaries</apiName><shortdesc>
+      定义任意根级别数据摘要的 SummaryRow 实例数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      定义任意根级别数据摘要的 SummaryRow 实例数组。指定一个或多个 SummaryRow 实例以定义数据摘要，如以下示例所示：
+           <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection2 id="gc" source="{dpFlat}">
+                 &lt;mx:summaries>
+                     &lt;mx:SummaryRow summaryPlacement="last">
+                         &lt;mx:fields>
+                             &lt;mx:SummaryField2 dataField="Actual" 
+                                 label="Min Actual" summaryOperation="MIN"/>
+                             &lt;mx:SummaryField2 dataField="Actual" 
+                                 label="Max Actual" summaryOperation="MAX"/>
+                         &lt;/mx:fields>
+                       &lt;/mx:SummaryRow>
+                     &lt;/mx:summaries>
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region"/>
+                     &lt;mx:GroupingField name="Territory"/>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection2>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid></pre>
+           </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection2:protected:timer"><apiName>timer</apiName><shortdesc>
+      与异步刷新操作相关联的计时器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Timer"/></apiValueDef><apiDesc>
+      与异步刷新操作相关联的计时器。您可以使用它来更改计时间隔、暂停刷新或执行其他操作。Timer 实例的 <codeph>delay</codeph> 属性的默认值为 1，对应于 1 毫秒。
+           
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingCollection2:grouping:get"><apiName>grouping</apiName><shortdesc>
+      指定应用于源数据的 Grouping 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      指定应用于源数据的 Grouping 实例。设置 <codeph>grouping</codeph> 属性不会自动刷新视图，因此您必须在设置此属性后调用 <codeph>refresh()</codeph> 方法。
+           </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingCollection2/refresh()"><linktext>mx.collections.GroupingCollection2.refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection2:source:get"><apiName>source</apiName><shortdesc>
+      包含要分组的平面数据的源集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      包含要分组的平面数据的源集合。如果源不是一个集合，它将自动封装在一个集合中。
+      
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IHierarchicalData"><apiName>IHierarchicalData</apiName><shortdesc>
+  IHierarchicalData 接口定义用于将分层结构数据表示为 Flex 组件的数据提供程序的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IHierarchicalData 接口定义用于将分层结构数据表示为 Flex 组件的数据提供程序的接口。层次结构数据指的是父数据项和子数据项结构中的数据。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:canHaveChildren"><apiName>canHaveChildren</apiName><shortdesc>
+      如果该节点可以包含子项，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果该节点可以包含子项，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果该节点可以包含子项，则返回 <codeph>true</codeph>。
+     
+      <p>节点无需包含该方法的子节点即可返回 <codeph>true</codeph>。此方法对于确定是否可将其他节点作为子项追加到指定节点很有用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getChildren"><apiName>getChildren</apiName><shortdesc>
+      返回表示节点子项的 Object。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含子节点的 Object。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。如果为 <codeph>null</codeph>，则返回顶级节点的集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回表示节点子项的 Object。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getData"><apiName>getData</apiName><shortdesc>
+      返回节点中的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>请求的数据。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>从中获取数据的节点 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点中的数据。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:getRoot"><apiName>getRoot</apiName><shortdesc>
+     返回根数据项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含根数据项的 Object。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+     返回根数据项。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IHierarchicalData:mx.collections:IHierarchicalData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      如果该节点包含子项，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果该节点具有子项，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果该节点包含子项，则返回 <codeph>true</codeph>。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:GroupingField"><apiName>GroupingField</apiName><shortdesc>
+  GroupingField 类提供用于对由 AdvancedDataGrid 控件显示的平面数据进行分组的各数据字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="summaries"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.GroupingField&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GroupingField
+  <b>Properties </b>
+    caseInsensitive="false|true"
+    compareFunction="<i>No default</i>"
+    descending="false|true"
+    groupingFunction="<i>No default</i>"
+    groupingObjectFunction="<i>No default</i>"
+    name="null"
+    numeric="false|true"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GroupingField 类提供用于对由 AdvancedDataGrid 控件显示的平面数据进行分组的各数据字段。 
+ 
+  <p>要使用分组数据填充 AdvancedDataGrid 控件，可以在平面数据中创建 GroupingCollection 类的一个实例，然后将该 GroupingCollection 实例传递给 AdvancedDataGrid 控件的数据提供程序。要指定平面数据的分组字段，可将一个 Grouping 实例传递给 <codeph>GroupingCollection.grouping</codeph> 属性。Grouping 实例包含 GroupingField 实例的 Array，每个分组字段一个。 </p>
+ 
+  <p>以下示例使用 Grouping 类定义两个分组字段：Region 和 Territory。</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link></related-links><apiConstructor id="mx.collections:GroupingField:GroupingField"><apiName>GroupingField</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此字段用来进行比较的属性的名称。如果该对象为简单类型，则传递 <codeph>null</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>caseInsensitive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>在对字符串进行排序时，指示比较运算符是否忽略值的大小写。
+      </apiDesc></apiParam><apiParam><apiItemName>descending</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示比较运算符是否按降序排列项目。
+      </apiDesc></apiParam><apiParam><apiItemName>numeric</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示比较运算符是否按编号而不按字母顺序比较排序项目。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:GroupingField:groupingFunction"><apiName>groupingFunction</apiName><shortdesc>
+      确定此组的标签的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      确定此组的标签的函数。默认情况下，组显示数据中字段的文本，该文本与 <codeph>name</codeph> 属性指定的字段匹配。但是，有时您希望基于数据中的多个字段对项目进行分组，或基于不是简单 String 字段的内容进行分组。在这种情况下，可使用 <codeph>groupingFunction</codeph> 属性指定回调函数。
+     
+      <p>回调函数可能会将数字格式的月转换为字符串格式的月，或基于某些条件而不是字段的实际值将多个项目分为一个组。</p>
+     
+      <p>对于 GroupField，方法签名具有以下格式：</p>
+     
+      <pre>groupingFunction(item:Object, field:GroupField):String</pre>
+     
+      <p>其中 <codeph>item</codeph> 包含数据项目对象，<codeph>field</codeph> 包含 GroupField 对象。</p>
+     
+      例如，返回第一个字符作为组名的 <codeph>groupingFunction</codeph> 可以写作 - 
+      <pre>
+      private function groupFunc(item:Object, field:GroupingField):String
+      {
+          return item[field.name].toString().substr(0, 1);
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:groupingObjectFunction"><apiName>groupingObjectFunction</apiName><shortdesc>
+      在每个组节点上运行以确定分组对象的回调函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      在每个组节点上运行以确定分组对象的回调函数。默认情况下，将为组节点创建新 Object。
+     
+      <p>您可以提供 <codeph>groupingObjectFunction</codeph>，它可以为组节点提供合适的对象。</p>
+     
+      <p>方法签名为：</p>
+      <pre>
+      myGroupObjectFunction(label:String):Object</pre>
+     
+      <p>其中 <codeph>label</codeph> 包含将为该组节点显示的值。该函数返回可用于组节点的对象。 </p>
+     
+      例如，<codeph>groupingObjectFunction</codeph> 返回包含“name”属性且该属性值为“Bob”的 Object 可写作 - 
+      <pre>
+      private function groupObjFunction(label:String):Object
+      {
+          var obj:Object = {};
+          obj.name = "Bob";
+     
+          return obj;
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:summaries"><apiName>summaries</apiName><shortdesc>
+      用于定义组级别摘要的 SummaryRow 实例的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      用于定义组级别摘要的 SummaryRow 实例的数组。指定一个或多个 SummaryRow 实例以定义数据摘要，如以下示例所示：
+     
+      <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region">
+                       &lt;mx:summaries>
+                           &lt;mx:SummaryRow summaryPlacement="group">
+                             &lt;mx:fields>
+                                 &lt;mx:SummaryField dataField="Actual" 
+                                     label="Min Actual" operation="MIN"/>
+                                 &lt;mx:SummaryField dataField="Actual" 
+                                     label="Max Actual" operation="MAX"/>
+                             &lt;/mx:fields>
+                           &lt;/mx:SummaryRow>
+                         &lt;/mx:summaries>
+                     &lt;/mx:GroupingField>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid>  
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingField:caseInsensitive:get"><apiName>caseInsensitive</apiName><shortdesc>
+      如果此字段的排序不区分大小写，则设置为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果此字段的排序不区分大小写，则设置为 <codeph>true</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      用于在对关联集合的项目进行排序时比较两个项目的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      用于在对关联集合的项目进行排序时比较两个项目的函数。如果指定了 Grouping 对象中的 <codeph>compareFunction</codeph> 属性，则 Flex 会忽略 GroupingField 对象的所有 <codeph>compareFunction</codeph> 属性。
+     
+      <p>该比较函数必须具有以下签名：</p>
+     
+      <pre>function myCompare(a:Object, b:Object):int</pre>
+     
+      <p>此函数必须返回以下值：</p>
+       <ul>
+            <li>-1，如果在已排序序列中 <codeph>a</codeph> 应显示在 <codeph>b</codeph> 之前。</li>
+            <li>0，如果 <codeph>a</codeph> 等于 <codeph>b</codeph>。</li>
+            <li>1，如果在已排序序列中 <codeph>a</codeph> 应显示在 <codeph>b</codeph> 之后。</li>
+      </ul>
+     
+      <p>默认值为具有以下特征的内部比较函数：可以通过区分大小写或不区分大小写的字符串比较按升序或降序执行字符串、数字或日期比较。仅在需要自定义比较算法时指定您自己的函数。这种情况通常仅当在显示中使用计算的字段时出现。</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:descending:get"><apiName>descending</apiName><shortdesc>
+      如果此字段的排序应为降序排序，则设置为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果此字段的排序应为降序排序，则设置为 <codeph>true</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:name:get"><apiName>name</apiName><shortdesc>
+      要排序的字段的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      要排序的字段的名称。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingField:numeric:get"><apiName>numeric</apiName><shortdesc>
+      指定当要进行排序的字段包含数值 (Number/int/uint) 或数值的字符串表示形式时，比较运算符是否使用数值比较。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定当要进行排序的字段包含数值 (Number/int/uint) 或数值的字符串表示形式时，比较运算符是否使用数值比较。如果此属性为 <codeph>false</codeph>，将使用字符串比较对具有数字字符串表示形式的字段排序，因此 100 应在 99 之前，因为字符串值“1”比字符串值“9”小。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:Grouping"><apiName>Grouping</apiName><shortdesc>
+  Grouping 类定义用于对数据进行分组的 AdvancedDataGrid 控件的数据提供程序中的字段。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.Grouping&gt;</code> tag defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:Grouping
+  <b>Properties </b>
+    compareFunction="<i>No default</i>"
+    fields="null"
+    groupingObjectFunction="<i>No default</i>"
+    label="GroupLabel"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Grouping 类定义用于对数据进行分组的 AdvancedDataGrid 控件的数据提供程序中的字段。当 AdvancedDataGrid 控件的输入数据具有平面结构时，可使用此类创建组。
+ 
+  <p>要使用分组数据填充 AdvancedDataGrid 控件，可以在平面数据中创建 GroupingCollection 类的一个实例，然后将该 GroupingCollection 实例传递给 AdvancedDataGrid 控件的数据提供程序。要指定平面数据的分组字段，可将一个 Grouping 实例传递给 <codeph>GroupingCollection.grouping</codeph> 属性。Grouping 实例包含 GroupingField 实例的 Array，每个分组字段一个。 </p>
+ 
+  <p>以下示例使用 Grouping 类定义两个分组字段：Region 和 Territory。</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:Grouping:Grouping"><apiName>Grouping</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:Grouping:groupingObjectFunction"><apiName>groupingObjectFunction</apiName><shortdesc>
+      在每个组节点上运行以确定分组对象的回调函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      在每个组节点上运行以确定分组对象的回调函数。默认情况下，将为组节点创建新 Object。
+     
+      <p>您可以提供 <codeph>groupingObjectFunction</codeph>，它可以为组节点提供合适的对象。</p>
+     
+      <p>方法签名为：</p>
+      <pre>
+      myGroupObjectFunction(label:String):Object</pre>
+     
+      <p>其中 <codeph>label</codeph> 包含将为该组节点显示的值。该函数返回将用于组节点的 Object。 </p>
+     
+      例如，<codeph>groupingObjectFunction</codeph> 返回包含“name”属性且该属性值为“Bob”的 Object 可写作 - 
+      <pre>
+      private function groupObjFunction(label:String):Object
+      {
+          var obj:Object = {};
+          obj.name = "Bob";
+     
+          return obj;
+      }
+      </pre>
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:label"><apiName>label</apiName><shortdesc>
+      添加到平面数据以创建层次结构的字段的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>GroupLabel</apiData><apiType value="String"/><apiDefaultValue>GroupLabel
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      添加到平面数据以创建层次结构的字段的名称。每个组中顶部节点（表示组字段的节点）的值由此属性提供。使用此属性指定一个不同的名称。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      用于在排序时比较项目的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      用于在排序时比较项目的方法。如果指定了此属性，Flex 会忽略在此类中使用的 SortField 对象中指定的所有 <codeph>compareFunction</codeph> 属性。
+     
+      <p>该比较函数必须具有以下签名：</p>
+      <pre>
+         function [name](a:Object, b:Object, fields:Array=null):int</pre>
+     
+      <p>此函数必须返回以下值：</p>
+      <ul>
+            <li>-1，如果在已排序序列中 <codeph>a</codeph> 应显示在 <codeph>b</codeph> 之前。</li>
+            <li>0，如果 <codeph>a</codeph> 等于 <codeph>b</codeph>。</li>
+            <li>1，如果在已排序序列中 <codeph>a</codeph> 应显示在 <codeph>b</codeph> 之后。</li>
+      </ul>
+     
+      <p>要返回内部比较函数，请将此值设置为 <codeph>null</codeph>。</p>
+     
+     <p><codeph>fields</codeph> Array 会指定要比较的对象字段。通常，算法将一直比较属性，直到用尽字段列表或能返回非零值。例如：</p>
+     
+      <pre>
+        function myCompare(a:Object, b:Object, fields:Array=null):int
+        {
+            var result:int = 0;
+            var i:int = 0;
+            var propList:Array = fields ? fields : internalPropList;
+            var len:int = propList.length;
+            var propName:String;
+            while (result == 0 &amp;&amp; (i &lt; len))
+            {
+                propName = propList[i];
+                result = compareValues(a[propName], b[propName]);
+                i++;
+            }
+            return result;
+        }
+     
+        function compareValues(a:Object, b:Object):int
+        {
+            if (a == null &amp;&amp; b == null)
+                return 0;
+     
+            if (a == null)
+              return 1;
+     
+            if (b == null)
+               return -1;
+     
+            if (a &lt; b)
+                return -1;
+     
+            if (a > b)
+                return 1;
+     
+            return 0;
+        }</pre>
+     
+      <p>默认值为具有以下特征的内部比较函数：可以通过区分大小写或不区分大小写的字符串比较按升序或降序执行字符串、数字或日期比较。仅在需要自定义比较算法时指定您自己的函数。这种情况通常仅当在显示中使用计算的字段时出现。</p>
+     
+      <p>或者，您可以使用 SortField 类的 <codeph>compare</codeph> 属性为每个排序字段指定单独的比较函数。这样，您可以对某些字段使用默认比较，而对其他字段使用自定义比较。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Grouping:fields:get"><apiName>fields</apiName><shortdesc>
+      指定用于对数据进行分组的字段的 GroupingField 对象 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定用于对数据进行分组的字段的 GroupingField 对象 Array。在进行排序时，Array 中 GroupingField 对象的顺序确定字段的优先级顺序。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingField"><linktext>GroupingField</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:SummaryRow"><apiName>SummaryRow</apiName><shortdesc>
+  SummaryRow 类代表 AdvancedDataGrid 的摘要行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.SummaryRow&gt;</code> tag defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:SummaryRow
+  <b>Properties </b>
+    fields="<i>No default</i>"
+    summaryObjectFunction="<i>No default</i>"
+    summaryPlacement="<i>last</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SummaryRow 类代表 AdvancedDataGrid 的摘要行。可使用 GroupingField 或 GroupingCollection 类的 <codeph>summaries</codeph> 属性创建有关数据组的摘要数据。在 AdvancedDataGrid 控件的现有行中显示摘要数据，或者在单独的行中显示。
+ 
+  <p>GroupingField 或 GroupingCollection 类的 <codeph>summaries</codeph> 属性采用 SummaryRow 类的实例。然后，您可以使用 SummaryRow 类的 <codeph>fields</codeph> 属性指定一个或多个 SummaryField/SummaryField2 实例的 Array，这些实例定义用于创建摘要的数据字段。使用 <codeph>GroupingCollection2</codeph> 时需要使用 <codeph>SummaryField2</codeph>。</p>
+ 
+  <p>以下示例基于 AdvancedDataGrid 控件的数据提供程序的两个字段创建摘要行：</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG" 
+    initialize="gc.refresh();"> 
+    &lt;mx:dataProvider>
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+        &lt;mx:Grouping>
+          &lt;mx:GroupingField name="Region">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+          &lt;mx:GroupingField name="Territory">
+            &lt;mx:summaries>
+              &lt;mx:SummaryRow summaryPlacement="group">
+                &lt;mx:fields>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Min Actual" operation="MIN"/>
+                  &lt;mx:SummaryField dataField="Actual" 
+                    label="Max Actual" operation="MAX"/>
+                &lt;/mx:fields>
+              &lt;/mx:SummaryRow>
+            &lt;/mx:summaries>
+          &lt;/mx:GroupingField>
+        &lt;/mx:Grouping>
+      &lt;/mx:GroupingCollection>
+    &lt;/mx:dataProvider> 
+ 
+    &lt;mx:columns>
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+        headerText="Territory Rep"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+      &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+    &lt;/mx:columns>
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiConstructor id="mx.collections:SummaryRow:SummaryRow"><apiName>SummaryRow</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:SummaryRow:fields"><apiName>fields</apiName><shortdesc>
+      定义用于创建摘要的数据字段特性的 SummaryField/SummaryField2 实例的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      定义用于创建摘要的数据字段特性的 SummaryField/SummaryField2 实例的数组。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryRow:summaryObjectFunction"><apiName>summaryObjectFunction</apiName><shortdesc>
+      指定定义摘要对象的回调函数，它是 SummaryObject 类的一个实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      指定定义摘要对象的回调函数，它是 SummaryObject 类的一个实例。SummaryObject 实例收集供在 AdvancedDataGrid 控件中显示的摘要数据。AdvancedDataGrid 控件将 SummaryObject 实例添加到数据提供程序以在控件中显示摘要数据。因此，在 SummaryObject 实例内定义要显示的属性。
+     
+      <p>可将此属性与 <codeph>SummaryField.summaryFunction</codeph> 属性一起使用，后者可定义回调函数以执行摘要计算。</p>
+     
+      <p>GroupingCollection 类可将名为 <codeph>children</codeph> 属性添加到 Object。</p>
+     
+      <p>该回调函数必须具有以下签名：</p>
+     
+      <pre>function mySumObjFunc():SummaryObject {}</pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryObject"><linktext>mx.collections.SummaryObject</linktext></link><link href="mx.collections.xml#SummaryField/summaryFunction"><linktext>mx.collections.SummaryField.summaryFunction</linktext></link></related-links></apiValue><apiValue id="mx.collections:SummaryRow:summaryPlacement"><apiName>summaryPlacement</apiName><shortdesc> 
+      指定摘要行在 AdvancedDataGrid 控件中的显示位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指定摘要行在 AdvancedDataGrid 控件中的显示位置。可能的值包括：
+     
+      <ul>
+        <li><codeph>"first"</codeph> - 创建摘要行作为组中的第一行。</li>
+        <li><codeph>"last"</codeph> — 创建摘要行作为组中的最后一行。</li>
+        <li><codeph>"group"</codeph> - 将摘要数据添加到与组对应的行。</li>
+      </ul>
+     
+      <p>可以指定多个值，用空格分隔。例如，<codeph>"last group"</codeph> 值显示位于组级别中子项最后一行的相同摘要行。</p>
+     
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:HierarchicalCollectionViewCursor"><apiName>HierarchicalCollectionViewCursor</apiName><shortdesc>
+  HierarchicalCollectionViewCursor 类为标准集合的层次结构视图定义光标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalCollectionViewCursor</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HierarchicalCollectionViewCursor 类为标准集合的层次结构视图定义光标。此光标跨越的集合不需要有层次结构，它可以是平面的。此类委托 IHierarchicalData 来获得有关它穿过的数据的树结构的信息。 
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#HierarchicalCollectionView"><linktext>HierarchicalCollectionView</linktext></link></related-links><apiConstructor id="mx.collections:HierarchicalCollectionViewCursor:HierarchicalCollectionViewCursor"><apiName>HierarchicalCollectionViewCursor</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>collection</apiItemName><apiOperationClassifier>mx.collections:HierarchicalCollectionView</apiOperationClassifier><apiDesc>此光标引用的 HierarchicalCollectionView 实例。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>源数据集合。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:IHierarchicalData</apiOperationClassifier><apiDesc>用于创建 HierarchicalCollectionView 实例的数据。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findAny"><apiName>findAny</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findFirst"><apiName>findFirst</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:findLast"><apiName>findLast</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:insert"><apiName>insert</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:moveNext"><apiName>moveNext</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:movePrevious"><apiName>movePrevious</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:remove"><apiName>remove</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionViewCursor:seek"><apiName>seek</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>bookmark</apiItemName><apiType value="mx.collections:CursorBookmark"/></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.collections:HierarchicalCollectionViewCursor:afterLast:get"><apiName>afterLast</apiName><shortdesc conref="mx.collections.IViewCursor#afterLast">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#afterLast">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:beforeFirst:get"><apiName>beforeFirst</apiName><shortdesc conref="mx.collections.IViewCursor#beforeFirst">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#beforeFirst">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:bookmark:get"><apiName>bookmark</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.collections:CursorBookmark"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:currentDepth:get"><apiName>currentDepth</apiName><shortdesc>
+      
+      包含位于此光标引用的源集合中的位置处的节点的深度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      包含位于此光标引用的源集合中的位置处的节点的深度。如果该光标超出了集合末尾，则此属性包含 0。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:current:get"><apiName>current</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.collections:HierarchicalCollectionViewCursor:view:get"><apiName>view</apiName><shortdesc conref="mx.collections.IViewCursor#view">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="mx.collections:ICollectionView"/></apiValueDef><apiDesc conref="mx.collections.IViewCursor#view">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:DefaultSummaryCalculator"><apiName>DefaultSummaryCalculator</apiName><shortdesc>
+  DefaultSummaryCalculator 类为 SUM、MIN、MAX、AVG 和 COUNT 运算提供摘要计算逻辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISummaryCalculator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DefaultSummaryCalculator 类为 <codeph>SUM</codeph>、<codeph>MIN</codeph>、<codeph>MAX</codeph>、<codeph>AVG</codeph> 和 <codeph>COUNT</codeph> 运算提供摘要计算逻辑。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiOperation id="mx.collections:DefaultSummaryCalculator:calculateSummaryOfSummary"><apiName>calculateSummaryOfSummary</apiName><shortdesc>
+	  
+      需要在已经计算的摘要中添加新摘要值时，Flex 会调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>通过对 <codeph>summaryOfSummaryCalculationBegin()</codeph> 方法的调用返回的对象，或通过之前对 <codeph>calculateSummaryOfSummary()</codeph> 方法的调用计算的对象。此方法会修改此对象，但不会返回值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>针对前一个聚合调用 <codeph>returnSummary()</codeph> 方法而返回的对象。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      需要在已经计算的摘要中添加新摘要值时，Flex 会调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:calculateSummary"><apiName>calculateSummary</apiName><shortdesc>
+	  
+      当在摘要值中添加新值时，Flex 会调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>通过对 <codeph>summaryCalculationBegin()</codeph> 方法的调用返回的对象，或者通过之前对 <codeph>calculateSummary()</codeph> 方法的调用计算的对象。使用此对象保存执行计算所需的信息。此方法会修改此对象，但不会返回值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>代表正在分析的行数据的对象。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      当在摘要值中添加新值时，Flex 会调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:returnSummaryOfSummary"><apiName>returnSummaryOfSummary</apiName><shortdesc>
+	  
+      Flex 会调用此方法结束摘要计算。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>摘要值。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>通过对 <codeph>calculateSummaryOfSummary()</codeph> 方法的调用返回的对象，用于存储摘要计算结果。此方法会修改此对象，但不会返回值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex 会调用此方法结束摘要计算。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:returnSummary"><apiName>returnSummary</apiName><shortdesc>
+	  
+      Flex 会调用此方法来结束摘要值的计算。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>摘要值。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>通过对 <codeph>calculateSummary()</codeph> 方法的调用返回的对象。使用此对象保存执行计算所需的信息。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex 会调用此方法来结束摘要值的计算。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:summaryCalculationBegin"><apiName>summaryCalculationBegin</apiName><shortdesc>
+	  
+      Flex 调用此方法来开始计算摘要值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>已为摘要计算初始化的对象。使用此对象保存执行计算所需的信息。请将此对象传递给对 <codeph>calculateSummary()</codeph> 和 <codeph>returnSummary()</codeph> 方法的后续调用。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex 调用此方法来开始计算摘要值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:DefaultSummaryCalculator:summaryOfSummaryCalculationBegin"><apiName>summaryOfSummaryCalculationBegin</apiName><shortdesc>
+	  
+      Flex 调用此方法来开始从摘要值中计算摘要。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>已为摘要计算初始化的对象。使用此对象保存执行计算所需的信息。请将此对象传递给对 <codeph>calculateSummaryOfSummary()</codeph> 和 <codeph>returnSummaryOfSummary()</codeph> 方法的后续调用。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>针对前一个概要计算调用 <codeph>calculateSummary()</codeph> 方法而返回的对象。使用此对象保存执行计算所需的信息。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  
+      Flex 调用此方法来开始从摘要值中计算摘要。计算平均值组的平均值是对摘要值进行摘要计算的示例。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:HierarchicalData"><apiName>HierarchicalData</apiName><shortdesc>
+  层次结构数据指的是已在父数据项和子数据项结构中的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  层次结构数据指的是已在父数据项和子数据项结构中的数据。HierarchicalData 类提供了访问和处理供在控件（如 AdvancedDataGrid 控件）中使用的数据的默认实现。要将 AdvancedDataGrid 控件配置为显示层次结构数据，请将 HierarchicalData 类的一个实例传递给 <codeph>dataProvider</codeph> 属性。此实现处理 E4X、XML 和 Object 节点的方式相似，但不尽相同。有关如何使用该方法访问各种节点中的值的详细信息，请参阅每个方法的描述。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiConstructor id="mx.collections:HierarchicalData:HierarchicalData"><apiName>HierarchicalData</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>用于填充 HierarchicalData 实例的数据。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalData:canHaveChildren"><apiName>canHaveChildren</apiName><shortdesc>
+     
+      如果该节点可以包含子项，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果该节点可以包含子项，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      如果该节点可以包含子项，则返回 <codeph>true</codeph>。
+     
+      <p>节点无需包含该方法的子节点即可返回 <codeph>true</codeph>。此方法对于确定是否可将其他节点作为子项追加到指定节点很有用。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getChildren"><apiName>getChildren</apiName><shortdesc>
+      
+      返回表示节点子项的 Object。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含子节点的 Object。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。如果为 <codeph>null</codeph>，则返回顶级节点的集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回表示节点子项的 Object。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getData"><apiName>getData</apiName><shortdesc>
+      
+      返回节点中的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>请求的数据。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>从中获取数据的节点 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回节点中的数据。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:getRoot"><apiName>getRoot</apiName><shortdesc>
+     
+     返回根数据项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含根数据项的 Object。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+     
+     返回根数据项。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      
+      如果该节点包含子项，则返回 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果该节点具有子项，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      如果该节点包含子项，则返回 <codeph>true</codeph>。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:HierarchicalData:childrenField:get"><apiName>childrenField</apiName><shortdesc>
+      指示在数据项中检测子对象所用的字段名。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      指示在数据项中检测子对象所用的字段名。默认情况下，将所有子节点视为 XML 数据的子项，并将 <codeph>children</codeph> 属性用于 Object 数据类型。这有助于适应使用自定义数据字段代表子项的数据格式。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalData:source:get"><apiName>source</apiName><shortdesc>
+      源集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      源集合。该集合应实现 IList 接口以利于进行添加和删除项目等操作。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.collections.IList.xml"><linktext>mx.collections.IList</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:GroupingCollection"><apiName>GroupingCollection</apiName><shortdesc>
+  使用 GroupingCollection 类，您可以在平面数据中创建要显示在 AdvancedDataGrid 控件中的分组数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="grouping"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.GroupingCollection&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:GroupingCollection
+  <b>Properties </b>
+    grouping="<i>No default</i>"
+    source="<i>No default</i>"
+    summaries="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  <p>This Class has been deprecated and replaced by a new Class
+  <code>GroupingCollection2</code> which provide faster, 
+  improved performance and a new summary calculation mechanism.
+  Class <code>SummaryField</code> has also been deprecated and 
+  replaced by a new Class <code>SummaryField2</code>.
+  Properties <code>operation</code> and <code>summaryFunction</code> are 
+  not present in the Class <code>SummaryField2</code>. 
+  A new property <code>summaryOperation</code> is introduced in 
+  <code>SummaryField2</code>.</p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="GroupingCollection2" sinceVersion="4.0"/><apiBaseInterface>mx.collections:IGroupingCollection</apiBaseInterface><apiBaseClassifier>mx.collections:HierarchicalData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  使用 GroupingCollection 类，您可以在平面数据中创建要显示在 AdvancedDataGrid 控件中的分组数据。在平面数据中创建 GroupingCollection 实例时，可以指定用于创建层次结构的数据的一个或多个字段。
+ 
+  <p>要使用分组数据填充 AdvancedDataGrid 控件，可以在平面数据中创建 GroupingCollection 类的一个实例，然后将该 GroupingCollection 实例传递给 AdvancedDataGrid 控件的数据提供程序。要指定平面数据的分组字段，可将一个 Grouping 实例传递给 <codeph>GroupingCollection.grouping</codeph> 属性。Grouping 实例包含 GroupingField 实例的 Array，每个分组字段一个。 </p>
+ 
+  <p>以下示例使用 GroupingCollection 类定义两个分组字段：Region 和 Territory。</p>
+ 
+  <pre>
+  &lt;mx:AdvancedDataGrid id="myADG"    
+    &lt;mx:dataProvider> 
+      &lt;mx:GroupingCollection id="gc" source="{dpFlat}"> 
+        &lt;mx:grouping> 
+          &lt;mx:Grouping> 
+            &lt;mx:GroupingField name="Region"/> 
+            &lt;mx:GroupingField name="Territory"/> 
+          &lt;/mx:Grouping> 
+        &lt;/mx:grouping> 
+      &lt;/mx:GroupingCollection> 
+    &lt;/mx:dataProvider>  
+     
+    &lt;mx:columns> 
+      &lt;mx:AdvancedDataGridColumn dataField="Region"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Actual"/> 
+      &lt;mx:AdvancedDataGridColumn dataField="Estimate"/> 
+    &lt;/mx:columns> 
+  &lt;/mx:AdvancedDataGrid>
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link><link href="mx.collections.xml#Grouping"><linktext>mx.collections.Grouping</linktext></link><link href="mx.collections.xml#GroupingField"><linktext>mx.collections.GroupingField</linktext></link></related-links><apiConstructor id="mx.collections:GroupingCollection:GroupingCollection"><apiName>GroupingCollection</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:GroupingCollection:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      
+      如果异步执行刷新，请取消刷新操作并停止构建组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      如果异步执行刷新，请取消刷新操作并停止构建组。与异步刷新相对应，此方法仅取消由调用带有 <codeph>true</codeph> 参数的 <codeph>refresh()</codeph> 方法启动的刷新。
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:protected:getParent"><apiName>getParent</apiName><shortdesc>
+      返回节点的父项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>包含作为子项的节点的父节点，如果为顶级节点，则返回 <codeph>null</codeph>；如果无法确定父节点，则返回 <codeph>undefined</codeph>。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点的父项。顶级节点的父项为 <codeph>null</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:getRoot"><apiName>getRoot</apiName><shortdesc>
+      如果已设置分组属性，则返回 super.source；如果未设置，则返回引用 super.source 的 ICollectionView 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>要返回的对象。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      如果已设置 <codeph>grouping</codeph> 属性，则返回 <codeph>super.source</codeph>；如果未设置，则返回引用 <codeph>super.source</codeph> 的 ICollectionView 实例。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:GroupingCollection:refresh"><apiName>refresh</apiName><shortdesc>
+      
+      对该视图应用分组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>refresh()</codeph> 方法已完成，则为 <codeph>true</codeph>；如果刷新尚未完成，则为 <codeph>false</codeph>，这样可以表示这些项目仍未处理。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>true</codeph>，则定义为异步刷新。默认情况下，为 <codeph>false</codeph>，指示同步刷新。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      对该视图应用分组。IGroupingCollection 不会自动检测对组进行的更改，因此设置 <codeph>group</codeph> 属性后，必须调用 <codeph>refresh()</codeph> 方法更新该视图。
+     
+      <p>通过调用 <codeph>refresh(true)</codeph> 可异步应用 <codeph>refresh()</codeph> 方法。</p>
+      
+      <p>如果同步调用 <codeph>refresh()</codeph>，客户端应等待 <codeph>kind</codeph> 属性值设置为 <codeph>CollectionEventKind.REFRESH</codeph> 的 CollectionEvent 事件，以确保完成 <codeph>refresh()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:GroupingCollection:summaries"><apiName>summaries</apiName><shortdesc>
+      定义任意根级别数据摘要的 SummaryRow 实例数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      定义任意根级别数据摘要的 SummaryRow 实例数组。指定一个或多个 SummaryRow 实例以定义数据摘要，如以下示例所示：
+     
+      <pre>
+      &lt;mx:AdvancedDataGrid id="myADG" 
+         width="100%" height="100%" 
+         initialize="gc.refresh();">        
+         &lt;mx:dataProvider>
+             &lt;mx:GroupingCollection id="gc" source="{dpFlat}">
+                 &lt;mx:summaries>
+                     &lt;mx:SummaryRow summaryPlacement="last">
+                         &lt;mx:fields>
+                             &lt;mx:SummaryField dataField="Actual" 
+                                 label="Min Actual" operation="MIN"/>
+                             &lt;mx:SummaryField dataField="Actual" 
+                                 label="Max Actual" operation="MAX"/>
+                         &lt;/mx:fields>
+                       &lt;/mx:SummaryRow>
+                     &lt;/mx:summaries>
+                 &lt;mx:Grouping>
+                     &lt;mx:GroupingField name="Region"/>
+                     &lt;mx:GroupingField name="Territory"/>
+                 &lt;/mx:Grouping>
+             &lt;/mx:GroupingCollection>
+         &lt;/mx:dataProvider>        
+         
+         &lt;mx:columns>
+             &lt;mx:AdvancedDataGridColumn dataField="Region"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                 headerText="Territory Rep"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Estimate"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Min Actual"/>
+             &lt;mx:AdvancedDataGridColumn dataField="Max Actual"/>
+         &lt;/mx:columns>
+      &lt;/mx:AdvancedDataGrid></pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SummaryRow"><linktext>mx.collections.SummaryRow</linktext></link><link href="mx.collections.xml#SummaryField"><linktext>mx.collections.SummaryField</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection:protected:timer"><apiName>timer</apiName><shortdesc>
+      与异步刷新操作相关联的计时器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Timer"/></apiValueDef><apiDesc>
+      与异步刷新操作相关联的计时器。您可以使用它来更改计时间隔、暂停刷新或执行其他操作。Timer 实例的 <codeph>delay</codeph> 属性的默认值为 1，对应于 1 毫秒。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:GroupingCollection:grouping:get"><apiName>grouping</apiName><shortdesc>
+      指定应用于源数据的 Grouping 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      指定应用于源数据的 Grouping 实例。设置 <codeph>grouping</codeph> 属性不会自动刷新视图，因此您必须在设置此属性后调用 <codeph>refresh()</codeph> 方法。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#GroupingCollection/refresh()"><linktext>mx.collections.GroupingCollection.refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:GroupingCollection:source:get"><apiName>source</apiName><shortdesc>
+      包含要分组的平面数据的源集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      包含要分组的平面数据的源集合。如果源不是一个集合，它将自动封装在一个集合中。
+      
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:ISummaryCalculator"><apiName>ISummaryCalculator</apiName><shortdesc>
+  ISummaryCalculator 接口定义由自定义摘要计算器类实现的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  ISummaryCalculator 接口定义由自定义摘要计算器类实现的接口。可以将实现此接口的类的实例传递给 <codeph>SummaryField2</codeph> 类的 <codeph>summaryOperation</codeph> 属性。
+ 
+  <p>在两个组中实现此接口的方法。第一组包含 <codeph>summaryCalculationBegin()</codeph>、<codeph>calculateSummary()</codeph> 和 <codeph>returnSummary()</codeph> 方法。使用这些方法可计算值的摘要。</p>
+ 
+  <p>第二组包含 <codeph>summaryOfSummaryCalculationBegin()</codeph>、<codeph>calculateSummaryOfSummary()</codeph> 和 <codeph>returnSummaryOfSummary()</codeph> 方法。使用这些方法计算概要值的概要。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#SummaryField2"><linktext>mx.collections.SummaryField2</linktext></link></related-links><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:calculateSummaryOfSummary"><apiName>calculateSummaryOfSummary</apiName><shortdesc>
+      需要在已经计算的摘要中添加新摘要值时，Flex 会调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>通过对 <codeph>summaryOfSummaryCalculationBegin()</codeph> 方法的调用返回的对象，或通过之前对 <codeph>calculateSummaryOfSummary()</codeph> 方法的调用计算的对象。此方法会修改此对象，但不会返回值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>针对前一个聚合调用 <codeph>returnSummary()</codeph> 方法而返回的对象。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      需要在已经计算的摘要中添加新摘要值时，Flex 会调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:calculateSummary"><apiName>calculateSummary</apiName><shortdesc>
+      当在摘要值中添加新值时，Flex 会调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>通过对 <codeph>summaryCalculationBegin()</codeph> 方法的调用返回的对象，或者通过之前对 <codeph>calculateSummary()</codeph> 方法的调用计算的对象。使用此对象保存执行计算所需的信息。此方法会修改此对象，但不会返回值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>代表正在分析的行数据的对象。 
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      当在摘要值中添加新值时，Flex 会调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:returnSummaryOfSummary"><apiName>returnSummaryOfSummary</apiName><shortdesc>
+      Flex 会调用此方法结束摘要计算。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>摘要值。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>通过对 <codeph>calculateSummaryOfSummary()</codeph> 方法的调用返回的对象，用于存储摘要计算结果。此方法会修改此对象，但不会返回值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex 会调用此方法结束摘要计算。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:returnSummary"><apiName>returnSummary</apiName><shortdesc>
+      Flex 会调用此方法来结束摘要值的计算。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>摘要值。
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>通过对 <codeph>calculateSummary()</codeph> 方法的调用返回的对象。使用此对象保存执行计算所需的信息。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex 会调用此方法来结束摘要值的计算。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:summaryCalculationBegin"><apiName>summaryCalculationBegin</apiName><shortdesc>
+      Flex 调用此方法来开始计算摘要值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>已为摘要计算初始化的对象。使用此对象保存执行计算所需的信息。请将此对象传递给对 <codeph>calculateSummary()</codeph> 和 <codeph>returnSummary()</codeph> 方法的后续调用。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex 调用此方法来开始计算摘要值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISummaryCalculator:mx.collections:ISummaryCalculator:summaryOfSummaryCalculationBegin"><apiName>summaryOfSummaryCalculationBegin</apiName><shortdesc>
+      Flex 调用此方法来开始从摘要值中计算摘要。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>已为摘要计算初始化的对象。使用此对象保存执行计算所需的信息。请将此对象传递给对 <codeph>calculateSummaryOfSummary()</codeph> 和 <codeph>returnSummaryOfSummary()</codeph> 方法的后续调用。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>针对前一个概要计算调用 <codeph>calculateSummary()</codeph> 方法而返回的对象。使用此对象保存执行计算所需的信息。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>field</apiItemName><apiOperationClassifier>mx.collections:SummaryField2</apiOperationClassifier><apiDesc>需要为其计算摘要的 SummaryField2。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Flex 调用此方法来开始从摘要值中计算摘要。计算平均值组的平均值是对摘要值进行摘要计算的示例。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:IGroupingCollection2"><apiName>IGroupingCollection2</apiName><shortdesc>
+  IGroupingCollection2 接口定义根据平面数据创建分组数据所需的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IGroupingCollection2 接口定义根据平面数据创建分组数据所需的接口。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#GroupingCollection2"><linktext>mx.collections.GroupingCollection2</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      如果异步执行刷新，请取消刷新操作并停止构建组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果异步执行刷新，请取消刷新操作并停止构建组。与异步刷新相对应，此方法仅取消由调用带有 <codeph>asynch</codeph> 参数 <codeph>true</codeph> 的 <codeph>refresh()</codeph> 方法启动的刷新。
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:refresh"><apiName>refresh</apiName><shortdesc>
+      对该集合应用分组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>refresh()</codeph> 方法已完成，则为 <codeph>true</codeph>；如果刷新尚未完成，则为 <codeph>false</codeph>，这样可以表示这些项目仍未处理。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>true</codeph>，则定义为异步刷新。默认情况下，为 <codeph>false</codeph>，指示同步刷新。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dispatchCollectionEvents</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>若为 <codeph>true</codeph>，则当形成组时分派事件。为了使性能更佳，可将其设置为 <codeph>false</codeph>。若为 <codeph>true</codeph>，则事件是作为组分派的，且会同步计算摘要以更新控件。注意：如果 <codeph>async</codeph> 为 <codeph>true</codeph>，则会始终将 <codeph>dispatchCollectionEvents</codeph> 设置为 <codeph>true</codeph>。默认情况下，它为 <codeph>false</codeph>，指示将不会分派任何事件。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      对该集合应用分组。该集合不会自动检测对组进行的更改，因此设置 <codeph>grouping</codeph>、<codeph>source</codeph> 或 <codeph>summaries</codeph> 属性后，必须调用 <codeph>refresh()</codeph> 方法以更新该集合。修改集合的 GroupingField（如通过更改 <codeph>caseInsensitive</codeph>、<codeph>compareFunction</codeph> 或 <codeph>groupingFunction</codeph> 属性）时您也调用 <codeph>refresh()</codeph> 方法。
+     
+      <p>可以同步或异步应用 <codeph>refresh()</codeph> 方法。</p>
+      
+      <p>同步调用 <codeph>refresh()</codeph> 时，在该方法返回之前，会一起更新所有组和摘要。这意味着您的应用程序在该调用期间无法执行其它处理操作。客户端应等待 <codeph>kind</codeph> 属性值设置为 <codeph>CollectionEventKind.REFRESH</codeph> 的 CollectionEvent 事件，以确保完成 <codeph>refresh()</codeph> 方法。</p>
+     
+      <p>在异步刷新中，会单独更新所有组和摘要。<codeph>refresh()</codeph> 方法在更新组和摘要之前返回，这样您的应用程序可以继续执行。此外，控件是在刷新过程中更新的，这样用户可以继续与其交互。</p>
+     
+      <p>单独更新组和摘要（而不是一次全部更新）的开销使异步刷新比同步刷新花费的时间更长。但是，对于大型数据集，您的应用程序会在刷新过程中继续操作。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IGroupingCollection2:mx.collections:IGroupingCollection2:grouping:get"><apiName>grouping</apiName><shortdesc>
+      应用于源数据的 Grouping 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      应用于源数据的 Grouping 对象。设置此属性不会自动刷新视图；因此，必须在设置此属性后调用 <codeph>refresh()</codeph> 方法。
+     
+      <p><b>注意：</b>IGroupingCollection2 的 Flex 实现将先检索远程位置的所有项目，然后再执行分组。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:HierarchicalCollectionView"><apiName>HierarchicalCollectionView</apiName><shortdesc>
+  HierarchicalCollectionView 类提供标准集合的层次结构视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  The <code>&lt;mx.HierarchicalCollectionView&gt;</code> inherits all the tag attributes of its superclass, 
+  and defines the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:HierarchicalCollectionView
+  <b>Properties </b>
+    showRoot="true|false"
+    source="<i>No default</i>"
+  /&gt;
+  </pre> 
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IHierarchicalCollectionView</apiBaseInterface><apiBaseInterface>mx.utils:IXMLNotifiable</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HierarchicalCollectionView 类提供标准集合的层次结构视图。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.collections:HierarchicalCollectionView:HierarchicalCollectionView"><apiName>HierarchicalCollectionView</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>hierarchicalData</apiItemName><apiOperationClassifier>mx.collections:IHierarchicalData</apiOperationClassifier><apiData>null</apiData><apiDesc>包含层次结构数据的数据结构。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>argOpenNodes</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>用于定义显示为起始位置的节点的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:HierarchicalCollectionView:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      将子节点添加到指定索引处的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果成功添加子节点，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>用于定义父节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>用于定义子节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要在该处插入子节点的从零开始的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将子节点添加到指定索引处的节点。此实现执行以下操作：
+     
+      <ul>
+          <li>如果 <codeph>parent</codeph> 为空或未定义，则在 <codeph>source</codeph> 指定的集合中的指定 <codeph>index</codeph> 处插入 <codeph>child</codeph>。
+          </li>
+          <li>如果 <codeph>parent</codeph> 包含 <codeph>children</codeph> 字段或属性，则该方法会将 <codeph>child</codeph> 添加到父节点的 <codeph>index</codeph> 位置。在这种情况下，不需要使用 <codeph>source</codeph>。
+         </li>
+         <li>如果 <codeph>parent</codeph> 不包含 <codeph>children</codeph> 字段或属性，则该方法会将 <codeph>children</codeph> 添加到 <codeph>parent</codeph>。然后，此方法将 <codeph>child</codeph> 添加到父节点的 <codeph>index</codeph> 位置。在这种情况下，不需要使用 <codeph>source</codeph>。
+         </li>
+         <li>如果 <codeph>index</codeph> 值大于集合长度或父节点中的子节点数，则将对象添加为最后一个子节点。
+         </li>
+     </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:addChild"><apiName>addChild</apiName><shortdesc>
+      
+      为数据的节点添加子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果成功添加节点，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>用于定义父节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>用于定义新节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      为数据的节点添加子节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:closeNode"><apiName>closeNode</apiName><shortdesc>
+      
+      关闭要隐藏其子项的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      关闭要隐藏其子项的节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:contains"><apiName>contains</apiName><shortdesc>
+      使用标准相等测试检查数据项目的集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果数据项目位于集合中，则为 <codeph>true</codeph>，否则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>用于定义要查找的节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      使用标准相等测试检查数据项目的集合。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:createCursor"><apiName>createCursor</apiName><shortdesc>
+      返回此视图中有关项目的视图迭代器的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>IViewCursor 实例。
+     
+      </apiDesc><apiType value="mx.collections:IViewCursor"/></apiReturn></apiOperationDef><apiDesc>
+      返回此视图中有关项目的视图迭代器的新实例。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.utils.IViewCursor.xml"><linktext>mx.utils.IViewCursor</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getChildren"><apiName>getChildren</apiName><shortdesc>
+      
+      返回子项的集合（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含子节点的 ICollectionView 实例。
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。如果为 <codeph>null</codeph>，则返回顶级节点的集合。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回子项的集合（如果存在）。 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+     
+      返回集合中节点的深度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>节点的深度。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      返回集合中节点的深度。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:getParentItem"><apiName>getParentItem</apiName><shortdesc>
+      返回节点的父项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含该节点的父节点；如果为顶级节点，则为 <codeph>null</codeph>；如果无法确定父节点，则为 <codeph>undefined</codeph>。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回节点的父项。顶级节点的父项为 <codeph>null</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:openNode"><apiName>openNode</apiName><shortdesc>
+      
+      打开要显示其子项的节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>定义该节点的 Object。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      打开要显示其子项的节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:refresh"><apiName>refresh</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      从指定索引处的节点删除子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果成功删除子节点，则返回 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>用于定义父节点的 Object。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要删除的相对于父项的子节点的从零开始的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从指定索引处的节点删除子节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:HierarchicalCollectionView:removeChild"><apiName>removeChild</apiName><shortdesc>
+      
+      从父节点删除子节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果成功删除节点，则为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>用于定义父节点的 Object；对于顶级节点，为 <codeph>null</codeph>。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>用于定义要删除的子节点的 Object。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      从父节点删除子节点。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:HierarchicalCollectionView:hasRoot:get"><apiName>hasRoot</apiName><shortdesc> 
+       
+      一种标志，如果为 true，表示当前数据提供程序具有根节点；例如，层次结构中的单个顶级节点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc> 
+       
+      一种标志，如果为 <codeph>true</codeph>，表示当前数据提供程序具有根节点；例如，层次结构中的单个顶级节点。XML 和 Object 就是具有根节点的数据类型，而 Lists 和 Arrays 不属于这种数据类型。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:length:get"><apiName>length</apiName><shortdesc>
+      当前分析的集合的长度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      当前分析的集合的长度。  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:openNodes:get"><apiName>openNodes</apiName><shortdesc>
+      
+      包含数据的所有开型分枝节点的数据提供程序元素的对象 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      包含数据的所有开型分枝节点的数据提供程序元素的对象 Array。
+      
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:showRoot:get"><apiName>showRoot</apiName><shortdesc>
+      
+      指定是否显示数据提供程序的根节点的布尔值标志。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      指定是否显示数据提供程序的根节点的布尔值标志。如果源数据具有根节点，并且此属性设置为 <codeph>false</codeph>，则该集合中将不包含根项目。该集合中将仅包含此根项目的后代。  
+     
+      <p>此属性不影响没有根节点的源，如 List 和 Array 对象。</p> 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:HierarchicalCollectionView:source:get"><apiName>source</apiName><shortdesc>
+      
+      IHierarchicalCollectionView 的源数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IHierarchicalData</apiValueClassifier></apiValueDef><apiDesc>
+      
+      IHierarchicalCollectionView 的源数据。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IGroupingCollection"><apiName>IGroupingCollection</apiName><shortdesc>
+  IGroupingCollection 接口定义根据平面数据创建分组数据所需的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiDeprecated replacement="IGroupingCollection2" sinceVersion="4.0"/><apiBaseInterface>mx.collections:IHierarchicalData</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IGroupingCollection 接口定义根据平面数据创建分组数据所需的接口。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#GroupingCollection"><linktext>mx.collections.GroupingCollection</linktext></link><link href="mx.controls.xml#AdvancedDataGrid"><linktext>mx.controls.AdvancedDataGrid</linktext></link></related-links><apiOperation id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:cancelRefresh"><apiName>cancelRefresh</apiName><shortdesc>
+      如果异步执行刷新，请取消刷新操作并停止构建组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      如果异步执行刷新，请取消刷新操作并停止构建组。与异步刷新相对应，此方法仅取消由调用带有 <codeph>true</codeph> 参数的 <codeph>refresh()</codeph> 方法启动的刷新。
+      
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:refresh"><apiName>refresh</apiName><shortdesc>
+      对该视图应用分组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果 <codeph>refresh()</codeph> 方法已完成，则为 <codeph>true</codeph>；如果刷新尚未完成，则为 <codeph>false</codeph>，这样可以表示这些项目仍未处理。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>async</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果为 <codeph>true</codeph>，则定义为异步刷新。默认情况下，为 <codeph>false</codeph>，指示同步刷新。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      对该视图应用分组。IGroupingCollection 不会自动检测对组进行的更改，因此设置 <codeph>group</codeph> 属性后，必须调用 <codeph>refresh()</codeph> 方法更新该视图。
+     
+      <p>通过调用 <codeph>refresh(true)</codeph> 可异步应用 <codeph>refresh()</codeph> 方法。</p>
+      
+      <p>如果同步调用 <codeph>refresh()</codeph>，客户端应等待 <codeph>kind</codeph> 属性值设置为 <codeph>CollectionEventKind.REFRESH</codeph> 的 CollectionEvent 事件，以确保完成 <codeph>refresh()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IGroupingCollection:mx.collections:IGroupingCollection:grouping:get"><apiName>grouping</apiName><shortdesc>
+      应用于源数据的 Grouping 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:Grouping</apiValueClassifier></apiValueDef><apiDesc>
+      应用于源数据的 Grouping 对象。设置此属性不会自动刷新视图；因此，必须在设置此属性后调用 <codeph>refresh()</codeph> 方法。
+     
+      <p>注意：IGroupingCollection 的 Flex 实现将先检索远程位置的所有项目，然后再执行分组。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

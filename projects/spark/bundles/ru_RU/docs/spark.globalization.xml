@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.globalization"><apiName>spark.globalization</apiName><apiDetail/><apiClassifier id="spark.globalization:SortingCollator"><apiName>SortingCollator</apiName><shortdesc>
+  Класс SortingCollator предоставляет возможности сравнения строк с учетом локали и исходными параметрами, подходящими для лингвистической сортировки (например, сортировки списка текстовых строк, которые отображаются для конечного пользователя).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:CollatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс <codeph>SortingCollator</codeph> предоставляет возможности сравнения строк на основе локали с исходными параметрами, подходящими для лингвистической сортировки (например, сортировки списка текстовых строк, которые отображаются для конечного пользователя).
+ 
+  <p>Это класс-оболочка, включающий <codeph>flash.globalization.Collator</codeph>. Поэтому сравнение строк на основе локали обеспечивает класс <codeph>flash.globalization.Collator</codeph>. Класс SortingCollator, который может применяться в объявлениях MXML, использует стиль локали для запрашиваемого имени идентификатора локали и содержит привязываемые методы и свойства. Также <codeph>LastOperationStatus</codeph> устанавливается, если в классе flash.globalization создается ошибка или предупреждение.</p>
+ 
+  <p>Класс flash.globalization.Collator использует базовую операционную систему для форматирования функциональности и предоставления данных, относящихся к конкретной локали. В некоторых операционных системах, не поддерживающих классы flash.globalization, класс оболочки обеспечивает резервные функциональные возможности.</p>
+ 
+  </apiDesc><example conref="SortingCollatorExample.mxml"><swfblock conref="examples/SortingCollatorExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links><apiConstructor id="spark.globalization:SortingCollator:SortingCollator"><apiName>SortingCollator</apiName><shortdesc>
+      Создает новый объект SortingCollator для сравнения строк в соответствии с правилами заданной локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает новый объект SortingCollator для сравнения строк в соответствии с правилами заданной локали.
+     
+      <p>Этот класс устанавливает исходные значения различных параметров сопоставления для обычной лингвистической сортировки (например, сортировки списка текстовых строк, которые отображаются для конечного пользователя). В этом режиме при сравнении строк проводится различие между строчными и прописными буквами, символами с акцентом и без, а также учитываются другие отличия.
+      </p>
+     
+      <p>Обеспечиваемое экземпляром этого класса сравнение эквивалентно созданию экземпляра <codeph>flash.globalization.Collator</codeph>, для параметра <codeph>initialMode</codeph> которого установлено значение <codeph>CollatorMode.SORTING</codeph>. Более подробные сведения и примеры использования этого режима см. в документации для класса <codeph>flash.globalization.Collator</codeph>.
+      </p>
+     
+      <p>Стиль локали определяет локаль для этого класса. Стиль локали можно установить следующими способами:</p>
+     
+      <ul>
+          <li>Наследование стиля из <codeph>UIComponent</codeph> путем вызова метода addStyleClient UIComponent.</li>
+          <li>С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление.
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+             &lt;s:SortingCollator id="sc" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>С использованием объявления MXML и указанием значения локали в списке назначений.
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+          &lt;s:SortingCollator id="sc_France" locale="fr-FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>Вызов метода setStyle, например <codeph>sc.setStyle("locale", "fr-FR")</codeph></li>
+      </ul>
+     
+      <p>
+      Если стиль <codeph>locale</codeph> не установлен одним из вышеперечисленных способов, экземпляр этого класса добавляется как <codeph>StyleClient</codeph> в <codeph>topLevelApplication</codeph> и наследует стиль <codeph>locale</codeph> из объекта <codeph>topLevelApplication</codeph> при вызове получателя свойств, зависящего от <codeph>locale</codeph>, или метода, зависящего от <codeph>locale</codeph>.
+      </p>   
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links></apiConstructor></apiClassifier><apiClassifier id="spark.globalization:StringTools"><apiName>StringTools</apiName><shortdesc>
+  Класс StringTools предоставляет методы преобразования регистра с учетом локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс <codeph>StringTools</codeph> предоставляет методы преобразования регистра с учетом локали.
+ 
+  <p>Это класс-оболочка, включающий <codeph>flash.globalization.StringTools</codeph>. Поэтому функциональность преобразования регистра обеспечивает класс <codeph>flash.globalization.StringTools</codeph>. Класс <codeph>StringTools</codeph>, который может применяться в объявлениях MXML, использует стиль локали для запрашиваемого имени идентификатора локали и содержит привязываемые методы и свойства. Также события генерируются, если в классе flash.globalization создается ошибка или предупреждение.</p>
+ 
+  <p>Класс <codeph>flash.globalization.StringTools</codeph> использует базовую операционную систему для обеспечения функциональных возможностей преобразования регистра. В операционных системах, не поддерживающих классы <codeph>flash.globalization</codeph>, класс оболочки обеспечивает резервные функциональные возможности, использующие преобразование регистра, выполняемое классом <codeph>String</codeph>.</p>
+ 
+  </apiDesc><example conref="StringToolsExample.mxml"><swfblock conref="examples/StringToolsExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links><apiConstructor id="spark.globalization:StringTools:StringTools"><apiName>StringTools</apiName><shortdesc>
+      Создает новый объект StringTools, который обеспечивает преобразование регистра и другие служебные функции в соответствии с правилами данной локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает новый объект StringTools, который обеспечивает преобразование регистра и другие служебные функции в соответствии с правилами данной локали. Стиль локали определяет локаль для этого класса. Стиль локали можно установить следующими способами:
+     
+      <ul>
+      <li>Наследование стиля из <codeph>UIComponent</codeph> путем вызова метода addStyleClient UIComponent.</li>
+     
+      <li>С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление. Пример:
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:StringTools id="st" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+     
+      <li>С использованием объявления MXML и указанием значения локали в списке назначений. Пример:
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:StringTools id="st_turkish" locale="tr-TR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+     
+      <li>Вызов метода setStyle, например <codeph>st.setStyle("locale", "tr-TR")</codeph></li>
+      </ul>
+     
+      <p>
+      Если стиль <codeph>locale</codeph> не установлен одним из вышеперечисленных способов, экземпляр этого класса добавляется как <codeph>StyleClient</codeph> в <codeph>topLevelApplication</codeph> и наследует стиль <codeph>locale</codeph> из объекта <codeph>topLevelApplication</codeph> при вызове получателя свойств, зависящего от <codeph>locale</codeph>, или метода, зависящего от <codeph>locale</codeph>.
+      </p>   
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links></apiConstructor><apiOperation id="spark.globalization:StringTools:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc conref="spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="Vector$String"/><apiDesc>Вектор строк, содержащий все имена идентификаторов локалей, поддерживаемые этим классом и операционной системой.
+                   </apiDesc></apiReturn></apiOperationDef><apiDesc conref="spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.globalization:StringTools:toLowerCase"><apiName>toLowerCase</apiName><shortdesc>
+      Преобразует строку в нижний регистр в соответствии с правилами языка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Преобразованная строка в нижнем регистре.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="String"/><apiDesc><codeph>String</codeph> для преобразования в нижний регистр.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразует строку в нижний регистр в соответствии с правилами языка. В зависимости от локали длина строки вывода может отличаться от длины строки ввода.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links></apiOperation><apiOperation id="spark.globalization:StringTools:toUpperCase"><apiName>toUpperCase</apiName><shortdesc>
+      Преобразует строку в верхний регистр в соответствии с правилами языка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Преобразованная строка в верхнем регистре.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="String"/><apiDesc><codeph>String</codeph> для преобразования в верхний регистр.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Преобразует строку в верхний регистр в соответствии с правилами языка. В зависимости от локали длина строки вывода может отличаться от длины строки ввода.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links></apiOperation><apiValue id="spark.globalization:StringTools:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      Имя фактического идентификатора локали, используемое этим объектом класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Имя фактического идентификатора локали, используемое этим объектом класса. Эта локаль используется для доступа к форматированию данных и функциональным возможностям операционной системы.
+     
+      <p>Если локаль, установленная стилем <codeph>locale</codeph>, недоступна, то значение <codeph>actualLocaleIDName</codeph> будет отличаться от значения стиля <codeph>locale</codeph>. Значение будет указывать резервную используемую локаль. Если стиль локали установлен как <codeph>LocaleID.DEFAULT</codeph>, будет использоваться имя локали, определенное операционной системой пользователя.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.actualLocaleIDName.xml"><linktext>flash.globalization.StringTools.actualLocaleIDName</linktext></link><link href="spark.globalization.xml#StringTools/StringTools()"><linktext>StringTools()</linktext></link></related-links></apiValue><apiValue id="spark.globalization:StringTools:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      Состояние самой последней операции, выполненной этим объектом класса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      Состояние самой последней операции, выполненной этим объектом класса. Свойство <codeph>lastOperationStatus</codeph> задается каждый раз при вызове конструктора или метода этого класса или при задании значения для другого свойства. Другие возможные значения см. в описании соответствующего метода.
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.globalization:MatchingCollator"><apiName>MatchingCollator</apiName><shortdesc>
+  Класс MatchingCollator предоставляет возможности сравнения строк с учетом локали и исходными параметрами, подходящими для обычного сопоставления строк (например, поиска соответствующего слова в блоке текста).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:CollatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс <codeph>MatchingCollator</codeph> предоставляет возможности сравнения строк с учетом локали и исходными параметрами, подходящими для обычного сопоставления строк (например, поиска соответствующего слова в блоке текста).
+ 
+  <p>Это класс-оболочка, включающий <codeph>flash.globalization.Collator</codeph>. Поэтому сравнение строк на основе локали обеспечивает класс <codeph>flash.globalization.Collator</codeph>. Класс MatchingCollator, который может применяться в объявлениях MXML, использует стиль локали для запрашиваемого имени идентификатора локали и содержит привязываемые методы и свойства. Также <codeph>LastOperationStatus</codeph> устанавливается, если в классе flash.globalization создается ошибка или предупреждение.</p>
+ 
+  <p>Класс flash.globalization.Collator использует базовую операционную систему для форматирования функциональности и предоставления данных, относящихся к конкретной локали. В некоторых операционных системах, не поддерживающих классы flash.globalization, класс оболочки обеспечивает резервные функциональные возможности.</p>
+ 
+  </apiDesc><example conref="MatchingCollatorExample.mxml"><swfblock conref="examples/MatchingCollatorExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links><apiConstructor id="spark.globalization:MatchingCollator:MatchingCollator"><apiName>MatchingCollator</apiName><shortdesc>
+      Создает новый объект MatchingCollator для сравнения строк в соответствии с правилами заданной локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает новый объект MatchingCollator для сравнения строк в соответствии с правилами заданной локали.
+     
+      <p>Этот класс устанавливает исходные значения для различных способов сопоставления строк (например, определение эквивалентности двух строк или поиск соответствующего слова в блоке текста). В этом режиме сравнение выполняется без учета строчных и прописных букв, символов с акцентами и других отличий.</p>
+     
+      <p>Обеспечиваемое экземпляром этого класса сравнение эквивалентно созданию экземпляра <codeph>flash.globalization.Collator</codeph>, для параметра <codeph>initialMode</codeph> которого установлено значение <codeph>CollatorMode.MATCHING</codeph>. Более подробные сведения и примеры использования этого режима см. в документации для класса <codeph>flash.globalization.Collator</codeph>.</p>
+     
+      <p>Стиль локали определяет локаль для этого класса. Стиль локали можно установить следующими способами:</p>
+     
+      <ul>
+          <li>Наследование стиля из <codeph>UIComponent</codeph> путем вызова метода addStyleClient UIComponent.</li>
+          <li>С использованием класса в объявлении MXML и наследованием локали из документа, содержащего объявление.
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+             &lt;s:MatchingCollator id="mc" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>С использованием объявления MXML и указанием значения локали в списке назначений.
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+          &lt;s:MatchingCollator id="mc_France" locale="fr-FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>Вызов метода setStyle, например <codeph>mc.setStyle("locale", "fr-FR")</codeph></li>
+      </ul>
+      <p>
+      Если стиль <codeph>locale</codeph> не установлен одним из вышеперечисленных способов, экземпляр этого класса добавляется как <codeph>StyleClient</codeph> в <codeph>topLevelApplication</codeph> и наследует стиль <codeph>locale</codeph> из объекта <codeph>topLevelApplication</codeph> при вызове получателя свойств, зависящего от <codeph>locale</codeph>, или метода, зависящего от <codeph>locale</codeph>.
+      </p>   
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links></apiConstructor></apiClassifier><apiClassifier id="spark.globalization:LastOperationStatus"><apiName>LastOperationStatus</apiName><shortdesc>
+  Класс LastOperationStatus перечисляет константы, обозначающие состояние самой последней операции службы глобализации</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.55"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс LastOperationStatus перечисляет константы, обозначающие состояние самой последней операции службы глобализации Эти значения можно получить с помощью <codeph>lastOperationStatus</codeph>, предназначенного только для чтения, которое доступно в большинстве классов.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.xml"><linktext>flash.globalization.LastOperationStatus</linktext></link></related-links><apiValue id="spark.globalization:LastOperationStatus:BUFFER_OVERFLOW_ERROR"><apiName>BUFFER_OVERFLOW_ERROR</apiName><shortdesc>
+      Указывает на то, что данный буфер недостаточно велик для хранения результата.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bufferOverflowError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что данный буфер недостаточно велик для хранения результата.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.BUFFER_OVERFLOW_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.BUFFER_OVERFLOW_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:ERROR_CODE_UNKNOWN"><apiName>ERROR_CODE_UNKNOWN</apiName><shortdesc>
+      Указывает на то, что возвращен неизвестный код ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5s"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>errorCodeUnknown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что возвращен неизвестный код ошибки. Эту ошибку может вернуть любой нестатический методы или свойства, доступные для чтения/записи, когда операция не выполнена и возвращен неизвестный код ошибки.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.ERROR_CODE_UNKNOWN.xml"><linktext>flash.globalization.LastOperationStatus.ERROR_CODE_UNKNOWN</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:ILLEGAL_ARGUMENT_ERROR"><apiName>ILLEGAL_ARGUMENT_ERROR</apiName><shortdesc>
+      Указывает на то, что методу передан недопустимый параметр.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>illegalArgumentError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что методу передан недопустимый параметр.
+     
+      <p>Например, в следующем коде состояние указывает на ошибку аргумента, когда свойству <codeph>CurrencyFormatter.grouping</codeph> задается недопустимое значение «3;».</p>
+     
+      <pre>
+      var cf:CurrencyFormatter = new CurrencyFormatter();
+      cf.setStyle("locale","en_US");
+      cf.groupingPattern = "3;";
+      trace(cf.lastOperationStatus); // "illegalArgumentError"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.ILLEGAL_ARGUMENT_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.ILLEGAL_ARGUMENT_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:INDEX_OUT_OF_BOUNDS_ERROR"><apiName>INDEX_OUT_OF_BOUNDS_ERROR</apiName><shortdesc>
+      Указывает на то, что итератор вышел за рамки диапазона или задан недопустимый параметр для месяца, дня или времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>indexOutOfBoundsError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что итератор вышел за рамки диапазона или задан недопустимый параметр для месяца, дня или времени.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.INDEX_OUT_OF_BOUNDS_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.INDEX_OUT_OF_BOUNDS_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:INVALID_ATTR_VALUE"><apiName>INVALID_ATTR_VALUE</apiName><shortdesc>
+      Указывает на то, что значение данного атрибута находится за пределами ожидаемого диапазона.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invalidAttrValue</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что значение данного атрибута находится за пределами ожидаемого диапазона.
+     
+      <p>В следующем примере свойству <codeph>NumberFormatter.negativeNumberFormat</codeph> задается значение, которое находится за пределами диапазона, в результате чего состояние указывает на недопустимое значение атрибута.</p>
+     
+      <pre>
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale","en_US");
+      nf.negativeNumberFormat = 9;
+      nf.lastOperationStatus; // "invalidAttrValue"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.INVALID_ATTR_VALUE.xml"><linktext>flash.globalization.LastOperationStatus.INVALID_ATTR_VALUE</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:INVALID_CHAR_FOUND"><apiName>INVALID_CHAR_FOUND</apiName><shortdesc>
+      Указывает на то, что обнаружено недопустимое значение Юникод.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invalidCharFound</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что обнаружено недопустимое значение Юникод.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.INVALID_CHAR_FOUND.xml"><linktext>flash.globalization.LastOperationStatus.INVALID_CHAR_FOUND</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:LOCALE_UNDEFINED_ERROR"><apiName>LOCALE_UNDEFINED_ERROR</apiName><shortdesc>
+      Указывает на то, что Locale не определен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>localeUndefinedError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что <codeph>Locale</codeph> не определен.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.globalization:LastOperationStatus:MEMORY_ALLOCATION_ERROR"><apiName>MEMORY_ALLOCATION_ERROR</apiName><shortdesc>
+      Указывает на ошибку выделения памяти.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>memoryAllocationError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на ошибку выделения памяти.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.MEMORY_ALLOCATION_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.MEMORY_ALLOCATION_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:NO_ERROR"><apiName>NO_ERROR</apiName><shortdesc>
+      Указывает на то, что последняя операция выполнена успешно и без ошибок.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>noError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что последняя операция выполнена успешно и без ошибок. Это состояние могут вернуть все конструкторы, статические и нестатические методы, а также свойства, доступные для чтения/записи.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.NO_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.NO_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:NUMBER_OVERFLOW_ERROR"><apiName>NUMBER_OVERFLOW_ERROR</apiName><shortdesc>
+      Указывает на то, что в результате операции получено значение, превышающее указанный числовой тип.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>numberOverflowError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что в результате операции получено значение, превышающее указанный числовой тип.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.NUMBER_OVERFLOW_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.NUMBER_OVERFLOW_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:PARSE_ERROR"><apiName>PARSE_ERROR</apiName><shortdesc>
+      Указывает на ошибку анализа числа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>parseError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на ошибку анализа числа. Это состояние может быть возвращено методами анализа классов Formatter, например <codeph>CurrencyFormatter.parse()</codeph> и <codeph>NumberFormatter.parseNumber()</codeph>. Например, если значение «12abc34» передается как параметр методу <codeph>CurrencyFormatter.parse()</codeph>, метод возвращает значение «NaN», а свойство <codeph>lastOperationStatus</codeph> получает значение <codeph>LastOperationStatus.PARSE_ERROR</codeph>.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.PARSE_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.PARSE_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:PATTERN_SYNTAX_ERROR"><apiName>PATTERN_SYNTAX_ERROR</apiName><shortdesc>
+      Указывает на то, что использован недействительный шаблон для форматирования числа, даты или времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>patternSyntaxError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что использован недействительный шаблон для форматирования числа, даты или времени. Это состояние устанавливается, когда операционная система пользователя не поддерживает данный шаблон.
+     
+      <p>Например, следующий код отображает значение свойства <codeph>lastOperationStatus</codeph> после использования недопустимого шаблона «хх» для форматирования даты.</p>
+     
+      <pre>
+      var df:DateTimeFormatter = new DateTimeFormatter();
+      df.setStyle("locale","en_US");
+      df.setDateTimePattern("xx");
+      trace(df.lastOperationStatus); // "patternSyntaxError"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.PATTERN_SYNTAX_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.PATTERN_SYNTAX_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:PLATFORM_API_FAILED"><apiName>PLATFORM_API_FAILED</apiName><shortdesc>
+      Указывает на ошибку базовый API платформы при выполнении операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>platformAPIFailed</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на ошибку базовый API платформы при выполнении операции.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.PLATFORM_API_FAILED.xml"><linktext>flash.globalization.LastOperationStatus.PLATFORM_API_FAILED</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:TRUNCATED_CHAR_FOUND"><apiName>TRUNCATED_CHAR_FOUND</apiName><shortdesc>
+      Указывает на то, что обнаружен усеченное значение символа Юникод.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>truncatedCharFound</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что обнаружен усеченное значение символа Юникод.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.TRUNCATED_CHAR_FOUND.xml"><linktext>flash.globalization.LastOperationStatus.TRUNCATED_CHAR_FOUND</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:UNEXPECTED_TOKEN"><apiName>UNEXPECTED_TOKEN</apiName><shortdesc>
+      Указывает на то, что обнаружен неожиданный символ в строке идентификатора локали.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unexpectedToken</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что обнаружен неожиданный символ в строке идентификатора локали.
+     
+      <p>Например, следующий код отображает значение свойства <codeph>lastOperationStatus</codeph> после использования неполной строки в запросе идентификатора локали. В результате свойству <codeph>lastOperationStatus</codeph> задается значение <codeph>UNEXPECTED_TOKEN</codeph> после вызова метода <codeph>LocaleID.getKeysAndValues()</codeph>.</p>
+     
+      <pre>
+      var locale:flash.globalization.LocaleID = new flash.globalization.LocaleID("en-US@Collation");
+      var kav:Object = locale.getKeysAndValues();
+      trace(locale.lastOperationStatus); // "unexpectedToken"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.UNEXPECTED_TOKEN.xml"><linktext>flash.globalization.LastOperationStatus.UNEXPECTED_TOKEN</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:UNSUPPORTED_ERROR"><apiName>UNSUPPORTED_ERROR</apiName><shortdesc>
+      Указывает на то, что запрашиваемая операция или опция не поддерживается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unsupportedError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает на то, что запрашиваемая операция или опция не поддерживается. Это состояние может быть возвращено такими методами, как <codeph>DateTimeFormatter.setDateTimePattern()</codeph>, а также при получении таких свойств, как <codeph>Collator.ignoreCase</codeph>.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.UNSUPPORTED_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.UNSUPPORTED_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:USING_DEFAULT_WARNING"><apiName>USING_DEFAULT_WARNING</apiName><shortdesc>
+      Обозначает, что во время самой последней операции было использовано значение по умолчанию операционной системы.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>usingDefaultWarning</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Обозначает, что во время самой последней операции было использовано значение по умолчанию операционной системы. Этот состояние могут возвращать конструкторы классов.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.USING_DEFAULT_WARNING.xml"><linktext>flash.globalization.LastOperationStatus.USING_DEFAULT_WARNING</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:USING_FALLBACK_WARNING"><apiName>USING_FALLBACK_WARNING</apiName><shortdesc>
+      Обозначает, что во время самой последней операции было использовано резервное значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>usingFallbackWarning</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Обозначает, что во время самой последней операции было использовано резервное значение. Это состояние может быть возвращено такими конструкторами и методами, как <codeph>DateTimeFormatter.setDateTimeStyles()</codeph>, а также при получении таких свойств, как <codeph>CurrencyFormatter.groupingPattern</codeph>.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.USING_FALLBACK_WARNING.xml"><linktext>flash.globalization.LastOperationStatus.USING_FALLBACK_WARNING</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

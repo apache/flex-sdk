@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.events"><apiName>mx.automation.events</apiName><apiDetail/><apiClassifier id="mx.automation.events:AutomationDragEventWithPositionInfo"><apiName>AutomationDragEventWithPositionInfo</apiName><shortdesc>
+	  Класс AutomationDragEventWithPositionInfo представляет объекты события, передаваемые как действия в составе операции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.events:AutomationDragEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Класс AutomationDragEventWithPositionInfo представляет объекты события, передаваемые как действия в составе операции перетаскивания. Однако передача будет осуществляться из компонентов, для которых необходима информация о позициях при перетаскивании.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link></related-links><adobeApiEvent id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_COMPLETE_dragComplete"><apiName>dragComplete</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_COMPLETE</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEventWithPositionInfo</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_DROP_dragDrop"><apiName>dragDrop</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_DROP</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEventWithPositionInfo</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_START_dragStart"><apiName>dragStart</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_START</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEventWithPositionInfo</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationDragEventWithPositionInfo:AutomationDragEventWithPositionInfo"><apiName>AutomationDragEventWithPositionInfo</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Указанное действие перетаскивания, например <codeph>DragManager.MOVE</codeph>.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, была ли нажата клавиша Ctrl.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, была ли нажата клавиша Alt.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, была ли нажата клавиша Shift.
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>localx</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Горизонтальная координата события относительно спрайта-контейнера.
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>localy</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Вертикальная координата события относительно спрайта-контейнера.
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор. Как правило, вызывается управляющим элементом Flex и не используется в коде приложения.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_COMPLETE"><apiName>DRAG_COMPLETE</apiName><shortdesc>
+		  Определяет значение свойства type объекта события dragComplete.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragComplete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Определяет значение свойства <codeph>type</codeph> объекта события <codeph>dragComplete</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Alt (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>action</codeph></entry><entry>Операция, вызвавшая событие: <codeph>DragManager.COPY</codeph>, <codeph>DragManager.LINK</codeph>, <codeph>DragManager.MOVE</codeph> или <codeph>DragManager.NONE</codeph>.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Ctrl (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, при использовании <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события значением <codeph>currentTarget</codeph> является <codeph>myButton</codeph>. </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>Перетаскиваемый элемент.</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>Объект, являющийся вышестоящим для перетаскиваемого элемента.</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Shift (<codeph>true</codeph>) или нет(<codeph>false</codeph>).</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, обеспечивший обработку события. Не всегда является объектом, прослушивающим событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_DROP"><apiName>DRAG_DROP</apiName><shortdesc>
+		  Определяет значение свойства type объекта события dragDrop.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragDrop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Определяет значение свойства <codeph>type</codeph> объекта события <codeph>dragDrop</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Alt (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>action</codeph></entry><entry>Операция, вызвавшая событие: <codeph>DragManager.COPY</codeph>, <codeph>DragManager.LINK</codeph>, <codeph>DragManager.MOVE</codeph> или <codeph>DragManager.NONE</codeph>.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Ctrl (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, при использовании <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события значением <codeph>currentTarget</codeph> является <codeph>myButton</codeph>. </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>Перетаскиваемый элемент.</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>Объект, являющийся вышестоящим для перетаскиваемого элемента.</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Shift (<codeph>true</codeph>) или нет(<codeph>false</codeph>).</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, обеспечивший обработку события. Не всегда является объектом, прослушивающим событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_START"><apiName>DRAG_START</apiName><shortdesc>
+		  Определяет значение свойства type объекта события dragStart.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragStart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Определяет значение свойства <codeph>type</codeph> объекта события <codeph>dragStart</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Alt (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>action</codeph></entry><entry>Операция, вызвавшая событие: <codeph>DragManager.COPY</codeph>, <codeph>DragManager.LINK</codeph>, <codeph>DragManager.MOVE</codeph> или <codeph>DragManager.NONE</codeph>.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Ctrl (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, при использовании <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события значением <codeph>currentTarget</codeph> является <codeph>myButton</codeph>. </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>Перетаскиваемый элемент.</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>Объект, являющийся вышестоящим для перетаскиваемого элемента.</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Shift (<codeph>true</codeph>) или нет(<codeph>false</codeph>).</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, обеспечивший обработку события. Не всегда является объектом, прослушивающим событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationRecordEvent"><apiName>AutomationRecordEvent</apiName><shortdesc>
+	  Класс AutomationRecordEvent представляет объекты события, переданные AutomationManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Класс AutomationRecordEvent представляет объекты события, переданные AutomationManager. Используется классами функционального тестирования и другими классами, для которых регистрация взаимодействий с пользователями является обязательной.
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:AutomationRecordEvent:RECORD_record"><apiName>record</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationRecordEvent:RECORD</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationRecordEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationRecordEvent:AutomationRecordEvent"><apiName>AutomationRecordEvent</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>record</apiData><apiDesc>Тип события; указывает действие, вызвавшее событие.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>automationObject</apiItemName><apiType value="mx.automation:IAutomationObject"/><apiData>null</apiData><apiDesc>Делегат UIComponent, обеспечивающий передачу взаимодействия.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>replayableEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>Основное событие, представляющее действие.
+		 
+          </apiDesc></apiParam><apiParam><apiItemName>args</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив параметров, переданных методу, запись которого осуществляется в данный момент.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Отображаемое имя операции.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cacheable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Имеет значение <codeph>true</codeph>, если событие должно быть сохранено в кэше события, и <codeph>false</codeph> в противном случае.
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>recordTriggeredByCustomHandling</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationRecordEvent:CUSTOM_RECORD"><apiName>CUSTOM_RECORD</apiName><shortdesc>
+		  Способ применения этой константы см. в разделе recordCustomAutomationEvent в IAutomationManager
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>customRecord</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Способ применения этой константы см. в разделе recordCustomAutomationEvent в IAutomationManager
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:RECORD"><apiName>RECORD</apiName><shortdesc>
+		  Константа AutomationRecordEvent.RECORD определяет значение свойства type объекта события record.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>record</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>AutomationRecordEvent.RECORD</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>record</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>args</codeph></entry><entry>Массив параметров, переданных методу</entry></row><row><entry><codeph>automationObject</codeph></entry><entry>Делегат UIComponent, обеспечивающий передачу взаимодействия.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>true</entry></row><row><entry><codeph>cacheable</codeph></entry><entry>Имеет значение <codeph>true</codeph>, если событие должно быть сохранено в кэше события, и <codeph>false</codeph> в противном случае.</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>methodName</codeph></entry><entry>Отображаемое имя операции </entry></row><row><entry><codeph>replayableEvent</codeph></entry><entry>Основное событие, представляющее действие.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:args"><apiName>args</apiName><shortdesc>
+		  Последовательное представление события в виде массива из значений его свойств.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+		  Последовательное представление события в виде массива из значений его свойств.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:automationObject"><apiName>automationObject</apiName><shortdesc>
+		  Делегат объекта UIComponent, обеспечивающего запись этого события.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  Делегат объекта UIComponent, обеспечивающего запись этого события.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:cacheable"><apiName>cacheable</apiName><shortdesc>
+		  Содержит true, если это событие может иметь кэш, в противном случае – false.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  Содержит <codeph>true</codeph>, если это событие может иметь кэш, в противном случае – <codeph>false</codeph>.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:name"><apiName>name</apiName><shortdesc>
+		  Имя события автоматизации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  Имя события автоматизации.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:recordTriggeredByCustomHandling"><apiName>recordTriggeredByCustomHandling</apiName><shortdesc>
+		  Содержит значение true, если причиной появления текущей записи этого события является пользовательская запись события, в противном случае – false.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  Содержит <codeph>true</codeph>, если причиной появления текущей записи этого события является пользовательская запись события, в противном случае – <codeph>false</codeph>. Пользователь может использовать это поле для дифференциации событий записи, инициированных инфраструктурой и пользовательской записью. Например, если список включает событие select и в настоящее время содержит подробные данные относительно варианта выбора, связанные либо с индексом, либо с выбранным элементом. Однако пользователю может потребоваться запись подробной информации относительно того и другого с одним и тем же именем события, что затрудняет дифференциацию события select, инициированного инфраструктурой, и события, инициированного при использовании API recordCustomAutomationEvent() на диспетчере автоматизации. Если событие инициировано с использованием API recordCustomAutomationEvent(), этот флаг имеет значение true. Во всех других случаях инфраструктура поддерживает для этого флага значение по умолчанию.
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:replayableEvent"><apiName>replayableEvent</apiName><shortdesc>
+		  Основное взаимодействие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+		  Основное взаимодействие.
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationEvent"><apiName>AutomationEvent</apiName><shortdesc>
+	  Класс AutomationEvent представляет объекты события, передаваемые AutomationManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Класс AutomationEvent представляет объекты события, передаваемые AutomationManager. Используется классами функционального тестирования и другими классами, для которых регистрация взаимодействий с пользователями является обязательной.
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:AutomationEvent:BEGIN_RECORD_record"><apiName>record</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationEvent:BEGIN_RECORD</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationEvent:END_RECORD_record"><apiName>record</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationEvent:END_RECORD</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationEvent:AutomationEvent"><apiName>AutomationEvent</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>beginRecord</apiData><apiDesc>Тип события; указывает действие, вызвавшее событие.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+		 
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationEvent:BEGIN_RECORD"><apiName>BEGIN_RECORD</apiName><shortdesc>
+		  Константа AutomationEvent. BEGIN_RECORD определяет значение свойства type объекта события beginRecord.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>beginRecord</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>AutomationEvent. BEGIN_RECORD</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>beginRecord</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>true</entry></row><row><entry><codeph>cacheable</codeph></entry><entry>Имеет значение <codeph>true</codeph>, если событие должно быть сохранено в кэше события, и <codeph>false</codeph> в противном случае.</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationEvent:END_RECORD"><apiName>END_RECORD</apiName><shortdesc>
+		  Константа AutomationEvent. BEGIN_RECORD определяет значение свойства type объекта события endRecord.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>endRecord</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>AutomationEvent. BEGIN_RECORD</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>endRecord</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>true</entry></row><row><entry><codeph>cacheable</codeph></entry><entry>Имеет значение <codeph>true</codeph>, если событие должно быть сохранено в кэше события, и <codeph>false</codeph> в противном случае.</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationReplayEvent"><apiName>AutomationReplayEvent</apiName><shortdesc>
+	  Класс AutomationReplayEvent представляет объекты события, передаваемые AutomationManager и используемые классами функционального тестирования и другими классами, для которых воспроизведение взаимодействия с пользователями является обязательным.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Класс AutomationReplayEvent представляет объекты события, передаваемые AutomationManager и используемые классами функционального тестирования и другими классами, для которых воспроизведение взаимодействия с пользователями является обязательным.
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:AutomationReplayEvent:REPLAY_replay"><apiName>replay</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationReplayEvent:REPLAY</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationReplayEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationReplayEvent:AutomationReplayEvent"><apiName>AutomationReplayEvent</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>replay</apiData><apiDesc>Тип события; указывает действие, вызвавшее событие.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>automationObject</apiItemName><apiType value="mx.automation:IAutomationObject"/><apiData>null</apiData><apiDesc>Делегат UIComponent, ранее передававшего взаимодействие.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>replayableEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>Событие, которое должно быть воспроизведено.
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationReplayEvent:REPLAY"><apiName>REPLAY</apiName><shortdesc>
+		  Константа AutomationReplayEvent.REPLAY определяет значение свойства type объекта события replay.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>replay</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>AutomationReplayEvent.REPLAY</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>replay</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>automationObject</codeph></entry><entry>Делегат UIComponent, ранее передававшего взаимодействие.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>replayableEvent</codeph></entry><entry>Событие, которое должно быть воспроизведено.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationReplayEvent:automationObject"><apiName>automationObject</apiName><shortdesc>
+		  Делегат объекта UIComponent, в котором это событие будет воспроизведено, поскольку адресат события, которое в действительности не было отправлено, недоступен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  Делегат объекта UIComponent, в котором это событие будет воспроизведено, поскольку адресат события, которое в действительности не было отправлено, недоступен.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationReplayEvent:replayableEvent"><apiName>replayableEvent</apiName><shortdesc>
+		  Событие, которое должно быть воспроизведено.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+		  Событие, которое должно быть воспроизведено.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationReplayEvent:succeeded"><apiName>succeeded</apiName><shortdesc>
+		  Содержит значение true, если воспроизведение было успешно завершено, и false в противном случае.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  Содержит значение <codeph>true</codeph>, если воспроизведение было успешно завершено, и <codeph>false</codeph> в противном случае.
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:MarshalledAutomationEvent"><apiName>MarshalledAutomationEvent</apiName><shortdesc>
+	  Класс MarshalledAutomationEvents представляет объекты события, передаваемые AutomationManager. С его помощью представляются события, связанные с формированием пакетов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Класс MarshalledAutomationEvents представляет объекты события, передаваемые AutomationManager. С его помощью представляются события, связанные с формированием пакетов.
+	  
+	  </apiDesc></apiClassifierDetail><apiConstructor id="mx.automation.events:MarshalledAutomationEvent:MarshalledAutomationEvent"><apiName>MarshalledAutomationEvent</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam><apiParam><apiItemName>applicationName</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam><apiParam><apiItemName>interAppDataToSubApp</apiItemName><apiType value="Array"/><apiData>null</apiData></apiParam><apiParam><apiItemName>interAppDataToMainApp</apiItemName><apiType value="Array"/><apiData>null</apiData></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.events:MarshalledAutomationEvent:marshal"><apiName>marshal</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.automation.events:MarshalledAutomationEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.automation.events:MarshalledAutomationEvent:BEGIN_RECORDING"><apiName>BEGIN_RECORDING</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>BeginRecording</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_COMPLETE_REQUEST"><apiName>DRAG_DROP_COMPLETE_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>completeDragDrop</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PERFORM_REQUEST_TO_ROOT_APP"><apiName>DRAG_DROP_PERFORM_REQUEST_TO_ROOT_APP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>performDragDropRequestToRootApp</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PERFORM_REQUEST_TO_SUB_APP"><apiName>DRAG_DROP_PERFORM_REQUEST_TO_SUB_APP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>performDragDropRequestToSubApp</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PROXY_RETRIEVE_REPLY"><apiName>DRAG_DROP_PROXY_RETRIEVE_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GiveProxyReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PROXY_RETRIEVE_REQUEST"><apiName>DRAG_DROP_PROXY_RETRIEVE_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GiveProxy</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:END_RECORDING"><apiName>END_RECORDING</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>EndRecording</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:INITIAL_DETAILS_REPLY"><apiName>INITIAL_DETAILS_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>InitialDetailsReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:INITIAL_DETAILS_REQUEST"><apiName>INITIAL_DETAILS_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>InitialDetailsRequest</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:POPUP_HANDLER_REQUEST"><apiName>POPUP_HANDLER_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>HandlePopUp</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:START_POINT_REPLY"><apiName>START_POINT_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>startPointReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:START_POINT_REQUEST"><apiName>START_POINT_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>startPointRequest</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:UNIQUE_APPID_REPLY"><apiName>UNIQUE_APPID_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GetUniqueAppIDReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:UNIQUE_APPID_REQUEST"><apiName>UNIQUE_APPID_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GetUniqueAppID</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:UPDATE_SYCHRONIZATION"><apiName>UPDATE_SYCHRONIZATION</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>UpdateSynchronization</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:applicationName"><apiName>applicationName</apiName><shortdesc>
+		  Содержит значение string, представляющее имя приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  Содержит значение <codeph>string</codeph>, представляющее имя приложения.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:interAppDataToMainApp"><apiName>interAppDataToMainApp</apiName><shortdesc>
+		  Содержит значение Object, представляющее подробную информацию о результате для findObjectID.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+		  Содержит значение <codeph>Object</codeph>, представляющее подробную информацию о результате для findObjectID.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:interAppDataToSubApp"><apiName>interAppDataToSubApp</apiName><shortdesc>
+		  Содержит значение string, представляющее подробную информацию descriptionXML для findObjectID.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+		  Содержит значение <codeph>string</codeph>, представляющее подробную информацию descriptionXML для findObjectID.
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:ListItemSelectEvent"><apiName>ListItemSelectEvent</apiName><shortdesc>
+	  Класс ListItemSelectEvent представляет объекты события, передаваемые при выборе или отмене выбора события в элементе управления на основе списка, например элемента управления Menu, DataGrid или Tree.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Класс ListItemSelectEvent представляет объекты события, передаваемые при выборе или отмене выбора события в элементе управления на основе списка, например элемента управления Menu, DataGrid или Tree.
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:DESELECT_deselect"><apiName>deselect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:DESELECT</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:MULTI_SELECT_multiselect"><apiName>multiselect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:MULTI_SELECT</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:SELECT_INDEX_select"><apiName>select</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:SELECT_INDEX</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:SELECT_select"><apiName>select</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:SELECT</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:ListItemSelectEvent:ListItemSelectEvent"><apiName>ListItemSelectEvent</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiData>null</apiData><apiDesc>Объект средства визуализации элементов для элемента.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>Событие, например событие мыши или клавиатуры, инициировавшее операцию выбора.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, была ли нажата клавиша Alt во время события.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, была ли нажата клавиша Ctrl во время события.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, была ли нажата клавиша Shift во время события.
+		 
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор. Как правило, вызывается управляющим элементом Flex и не используется в коде приложения.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:ListItemSelectEvent:DESELECT"><apiName>DESELECT</apiName><shortdesc>
+		  Константа ListItemSelectEvent.DESELECT определяет значение свойства type объекта события, передаваемого при отмене выбора ранее выбранного элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>deselect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>ListItemSelectEvent.DESELECT</codeph> определяет значение свойства <codeph>type</codeph> объекта события, передаваемого при отмене выбора ранее выбранного элемента.
+		 
+		  <p>Свойства объекта события имеют следующие значения. Не все свойства являются значимыми для каждого из видов событий. Дополнительную информацию см. в подробных описаниях свойств.</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Alt во время события.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Ctrl во время события.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Объект средства визуализации элементов для элемента.</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Shift во время события.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>Событие, инициировавшее операцию, например событие мыши или клавиатуры.</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.DESELECT</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:MULTI_SELECT"><apiName>MULTI_SELECT</apiName><shortdesc>
+		  Константа ListItemSelectEvent.MULTI_SELECT определяет значение свойства type объекта события, передаваемого при выборе элемента в ходе операции по выбору нескольких элементов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multiSelect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>ListItemSelectEvent.MULTI_SELECT</codeph> определяет значение свойства <codeph>type</codeph> объекта события, передаваемого при выборе элемента в ходе операции по выбору нескольких элементов.
+		 
+		  <p>Свойства объекта события имеют следующие значения. Не все свойства являются значимыми для каждого из видов событий. Дополнительную информацию см. в подробных описаниях свойств.</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Alt во время события.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Ctrl во время события.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Объект средства визуализации элементов для элемента.</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Shift во время события.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>Событие, инициировавшее операцию, например событие мыши или клавиатуры.</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.MULTI_SELECT</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:SELECT_INDEX"><apiName>SELECT_INDEX</apiName><shortdesc>
+		  Константа ListItemSelectEvent.SELECT_INDEX определяет значение свойства type объекта события, которое передается при выборе индекса элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>selectIndex</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>ListItemSelectEvent.SELECT_INDEX</codeph> определяет значение свойства <codeph>type</codeph> объекта события, которое передается при выборе индекса элемента.
+		 
+		  <p>Свойства объекта события имеют следующие значения. Не все свойства являются значимыми для каждого из видов событий. Дополнительную информацию см. в подробных описаниях свойств.</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Alt во время события.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Ctrl во время события.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>itemIndex</codeph></entry><entry>Индекс поставщика данных элемента, который должен быть выбран.</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Shift во время события.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>Событие, инициировавшее операцию, например событие мыши или клавиатуры.</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.SELECT_INDEX</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:SELECT"><apiName>SELECT</apiName><shortdesc>
+		  Константа ListItemSelectEvent.SELECT определяет значение свойства type объекта события, которое передается при выборе отдельного элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>select</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>ListItemSelectEvent.SELECT</codeph> определяет значение свойства <codeph>type</codeph> объекта события для события, которое обрабатывается при выборе отдельного элемента.
+		 
+		  <p>Свойства объекта события имеют следующие значения. Не все свойства являются значимыми для каждого из видов событий. Дополнительную информацию см. в подробных описаниях свойств.</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Alt во время события.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Ctrl во время события.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Объект средства визуализации элементов для элемента.</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>Логическое значение, указывающее на то, была ли нажата клавиша Shift во время события.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>Событие, инициировавшее операцию, например событие мыши или клавиатуры.</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.SELECT</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:altKey"><apiName>altKey</apiName><shortdesc>
+		  Указывает, была ли клавиша Alt нажата во время события (значение true) или нет (значение false).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  Указывает на то, была ли клавиша Alt нажата во время события (<codeph>true</codeph>) или нет (<codeph>false</codeph>).
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:ctrlKey"><apiName>ctrlKey</apiName><shortdesc>
+		  Указывает, была ли клавиша Ctrl нажата во время события (значение true) или нет (false).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  Указывает, была ли клавиша Ctrl нажата во время события (<codeph>true</codeph>) или нет (<codeph>false</codeph>).
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:itemAutomationValue"><apiName>itemAutomationValue</apiName><shortdesc>
+		  Строка automationValue элемента, который должен быть выбран.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  Строка automationValue элемента, который должен быть выбран. Используется, если элемент, который должен быть выбран, невидим в элементе управления. 
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:itemIndex"><apiName>itemIndex</apiName><shortdesc>
+		  Индекс поставщика данных элемента, который должен быть выбран.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+		  Индекс поставщика данных элемента, который должен быть выбран.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+		  Объект средства визуализации элемента для элемента, который был выбран или выбор которого отменен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDefaultValue>null
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  Объект средства визуализации элемента для элемента, который был выбран или выбор которого отменен. С использованием этого свойства можно получать доступ к данным ячеек.
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:shiftKey"><apiName>shiftKey</apiName><shortdesc>
+		  Указывает, была ли нажата клавиша Shift во время события (значение true) или нет (значение false).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  Указывает, была ли нажата клавиша Shift во время события (<codeph>true</codeph>) или нет (<codeph>false</codeph>).
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:triggerEvent"><apiName>triggerEvent</apiName><shortdesc>
+		  Событие, инициировавшее событие выбора элемента, например событие клавиатуры или мыши.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/><apiDefaultValue>null
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  Событие, инициировавшее событие выбора элемента, например событие клавиатуры или мыши.
+		 
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:TextSelectionEvent"><apiName>TextSelectionEvent</apiName><shortdesc>
+	 Класс TextSelectionEvent позволяет отслеживать выбор в рамках текстового поля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 Класс TextSelectionEvent позволяет отслеживать выбор в рамках текстового поля.
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:TextSelectionEvent:TEXT_SELECTION_CHANGE_textSelectionChange"><apiName>textSelectionChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:TextSelectionEvent:TEXT_SELECTION_CHANGE</apiEventType><adobeApiEventClassifier>mx.automation.events:TextSelectionEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:TextSelectionEvent:TextSelectionEvent"><apiName>TextSelectionEvent</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>textSelectionChange</apiData><apiDesc>Тип события; указывает действие, вызвавшее событие.
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Индекс, на котором начинается выбор.
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Индекс, на котором заканчивается выбор.
+		  
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор.
+		  
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:TextSelectionEvent:TEXT_SELECTION_CHANGE"><apiName>TEXT_SELECTION_CHANGE</apiName><shortdesc>
+		  Константа TextSelectionEvent.TEXT_SELECTION_CHANGE определяет значение свойства type объекта события textSelectionChange.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>textSelectionChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>TextSelectionEvent.TEXT_SELECTION_CHANGE</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>textSelectionChange</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>beginIndex</codeph></entry><entry>Индекс, на котором начинается выбор.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>endIndex</codeph></entry><entry>Индекс, на котором заканчивается выбор.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:TextSelectionEvent:beginIndex"><apiName>beginIndex</apiName><shortdesc>
+		  Индекс, на котором начинается выбор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+		  Индекс, на котором начинается выбор.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:TextSelectionEvent:endIndex"><apiName>endIndex</apiName><shortdesc>
+		  Индекс, на котором заканчивается выбор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+		  Индекс, на котором заканчивается выбор.
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationDragEvent"><apiName>AutomationDragEvent</apiName><shortdesc>
+	  Класс AutomationDragEvent представляет объекты события, которые передаются в составе функции перетаскивания.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Класс AutomationDragEvent представляет объекты события, которые передаются в составе функции перетаскивания.
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link></related-links><adobeApiEvent id="mx.automation.events:AutomationDragEvent:DRAG_COMPLETE_dragComplete"><apiName>dragComplete</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEvent:DRAG_COMPLETE</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEvent:DRAG_DROP_dragDrop"><apiName>dragDrop</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEvent:DRAG_DROP</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEvent:DRAG_START_dragStart"><apiName>dragStart</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEvent:DRAG_START</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationDragEvent:AutomationDragEvent"><apiName>AutomationDragEvent</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Указанное действие перетаскивания, например <codeph>DragManager.MOVE</codeph>.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, была ли нажата клавиша Ctrl.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, была ли нажата клавиша Alt.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, была ли нажата клавиша Shift.
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор. Как правило, вызывается управляющим элементом Flex и не используется в коде приложения.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationDragEvent:DRAG_COMPLETE"><apiName>DRAG_COMPLETE</apiName><shortdesc>
+		  Определяет значение свойства type объекта события dragComplete.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragComplete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Определяет значение свойства <codeph>type</codeph> объекта события <codeph>dragComplete</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Alt (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>action</codeph></entry><entry>Операция, вызвавшая событие: <codeph>DragManager.COPY</codeph>, <codeph>DragManager.LINK</codeph>, <codeph>DragManager.MOVE</codeph> или <codeph>DragManager.NONE</codeph>.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Ctrl (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, при использовании <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события значением <codeph>currentTarget</codeph> является <codeph>myButton</codeph>. </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>Перетаскиваемый элемент.</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>Объект, являющийся вышестоящим для перетаскиваемого элемента.</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Shift (<codeph>true</codeph>) или нет(<codeph>false</codeph>).</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, обеспечивший обработку события. Не всегда является объектом, прослушивающим событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:DRAG_DROP"><apiName>DRAG_DROP</apiName><shortdesc>
+		  Определяет значение свойства type объекта события dragDrop.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragDrop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Определяет значение свойства <codeph>type</codeph> объекта события <codeph>dragDrop</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Alt (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>action</codeph></entry><entry>Операция, вызвавшая событие: <codeph>DragManager.COPY</codeph>, <codeph>DragManager.LINK</codeph>, <codeph>DragManager.MOVE</codeph> или <codeph>DragManager.NONE</codeph>.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Ctrl (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, при использовании <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события значением <codeph>currentTarget</codeph> является <codeph>myButton</codeph>. </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>Перетаскиваемый элемент.</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>Объект, являющийся вышестоящим для перетаскиваемого элемента.</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Shift (<codeph>true</codeph>) или нет(<codeph>false</codeph>).</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, обеспечивший обработку события. Не всегда является объектом, прослушивающим событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:DRAG_START"><apiName>DRAG_START</apiName><shortdesc>
+		  Определяет значение свойства type объекта события dragStart.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragStart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Определяет значение свойства <codeph>type</codeph> объекта события <codeph>dragStart</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Alt (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>action</codeph></entry><entry>Операция, вызвавшая событие: <codeph>DragManager.COPY</codeph>, <codeph>DragManager.LINK</codeph>, <codeph>DragManager.MOVE</codeph> или <codeph>DragManager.NONE</codeph>.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Ctrl (<codeph>true</codeph>) или нет (<codeph>false</codeph>).</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, при использовании <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события значением <codeph>currentTarget</codeph> является <codeph>myButton</codeph>. </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>Перетаскиваемый элемент.</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>Объект, являющийся вышестоящим для перетаскиваемого элемента.</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>Указывает, нажата клавиша Shift (<codeph>true</codeph>) или нет(<codeph>false</codeph>).</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, обеспечивший обработку события. Не всегда является объектом, прослушивающим событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:action"><apiName>action</apiName><shortdesc>
+		  Запрашиваемая операция.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  Запрашиваемая операция. Одна из операций <codeph>DragManager.COPY</codeph>, <codeph>DragManager.LINK</codeph>, <codeph>DragManager.MOVE</codeph> или <codeph>DragManager.NONE</codeph>.
+		 
+		  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link></related-links></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:draggedItem"><apiName>draggedItem</apiName><shortdesc>
+		  Содержит перетаскиваемый нижестоящий объект IAutomationObject.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  Содержит перетаскиваемый нижестоящий объект IAutomationObject.
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:dropParent"><apiName>dropParent</apiName><shortdesc>
+		  Объект IAutomationObject, который является вышестоящим для перетаскиваемого элемента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  Объект IAutomationObject, который является вышестоящим для перетаскиваемого элемента.
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:MenuShowEvent"><apiName>MenuShowEvent</apiName><shortdesc>
+	  Класс MenuShowEvent представляет события, связанные со строкой меню menuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  Класс MenuShowEvent представляет события, связанные со строкой меню menuBar.
+	 
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:MenuShowEvent:MENU_SHOW_menuShow"><apiName>menuShow</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:MenuShowEvent:MENU_SHOW</apiEventType><adobeApiEventClassifier>mx.automation.events:MenuShowEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:MenuShowEvent:MenuShowEvent"><apiName>MenuShowEvent</apiName><shortdesc>
+		  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.menuClasses:IMenuBarItemRenderer"/><apiData>null</apiData><apiDesc>Объект IMenuBarItemRenderer для связанного элемента меню.
+		 
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Конструктор. Как правило, вызывается объектом Menu. 
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:MenuShowEvent:MENU_SHOW"><apiName>MENU_SHOW</apiName><shortdesc>
+		  Константа MenuShowEvent.MENU_SHOW определяет значение свойства type объекта события menuShow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>menuShow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  Константа <codeph>MenuShowEvent.MENU_SHOW</codeph> определяет значение свойства <codeph>type</codeph> объекта события <codeph>menuShow</codeph>.
+		 
+		  <p>Свойства объекта события имеют следующие значения:</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>Объект средства визуализации элементов для связанного элемента меню.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:MenuShowEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+		  Средство визуализации элемента для связанного элемента меню, в котором произошло событие.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.menuClasses:IMenuBarItemRenderer"/></apiValueDef><apiDesc>
+		  Средство визуализации элемента для связанного элемента меню, в котором произошло событие.
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

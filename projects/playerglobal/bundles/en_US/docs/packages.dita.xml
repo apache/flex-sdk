@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!DOCTYPE apiMap
+  SYSTEM "../../dtds/adobeAPIPackage.dtd">
+<apiMap><apiItemRef href="air.net.xml"/><apiItemRef href="flash.ui.xml"/><apiItemRef href="flash.net.xml"><apiItemRef href="flash.net.drm.xml"/></apiItemRef><apiItemRef href="flash.xml.xml"/><apiItemRef href="__Global__.xml"/><apiItemRef href="air.update.xml"><apiItemRef href="air.update.events.xml"/></apiItemRef><apiItemRef href="flash.data.xml"/><apiItemRef href="flash.geom.xml"/><apiItemRef href="flash.html.xml"/><apiItemRef href="flash.text.xml"><apiItemRef href="flash.text.engine.xml"/></apiItemRef><apiItemRef href="flash.media.xml"/><apiItemRef href="flash.utils.xml"/><apiItemRef href="flash.errors.xml"/><apiItemRef href="flash.events.xml"/><apiItemRef href="flash.system.xml"/><apiItemRef href="flash.desktop.xml"/><apiItemRef href="flash.display.xml"/><apiItemRef href="flash.filters.xml"/><apiItemRef href="flash.sampler.xml"/><apiItemRef href="flash.external.xml"/><apiItemRef href="flash.printing.xml"/><apiItemRef href="flash.profiler.xml"/><apiItemRef href="flash.security.xml"/><apiItemRef href="flash.filesystem.xml"/><apiItemRef href="flash.accessibility.xml"/></apiMap>

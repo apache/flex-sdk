@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.effects.effectClasses"><apiName>mx.effects.effectClasses</apiName><apiDetail/><apiClassifier id="mx.effects.effectClasses:MaskEffectInstance"><apiName>MaskEffectInstance</apiName><shortdesc>
+  MaskEffectInstance 类是一个抽象基类，用于实现 MaskEffect 类的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MaskEffectInstance 类是一个抽象基类，用于实现 MaskEffect 类的实例类。 
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 Mask 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个具有四个项的 Array，其中： </p>
+  <ul>
+    <li>value[0]:Number 这是目标的 <codeph>x</codeph> 属性的值。</li> 
+  
+    <li>value[1]:Number 这是目标的 <codeph>y</codeph> 属性的值。</li>
+  
+    <li>value[2]:Number 这是目标的 <codeph>scaleX</codeph> 属性的值。</li>
+  
+    <li>value[3]:Number 这是目标的 <codeph>scaleY</codeph> 属性的值。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#MaskEffect"><linktext>mx.effects.MaskEffect</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:MaskEffectInstance:MaskEffectInstance"><apiName>MaskEffectInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。 
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:defaultCreateMask"><apiName>defaultCreateMask</apiName><shortdesc>
+	  为效果创建默认遮罩。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>用于定义遮罩的 Shape 对象。
+	  
+	  </apiDesc><apiType value="flash.display:Shape"/></apiReturn><apiParam><apiItemName>targ</apiItemName><apiType value="Object"/><apiDesc>效果目标。
+	  </apiDesc></apiParam><apiParam><apiItemName>bounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiDesc>包含投影的目标的实际可视范围
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  为效果创建默认遮罩。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:initMaskEffect"><apiName>initMaskEffect</apiName><shortdesc>
+	  初始化效果的 move 和 scale 属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  初始化效果的 <codeph>move</codeph> 和 <codeph>scale</codeph> 属性。所有子类都应覆盖此函数。Flex 会在从创建遮罩到创建补间这段时间内调用它。 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onMoveTweenEnd"><apiName>onMoveTweenEnd</apiName><shortdesc> 
+	  当应最后一次使用效果更新遮罩的 x 和 y 位置时，要调用的回调方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>包含遮罩位置的 x 和 y 最终值，其中 <codeph>value[0]</codeph> 包含遮罩的 x 位置，而 <codeph>value[1]</codeph> 包含遮罩的 y 位置。    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  当应最后一次使用效果更新遮罩的 x 和 y 位置时，要调用的回调方法。您无需直接调用此方法。此方法可实现 superclass 的方法。 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onMoveTweenUpdate"><apiName>onMoveTweenUpdate</apiName><shortdesc> 
+	  当应使用效果更新遮罩的 x 和 y 位置时，要调用的回调方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>包含遮罩位置的 x 和 y 内插值，其中 <codeph>value[0]</codeph> 包含遮罩的新的 x 位置，而 <codeph>value[1]</codeph> 包含遮罩的新的 y 位置。    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  当应使用效果更新遮罩的 x 和 y 位置时，要调用的回调方法。您无需直接调用此方法。此方法可实现 superclass 的方法。 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onScaleTweenEnd"><apiName>onScaleTweenEnd</apiName><shortdesc> 
+	  当应最后一次使用效果更新遮罩的 scaleX 和 scaleY 属性时，要调用的回调方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>包含遮罩的 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 最终值，其中 <codeph>value[0]</codeph> 包含遮罩的 <codeph>scaleX</codeph> 值，而 <codeph>value[1]</codeph> 包含遮罩的 <codeph>scaleY</codeph> 值。    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  当应最后一次使用效果更新遮罩的 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 属性时，要调用的回调方法。您无需直接调用此方法。此方法可实现 superclass 的方法。 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:protected:onScaleTweenUpdate"><apiName>onScaleTweenUpdate</apiName><shortdesc> 
+	  当应使用效果更新遮罩的 scaleX 和 scaleY 属性时，要调用的回调方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>包含遮罩的 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 内插值，其中 <codeph>value[0]</codeph> 包含遮罩的新的 <codeph>scaleX</codeph> 值，而 <codeph>value[1]</codeph> 包含遮罩的新的 <codeph>scaleY</codeph> 值。    
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  当应使用效果更新遮罩的 <codeph>scaleX</codeph> 和 <codeph>scaleY</codeph> 属性时，要调用的回调方法。您无需直接调用此方法。此方法可实现 superclass 的方法。 
+     
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:pause"><apiName>pause</apiName><shortdesc>
+	  暂停效果，直到调用 resume() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  暂停效果，直到调用 <codeph>resume()</codeph> 方法。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:resume"><apiName>resume</apiName><shortdesc>
+	  在效果由 pause() 方法暂停后继续播放效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  在效果由 <codeph>pause()</codeph> 方法暂停后继续播放效果。 
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:MaskEffectInstance:reverse"><apiName>reverse</apiName><shortdesc>
+	  从效果的当前位置开始反向播放效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  从效果的当前位置开始反向播放效果。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:MaskEffectInstance:protected:effectMask"><apiName>effectMask</apiName><shortdesc>
+	  包含效果遮罩，可以是由 defaultCreateMask() 方法创建的默认遮罩，也可以是由传递给 createMaskFunction 属性的函数指定的遮罩。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shape"/></apiValueDef><apiDesc>
+	  包含效果遮罩，可以是由 <codeph>defaultCreateMask()</codeph> 方法创建的默认遮罩，也可以是由传递给 <codeph>createMaskFunction</codeph> 属性的函数指定的遮罩。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:moveEasingFunction"><apiName>moveEasingFunction</apiName><shortdesc>
+	  要用于移动遮罩的缓动函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  要用于移动遮罩的缓动函数。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleEasingFunction"><apiName>scaleEasingFunction</apiName><shortdesc>
+	  要用于缩放遮罩的缓动函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  要用于缩放遮罩的缓动函数。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleXFrom"><apiName>scaleXFrom</apiName><shortdesc>
+	  遮罩最初的 scaleX。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  遮罩最初的 scaleX。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleXTo"><apiName>scaleXTo</apiName><shortdesc> 
+	  遮罩最终的 scaleX。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  遮罩最终的 scaleX。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleYFrom"><apiName>scaleYFrom</apiName><shortdesc> 
+	  遮罩最初的 scaleY。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  遮罩最初的 scaleY。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:scaleYTo"><apiName>scaleYTo</apiName><shortdesc>
+	  遮罩最终的 scaleY。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  遮罩最终的 scaleY。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:targetArea"><apiName>targetArea</apiName><shortdesc>
+	  目标上应用遮罩的区域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+	  目标上应用遮罩的区域。其尺寸随目标自身而改变。默认情况下，此区域是整个目标，并以如下方式创建：<codeph>new Rectangle(0, 0, target.width, target.height);</codeph>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:protected:targetVisualBounds"><apiName>targetVisualBounds</apiName><shortdesc>
+	  效果目标的实际大小（包含所有投影）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+	  效果目标的实际大小（包含所有投影）。Flex 会自动计算此属性的值；您不必设置它。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:xFrom"><apiName>xFrom</apiName><shortdesc> 
+	  遮罩初始位置的 x 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  遮罩初始位置的 x 坐标。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:xTo"><apiName>xTo</apiName><shortdesc> 
+	  遮罩目标位置的 x 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  遮罩目标位置的 x 坐标。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:yFrom"><apiName>yFrom</apiName><shortdesc>
+	  遮罩初始位置的 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  遮罩初始位置的 y 坐标。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:yTo"><apiName>yTo</apiName><shortdesc> 
+	  遮罩目标位置的 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  遮罩目标位置的 y 坐标。  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:createMaskFunction:get"><apiName>createMaskFunction</apiName><shortdesc>
+	  效果创建遮罩时调用的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+	  效果创建遮罩时调用的函数。默认值是一个函数，返回与效果目标大小相同的 Rectangle。 
+	 
+	  <p>您可以使用此属性来指定自己的回调函数，用于绘制遮罩。此函数必须具有以下特征：</p>
+	 
+	  <pre>
+	  public function createLargeMask(targ:Object, bounds:Rectangle):Shape {
+	    var myMask:Shape = new Shape();
+	    // Create mask.
+	  
+	    return myMask;
+	  }
+	  </pre>
+	 
+	  <p>您需要将此属性设置为该函数的名称，如以下的 WipeLeft 效果示例所示：</p>
+	 
+	  <pre>
+	    &lt;mx:WipeLeft id="showWL" createMaskFunction="createLargeMask" showTarget="false"/></pre>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MaskEffectInstance:showTarget:get"><apiName>showTarget</apiName><shortdesc>
+      指定如果为 false，则目标组件可见；如果为 true，则不可见。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      指定如果为 <codeph>false</codeph>，则目标组件可见；如果为 <codeph>true</codeph>，则不可见。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:IrisInstance"><apiName>IrisInstance</apiName><shortdesc>
+  IrisInstance 类用于实现 Iris 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:MaskEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  IrisInstance 类用于实现 Iris 效果的实例类。Flex 在播放 Iris 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Iris"><linktext>mx.effects.Iris</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:IrisInstance:IrisInstance"><apiName>IrisInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.effects.effectClasses:ZoomInstance"><apiName>ZoomInstance</apiName><shortdesc>
+  ZoomInstance 类用于实现 Zoom 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ZoomInstance 类用于实现 Zoom 效果的实例类。Flex 在播放 Zoom 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 Zoom 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个具有两个项的 Array，其中： </p>
+  <ul>
+    <li>value[0]:Number 一个介于 <codeph>Zoom.zoomWidthFrom</codeph> 和 <codeph>Zoom.zoomWidthTo</codeph> 属性的值之间的值。</li>
+  
+    <li>value[1]:Number 一个介于 <codeph>Zoom.zoomHeightFrom</codeph> 和 <codeph>Zoom.zoomHeightTo</codeph> 属性的值之间的值。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Zoom"><linktext>mx.effects.Zoom</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ZoomInstance:ZoomInstance"><apiName>ZoomInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:ZoomInstance:captureRollEvents"><apiName>captureRollEvents</apiName><shortdesc>
+	  如果鼠标尚未移动，则阻止分派 rollOut 和 rollOver 事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  如果鼠标尚未移动，则阻止分派 <codeph>rollOut</codeph> 和 <codeph>rollOver</codeph> 事件。如果是在不移动鼠标的情况下切换目标的大小状态，则将此值设置为 <codeph>true</codeph>。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:originX"><apiName>originX</apiName><shortdesc>
+	  一个数字，代表缩放原点或注册点的 x 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  一个数字，代表缩放原点或注册点的 x 位置。默认值为 <codeph>target.width / 2</codeph>，这是目标的中心。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:originY"><apiName>originY</apiName><shortdesc>
+	  一个数字，代表缩放原点或注册点的 y 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  一个数字，代表缩放原点或注册点的 y 位置。默认值为 <codeph>target.height / 2</codeph>，这是目标的中心。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomHeightFrom"><apiName>zoomHeightFrom</apiName><shortdesc>
+	  一个介于 0.01 和 1.0 之间的百分比数值，代表开始进行高度缩放时的缩放比例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  一个介于 0.01 和 1.0 之间的百分比数值，代表开始进行高度缩放时的缩放比例。默认值为 0.01，此时显示的高度非常小。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomHeightTo"><apiName>zoomHeightTo</apiName><shortdesc>
+	  一个介于 0.01 和 1.0 之间的百分比数值，代表完成高度缩放时的缩放比例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  一个介于 0.01 和 1.0 之间的百分比数值，代表完成高度缩放时的缩放比例。默认值为 1.0，此时对象显示为正常高度。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomWidthFrom"><apiName>zoomWidthFrom</apiName><shortdesc>
+	  一个介于 0.01 和 1.0 之间的百分比数值，代表开始进行宽度缩放时的缩放比例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  一个介于 0.01 和 1.0 之间的百分比数值，代表开始进行宽度缩放时的缩放比例。默认值为 0.01，此时显示的宽度非常小。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:ZoomInstance:zoomWidthTo"><apiName>zoomWidthTo</apiName><shortdesc>
+	  一个介于 0.01 和 1.0 之间的百分比数值，代表完成宽度缩放时的缩放比例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  一个介于 0.01 和 1.0 之间的百分比数值，代表完成宽度缩放时的缩放比例。默认值为 1.0，此时对象显示为正常宽度。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:PauseInstance"><apiName>PauseInstance</apiName><shortdesc>
+  PauseInstance 类用于实现 Pause 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PauseInstance 类用于实现 Pause 效果的实例类。Flex 在播放 Pause 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Pause"><linktext>mx.effects.Pause</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:PauseInstance:PauseInstance"><apiName>PauseInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Pause 效果将忽略此参数。包含此参数的目的是为了与其他效果保持一致。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:PauseInstance:eventName"><apiName>eventName</apiName><shortdesc> 
+     在结束之前，Pause 一直在等待的事件的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     在结束之前，Pause 一直在等待的事件的名称。此参数必须与 <codeph>target</codeph> 属性（必须采用 IEventDispatcher 类型）联合使用；所有事件必须源于某些分派程序。
+     
+     <p>对 <codeph>eventName</codeph> 的侦听也与 <codeph>duration</codeph> 属性相关，该属性充当该事件的超时。如果未在由 <codeph>duration</codeph> 指定的时间段内收到该事件，则该效果无论如何都将结束。</p>
+     
+     <p>此属性是可选的；默认操作是播放而不等待任何事件。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:PropertyChanges"><apiName>PropertyChanges</apiName><shortdesc>
+  PropertyChanges 类用于为过渡的目标组件中的一组属性定义开始值和结束值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PropertyChanges 类用于为过渡的目标组件中的一组属性定义开始值和结束值。PropertyChanges 类的 <codeph>start</codeph> 和 <codeph>end</codeph> 字段包含同一组属性，但是使用不同的值。 
+ 
+  <p><codeph>end</codeph> 和 <codeph>start</codeph> 字段中不包含开始值和结束值相同的目标属性。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:PropertyChanges:PropertyChanges"><apiName>PropertyChanges</apiName><shortdesc>
+	  PropertyChanges 构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要应用效果的对象。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  PropertyChanges 构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:PropertyChanges:end"><apiName>end</apiName><shortdesc>
+	  一个 Object，其中包含视图状态更改时所修改的 target 组件的结束属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+	  一个 Object，其中包含视图状态更改时所修改的 <codeph>target</codeph> 组件的结束属性。
+	 
+	  <p>例如，对于由于视图状态更改而更改了位置和大小的 <codeph>target</codeph> 组件，<codeph>end</codeph> 中将包含该组件的最终位置和最终大小，如以下示例所示：
+	  <pre>{ x: 100, y: 100, width: 200, height: 200 }</pre></p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:start"><apiName>start</apiName><shortdesc>
+	  一个 Object，其中包含视图状态更改时所修改的目标组件的初始属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+	  一个 Object，其中包含视图状态更改时所修改的 <codeph>target</codeph> 组件的初始属性。
+	 
+	  <p>例如，对于由于视图状态更改而更改了位置和大小的 <codeph>target</codeph> 组件，<codeph>start</codeph> 中将包含该组件的初始位置和初始大小，如以下示例所示：
+	  <pre>{ x: 0, y: 0, width: 100, height: 100}</pre></p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:stripUnchangedValues"><apiName>stripUnchangedValues</apiName><shortdesc>
+      此标志控制是否将在开始状态和结束状态中都相同的值从那些对象中去除。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此标志控制是否将在开始状态和结束状态中都相同的值从那些对象中去除。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:PropertyChanges:target"><apiName>target</apiName><shortdesc>
+	  过渡的目标组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  过渡的目标组件。PropertyChanges 对象的 <codeph>start</codeph> 和 <codeph>end</codeph> 字段定义目标组件在视图状态更改时的修改方式。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SoundEffectInstance"><apiName>SoundEffectInstance</apiName><shortdesc>
+  SoundEffectInstance 类用于实现 SoundEffect 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SoundEffectInstance 类用于实现 SoundEffect 效果的实例类。Flex 在播放 SoundEffect 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Fade"><linktext>mx.effects.Fade</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SoundEffectInstance:SoundEffectInstance"><apiName>SoundEffectInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SoundEffectInstance:bufferTime"><apiName>bufferTime</apiName><shortdesc> 
+      SoundEffect 类使用内部 Sound 对象来控制 MP3 文件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>1000</apiData><apiType value="Number"/><apiDefaultValue>1000
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      SoundEffect 类使用内部 Sound 对象来控制 MP3 文件。此属性指定声音数据应在 Sound 对象的缓冲区中存储的最短时间（以毫秒为单位）。在开始回放以及在网络中断后继续回放之前，Sound 对象将一直等待，直至至少拥有这一数量的数据为止。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:loops"><apiName>loops</apiName><shortdesc>
+      循环模式下播放该声音的次数，其中值 0 表示此效果播放一次，值 1 表示此效果播放两次，依此类推。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      循环模式下播放该声音的次数，其中值 0 表示此效果播放一次，值 1 表示此效果播放两次，依此类推。如果要重复播放 MP3 文件，也是使用 <codeph>useDuration</codeph> 属性的设置来确定回放时间。
+     
+      <p><codeph>duration</codeph> 属性的优先级高于此属性的优先级。如果效果的持续时间短于播放一次声音所需的时间，则声音将不循环。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panEasingFunction"><apiName>panEasingFunction</apiName><shortdesc>
+      均衡效果的缓动函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      均衡效果的缓动函数。此函数用于在 <codeph>panFrom</codeph> 值和 <codeph>panTo</codeph> 值之间进行插值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panFrom"><apiName>panFrom</apiName><shortdesc>
+      Sound 对象的初始平移。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Sound 对象的初始平移。此值介于 -1.0 和 1.0 之间，其中 -1.0 表示仅使用左声道，1.0 表示仅使用右声道，而 0.0 表示在两个声道间平均地均衡声音。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:panTo"><apiName>panTo</apiName><shortdesc>
+      Sound 对象的最终平移。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Sound 对象的最终平移。此值介于 -1.0 和 1.0 之间，其中 -1.0 表示仅使用左声道，1.0 表示仅使用右声道，而 0.0 表示在两个声道间平均地均衡声音。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:sound"><apiName>sound</apiName><shortdesc> 
+      对内部 Sound 对象的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.media:Sound"/></apiValueDef><apiDesc> 
+      对内部 Sound 对象的引用。SoundEffect 使用此实例来播放 MP3 文件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:startTime"><apiName>startTime</apiName><shortdesc> 
+      MP3 文件中的初始位置（以毫秒为单位），应在此位置开始回放。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      MP3 文件中的初始位置（以毫秒为单位），应在此位置开始回放。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:useDuration"><apiName>useDuration</apiName><shortdesc>
+      如果为 true，则会在 duration 属性中指定的时间过后停止效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则会在 <codeph>duration</codeph> 属性中指定的时间过后停止效果。如果为 <codeph>false</codeph>，则会在 MP3 完成播放或循环后停止效果。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeEasingFunction"><apiName>volumeEasingFunction</apiName><shortdesc>
+      音量效果的缓动函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+      音量效果的缓动函数。使用此函数可在 <codeph>volumeFrom</codeph> 和 <codeph>volumeTo</codeph> 值之间进行插值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeFrom"><apiName>volumeFrom</apiName><shortdesc>
+      Sound 对象的初始音量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Sound 对象的初始音量。此值介于 0.0 和 1.0 之间。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:volumeTo"><apiName>volumeTo</apiName><shortdesc>
+      Sound 对象的最终音量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>1.0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Sound 对象的最终音量。此值介于 0.0 和 1.0 之间。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:isLoading:get"><apiName>isLoading</apiName><shortdesc>
+      如果已加载 MP3，则此属性为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果已加载 MP3，则此属性为 <codeph>true</codeph>。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:soundChannel:get"><apiName>soundChannel</apiName><shortdesc>
+      已加载了 MP3 文件的 SoundChannel 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.media:SoundChannel"/></apiValueDef><apiDesc>
+      已加载了 MP3 文件的 SoundChannel 对象。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SoundEffectInstance:source:get"><apiName>source</apiName><shortdesc>
+      要播放的 MP3 文件的 URL 或类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      要播放的 MP3 文件的 URL 或类。如果已使用 <codeph>Embed</codeph> 关键字嵌入 MP3 文件，即可将 MP3 文件的 Class 对象传递给 <codeph>source</codeph> 属性。否则，为 MP3 文件指定完整的 URL。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:ActionEffectInstance"><apiName>ActionEffectInstance</apiName><shortdesc>
+  ActionEffectInstance 类是所有操作效果实例类的 superclass。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ActionEffectInstance 类是所有操作效果实例类的 superclass。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:ActionEffectInstance:ActionEffectInstance"><apiName>ActionEffectInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:ActionEffectInstance:protected:getStartValue"><apiName>getStartValue</apiName><shortdesc>
+	  返回由 saveStartValue() 方法保存的起始状态值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>返回起始状态值。
+	  
+	  </apiDesc><apiType value="any"/></apiReturn></apiOperationDef><apiDesc>
+	  返回由 <codeph>saveStartValue()</codeph> 方法保存的起始状态值。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:ActionEffectInstance:protected:saveStartValue"><apiName>saveStartValue</apiName><shortdesc>
+	  子类实现此方法可保存播放效果前的初始状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>返回起始状态值。
+	  
+	  </apiDesc><apiType value="any"/></apiReturn></apiOperationDef><apiDesc>
+	  子类实现此方法可保存播放效果前的初始状态。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:ActionEffectInstance:protected:playedAction"><apiName>playedAction</apiName><shortdesc>
+	  指示是否已播放效果。如果已播放效果，则为 true；如果尚未播放，则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  指示是否已播放效果。如果已播放效果，则为 <codeph>true</codeph>；如果尚未播放，则为 <codeph>false</codeph>。 
+	 
+	  <p>在播放该效果之后，<codeph>play()</codeph> 方法会自动将此属性设置为 <codeph>true</codeph>；您不必直接设置它。</p> 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SetStyleActionInstance"><apiName>SetStyleActionInstance</apiName><shortdesc>
+  SetStyleActionInstance 类用于实现 SetStyleAction 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:ActionEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetStyleActionInstance 类用于实现 SetStyleAction 效果的实例类。Flex 在播放 SetStyleAction 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SetStyleActionInstance:SetStyleActionInstance"><apiName>SetStyleActionInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:SetStyleActionInstance:name"><apiName>name</apiName><shortdesc> 
+	  正在更改的样式属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+	  正在更改的样式属性的名称。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:SetStyleActionInstance:value:get"><apiName>value</apiName><shortdesc> 
+	  属性的新值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc> 
+	  属性的新值。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AnimatePropertyInstance"><apiName>AnimatePropertyInstance</apiName><shortdesc>
+  AnimatePropertyInstance 类用于实现 AnimateProperty 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimatePropertyInstance 类用于实现 AnimateProperty 效果的实例类。Flex 在播放 AnimateProperty 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 AnimateProperty 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个介于 <codeph>AnimateProperty.fromValue</codeph> 和 <codeph>AnimateProperty.toValue</codeph> 属性的值之间的 Number，此值将用作由 <codeph>AnimateProperty.property</codeph> 指定的目标属性。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#AnimateProperty"><linktext>mx.effects.AnimateProperty</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:AnimatePropertyInstance:AnimatePropertyInstance"><apiName>AnimatePropertyInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:fromValue"><apiName>fromValue</apiName><shortdesc>
+	  用于设置效果的属性的起始值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  用于设置效果的属性的起始值。默认值是目标的当前属性值。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:isStyle"><apiName>isStyle</apiName><shortdesc>
+	  如果为 true，则属性特性是一个样式，您可以使用 setStyle() 方法对其进行设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  如果为 <codeph>true</codeph>，则属性特性是一个样式，您可以使用 <codeph>setStyle()</codeph> 方法对其进行设置。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:property"><apiName>property</apiName><shortdesc>
+	  要设置动画的目标上属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  要设置动画的目标上属性的名称。此属性是必需的。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:roundValue"><apiName>roundValue</apiName><shortdesc>
+	  如果为 true，则会将插补的补间值舍入到最接近的整数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  如果为 <codeph>true</codeph>，则会将插补的补间值舍入到最接近的整数。如果您设置动画的属性是 int 或 uint 类型，则此属性会很有用。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:AnimatePropertyInstance:toValue"><apiName>toValue</apiName><shortdesc>
+	  该效果的结束值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  该效果的结束值。默认值是目标的当前属性值。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+  FadeInstance 类用于实现 Fade 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  FadeInstance 类用于实现 Fade 效果的实例类。Flex 在播放 Fade 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 Fade 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个介于 <codeph>Fade.alphaFrom</codeph> 和 <codeph>Fade.alphaTo</codeph> 属性的值之间的 Number。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Fade"><linktext>mx.effects.Fade</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:FadeInstance:FadeInstance"><apiName>FadeInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:FadeInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  介于 0.0 和 1.0 之间的初始透明度级别，其中 0.0 表示透明，1.0 表示完全不透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  介于 0.0 和 1.0 之间的初始透明度级别，其中 0.0 表示透明，1.0 表示完全不透明。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:FadeInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  介于 0.0 和 1.0 之间的最终透明度级别，其中 0.0 表示透明，1.0 表示完全不透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  介于 0.0 和 1.0 之间的最终透明度级别，其中 0.0 表示透明，1.0 表示完全不透明。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:ParallelInstance"><apiName>ParallelInstance</apiName><shortdesc>
+  ParallelInstance 类用于实现 Parallel 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:CompositeEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ParallelInstance 类用于实现 Parallel 效果的实例类。Flex 在播放 Parallel 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Parallel"><linktext>mx.effects.Parallel</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:ParallelInstance:ParallelInstance"><apiName>ParallelInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Parallel 效果会忽略此参数。包含此参数的目的只是为了与其他类型的效果保持一致。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:ParallelInstance:end"><apiName>end</apiName><shortdesc>
+	  中断当前正在播放的所有效果，跳过尚未开始播放的所有效果，并立即跳至最终的复合效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  中断当前正在播放的所有效果，跳过尚未开始播放的所有效果，并立即跳至最终的复合效果。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:ParallelInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+	  每次完成 SequenceInstance 或 ParallelInstance 的子效果时，Flex 都会调用 onEffectEnd() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>已结束的子效果。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  每次完成 SequenceInstance 或 ParallelInstance 的子效果时，Flex 都会调用 <codeph>onEffectEnd()</codeph> 方法。对于 SequenceInstance，将播放下一效果。在 ParallelInstance 中，它会在所有效果播放完毕之前跟踪这些效果。如果您创建了 CompositeEffect 的子类，则必须实现此方法。
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:ParallelInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+     
+      效果的当前时间位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     
+      效果的当前时间位置。此属性的值介于 0 和总持续时间（包括该效果的 <codeph>startDelay</codeph>、<codeph>repeatCount</codeph> 和 <codeph>repeatDelay</codeph>）之间。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:SequenceInstance"><apiName>SequenceInstance</apiName><shortdesc>
+  SequenceInstance 类用于实现 Sequence 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:CompositeEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SequenceInstance 类用于实现 Sequence 效果的实例类。Flex 在播放 Sequence 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Sequence"><linktext>mx.effects.Sequence</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:SequenceInstance:SequenceInstance"><apiName>SequenceInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>Sequence 效果会忽略此参数。包含此参数的目的只是为了与其他类型的效果保持一致。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:SequenceInstance:end"><apiName>end</apiName><shortdesc>
+      中断当前正在播放的所有效果，跳过尚未开始播放的所有效果，并立即跳至最终的复合效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      中断当前正在播放的所有效果，跳过尚未开始播放的所有效果，并立即跳至最终的复合效果。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:SequenceInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+     每次完成 SequenceInstance 的子效果时，Flex 都会调用 onEffectEnd() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>子效果。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     每次完成 SequenceInstance 的子效果时，Flex 都会调用 <codeph>onEffectEnd()</codeph> 方法。对于 SequenceInstance，将播放下一效果。此方法可实现 superclass 的方法。
+    
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:SequenceInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+     
+      效果的当前时间位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+     
+      效果的当前时间位置。此属性的值介于 0 和总持续时间（包括该效果的 <codeph>startDelay</codeph>、<codeph>repeatCount</codeph> 和 <codeph>repeatDelay</codeph>）之间。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:MoveInstance"><apiName>MoveInstance</apiName><shortdesc>
+  MoveInstance 类用于实现 Move 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MoveInstance 类用于实现 Move 效果的实例类。Flex 在播放 Move 效果时会自动创建此类的实例；您无需自己创建。
+  
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 Move 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个具有两个项的 Array，其中： </p>
+  <ul>
+    <li>value[0]:Number 一个介于 <codeph>Move.xFrom</codeph> 和 <codeph>Move.xTo</codeph> 属性的值之间的值。</li>
+  
+    <li>value[1]:Number 一个介于 <codeph>Move.yFrom</codeph> 和 <codeph>Move.yTo</codeph> 属性的值之间的值。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Move"><linktext>mx.effects.Move</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:MoveInstance:MoveInstance"><apiName>MoveInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:MoveInstance:xBy"><apiName>xBy</apiName><shortdesc> 
+	  组件沿 x 轴移动的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  组件沿 x 轴移动的像素数目。此值可以为负值。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:xFrom"><apiName>xFrom</apiName><shortdesc> 
+	  初始位置的 x 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  初始位置的 x 坐标。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:xTo"><apiName>xTo</apiName><shortdesc> 
+	  目标位置的 x 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  目标位置的 x 坐标。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yBy"><apiName>yBy</apiName><shortdesc> 
+	  组件沿 y 轴移动的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  组件沿 y 轴移动的像素数目。此值可以为负值。 	
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yFrom"><apiName>yFrom</apiName><shortdesc>
+	  初始位置的 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  初始位置的 y 坐标。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:MoveInstance:yTo"><apiName>yTo</apiName><shortdesc> 
+	  目标位置的 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  目标位置的 y 坐标。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:RotateInstance"><apiName>RotateInstance</apiName><shortdesc>
+  RotateInstance 类用于实现 Rotate 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RotateInstance 类用于实现 Rotate 效果的实例类。Flex 在播放 Rotate 效果时会自动创建此类的实例；您无需自己创建。
+  
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 Rotate 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个介于 <codeph>Rotate.angleFrom</codeph> 和 <codeph>Rotate.angleTo</codeph> 属性的值之间的 Number。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Rotate"><linktext>mx.effects.Rotate</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:RotateInstance:RotateInstance"><apiName>RotateInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:RotateInstance:angleFrom"><apiName>angleFrom</apiName><shortdesc> 
+	  目标对象的起始旋转角度（以度表示）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  目标对象的起始旋转角度（以度表示）。有效值范围是 0 到 360。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:angleTo"><apiName>angleTo</apiName><shortdesc> 
+	  目标对象结束旋转时的角度（以度表示）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>360</apiData><apiType value="Number"/><apiDefaultValue>360
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc> 
+	  目标对象结束旋转时的角度（以度表示）。此值可以是正值也可以是负值。
+	 
+	  <p>如果 <codeph>angleTo</codeph> 的值比 <codeph>angleFrom</codeph> 的值小，则目标以逆时针方向旋转。否则，它将以顺时针方向旋转。如果希望对目标进行多次旋转，请将此值设置为较大的正数或较小的负数。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:originX"><apiName>originX</apiName><shortdesc>
+	  旋转中心点的 x 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  旋转中心点的 x 位置。目标将围绕此点进行旋转。有效值介于 0 和目标的宽度之间。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:RotateInstance:originY"><apiName>originY</apiName><shortdesc>
+	  旋转中心点的 y 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/><apiDefaultValue>0
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  旋转中心点的 y 位置。目标将围绕此点进行旋转。有效值介于 0 和目标的高度之间。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:DissolveInstance"><apiName>DissolveInstance</apiName><shortdesc>
+  DissolveInstance 类用于实现 Dissolve 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DissolveInstance 类用于实现 Dissolve 效果的实例类。Flex 在播放 Dissolve 效果时会自动创建此类的实例；您无需自己创建。
+  
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 Dissolve 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个介于 <codeph>Dissolve.alphaFrom</codeph> 和 <codeph>Dissolve.alphaTo</codeph> 属性的值之间的 Number。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Dissolve"><linktext>mx.effects.Dissolve</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:DissolveInstance:DissolveInstance"><apiName>DissolveInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:DissolveInstance:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+	  介于 0.0 和 1.0 之间的初始透明度级别，其中 0.0 表示透明，1.0 表示完全不透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  介于 0.0 和 1.0 之间的初始透明度级别，其中 0.0 表示透明，1.0 表示完全不透明。 
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+	  介于 0.0 和 1.0 之间的最终透明度级别，其中 0.0 表示透明，1.0 表示完全不透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  介于 0.0 和 1.0 之间的最终透明度级别，其中 0.0 表示透明，1.0 表示完全不透明。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:color"><apiName>color</apiName><shortdesc> 
+	  一个十六进制值，代表效果显示在目标对象上方的浮动矩形的颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0xFFFFFFFF</apiData><apiType value="uint"/></apiValueDef><apiDesc> 
+	  一个十六进制值，代表效果显示在目标对象上方的浮动矩形的颜色。默认值是由目标组件的 <codeph>backgroundColor</codeph> 样式属性指定的颜色；如果未设置 <codeph>backgroundColor</codeph>，则为 0xFFFFFF。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:DissolveInstance:targetArea"><apiName>targetArea</apiName><shortdesc>
+	  要对其播放效果的目标区域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.geom:RoundedRectangle</apiValueClassifier></apiValueDef><apiDesc>
+	  要对其播放效果的目标区域。具有溶解效果的叠加层是使用此属性的尺寸绘制的。UIComponents 将在整个组件上创建叠加层。容器会在其内容区域上方创建一个叠加层，而不是在镶边上方创建。 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:AddRemoveEffectTargetFilter"><apiName>AddRemoveEffectTargetFilter</apiName><shortdesc>
+  AddRemoveEffectTargetFilter 是 EffectTargetFilter 的一个子类，后者用于处理过滤目标（这些目标已作为子项在容器中添加或删除）的逻辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectTargetFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddRemoveEffectTargetFilter 是 EffectTargetFilter 的一个子类，后者用于处理过滤目标（这些目标已作为子项在容器中添加或删除）的逻辑。如果将 Effect.filter 属性设置为“add”或“remove”，则会使用以下各项之一。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:AddRemoveEffectTargetFilter:AddRemoveEffectTargetFilter"><apiName>AddRemoveEffectTargetFilter</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:AddRemoveEffectTargetFilter:add"><apiName>add</apiName><shortdesc>
+	  确定是否为 add 或 remove 过滤器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  确定是否为 add 或 remove 过滤器。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:BlurInstance"><apiName>BlurInstance</apiName><shortdesc>
+  BlurInstance 类用于实现 Blur 效果的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects.effectClasses:TweenEffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BlurInstance 类用于实现 Blur 效果的实例类。Flex 在播放 Blur 效果时会自动创建此类的实例；您无需自己创建。
+ 
+  <p>属于 TweenEffect 类的子类的所有效果类均支持下列事件：</p>
+  
+  <ul>
+    <li><codeph>tweenEnd</codeph>：当补间效果结束时分派。 </li>
+  
+    <li><codeph>tweenUpdate</codeph>：当 TweenEffect 类每次计算新值时分派。</li> 
+  </ul>
+  
+  <p>向这两个事件的事件侦听器传递的对象是 TweenEvent 类型的。TweenEvent 类用于定义 <codeph>value</codeph> 属性，该属性中包含由效果计算的补间值。对于 Blur 效果，<codeph>TweenEvent.value</codeph> 属性中包含一个具有两个项的 Array，其中： </p>
+  <ul>
+    <li>value[0]:Number 一个介于 <codeph>Blur.blurXTo</codeph> 和 <codeph>Blur.blurXFrom</codeph> 属性的值之间的值，应用于目标的 <codeph>BlurFilter.blurX</codeph> 属性。</li> 
+  
+    <li>value[1]:Number 一个介于 <codeph>Blur.blurYTo</codeph> 和 <codeph>Blur.blurYFrom</codeph> 属性的值之间的值，应用于目标的 <codeph>BlurFilter.blurY</codeph> 属性。</li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Blur"><linktext>mx.effects.Blur</linktext></link><link href="mx.events.xml#TweenEvent"><linktext>mx.events.TweenEvent</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:BlurInstance:BlurInstance"><apiName>BlurInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:BlurInstance:blurXFrom"><apiName>blurXFrom</apiName><shortdesc> 
+	  起始水平模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  起始水平模糊量。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurXTo"><apiName>blurXTo</apiName><shortdesc> 
+	  终止水平模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  终止水平模糊量。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurYFrom"><apiName>blurYFrom</apiName><shortdesc> 
+	  起始垂直模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  起始垂直模糊量。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:BlurInstance:blurYTo"><apiName>blurYTo</apiName><shortdesc> 
+	  终止垂直模糊量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+	  终止垂直模糊量。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:CompositeEffectInstance"><apiName>CompositeEffectInstance</apiName><shortdesc>
+  CompositeEffectInstance 类用于实现 CompositeEffect 类的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CompositeEffectInstance 类用于实现 CompositeEffect 类的实例类。Flex 在播放 CompositeEffect 时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#CompositeEffect"><linktext>mx.effects.CompositeEffect</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:CompositeEffectInstance:CompositeEffectInstance"><apiName>CompositeEffectInstance</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>复合效果会忽略此参数。包含此参数的目的只是为了与其他类型的效果保持一致。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。  
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:CompositeEffectInstance:addChildSet"><apiName>addChildSet</apiName><shortdesc>
+      向此 Composite 效果添加一组新的子效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childSet</apiItemName><apiType value="Array"/><apiDesc>要添加到 CompositeEffect 的子效果数组。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      向此 Composite 效果添加一组新的子效果。Sequence 效果将按子效果组的添加顺序一次播放一个子效果组。Parallel 效果将同时播放所有子效果组，而不考虑这些子效果组的添加顺序。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:CompositeEffectInstance:protected:onEffectEnd"><apiName>onEffectEnd</apiName><shortdesc>
+      在每个子效果完成播放时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>childEffect</apiItemName><apiOperationClassifier>mx.effects:IEffectInstance</apiOperationClassifier><apiDesc>子效果。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在每个子效果完成播放时调用。子类必须实现此函数。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:CompositeEffectInstance:playheadTime:set"><apiName>playheadTime</apiName><shortdesc>
+      效果的当前时间位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      效果的当前时间位置。此属性的值介于 0 和总持续时间（包括该效果的 <codeph>startDelay</codeph>、<codeph>repeatCount</codeph> 和 <codeph>repeatDelay</codeph>）之间。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:TweenEffectInstance"><apiName>TweenEffectInstance</apiName><shortdesc>
+ 
+  TweenEffectInstance 类用于实现 TweenEffect 的实例类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectInstance</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+  TweenEffectInstance 类用于实现 TweenEffect 的实例类。Flex 在播放 TweenEffect 时会自动创建此类的实例；您无需自己创建。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.effects.xml#Tween"><linktext>mx.effects.Tween</linktext></link><link href="mx.effects.xml#TweenEffect"><linktext>mx.effects.TweenEffect</linktext></link></related-links><apiConstructor id="mx.effects.effectClasses:TweenEffectInstance:TweenEffectInstance"><apiName>TweenEffectInstance</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiDesc>要使用此效果为其设置动画的 Object。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:protected:createTween"><apiName>createTween</apiName><shortdesc>
+	  创建一个 Tween 实例，为其分配开始值、结束值和持续时间值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>新创建的 Tween 实例。
+	  
+	  </apiDesc><apiOperationClassifier>mx.effects:Tween</apiOperationClassifier></apiReturn><apiParam><apiItemName>listener</apiItemName><apiType value="Object"/><apiDesc>在每个动画间隔通知的对象。通常会将 <codeph>this</codeph> 关键字作为其值进行传递。<codeph>listener</codeph> 必须定义 <codeph>onTweenUpdate()</codeph> 方法，并可以选择定义 <codeph>onTweenEnd()</codeph> 方法。<codeph>onTweenUpdate()</codeph> 方法在动画效果的每个间隔期间调用，而 <codeph>onTweenEnd()</codeph> 方法只在动画完成后调用。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>动画的初始值。可能是数字，也可能是数字的 Array。如果传递的是数字，则 Tween 会在此数字与传递给 <codeph>endValue</codeph> 参数的数字之间进行插值。如果传递的是数字的 Array，则插补 Array 中的每个数字。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>动画的最终值。此参数的类型必须与 <codeph>startValue</codeph> 参数相匹配。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>duration</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc>动画的持续时间（以毫秒为单位）。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>minFps</apiItemName><apiType value="Number"/><apiData>-1</apiData><apiDesc><codeph>onTweenUpdate()</codeph> 方法在每秒钟的最少调用次数。补间代码会尝试尽量多调用 <codeph>onTweenUpdate()</codeph> 方法（每秒钟至多 100 次）。但是，如果频率低于 <codeph>minFps</codeph>，则动画的持续时间会自动增加。这样，由于未能获得任何 CPU 周期而暂时冻结的动画会从停止的地方重新开始，而不是突然向前跳跃。 
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  创建一个 Tween 实例，为其分配开始值、结束值和持续时间值。如果已指定缓动函数，则会将其分配给 Tween 实例。会为 Tween 实例的以下 TweenEvent 分配事件侦听器：<codeph>tweenStart</codeph>、<codeph>tweenUpdate</codeph>、<codeph>tweenEnd</codeph>。通常，您可以从用于快速启动动画计时器的 <codeph>EffectInstance.play()</codeph> 方法的覆盖调用此方法。 
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:end"><apiName>end</apiName><shortdesc>
+	  中断当前播放的效果，并立即跳至该效果的结尾。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  中断当前播放的效果，并立即跳至该效果的结尾。调用 <codeph>tween</codeph> 属性上的 <codeph>Tween.endTween()</codeph> 方法。此方法可实现 superclass 的方法。 
+	 
+	  <p>如果您创建了 TweenEffectInstance 的子类，则可以选择覆盖此方法。</p>
+     
+	  <p>此效果将分派 <codeph>effectEnd</codeph> 事件。</p>
+	 
+	  </apiDesc></apiOperationDetail><related-links><link href="mx.effects.xml#EffectInstance/end()"><linktext>mx.effects.EffectInstance.end()</linktext></link></related-links></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:onTweenEnd"><apiName>onTweenEnd</apiName><shortdesc> 
+	  当效果应最后一次更新目标时调用的回调方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc><codeph>value</codeph> 参数的值是一个内插值，由 <codeph>Tween.startValue</codeph> 属性、<codeph>Tween.endValue</codeph> 属性和 interpolation 函数确定，这些属性和函数是通过在效果的 <codeph>play()</codeph> 方法中实现此效果指定的。<codeph>play()</codeph> 方法可使用这些值创建一个 Tween 对象，用于在某时间段内播放此效果。<codeph>value</codeph> 参数可以是 Number，也可以是 Number 的 Array。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  当效果应最后一次更新目标时调用的回调方法。Tween 类将 <codeph>Tween.endValue</codeph> 作为 <codeph>value</codeph> 参数的值传递。<codeph>value</codeph> 参数可以是 Number，也可以是 Number 的 Array。 
+	 
+	  <p>可以选择覆盖此函数。当逻辑结束后，您还必须在覆盖的末尾调用此方法的超级版本 <codeph>super.onTweenEnd(val)</codeph>。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.effects.effectClasses:TweenEffectInstance:onTweenUpdate"><apiName>onTweenUpdate</apiName><shortdesc> 
+	  当效果应更新目标时调用的回调方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc><codeph>value</codeph> 参数的值是一个内插值，由 <codeph>Tween.startValue</codeph> 属性、<codeph>Tween.endValue</codeph> 属性和 interpolation 函数确定，这些属性和函数是通过在效果的 <codeph>play()</codeph> 方法中实现此效果指定的。<codeph>play()</codeph> 方法可使用这些值创建一个 Tween 对象，用于在某时间段内播放此效果。<codeph>value</codeph> 参数可以是 Number，也可以是 Number 的 Array。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  当效果应更新目标时调用的回调方法。Tween 类使用缓动函数以及 <codeph>Tween.startValue</codeph>、<codeph>Tween.endValue</codeph> 和 <codeph>Tween.duration</codeph> 属性来计算 <codeph>value</codeph> 参数的值。<codeph>value</codeph> 参数可以是 Number，也可以是 Number 的 Array。 
+	 
+	  <p>所有子类都必须覆盖此方法。覆盖此方法时无需调用此函数的超级版本。</p>
+	 
+ 	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.effects.effectClasses:TweenEffectInstance:easingFunction"><apiName>easingFunction</apiName><shortdesc>
+	  动画的缓动函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/></apiValueDef><apiDesc>
+	  动画的缓动函数。默认情况下，效果会使用同一缓动函数作为 TweenEffect 类。
+	 
+	  </apiDesc></apiValueDetail><related-links><link href="mx.effects.xml#TweenEffect/easingFunction"><linktext>mx.effects.TweenEffect.easingFunction</linktext></link></related-links></apiValue><apiValue id="mx.effects.effectClasses:TweenEffectInstance:tween"><apiName>tween</apiName><shortdesc>
+	  用于确定动画的 Tween 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.effects:Tween</apiValueClassifier></apiValueDef><apiDesc>
+	  用于确定动画的 Tween 对象。要创建效果，必须在 <codeph>EffectInstance.play()</codeph> 方法的覆盖中创建一个 Tween 实例，并将其分配给 <codeph>tween</codeph> 属性。使用 <codeph>createTween()</codeph> 方法创建您的 Tween 对象。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.effects.effectClasses:TweenEffectInstance:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+	  
+      效果的当前时间位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  
+      效果的当前时间位置。此属性的值介于 0 和总持续时间（包括该效果的 <codeph>startDelay</codeph>、<codeph>repeatCount</codeph> 和 <codeph>repeatDelay</codeph>）之间。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.effects.effectClasses:HideShowEffectTargetFilter"><apiName>HideShowEffectTargetFilter</apiName><shortdesc>
+  HideShowEffectTargetFilter 是 EffectTargetFilter 的一个子类，后者用于处理过滤目标（已通过修改目标的 visible 属性将这些目标显示或隐藏）的逻辑。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:EffectTargetFilter</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HideShowEffectTargetFilter 是 EffectTargetFilter 的一个子类，后者用于处理过滤目标（已通过修改目标的 <codeph>visible</codeph> 属性将这些目标显示或隐藏）的逻辑。如果将 Effect.filter 属性设置为 <codeph>hide</codeph> 或 <codeph>show</codeph>，则会使用以下各项之一。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.effects.effectClasses:HideShowEffectTargetFilter:HideShowEffectTargetFilter"><apiName>HideShowEffectTargetFilter</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.effects.effectClasses:HideShowEffectTargetFilter:show"><apiName>show</apiName><shortdesc>
+	  确定是否为 show 或 hide 过滤器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+	  
+	  </apiDefaultValue></apiValueDef><apiDesc>
+	  确定是否为 show 或 hide 过滤器。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

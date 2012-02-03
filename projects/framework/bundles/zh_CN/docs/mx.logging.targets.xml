@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.logging.targets"><apiName>mx.logging.targets</apiName><apiDetail/><apiClassifier id="mx.logging.targets:TraceTarget"><apiName>TraceTarget</apiName><shortdesc>
+  提供使用全局 trace() 方法输出日志消息的记录器目标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.logging.targets:LineFormattedTarget</apiBaseClassifier></apiClassifierDef><apiDesc>
+  提供使用全局 <codeph>trace()</codeph> 方法输出日志消息的记录器目标。
+  
+  <p>要查看 <codeph>trace()</codeph> 方法输出，必须运行 Flash Player 的调试器版或 AIR Debug Launcher。</p>
+  
+  <p>Flash Player 的调试器版和 AIR Debug Launcher 将输出从 <codeph>trace()</codeph> 方法发送到 flashlog.txt 文件。此文件的默认位置与 mm.cfg 文件位于同一目录。您可以在 mm.cfg 文件中使用 <codeph>TraceOutputFileName</codeph> 属性自定义此文件的位置。您还必须在 mm.cfg 文件中将 <codeph>TraceOutputFileEnable</codeph> 设置为 1。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.targets:TraceTarget:TraceTarget"><apiName>TraceTarget</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      <p>构造记录器目标的实例，该实例将日志数据发送到全局 <codeph>trace()</codeph> 方法。默认情况下，所有输出均被定向到 flashlog.txt 中。</p>
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.logging.targets:LineFormattedTarget"><apiName>LineFormattedTarget</apiName><shortdesc>
+  具有经过格式设置的线条样式输出的记录器目标实现都应该扩展此类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.logging:AbstractTarget</apiBaseClassifier></apiClassifierDef><apiDesc>
+  具有经过格式设置的线条样式输出的记录器目标实现都应该扩展此类。它提供在输出中包括日期、时间、类别和级别的默认行为。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.logging.targets:LineFormattedTarget:LineFormattedTarget"><apiName>LineFormattedTarget</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      <p>构造记录器目标实例，该实例对单行上的消息数据进行格式设置。</p>
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.logging.targets:LineFormattedTarget:logEvent"><apiName>logEvent</apiName><shortdesc>
+      此方法处理相关记录器中的 LogEvent。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.logging:LogEvent</apiOperationClassifier><apiDesc>由此方法处理的 <codeph>LogEvent</codeph>。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      此方法处理相关记录器中的 <codeph>LogEvent</codeph>。目标使用此方法将事件转换为相应格式以便进行传输、存储或显示。仅当事件的级别在目标的级别范围内时才调用此方法。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.logging.targets:LineFormattedTarget:fieldSeparator"><apiName>fieldSeparator</apiName><shortdesc>
+      要在字段间使用的分隔符字符串（默认情况下是“ ”）
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData> </apiData><apiType value="String"/></apiValueDef><apiDesc>
+      要在字段间使用的分隔符字符串（默认情况下是“ ”）
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeCategory"><apiName>includeCategory</apiName><shortdesc>
+      指示此目标的类别是否应添加到跟踪中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示此目标的类别是否应添加到跟踪中。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeDate"><apiName>includeDate</apiName><shortdesc>
+      指示日期是否应添加到跟踪中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示日期是否应添加到跟踪中。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeLevel"><apiName>includeLevel</apiName><shortdesc>
+      指示事件级别是否应添加到此跟踪中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示事件级别是否应添加到此跟踪中。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.logging.targets:LineFormattedTarget:includeTime"><apiName>includeTime</apiName><shortdesc>
+      指示时间是否应添加到跟踪中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指示时间是否应添加到跟踪中。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

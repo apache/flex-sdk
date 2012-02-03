@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins"><apiName>mx.skins</apiName><apiDetail/><apiClassifier id="mx.skins:RectangularBorder"><apiName>RectangularBorder</apiName><shortdesc>
+  Die RectangularBorder-Klasse ist eine abstrakte Basisklasse für verschiedene Klassen, die rechteckige Rahmen um UIComponents zeichnen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IRectangularBorder</apiBaseInterface><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die RectangularBorder-Klasse ist eine abstrakte Basisklasse für verschiedene Klassen, die rechteckige Rahmen um UIComponents zeichnen.
+ 
+  <p>Diese Klasse implementiert Unterstützung für die <codeph>backgroundImage</codeph>-, <codeph>backgroundSize</codeph>- und <codeph>backgroundAttachment</codeph>-Stile.</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:RectangularBorder:RectangularBorder"><apiName>RectangularBorder</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins:RectangularBorder:layoutBackgroundImage"><apiName>layoutBackgroundImage</apiName><shortdesc>
+      Layout des Hintergrundbilds.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Layout des Hintergrundbilds.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.skins:RectangularBorder:backgroundImageBounds:get"><apiName>backgroundImageBounds</apiName><shortdesc>
+      Rechteckiger Bereich, in dem das Hintergrundbild gezeichnet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      Rechteckiger Bereich, in dem das Hintergrundbild gezeichnet werden soll. Dies kann größer als der Rahmen sein, wenn der übergeordnete Container bildlauffähigen Inhalt aufweist. Wenn diese Eigenschaft „null“ entspricht, kann der Wert für den Rahmen mithilfe der Größe des übergeordneten Elements und der <codeph>viewMetrics</codeph>-Eigenschaft bestimmt werden.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:RectangularBorder:hasBackgroundImage:get"><apiName>hasBackgroundImage</apiName><shortdesc>
+      Enthält „true“, wenn die RectangularBorder-Instanz ein Hintergrundbild enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Enthält <codeph>true</codeph>, wenn die RectangularBorder-Instanz ein Hintergrundbild enthält.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins:ProgrammaticSkin"><apiName>ProgrammaticSkin</apiName><shortdesc>
+  Diese Klasse ist die Basisklasse für Skinelemente, die sich selbst programmgesteuert zeichnen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IProgrammaticSkin</apiBaseInterface><apiBaseClassifier>mx.core:FlexShape</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Diese Klasse ist die Basisklasse für Skinelemente, die sich selbst programmgesteuert zeichnen.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:ProgrammaticSkin:ProgrammaticSkin"><apiName>ProgrammaticSkin</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins:ProgrammaticSkin:protected:drawRoundRect"><apiName>drawRoundRect</apiName><shortdesc>
+	  Zeichnet ein Rechteck programmgesteuert in das Graphics-Objekt dieser Skin.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Horizontale Position der linken oberen Ecke des Rechtecks in dieser Skin.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Vertikale Position der linken oberen Ecke des Rechtecks in dieser Skin.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Breite des Rechtecks in Pixeln.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Höhe des Rechtecks in Pixeln.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>cornerRadius</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Eckradius bzw. Eckradien des Rechtecks. Kann <codeph>null</codeph>, einer Zahl oder einem Objekt entsprechen. Durch <codeph>null</codeph> wird angegeben, dass die Ecken nicht abgerundet sind. Durch eine Zahl wird dieser Radius für alle vier Ecken angegeben (in Pixel). Wenn ein Objekt angegeben wird, sollte es die Eigenschaften <codeph>tl</codeph>, <codeph>tr</codeph>, <codeph>bl</codeph> und <codeph>br</codeph> aufweisen, deren Werte Zahlen sind, die den Radius für die linke obere, rechte obere, linke untere und rechte untere Ecke in Pixeln angeben. Beispielsweise können Sie ein einfaches Objekt wie <codeph>{ tl: 5, tr: 5, bl: 0, br: 0 }</codeph> übergeben. Der Standardwert lautet null (keine abgerundeten Ecken).
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die RGB-Farben der Füllung. Kann <codeph>null</codeph>, einer vorzeichenlosen Zahl oder einem Array entsprechen. Durch <codeph>null</codeph> wird angegeben, dass das Rechteck nicht gefüllt ist. Durch eine vorzeichenlose Zahl wird eine RGB-Füllfarbe angegeben. Übergeben Sie beispielsweise <codeph>0xFF0000</codeph> für eine rote Füllung. Ein Array sollte vorzeichenlose Zahlen für die Verlaufsfarben enthalten. Übergeben Sie beispielsweise <codeph>[ 0xFF0000, 0xFFFF00, 0x0000FF ]</codeph> für eine Farbverlaufsfüllung von Rot über Gelb zu Blau. Sie können bis zu 15 Farben für einen Farbverlauf festlegen. Der Standardwert lautet null (keine Füllung).
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Alphawert(e) für die Füllung. Kann null, einer Zahl oder einem Array entsprechen. Dieses Argument wird ignoriert, wenn <codeph>color</codeph> null ist. Wenn <codeph>color</codeph> einer vorzeichenlosen Zahl für eine RGB-Füllfarbe entspricht, muss <codeph>alpha</codeph> eine Zahl für die Transparenz der Füllung sein. Bei 0,0 ist die Füllung vollkommen durchsichtig und bei 1,0 vollkommen undurchsichtig. Sie können in diesem Fall statt 1,0 auch null übergeben, um festzulegen, dass die Füllung vollkommen undurchsichtig ist. Wenn <codeph>color</codeph> ein Array ist, das Farbverlaufsfarben angibt, dann muss <codeph>alpha</codeph> ein Array von Zahlen gleicher Länge sein, das die entsprechenden Alphawerte für den Farbverlauf angibt. In diesem Fall ist der Standardwert <codeph>null</codeph> (vollständig undurchsichtig).
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>gradientMatrix</apiItemName><apiType value="flash.geom:Matrix"/><apiData>null</apiData><apiDesc>Für die Farbverlaufsfüllung verwendetes Matrix-Objekt. Mit den Dienstprogrammmethoden <codeph>horizontalGradientMatrix()</codeph>, <codeph>verticalGradientMatrix()</codeph> und <codeph>rotatedGradientMatrix()</codeph> können Sie die Werte für diesen Parameter erstellen.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>gradientType</apiItemName><apiType value="String"/><apiData>linear</apiData><apiDesc>Typ der Farbverlaufsfüllung. Mögliche Werte sind <codeph>GradientType.LINEAR</codeph> oder <codeph>GradientType.RADIAL</codeph>. (Die GradientType-Klasse befindet sich im Paket flash.display.)
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>gradientRatios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>(Optional, Standard [0,255]) Gibt die Verteilung der Farben an. Die Anzahl der Einträge muss der Anzahl der im <codeph>color</codeph>-Parameter definierten Farben entsprechen. Jeder Wert gibt den Breitenanteil an, in dem die Farbe mit 100 % gesampelt wird. Der Wert 0 repräsentiert die linke Position im Farbverlaufsfeld, und 255 repräsentiert die rechte Position im Farbverlaufsfeld. 
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>hole</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>(Optional) Eine Aussparung in Form eines abgerundeten Rechtecks in der Mitte des ansonsten einfarbig gefüllten, abgerundeten Rechtecks { x: Zahl, y: Zahl, w: Zahl, h: Zahl, r: Zahl oder { br: Zahl, bl: Zahl, tl: Zahl, tr: Zahl } }.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Zeichnet ein Rechteck programmgesteuert in das Graphics-Objekt dieser Skin.
+	 
+	  <p>Das Rechteck kann abgerundet sein. Die Kanten werden mit dem aktuellen Linienstil des Graphics-Objekts gezeichnet. Es kann eine einfarbige Füllung, eine Farbverlaufsfüllung oder keine Füllung haben. Für eine einfarbige Füllung kann eine Alphatransparenz festgelegt sein. Eine Farbverlaufsfüllung kann linear oder radial sein. Sie können bis zu 15 Farben und Alphawerte an bestimmten Punkten entlang des Farbverlaufs und einen Drehwinkel oder eine Transformationsmatrix für den Farbverlauf angeben. Schließlich kann sich innerhalb des Rechtecks eine Aussparung in Form eines abgerundeten Rechtecks befinden.</p>
+	 
+	  <p>Diese vielseitige Routine zum Zeichnen von Rechtecken wird von vielen Skins verwendet. Sie ruft die <codeph>drawRect()</codeph>- oder <codeph>drawRoundRect()</codeph>-Methoden (in der flash.display.Graphics-Klasse) auf, um in das Graphics-Objekt der Skin zu zeichnen.</p>
+	 
+	 </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#Graphics/beginGradientFill()"><linktext>flash.display.Graphics.beginGradientFill()</linktext></link></related-links></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:getStyle"><apiName>getStyle</apiName><shortdesc>
+      Gibt den Wert der angegebenen Stileigenschaft zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Stilwert. Dies kann ein beliebiger Objekttyp für Stileigenschaften sein, beispielsweise int, Number, String usw.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Name der style-Eigenschaft.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt den Wert der angegebenen Stileigenschaft zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:horizontalGradientMatrix"><apiName>horizontalGradientMatrix</apiName><shortdesc>
+	  Dienstprogrammfunktion zum Erstellen einer horizontalen Farbverlaufsmatrix.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die horizontale Farbverlaufsmatrix. Dieses temporäre Objekt sollte nur für einen einzigen Folgeaufruf der <codeph>drawRoundRect()</codeph>-Methode verwendet werden.
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Die linke Kante des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Die obere Kante des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Die Breite des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Die Höhe des Farbverlaufs.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Dienstprogrammfunktion zum Erstellen einer horizontalen Farbverlaufsmatrix.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateDisplayList"><apiName>invalidateDisplayList</apiName><shortdesc conref="mx.core.UIComponent#invalidateDisplayList()">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#invalidateDisplayList()">
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateProperties"><apiName>invalidateProperties</apiName><shortdesc>
+	  
+	  Der Aufruf dieser Methode bewirkt einen Aufruf der validateProperties()-Methode der Komponente, bevor die Anzeigeliste wiedergegeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  
+	  Der Aufruf dieser Methode bewirkt einen Aufruf der <codeph>validateProperties()</codeph>-Methode der Komponente, bevor die Anzeigeliste wiedergegeben wird.
+	 
+	  <p>Für Komponenten, die UIComponent erweitern, bedeutet dies, dass <codeph>commitProperties()</codeph> aufgerufen wird.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateSize"><apiName>invalidateSize</apiName><shortdesc>
+	  
+	  Der Aufruf dieser Methode bewirkt einen Aufruf der validateSize()-Methode der Komponente, bevor die Anzeigeliste wiedergegeben wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  
+	  Der Aufruf dieser Methode bewirkt einen Aufruf der <codeph>validateSize()</codeph>-Methode der Komponente, bevor die Anzeigeliste wiedergegeben wird.
+	 
+	  <p>Für Komponenten, die UIComponent erweitern, bedeutet dies, dass <codeph>measure()</codeph> aufgerufen wird, wenn nicht für die Komponente sowohl <codeph>explicitWidth</codeph> als auch <codeph>explicitHeight</codeph> festgelegt ist.</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:move"><apiName>move</apiName><shortdesc>
+	  Verschiebt dieses Objekt an die angegebenen x- und y-Koordinaten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Die horizontale Position in Pixeln.
+	 
+     	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Die vertikale Position in Pixeln.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Verschiebt dieses Objekt an die angegebenen x- und y-Koordinaten.
+	 
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:rotatedGradientMatrix"><apiName>rotatedGradientMatrix</apiName><shortdesc>
+	  Dienstprogrammfunktion zum Erstellen einer gedrehten Farbverlaufsmatrix.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die horizontale Farbverlaufsmatrix. Dieses temporäre Objekt sollte nur für einen einzigen Folgeaufruf der <codeph>drawRoundRect()</codeph>-Methode verwendet werden.
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Die linke Kante des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Die obere Kante des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Die Breite des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Die Höhe des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rotation</apiItemName><apiType value="Number"/><apiDesc>Der Wert für die Drehung in Grad.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Dienstprogrammfunktion zum Erstellen einer gedrehten Farbverlaufsmatrix.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:setActualSize"><apiName>setActualSize</apiName><shortdesc>
+	  Legt Höhe und Breite dieses Objekts fest.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newWidth</apiItemName><apiType value="Number"/><apiDesc>Die Breite dieses Objekts in Pixeln.
+	 
+     	  </apiDesc></apiParam><apiParam><apiItemName>newHeight</apiItemName><apiType value="Number"/><apiDesc>Die Höhe dieses Objekts in Pixeln.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Legt Höhe und Breite dieses Objekts fest.
+	 
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+	  Wann immer sich ein Stil ändert, muss diese Skin neu gezeichnet werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>Der Name der geänderten Stileigenschaft oder „null“, wenn sich alle Stile geändert haben.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Wann immer sich ein Stil ändert, muss diese Skin neu gezeichnet werden. Unterklassen können diese Methode überschreiben und einen spezifischere Prüfung durchführen, bevor sie die invalidateDisplayList()-Methode aufrufen.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+	  Zeichnet Grafiken für diese Skin programmgesteuert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>  Die Breite dieses Objekts in Pixeln vor jeglicher Skalierung.
+	 
+          </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>  Die Höhe dieses Objekts in Pixeln vor jeglicher Skalierung.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Zeichnet Grafiken für diese Skin programmgesteuert.
+	 
+	  <p>Unterklassen müssen diese Methode überschreiben und Methoden wie <codeph>graphics.moveTo()</codeph> und <codeph>graphics.lineTo()</codeph> aufrufen.</p>
+	 
+	  <p>Dies geschieht vor dem Skalieren durch Quellen wie Benutzercode oder Zoomeffekte. Die Komponente weiß nichts von der späteren Skalierung.</p> 
+	 
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+	  Diese Funktion wird vom LayoutManager aufgerufen, wenn dieses Steuerelement gezeichnet werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Diese Funktion wird vom LayoutManager aufgerufen, wenn dieses Steuerelement gezeichnet werden soll. Die tatsächliche Zeichnung erfolgt in der <codeph>updateDisplayList</codeph>-Funktion, die durch diese Funktion aufgerufen wird.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateNow"><apiName>validateNow</apiName><shortdesc>
+	  Validiert und aktualisiert die Eigenschaften und das Layout dieses Objekts und zeichnet es ggf. neu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Validiert und aktualisiert die Eigenschaften und das Layout dieses Objekts und zeichnet es ggf. neu.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+	  Diese Funktion ist leer, sodass ProgrammaticSkin die ILayoutManagerClient-Schnittstelle implementieren kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  Diese Funktion ist leer, sodass ProgrammaticSkin die ILayoutManagerClient-Schnittstelle implementieren kann. Skins rufen nicht die <codeph>LayoutManager.invalidateProperties()</codeph>-Methode auf, die normalerweise einen Aufruf dieser Methode auslöst.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateSize"><apiName>validateSize</apiName><shortdesc>
+	  Diese Funktion ist leer, sodass ProgrammaticSkin die ILayoutManagerClient-Schnittstelle implementieren kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Bestimmt, ob untergeordnete Elemente dieser Skin validiert werden. 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Diese Funktion ist leer, sodass ProgrammaticSkin die ILayoutManagerClient-Schnittstelle implementieren kann. Skins rufen nicht die <codeph>LayoutManager.invalidateSize()</codeph>-Methode auf, die normalerweise einen Aufruf dieser Methode auslöst.
+         
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:verticalGradientMatrix"><apiName>verticalGradientMatrix</apiName><shortdesc>
+	  Dienstprogrammfunktion zum Erstellen einer vertikalen Farbverlaufsmatrix.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die horizontale Farbverlaufsmatrix. Dieses temporäre Objekt sollte nur für einen einzigen Folgeaufruf der <codeph>drawRoundRect()</codeph>-Methode verwendet werden.
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Die linke Kante des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Die obere Kante des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Die Breite des Farbverlaufs.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Die Höhe des Farbverlaufs.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Dienstprogrammfunktion zum Erstellen einer vertikalen Farbverlaufsmatrix.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.skins:ProgrammaticSkin:initialized:get"><apiName>initialized</apiName><shortdesc conref="mx.core.UIComponent#initialized">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#initialized">
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+	  Die gemessene Höhe dieses Objekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Die gemessene Höhe dieses Objekts. Dies sollte durch die Unterklassen überschrieben werden, um die bevorzugte Höhe für die Skin zurückzugeben.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc>
+	  Die gemessene Breite dieses Objekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  Die gemessene Breite dieses Objekts. Dies sollte durch die Unterklassen überschrieben werden, um die bevorzugte Breite für die Skin zurückzugeben.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:nestLevel:get"><apiName>nestLevel</apiName><shortdesc conref="mx.core.UIComponent#nestLevel">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.core.UIComponent#nestLevel">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:processedDescriptors:get"><apiName>processedDescriptors</apiName><shortdesc conref="mx.core.UIComponent#processedDescriptors">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#processedDescriptors">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:styleName:get"><apiName>styleName</apiName><shortdesc>
+      Eine übergeordnete Komponente zum Abrufen von Stilwerten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Eine übergeordnete Komponente zum Abrufen von Stilwerten. Standardmäßig ist dies auf die Komponente gesetzt, von der diese Skin erstellt wurde.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:updateCompletePendingFlag:get"><apiName>updateCompletePendingFlag</apiName><shortdesc>
+	  Flag, das bestimmt, ob ein Objekt alle drei Phasen der Layoutüberprüfung (vorausgesetzt, dass sie erforderlich waren) passiert hat.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Flag, das bestimmt, ob ein Objekt alle drei Phasen der Layoutüberprüfung (vorausgesetzt, dass sie erforderlich waren) passiert hat.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins:Border"><apiName>Border</apiName><shortdesc>
+  Die Border-Klasse ist eine abstrakte Basisklasse für verschiedene Klassen, die Rahmen (rechteckig oder nicht rechteckig) um UIComponents zeichnen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><helpid>3321
+  
+  </helpid></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiTipTexts><apiTipText>
+  </apiTipText></apiTipTexts><apiBaseInterface>mx.core:IBorder</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Border-Klasse ist eine abstrakte Basisklasse für verschiedene Klassen, die Rahmen (rechteckig oder nicht rechteckig) um UIComponents zeichnen. Diese Klasse zeichnet selbst keine Objekte.
+ 
+  <p>Wenn Sie eine neue Klasse für einen nicht rechteckigen Rahmen erstellen, sollten Sie diese Klasse erweitern. Wenn Sie eine neue Klasse für einen rechteckigen Rahmen erstellen, sollten Sie die abstrakte Unterklasse RectangularBorder erweitern.</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:Border:Border"><apiName>Border</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.skins:Border:borderMetrics:get"><apiName>borderMetrics</apiName><shortdesc>
+	  Die Stärke der Rahmenkanten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.core:EdgeMetrics</apiValueClassifier></apiValueDef><apiDesc>
+	  Die Stärke der Rahmenkanten.
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

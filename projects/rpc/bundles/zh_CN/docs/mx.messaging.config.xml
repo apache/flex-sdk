@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.config"><apiName>mx.messaging.config</apiName><apiDetail/><apiClassifier id="mx.messaging.config:ConfigMap"><apiName>ConfigMap</apiName><shortdesc>
+  ConfigMap 类可提供一种机制，这种机制采用保留的属性的排序存储服务器返回的属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ConfigMap 类可提供一种机制，这种机制采用保留的属性的排序存储服务器返回的属性。 
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.config:ConfigMap:ConfigMap"><apiName>ConfigMap</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>包含名称/值对的 Object。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。
+     
+     </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:callProperty"><apiName>callProperty</apiName><shortdesc>
+      返回具有指定名称的代理对象的方法值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>所调用方法的返回值。
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>正被调用的方法的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rest</apiItemName><apiType value="restParam"/><apiDesc>一个数组，指定所调用方法的参数。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回具有指定名称的代理对象的方法值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:deleteProperty"><apiName>deleteProperty</apiName><shortdesc>
+      删除代理对象上的指定属性并向处理函数发送删除通知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>指示是否删除属性的布尔值。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常是包含属性名称的字符串，也可能是 QName（其中属性名称通过检查 <codeph>localName</codeph> 属性获得）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除代理对象上的指定属性并向处理函数发送删除通知。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:getProperty"><apiName>getProperty</apiName><shortdesc>
+      返回代理对象的指定属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>属性的值。
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>通常是包含属性名称的字符串，也可能是 QName（其中属性名称通过检查 <codeph>localName</codeph> 属性获得）。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回代理对象的指定属性值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:hasProperty"><apiName>hasProperty</apiName><shortdesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>如果此属性存在，则为 <codeph>true</codeph>；否则为 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>属性名称，应测试其是否存在。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/hasProperty()"><linktext>flash.utils.Proxy.hasProperty()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:nextNameIndex"><apiName>nextNameIndex</apiName><shortdesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>下一个属性从零开始的索引。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>对象属性从 0 开始的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextNameIndex()"><linktext>flash.utils.Proxy.nextNameIndex()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:nextName"><apiName>nextName</apiName><shortdesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>属性的名称。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>对象属性从 0 开始的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextName()"><linktext>flash.utils.Proxy.nextName()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:nextValue"><apiName>nextValue</apiName><shortdesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiDesc>属性的值。
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>对象属性从 0 开始的索引值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      它是必须由 flash.utils.Proxy 的子类实现的内部函数。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.utils.xml#Proxy/nextValue()"><linktext>flash.utils.Proxy.nextValue()</linktext></link></related-links></apiOperation><apiOperation id="mx.messaging.config:ConfigMap:flash_proxy:setProperty"><apiName>setProperty</apiName><shortdesc>
+      更新代理对象上的指定属性并向处理函数发送更新通知。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="flash_proxy"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="any"/><apiDesc>包含属性名称的对象，该属性应在代理对象上更新。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>代理对象上应设置的值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      更新代理对象上的指定属性并向处理函数发送更新通知。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.config:ConfigMap:object_proxy:propertyList"><apiName>propertyList</apiName><shortdesc>
+      包含代理对象的所有属性名称的列表。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="object_proxy"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      包含代理对象的所有属性名称的列表。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.config:ServerConfig"><apiName>ServerConfig</apiName><shortdesc>
+  此类提供对服务器消息传送配置信息的访问权限。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  此类提供对服务器消息传送配置信息的访问权限。此类可以将 services-config.xml 文件中的信息封装在客户端上，消息传送系统可利用这些信息为消息传递框架提供配置的 ChannelSet 和 Channel。
+ 
+  <p>在编译过程中将提供 XML 源。但是，当前没有用于阻止通过其它方式（如网络、本地文件系统和运行时共享对象）获得 XML 数据的内部限制。</p>
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.config:ServerConfig:checkChannelConsistency"><apiName>checkChannelConsistency</apiName><shortdesc>
+      此方法可确保指定的目标包含相同的通道定义。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata><asCustoms><throw>ArgumentError if the channel definitions of the specified
+               destinations aren't identical.
+      
+      </throw></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>destinationA</apiItemName><apiType value="String"/><apiDesc>要比较的第一个目标
+      </apiDesc></apiParam><apiParam><apiItemName>destinationB</apiItemName><apiType value="String"/><apiDesc>要与通道比较的第二个目标
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      此方法可确保指定的目标包含相同的通道定义。如果指定的两个目标之间的通道定义不同，则此方法将引发 ArgumentError。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ServerConfig:getChannelSet"><apiName>getChannelSet</apiName><shortdesc>
+      返回共享的 ChannelSet 以使用指定目标，该目标属于处理指定消息类型的服务。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>如果指定目标不包含通道，并且应用程序没有定义默认通道。
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiDesc>ChannelSet。
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:ChannelSet</apiOperationClassifier></apiReturn><apiParam><apiItemName>destinationId</apiItemName><apiType value="String"/><apiDesc>目标 ID。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回共享的 ChannelSet 以使用指定目标，该目标属于处理指定消息类型的服务。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ServerConfig:getChannel"><apiName>getChannel</apiName><shortdesc>
+      返回已配置的 Channel 的共享实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>如果所有 Channel 都没有指定的 ID。
+      
+      </apiDesc><apiItemName>InvalidChannelError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidChannelError</apiOperationClassifier></apiException><apiReturn><apiDesc>Channel 实例。
+     
+      </apiDesc><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>所需 Channel 的 id。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>clustered</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果以群集化方式使用 Channel，则为 true，否则为 false。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回已配置的 Channel 的共享实例。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.config:ServerConfig:getProperties"><apiName>getProperties</apiName><shortdesc>
+      返回指定目标的属性信息。
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiException><apiDesc>如果找不到指定目标。
+      
+      </apiDesc><apiItemName>InvalidDestinationError</apiItemName><apiOperationClassifier>mx.messaging.errors:InvalidDestinationError</apiOperationClassifier></apiException><apiReturn><apiDesc>包含 &lt;property> 标记信息的 XMLList。
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>destinationId</apiItemName><apiType value="String"/><apiDesc>所需目标的 ID。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回指定目标的属性信息。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.config:ServerConfig:xml:get"><apiName>xml</apiName><shortdesc>
+      XML 配置，此值必须包含 services-config.xml 文件中相关的 &amp;lt;services&amp;gt; 标记部分。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="readwrite"/><apiType value="XML"/></apiValueDef><apiDesc>
+      XML 配置，此值必须包含 services-config.xml 文件中相关的 &lt;services> 标记部分。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

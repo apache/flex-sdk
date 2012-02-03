@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="flash.text.engine"><apiName>flash.text.engine</apiName><apiDetail/><apiClassifier id="flash.text.engine:ITextSupport"><apiName>ITextSupport</apiName><shortdesc>
+  L’interface ITextSupport est mise en œuvre par des objets qui souhaitent implémenter l’IME en ligne, ou qui contiennent du texte devant être disponible sur le Web ou être accessible.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  L’interface ITextSupport est mise en œuvre par des objets qui souhaitent implémenter l’IME en ligne, ou qui contiennent du texte devant être disponible sur le Web ou être accessible. 
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:getTextInRange"><apiName>getTextInRange</apiName><shortdesc> 
+	  Obtient la plage de texte spécifiée à partir d’un composant qui implémente ITextSupport.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Le texte requis, ou <codeph>null</codeph> si aucun texte n’est disponible dans la plage requise, ou si l’un des index (ou les deux) n’est pas valide. <codeph/><codeph/>
+	 
+	  </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>startIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Facultatif ; entier qui spécifie l’emplacement de début de la plage de texte à extraire.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Facultatif ; entier qui spécifie l’emplacement de fin de la plage de texte à extraire.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Obtient la plage de texte spécifiée à partir d’un composant qui implémente ITextSupport. Pour extraire l’ensemble du texte du composant, ne spécifiez aucune valeur pour <codeph>startIndex</codeph> et <codeph>endIndex</codeph>. Les composants qui souhaitent prendre en charge l’IME en ligne ou la recherche sur le Web doivent annuler cette méthode. Les composants qui annulent cette méthode doivent s’assurer que les valeurs par défaut de <codeph>-1</codeph> pour <codeph>startIndex</codeph> et <codeph>endIndex</codeph> sont prises en charge.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectRange"><apiName>selectRange</apiName><shortdesc> 
+	  Définit la plage du texte sélectionné dans un composant qui implémente ITextSupport.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>anchorIndex</apiItemName><apiType value="int"/><apiDesc>Valeur d’index de base zéro du caractère à l’extrémité d’ancrage de la sélection 
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>activeIndex</apiItemName><apiType value="int"/><apiDesc>Valeur d’index de base zéro du caractère à l’extrémité active de la sélection.
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc> 
+	  Définit la plage du texte sélectionné dans un composant qui implémente ITextSupport. Si l’un des arguments est hors limites, la sélection ne doit pas être modifiée. Les composants qui souhaitent prendre en charge l’IME en ligne doivent annuler cette méthode.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:canReconvert:get"><apiName>canReconvert</apiName><shortdesc>
+	  Indique si le composant qui implémente ITextSupport prend en charge la reconversion (c’est-à-dire s’il dispose de texte modifiable).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Indique si le composant qui implémente ITextSupport prend en charge la reconversion (c’est-à-dire s’il dispose de texte modifiable).
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectionActiveIndex:get"><apiName>selectionActiveIndex</apiName><shortdesc> 
+	  Valeur d’index de base zéro du dernier caractère de la sélection actuelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+	  Valeur d’index de base zéro du dernier caractère de la sélection actuelle. Les composants qui souhaitent prendre en charge l’IME en ligne ou l’accessibilité doivent annuler cette méthode.
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="flash.text.engine:ITextSupport:flash.text.engine:ITextSupport:selectionAnchorIndex:get"><apiName>selectionAnchorIndex</apiName><shortdesc> 
+	  Valeur d’index de base zéro du premier caractère de la sélection actuelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc> 
+	  Valeur d’index de base zéro du premier caractère de la sélection actuelle. Les composants qui souhaitent prendre en charge l’IME en ligne ou l’accessibilité doivent annuler cette méthode.
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

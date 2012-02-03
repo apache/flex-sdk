@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+		<Path data="M 1 16 C 1 8 8 1 16 1 C 24 1 31 8 31 16 C 31 24 24 31 16 31 C 8 31 1 24 1 16 Z M 0 16 C 0 25 7 32 16 32 C 25 32 32 25 32 16 C 32 7 25 0 16 0 C 7 0 0 7 0 16 Z " blendMode="normal" alpha="1">
+			<fill>
+				<LinearGradient x = "16" y = "0" scaleX = "32" rotation = "90">
+					<GradientEntry color="#000000" ratio="0" alpha="0"/>
+					<GradientEntry color="#000000" ratio="1" alpha="0.2"/>
+				</LinearGradient>
+			</fill>
+		</Path>
+		<Path data="M 2 16 C 2 8 8 2 16 2 C 24 2 30 8 30 16 C 30 24 24 30 16 30 C 8 30 2 24 2 16 Z M 1 16 C 1 24 8 31 16 31 C 24 31 31 24 31 16 C 31 8 24 1 16 1 C 8 1 1 8 1 16 Z " blendMode="normal" alpha="0.6">
+			<fill>
+				<SolidColor color="#000000"/>
+			</fill>
+		</Path>
+		<Path data="M 2 16 C 2 8 8 2 16 2 C 24 2 30 8 30 16 C 30 24 24 30 16 30 C 8 30 2 24 2 16 Z " blendMode="normal" alpha="1">
+			<fill>
+				<LinearGradient x = "16" y = "6" scaleX = "13" rotation = "90">
+					<GradientEntry color="#ffffff" ratio="0" alpha="0.8"/>
+					<GradientEntry color="#ffffff" ratio="1" alpha="0"/>
+				</LinearGradient>
+			</fill>
+		</Path>
+</Graphic>

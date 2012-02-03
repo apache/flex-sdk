@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.events"><apiName>mx.events</apiName><apiDetail/><apiClassifier id="mx.events:AIREvent"><apiName>AIREvent</apiName><shortdesc>
+  Класс AIREvent представляет объект события, передаваемый прослушивателю событий для нескольких специфичных для AIR событий, передаваемых компонентами Window и WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс AIREvent представляет объект события, передаваемый прослушивателю событий для нескольких специфичных для AIR событий, передаваемых компонентами Window и WindowedApplication.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><adobeApiEvent id="mx.events:AIREvent:APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:AIREvent:WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:AIREvent:WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events:AIREvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:AIREvent:AIREvent"><apiName>AIREvent</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:AIREvent:APPLICATION_ACTIVATE"><apiName>APPLICATION_ACTIVATE</apiName><shortdesc>
+      Константа AIREvent.APPLICATION_ACTIVATE определяет значение свойства type объекта события applicationActivate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>applicationActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AIREvent.APPLICATION_ACTIVATE определяет значение свойства <codeph>type</codeph> объекта события <codeph>applicationActivate</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.APPLICATION_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:APPLICATION_DEACTIVATE"><apiName>APPLICATION_DEACTIVATE</apiName><shortdesc>
+      Константа AIREvent.APPLICATION_DEACTIVATE определяет значение свойства type объекта события applicationDeactivate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>applicationDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AIREvent.APPLICATION_DEACTIVATE определяет значение свойства <codeph>type</codeph> объекта события <codeph>applicationDeactivate</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.APPLICATION_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:WINDOW_ACTIVATE"><apiName>WINDOW_ACTIVATE</apiName><shortdesc>
+      Константа AIREvent.WINDOW_ACTIVATE определяет значение свойства type объекта события windowActivate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AIREvent.WINDOW_ACTIVATE определяет значение свойства <codeph>type</codeph> объекта события <codeph>windowActivate</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.WINDOW_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:WINDOW_COMPLETE"><apiName>WINDOW_COMPLETE</apiName><shortdesc>
+      Константа AIREvent.WINDOW_COMPLETE определяет значение свойства type объекта события windowComplete.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowComplete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AIREvent.WINDOW_COMPLETE определяет значение свойства <codeph>type</codeph> объекта события <codeph>windowComplete</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.WINDOW_COMPLETE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:AIREvent:WINDOW_DEACTIVATE"><apiName>WINDOW_DEACTIVATE</apiName><shortdesc>
+      Константа AIREvent.WINDOW_DEACTIVATE определяет значение свойства type объекта события windowDeactivate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа AIREvent.WINDOW_DEACTIVATE определяет значение свойства <codeph>type</codeph> объекта события <codeph>windowDeactivate</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>AIREvent.WINDOW_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:FlexNativeWindowBoundsEvent"><apiName>FlexNativeWindowBoundsEvent</apiName><shortdesc>
+  Событие FlexNativeWindowBoundsEvent передается в случае изменения размера или местоположения объекта NativeWindow, который является основным по отношению к компонентам Window и WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:NativeWindowBoundsEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Событие FlexNativeWindowBoundsEvent передается в случае изменения размера или местоположения объекта NativeWindow, который является основным по отношению к компонентам Window и WindowedApplication.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><adobeApiEvent id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeWindowBoundsEvent:WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeWindowBoundsEvent:WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:FlexNativeWindowBoundsEvent:FlexNativeWindowBoundsEvent"><apiName>FlexNativeWindowBoundsEvent</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>beforeBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>Границы окна перед изменением размера.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>afterBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>Границы окна перед изменением размера.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_MOVE"><apiName>WINDOW_MOVE</apiName><shortdesc>
+      Константа FlexNativeWindowBoundsEvent.WINDOW_MOVE определяет значение свойства type объекта события windowMove.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowMove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа FlexNativeWindowBoundsEvent.WINDOW_MOVE определяет значение свойства <codeph>type</codeph> объекта события <codeph>windowMove</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>afterBounds</codeph></entry><entry>Границы окна после изменения границ.</entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>Границы окна до изменения границ.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeWindowBoundsEvent.WINDOW_MOVE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeWindowBoundsEvent:WINDOW_RESIZE"><apiName>WINDOW_RESIZE</apiName><shortdesc>
+      Константа FlexNativeWindowBoundsEvent.WINDOW_RESIZE определяет значение свойства type объекта события windowResize.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowResize</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа FlexNativeWindowBoundsEvent.WINDOW_RESIZE определяет значение свойства <codeph>type</codeph> объекта события <codeph>windowResize</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>afterBounds</codeph></entry><entry>Границы окна после изменения границ.</entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>Границы окна до изменения границ.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeWindowBoundsEvent.WINDOW_RESIZE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:FileEvent"><apiName>FileEvent</apiName><shortdesc>
+  Класс FileEvent представляет объекты события, специфичные для элементов управления FileSystemList, FileSystemDataGrid, FileSystemTree и FileSystemComboBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс FileEvent представляет объекты события, специфичные для элементов управления FileSystemList, FileSystemDataGrid, FileSystemTree и FileSystemComboBox.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#FileSystemComboBox"><linktext>mx.controls.FileSystemComboBox</linktext></link><link href="mx.controls.xml#FileSystemDataGrid"><linktext>mx.controls.FileSystemDataGrid</linktext></link><link href="mx.controls.xml#FileSystemList"><linktext>mx.controls.FileSystemList</linktext></link><link href="mx.controls.xml#FileSystemTree"><linktext>mx.controls.FileSystemTree</linktext></link></related-links><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_CHANGE_directoryChange"><apiName>directoryChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_CHANGE</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_CHANGING_directoryChanging"><apiName>directoryChanging</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_CHANGING</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_CLOSING_directoryClosing"><apiName>directoryClosing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_CLOSING</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:DIRECTORY_OPENING_directoryOpening"><apiName>directoryOpening</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:DIRECTORY_OPENING</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FileEvent:FILE_CHOOSE_select"><apiName>select</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FileEvent:FILE_CHOOSE</apiEventType><adobeApiEventClassifier>mx.events:FileEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:FileEvent:FileEvent"><apiName>FileEvent</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>file</apiItemName><apiType value="flash.filesystem:File"/><apiData>null</apiData><apiDesc>Экземпляр файла, связанный с данным событием.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:FileEvent:DIRECTORY_CHANGE"><apiName>DIRECTORY_CHANGE</apiName><shortdesc>
+      Константа FileEvent.DIRECTORY_CHANGE определяет значение свойства type объекта события directoryChange.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа FileEvent.DIRECTORY_CHANGE определяет значение свойства <codeph>type</codeph> объекта события <codeph>directoryChange</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_CHANGE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:DIRECTORY_CHANGING"><apiName>DIRECTORY_CHANGING</apiName><shortdesc>
+      Константа FileEvent.DIRECTORY_CHANGING определяет значение свойства type объекта события directoryChanging.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryChanging</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа FileEvent.DIRECTORY_CHANGING определяет значение свойства <codeph>type</codeph> объекта события <codeph>directoryChanging</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_CHANGING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:DIRECTORY_CLOSING"><apiName>DIRECTORY_CLOSING</apiName><shortdesc>
+      Константа FileEvent.DIRECTORY_CLOSING определяет значение свойства type объекта события directoryClosing.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryClosing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа FileEvent.DIRECTORY_CLOSING определяет значение свойства <codeph>type</codeph> объекта события <codeph>directoryClosing</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_CLOSING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:DIRECTORY_OPENING"><apiName>DIRECTORY_OPENING</apiName><shortdesc>
+      Константа FileEvent.DIRECTORY_OPENING определяет значение свойства type объекта события directoryOpening.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>directoryOpening</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа FileEvent.DIRECTORY_OPENING определяет значение свойства <codeph>type</codeph> объекта события <codeph>directoryOpening</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.DIRECTORY_OPENING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:FILE_CHOOSE"><apiName>FILE_CHOOSE</apiName><shortdesc>
+      Константа FileEvent.FILE_CHOOSE определяет значение свойства type объекта события fileChoose.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fileChoose</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа FileEvent.FILE_CHOOSE определяет значение свойства <codeph>type</codeph> объекта события <codeph>fileChoose</codeph>.
+     
+      <p>Свойства объекта события имеют следующие значения:</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>file</codeph></entry><entry>Объект File, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>FileEvent.FILE_CHOOSE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FileEvent:file"><apiName>file</apiName><shortdesc>
+      Экземпляр файла, связанный с данным событием.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.filesystem:File"/></apiValueDef><apiDesc>
+      Экземпляр файла, связанный с данным событием.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.events:FlexNativeMenuEvent"><apiName>FlexNativeMenuEvent</apiName><shortdesc>
+  Класс FlexNativeMenuEvent представляет события, связанные с операциями меню в FlexNativeMenu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс FlexNativeMenuEvent представляет события, связанные с операциями меню в FlexNativeMenu.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#FlexNativeMenu"><linktext>mx.controls.FlexNativeMenu</linktext></link></related-links><adobeApiEvent id="mx.events:FlexNativeMenuEvent:ITEM_CLICK_itemClick"><apiName>itemClick</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeMenuEvent:ITEM_CLICK</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeMenuEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.events:FlexNativeMenuEvent:MENU_SHOW_menuShow"><apiName>menuShow</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events:FlexNativeMenuEvent:MENU_SHOW</apiEventType><adobeApiEventClassifier>mx.events:FlexNativeMenuEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.events:FlexNativeMenuEvent:FlexNativeMenuEvent"><apiName>FlexNativeMenuEvent</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Тип события; указывает действие, вызвавшее событие.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Указывает, может ли событие передаваться вверх по иерархии списка отображения.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Указывает, существует ли возможность предотвращения поведения, связанного с событием.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>nativeMenu</apiItemName><apiType value="flash.display:NativeMenu"/><apiData>null</apiData><apiDesc>Определенный экземпляр NativeMenu, связанный с событием.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>nativeMenuItem</apiItemName><apiType value="flash.display:NativeMenuItem"/><apiData>null</apiData><apiDesc>Определенный экземпляр NativeMenuItem, связанный с событием.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Элемент в dataProvider связанного пункта меню.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Текст метки для связанного пункта меню.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>Индекс в меню для связанного пункта меню.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. Как правило, вызывается объектом FlexNativeMenu.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.events:FlexNativeMenuEvent:ITEM_CLICK"><apiName>ITEM_CLICK</apiName><shortdesc>
+      Константа типа события FlexNativeMenuEvent.ITEM_CLICK указывает на выбор пользователем какого-либо пункта меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа типа события FlexNativeMenuEvent.ITEM_CLICK указывает на выбор пользователем какого-либо пункта меню.
+     
+      <p>Свойства объекта события для этого типа события имеют следующие значения. Не все свойства являются значимыми для каждого из видов событий. Дополнительную информацию см. в подробных описаниях свойств.</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>index</codeph></entry>
+             <entry>Индекс в меню для выбранного пункта меню.</entry></row><row><entry><codeph>item</codeph></entry>
+             <entry>Выбранный элемент dataProvider.</entry></row><row><entry><codeph>label</codeph></entry>
+             <entry>Текст метки для выбранного пункта меню.</entry></row><row><entry><codeph>nativeMenu</codeph></entry>
+              <entry>Определенный экземпляр NativeMenu, связанный с этим событием.</entry></row><row><entry><codeph>nativeMenuItem</codeph></entry>
+              <entry>Определенный экземпляр NativeMenuItem, связанный с этим событием.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeMenuEvent.ITEM_CLICK</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:MENU_SHOW"><apiName>MENU_SHOW</apiName><shortdesc>
+      Константа типа FlexNativeMenuEvent.MENU_SHOW указывает на использование указателя мыши для прокрутки меню или открытия подменю.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>menuShow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Константа типа FlexNativeMenuEvent.MENU_SHOW указывает на использование указателя мыши для прокрутки меню или открытия подменю.
+     
+      <p>Свойства объекта события для этого типа события имеют следующие значения. Не все свойства являются значимыми для каждого из видов событий. Дополнительную информацию см. в подробных описаниях свойств.</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Свойство</entry><entry>Значение</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Объект, определяющий прослушиватель события, который выполняет обработку события. Например, если используется <codeph>myButton.addEventListener()</codeph> для регистрации прослушивателя события, значением <codeph>currentTarget</codeph> является myButton. </entry></row><row><entry><codeph>index</codeph></entry>
+             <entry>-1. Данное свойство не устанавливается для этого типа события.</entry></row><row><entry><codeph>item</codeph></entry>
+             <entry>null. Данное свойство не устанавливается для этого типа события.</entry></row><row><entry><codeph>label</codeph></entry>
+             <entry>null. Данное свойство не устанавливается для этого типа события.</entry></row><row><entry><codeph>nativeMenu</codeph></entry>
+              <entry>Определенный экземпляр NativeMenu, связанный с этим событием.</entry></row><row><entry><codeph>nativeMenuItem</codeph></entry>
+              <entry>null. Данное свойство не устанавливается для этого типа события.</entry></row><row><entry><codeph>target</codeph></entry><entry>Объект, отправивший событие. Это не всегда тот объект, который прослушивает событие. Свойство <codeph>currentTarget</codeph> всегда используется для получения доступа к объекту, прослушивающему событие.</entry></row><row><entry><codeph>type</codeph></entry><entry>FlexNativeMenuEvent.MENU_SHOW</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:index"><apiName>index</apiName><shortdesc>
+      Индекс связанного пункта меню в пределах соответствующего вышестоящего меню или подменю.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      Индекс связанного пункта меню в пределах соответствующего вышестоящего меню или подменю. Для событий, не связанных с отдельным элементом, используется значение -1.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:item"><apiName>item</apiName><shortdesc>
+      Определенный элемент в dataProvider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Определенный элемент в dataProvider. Для событий, не связанных с отдельным элементом, используется значение null.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:label"><apiName>label</apiName><shortdesc>
+      Текст метки для связанного пункта меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Текст метки для связанного пункта меню. Для событий, не связанных с отдельным элементом, используется значение null.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:nativeMenuItem"><apiName>nativeMenuItem</apiName><shortdesc>
+      Определенный экземпляр NativeMenuItem, связанный с событием, например выбором пункта меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:NativeMenuItem"/></apiValueDef><apiDesc>
+      Определенный экземпляр NativeMenuItem, связанный с событием, например выбором пункта меню. Для событий, не связанных с отдельным элементом, используется значение null.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.events:FlexNativeMenuEvent:nativeMenu"><apiName>nativeMenu</apiName><shortdesc>
+      Определенный экземпляр NativeMenu, связанный с событием, например отображением меню.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:NativeMenu"/></apiValueDef><apiDesc>
+      Определенный экземпляр NativeMenu, связанный с событием, например отображением меню.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

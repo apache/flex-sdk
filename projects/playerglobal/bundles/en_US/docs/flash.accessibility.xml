@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.accessibility" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.accessibility</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.accessibility:ISimpleTextSelection" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ISimpleTextSelection</apiName><shortdesc class="- topic/shortdesc ">
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+	
+	The ISimpleTextSelection class can be used to add support for 
+	the MSAA ISimpleTextSelection interface to an AccessibilityImplementation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiInterface class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiInterface "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier "/></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	
+	The ISimpleTextSelection class can be used to add support for 
+	the MSAA ISimpleTextSelection interface to an AccessibilityImplementation.
+	
+	<p class="- topic/p ">If an AccessibilityImplementation subclass implements the two getters in this class, 
+	a screen reader such as JAWS can determine the text selection range by calling them.
+	The AccessibilityImplementation subclass does not have to formally declare that it implements
+	this interface; you can simply declare getters for these two properties, as follows:</p>
+	
+	<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	class TextAreaAccImpl extends AccesibilityImplementation
+	{
+	...
+		public function get selectionAnchorIndex():int
+		{
+		...
+		}
+		public function get selectionActiveIndex():int
+		{
+		...
+	}
+	}
+	</codeblock>
+	</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#AccessibilityImplementation" class="- topic/link "><linktext class="- topic/linktext ">flash.accessibility.AccessibilityImplementation</linktext></link></related-links><apiValue id="flash.accessibility:ISimpleTextSelection:flash.accessibility:ISimpleTextSelection:selectionActiveIndex:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">selectionActiveIndex</apiName><shortdesc class="- topic/shortdesc "> 
+		 The zero-based character index value of the last character in the current selection.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 The zero-based character index value of the last character in the current selection.
+		 If you want a component to support inline IME or accessibility, override this method.
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.accessibility:ISimpleTextSelection:flash.accessibility:ISimpleTextSelection:selectionAnchorIndex:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">selectionAnchorIndex</apiName><shortdesc class="- topic/shortdesc "> 
+		 The zero-based character index value of the first character in the current selection.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 The zero-based character index value of the first character in the current selection.
+		 If you want a component to support inline IME or accessibility, override this method.
+		 
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.accessibility:AccessibilityImplementation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">AccessibilityImplementation</apiName><shortdesc class="- topic/shortdesc ">
+ 
+ The AccessibilityImplementation class is the base class in Flash Player
+ that allows for the implementation of accessibility in components.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ 
+ The AccessibilityImplementation class is the base class in Flash Player
+ that allows for the implementation of accessibility in components. 
+ This class enables communication between a component and a screen reader. 
+ Screen readers are used to translate screen content into synthesized speech 
+ or braille for visually impaired users.
+ 
+ <p class="- topic/p ">The AccessibilityImplementation class provides a set of methods that allow a component
+ developer to make information about system roles, object based events, and states available
+ to assistive technology.</p>
+ 
+ <p class="- topic/p ">Adobe Flash Player uses Microsoft Active Accessibility (MSAA), which provides a descriptive
+ and standardized way for applications and screen readers to communicate. For more information
+ on how the Flash Player works with MSAA, see the accessibility chapter in <i class="+ topic/ph hi-d/i ">Using Flex SDK</i>.</p>
+ 
+ <p class="- topic/p ">The methods of the AccessibilityImplementation class are a subset of the 
+ <xref href="http://msdn.microsoft.com/en-us/library/ms696097(VS.85).aspx" class="- topic/xref ">IAccessible</xref> interface
+ for a component instance.</p>
+ 
+ <p class="- topic/p ">The way that an AccessibilityImplementation implements the IAccessible interface, 
+ and the events that it sends, depend on the kind of component being implemented.</p>
+ 
+ <p class="- topic/p ">Do not directly instantiate AccessibilityImplementation by calling its constructor.
+ Instead, create new accessibility implementations by extending the 
+ AccImpl class for each new component.
+ In Flash, see the fl.accessibility package. 
+ In Flex, see the mx.accessibility package and 
+ the accessibility chapter in <i class="+ topic/ph hi-d/i ">Using Flex SDK</i>.</p>
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> The AccessibilityImplementation class is not supported in AIR runtime versions before AIR 2. The class is
+ available for compilation in AIR versions before AIR 2, but is not supported in the runtime until AIR 2.</p>
+ 
+ </apiDesc></apiClassifierDetail><apiConstructor id="flash.accessibility:AccessibilityImplementation:AccessibilityImplementation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">AccessibilityImplementation</apiName><shortdesc class="- topic/shortdesc ">
+	 Static constructor.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Static constructor. Do not directly instantiate AccessibilityImplementation by calling its constructor.
+	 Instead, create new accessibility implementations by extending the mx.accessibility.AccImpl
+	 class for each new component.
+	 
+	 </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="" invalidHref="mx.accessibility.AccImpl.xml" class="- topic/link "><linktext class="- topic/linktext ">mx.accessibility.AccImpl</linktext></link></related-links></apiConstructor><apiOperation id="flash.accessibility:AccessibilityImplementation:accDoDefaultAction" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">accDoDefaultAction</apiName><shortdesc class="- topic/shortdesc ">
+	 An IAccessible method that performs the default action associated with the component
+	 that this AccessibilityImplementation represents or of one of its child elements.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">childID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An unsigned integer corresponding to one of the component's child elements,
+	 as defined by <codeph class="+ topic/ph pr-d/codeph ">getChildIDArray()</codeph>.
+	 
+	 </apiDesc></apiParam><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Performs the default action associated with the component.
+	 </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 An IAccessible method that performs the default action associated with the component
+	 that this AccessibilityImplementation represents or of one of its child elements.
+	 
+	 <p class="- topic/p ">Implement this method only if the AccessibilityImplementation represents a UI element
+	 that has a default action in the MSAA model.</p>
+	 
+	 <p class="- topic/p ">If you are implementing <codeph class="+ topic/ph pr-d/codeph ">accDoDefaultAction()</codeph> only for the AccessibilityImplementation
+	 itself, or only for its child elements, you will need in some cases to indicate that there
+	 is no default action for the particular childID that was passed. 
+	 Do this by setting the <codeph class="+ topic/ph pr-d/codeph ">errno</codeph> property to <codeph class="+ topic/ph pr-d/codeph ">E_MEMBERNOTFOUND</codeph>.</p>
+	 
+	 </apiDesc><example class="- topic/example ">Following is an example showing how this method is implemented to perform
+	 the appropriate default action in 
+	 the Flex mx.accessibility.ListBaseAccImpl class, the ListBase Accessibility Implementation. 
+	 For the ListBase and classes that inherit from it,
+	 performing the default action "Double Click" for one of its child list item elements 
+	 selects that element.
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 override public function accDoDefaultAction(childID:uint):void
+	 {
+	 	if (childID &gt; 0)
+	 		ListBase(master).selectedIndex = childID - 1;
+	 }</codeblock>
+	 </example></apiOperationDetail></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:accLocation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">accLocation</apiName><shortdesc class="- topic/shortdesc ">
+	 MSAA method for returning a DisplayObject or Rectangle
+	 specifying the bounding box of a child element in the AccessibilityImplementation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc "><codeph class="+ topic/ph pr-d/codeph ">DisplayObject</codeph> or <codeph class="+ topic/ph pr-d/codeph ">Rectangle</codeph> specifying the bounding box
+	 of the child element specified by <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> parameter.
+	 
+	 
+	 </apiDesc><apiType value="any" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">childID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An unsigned integer corresponding to one of the component's child elements
+	 as defined by <codeph class="+ topic/ph pr-d/codeph ">getChildIDArray()</codeph>.
+	 
+	 </apiDesc></apiParam><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Returns a DisplayObject or Rectangle object that specifies the bounding box of a child element.
+	 </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 MSAA method for returning a <codeph class="+ topic/ph pr-d/codeph ">DisplayObject</codeph> or <codeph class="+ topic/ph pr-d/codeph ">Rectangle</codeph>
+	 specifying the bounding box of a child element in the AccessibilityImplementation.
+	 
+	 <p class="- topic/p ">This method is never called with a <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> of zero. 
+	 If your AccessibilityImplementation will never contain child elements, you should not implement 
+	 this method. If your AccessibilityImplementation can contain child elements, 
+	 this method is mandatory.</p>
+	 
+	 <p class="- topic/p ">You can usually satisfy the requirements of this method by returning an 
+	 object that represents the child element itself. This works as long as the 
+	 child element is a <codeph class="+ topic/ph pr-d/codeph ">DisplayObject</codeph>. 
+	 In these cases, simply return the <codeph class="+ topic/ph pr-d/codeph ">DisplayObject</codeph> that corresponds to 
+	 the instance name associated with the relevant visual object in display list.</p>	
+	 
+	 <p class="- topic/p ">If a child element does not qualify for the technique described above, 
+	 you may do the bounding-box math yourself and return a <codeph class="+ topic/ph pr-d/codeph ">Rectangle</codeph> with:
+	 <codeph class="+ topic/ph pr-d/codeph ">x</codeph>, <codeph class="+ topic/ph pr-d/codeph ">y</codeph>, <codeph class="+ topic/ph pr-d/codeph ">width</codeph>, and <codeph class="+ topic/ph pr-d/codeph ">height</codeph> properties. 
+	 The <codeph class="+ topic/ph pr-d/codeph ">x</codeph> and <codeph class="+ topic/ph pr-d/codeph ">y</codeph> members specify the upper-left corner of the bounding box, and 
+	 the <codeph class="+ topic/ph pr-d/codeph ">width</codeph> and <codeph class="+ topic/ph pr-d/codeph ">height</codeph> members specify its size. All four members 
+	 should be in units of Stage pixels, and relative to the origin of the component 
+	 that the AccessibilityImplementation represents. The <codeph class="+ topic/ph pr-d/codeph ">x</codeph> and <codeph class="+ topic/ph pr-d/codeph ">y</codeph> properties may have 
+	 negative values, since the origin of a <codeph class="+ topic/ph pr-d/codeph ">DisplayObject</codeph> is not necessarily in its 
+	 upper-left corner.</p>
+	 
+	 <p class="- topic/p ">If the child element specified by <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> is not visible (that is, <codeph class="+ topic/ph pr-d/codeph ">get_accState</codeph> 
+	 for that child would return a value including <codeph class="+ topic/ph pr-d/codeph ">STATE_SYSTEM_INVISIBLE</codeph>), you 
+	 may return <codeph class="+ topic/ph pr-d/codeph ">null</codeph> from <codeph class="+ topic/ph pr-d/codeph ">accLocation</codeph>. You can also 
+	 return a <codeph class="+ topic/ph pr-d/codeph ">Rectangle</codeph> representing the coordinates where the child element would 
+	 appear if it were visible.</p>
+	 
+	 </apiDesc><example class="- topic/example ">The following example shows how this method is implemented to return the location
+	 of a given child element in 
+	 the Flex mx.accessibility.ListBaseAccImpl class, the ListBase accessibility implementation.
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 override public function accLocation(childID:uint):*
+	 
+	 {
+	 	var listBase:ListBase = ListBase(master);
+	 
+	 	var index:uint = childID - 1;
+	 	
+	 	if (index &amp;lt; listBase.verticalScrollPosition ||
+	 		index &amp;gt;= listBase.verticalScrollPosition + listBase.rowCount)
+	 	{
+	 		return null;
+	 	}
+	 	var item:Object = getItemAt(index);
+	 
+	 	return listBase.itemToItemRenderer(item);
+	 }
+	 </codeblock>
+	 </example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.display.xml#DisplayObject" class="- topic/link "><linktext class="- topic/linktext ">flash.display.DisplayObject</linktext></link><link href="flash.geom.xml#Rectangle" class="- topic/link "><linktext class="- topic/linktext ">flash.geom.Rectangle</linktext></link><link href="flash.accessibility.xml#AccessibilityImplementation/getChildIDArray()" class="- topic/link "><linktext class="- topic/linktext ">getChildIDArray()</linktext></link><link href="http://msdn.microsoft.com/en-us/library/ms696118(VS.85).aspx" class="- topic/link "><linktext class="- topic/linktext ">Microsoft Accessibility Developer Center: IAccessible::accLocation</linktext></link></related-links></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:accSelect" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">accSelect</apiName><shortdesc class="- topic/shortdesc ">
+	 IAccessible method for altering the selection in the component 
+	 that this AccessibilityImplementation represents.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">operation</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A bitfield consisting of one or more selection flag constants to indicate
+	 how the item is selected or takes focus.  
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">childID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An unsigned integer corresponding to one of the component's child elements
+	 as defined by <codeph class="+ topic/ph pr-d/codeph ">getChildIDArray()</codeph>.
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 IAccessible method for altering the selection in the component 
+	 that this AccessibilityImplementation represents. 
+	 
+	 <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> parameter will always be nonzero. This method 
+	 always applies to a child element rather than the overall component; 
+	 Flash Player manages the selection of the overall component itself.</p>
+	 
+	 <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">selFlag</codeph> parameter is a bitfield consisting of one or more selection flag constants
+	 that allows an MSAA client to indicate how the item referenced by the <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> 
+	 should be selected or take focus. What follows are descriptions of the selection flag constants
+	 and what they communicate to the accessibility implementation.  
+	 As a practical matter, most implementations of this method in accessibility implementations
+	 that inherit from the Flex mx.accessibility.ListBaseAccImpl class 
+	 ignore the <codeph class="+ topic/ph pr-d/codeph ">selFlag</codeph> constant and instead rely on the component's keyboard selection behavior
+	 to handle multi-selection.</p>
+	 
+	 <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">selFlag</codeph> parameter may or may not contain the <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_TAKEFOCUS</codeph> 
+	 flag. If it does, you should set the child focus to the specified <codeph class="+ topic/ph pr-d/codeph ">childID</codeph>, 
+	 and, unless <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_EXTENDSELECTION</codeph> is also present, make that child element 
+	 the selection anchor. Otherwise, the child focus and selection anchor should 
+	 remain unmodified, despite the fact that additional flags described below 
+	 may modify the selection.</p>
+	 
+	 <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">selFlag</codeph> argument will always contain one of the following four 
+	 flags, which indicate what kind of selection modification is desired:</p>
+	 <ul class="- topic/ul "><li class="- topic/li "><p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">SELFLAG_TAKESELECTION</codeph>: Clear any existing selection, and set the selection 
+	 to the specified <codeph class="+ topic/ph pr-d/codeph ">childID</codeph>.</p>
+	 </li><li class="- topic/li "><p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">SELFLAG_EXTENDSELECTION</codeph>: Calculate the range of child elements between 
+	 and including the selection anchor and the specified <codeph class="+ topic/ph pr-d/codeph ">childID</codeph>. If 
+	 <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_ADDSELECTION</codeph> is present, add all of these child elements to the 
+	 selection. If <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_REMOVESELECTION</codeph> is present, remove all of these child 
+	 elements from the selection. If neither <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_ADDSELECTION</codeph> nor <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_REMOVESELECTION</codeph> 
+	 is present, all of these child elements should take on the selection anchor's 
+	 selection state: if the selection anchor is selected, add these child elements 
+	 to the selection; otherwise remove them from the selection.</p>
+	 </li><li class="- topic/li "><p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">SELFLAG_ADDSELECTION</codeph> (without <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_EXTENDSELECTION</codeph>): Add the specified 
+	 <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> to the selection.</p>
+	 </li><li class="- topic/li "><p class="- topic/p "><codeph class="+ topic/ph pr-d/codeph ">SELFLAG_REMOVESELECTION</codeph> (without <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_EXTENDSELECTION</codeph>): Remove the 
+	 specified <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> from the selection.</p></li></ul>
+	 
+	 <p class="- topic/p ">Note that for a non-multi-selectable component, the only valid <codeph class="+ topic/ph pr-d/codeph ">selFlag</codeph> 
+	 parameter values are <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_TAKEFOCUS</codeph> and <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_TAKESELECTION</codeph>.
+	 You could in theory 
+	 also choose to support <codeph class="+ topic/ph pr-d/codeph ">SELFLAG_REMOVESELECTION</codeph> for a non-multi-selectable 
+	 component that allowed the user to force a <codeph class="+ topic/ph pr-d/codeph ">null</codeph> selection, but in practice 
+	 most non-multi-selectable components do not work this way, and MSAA clients 
+	 may not attempt this type of operation.</p>
+	 
+	 <p class="- topic/p ">If you encounter flags that seem invalid, set <codeph class="+ topic/ph pr-d/codeph ">errno</codeph> to <codeph class="+ topic/ph pr-d/codeph ">E_INVALIDARG</codeph>.</p>
+	 <p class="- topic/p ">Finally, note that when <codeph class="+ topic/ph pr-d/codeph ">accSelect</codeph> is called, Flash Player 
+	 ensures that it has <i class="+ topic/ph hi-d/i ">host focus</i> (the window focus of its container 
+	 application), and that your component has focus within Flash Player.</p>
+	 
+	 </apiDesc><example class="- topic/example ">The following example shows how this method is implemented to select a child
+	 item in the Flex mx.accessibility.ListBaseAccImpl class, the ListBase accessibility implementation.
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">override public function accSelect(selFlag:uint, childID:uint):void
+	 {
+	 	
+	 	var listBase:ListBase = ListBase(master);
+	 	
+	 	var index:uint = childID - 1;
+	 	
+	 	if (index &amp;gt;= 0 &amp;&amp; index &amp;lt; listBase.dataProvider.length)
+	 		listBase.selectedIndex = index;
+	 }
+	 </codeblock>
+	 	
+	 </example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#AccessibilityImplementation/getChildIDArray()" class="- topic/link "><linktext class="- topic/linktext ">getChildIDArray()</linktext></link><link href="http://msdn.microsoft.com/en-us/library/ms697291(VS.85).aspx" class="- topic/link "><linktext class="- topic/linktext ">Microsoft Accessibility Developer Center: IAccessible::accSelect</linktext></link></related-links></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:getChildIDArray" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">getChildIDArray</apiName><shortdesc class="- topic/shortdesc ">
+	 Returns an array containing the unsigned integer IDs of all child elements
+	 in the AccessibilityImplementation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Array containing the unsigned integer IDs of all child elements in the AccessibilityImplementation.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Array</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Returns an array containing the unsigned integer IDs of all child elements
+	 in the AccessibilityImplementation. 
+	 
+	 <p class="- topic/p ">The length of the array may be zero. The IDs in the array should 
+	 appear in the same logical order as the child elements they represent. If your 
+	 AccessibilityImplementation can contain child elements, this method is mandatory; otherwise, do
+	 not implement it.</p>
+	 
+	 <p class="- topic/p ">In assigning child IDs to your child elements, use any scheme that
+	 preserves uniqueness within each instance of your AccessibilityImplementation. Child IDs need not 
+	 be contiguous, and their ordering need not match the logical ordering of the 
+	 child elements. You should arrange so as to <i class="+ topic/ph hi-d/i ">not</i> reuse child IDs; if a child 
+	 element is deleted, its ID should never be used again for the lifetime of 
+	 that AccessibilityImplementation instance. Be aware that, due to implementation choices in the Flash 
+	 player code, undesirable behavior can result if you use child IDs that exceed 
+	 one million.</p>
+	 
+	 </apiDesc><example class="- topic/example ">The following example shows how this method is implemented to return an array
+	 of childIDs in the Flex mx.accessibility.ListBaseAccImpl class, 
+	 the ListBase Accessibility Implementation.
+	 
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 override public function getChildIDArray():Array
+	 {
+	 	var childIDs:Array = [];
+	 
+	 	if (ListBase(master).dataProvider)
+	 	{
+	 		var n:uint = ListBase(master).dataProvider.length;
+	 		for (var i:int = 0; i &amp;lt; n; i++)
+	 		{
+	 			childIDs[i] = i + 1;
+	 		}
+	 	}
+	 	return childIDs;
+	 }
+	 </codeblock>
+	 
+	 </example></apiOperationDetail></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:get_accDefaultAction" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">get_accDefaultAction</apiName><shortdesc class="- topic/shortdesc ">
+	 MSAA method for returning the default action of the component
+	 that this AccessibilityImplementation represents or of one of its child elements.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The default action string specified in the MSAA model for the AccessibilityImplementation
+	 or for one of its child elements.
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">childID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An unsigned integer corresponding to one of the component's child elements,
+	 as defined by <codeph class="+ topic/ph pr-d/codeph ">getChildIDArray()</codeph>.
+	 
+	 </apiDesc></apiParam><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Returns the default action of the component.
+	 </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 MSAA method for returning the default action of the component
+	 that this AccessibilityImplementation represents or of one of its child elements.
+	 
+	 <p class="- topic/p ">Implement this method only if the AccessibilityImplementation represents a UI element
+	 that has a default action in the MSAA model; be sure to return the exact string 
+	 that the MSAA model specifies.  
+	 For example, the default action string for a Button component is "Press."</p>
+	 
+	 <p class="- topic/p ">If you are implementing <codeph class="+ topic/ph pr-d/codeph ">get_accDefaultAction</codeph> only for the 
+	 AccessibilityImplementation itself, or only for its child elements, 
+	 you will need in some cases to indicate that there is no default action 
+	 for the particular <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> that was passed. 
+	 Do this by simply returning <codeph class="+ topic/ph pr-d/codeph ">null</codeph>.</p>
+	 
+	 </apiDesc><example class="- topic/example ">The following example shows how this method is implemented to return
+	 the appropriate default actions in the Flex mx.accessibility.ListBaseAccImpl class,
+	 the ListBase accessibility implementation.
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">override public function get_accDefaultAction(childID:uint):String
+	 {
+	 	if (childID == 0)
+	 		return null;
+	 
+	 	return "Double Click";
+	 }</codeblock>
+	  
+	 </example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#AccessibilityImplementation/getChildIDArray()" class="- topic/link "><linktext class="- topic/linktext ">getChildIDArray()</linktext></link><link href="http://msdn.microsoft.com/en-us/library/ms696144(VS.85).aspx" class="- topic/link "><linktext class="- topic/linktext ">Microsoft Accessibility Developer Center: IAccessible::get_accDefaultAction</linktext></link></related-links></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:get_accFocus" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">get_accFocus</apiName><shortdesc class="- topic/shortdesc ">
+	 MSAA method for returning the unsigned integer ID of the child element, if any, 
+	 that has child focus within the component.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The unsigned integer ID of the child element, if any, that has child focus within the component.
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier></apiReturn><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Returns the unsigned integer ID of the child element that has child focus within the component.
+	 </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 MSAA method for returning the unsigned integer ID of the child element, if any, 
+	 that has child focus within the component. If no child has child focus, the method returns zero.
+	 
+	 </apiDesc><example class="- topic/example ">The following example shows how this method is implemented to return the focused childID in
+	 the Flex mx.accessibility.ListBaseAccImpl class, the ListBase accessibility implementation.
+	 
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">override public function get_accFocus():uint
+	 {
+	 var index:uint = ListBase(master).selectedIndex;
+	 
+	 return index &gt;= 0 ? index + 1 : 0;
+	 }</codeblock>
+	 
+	 </example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#AccessibilityImplementation/getChildIDArray()" class="- topic/link "><linktext class="- topic/linktext ">getChildIDArray()</linktext></link><link href="http://msdn.microsoft.com/en-us/library/ms696150(VS.85).aspx" class="- topic/link "><linktext class="- topic/linktext ">Microsoft Accessibility Developer Center: IAccessible::get_accFocus</linktext></link></related-links></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:get_accName" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">get_accName</apiName><shortdesc class="- topic/shortdesc ">
+	 MSAA method for returning the name for the component
+	 that this AccessibilityImplementation represents or for one of its child elements.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><helpid>3000
+	 
+	 </helpid></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Name of the component or one of its child elements.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">childID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An unsigned integer corresponding to one of the component's child elements
+	 as defined by <codeph class="+ topic/ph pr-d/codeph ">getChildIDArray()</codeph>.
+	 
+	 </apiDesc></apiParam><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Returns the name of the component
+	  </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 MSAA method for returning the name for the component
+	 that this AccessibilityImplementation represents or for one of its child elements.
+	 
+	 <p class="- topic/p ">In the case of the AccessibilityImplementation itself (<codeph class="+ topic/ph pr-d/codeph ">childID == 0</codeph>), 
+	 if this method is not implemented, or does not return a value, Flash Player 
+	 uses the <codeph class="+ topic/ph pr-d/codeph ">AccessibilityProperties.name</codeph> property value, if it is present.</p>
+	 
+	 <p class="- topic/p ">For AccessibilityImplementations that can have child elements, this method must be implemented,
+	 and must return a string value when <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> is nonzero.</p>
+	 
+	 <p class="- topic/p ">Depending on the type of user interface element, names in MSAA mean one of two different 
+	 things: an author-assigned name, or the actual text content of the element. 
+	 Usually, an AccessibilityImplementation itself will fall into the former category. 
+	 Its <codeph class="+ topic/ph pr-d/codeph ">name</codeph> property is an author-assigned name. Child elements 
+	 always fall into the second category. Their names indicate their text content.</p>
+	 
+	 <p class="- topic/p ">When the <codeph class="+ topic/ph pr-d/codeph ">name</codeph> property of an AccessibilityImplementation has the meaning
+	 of an author-assigned name, there are two ways in which components can acquire names from authors.
+	 The first entails names present within the component itself; for example, a checkbox 
+	 component might include a text label that serves as its name. The second—a fallback from
+	 the first—entails names specified in the UI and ending 
+	 up in <codeph class="+ topic/ph pr-d/codeph ">AccessibilityProperties.name</codeph>. This fallback option allows users to specify 
+	 names just as they would for any other Sprite or MovieClip.</p>
+	 
+	 <p class="- topic/p ">This leaves three possibilities for the AccessibilityImplementation itself (<codeph class="+ topic/ph pr-d/codeph ">childID == zero</codeph>):</p>
+	 <ul class="- topic/ul "><li class="- topic/li "><p class="- topic/p "><b class="+ topic/ph hi-d/b ">Author-assigned name within component.</b> The <codeph class="+ topic/ph pr-d/codeph ">get_accName</codeph> method 
+	 should be implemented and should return a string value that contains the 
+	 AccessibilityImplementation's name when <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> is zero. If <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> is zero but the 
+	 AccessibilityImplementation has no name, <codeph class="+ topic/ph pr-d/codeph ">get_accName</codeph> should return an empty string to prevent 
+	 the player from falling back to the <codeph class="+ topic/ph pr-d/codeph ">AccessibilityProperties.name</codeph> property.</p>
+	 </li><li class="- topic/li "><p class="- topic/p "><b class="+ topic/ph hi-d/b ">Author-assigned name from UI.</b> If the AccessibilityImplementation can have child 
+	 elements, the <codeph class="+ topic/ph pr-d/codeph ">get_accName</codeph> method should be implemented but should not return a value when
+	 <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> is zero. If the AccessibilityImplementation will never have child elements, 
+     	 <codeph class="+ topic/ph pr-d/codeph ">get_accName</codeph> should not be implemented.</p>
+     	 </li><li class="- topic/li "><p class="- topic/p "><b class="+ topic/ph hi-d/b ">Name signifying content.</b> The <codeph class="+ topic/ph pr-d/codeph ">get_accName</codeph> method should be 
+     	 implemented and should return an appropriate string value when <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> 
+     	 is zero. If <codeph class="+ topic/ph pr-d/codeph ">childId</codeph> is zero but the AccessibilityImplementation has no content, 
+	 <codeph class="+ topic/ph pr-d/codeph ">get_accName</codeph> should return an empty string to prevent the player from falling back to 
+     	 the <codeph class="+ topic/ph pr-d/codeph ">AccessibilityProperties.name</codeph> property.</p>
+     	 </li></ul>
+     	 <p class="- topic/p ">Note that for child elements (if the AccessibilityImplementation can have them), the third case 
+     	 always applies. The <codeph class="+ topic/ph pr-d/codeph ">get_accName</codeph> method should be implemented and should 
+     	 return an appropriate string value when <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> is nonzero. </p>
+     	 
+     	 </apiDesc><example class="- topic/example ">The following example shows how this method is implemented in 
+	 the Flex mx.accessibility.AccImpl class,
+	 the base accessibility implementation in Flex.
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">override public function get_accName(childID:uint):String
+	 {
+	 	// Start with the name of the component's parent form 
+	  	// if the component is contained within a form
+	 	var accName:String = UIComponentAccImpl.getFormName(master);
+	 
+	 	// If the element requested is the component itself, 
+	 	// append the value of any assigned accessibilityProperties.name	
+	 	if (childID == 0 &amp;&amp; master.accessibilityProperties 
+	 		&amp;&amp; master.accessibilityProperties.name 
+	 			&amp;&amp; master.accessibilityProperties.name != "")
+	 		accName += master.accessibilityProperties.name + " ";
+	 
+	 	// Append the value of the childIDs name 
+	 // returned by the component-specific override 
+	 // of the mx.accessibility.AccImpl.getName() utility function,
+	 	// and append the component's status returned by the 
+	 // component-specific override of the 
+	 // mx.accessibility.AccImpl.getStatusName() utility function
+	 	accName += getName(childID) + getStatusName();
+	 
+	 // Return the assembled String if it is neither empty nor null, 
+	 // otherwise return null
+	 	return (accName != null &amp;&amp; accName != "") ? accName : null;
+	 }</codeblock>
+	 
+	 
+	  </example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#AccessibilityImplementation/getChildIDArray()" class="- topic/link "><linktext class="- topic/linktext ">getChildIDArray()</linktext></link><link href="flash.accessibility.xml#AccessibilityProperties" class="- topic/link "><linktext class="- topic/linktext ">flash.accessibility.AccessibilityProperties</linktext></link><link href="flash.accessibility.xml#AccessibilityProperties/name" class="- topic/link "><linktext class="- topic/linktext ">flash.accessibility.AccessibilityProperties.name</linktext></link><link href="" invalidHref="mx.accessibility.xml#AccImpl/get_accName()" class="- topic/link "><linktext class="- topic/linktext ">mx.accessibility.AccImpl.get_accName()</linktext></link><link href="" invalidHref="mx.accessibility.xml#AccImpl/getName()" class="- topic/link "><linktext class="- topic/linktext ">mx.accessibility.AccImpl.getName()</linktext></link><link href="" invalidHref="mx.accessibility.xml#AccImpl/getStatusName()" class="- topic/link "><linktext class="- topic/linktext ">mx.accessibility.AccImpl.getStatusName()</linktext></link><link href="http://msdn.microsoft.com/en-us/library/ms696177(VS.85).aspx" class="- topic/link "><linktext class="- topic/linktext ">Microsoft Accessibility Developer Center: IAccessible::get_accName</linktext></link></related-links></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:get_accRole" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">get_accRole</apiName><shortdesc class="- topic/shortdesc ">
+	 MSAA method for returning the system role for the component
+	 that this AccessibilityImplementation represents or for one of its child elements.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Error code <xref href="../../runtimeErrors.html#2143" class="- topic/xref ">2143</xref>, AccessibilityImplementation.get_accRole() must be overridden from its default.
+	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">Error</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Error</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">System role associated with the component. 
+	  
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">childID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An unsigned integer corresponding to one of the component's
+	 child elements as defined by <codeph class="+ topic/ph pr-d/codeph ">getChildIDArray()</codeph>.
+	 
+	 </apiDesc></apiParam><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Returns the system role for the component
+	  
+	 
+	  </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 MSAA method for returning the system role for the component
+	 that this AccessibilityImplementation represents or for one of its child elements.
+	 System roles are predefined for all the components in MSAA.	 
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#AccessibilityImplementation/getChildIDArray()" class="- topic/link "><linktext class="- topic/linktext ">getChildIDArray()</linktext></link><link href="../../accessibilityImplementationConstants.html" class="- topic/link "><linktext class="- topic/linktext ">AccessibilityImplementation Constants: Object Role Constants</linktext></link><link href="http://msdn.microsoft.com/en-us/library/ms696113(VS.85).aspx" class="- topic/link "><linktext class="- topic/linktext ">Microsoft Accessibility Developer Center: IAccessible::get_accRole</linktext></link></related-links></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:get_accSelection" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">get_accSelection</apiName><shortdesc class="- topic/shortdesc ">
+	 MSAA method for returning an array containing the IDs of all child elements that are selected.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An array of the IDs of all child elements that are selected.
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Array</apiOperationClassifier></apiReturn><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Returns an array containing the IDs of all selected child elements.
+	 </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 MSAA method for returning an array containing the IDs of all child elements that are selected. 
+	 The returned array may contain zero, one, or more IDs, all unsigned integers.
+	 
+	 </apiDesc><example class="- topic/example ">The following example shows how this method is implemented to return the selected childIDs in
+	 the Flex mx.accessibility.ListBaseAccImpl class, the ListBase accessibility implementation.
+	 
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 override public function get_accSelection():Array
+	 {
+	 	var accSelection:Array = [];
+	 
+	 	var selectedIndices:Array = ListBase(master).selectedIndices;
+	 	
+	 	var n:int = selectedIndices.length;
+	 	for (var i:int = 0; i &amp;lt; n; i++)
+	 	{
+	 		accSelection[i] = selectedIndices[i] + 1;
+	 	}
+	 	
+	 	return accSelection;
+	 }
+	 </codeblock>
+	 
+	 </example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#AccessibilityImplementation/getChildIDArray()" class="- topic/link "><linktext class="- topic/linktext ">getChildIDArray()</linktext></link><link href="http://msdn.microsoft.com/en-us/library/ms696179(VS.85).aspx" class="- topic/link "><linktext class="- topic/linktext ">Microsoft Accessibility Developer Center: IAccessible::get_accSelection</linktext></link></related-links></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:get_accState" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">get_accState</apiName><shortdesc class="- topic/shortdesc ">
+	 IAccessible method for returning the current runtime state of the component that this 
+	 AccessibilityImplementation represents or of one of its child elements.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Error code <xref href="../../runtimeErrors.html#2144" class="- topic/xref ">2144</xref>, AccessibilityImplementation.get_accState() must be overridden from its default.
+	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">Error</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Error</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A combination of zero, one, or more of the system state constants. 
+	 Multiple constants are assembled into a bitfield using <codeph class="+ topic/ph pr-d/codeph ">|</codeph>, the bitwise OR operator. 
+	 
+	 
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">childID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An unsigned integer corresponding to one of the component's child elements
+	 as defined by <codeph class="+ topic/ph pr-d/codeph ">getChildIDArray()</codeph>.
+	 
+	 </apiDesc></apiParam><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Returns the state of the component
+	 
+	 </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 IAccessible method for returning the current runtime state of the component that this 
+	 AccessibilityImplementation represents or of one of its child elements.
+	 
+	 <p class="- topic/p ">This method must return a combination of zero, one, or more of the predefined
+	 <xref href="../../accessibilityImplementationConstants.html" class="- topic/xref ">object state constants</xref> for components in MSAA. 
+	 When more than one state applies, the state constants should be combined into a bitfield
+	 using <codeph class="+ topic/ph pr-d/codeph ">|</codeph>, the bitwise OR operator.</p>
+	 
+	 <p class="- topic/p ">To indicate that none of the state constants currently applies, this method should return zero.</p>
+	 
+	 <p class="- topic/p ">You should not need to track or report the STATE_SYSTEM_FOCUSABLE or STATE_SYSTEM_FOCUSED states. 
+	 Flash Player handles these states automatically.</p>
+	 
+	 </apiDesc><example class="- topic/example ">The following example shows how this method is implemented to combine 
+	 more than one state constant in 
+	 mx.accessibility.ListBaseAccImpl, the Flex ListBase Accessibility Implementation.
+	 
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 override public function get_accState(childID:uint):uint
+	 {
+	 	var accState:uint = getState(childID);
+	 
+	 	if (childID &amp;gt; 0) 
+	 	{
+	 		var listBase:ListBase = ListBase(master);
+	 
+	 		var index:uint = childID - 1;
+	 
+	 		// For returning states (OffScreen and Invisible)
+	 		// when the list Item is not in the displayed rows.
+	 		if (index &amp;lt; listBase.verticalScrollPosition ||
+	 			index &amp;gt;= listBase.verticalScrollPosition + listBase.rowCount)
+	 		{
+	 			accState |= (STATE_SYSTEM_OFFSCREEN |
+	 						 STATE_SYSTEM_INVISIBLE);
+	 		}
+	 		else
+	 		{
+	 			accState |= STATE_SYSTEM_SELECTABLE;
+	 
+	 			var item:Object = getItemAt(index);
+	 
+	 			var renderer:IListItemRenderer =
+	 				listBase.itemToItemRenderer(item);
+	 
+	 			if (renderer != null &amp;&amp; listBase.isItemSelected(renderer.data))
+	 				accState |= STATE_SYSTEM_SELECTED | STATE_SYSTEM_FOCUSED;
+	 		}
+	 	}
+	 
+	 	return accState;
+	 }</codeblock>
+	 
+	 </example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#AccessibilityImplementation/getChildIDArray()" class="- topic/link "><linktext class="- topic/linktext ">getChildIDArray()</linktext></link><link href="../../accessibilityImplementationConstants.html" class="- topic/link "><linktext class="- topic/linktext ">AccessibilityImplementation Constants: Object State Constants</linktext></link><link href="http://msdn.microsoft.com/en-us/library/ms696191(VS.85).aspx" class="- topic/link "><linktext class="- topic/linktext ">Microsoft Accessibility Developer Center: IAccessible::get_accState</linktext></link></related-links></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:get_accValue" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">get_accValue</apiName><shortdesc class="- topic/shortdesc ">
+	 MSAA method for returning the runtime value of the component that this
+	 AccessibilityImplementation represents or of one of its child elements.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A string representing the runtime value of the component of of one of its child elements.
+	  
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">childID</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">uint</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An unsigned integer corresponding to one of the component's child elements
+	 as defined by <codeph class="+ topic/ph pr-d/codeph ">getChildIDArray()</codeph>.
+	 
+	 </apiDesc></apiParam><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Returns the value of the component
+	 
+	 </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 MSAA method for returning the runtime value of the component that this
+	 AccessibilityImplementation represents or of one of its child elements.
+	 
+	 <p class="- topic/p ">Implement this method only if your AccessibilityImplementation represents a UI element
+	 that has a value in the MSAA model. Be aware that some UI elements that have an apparent 'value' 
+	 actually expose this value by different means, such as 
+	 <codeph class="+ topic/ph pr-d/codeph ">get_accName</codeph> (text, for example), 
+	 <codeph class="+ topic/ph pr-d/codeph ">get_accState</codeph> (check boxes, for example), or <codeph class="+ topic/ph pr-d/codeph ">get_accSelection</codeph> 
+	 (list boxes, for example).</p>
+	 
+	 <p class="- topic/p ">If you are implementing <codeph class="+ topic/ph pr-d/codeph ">get_accValue</codeph> only for the AccessibilityImplementation itself, or 
+	 only for its child elements, you will need in some cases to indicate that 
+	 there is no concept of value for the particular <codeph class="+ topic/ph pr-d/codeph ">childID</codeph> that was passed. 
+	 Do this by simply returning <codeph class="+ topic/ph pr-d/codeph ">null</codeph>.</p>
+	 
+	 </apiDesc><example class="- topic/example ">The following example shows how this method is implemented to return the appropriate value based on
+	 the component's <codeph class="+ topic/ph pr-d/codeph ">selectedIndex</codeph> value in the Flex mx.accessibility.ListBaseAccImpl class,
+	 the ListBase accessibility implementation.
+	 
+	 <codeblock rev="3.0" xml:space="preserve" class="+ topic/pre pr-d/codeblock ">override public function get_accValue(childID:uint):String
+	 {
+	 	var accValue:String;
+	 	
+	 	var listBase:ListBase = ListBase(master);
+	 	
+	 	var index:int = listBase.selectedIndex;
+	 	if (childID == 0)
+	 	{
+	 		if (index &gt; -1)
+	 		{
+	 			var item:Object = getItemAt(index);
+	 
+	 			if (item is String)
+	 			{
+	 				accValue = item + " " + (index + 1) + " of " + listBase.dataProvider.length;
+	 			}
+	 			else
+	 			{
+	 				accValue = listBase.itemToLabel(item) + " " + (index + 1) +
+	 						   " of " + listBase.dataProvider.length;
+	 			}
+	 		}
+	 	}
+	 
+	 	return accValue;
+	 }</codeblock>
+	 
+	 </example></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#AccessibilityImplementation/getChildIDArray()" class="- topic/link "><linktext class="- topic/linktext ">getChildIDArray()</linktext></link><link href="http://msdn.microsoft.com/en-us/library/ms697312(VS.85).aspx" class="- topic/link "><linktext class="- topic/linktext ">Microsoft Accessibility Developer Center: IAccessible::get_accValue</linktext></link></related-links></apiOperation><apiOperation id="flash.accessibility:AccessibilityImplementation:isLabeledBy" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">isLabeledBy</apiName><shortdesc class="- topic/shortdesc ">
+	 
+	 Returns true or false to indicate whether a text object having 
+	 a bounding box specified by a x, y, width, and height 
+	 should be considered a label for the component that this AccessibilityImplementation represents.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc "><codeph class="+ topic/ph pr-d/codeph ">true</codeph> or <codeph class="+ topic/ph pr-d/codeph ">false</codeph> to indicate whether a text object having the given label bounds should be considered a label for the component that this AccessibilityImplementation represents.
+	 </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">labelBounds</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.geom:Rectangle</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A Rectangle representing the bounding box of a text object.
+	 </apiDesc></apiParam><apiTipTexts><apiTipText class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiTipText ">Indicates whether a nearby text object is a label for this component. 
+	 </apiTipText></apiTipTexts></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 
+	 Returns <codeph class="+ topic/ph pr-d/codeph ">true</codeph> or <codeph class="+ topic/ph pr-d/codeph ">false</codeph> to indicate whether a text object having 
+	 a bounding box specified by a <codeph class="+ topic/ph pr-d/codeph ">x</codeph>, <codeph class="+ topic/ph pr-d/codeph ">y</codeph>, <codeph class="+ topic/ph pr-d/codeph ">width</codeph>, and <codeph class="+ topic/ph pr-d/codeph ">height</codeph> 
+	 should be considered a label for the component that this AccessibilityImplementation represents. 
+	 
+	 <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">x</codeph> and <codeph class="+ topic/ph pr-d/codeph ">y</codeph> coordinates are relative to the upper-left corner 
+	 of the component to which the AccessibilityImplementation applies, and may be negative. All coordinates 
+	 are in units of Stage pixels.</p>
+	 
+	 <p class="- topic/p ">This method allows accessible components to fit into the Flash Player's search 
+	 for automatic labeling relationships, which allow text external to an object 
+	 to supply the object's name. This method is provided because it is expected 
+	 that the criteria for recognizing labels will differ from component to component. 
+	 If you implement this method, you should aim to use geometric criteria similar 
+	 to those in use inside the player code for buttons and textfields. Those criteria
+	 are as follows:</p>
+	 
+	 <p class="- topic/p "><ul class="- topic/ul "><li class="- topic/li ">For buttons, any text falling entirely inside the button is considered a label.</li><li class="- topic/li ">For textfields, any text appearing nearby above and left-aligned, 
+	 or nearby to the left, is considered a label.</li></ul></p>
+	 
+	 <p class="- topic/p ">If the component that the AccessibilityImplementation represents should never participate in automatic 
+	 labeling relationships, do not implement <codeph class="+ topic/ph pr-d/codeph ">isLabeledBy</codeph>. This is equivalent 
+	 to always returning <codeph class="+ topic/ph pr-d/codeph ">false</codeph>. One case in which <codeph class="+ topic/ph pr-d/codeph ">isLabeledBy</codeph> should 
+	 not be implemented is when the AccessibilityImplementation falls into the "author-assigned name 
+	 within component" case described under <codeph class="+ topic/ph pr-d/codeph ">get_accName</codeph> above.</p>
+	 <p class="- topic/p ">Note that this method is not based on any <b class="+ topic/ph hi-d/b ">IAccessible</b> method; it is 
+	 specific to Flash.</p>
+	 
+	 </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.accessibility:AccessibilityImplementation:errno" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">errno</apiName><shortdesc class="- topic/shortdesc ">
+	 Indicates an error code.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Indicates an error code. Errors are indicated out-of-band, rather than in return values. 
+	 To indicate an error, set the <codeph class="+ topic/ph pr-d/codeph ">errno</codeph> property to one of the error codes
+	 documented in the AccessibilityImplementation Constants appendix. 
+	 This causes your return value to be ignored. The <codeph class="+ topic/ph pr-d/codeph ">errno</codeph> property
+	 of your AccessibilityImplementation is always cleared (set to zero) by the player
+	 before any AccessibilityImplementation method is called.
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="../../accessibilityImplementationConstants.html" class="- topic/link "><linktext class="- topic/linktext ">AccessibilityImplementation Constants</linktext></link></related-links></apiValue><apiValue id="flash.accessibility:AccessibilityImplementation:stub" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">stub</apiName><shortdesc class="- topic/shortdesc ">
+	 Used to create a component accessibility stub.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Used to create a component accessibility stub.
+	 If a component is released without an ActionScript accessibility implementation,
+	 Adobe recommends that you add a component accessibility stub. 
+	 This stub causes Flash Player, for accessibility purposes, to treat the component
+	 as a simple graphic rather than exposing the internal structure of buttons,
+	 textfields, and so on, within the component. 
+	 
+	 <p class="- topic/p ">To create a component accessibility stub,
+	 subclass the relevant AccImpl class, overriding the property stub
+	 with a value of <codeph class="+ topic/ph pr-d/codeph ">true</codeph>.</p> 
+	 
+	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="" class="- topic/link "><linktext class="- topic/linktext ">The mx.accessibility.AccImpl class in Flex (\sdks\4.0.0\frameworks\projects\framework\src\mx\accessibility\AccImpl.as)</linktext></link><link href="" class="- topic/link "><linktext class="- topic/linktext ">The fl.accessibility.AccImpl class in Flash (\Local Settings\Application Data\Adobe\Flash CS5\en_US\Configuration\Classes\mx\accessibility\AccImpl.as)</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.accessibility:AccessibilityProperties" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">AccessibilityProperties</apiName><shortdesc class="- topic/shortdesc ">
+ The AccessibilityProperties class lets you control the presentation of Flash objects to accessibility
+ aids, such as screen readers.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ The AccessibilityProperties class lets you control the presentation of Flash objects to accessibility
+ aids, such as screen readers.
+ 
+ <p class="- topic/p ">You can attach an AccessibilityProperties object to any display object, but Flash Player will read
+ your AccessibilityProperties object only for certain kinds of objects: entire
+ SWF files (as represented by <codeph class="+ topic/ph pr-d/codeph ">DisplayObject.root</codeph>), container objects
+ (<codeph class="+ topic/ph pr-d/codeph ">DisplayObjectContainer</codeph> and subclasses), buttons
+ (<codeph class="+ topic/ph pr-d/codeph ">SimpleButton</codeph> and subclasses), and text (<codeph class="+ topic/ph pr-d/codeph ">TextField</codeph> and subclasses).</p>
+ 
+ <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">name</codeph> property of these objects is the most important property to specify because
+ accessibility aids provide the names of objects to users as a basic means of navigation.  Do not
+ confuse <codeph class="+ topic/ph pr-d/codeph ">AccessibilityProperties.name</codeph> with <codeph class="+ topic/ph pr-d/codeph ">DisplayObject.name</codeph>; these are
+ separate and unrelated.  The <codeph class="+ topic/ph pr-d/codeph ">AccessibilityProperties.name</codeph> property is a name 
+ that is read aloud by the accessibility aids, whereas <codeph class="+ topic/ph pr-d/codeph ">DisplayObject.name</codeph> is essentially a
+ variable name visible only to ActionScript code.</p>
+ 
+ <p class="- topic/p ">In Flash Professional, the properties of <codeph class="+ topic/ph pr-d/codeph ">AccessibilityProperties</codeph> objects override
+ the corresponding settings available in the Accessibility panel during authoring.</p>
+ 
+ <p class="- topic/p ">To determine whether Flash Player is running in an environment that supports accessibility aids, use 
+ the <codeph class="+ topic/ph pr-d/codeph ">Capabilities.hasAccessibility</codeph> property.  If you modify AccessibilityProperties
+ objects, you need to call the <codeph class="+ topic/ph pr-d/codeph ">Accessibility.updateProperties()</codeph> method for the changes to
+ take effect.</p>
+ 
+ 
+ </apiDesc><example conref="examples\AccessibilityPropertiesExample.as" class="- topic/example "> The following example uses the <codeph class="+ topic/ph pr-d/codeph ">AccessibilityExample</codeph>,
+ <codeph class="+ topic/ph pr-d/codeph ">CustomAccessibleButton</codeph>, <codeph class="+ topic/ph pr-d/codeph ">CustomSimpleButton</codeph>, and <codeph class="+ topic/ph pr-d/codeph ">ButtonDisplayState</codeph> classes
+ to create an accessibility-compliant menu that works with common screen readers. The main
+ functionality of the <codeph class="+ topic/ph pr-d/codeph ">AccessibilityProperties</codeph> class is as follows:
+ 
+ <ol TYPE="1" class="- topic/ol "><li class="- topic/li "> Call <codeph class="+ topic/ph pr-d/codeph ">configureAssets</codeph>, which creates a custom button and sets its label and 
+ description. These are the values that the screen reader conveys to the end user.</li><li class="- topic/li ">Call <codeph class="+ topic/ph pr-d/codeph ">setTimeOut()</codeph> to ensure that Flash Player has enough time to detect the 
+ screen reader before updating the properties.</li></ol>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> Call <codeph class="+ topic/ph pr-d/codeph ">setTimeout()</codeph> before checking <codeph class="+ topic/ph pr-d/codeph ">Accessibility.active</codeph>.
+ to give Flash Player the 2 seconds it needs to connect to a screen reader,
+ if one is available. If you do not provide a sufficient delay time, the <codeph class="+ topic/ph pr-d/codeph ">setTimeout</codeph> call might return <codeph class="+ topic/ph pr-d/codeph ">false</codeph>, even
+ if a screen reader is available.</p>
+ 
+ <p class="- topic/p ">The following example processes the <codeph class="+ topic/ph pr-d/codeph ">Accessibility.updateProperties()</codeph>
+ method only if the call to <codeph class="+ topic/ph pr-d/codeph ">Accessibility.active</codeph> returns <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, which 
+ occurs only if Flash Player is currently connected to an active screen reader. If <codeph class="+ topic/ph pr-d/codeph ">updateProperties</codeph>
+ is called without an active screen reader, it throws an <codeph class="+ topic/ph pr-d/codeph ">IllegalOperationError</codeph> exception.</p>
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.accessibility.Accessibility;
+    import flash.utils.setTimeout;
+    
+    public class AccessibilityPropertiesExample extends Sprite {
+        public static const BUTTON_WIDTH:uint = 90;
+        public static const BUTTON_HEIGHT:uint = 20;
+        
+        private var gutter:uint = 5;
+        private var menuLabels:Array = new Array("PROJECTS", "PORTFOLIO", "CONTACT");
+        private var menuDescriptions:Array = new Array("Learn more about our projects"
+                                                     , "See our portfolio"
+                                                     , "Get in touch with our team");
+        
+        public function AccessibilityPropertiesExample() {
+            configureAssets();
+            setTimeout(updateAccessibility, 2000); 
+        }
+        
+        private function updateAccessibility():void {
+            trace("Accessibility.active: " + Accessibility.active);
+            if(Accessibility.active) {
+                Accessibility.updateProperties();
+            }
+        }
+        
+        private function configureAssets():void {
+            var child:CustomAccessibleButton;
+            for(var i:uint; i &lt; menuLabels.length; i++) {
+                child = new CustomAccessibleButton();
+                child.y = (numChildren * (BUTTON_HEIGHT + gutter));
+                child.setLabel(menuLabels[i]);
+                child.setDescription(menuDescriptions[i]);
+                addChild(child);
+            }
+        }
+    }
+
+
+import flash.accessibility.AccessibilityProperties;
+import flash.display.Shape;
+import flash.display.SimpleButton;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.text.TextFormat;
+import flash.text.TextField;
+    
+class CustomAccessibleButton extends Sprite {
+    private var button:SimpleButton;
+    private var label1:TextField;
+    private var description:String;
+    private var _name:String;
+        
+    public function CustomAccessibleButton(_width:uint = 0, _height:uint = 0) {
+        _width = (_width == 0) ? AccessibilityPropertiesExample.BUTTON_WIDTH : _width;
+        _height = (_height == 0) ? AccessibilityPropertiesExample.BUTTON_HEIGHT : _height;
+            
+        button = buildButton(_width, _height);
+        label1 = buildLabel(_width, _height);
+            
+        addEventListener(Event.ADDED, addedHandler);
+    }
+        
+    private function addedHandler(event:Event):void {
+        trace("addedHandler: " + name);
+        var accessProps:AccessibilityProperties = new AccessibilityProperties();
+        accessProps.name = this._name;
+        accessProps.description = description;
+        accessibilityProperties = accessProps;
+        removeEventListener(Event.ADDED, addedHandler);
+    }
+        
+    private function buildButton(_width:uint, _height:uint):SimpleButton {
+        var child:SimpleButton = new CustomSimpleButton(_width, _height);
+        addChild(child);
+        return child;
+    }
+
+    private function buildLabel(_width:uint, _height:uint):TextField {
+        var format:TextFormat = new TextFormat();
+        format.font = "Verdana";
+        format.size = 11;
+        format.color = 0xFFFFFF;
+        format.align = TextFormatAlign.CENTER;
+        format.bold = true;
+            
+        var child:TextField = new TextField();
+        child.y = 1;
+        child.width = _width;
+        child.height = _height;
+        child.selectable = false;
+        child.defaultTextFormat = format;
+        child.mouseEnabled = false;
+            
+        addChild(child);
+        return child;
+    }
+        
+    public function setLabel(text:String):void {
+        label1.text = text;
+        this._name = text;
+    }
+        
+    public function setDescription(text:String):void {
+        description = text;
+    }
+}
+    
+class CustomSimpleButton extends SimpleButton {
+    private var upColor:uint = 0xFFCC00;
+    private var overColor:uint = 0xCCFF00;
+    private var downColor:uint = 0x00CCFF;
+
+    public function CustomSimpleButton(_width:uint, _height:uint) {
+        downState = new ButtonDisplayState(downColor, _width, _height);
+        overState = new ButtonDisplayState(overColor, _width, _height);
+        upState = new ButtonDisplayState(upColor, _width, _height);
+        hitTestState = new ButtonDisplayState(upColor, _width, _height);
+        useHandCursor = true;
+    }        
+}
+
+class ButtonDisplayState extends Shape {
+    private var bgColor:uint;
+    private var _width:uint;
+    private var _height:uint;
+
+    public function ButtonDisplayState(bgColor:uint, _width:uint, _height:uint) {
+        this.bgColor = bgColor;
+        this._width = _width;
+        this._height = _height;
+        draw();
+    }
+
+    private function draw():void {
+        graphics.beginFill(bgColor);
+        graphics.drawRect(0, 0, _width, _height);
+        graphics.endFill();
+    }
+}
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#Accessibility/updateProperties()" class="- topic/link "><linktext class="- topic/linktext ">flash.accessibility.Accessibility.updateProperties()</linktext></link><link href="flash.display.xml#DisplayObject/accessibilityProperties" class="- topic/link "><linktext class="- topic/linktext ">flash.display.DisplayObject.accessibilityProperties</linktext></link><link href="flash.display.xml#InteractiveObject/tabIndex" class="- topic/link "><linktext class="- topic/linktext ">flash.display.InteractiveObject.tabIndex</linktext></link><link href="flash.system.xml#Capabilities/hasAccessibility" class="- topic/link "><linktext class="- topic/linktext ">flash.system.Capabilities.hasAccessibility</linktext></link></related-links><apiConstructor id="flash.accessibility:AccessibilityProperties:AccessibilityProperties" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">AccessibilityProperties</apiName><shortdesc class="- topic/shortdesc ">
+	 Creates a new AccessibilityProperties object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Creates a new AccessibilityProperties object.
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="flash.accessibility:AccessibilityProperties:description" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">description</apiName><shortdesc class="- topic/shortdesc ">
+	 Provides a description for this display object in the accessible presentation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Provides a description for this display object in the accessible presentation.
+	 If you have a lot of information to present about the object, it is
+	 best to choose a concise name and put most of your content in the
+	 <codeph class="+ topic/ph pr-d/codeph ">description</codeph> property. 
+     Applies to whole SWF files, containers, buttons, and text. The default value
+     is an empty string.
+     <p class="- topic/p ">In Flash Professional, this property corresponds to the Description field in the Accessibility panel.</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.accessibility:AccessibilityProperties:forceSimple" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">forceSimple</apiName><shortdesc class="- topic/shortdesc ">
+	 If true, causes Flash Player to exclude child objects within this
+	 display object from the accessible presentation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 If <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, causes Flash Player to exclude child objects within this
+	 display object from the accessible presentation.  
+	 The default is <codeph class="+ topic/ph pr-d/codeph ">false</codeph>. Applies to whole SWF files and containers.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.accessibility:AccessibilityProperties:name" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">name</apiName><shortdesc class="- topic/shortdesc ">
+	 Provides a name for this display object in the accessible presentation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Provides a name for this display object in the accessible presentation. 
+	 Applies to whole SWF files, containers, buttons, and text.  Do not confuse with
+     <codeph class="+ topic/ph pr-d/codeph ">DisplayObject.name</codeph>, which is unrelated. The default value
+     is an empty string.
+     <p class="- topic/p ">In Flash Professional, this property corresponds to the Name field in the Accessibility panel.</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.accessibility:AccessibilityProperties:noAutoLabeling" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">noAutoLabeling</apiName><shortdesc class="- topic/shortdesc ">
+	 If true, disables the Flash Player default auto-labeling system.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 If <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, disables the Flash Player default auto-labeling system.
+	 Auto-labeling causes text objects inside buttons to be treated as button names,
+	 and text objects near text fields to be treated as text field names.
+	 The default is <codeph class="+ topic/ph pr-d/codeph ">false</codeph>. Applies only to whole SWF files.
+     <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">noAutoLabeling</codeph> property value is ignored unless you specify it before the
+     first time an accessibility aid examines your SWF file. If you plan to set 
+     <codeph class="+ topic/ph pr-d/codeph ">noAutoLabeling</codeph> to <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, you should do so as early as 
+     possible in your code.</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.accessibility:AccessibilityProperties:shortcut" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">shortcut</apiName><shortdesc class="- topic/shortdesc ">
+	 Indicates a keyboard shortcut associated with this display object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Indicates a keyboard shortcut associated with this display object. 
+	 Supply this string only for UI controls that you have associated with a shortcut key. 
+     Applies to containers, buttons, and text.  The default value
+     is an empty string.
+	 
+	 <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note</b>: Assigning this property does not automatically assign the specified key
+	 combination to this object; you must do that yourself, for example, by
+	 listening for a <codeph class="+ topic/ph pr-d/codeph ">KeyboardEvent</codeph>.</p>
+	 
+	 <p class="- topic/p ">The syntax for this string uses long names for modifier keys, and
+	 the plus(+) character to indicate key combination. Examples of valid strings are
+	 "Ctrl+F", "Ctrl+Shift+Z", and so on.</p>
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.accessibility:AccessibilityProperties:silent" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">silent</apiName><shortdesc class="- topic/shortdesc ">
+	 If true, excludes this display object from accessible presentation.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 If <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, excludes this display object from accessible presentation.
+	 The default is <codeph class="+ topic/ph pr-d/codeph ">false</codeph>. Applies to whole SWF files, containers, buttons, and text.
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.accessibility:ISearchableText" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">ISearchableText</apiName><shortdesc class="- topic/shortdesc ">
+	The ISearchableText interface can be implemented by objects that 
+	contain text which should be searchable on the web.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiInterface class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiInterface "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier "/></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The ISearchableText interface can be implemented by objects that 
+	contain text which should be searchable on the web. 
+	
+	</apiDesc></apiClassifierDetail><apiValue id="flash.accessibility:ISearchableText:flash.accessibility:ISearchableText:searchText:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">searchText</apiName><shortdesc class="- topic/shortdesc "> 
+		 Gets the search text from a component implementing ISearchableText.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc "> 
+		 Gets the search text from a component implementing ISearchableText.
+		 
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.accessibility:Accessibility" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">Accessibility</apiName><shortdesc class="- topic/shortdesc ">
+ The Accessibility class manages communication with screen readers.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Accessibility, Accessibility object, built-in class
+ </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ The Accessibility class manages communication with screen readers. Screen readers are a 
+ type of assistive technology for visually impaired users that provides an audio version of 
+ screen content. The methods of the Accessibility class are static—that is, you don't 
+ have to create an instance of the class to use its methods.
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Mobile Browser Support:</b> This class is not supported in mobile browsers.</p>
+ <p class="- topic/p "><i class="+ topic/ph hi-d/i ">AIR profile support:</i> This feature is supported on all desktop operating systems, 
+ but is not supported on mobile devices or on AIR for TV devices. See 
+ <xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">
+ AIR Profile Support</xref> for more information regarding API support across multiple profiles.</p>
+ 
+ <p class="- topic/p ">To get and set accessible properties for a specific object, such as a button, movie 
+ clip, or text field, use the <codeph class="+ topic/ph pr-d/codeph ">DisplayObject.accessibilityProperties</codeph> property. 
+ To determine whether the player or runtime is running in an environment that supports accessibility aids, use 
+ the <codeph class="+ topic/ph pr-d/codeph ">Capabilities.hasAccessibility</codeph> property. </p>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> AIR 2 supports the JAWS 11 (or higher) screen reader software. For additional information,
+ please see http://www.adobe.com/accessibility/.</p>
+ 
+ </apiDesc><example conref="examples\AccessibilityExample.as" class="- topic/example "> The following example uses <codeph class="+ topic/ph pr-d/codeph ">AccessibilityExample</codeph>,
+ <codeph class="+ topic/ph pr-d/codeph ">CustomAccessibleButton</codeph>, <codeph class="+ topic/ph pr-d/codeph ">CustomSimpleButton</codeph>, and 
+ <codeph class="+ topic/ph pr-d/codeph ">ButtonDisplayState</codeph> sample classes to create an accessibility-compliant 
+ menu that works with most screen readers. The example carries out the following tasks:
+ <ol class="- topic/ol "><li class="- topic/li ">It traces the <codeph class="+ topic/ph pr-d/codeph ">Accessibility.active</codeph> property to determine whether a screen
+ reader is currently active and the player is communicating with it.</li><li class="- topic/li ">If the <codeph class="+ topic/ph pr-d/codeph ">active</codeph> property returns <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, the example calls the
+ <codeph class="+ topic/ph pr-d/codeph ">updateProperties()</codeph> method to apply the accessibility changes made to the buttons in 
+ this example.</li><li class="- topic/li ">The example calls the <codeph class="+ topic/ph pr-d/codeph ">flash.utils.setTimeout()</codeph> method, specifying that the <codeph class="+ topic/ph pr-d/codeph ">updateAccessibility()</codeph> closure method
+     should be called after 2 seconds.</li></ol>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note: </b>Call <codeph class="+ topic/ph pr-d/codeph ">setTimeout()</codeph> before checking <codeph class="+ topic/ph pr-d/codeph ">Accessibility.active</codeph> 
+ to give Flash Player the 2 seconds it needs to connect to a screen reader if one is available. 
+ If you do not supply a sufficient delay time, the <codeph class="+ topic/ph pr-d/codeph ">setTimeout</codeph> call might return <codeph class="+ topic/ph pr-d/codeph ">false</codeph> even if a screen reader is available.
+ </p>
+ <p class="- topic/p ">The following example processes the <codeph class="+ topic/ph pr-d/codeph ">Accessibility.updateProperties()</codeph> 
+ method only if the call to <codeph class="+ topic/ph pr-d/codeph ">Accessibility.active</codeph> returns <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, which occurs 
+ only if Flash Player is currently connected to an active screen reader. If <codeph class="+ topic/ph pr-d/codeph ">updateProperties</codeph>
+ is called without an active screen reader, it throws an <codeph class="+ topic/ph pr-d/codeph ">IllegalOperationError</codeph> exception.</p>
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.accessibility.Accessibility;
+    import flash.utils.setTimeout;
+    
+    public class AccessibilityExample extends Sprite {
+        public static const BUTTON_WIDTH:uint = 90;
+        public static const BUTTON_HEIGHT:uint = 20;
+        
+        private var gutter:uint = 5;
+        private var menuLabels:Array = new Array("PROJECTS", "PORTFOLIO", "CONTACT");
+        private var menuDescriptions:Array = new Array("Learn more about our projects"
+                                                     , "See our portfolio"
+                                                     , "Get in touch with our team");
+        
+        public function AccessibilityExample() {
+            configureAssets();
+            setTimeout(updateAccessibility, 2000); 
+        }
+        
+        private function updateAccessibility():void {
+            trace("Accessibility.active: " + Accessibility.active);
+            if(Accessibility.active) {
+                Accessibility.updateProperties();
+            }
+        }
+        
+        private function configureAssets():void {
+            var child:CustomAccessibleButton;
+            for(var i:uint; i &lt; menuLabels.length; i++) {
+                child = new CustomAccessibleButton();
+                child.y = (numChildren * (BUTTON_HEIGHT + gutter));
+                child.setLabel(menuLabels[i]);
+                child.setDescription(menuDescriptions[i]);
+                addChild(child);
+            }
+        }
+    }
+}
+    
+import flash.accessibility.AccessibilityProperties;
+import flash.display.Shape;
+import flash.display.SimpleButton;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.text.TextFormat;
+import flash.text.TextField;
+
+
+class CustomAccessibleButton extends Sprite {
+    private var button:SimpleButton;
+    private var label:TextField;
+    private var description:String;
+    private var _name:String;
+        
+    public function CustomAccessibleButton(_width:uint = 0, _height:uint = 0) {
+        _width = (_width == 0) ? AccessibilityExample.BUTTON_WIDTH : _width;
+        _height = (_height == 0) ? AccessibilityExample.BUTTON_HEIGHT : _height;
+        
+        button = buildButton(_width, _height);
+        label = buildLabel(_width, _height);
+            
+        addEventListener(Event.ADDED, addedHandler);
+    }
+        
+    private function addedHandler(event:Event):void {
+        trace("addedHandler: " + this._name);
+        var accessProps:AccessibilityProperties = new AccessibilityProperties();
+        accessProps.name = this._name;
+        accessProps.description = description;
+        accessibilityProperties = accessProps;
+        removeEventListener(Event.ADDED, addedHandler);
+    }
+        
+    private function buildButton(_width:uint, _height:uint):SimpleButton {
+        var child:SimpleButton = new CustomSimpleButton(_width, _height);
+        addChild(child);
+        return child;
+    }
+
+    private function buildLabel(_width:uint, _height:uint):TextField {
+        var format:TextFormat = new TextFormat();
+        format.font = "Verdana";
+        format.size = 11;
+        format.color = 0xFFFFFF;
+        format.align = TextFormatAlign.CENTER;
+        format.bold = true;
+        
+        var child:TextField = new TextField();
+        child.y = 1;
+        child.width = _width;
+        child.height = _height;
+        child.selectable = false;
+        child.defaultTextFormat = format;
+        child.mouseEnabled = false;
+            
+        addChild(child);
+        return child;
+    }
+        
+    public function setLabel(text:String):void {
+        label.text = text;
+        this._name = text;
+    }
+        
+    public function setDescription(text:String):void {
+        description = text;
+    }
+}
+    
+class CustomSimpleButton extends SimpleButton {
+    private var upColor:uint = 0xFFCC00;
+    private var overColor:uint = 0xCCFF00;
+    private var downColor:uint = 0x00CCFF;
+
+    public function CustomSimpleButton(_width:uint, _height:uint) {
+        downState = new ButtonDisplayState(downColor, _width, _height);
+        overState = new ButtonDisplayState(overColor, _width, _height);
+        upState = new ButtonDisplayState(upColor, _width, _height);
+        hitTestState = new ButtonDisplayState(upColor, _width, _height);
+        useHandCursor = true;
+    }        
+}
+
+class ButtonDisplayState extends Shape {
+    private var bgColor:uint;
+    private var _width:uint;
+    private var _height:uint;
+
+    public function ButtonDisplayState(bgColor:uint, _width:uint, _height:uint) {
+        this.bgColor = bgColor;
+        this._width = _width;
+        this._height = _height;
+        draw();
+    }
+
+    private function draw():void {
+        graphics.beginFill(bgColor);
+        graphics.drawRect(0, 0, _width, _height);
+        graphics.endFill();
+    }
+}
+</codeblock></example></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.display.xml#DisplayObject/accessibilityProperties" class="- topic/link "><linktext class="- topic/linktext ">flash.display.DisplayObject.accessibilityProperties</linktext></link><link href="flash.system.xml#Capabilities/hasAccessibility" class="- topic/link "><linktext class="- topic/linktext ">flash.system.Capabilities.hasAccessibility</linktext></link><link href="flash.net.xml#Socket" class="- topic/link "><linktext class="- topic/linktext ">Socket</linktext></link><link href="http://www.adobe.com/accessibility/" class="- topic/link "><linktext class="- topic/linktext ">http://www.adobe.com/accessibility/</linktext></link></related-links><apiOperation id="flash.accessibility:Accessibility:updateProperties" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">updateProperties</apiName><shortdesc class="- topic/shortdesc ">
+	Tells Flash Player to apply any accessibility changes made by using the DisplayObject.accessibilityProperties property.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">accessibility; Accessibility.updateProperties, updateProperties, screen reader,
+	MSAA
+    </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Accessibility is not supported in this version of
+	Flash Player. Do not call the <codeph class="+ topic/ph pr-d/codeph ">Accessibility.updateProperties()</codeph> method 
+	if the <codeph class="+ topic/ph pr-d/codeph ">flash.system.Capabilities.hasAccessibility</codeph> property is <codeph class="+ topic/ph pr-d/codeph ">false</codeph>.
+	
+	</apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Tells Flash Player to apply any accessibility changes made by using the <codeph class="+ topic/ph pr-d/codeph ">DisplayObject.accessibilityProperties</codeph> property.  
+	You need to call this method for your changes to take effect. 
+	
+	<p class="- topic/p ">If you modify the accessibility properties for multiple objects, only one call to the
+	<codeph class="+ topic/ph pr-d/codeph ">Accessibility.updateProperties()</codeph> method is necessary; multiple calls can result in
+	reduced performance and erroneous screen reader output.</p>
+	
+	</apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.accessibility.xml#Accessibility/active" class="- topic/link "><linktext class="- topic/linktext ">active</linktext></link><link href="flash.display.xml#DisplayObject/accessibilityProperties" class="- topic/link "><linktext class="- topic/linktext ">flash.display.DisplayObject.accessibilityProperties</linktext></link><link href="flash.system.xml#Capabilities/hasAccessibility" class="- topic/link "><linktext class="- topic/linktext ">flash.system.Capabilities.hasAccessibility</linktext></link></related-links></apiOperation><apiValue id="flash.accessibility:Accessibility:active:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">active</apiName><shortdesc class="- topic/shortdesc ">
+	Indicates whether a screen reader is active and the application is 
+	communicating with it.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">Accessibility.isActive, Accessibility, isActive, screen reader, MSAA
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Indicates whether a screen reader is active and the application is 
+	communicating with it. Use this method when you want your application to behave 
+	differently in the presence of a screen reader. 
+	
+	<p class="- topic/p ">Once this property is set to <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, it remains <codeph class="+ topic/ph pr-d/codeph ">true</codeph> for the duration 
+	of the application. (It is unusual for a user to turn off the screen reader once it is
+	started.)</p>
+	
+	<p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note: </b>Before calling this method, wait 1 or 2 seconds after launching your 
+	AIR application or after the first appearance of the Flash<sup class="+ topic/ph hi-d/sup ">®</sup> Player window in which 
+	your document is playing. Otherwise, you might get a return value of <codeph class="+ topic/ph pr-d/codeph ">false</codeph>
+	even if there is an active accessibility client. This happens because of an asynchronous 
+	communication mechanism between accessibility clients and Flash Player or AIR.</p>
+	
+	To determine whether the player is running in an environment that supports screen readers, use the  
+	<codeph class="+ topic/ph pr-d/codeph ">Capabilities.hasAccessibility</codeph> property. 
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.system.xml#Capabilities/hasAccessibility" class="- topic/link "><linktext class="- topic/linktext ">flash.system.Capabilities.hasAccessibility</linktext></link><link href="flash.accessibility.xml#Accessibility/updateProperties()" class="- topic/link "><linktext class="- topic/linktext ">updateProperties()</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

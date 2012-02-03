@@ -1,0 +1,1679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.collections"><apiName>mx.collections</apiName><apiDetail/><apiClassifier id="mx.collections:ItemResponder"><apiName>ItemResponder</apiName><shortdesc>
+  ItemResponder 类提供 mx.rpc.IResponder 接口的默认实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.rpc:IResponder</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ItemResponder 类提供 <codeph>mx.rpc.IResponder</codeph> 接口的默认实现。它提供一个 responder，使您可以在完成请求（无论是成功完成还是发生错误）时指定要调用的方法。通过此类对象，您还可以提供 responder 方法要使用的数据（标记）。
+ 
+ <p>将 <codeph>ItemResponder</codeph> 对象用于 try 块的 <codeph>catch</codeph> 语句，可能导致获取远程数据，如以下代码所示：</p>
+ 
+  <pre><codeph>
+     import mx.collections.ItemResponder;
+     //...
+ 
+     try
+     {
+        //...
+        cursor.moveNext();
+     }
+    catch(e:ItemPendingError)
+     {
+        e.addResponder(new ItemResponder(myResultFunction, myFaultFunction, {info:"..."}));
+     }
+  </codeph></pre>
+ 
+  <p>指定的 result 方法必须具有以下签名：</p>
+ 
+  <codeph><pre>
+     public function myResultFunction(result:Object, token:Object = null):void;
+  </pre></codeph>
+ 
+  <p>指定的 fault 方法必须具有以下签名：</p>
+ 
+  <codeph><pre>
+     public function myFaultFunction(error:Object, token:Object = null):void;
+  </pre></codeph>
+ 
+  <p>任何其他签名都会导致运行时错误。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link></related-links><apiConstructor id="mx.collections:ItemResponder:ItemResponder"><apiName>ItemResponder</apiName><shortdesc>
+	  使用指定的数据和处理函数构造 responder 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>result</apiItemName><apiType value="Function"/><apiDesc>成功完成请求时应调用的函数。必须具有以下签名：<codeph><pre>
+	     		    public function (result:Object, token:Object = null):void;
+	  		</pre></codeph>
+	  </apiDesc></apiParam><apiParam><apiItemName>fault</apiItemName><apiType value="Function"/><apiDesc>请求完成但出错时应调用的函数。必须具有以下签名：<codeph><pre>
+	     		    public function (error:ErrorMessage, token:Object = null):void;
+	  		</pre></codeph>
+	  </apiDesc></apiParam><apiParam><apiItemName>token</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>与此请求相关的对象的 [可选] 其他信息。此对象将作为 result 和 fault 函数的第二个参数传递给它们。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  使用指定的数据和处理函数构造 responder 实例。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:ItemResponder:fault"><apiName>fault</apiName><shortdesc>
+	  收到错误后由服务调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>info</apiItemName><apiType value="Object"/><apiDesc>包含有关发生的错误的信息的对象。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  收到错误后由服务调用此方法。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ItemResponder:result"><apiName>result</apiName><shortdesc>
+	  收到返回值后由服务调用此方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>包含从请求返回的信息的对象。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  收到返回值后由服务调用此方法。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.collections:Sort"><apiName>Sort</apiName><shortdesc>
+  提供在现有视图上建立排序所需的排序信息（ICollectionView 接口或实现此接口的类）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.collections:Sort" replacement="spark.collections.Sort" since="4.5">
+	</Alternative><DefaultProperty name="fields"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Sort&gt;</code> tag has the following attributes:</p>
+ 
+  <pre>
+  &lt;mx:Sort
+  <b>Properties</b>
+  compareFunction="<em>Internal compare function</em>"
+  fields="null"
+  unique="false | true"
+  /&gt;
+  </pre>
+ 
+  <p>In case items have inconsistent data types or items have complex data 
+  types, the use of the default built-in compare functions is not recommended.
+  Inconsistent sorting results may occur in such cases. To avoid such problem,
+  provide a custom compare function and/or make the item types consistent.</p>
+ 
+  <p>Just like any other <code>AdvancedStyleClient</code>-based classes, 
+  the <code>Sort</code> and <code>SortField</code> classes do not have a 
+  parent-child relationship in terms of event handling. Locale changes in a 
+  <code>Sort</code> instance are not dispatched to its <code>SortField</code> 
+  instances automatically. The only exceptional case is the internal default 
+  <code>SortField</code> instance used when no explicit fields are provided.
+  In this case, the internal default <code>SortField</code> instance follows 
+  the locale style that the owner <code>Sort</code> instance has.</p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISort</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  提供在现有视图上建立排序所需的排序信息（ICollectionView 接口或实现此接口的类）。将 Sort 实例分配给视图的 <codeph>sort</codeph> 属性后，必须调用该视图的 <codeph>refresh()</codeph> 方法才能应用此排序标准。通常，这种排序是针对包含复杂项目的集合定义的，这样的集合是指那些对其中的对象的一个或多个属性执行排序的集合。以下示例显示了这种用法：
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     // In the real world, the collection would have more than one item.
+     col.addItem({first:"Anders", last:"Dickerson"});
+     // Create the Sort instance.
+     var sort:Sort = new Sort();
+     // Set the sort field; sort on the last name first, first name second.
+     // Both fields are case-insensitive.
+     sort.fields = [new SortField("last",true), new SortField("first",true)];
+       // Assign the Sort object to the view.
+     col.sort = sort;
+     // Apply the sort to the collection.
+     col.refresh();
+  </codeph></pre>
+ 
+  <p>也有集合中包含简单项目（如 <codeph>String</codeph>、<codeph>Date</codeph> 和 <codeph>Boolean</codeph> 等）的情形。在这种情况下，可直接对简单类型应用排序。在构造简单项目的排序时，请使用一个排序字段，并在 SortField 对象构造函数中指定 <codeph>null</codeph> <codeph>name</codeph>（第一个）参数。例如：
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     col.addItem("California");
+     col.addItem("Arizona");
+     var sort:Sort = new Sort();
+     // There is only one sort field, so use a <codeph>null</codeph> 
+     // first parameter.
+     sort.fields = [new SortField(null, true)];
+     col.sort = sort;
+     col.refresh();
+  </codeph></pre>
+  </p>
+ 
+  <p>ICollectionView 接口的 Flex 实现将先检索远程位置的所有项目，然后再执行排序。如果要对排序后的列表使用分页，请在检索数据之前对远程集合应用排序。
+  </p>
+ 
+  <p>默认情况下，此 Sort 类不会提供正确的特定于语言的字符串排序。对于这种类型的排序，请参阅 <codeph>spark.collections.Sort</codeph> 和 <codeph>spark.collections.SortField</codeph> 类。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#ICollectionView"><linktext>mx.collections.ICollectionView</linktext></link><link href="mx.collections.xml#ISortField"><linktext>ISortField</linktext></link><link href="" invalidHref="spark.collections.Sort.xml"><linktext>spark.collections.Sort</linktext></link><link href="" invalidHref="spark.collections.SortField.xml"><linktext>spark.collections.SortField</linktext></link></related-links><apiConstructor id="mx.collections:Sort:Sort"><apiName>Sort</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      <p>创建一个不带字段集和自定义比较运算符的新 Sort。</p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:Sort:findItem"><apiName>findItem</apiName><shortdesc>
+      
+      查找指定的数组内的指定对象（或插入点 — 如有要求）。如果找到，则返回其索引；如果未找到，则返回 -1。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>int，找到的项目在数组中的索引。如果 <codeph>returnInsertionIndex</codeph> 参数为 <codeph>false</codeph> 并且找不到项目，则返回 -1。如果 <codeph>returnInsertionIndex</codeph> 参数为 <codeph>true</codeph> 并且找不到项目，则返回已排序数组中将插入这些值的点的索引。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Array"/><apiDesc>要在其中进行搜索的 Array。
+      </apiDesc></apiParam><apiParam><apiItemName>values</apiItemName><apiType value="Object"/><apiDesc>包含要查找的属性（或要查找的对象本身）的对象。此对象必须包含字段名/值对，其中的字段名是 <codeph>fields</codeph> 属性指定的字段的名称，其顺序与在此属性中使用的顺序相同。您不必指定 <codeph>fields</codeph> 属性中的所有字段，但不得在顺序中跳跃指定。因此，如果 <codeph>fields</codeph> 属性列出了三个字段，则可以指定此参数中的第一个和第二个字段，但不能仅指定第一个和第三个字段。
+      </apiDesc></apiParam><apiParam><apiItemName>mode</apiItemName><apiType value="String"/><apiDesc>包含要执行的查找类型的字符串。有效值为：
+                 <adobetable>
+                   
+                   
+                   
+                   <tgroup cols="2"><thead><row><entry>ANY_INDEX_MODE</entry><entry>返回对这些值有效的任何位置。</entry></row></thead><tbody><row>
+                     <entry>FIRST_INDEX_MODE</entry> 
+                     <entry>返回这些值第一次出现的位置。</entry>
+                   </row><row>
+                     <entry>LAST_INDEX_MODE</entry> 
+                     <entry>返回指定的值最后一次出现的位置。
+                     </entry>
+                   </row></tbody></tgroup></adobetable>
+      </apiDesc></apiParam><apiParam><apiItemName>returnInsertionIndex</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果该方法找不到由 <codeph>values</codeph> 参数标识的项目，并且此参数为 <codeph>true</codeph>，则 <codeph>findItem()</codeph> 方法将返回这些值的插入点，也就是排序顺序中应插入此项目的点。
+      </apiDesc></apiParam><apiParam><apiItemName>compareFunction</apiItemName><apiType value="Function"/><apiData>null</apiData><apiDesc>用于查找该项目的比较运算符函数。如果没有指定此参数，或提供了 <codeph>null</codeph> 值，则 <codeph>findItem()</codeph> 函数使用由 <codeph>ISort</codeph> 实例的 <codeph>compareFunction</codeph> 属性确定的比较函数，传入由值对象和当前 <codeph>SortFields</codeph> 确定的字段数组。如果您提供了非 null 值，则 <codeph>findItem()</codeph> 函数将其用作比较函数。作为 <codeph>compareFunction</codeph> 传递的函数签名必须如下所示：<codeph>function myCompareFunction(a:Object, b:Object):int</codeph>。请注意，没有与 <codeph>ISort.compareFunction()</codeph> 属性的比较函数不同的第三个参数。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      查找指定的数组内的指定对象（或插入点 — 如有要求）。如果找到，则返回其索引；如果未找到，则返回 -1。<codeph>ListCollectionView</codeph> 类的 <codeph>find<i>xxx</i>()</codeph> 方法使用此方法查找所需项目；一般来说，与 <codeph>findItem()</codeph> 相比，使用这些函数更易于在基于 <codeph>ListCollectionView</codeph> 的对象中查找数据。您可以在写入支持排序的类（如新的 ICollectionView 实现）时直接调用 <codeph>findItem()</codeph> 方法。<codeph/>调用该函数前需要对输入项数组进行排序。否则该函数无法正确找到指定值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:Sort:propertyAffectsSort"><apiName>propertyAffectsSort</apiName><shortdesc>
+      
+      返回表明指定的属性是否用于控制排序的布尔值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>该属性值是否会影响排序结果。如果排序使用默认的 compareFunction，并且 <codeph>property</codeph> 参数指定了排序字段，则返回 <codeph>true</codeph>。如果排序或任何 <codeph>ISortField</codeph> 使用自定义比较运算符，则无法进行判断，因此返回 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiDesc>要测试的字段的名称。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回表明指定的属性是否用于控制排序的布尔值。如果排序使用自定义比较运算符，则函数无法确定确切的答案；在这种情况下，始终返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:Sort:reverse"><apiName>reverse</apiName><shortdesc>
+      
+      检查 fields 数组，对数组中每个 ISortField 对象调用 reverse()。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      检查 <codeph>fields</codeph> 数组，对数组中每个 <codeph>ISortField</codeph> 对象调用 <codeph>reverse()</codeph>。如果该字段原来为降序排序，则现在它将按升序排序，反之亦然。
+     
+      <p>注意：修改 <codeph>fields</codeph> 数组中的对象时不会自动更新 <codeph>ICollectionView</codeph>；而调用 <codeph>refresh()</codeph> 方法可更新此视图。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:Sort:sort"><apiName>sort</apiName><shortdesc>
+      
+      对指定的数组（不是副本）应用当前排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Array"/><apiDesc>要排序的项目的数组。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      对指定的数组（不是副本）应用当前排序。要防止修改数组，请创建一个副本并在 <codeph>items</codeph> 参数中使用该副本。
+     
+      <p>Flex <codeph>ICollectionView</codeph> 实现自动调用 <codeph>sort</codeph> 方法并确保对基础数据的副本执行排序。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:Sort:ANY_INDEX_MODE"><apiName>ANY_INDEX_MODE</apiName><shortdesc>
+      执行查找时返回任何匹配项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>any</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      执行查找时返回任何匹配项的索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Sort:FIRST_INDEX_MODE"><apiName>FIRST_INDEX_MODE</apiName><shortdesc>
+      执行查找时返回第一个匹配项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>first</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      执行查找时返回第一个匹配项的索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Sort:LAST_INDEX_MODE"><apiName>LAST_INDEX_MODE</apiName><shortdesc>
+      执行查找时返回最后一个匹配项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      执行查找时返回最后一个匹配项的索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Sort:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      
+      用于在排序时比较项目的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      
+      用于在排序时比较项目的方法。如果指定了此属性，Flex 会忽略在此类中使用的 ISortField 对象中指定的所有 <codeph>compareFunction</codeph> 属性。<codeph/>
+     
+      <p>该比较函数必须具有以下签名：</p>
+     
+      <pre><codeph>
+     
+         function [name](a:Object, b:Object, fields:Array = null):int
+     
+      </codeph></pre>
+     
+      <p>此函数必须返回以下值：
+      <ul>
+            <li>-1，如果在已排序序列中 <codeph>Object a</codeph> 应显示在 <codeph>Object b</codeph> 之前。</li>
+            <li>0，如果 <codeph>Object a</codeph> 等于 <codeph>Object b</codeph>。</li>
+            <li>1，如果在已排序序列中 <codeph>Object a</codeph> 应显示在 <codeph>Object b</codeph> 之后。</li>
+      </ul></p>
+      <p>要返回到内部比较函数，请将此值设置为 <codeph>null</codeph>。</p>
+      <p>
+      <codeph>fields</codeph> 数组会指定要比较的对象字段。通常，算法将一直比较属性，直到用尽字段列表或能返回非零值。例如：</p>
+     
+      <pre><codeph>
+        function myCompare(a:Object, b:Object, fields:Array = null):int
+        {
+            var result:int = 0;
+            var i:int = 0;
+            var propList:Array = fields ? fields : internalPropList;
+            var len:int = propList.length;
+            var propName:String;
+            while (result == 0 &amp;&amp; (i &lt; len))
+            {
+                propName = propList[i];
+                result = compareValues(a[propName], b[propName]);
+                i++;
+            }
+            return result;
+        }
+     
+        function compareValues(a:Object, b:Object):int
+        {
+            if (a == null &amp;&amp; b == null)
+                return 0;
+     
+            if (a == null)
+              return 1;
+     
+            if (b == null)
+               return -1;
+     
+            if (a &lt; b)
+                return -1;
+     
+            if (a > b)
+                return 1;
+     
+            return 0;
+        }
+      </codeph></pre>
+     
+      <p>默认值为可以按升序或降序执行字符串、数字或日期比较的内部比较函数。仅在需要自定义比较算法时指定您自己的函数。这种情况通常仅当在显示中使用计算的字段时出现。</p>
+     
+      <p>或者，您可以通过使用 <codeph>ISortField</codeph> 类的 <codeph>compareFunction</codeph> 属性分别为每个排序字段指定比较函数；这样，您可以对一些字段使用默认比较，而对其它字段使用自定义比较。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:Sort:fields:get"><apiName>fields</apiName><shortdesc>
+      
+      指定要比较的字段的 ISortField 对象 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="fieldsChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      指定要比较的字段的 <codeph>ISortField</codeph> 对象的 <codeph>Array</codeph>。在进行排序时，数组中 ISortField 对象的顺序确定字段的优先级顺序。默认排序比较运算符会一直检查数组顺序中的排序字段，直到确定了两个要比较的字段的排序顺序。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#SortField"><linktext>SortField</linktext></link></related-links></apiValue><apiValue id="mx.collections:Sort:unique:get"><apiName>unique</apiName><shortdesc>
+      
+      指示排序是否应是唯一的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      指示排序是否应是唯一的。如果字段属性中列出的字段指定的任何值或组合值导致不确定或非唯一的排序顺序，则唯一排序会失败；也就是说，在两个或多个项目具有相同排序字段值时会出现此情况。如果排序不唯一，将引发错误。仅当显式指定排序字段时，排序逻辑才使用该 <codeph>unique</codeph> 属性值。如果未显式指定排序字段，则具有相同值元素时也不会引发错误。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:ISortField"><apiName>ISortField</apiName><shortdesc>
+  ISortField 接口定义与 ISort 类一起使用的类的接口，以提供对集合视图中的特定字段或属性进行排序所需要的排序信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  <codeph>ISortField</codeph> 接口定义与 <codeph>ISort</codeph> 类一起使用的类的接口，以提供对集合视图中的特定字段或属性进行排序所需要的排序信息。
+ 
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.collections:ISortField:mx.collections:ISortField:initializeDefaultCompareFunction"><apiName>initializeDefaultCompareFunction</apiName><shortdesc>
+      设置默认比较函数以执行比较时，Sort 类将根据以下三项内容之一来调用帮助器函数：是否已设置自定义比较函数、指定字段的数据类型或 numeric 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>包含数据的对象。如果已通过 name 属性设置了字段名称，则将使用该名称访问此对象的数据值。否则，将使用对象本身作为数据值。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      设置默认比较函数以执行比较时，<codeph>Sort</codeph> 类将根据以下三项内容之一来调用帮助器函数：是否已设置自定义比较函数、指定字段的数据类型或 numeric 属性的值。如果 <codeph>numeric</codeph> 属性为 true，将在排序时执行数字比较。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISortField:mx.collections:ISortField:reverse"><apiName>reverse</apiName><shortdesc>
+      反转此排序字段的条件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      反转此排序字段的条件。例如，如果该字段原来按降序排序，则现在按升序排序。
+           <p>注意：修改 <codeph>ISortFields</codeph> 时不会自动更新 <codeph>ICollectionView</codeph>；而调用 <codeph>refresh()</codeph> 方法可更新此视图。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:ISortField:mx.collections:ISortField:arraySortOnOptions:get"><apiName>arraySortOnOptions</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      <codeph/><codeph/>不支持该属性的其它用法。如果 <codeph>Sort</codeph> 类不使用此 ISortField 对字段进行排序，则返回 -1（没有 compareFunction 或没有名称）。否则，返回排序选项的位掩码。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ISortField:mx.collections:ISortField:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      用于在对关联集合的项目进行排序时比较两个项目的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      用于在对关联集合的项目进行排序时比较两个项目的函数。如果指定了 ISort 对象中的 <codeph>compareFunction</codeph> 属性，则 Flex 会忽略 ISort 的 ISortField 对象的所有 <codeph>compareFunction</codeph> 属性。
+      <p>该比较函数必须具有以下签名：</p>
+           <p><codeph>function myCompare(a:Object, b:Object):int</codeph></p>
+           <p>此函数返回以下值：</p>
+            <ul>
+            <li>-1，如果在已排序序列中 <codeph>a</codeph> 应显示在 <codeph>b</codeph> 之前</li>
+            <li>0，如果 <codeph>a</codeph> 等于 <codeph>b</codeph></li>
+            <li>1，如果在已排序序列中 <codeph>a</codeph> 应显示在 <codeph>b</codeph> 之后</li>
+      </ul>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ISortField:mx.collections:ISortField:descending:get"><apiName>descending</apiName><shortdesc>
+      指定此字段是否应按降序排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定此字段是否应按降序排序。
+           <p>默认值为 <codeph>false</codeph>（升序）。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ISortField:mx.collections:ISortField:name:get"><apiName>name</apiName><shortdesc>
+      要排序的字段的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      要排序的字段的名称。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ISortField:mx.collections:ISortField:numeric:get"><apiName>numeric</apiName><shortdesc>
+      指定当要进行排序的字段包含数值 (number/int/uint) 或数值的字符串表示形式时，比较运算符是否使用数值比较。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+      
+           </apiDefaultValue></apiValueDef><apiDesc>
+      指定当要进行排序的字段包含数值 (<codeph>number/int/uint</codeph>) 或数值的字符串表示形式时，比较运算符是否使用数值比较。
+      <p>
+      未提供自定义比较函数的情况下，<codeph>SortField</codeph> 类会使用该属性。
+      </p>
+      <p>
+      如果该属性为 <codeph>true</codeph>，则会使用内置数值比较函数。比较前每个数据项分派给 <codeph>Number()</codeph> 函数。
+      </p>
+      <p>
+      如果该属性为 <codeph>false</codeph>，则会使用内置字符串比较函数。比较前每个数据项分派给 <codeph>String()</codeph> 函数。
+      </p>
+      <p>
+      如果此属性为 <codeph>null</codeph>，则内部检查第一个数据项以查看它是否为数字或字符串，并基于内部检查结果继续进行排序。
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ISortField:mx.collections:ISortField:usingCustomCompareFunction:get"><apiName>usingCustomCompareFunction</apiName><shortdesc>
+      如果此 ISortField 使用自定义比较运算符函数，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><compareFunction>      </compareFunction></asCustoms></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果此 <codeph>ISortField</codeph> 使用自定义比较运算符函数，则为 true。
+           </apiDesc></apiValueDetail><related-links><link href=""><linktext/></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:ArrayList"><apiName>ArrayList</apiName><shortdesc>
+  ArrayList 类是使用后备 Array 作为数据源的 IList 的一个简单实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="source"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IList</apiBaseInterface><apiBaseInterface>flash.utils:IExternalizable</apiBaseInterface><apiBaseInterface>mx.core:IPropertyChangeNotifier</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ArrayList 类是使用后备 Array 作为数据源的 IList 的一个简单实现。可以通过使用 <codeph>IList</codeph> 接口的方法和属性，访问和操纵后备 Array 中的项目。对 ArrayList 实例进行操作会修改数据源；例如，如果对 ArrayList 使用 <codeph>removeItemAt()</codeph> 方法，就会删除基础 Array 中的项目。此基类将不会引发 ItemPendingErrors，但子类有可能会引发。
+ 
+  <pre>
+  &lt;mx:ArrayList
+  <b>Properties</b>
+  source="null"
+  />
+  </pre>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.collections:ArrayList_mx.events.CollectionEvent.COLLECTION_CHANGE_collectionChange"><apiName>collectionChange</apiName><shortdesc>
+  以某种方式更新 IList 后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.CollectionEvent.COLLECTION_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.CollectionEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  以某种方式更新 IList 后分派。
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.collections:ArrayList:ArrayList"><apiName>ArrayList</apiName><shortdesc>
+      使用指定的数组作为 ArrayList 源，构造新的 ArrayList。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>source</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>用作 ArrayList 源的数组。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      使用指定的数组作为 ArrayList 源，构造新的 ArrayList。如果未指定源，将使用空数组。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:ArrayList:addAllAt"><apiName>addAllAt</apiName><shortdesc conref="mx.collections.ListCollectionView#addAllAt()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>addList</apiItemName><apiOperationClassifier>mx.collections:IList</apiOperationClassifier><apiDesc>要添加到当前列表的项目列表
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>当前列表中放置新项目的位置。
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.collections.ListCollectionView#addAllAt()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:addAll"><apiName>addAll</apiName><shortdesc conref="mx.collections.ListCollectionView#addAll()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>addList</apiItemName><apiOperationClassifier>mx.collections:IList</apiOperationClassifier><apiDesc>要添加到当前列表的项目列表
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc conref="mx.collections.ListCollectionView#addAll()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:addItemAt"><apiName>addItemAt</apiName><shortdesc>
+      在指定的索引处添加项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果索引小于 0 或大于长度
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要置于索引处的项目
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要放置项目的索引位置
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在指定的索引处添加项目。原先位于此索引之后的所有项目将移动一个位置。  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:addItem"><apiName>addItem</apiName><shortdesc>
+      将指定的项目添加到列表末尾。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要添加的项目
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将指定的项目添加到列表末尾。等效于 addItemAt(item, length)；
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:getItemAt"><apiName>getItemAt</apiName><shortdesc>
+      获取位于指定索引处的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果需要从远程位置加载此索引的数据
+      </apiDesc><apiItemName>ItemPendingError</apiItemName><apiOperationClassifier>ItemPendingError</apiOperationClassifier></apiException><apiException><apiDesc>如果 index &lt; 0 或 index >= length
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>此索引处的项目；如果没有项目，则为 null
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中检索项目的列表中的索引
+      </apiDesc></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>一个 int，指示当项目不是本地项目时，在请求期间要访存的项目的方向和数量。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取位于指定索引处的项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+      如果项目位于列表中（这样的话 getItemAt(index) == item），则返回该项目的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>项目的索引；如果该项目不在列表中则返回 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要查找的项目
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果项目位于列表中（这样的话 getItemAt(index) == item），则返回该项目的索引。请注意，在该实现中搜索为线性，因此为 O(n)。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:protected:itemUpdateHandler"><apiName>itemUpdateHandler</apiName><shortdesc>
+      列表中包含的任何项分派 ObjectChange 事件时调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>mx.events:PropertyChangeEvent</apiOperationClassifier><apiDesc>ObjectChange 事件的事件对象。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      列表中包含的任何项分派 ObjectChange 事件时调用。在 <codeph>CollectionEventKind.UPDATE</codeph> 对象中回绕它。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:itemUpdated"><apiName>itemUpdated</apiName><shortdesc>
+      通知视图，某个项目已更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>已在视图中更新的项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>指定已更新属性的 String、QName 或 int。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的旧值。（如果属性为 null，则它可以是该项目的旧值。）
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的新值。（如果属性为 null，则无需指定它，因为已假定该项目为新值。）
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通知视图，某个项目已更新。如果视图的内容不实现 <codeph>IEventDispatcher</codeph>，则这非常有用。如果已指定属性，该视图也许能优化其通知机制。否则，它可能选择仅刷新整个视图。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#CollectionEvent"><linktext>mx.events.CollectionEvent</linktext></link><link href="mx.core.xml#IPropertyChangeNotifier"><linktext>mx.core.IPropertyChangeNotifier</linktext></link><link href="mx.events.xml#PropertyChangeEvent"><linktext>mx.events.PropertyChangeEvent</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:ArrayList:removeAll"><apiName>removeAll</apiName><shortdesc> 
+      删除列表中的所有项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc> 
+      删除列表中的所有项目。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:removeItemAt"><apiName>removeItemAt</apiName><shortdesc>
+      删除指定索引处的项目并返回该项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 index &lt; 0 或 index >= length。
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>被删除的项目。
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中删除项目的索引。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除指定索引处的项目并返回该项目。原先位于此索引之后的所有项目的索引现在都向前移动一个位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:removeItem"><apiName>removeItem</apiName><shortdesc>
+      从此列表中删除指定的项目（如果存在）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Boolean，指示是否已删除项目。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>对应该删除的项目的对象引用。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      从此列表中删除指定的项目（如果存在）。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:setItemAt"><apiName>setItemAt</apiName><shortdesc>
+      将项目置于指定索引处。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果索引小于 0 或大于等于 length
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>已替换的项目；如果没有项目，则为 null
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>索引的新值
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要放置项目的索引位置
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将项目置于指定索引处。如果此索引处已存在项目，新项目将替代该项目，并返回该项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:protected:startTrackUpdates"><apiName>startTrackUpdates</apiName><shortdesc> 
+      如果该项是 IEventDispatcher，请观察其更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>传递至 <codeph>addItemAt()</codeph> 方法的项。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      如果该项是 IEventDispatcher，请观察其更新。此方法是由 <codeph>addItemAt()</codeph> 方法在最初指定源时调用的。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:protected:stopTrackUpdates"><apiName>stopTrackUpdates</apiName><shortdesc> 
+      如果该项是 IEventDispatcher，请停止观察其更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>传递至 <codeph>removeItemAt()</codeph> 方法的项。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      如果该项是 IEventDispatcher，请停止观察其更新。该方法由 <codeph>removeItemAt()</codeph> 和 <codeph>removeAll()</codeph> 方法在指定新源之前调用。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:toArray"><apiName>toArray</apiName><shortdesc>
+      返回与 IList 实现的填充顺序相同的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果数据尚未从远程位置完全加载
+      
+      </apiDesc><apiItemName>ItemPendingError</apiItemName><apiOperationClassifier>ItemPendingError</apiOperationClassifier></apiException><apiReturn><apiDesc>与 IList 实现的填充顺序相同的 Array。
+     
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      返回与 IList 实现的填充顺序相同的 Array。  
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ArrayList:toString"><apiName>toString</apiName><shortdesc>
+      将此 ArrayList 的内容整齐显示为字符串并将其返回。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>包含 ArrayList 内容的 String。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      将此 ArrayList 的内容整齐显示为字符串并将其返回。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:ArrayList:length:get"><apiName>length</apiName><shortdesc>
+      获取列表中的项目数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="collectionChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      获取列表中的项目数。ArrayList 应该始终知道其 length，因此它不应该返回 -1（尽管某个子类可能会覆盖该行为）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ArrayList:source:get"><apiName>source</apiName><shortdesc>
+      此 ArrayList 的源数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      此 ArrayList 的源数组。在源数组中将反映通过 IList 接口所进行的任何更改。如果未提供源数组，则 ArrayList 将在内部创建一个。直接对基础 Array 所做的更改（例如，调用 <codeph>theList.source.pop()</codeph>）将不会导致 <codeph>CollectionEvents</codeph> 被分派。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ArrayList:uid:get"><apiName>uid</apiName><shortdesc>
+      提供对此列表的唯一 ID 的访问。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      提供对此列表的唯一 ID 的访问。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:SortField"><apiName>SortField</apiName><shortdesc>
+  提供对集合视图中的字段或属性建立排序所需的排序信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Alternative owner="mx.collections:SortField" replacement="spark.collections.SortField" since="4.5">
+	</Alternative></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SortField&gt;</code> tag has the following attributes:</p>
+ 
+  <pre>
+  &lt;mx:SortField
+  <b>Properties</b>
+  caseInsensitive="false"
+  compareFunction="<em>Internal compare function</em>"
+  descending="false"
+  name="null"
+  numeric="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ISortField</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  提供对集合视图中的字段或属性建立排序所需的排序信息。SortField 类打算与 Sort 类一起使用。通常，这种排序是针对包含复杂项目的集合定义的，复杂项目是指那些要在其中对这些对象的属性执行排序的项目。如下例所示：
+ 
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     col.addItem({first:"Anders", last:"Dickerson"});
+     var sort:Sort = new Sort();
+     sort.fields = [new SortField("first", true)];
+     col.sort = sort;
+  </codeph></pre>
+ 
+  也有集合中包含简单项目（如 <codeph>String</codeph>、<codeph>Date</codeph> 和 <codeph>Boolean</codeph> 等）的情形。在这种情况下，应直接对简单类型应用排序。在这种情况下构造排序时，只需要一个排序字段，且不应指定 <codeph>name</codeph>。例如：
+ 
+  <pre><codeph>
+     var col:ICollectionView = new ArrayCollection();
+     col.addItem("California");
+     col.addItem("Arizona");
+     var sort:Sort = new Sort();
+     sort.fields = [new SortField(null, true)];
+     col.sort = sort;
+  </codeph></pre>
+ 
+  <p>默认情况下，SortField 类提供的比较不提供正确的特定于语言的字符串排序。对于这种类型的排序，请参阅 <codeph>spark.collections.Sort</codeph> 和 <codeph>spark.collections.SortField</codeph> 类。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#ICollectionView"><linktext>mx.collections.ICollectionView</linktext></link><link href="mx.collections.xml#Sort"><linktext>mx.collections.Sort</linktext></link><link href="" invalidHref="spark.collections.Sort.xml"><linktext>spark.collections.Sort</linktext></link><link href="" invalidHref="spark.collections.SortField.xml"><linktext>spark.collections.SortField</linktext></link></related-links><apiConstructor id="mx.collections:SortField:SortField"><apiName>SortField</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>此字段用来进行比较的属性的名称。如果该对象为简单类型，则传递 <codeph>null</codeph>。
+      </apiDesc></apiParam><apiParam><apiItemName>caseInsensitive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>在对字符串进行排序时，指示比较运算符是否忽略值的大小写。
+      </apiDesc></apiParam><apiParam><apiItemName>descending</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示比较运算符是否按降序排列项目。
+      </apiDesc></apiParam><apiParam><apiItemName>numeric</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>指示比较运算符是否按编号而不按字母顺序比较排序项目。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:SortField:initializeDefaultCompareFunction"><apiName>initializeDefaultCompareFunction</apiName><shortdesc>
+      
+      设置默认比较函数以执行比较时，Sort 类将根据以下三项内容之一来调用帮助器函数：是否已设置自定义比较函数、指定字段的数据类型或 numeric 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/><apiDesc>包含数据的对象。如果已通过 name 属性设置了字段名称，则将使用该名称访问此对象的数据值。否则，将使用对象本身作为数据值。
+           </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      设置默认比较函数以执行比较时，<codeph>Sort</codeph> 类将根据以下三项内容之一来调用帮助器函数：是否已设置自定义比较函数、指定字段的数据类型或 numeric 属性的值。如果 <codeph>numeric</codeph> 属性为 true，将在排序时执行数字比较。
+           </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:SortField:reverse"><apiName>reverse</apiName><shortdesc>
+      
+      反转此排序字段的条件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      反转此排序字段的条件。例如，如果该字段原来按降序排序，则现在按升序排序。
+           <p>注意：修改 <codeph>ISortFields</codeph> 时不会自动更新 <codeph>ICollectionView</codeph>；而调用 <codeph>refresh()</codeph> 方法可更新此视图。</p>
+           </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:SortField:arraySortOnOptions:get"><apiName>arraySortOnOptions</apiName><shortdesc>
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+     
+      <codeph/><codeph/>不支持该属性的其它用法。如果 <codeph>Sort</codeph> 类不使用此 ISortField 对字段进行排序，则返回 -1（没有 compareFunction 或没有名称）。否则，返回排序选项的位掩码。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SortField:caseInsensitive:get"><apiName>caseInsensitive</apiName><shortdesc>
+      指定此字段的排序是否应不区分大小写。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="caseInsensitiveChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定此字段的排序是否应不区分大小写。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SortField:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      用于在对关联集合的项目进行排序时比较两个项目的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      用于在对关联集合的项目进行排序时比较两个项目的函数。如果指定了 ISort 对象中的 <codeph>compareFunction</codeph> 属性，则 Flex 会忽略 ISort 的 SortField 对象的所有 <codeph>compareFunction</codeph> 属性。
+      <p>该比较函数必须具有以下签名：</p>
+     
+      <p><codeph>function myCompare(a:Object, b:Object):int</codeph></p>
+     
+      <p>此函数必须返回以下值：</p>
+     
+       <ul>
+            <li>-1，如果在已排序序列中 <codeph>a</codeph> 应显示在 <codeph>b</codeph> 之前</li>
+            <li>0，如果 <codeph>a</codeph> 等于 <codeph>b</codeph></li>
+            <li>1，如果在已排序序列中 <codeph>a</codeph> 应显示在 <codeph>b</codeph> 之后</li>
+      </ul>
+     
+      <p>默认值为具有以下特征的内部比较函数：可以通过区分大小写或不区分大小写的字符串比较按升序或降序执行字符串、数字或日期比较。仅在需要自定义比较算法时指定您自己的函数。这种情况通常仅当在显示中使用计算的字段时出现。</p>
+      
+      注意，如有需要，请按照特定语言进行排序，然后考虑使用 <codeph>spark.collections.SortField</codeph> 类。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="spark.collections.SortField.xml"><linktext>spark.collections.SortField</linktext></link></related-links></apiValue><apiValue id="mx.collections:SortField:descending:get"><apiName>descending</apiName><shortdesc>
+      
+      指定此字段是否应按降序排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="descendingChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      指定此字段是否应按降序排序。
+           <p>默认值为 <codeph>false</codeph>（升序）。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SortField:name:get"><apiName>name</apiName><shortdesc>
+      
+      要排序的字段的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nameChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      要排序的字段的名称。
+           </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SortField:numeric:get"><apiName>numeric</apiName><shortdesc>
+      
+      指定当要进行排序的字段包含数值 (number/int/uint) 或数值的字符串表示形式时，比较运算符是否使用数值比较。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="numericChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      
+      指定当要进行排序的字段包含数值 (<codeph>number/int/uint</codeph>) 或数值的字符串表示形式时，比较运算符是否使用数值比较。
+      <p>
+      未提供自定义比较函数的情况下，<codeph>SortField</codeph> 类会使用该属性。
+      </p>
+      <p>
+      如果该属性为 <codeph>true</codeph>，则会使用内置数值比较函数。比较前每个数据项分派给 <codeph>Number()</codeph> 函数。
+      </p>
+      <p>
+      如果该属性为 <codeph>false</codeph>，则会使用内置字符串比较函数。比较前每个数据项分派给 <codeph>String()</codeph> 函数。
+      </p>
+      <p>
+      如果此属性为 <codeph>null</codeph>，则内部检查第一个数据项以查看它是否为数字或字符串，并基于内部检查结果继续进行排序。
+      </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:SortField:usingCustomCompareFunction:get"><apiName>usingCustomCompareFunction</apiName><shortdesc>
+      
+      如果此 ISortField 使用自定义比较运算符函数，则为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      如果此 <codeph>ISortField</codeph> 使用自定义比较运算符函数，则为 true。
+           </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:AsyncListView"><apiName>AsyncListView</apiName><shortdesc>
+  AsyncListView 类是对 IList 接口的实现，可处理 getItemAt()、removeItemAt() 和 toArray() 方法所引发的 ItemPendingErrors 错误。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AsyncListView&gt;</code> tag inherits all the attributes of its
+  superclass, and adds the following attributes:</p>
+ 
+  <pre>
+  &lt;mx:AsyncListView
+  <b>Properties</b>
+    createFailedItemFunction="null"
+    createPendingItemFunction="null"
+    list="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:IList</apiBaseInterface><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AsyncListView 类是对 IList 接口的实现，可处理 <codeph>getItemAt()</codeph>、<codeph>removeItemAt()</codeph> 和 <codeph>toArray()</codeph> 方法所引发的 ItemPendingErrors 错误。
+ 
+  <p><codeph>getItemAt()</codeph> 方法通过返回临时“暂挂”项目处理 ItemPendingErrors，直到基础请求成功或失败为止。临时项目是通过调用 <codeph>createPendingItemFunction</codeph> 属性所指定的函数产生的。如果请求成功，则实际项目会替换临时项目。如果请求失败，则临时项目会替换为通过调用 <codeph>createFailedItemFunction</codeph> 属性所指定的函数返回的项目。</p>
+ 
+  <p>此类将 IList 方法和属性委托给其 <codeph>list</codeph>。如果未指定列表，则转变集合的方法不操作，且查询集合的方法会根据需要返回诸如 null 或零之类的空值。</p>
+ 
+  <p>此类旨在根据 DataGroup（如 List 和 ComboBox）用于 Spark 组件。Spark 类并不为处理 ItemPendingError 而提供固定的支持。</p>
+ 
+  <p>AsyncListView 不支持重新插入暂挂项或失败项。一旦删除失败项或暂挂项，将断开相应项与数据暂挂请求的连接。不支持使用拖放来移动 ASyncListView 中的暂挂项，也不支持对包含暂挂项或失败项的 ASyncListView 进行排序，因为这些操作会删除并重新插入列表项。</p>
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.collections:AsyncListView_mx.events.CollectionEvent.COLLECTION_CHANGE_collectionChange"><apiName>collectionChange</apiName><shortdesc>
+  当列表的长度已改变或替换列表元素时被分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.CollectionEvent.COLLECTION_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.CollectionEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  当列表的长度已改变或替换列表元素时被分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.collections:AsyncListView:AsyncListView"><apiName>AsyncListView</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>list</apiItemName><apiOperationClassifier>mx.collections:IList</apiOperationClassifier><apiData>null</apiData><apiDesc>list 属性的初始值，即我们正在委托给的 IList。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:AsyncListView:addItemAt"><apiName>addItemAt</apiName><shortdesc>
+      
+      在指定的索引处添加项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要置于索引处的项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要放置项目的索引位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      在指定的索引处添加项目。任何大于已添加项目的索引的项目索引都会增加 1。如果指定索引小于零或者大于列表长度，则会引发 RangeError。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:AsyncListView:addItem"><apiName>addItem</apiName><shortdesc>
+      
+      向列表末尾添加指定项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要添加的项目。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      向列表末尾添加指定项目。等效于 <codeph>addItemAt(item, length)</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:AsyncListView:getItemAt"><apiName>getItemAt</apiName><shortdesc>
+      返回 list.getItemAt(index) 的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 <codeph>index &lt; 0</codeph> 或 <codeph>index >= length</codeph>。
+     
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>指定索引处的列表项目。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中检索项目的列表索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>一个 <codeph>int</codeph>，指示当项目不是本地项目时，在请求期间要获取的项目的方向和编号。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回 <codeph>list.getItemAt(index)</codeph> 的值。
+     
+      <p>此方法捕获作为调用 <codeph>getItemAt()</codeph> 的结果生成的 ItemPendingErrors (IPE)。如果引发 IPE，则会将 <codeph>IResponder</codeph> 添加到 IPE，并会返回一个使用 <codeph>createPendingItemFunction</codeph> 创建的临时“暂挂”项目。如果基础请求最终成功，则会使用实际项目替换暂挂项目。如果请求失败，则会使用通过调用 <codeph>createFailedItemFunction</codeph> 生成的值替换暂挂项目。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.xml#AsyncListView/createPendingItemFunction"><linktext>createPendingItemFunction</linktext></link><link href="mx.collections.xml#AsyncListView/createFailedItemFunction"><linktext>createFailedItemFunction</linktext></link><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link><link href="mx.rpc.xml#IResponder"><linktext>mx.rpc.IResponder</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:AsyncListView:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+      
+      如果项目位于列表中（这样的话 getItemAt(index) == item），则返回该项目的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>该项目的索引；如果该项目不在列表中，则为 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要查找的项目。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      如果项目位于列表中（这样的话 getItemAt(index) == item），则返回该项目的索引。
+     
+      <p>注意：与 <codeph>IViewCursor.find<i>xxx</i>()</codeph> 方法不同，<codeph>getItemIndex()</codeph> 方法不能在要搜索的项目中使用只带字段子集的参数；此方法始终搜索与输入参数完全匹配的项目。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:AsyncListView:itemUpdated"><apiName>itemUpdated</apiName><shortdesc>
+      
+      通知视图，某个项目已更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>已在视图中更新的项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>已更新属性的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的旧值。（如果属性为 null，则它可以是该项目的旧值。）
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的新值。（如果属性为 null，则无需指定它，因为已假定该项目为新值。）
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      通知视图，某个项目已更新。如果视图的内容不实现 <codeph>IEventDispatcher</codeph> 并分派 <codeph>PropertyChangeEvent</codeph>，则此方法很有用。如果已指定属性，该视图也许能优化其通知机制。否则，它可能选择仅刷新整个视图。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:AsyncListView:removeAll"><apiName>removeAll</apiName><shortdesc>
+       
+      删除列表中的所有项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+       
+      删除列表中的所有项目。
+     
+      <p>如果存有不是本地项目的项目，并且必须执行异步操作，则会引发 <codeph>ItemPendingError</codeph>。</p>
+     
+      <p>有关如何使用 <codeph>ItemPendingError</codeph> 的详细信息，请参阅 ItemPendingError 文档和集合文档。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:AsyncListView:removeItemAt"><apiName>removeItemAt</apiName><shortdesc>
+      删除指定索引处的实际项或暂挂项并返回该项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果 <codeph>index &lt; 0</codeph> 或 <codeph>index >= length</codeph>。
+     
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>已删除的项或 null。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中检索项目的列表索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除指定索引处的实际项或暂挂项并返回该项。其索引大于指定索引的所有项都将索引值减去 1。
+     
+      <p>如果由于某种原因（例如，对 <codeph>getItemAt(index)</codeph> 的调用没有页入数据）在指定索引处没有实际项或暂挂项，则基础 <codeph>list</codeph> 可能会引发 ItemPendingError。该实现将忽略 ItemPendingError 并返回 null。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:AsyncListView:setItemAt"><apiName>setItemAt</apiName><shortdesc>
+      
+      在指定的索引处放置项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>被替换的项目；如果没有项目，则为 <codeph>null</codeph>。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要在指定索引处放置的新项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要放置项目的索引位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      在指定的索引处放置项目。如果此索引处已存在项目，新项目将替代该项目，并返回该项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:AsyncListView:toArray"><apiName>toArray</apiName><shortdesc>
+      返回与此 AsyncListView 具有相同元素的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与此 AsyncListView 具有相同元素的数组。
+     
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      返回与此 AsyncListView 具有相同元素的数组。该数组通过使用 <codeph>getItemAt()</codeph> 检索每一项进行初始化，因此在实际值仍然不可用的情况下将替换暂挂项。AsyncListView 将暂挂项替换为实际（或失败）值时，将不会更新数组。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:AsyncListView:toString"><apiName>toString</apiName><shortdesc>
+      返回包含列表长度和暂挂项请求数量的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>列表的简要描述。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      返回包含列表长度和暂挂项请求数量的字符串。该操作不会触发暂挂请求。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:AsyncListView:createFailedItemFunction:get"><apiName>createFailedItemFunction</apiName><shortdesc>
+      一种回调函数，用于在导致引发 ItemPendingError 的请求随后失败时创建替换项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>A function that unconditionally returns null. 
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一种回调函数，用于在导致引发 <codeph>ItemPendingError</codeph> 的请求随后失败时创建替代项。现有项（通常是由 <codeph>createPendingItemFunction()</codeph> 属性指定的回调函数所创建的暂挂项）将替换为失败项。
+      
+      <p>此属性的值必须是具有以下两个参数的函数：所请求项的索引和失败“info”对象（该对象是从 IResponder <codeph>fault()</codeph> 方法传递的）。在大多数情况下，可以忽略第二个参数。以下所示是实现回调函数的一个示例：</p> 
+     
+      <pre>
+     function createFailedItem(index:int, info:Object):Object
+     {
+         return "[" + index + "request failed]";        
+     }
+       </pre>
+      
+     
+      <p>设置此属性不会影响已经创建的失败项。将此属性设置为 null 将禁止创建失败项。
+      </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#AsyncListView/getItemAt()"><linktext>getItemAt()</linktext></link><link href="mx.collections.xml#AsyncListView/createPendingItemFunction"><linktext>createPendingItemFunction</linktext></link><link href="mx.rpc.xml#IResponder/fault"><linktext>mx.rpc.IResponder.fault</linktext></link></related-links></apiValue><apiValue id="mx.collections:AsyncListView:createPendingItemFunction:get"><apiName>createPendingItemFunction</apiName><shortdesc>
+      一种回调函数，用于在初始请求导致引发 ItemPendingError 时创建临时项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>A function that unconditionally returns null. 
+      </apiDefaultValue></apiValueDef><apiDesc>
+      一种回调函数，用于在初始请求导致引发 <codeph>ItemPendingError</codeph> 时创建临时项。如果请求最终成功，会自动使用实际项替换临时项。如果请求失败，则该项会替换为 <codeph>createFailedItemFunction</codeph> 属性指定的回调函数所创建的项。
+      
+      <p>此属性的值必须是具有以下两个参数的函数：请求的数据提供程序项的索引和 ItemPendingError 本身。大多数情况下可以忽略第二个参数。下面的示例演示回调函数的实现：
+     
+       <pre>
+     function createPendingItem(index:int, ipe:ItemPendingError):Object
+     {
+         return "[" + index + "request is pending...]";        
+     }
+       </pre>
+       </p>
+     
+      <p>设置此属性不会影响已创建的临时暂挂项。将此属性设置为 null 将禁止创建临时暂挂项。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#AsyncListView/getItemAt()"><linktext>getItemAt()</linktext></link><link href="mx.collections.xml#AsyncListView/createFailedItemFunction"><linktext>createFailedItemFunction</linktext></link><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link></related-links></apiValue><apiValue id="mx.collections:AsyncListView:length:get"><apiName>length</apiName><shortdesc>
+      
+      此集合中的项目数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="collectionChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      此集合中的项目数。0 表示不包含项目，而 -1 表示长度未知。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:AsyncListView:list:get"><apiName>list</apiName><shortdesc>
+      此集合所包装的 IList 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="listChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IList</apiValueClassifier><apiDefaultValue>null  
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此集合所包装的 IList 对象。它是指将所有 IList 方法委托给的对象。
+     
+      <p>如果此属性为 null，则不操作诸如 <codeph>setItemAt()</codeph> 的 IList 转变方法。IList 查询方法（如 <codeph>getItemAt()</codeph>）根据需要返回 null 或 0（<codeph>getItemIndex()</codeph> 返回 -1）。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:ArrayCollection"><apiName>ArrayCollection</apiName><shortdesc>
+  ArrayCollection 类是将 Array 公开为集合的封装类，可使用 ICollectionView 或 IList 接口的方法和属性访问及处理该集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="source"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:ArrayCollection&gt;</code> tag inherits all the attributes of its
+  superclass, and adds the following attributes:</p>
+ 
+  <pre>
+  &lt;mx:ArrayCollection
+  <b>Properties</b>
+  source="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.utils:IExternalizable</apiBaseInterface><apiBaseClassifier>mx.collections:ListCollectionView</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ArrayCollection 类是将 Array 公开为集合的封装类，可使用 <codeph>ICollectionView</codeph> 或 <codeph>IList</codeph> 接口的方法和属性进行访问和处理。对 ArrayCollection 实例进行操作会修改数据源；例如，如果对 ArrayCollection 使用 <codeph>removeItemAt()</codeph> 方法，就会删除基础 Array 中的项目。
+ 
+  </apiDesc><example>下列代码创建一个可使用一个 Object 元素访问和处理数组的简单 ArrayCollection 对象。它检索使用 IList 接口的 <codeph>getItemAt</codeph> 方法的元素和使用 ICollectionView<codeph>createCursor</codeph> 方法获得的 IViewCursor 对象。
+  <pre>
+  var myCollection:ArrayCollection = new ArrayCollection([ { first: 'Matt', last: 'Matthews' } ]);
+  var myCursor:IViewCursor = myCollection.createCursor();
+  var firstItem:Object = myCollection.getItemAt(0);
+  var firstItemFromCursor:Object = myCursor.current;
+  if (firstItem == firstItemFromCursor)
+        doCelebration();
+  </pre>
+  
+  </example></apiClassifierDetail><apiConstructor id="mx.collections:ArrayCollection:ArrayCollection"><apiName>ArrayCollection</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>source</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>源 Array。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      <p>使用指定的源数组创建新的 ArrayCollection。如果未指定数组，将使用空数组。</p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.collections:ArrayCollection:source:get"><apiName>source</apiName><shortdesc>
+      ArrayCollection 中的数据源。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="listChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      ArrayCollection 中的数据源。ArrayCollection 对象不提供对源数组进行的任何直接更改。始终使用 ICollectionView 或 IList 方法修改该集合。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:ISort"><apiName>ISort</apiName><shortdesc>
+      ISort 接口定义类的接口，以提供对集合视图中的数据进行排序所需要的排序信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+      <codeph>ISort</codeph> 接口定义类的接口，以提供对集合视图中的数据进行排序所需要的排序信息。
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#ICollectionView"><linktext>mx.collections.ICollectionView</linktext></link><link href="mx.collections.xml#ISortField"><linktext>mx.collections.ISortField</linktext></link></related-links><apiOperation id="mx.collections:ISort:mx.collections:ISort:findItem"><apiName>findItem</apiName><shortdesc>
+      查找指定的数组内的指定对象（或插入点 — 如有要求）。如果找到，则返回其索引；如果未找到，则返回 -1。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果没有任何参数错误，则查找条件与排序不兼容，或无法确定排序的比较运算符函数。
+     
+      </apiDesc><apiItemName>SortError</apiItemName><apiOperationClassifier>SortError</apiOperationClassifier></apiException><apiReturn><apiDesc>int，找到的项目在数组中的索引。如果 <codeph>returnInsertionIndex</codeph> 参数为 <codeph>false</codeph> 并且找不到项目，则返回 -1。如果 <codeph>returnInsertionIndex</codeph> 参数为 <codeph>true</codeph> 并且找不到项目，则返回已排序数组中将插入这些值的点的索引。
+     
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Array"/><apiDesc>要在其中进行搜索的 Array。
+      </apiDesc></apiParam><apiParam><apiItemName>values</apiItemName><apiType value="Object"/><apiDesc>包含要查找的属性（或要查找的对象本身）的对象。此对象必须包含字段名/值对，其中的字段名是 <codeph>fields</codeph> 属性指定的字段的名称，其顺序与在此属性中使用的顺序相同。您不必指定 <codeph>fields</codeph> 属性中的所有字段，但不得在顺序中跳跃指定。因此，如果 <codeph>fields</codeph> 属性列出了三个字段，则可以指定此参数中的第一个和第二个字段，但不能仅指定第一个和第三个字段。
+      </apiDesc></apiParam><apiParam><apiItemName>mode</apiItemName><apiType value="String"/><apiDesc>包含要执行的查找类型的字符串。有效值为：
+                 <adobetable>
+                   
+                   
+                   
+                   <tgroup cols="2"><thead><row><entry>ANY_INDEX_MODE</entry><entry>返回对这些值有效的任何位置。</entry></row></thead><tbody><row>
+                     <entry>FIRST_INDEX_MODE</entry> 
+                     <entry>返回这些值第一次出现的位置。</entry>
+                   </row><row>
+                     <entry>LAST_INDEX_MODE</entry> 
+                     <entry>返回指定的值最后一次出现的位置。
+                     </entry>
+                   </row></tbody></tgroup></adobetable>
+      </apiDesc></apiParam><apiParam><apiItemName>returnInsertionIndex</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果该方法找不到由 <codeph>values</codeph> 参数标识的项目，并且此参数为 <codeph>true</codeph>，则 <codeph>findItem()</codeph> 方法将返回这些值的插入点，也就是排序顺序中应插入此项目的点。
+      </apiDesc></apiParam><apiParam><apiItemName>compareFunction</apiItemName><apiType value="Function"/><apiData>null</apiData><apiDesc>用于查找该项目的比较运算符函数。如果没有指定此参数，或提供了 <codeph>null</codeph> 值，则 <codeph>findItem()</codeph> 函数使用由 <codeph>ISort</codeph> 实例的 <codeph>compareFunction</codeph> 属性确定的比较函数，传入由值对象和当前 <codeph>SortFields</codeph> 确定的字段数组。如果您提供了非 null 值，则 <codeph>findItem()</codeph> 函数将其用作比较函数。作为 <codeph>compareFunction</codeph> 传递的函数签名必须如下所示：<codeph>function myCompareFunction(a:Object, b:Object):int</codeph>。请注意，没有与 <codeph>ISort.compareFunction()</codeph> 属性的比较函数不同的第三个参数。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      查找指定的数组内的指定对象（或插入点 — 如有要求）。如果找到，则返回其索引；如果未找到，则返回 -1。<codeph>ListCollectionView</codeph> 类的 <codeph>find<i>xxx</i>()</codeph> 方法使用此方法查找所需项目；一般来说，与 <codeph>findItem()</codeph> 相比，使用这些函数更易于在基于 <codeph>ListCollectionView</codeph> 的对象中查找数据。您可以在写入支持排序的类（如新的 ICollectionView 实现）时直接调用 <codeph>findItem()</codeph> 方法。<codeph/>调用该函数前需要对输入项数组进行排序。否则该函数无法正确找到指定值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISort:mx.collections:ISort:propertyAffectsSort"><apiName>propertyAffectsSort</apiName><shortdesc>
+      返回表明指定的属性是否用于控制排序的布尔值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>该属性值是否会影响排序结果。如果排序使用默认的 compareFunction，并且 <codeph>property</codeph> 参数指定了排序字段，则返回 <codeph>true</codeph>。如果排序或任何 <codeph>ISortField</codeph> 使用自定义比较运算符，则无法进行判断，因此返回 <codeph>true</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiDesc>要测试的字段的名称。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回表明指定的属性是否用于控制排序的布尔值。如果排序使用自定义比较运算符，则函数无法确定确切的答案；在这种情况下，始终返回 <codeph>true</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISort:mx.collections:ISort:reverse"><apiName>reverse</apiName><shortdesc>
+      检查 fields 数组，对数组中每个 ISortField 对象调用 reverse()。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      检查 <codeph>fields</codeph> 数组，对数组中每个 <codeph>ISortField</codeph> 对象调用 <codeph>reverse()</codeph>。如果该字段原来为降序排序，则现在它将按升序排序，反之亦然。
+     
+      <p>注意：修改 <codeph>fields</codeph> 数组中的对象时不会自动更新 <codeph>ICollectionView</codeph>；而调用 <codeph>refresh()</codeph> 方法可更新此视图。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ISort:mx.collections:ISort:sort"><apiName>sort</apiName><shortdesc>
+      对指定的数组（不是副本）应用当前排序。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Array"/><apiDesc>要排序的项目的数组。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      对指定的数组（不是副本）应用当前排序。要防止修改数组，请创建一个副本并在 <codeph>items</codeph> 参数中使用该副本。
+     
+      <p>Flex <codeph>ICollectionView</codeph> 实现自动调用 <codeph>sort</codeph> 方法并确保对基础数据的副本执行排序。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:ISort:mx.collections:ISort:compareFunction:get"><apiName>compareFunction</apiName><shortdesc>
+      用于在排序时比较项目的方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      用于在排序时比较项目的方法。如果指定了此属性，Flex 会忽略在此类中使用的 ISortField 对象中指定的所有 <codeph>compareFunction</codeph> 属性。<codeph/>
+     
+      <p>该比较函数必须具有以下签名：</p>
+     
+      <pre><codeph>
+     
+         function [name](a:Object, b:Object, fields:Array = null):int
+     
+      </codeph></pre>
+     
+      <p>此函数必须返回以下值：
+      <ul>
+            <li>-1，如果在已排序序列中 <codeph>Object a</codeph> 应显示在 <codeph>Object b</codeph> 之前。</li>
+            <li>0，如果 <codeph>Object a</codeph> 等于 <codeph>Object b</codeph>。</li>
+            <li>1，如果在已排序序列中 <codeph>Object a</codeph> 应显示在 <codeph>Object b</codeph> 之后。</li>
+      </ul></p>
+      <p>要返回到内部比较函数，请将此值设置为 <codeph>null</codeph>。</p>
+      <p>
+      <codeph>fields</codeph> 数组会指定要比较的对象字段。通常，算法将一直比较属性，直到用尽字段列表或能返回非零值。例如：</p>
+     
+      <pre><codeph>
+        function myCompare(a:Object, b:Object, fields:Array = null):int
+        {
+            var result:int = 0;
+            var i:int = 0;
+            var propList:Array = fields ? fields : internalPropList;
+            var len:int = propList.length;
+            var propName:String;
+            while (result == 0 &amp;&amp; (i &lt; len))
+            {
+                propName = propList[i];
+                result = compareValues(a[propName], b[propName]);
+                i++;
+            }
+            return result;
+        }
+     
+        function compareValues(a:Object, b:Object):int
+        {
+            if (a == null &amp;&amp; b == null)
+                return 0;
+     
+            if (a == null)
+              return 1;
+     
+            if (b == null)
+               return -1;
+     
+            if (a &lt; b)
+                return -1;
+     
+            if (a > b)
+                return 1;
+     
+            return 0;
+        }
+      </codeph></pre>
+     
+      <p>默认值为可以按升序或降序执行字符串、数字或日期比较的内部比较函数。仅在需要自定义比较算法时指定您自己的函数。这种情况通常仅当在显示中使用计算的字段时出现。</p>
+     
+      <p>或者，您可以通过使用 <codeph>ISortField</codeph> 类的 <codeph>compareFunction</codeph> 属性分别为每个排序字段指定比较函数；这样，您可以对一些字段使用默认比较，而对其它字段使用自定义比较。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ISort:mx.collections:ISort:fields:get"><apiName>fields</apiName><shortdesc>
+      指定要比较的字段的 ISortField 对象 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>null
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定要比较的字段的 <codeph>ISortField</codeph> 对象的 <codeph>Array</codeph>。在进行排序时，数组中 ISortField 对象的顺序确定字段的优先级顺序。默认排序比较运算符会一直检查数组顺序中的排序字段，直到确定了两个要比较的字段的排序顺序。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#ISortField"><linktext>ISortField</linktext></link></related-links></apiValue><apiValue id="mx.collections:ISort:mx.collections:ISort:unique:get"><apiName>unique</apiName><shortdesc>
+      指示排序是否应是唯一的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示排序是否应是唯一的。如果字段属性中列出的字段指定的任何值或组合值导致不确定或非唯一的排序顺序，则唯一排序会失败；也就是说，在两个或多个项目具有相同排序字段值时会出现此情况。如果排序不唯一，将引发错误。仅当显式指定排序字段时，排序逻辑才使用该 <codeph>unique</codeph> 属性值。如果未显式指定排序字段，则具有相同值元素时也不会引发错误。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:XMLListCollection"><apiName>XMLListCollection</apiName><shortdesc>
+  XMLListCollection 类提供了 XMLList 对象的集合功能，并使本机 XMLList 类的一些方法可用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="source"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:XMLListCollection&gt;</code> tag inherits all
+  the attributes of its superclass, and adds the following attributes:</p>
+ 
+  <pre>
+  &lt;mx:XMLListCollection
+  <b>Properties</b>
+  source="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.collections:ListCollectionView</apiBaseClassifier></apiClassifierDef><apiDesc>
+  XMLListCollection 类提供了 XMLList 对象的集合功能，并使本机 XMLList 类的一些方法可用。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.XMLList.xml"><linktext>XMLList</linktext></link><link href="" invalidHref="mx.collections.XML.xml"><linktext>XML</linktext></link></related-links><apiConstructor id="mx.collections:XMLListCollection:XMLListCollection"><apiName>XMLListCollection</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>source</apiItemName><apiType value="XMLList"/><apiData>null</apiData><apiDesc>包含将由 XMLListCollection 对象表示的数据的 XMLList 对象。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      <p>使用指定的 XMLList 对象创建新的 XMLListCollection 对象。</p>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:XMLListCollection:attribute"><apiName>attribute</apiName><shortdesc>
+      调用 XMLList 中每个 XML 对象的 attribute() 方法，并返回与给定 attributeName 相匹配的结果 XMLList。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与 XML 对象匹配的 XMLList。
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>attributeName</apiItemName><apiType value="Object"/><apiDesc>要在 XMLList 的 XML 对象中匹配的属性。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      调用 XMLList 中的每个 XML 对象的 <codeph>attribute()</codeph> 方法，并返回与给定的 <codeph>attributeName</codeph> 相匹配的结果 XMLList。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.collections.xml#XML/attribute()"><linktext>XML.attribute()</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:XMLListCollection:attributes"><apiName>attributes</apiName><shortdesc>
+      调用 XMLList 对象中的每个 XML 对象的 attributes() 方法，并返回每个 XML 对象属性的 XMList。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含列有属性的结果 XML 对象的 XMLList。
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn></apiOperationDef><apiDesc>
+      调用 XMLList 对象中的每个 XML 对象的 <codeph>attributes()</codeph> 方法，并返回每个 XML 对象属性的 XMList。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.collections.xml#XML/attributes()"><linktext>XML.attributes()</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:XMLListCollection:child"><apiName>child</apiName><shortdesc>
+      依次调用 XMLList 中的每个 XML 对象的 child() 方法，并返回包含具有指定属性名称的子项的 XMLList。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>与原始 XMLList 中 XML 对象的子项相匹配的 XMLList。
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>propertyName</apiItemName><apiType value="Object"/><apiDesc>要匹配的属性。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      依次调用 XMLList 中的每个 XML 对象的 <codeph>child()</codeph> 方法，并返回包含具有指定属性名称的子项的 XMLList。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.collections.xml#XML/child()"><linktext>XML.child()</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:XMLListCollection:children"><apiName>children</apiName><shortdesc>
+      调用 XMLList 中的每个 XML 对象的 children() 方法，并返回包含结果的 XMLList。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>原始 XMLList 中 XML 对象的子项的 XMLList。
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn></apiOperationDef><apiDesc>
+      调用 XMLList 中的每个 XML 对象的 children() 方法，并返回包含结果的 XMLList。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.collections.xml#XML/children()"><linktext>XML.children()</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:XMLListCollection:copy"><apiName>copy</apiName><shortdesc>
+      返回 XMLList 对象的深副本。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>XMLList 对象的副本。
+      
+      </apiDesc><apiType value="XMLList"/></apiReturn></apiOperationDef><apiDesc>
+      返回 XMLList 对象的深副本。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:XMLListCollection:descendants"><apiName>descendants</apiName><shortdesc>
+      调用 XMLList 中的每个 XML 对象的 descendants() 方法，并返回包含结果的 XMLList。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>原始 XMLList 中 XML 对象的匹配后代（子项、孙项等）的 XMLList。
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="Object"/><apiData>*</apiData><apiDesc>要匹配的元素的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      调用 XMLList 中的每个 XML 对象的 <codeph>descendants()</codeph> 方法，并返回包含结果的 XMLList。<codeph>name</codeph> 参数会传递给 XML 对象的 <codeph>descendants()</codeph> 方法。如果未指定参数，则字符串“~~”将传递给 <codeph>descendants()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.collections.xml#XML/descendants()"><linktext>XML.descendants()</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:XMLListCollection:elements"><apiName>elements</apiName><shortdesc>
+      调用 XMLList 中的每个 XML 对象的 elements() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>原始 XMLList 中 XML 对象的匹配子项元素的 XMLList。
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>*</apiData><apiDesc>要匹配的元素的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      调用 XMLList 中的每个 XML 对象的 <codeph>elements()</codeph> 方法。<codeph>name</codeph> 参数会传递给 XML 对象的 <codeph>elements()</codeph> 方法。如果未指定参数，则字符串“~~”将传递给 <codeph>elements()</codeph> 方法。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.collections.xml#XML/elements()"><linktext>XML.elements()</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:XMLListCollection:text"><apiName>text</apiName><shortdesc>
+     调用 XMLList 中的每个 XML 对象的 text() 方法，并返回包含结果的 XMLList。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>包含结果的 XMLList。
+     
+      </apiDesc><apiType value="XMLList"/></apiReturn></apiOperationDef><apiDesc>
+     调用 XMLList 中的每个 XML 对象的 <codeph>text()</codeph> 方法，并返回包含结果的 XMLList。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.collections.xml#XML/text()"><linktext>XML.text()</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:XMLListCollection:toString"><apiName>toString</apiName><shortdesc>
+      通过对 XMLList 中的每个 XML 对象调用 toString() 方法返回 XMLList 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>XMLList 对象的字符串表示形式。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      通过对 XMLList 中的每个 XML 对象调用 <codeph>toString()</codeph> 方法返回 XMLList 的字符串表示形式。如果将 <codeph>XML</codeph> 类的 <codeph>prettyPrinting</codeph> 属性设置为 <codeph>true</codeph>，则 XMLList 中每个 XML 对象的结果将通过回车符进行分隔。相反，如果将 <codeph>prettyPrinting</codeph> 设置为 <codeph>false</codeph>，则这些结果只是会连接起来，而不会通过回车符进行分隔
+     
+      <p><codeph>toString()</codeph> 方法将在包含简单内容的 XML 对象的返回字符串中除去以下内容：开始标签、属性、命名空间声明和结束标签。如果要在包含简单内容的 XML 对象的返回字符串中保留这些内容，请使用 <codeph>toXMLString()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.collections.xml#XML/prettyPrinting"><linktext>XML.prettyPrinting</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:XMLListCollection:toXMLString"><apiName>toXMLString</apiName><shortdesc>
+      通过对 XMLList 中的每个 XML 对象调用 toXMLString() 方法返回 XMLList 的字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>XMLList 的字符串表示形式。
+     
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      通过对 XMLList 中的每个 XML 对象调用 <codeph>toXMLString()</codeph> 方法返回 XMLList 的字符串表示形式。如果将 <codeph>XML</codeph> 类的 <codeph>prettyPrinting</codeph> 属性设置为 <codeph>true</codeph>，则 XMLList 中每个 XML 对象的结果将通过回车符进行分隔。相反，如果将 <codeph>prettyPrinting</codeph> 设置为 <codeph>false</codeph>，这些结果会连接起来，而不会通过回车符进行分隔。
+     
+      <p><codeph>toXMLString()</codeph> 方法将在包含简单内容的 XML 对象的返回字符串中保留以下内容：开始标签、属性、命名空间声明和结束标签。如果要在包含简单内容的 XML 对象的返回字符串中去除这些内容，请使用 <codeph>toString()</codeph> 方法。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="mx.collections.xml#XML/prettyPrinting"><linktext>XML.prettyPrinting</linktext></link></related-links></apiOperation><apiValue id="mx.collections:XMLListCollection:source:get"><apiName>source</apiName><shortdesc>
+      此集合的基础 XMLList。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="listChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="XMLList"/></apiValueDef><apiDesc>
+      此集合的基础 XMLList。XMLListCollection对象不呈示对源 XMLList 对象直接进行的任何更改。始终使用 XMLListCollection 方法修改该集合。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IList"><apiName>IList</apiName><shortdesc>
+  按顺序组织的项目的集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  按顺序组织的项目的集合。提供基于索引的访问和处理方法。  
+  
+  <p><codeph>IList</codeph> 可以是从远程位置检索到的数据的视图。在对可能位于远程位置的集合进行写入时，必须处理数据尚不可用的情况，<codeph>ItemPendingError</codeph> 会指示这一情况。</p>
+  
+  <p><codeph>ICollectionView</codeph> 可以替代 <codeph>IList</codeph>。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link><link href="mx.collections.xml#ICollectionView"><linktext>mx.collections.ICollectionView</linktext></link><link href="mx.collections.xml#ListCollectionView"><linktext>mx.collections.ListCollectionView</linktext></link></related-links><adobeApiEvent id="mx.collections:IList_mx.events.CollectionEvent.COLLECTION_CHANGE_collectionChange"><apiName>collectionChange</apiName><shortdesc>
+  以某种方式更新 IList 后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.CollectionEvent.COLLECTION_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.CollectionEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  以某种方式更新 IList 后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.collections:IList:mx.collections:IList:addItemAt"><apiName>addItemAt</apiName><shortdesc>
+      在指定的索引处添加项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果索引小于 0 或大于列表长度。 
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要置于索引处的项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要放置项目的索引位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在指定的索引处添加项目。任何大于已添加项目的索引的项目索引都会增加 1。如果指定索引小于零或者大于列表长度，则会引发 RangeError。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IList:mx.collections:IList:addItem"><apiName>addItem</apiName><shortdesc>
+      向列表末尾添加指定项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要添加的项目。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      向列表末尾添加指定项目。等效于 <codeph>addItemAt(item, length)</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IList:mx.collections:IList:getItemAt"><apiName>getItemAt</apiName><shortdesc>
+      获取指定索引处的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果需要从远程位置加载此索引的数据。
+     
+      </apiDesc><apiItemName>ItemPendingError</apiItemName><apiOperationClassifier>mx.collections.errors:ItemPendingError</apiOperationClassifier></apiException><apiException><apiDesc>如果 <codeph>index &lt; 0</codeph> 或 <codeph>index >= length</codeph>。
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>此索引处的项目；如果没有项目，则为 <codeph>null</codeph>。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中检索项目的列表中的索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>一个 <codeph>int</codeph>，指示当项目不是本地项目时，在请求期间要获取的项目的方向和编号。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      获取指定索引处的项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IList:mx.collections:IList:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+      如果项目位于列表中（这样的话 getItemAt(index) == item），则返回该项目的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>该项目的索引；如果该项目不在列表中，则为 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要查找的项目。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果项目位于列表中（这样的话 getItemAt(index) == item），则返回该项目的索引。
+     
+      <p>注意：与 <codeph>IViewCursor.find<i>xxx</i>()</codeph> 方法不同，<codeph>getItemIndex()</codeph> 方法不能在要搜索的项目中使用只带字段子集的参数；此方法始终搜索与输入参数完全匹配的项目。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IList:mx.collections:IList:itemUpdated"><apiName>itemUpdated</apiName><shortdesc>
+      通知视图，某个项目已更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>已在视图中更新的项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>已更新属性的名称。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的旧值。（如果属性为 null，则它可以是该项目的旧值。）
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的新值。（如果属性为 null，则无需指定它，因为已假定该项目为新值。）
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通知视图，某个项目已更新。如果视图的内容不实现 <codeph>IEventDispatcher</codeph> 并分派 <codeph>PropertyChangeEvent</codeph>，则此方法很有用。如果已指定属性，该视图也许能优化其通知机制。否则，它可能选择仅刷新整个视图。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#CollectionEvent"><linktext>mx.events.CollectionEvent</linktext></link><link href="mx.events.xml#PropertyChangeEvent"><linktext>mx.events.PropertyChangeEvent</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:IList:mx.collections:IList:removeAll"><apiName>removeAll</apiName><shortdesc> 
+      删除列表中的所有项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc> 
+      删除列表中的所有项目。
+     
+      <p>如果存有不是本地项目的项目，并且必须执行异步操作，则会引发 <codeph>ItemPendingError</codeph>。</p>
+     
+      <p>有关如何使用 <codeph>ItemPendingError</codeph> 的详细信息，请参阅 ItemPendingError 文档和集合文档。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IList:mx.collections:IList:removeItemAt"><apiName>removeItemAt</apiName><shortdesc>
+      删除指定索引处的项目并返回该项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果索引小于 0 或大于长度。 
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>被删除的项目。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中删除项目的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      删除指定索引处的项目并返回该项目。原先位于此索引之后的所有项目的索引现在都向前移动一个位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IList:mx.collections:IList:setItemAt"><apiName>setItemAt</apiName><shortdesc>
+      在指定的索引处放置项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果索引小于 0 或大于长度。
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>被替换的项目；如果没有项目，则为 <codeph>null</codeph>。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要在指定索引处放置的新项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要放置项目的索引位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在指定的索引处放置项目。如果此索引处已存在项目，新项目将替代该项目，并返回该项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IList:mx.collections:IList:toArray"><apiName>toArray</apiName><shortdesc>
+      返回与 IList 实现的填充顺序相同的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果尚未从远程位置完全加载数据。
+      
+      </apiDesc><apiItemName>ItemPendingError</apiItemName><apiOperationClassifier>mx.collections.errors:ItemPendingError</apiOperationClassifier></apiException><apiReturn><apiDesc>数组。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      返回与 IList 实现的填充顺序相同的 Array。此方法可能会引发 ItemPendingError。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:IList:mx.collections:IList:length:get"><apiName>length</apiName><shortdesc>
+      此集合中的项目数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      此集合中的项目数。0 表示不包含项目，而 -1 表示长度未知。 
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:ListCollectionView"><apiName>ListCollectionView</apiName><shortdesc>
+ ListCollectionView 类可向符合 IList 接口的对象添加 ICollectionView 接口的属性和方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:ListCollectionView&gt;</code> has the following attributes,
+  which all of its subclasses inherit:</p>
+ 
+  <pre>
+  &lt;mx:ListCollectionView
+  <b>Properties</b>
+  filterFunction="null"
+  list="null"
+  sort="null"
+  <b>Events</b>
+  collectionChange="<i>No default</i>"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.collections:ICollectionView</apiBaseInterface><apiBaseInterface>mx.collections:IList</apiBaseInterface><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef><apiDesc>
+ ListCollectionView 类可向符合 <codeph>IList</codeph> 接口的对象添加 <codeph>ICollectionView</codeph> 接口的属性和方法。因此，您可以将此类的对象传递到需要 <codeph>IList</codeph> 或 <codeph>ICollectionView</codeph> 的任何对象。
+ 
+ <p>通过此类，您还可以使用 [ ] 数组表示法访问 <codeph>getItemAt()</codeph> 和 <codeph>setItemAt()</codeph> 方法。如果您使用 <codeph>myListCollectionView[index]</codeph> 之类的代码，Flex 会调用 <codeph>myListCollectionView</codeph> 对象的 <codeph>getItemAt()</codeph> 或 <codeph>setItemAt()</codeph> 方法。</p>
+ 
+ </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.collections:ListCollectionView_mx.events.CollectionEvent.COLLECTION_CHANGE_collectionChange"><apiName>collectionChange</apiName><shortdesc>
+  以某种方式更新 ICollectionView 后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.CollectionEvent.COLLECTION_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.CollectionEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  以某种方式更新 ICollectionView 后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.collections:ListCollectionView:ListCollectionView"><apiName>ListCollectionView</apiName><shortdesc>
+      ListCollectionView 构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>list</apiItemName><apiOperationClassifier>mx.collections:IList</apiOperationClassifier><apiData>null</apiData><apiDesc>此 ListCollectionView 要封装的 IList。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      ListCollectionView 构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:ListCollectionView:addAllAt"><apiName>addAllAt</apiName><shortdesc>
+      向当前列表添加一组项目，将它们放置在传递给函数的索引指定的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>如果索引小于 0 或大于列表长度。 
+      
+      </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>addList</apiItemName><apiOperationClassifier>mx.collections:IList</apiOperationClassifier><apiDesc>要添加到当前列表的项目列表
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>当前列表中放置新项目的位置。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      向当前列表添加一组项目，将它们放置在传递给函数的索引指定的位置。这些项目按接收顺序放置在索引位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:addAll"><apiName>addAll</apiName><shortdesc>
+      向当前列表添加一组项目，将它们按传入顺序放置在列表的末尾。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>addList</apiItemName><apiOperationClassifier>mx.collections:IList</apiOperationClassifier><apiDesc>要添加到当前列表的项目列表
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      向当前列表添加一组项目，将它们按传入顺序放置在列表的末尾。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:addEventListener"><apiName>addEventListener</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:ListCollectionView:addItemAt"><apiName>addItemAt</apiName><shortdesc>
+     
+      在指定的索引处添加项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要置于索引处的项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要放置项目的索引位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      在指定的索引处添加项目。任何大于已添加项目的索引的项目索引都会增加 1。如果指定索引小于零或者大于列表长度，则会引发 RangeError。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:addItem"><apiName>addItem</apiName><shortdesc>
+     
+      向列表末尾添加指定项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要添加的项目。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      向列表末尾添加指定项目。等效于 <codeph>addItemAt(item, length)</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:contains"><apiName>contains</apiName><shortdesc>
+      
+      返回指示视图是否包含指定对象的信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果应用滤镜后 ICollectionView 包含该项目，则返回 true，否则返回 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要查找的对象。
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回指示视图是否包含指定对象的信息。与 <codeph>IViewCursor.find<i>xxx</i></codeph> 方法不同，此搜索仅在找到完全与参数匹配的项目时才会成功。如果视图中包含已应用到该视图的滤镜，则即使基本集合确实包含该项目，此方法也会返回 <codeph>false</codeph>。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.xml#ListCollectionView/enableAutoUpdate()"><linktext>enableAutoUpdate()</linktext></link><link href="mx.events.xml#CollectionEvent"><linktext>mx.events.CollectionEvent</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:ListCollectionView:createCursor"><apiName>createCursor</apiName><shortdesc>
+      
+      创建使用此视图的新 IViewCursor。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新的 IViewCursor 实现。
+     
+      
+      </apiDesc><apiOperationClassifier>mx.collections:IViewCursor</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      
+      创建使用此视图的新 IViewCursor。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:disableAutoUpdate"><apiName>disableAutoUpdate</apiName><shortdesc>
+      
+      防止视图分派对集合本身和集合中的项目的更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      防止视图分派对集合本身和集合中的项目的更改。如果集合中的位置发生变化，还要防止视图更新项目的位置。调用 <codeph>enableAutoUpdate</codeph> 后，将适当排列和分派更改。如果发生更新单个项目之外的其他事件，视图最终可能会重新设置。<codeph>disableAutoUpdate</codeph> 方法累积执行；要求视图分派并刷新事件的次数与调用 <codeph>enableAutoUpdate</codeph> 的次数相同。注意，<codeph>disableAutoUpdate</codeph> 仅影响单个视图；其他视图可能根据各个基础检测编辑。
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.xml#ICollectionView/enableAutoUpdate()"><linktext>mx.collections.ICollectionView.enableAutoUpdate()</linktext></link><link href="mx.events.xml#CollectionEvent"><linktext>mx.events.CollectionEvent</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:ListCollectionView:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:ListCollectionView:enableAutoUpdate"><apiName>enableAutoUpdate</apiName><shortdesc>
+      
+      启用自动更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      启用自动更新。有关详细信息，请参阅 <codeph>disableAutoUpdate</codeph>。
+	 
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.xml#ICollectionView/disableAutoUpdate()"><linktext>mx.collections.ICollectionView.disableAutoUpdate()</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:ListCollectionView:getItemAt"><apiName>getItemAt</apiName><shortdesc>
+     
+      获取指定索引处的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>此索引处的项目；如果没有项目，则为 <codeph>null</codeph>。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中检索项目的列表中的索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>一个 <codeph>int</codeph>，指示当项目不是本地项目时，在请求期间要获取的项目的方向和编号。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      获取指定索引处的项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+     
+      如果项目位于列表中（这样的话 getItemAt(index) == item），则返回该项目的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>该项目的索引；如果该项目不在列表中，则为 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要查找的项目。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      如果项目位于列表中（这样的话 getItemAt(index) == item），则返回该项目的索引。
+     
+      <p>注意：与 <codeph>IViewCursor.find<i>xxx</i>()</codeph> 方法不同，<codeph>getItemIndex()</codeph> 方法不能在要搜索的项目中使用只带字段子集的参数；此方法始终搜索与输入参数完全匹配的项目。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:hasEventListener"><apiName>hasEventListener</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:ListCollectionView:initialized"><apiName>initialized</apiName><shortdesc>
+       如果 ListCollectionView 是使用 MXML 标签创建的，则由 MXML 编译器自动调用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>包含此 ListCollectionView 的 MXML 文档。
+      
+       </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>已忽略。
+       
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+       如果 ListCollectionView 是使用 MXML 标签创建的，则由 MXML 编译器自动调用。如果通过 ActionScript 创建 ListCollectionView，则必须调用传递给 MXML 文档的此方法，并将 <codeph>id</codeph> 设置为 <codeph>null</codeph>。
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:itemUpdated"><apiName>itemUpdated</apiName><shortdesc>
+      
+      通知视图，某个项目已更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>已在视图中更新的项目。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>已更新属性的名称。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的旧值。（如果属性为 null，则它可以是该项目的旧值。）
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的新值。（如果属性为 null，则无需指定它，因为已假定该项目为新值。）
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      通知视图，某个项目已更新。如果视图的内容不实现 <codeph>IPropertyChangeNotifier</codeph>，则此方法非常有用。如果对此方法的调用包括 <codeph>property</codeph> 参数，则视图可以优化其通知机制。否则，它可能选择仅刷新整个视图。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#CollectionEvent"><linktext>mx.events.CollectionEvent</linktext></link><link href="mx.core.xml#IPropertyChangeNotifier"><linktext>mx.core.IPropertyChangeNotifier</linktext></link><link href="mx.events.xml#PropertyChangeEvent"><linktext>mx.events.PropertyChangeEvent</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:ListCollectionView:refresh"><apiName>refresh</apiName><shortdesc>
+     
+      将排序和滤镜应用到视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果已经完成 refresh()，则为 <codeph>true</codeph>；如果未完成 refresh()，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+     
+      将排序和滤镜应用到视图。ICollectionView 不自动检测对排序或滤镜的更改，因此您必须在设置 <codeph>sort</codeph> 或 <codeph>filterFunction</codeph> 属性后调用 <codeph>refresh()</codeph> 方法以更新视图。如果 ICollectionView 实现也实现 IMXMLObject 接口，则应从 <codeph>initialized()</codeph> 方法调用 <codeph>refresh()</codeph> 方法。
+	 
+      <p>如果刷新成功，则返回 <codeph>true</codeph>；如果排序尚未完成（例如，项目仍待处理），则返回 <codeph>false</codeph>。视图的客户端应等待执行带有 <codeph>CollectionEventKind.REFRESH</codeph> <codeph>kind</codeph> 属性的 CollectionEvent 事件以确保完成 <codeph>refresh()</codeph> 操作。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:removeAll"><apiName>removeAll</apiName><shortdesc>
+     删除列表中的所有项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+     删除列表中的所有项目。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:removeEventListener"><apiName>removeEventListener</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.collections:ListCollectionView:removeItemAt"><apiName>removeItemAt</apiName><shortdesc>
+     
+      删除指定索引处的项目并返回该项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>被删除的项目。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要从中删除项目的索引。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      删除指定索引处的项目并返回该项目。原先位于此索引之后的所有项目的索引现在都向前移动一个位置。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:setItemAt"><apiName>setItemAt</apiName><shortdesc>
+     
+      在指定的索引处放置项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>被替换的项目；如果没有项目，则为 <codeph>null</codeph>。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要在指定索引处放置的新项目。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>要放置项目的索引位置。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      在指定的索引处放置项目。如果此索引处已存在项目，新项目将替代该项目，并返回该项目。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:toArray"><apiName>toArray</apiName><shortdesc>
+     
+      返回与 IList 实现的填充顺序相同的 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>数组。
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+     
+      返回与 IList 实现的填充顺序相同的 Array。此方法可能会引发 ItemPendingError。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:toString"><apiName>toString</apiName><shortdesc>
+      将此视图的内容输出到字符串并返回该字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>此视图的内容（字符串形式）。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      将此视图的内容输出到字符串并返回该字符串。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ListCollectionView:willTrigger"><apiName>willTrigger</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.collections:ListCollectionView:protected:localIndex"><apiName>localIndex</apiName><shortdesc>
+      视图经过排序或过滤后，localIndex 属性会在排序或过滤后（已排序、已缩减）的视图中包含按排序顺序显示的项目的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      视图经过排序或过滤后，<codeph>localIndex</codeph> 属性将包含在排序或过滤后（已排序、已缩减）的视图中按排序顺序显示的所有项目的数组。ListCollectionView 类使用此属性访问该视图中的项目。<codeph>localIndex</codeph> 属性永远不能包含源中没有的任何内容，但可以不将源中的所有内容都包含在内。如果没有进行排序，则此属性为 <codeph>null</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ListCollectionView:filterFunction:get"><apiName>filterFunction</apiName><shortdesc>
+      
+      视图用来消除不符合函数条件的项目的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="filterFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      
+      视图用来消除不符合函数条件的项目的函数。FilterFunction 应具有以下签名：
+	 
+	  <pre>f(item:Object):Boolean</pre>
+	 
+	  如果指定的项目应保留在视图中，则返回值为 <codeph>true</codeph>。
+	 
+      <p>如果滤镜是不支持的滤镜，则在访问此属性时 Flex 会引发错误。必须在设置 <codeph>filterFunction</codeph> 属性后调用 <codeph>refresh()</codeph> 以更新视图。</p>
+	 
+ 	  <p>注意：ICollectionView 的 Flex 实现将先检索远程位置的所有项目，然后再执行 filter 函数。如果使用分页，请在检索数据之前将该滤镜应用到远程集合。</p>
+	 
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#ListCollectionView/refresh()"><linktext>refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:ListCollectionView:length:get"><apiName>length</apiName><shortdesc>
+      
+      此视图中的项目数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="collectionChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      
+      此视图中的项目数。0 表示不包含项目，而 -1 表示长度未知。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ListCollectionView:list:get"><apiName>list</apiName><shortdesc>
+      此集合视图所封装的 IList。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="listChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:IList</apiValueClassifier></apiValueDef><apiDesc>
+      此集合视图所封装的 IList。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ListCollectionView:sort:get"><apiName>sort</apiName><shortdesc>
+      
+      将应用于 ICollectionView 的 ISort。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:ISort</apiValueClassifier></apiValueDef><apiDesc>
+      
+      将应用于 ICollectionView 的 ISort。设置排序不会自动刷新视图，因此必须在设置此属性后调用 <codeph>refresh()</codeph> 方法。如果不支持排序，访问此属性时将引发错误。
+	 
+	  <p>注意：ICollectionView 的 Flex 实现将先检索远程位置的所有项目，然后再执行排序。如果要对排序后的列表使用分页，请在检索数据之前对远程集合应用排序。</p>
+	 
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#ListCollectionView/refresh()"><linktext>refresh()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:ICollectionView"><apiName>ICollectionView</apiName><shortdesc>
+  ICollectionView 是数据集合的视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  <codeph>ICollectionView</codeph> 是数据集合的视图。可以修改该视图以显示根据各种条件排序的数据，或显示在不修改基本数据的情况下经过滤镜筛选后的数据。通过 IViewCursor，可以访问集合中的项目。可使用 IViewCursor 接口 <codeph>insert()</codeph> 和 <codeph>remove()</codeph> 方法修改该集合。
+ 
+  <p><codeph>ICollectionView</codeph> 可以是已从远程位置检索到的数据的视图。针对可能是远程数据的数据实现此接口时，必须处理数据尚不可用的情况，<codeph>ItemPendingError</codeph> 会指示这一情况。</p>
+ 
+  <p><codeph>IList</codeph> 接口可替代 <codeph>ICollectionView</codeph> 接口。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#IViewCursor"><linktext>mx.collections.IViewCursor</linktext></link><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link><link href="mx.collections.xml#IList"><linktext>mx.collections.IList</linktext></link></related-links><adobeApiEvent id="mx.collections:ICollectionView_mx.events.CollectionEvent.COLLECTION_CHANGE_collectionChange"><apiName>collectionChange</apiName><shortdesc>
+  以某种方式更新 ICollectionView 后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.CollectionEvent.COLLECTION_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.CollectionEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  以某种方式更新 ICollectionView 后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.collections:ICollectionView:mx.collections:ICollectionView:contains"><apiName>contains</apiName><shortdesc>
+      返回指示视图是否包含指定对象的信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果应用滤镜后 ICollectionView 包含该项目，则返回 true，否则返回 false。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要查找的对象。
+	 
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回指示视图是否包含指定对象的信息。与 <codeph>IViewCursor.find<i>xxx</i></codeph> 方法不同，此搜索仅在找到完全与参数匹配的项目时才会成功。如果视图中包含已应用到该视图的滤镜，则即使基本集合确实包含该项目，此方法也会返回 <codeph>false</codeph>。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ICollectionView:mx.collections:ICollectionView:createCursor"><apiName>createCursor</apiName><shortdesc>
+      创建使用此视图的新 IViewCursor。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>新的 IViewCursor 实现。
+     
+      
+      </apiDesc><apiOperationClassifier>mx.collections:IViewCursor</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      创建使用此视图的新 IViewCursor。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ICollectionView:mx.collections:ICollectionView:disableAutoUpdate"><apiName>disableAutoUpdate</apiName><shortdesc>
+      防止视图分派对集合本身和集合中的项目的更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      防止视图分派对集合本身和集合中的项目的更改。如果集合中的位置发生变化，还要防止视图更新项目的位置。调用 <codeph>enableAutoUpdate</codeph> 后，将适当排列和分派更改。如果发生更新单个项目之外的其他事件，视图最终可能会重新设置。<codeph>disableAutoUpdate</codeph> 方法累积执行；要求视图分派并刷新事件的次数与调用 <codeph>enableAutoUpdate</codeph> 的次数相同。注意，<codeph>disableAutoUpdate</codeph> 仅影响单个视图；其他视图可能根据各个基础检测编辑。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:ICollectionView:mx.collections:ICollectionView:enableAutoUpdate"><apiName>enableAutoUpdate</apiName><shortdesc>
+      启用自动更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用自动更新。有关详细信息，请参阅 <codeph>disableAutoUpdate</codeph>。
+	 
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.xml#ICollectionView/disableAutoUpdate()"><linktext>disableAutoUpdate()</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:ICollectionView:mx.collections:ICollectionView:itemUpdated"><apiName>itemUpdated</apiName><shortdesc>
+      通知视图，某个项目已更新。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>已在视图中更新的项目。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>已更新属性的名称。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的旧值。（如果属性为 null，则它可以是该项目的旧值。）
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>该属性的新值。（如果属性为 null，则无需指定它，因为已假定该项目为新值。）
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      通知视图，某个项目已更新。如果视图的内容不实现 <codeph>IPropertyChangeNotifier</codeph>，则此方法非常有用。如果对此方法的调用包括 <codeph>property</codeph> 参数，则视图可以优化其通知机制。否则，它可能选择仅刷新整个视图。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#CollectionEvent"><linktext>mx.events.CollectionEvent</linktext></link><link href="mx.core.xml#IPropertyChangeNotifier"><linktext>mx.core.IPropertyChangeNotifier</linktext></link><link href="mx.events.xml#PropertyChangeEvent"><linktext>mx.events.PropertyChangeEvent</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:ICollectionView:mx.collections:ICollectionView:refresh"><apiName>refresh</apiName><shortdesc>
+      将排序和滤镜应用到视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果已经完成 refresh()，则为 <codeph>true</codeph>；如果未完成 refresh()，则为 <codeph>false</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      将排序和滤镜应用到视图。ICollectionView 不自动检测对排序或滤镜的更改，因此您必须在设置 <codeph>sort</codeph> 或 <codeph>filterFunction</codeph> 属性后调用 <codeph>refresh()</codeph> 方法以更新视图。如果 ICollectionView 实现也实现 IMXMLObject 接口，则应从 <codeph>initialized()</codeph> 方法调用 <codeph>refresh()</codeph> 方法。
+	 
+      <p>如果刷新成功，则返回 <codeph>true</codeph>；如果排序尚未完成（例如，项目仍待处理），则返回 <codeph>false</codeph>。视图的客户端应等待执行带有 <codeph>CollectionEventKind.REFRESH</codeph> <codeph>kind</codeph> 属性的 CollectionEvent 事件以确保完成 <codeph>refresh()</codeph> 操作。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:ICollectionView:mx.collections:ICollectionView:filterFunction:get"><apiName>filterFunction</apiName><shortdesc>
+      视图用来消除不符合函数条件的项目的函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      视图用来消除不符合函数条件的项目的函数。FilterFunction 应具有以下签名：
+	 
+	  <pre>f(item:Object):Boolean</pre>
+	 
+	  如果指定的项目应保留在视图中，则返回值为 <codeph>true</codeph>。
+	 
+      <p>如果滤镜是不支持的滤镜，则在访问此属性时 Flex 会引发错误。必须在设置 <codeph>filterFunction</codeph> 属性后调用 <codeph>refresh()</codeph> 以更新视图。</p>
+	 
+ 	  <p>注意：ICollectionView 的 Flex 实现将先检索远程位置的所有项目，然后再执行 filter 函数。如果使用分页，请在检索数据之前将该滤镜应用到远程集合。</p>
+	 
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#ICollectionView/refresh()"><linktext>refresh()</linktext></link></related-links></apiValue><apiValue id="mx.collections:ICollectionView:mx.collections:ICollectionView:length:get"><apiName>length</apiName><shortdesc>
+      此视图中的项目数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+      此视图中的项目数。0 表示不包含项目，而 -1 表示长度未知。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:ICollectionView:mx.collections:ICollectionView:sort:get"><apiName>sort</apiName><shortdesc>
+      将应用于 ICollectionView 的 ISort。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.collections:ISort</apiValueClassifier></apiValueDef><apiDesc>
+      将应用于 ICollectionView 的 ISort。设置排序不会自动刷新视图，因此必须在设置此属性后调用 <codeph>refresh()</codeph> 方法。如果不支持排序，访问此属性时将引发错误。
+	 
+	  <p>注意：ICollectionView 的 Flex 实现将先检索远程位置的所有项目，然后再执行排序。如果要对排序后的列表使用分页，请在检索数据之前对远程集合应用排序。</p>
+	 
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#ICollectionView/refresh()"><linktext>refresh()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.collections:CursorBookmark"><apiName>CursorBookmark</apiName><shortdesc>
+  将光标的位置信息封装在 ICollectionView 中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  将光标的位置信息封装在 <codeph>ICollectionView</codeph> 中。使用书签将光标返回到 <codeph>ICollectionView</codeph> 内的绝对位置。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.collections.xml#IViewCursor/bookmark"><linktext>mx.collections.IViewCursor.bookmark</linktext></link><link href="mx.collections.xml#IViewCursor/seek()"><linktext>mx.collections.IViewCursor.seek()</linktext></link></related-links><apiConstructor id="mx.collections:CursorBookmark:CursorBookmark"><apiName>CursorBookmark</apiName><shortdesc>
+      创建具有指定值的书签的新实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>此书签的值。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      创建具有指定值的书签的新实例。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.collections:CursorBookmark:getViewIndex"><apiName>getViewIndex</apiName><shortdesc>
+      获取在项目视图中此书签代表的项目的近似索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>项目的索引。如果项目不在当前视图中，则此方法返回 -1。如果不能是基于索引的位置，此方法也会返回 -1。
+      
+      </apiDesc><apiType value="int"/></apiReturn></apiOperationDef><apiDesc>
+      获取在项目视图中此书签代表的项目的近似索引。如果已将项目换出，则此方法可能会引发 ItemPendingError。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.collections:CursorBookmark:CURRENT:get"><apiName>CURRENT</apiName><shortdesc>
+      ICollectionView 中代表 IViewCursor 的当前项目的书签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiValueClassifier>mx.collections:CursorBookmark</apiValueClassifier></apiValueDef><apiDesc>
+      <codeph>ICollectionView</codeph> 中代表 <codeph>IViewCursor</codeph> 的当前项目的书签。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:CursorBookmark:FIRST:get"><apiName>FIRST</apiName><shortdesc>
+      ICollectionView 中第一个项目的书签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiValueClassifier>mx.collections:CursorBookmark</apiValueClassifier></apiValueDef><apiDesc>
+      <codeph>ICollectionView</codeph> 中第一个项目的书签。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:CursorBookmark:LAST:get"><apiName>LAST</apiName><shortdesc>
+      ICollectionView 中最后一个项目的书签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiValueClassifier>mx.collections:CursorBookmark</apiValueClassifier></apiValueDef><apiDesc>
+      <codeph>ICollectionView</codeph> 中最后一个项目的书签。如果视图不包含项目，则光标位于此书签处。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:CursorBookmark:value:get"><apiName>value</apiName><shortdesc>
+      书签的基本标记表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      书签的基本标记表示形式。通常只有 <codeph>IViewCursor</codeph> 或 <codeph>ICollectionView</codeph> 实现可以识别此值。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.collections:IViewCursor"><apiName>IViewCursor</apiName><shortdesc>
+  定义双向枚举集合视图的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  定义双向枚举集合视图的接口。此光标提供查找、搜索和标记为书签的功能，还提供修改方法插入和删除。首次从视图检索光标（通常使用 ICollectionView<codeph>createCursor()</codeph> 方法）时，<codeph>current</codeph> 属性的值应是该视图中的第一个项目，除非视图为空。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.collections:IViewCursor_mx.events.FlexEvent.CURSOR_UPDATE_cursorUpdate"><apiName>cursorUpdate</apiName><shortdesc>
+  光标位置更新时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.CURSOR_UPDATE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  光标位置更新时分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiOperation id="mx.collections:IViewCursor:mx.collections:IViewCursor:findAny"><apiName>findAny</apiName><shortdesc>
+      查找集合中具有指定属性的项目并将光标定位到该项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>所有数据都是本地数据时，如果可以找到该项目，此方法将返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>。 
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/><apiDesc>搜索条件。Object 中的值必须配置为名称-值对，就像关联数组中那样（或者是要搜索的实际对象）。指定的名称值必须与排序中指定的属性相匹配。例如，如果属性 <codeph>x</codeph>、<codeph>y</codeph> 和 <codeph>z</codeph> 位于当前排序中，则指定的值应为 <codeph>{x: <i>x-value</i>、y: <i>y-value</i> 和 z: <i>z-value</i>}</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      查找集合中具有指定属性的项目并将光标定位到该项目。如果无法找到该项目，光标位置不会更改。
+     
+      <p>仅可对排序后的视图调用 <codeph>findAny()</codeph> 方法；如果视图未排序，将引发 <codeph>CursorError</codeph>。</p>
+      
+      <p>如果相关联的集合是远程集合，而且并非所有项目都已在本地缓存，则此方法将开始从远程集合异步获取。如果正在执行某个获取请求，此方法将等待其完成，然后才发出另一获取请求。</p>
+     
+      <p>如果有多个项目与该搜索条件匹配，则找到的项目具有不确定性。如果必须在非唯一索引中找到第一个出现的项目或最后个一出现的项目，请使用 <codeph>findFirst()</codeph> 或 <codeph>findLast()</codeph> 方法。</p>
+     
+      <p>如果不是本地数据，并且必须执行异步操作，则会引发 ItemPendingError。</p>
+      
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.xml#IViewCursor/findFirst()"><linktext>findFirst()</linktext></link><link href="mx.collections.xml#IViewCursor/findLast()"><linktext>findLast()</linktext></link><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:IViewCursor:mx.collections:IViewCursor:findFirst"><apiName>findFirst</apiName><shortdesc>
+      查找集合中具有指定属性的第一个项目，并将光标定位到该项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>所有数据都是本地数据时，如果可以找到该项目，此方法将返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>。 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/><apiDesc>搜索条件。Object 中的值必须配置为名称-值对，就像关联数组中那样（或者是要搜索的实际对象）。指定的名称值必须与排序中指定的属性相匹配。例如，如果属性 <codeph>x</codeph>、<codeph>y</codeph> 和 <codeph>z</codeph> 位于当前排序中，则指定的值应为 <codeph>{x: <i>x-value</i>、y: <i>y-value</i> 和 z: <i>z-value</i>}</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      查找集合中具有指定属性的第一个项目，并将光标定位到该项目。如果无法找到该项目，所有光标位置都会更改。
+     
+      <p>仅可对排序后的视图调用 <codeph>findFirst()</codeph> 方法；如果视图未排序，则会引发 <codeph>CursorError</codeph>。</p>
+      
+      <p>如果相关联的集合是远程集合，而且并非所有项目都已在本地缓存，则此方法将开始从远程集合异步获取。如果正在执行某个获取请求，此方法将等待其完成，然后才发出另一获取请求。</p>
+     
+      <p>如果没有必要查找非唯一索引中第一个出现的项目，可使用 <codeph>findAny()</codeph>，它可以比 <codeph>findFirst() method</codeph> 稍快些。</p>
+     
+      <p>如果不是本地数据，并且必须执行异步操作，则会引发 ItemPendingError。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.xml#IViewCursor/findAny()"><linktext>findAny()</linktext></link><link href="mx.collections.xml#IViewCursor/findLast()"><linktext>findLast()</linktext></link><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:IViewCursor:mx.collections:IViewCursor:findLast"><apiName>findLast</apiName><shortdesc>
+      查找集合中具有指定属性的最后一个项目，并将光标定位到该项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>所有数据都是本地数据时，如果可以找到该项目，此方法将返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>。 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>values</apiItemName><apiType value="Object"/><apiDesc>搜索条件。Object 中的值必须配置为名称-值对，就像关联数组中那样（或者是要搜索的实际对象）。指定的名称值必须与排序中指定的属性相匹配。例如，如果属性 <codeph>x</codeph>、<codeph>y</codeph> 和 <codeph>z</codeph> 位于当前排序中，则指定的值应为 <codeph>{x: <i>x-value</i>、y: <i>y-value</i> 和 z: <i>z-value</i>}</codeph>。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      查找集合中具有指定属性的最后一个项目，并将光标定位到该项目。如果无法找到该项目，光标位置不会更改。
+     
+      <p>仅可对排序后的视图调用 <codeph>findLast()</codeph> 方法；如果视图未排序，则会引发 <codeph>CursorError</codeph>。</p>
+      
+      <p>如果相关联的集合是远程集合，而且并非所有项目都已在本地缓存，则此方法将开始从远程集合异步获取。如果正在执行某个获取请求，此方法将等待其完成，然后才发出另一获取请求。</p>
+     
+      <p>如果没有必要查找非唯一索引中最后一个出现的项目，可使用 <codeph>findAny()</codeph> 方法，该方法的速度可以稍微快些。</p>
+     
+      <p>如果不是本地数据，并且必须执行异步操作，则会引发 ItemPendingError。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.xml#IViewCursor/findAny()"><linktext>findAny()</linktext></link><link href="mx.collections.xml#IViewCursor/findFirst()"><linktext>findFirst()</linktext></link><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:IViewCursor:mx.collections:IViewCursor:insert"><apiName>insert</apiName><shortdesc>
+      在光标的当前位置之前插入指定的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>要插入光标当前位置之前的项目。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在光标的当前位置之前插入指定的项目。如果光标为 <codeph>afterLast</codeph>，将在视图的末尾执行插入。如果光标为非空视图上的 <codeph>beforeFirst</codeph>，将引发错误。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.collections:IViewCursor:mx.collections:IViewCursor:moveNext"><apiName>moveNext</apiName><shortdesc>
+      将光标移动到集合中的下一个项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果仍在列表中，则为 <codeph>true</codeph>；如果 <codeph>current</codeph> 值原来或现在为 <codeph>afterLast</codeph>，则为 <codeph>false</codeph>。
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      将光标移动到集合中的下一个项目。只有成功更新 <codeph>current</codeph> 属性，才能引用此新位置上的对象。如果生成的 <codeph>current</codeph> 属性有效，则返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>（属性值为 <codeph>afterLast</codeph>）。
+     
+      <p>如果不是本地数据，并且必须执行异步操作，则会引发 ItemPendingError。有关使用 ItemPendingError 的详细信息，请参阅 ItemPendingError 文档和集合文档。</p>
+     
+      </apiDesc><example>
+      <pre>
+      var myArrayCollection:ICollectionView = new ArrayCollection([ "Bobby", "Mark", "Trevor", "Jacey", "Tyler" ]);
+      var cursor:IViewCursor = myArrayCollection.createCursor();
+      while (!cursor.afterLast)
+      {
+          trace(cursor.current);
+          cursor.moveNext();
+      }
+      </pre>
+      
+      </example></apiOperationDetail><related-links><link href="mx.collections.xml#IViewCursor/current"><linktext>current</linktext></link><link href="mx.collections.xml#IViewCursor/movePrevious()"><linktext>movePrevious()</linktext></link><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:IViewCursor:mx.collections:IViewCursor:movePrevious"><apiName>movePrevious</apiName><shortdesc>
+      将光标移动到集合中的上一个项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果仍在列表中，则为 <codeph>true</codeph>；如果 <codeph>current</codeph> 值原来或现在为 <codeph>beforeFirst</codeph>，则为 <codeph>false</codeph>。例如：
+      <pre>
+      var myArrayCollection:ICollectionView = new ArrayCollection([ "Bobby", "Mark", "Trevor", "Jacey", "Tyler" ]);
+      var cursor:IViewCursor = myArrayCollection.createCursor();
+      cursor.seek(CursorBookmark.last);
+      while (!cursor.beforeFirst)
+      {
+          trace(current);
+          cursor.movePrevious();
+      }
+      </pre>
+     
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      将光标移动到集合中的上一个项目。只有成功更新 <codeph>current</codeph> 属性，才能引用此新位置上的对象。如果生成的 <codeph>current</codeph> 属性有效，则返回 <codeph>true</codeph>，否则返回 <codeph>false</codeph>（属性值为 <codeph>beforeFirst</codeph>）。
+     
+      <p>如果不是本地数据，并且必须执行异步操作，则会引发 ItemPendingError。有关使用 ItemPendingError 的详细信息，请参阅 ItemPendingError 文档和集合文档。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.xml#IViewCursor/current"><linktext>current</linktext></link><link href="mx.collections.xml#IViewCursor/moveNext()"><linktext>moveNext()</linktext></link><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:IViewCursor:mx.collections:IViewCursor:remove"><apiName>remove</apiName><shortdesc>
+      删除当前项目并返回该项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>被删除的项目。
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      删除当前项目并返回该项目。如果光标位置为 <codeph>beforeFirst</codeph> 或 <codeph>afterLast</codeph>，则会引发 CursorError。如果删除最后一个项目之外的任何项目，光标会移动到下一个项目。如果删除最后一个项目，光标将位于 AFTER_LAST 书签处。
+      
+      <p>如果已删除项目后面的项目不是本地项目，并且必须执行异步操作，则会引发 ItemPendingError。有关使用 ItemPendingError 的详细信息，请参阅 ItemPendingError 文档和集合文档。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link></related-links></apiOperation><apiOperation id="mx.collections:IViewCursor:mx.collections:IViewCursor:seek"><apiName>seek</apiName><shortdesc>
+      将光标移动到与指定书签位置存在一定偏移量的某个位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>bookmark</apiItemName><apiOperationClassifier>mx.collections:CursorBookmark</apiOperationClassifier><apiDesc><codeph>CursorBookmark</codeph> 引用允许重新定位到特定位置的标记信息。可将此参数设置为从 <codeph>bookmark</codeph> 属性返回的值，或设置为以下常量书签值之一：
+      <ul>
+        <li><codeph>CursorBookmark.FIRST</codeph> — 从集合的开始位置（第一个元素）搜索</li>
+        <li><codeph>CursorBookmark.CURRENT</codeph> — 从集合的当前位置搜索</li>
+        <li><codeph>CursorBookmark.LAST</codeph> — 从集合的结束位置（最后一个元素）搜索</li>
+      </ul>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>offset</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>指示从距指定书签多远的位置搜索。如果指定的数字为负，则光标尝试向指定书签的前面移动。如果指定的偏移超出了集合的末尾，光标将定位在末尾之外的 <codeph>beforeFirst</codeph> 或 <codeph>afterLast</codeph> 位置。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>prefetch</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>用于远程数据。指示打算在完成搜索操作后在特定方向上遍历。这会减少搜索期间所需的网络往返次数。如果遍历方向在请求时已知，则可在请求遍历数据之前返回适量的数据。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      将光标移动到与指定书签位置存在一定偏移量的某个位置。偏移值可以为负，在这种情况下，光标将定位在位于指定书签前的项目的 <codeph>offset</codeph> 量处。
+     
+      <p>如果相关联的集合是远程集合，而且并非所有项目都已在本地缓存，则此方法将开始从远程集合异步获取。</p>
+     
+      <p>如果不是本地数据，并且必须执行异步操作，则会引发 ItemPendingError。有关使用 ItemPendingError 的详细信息，请参阅 ItemPendingError 文档和集合文档。</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.collections.errors.xml#ItemPendingError"><linktext>mx.collections.errors.ItemPendingError</linktext></link></related-links></apiOperation><apiValue id="mx.collections:IViewCursor:mx.collections:IViewCursor:afterLast:get"><apiName>afterLast</apiName><shortdesc>
+      如果将光标定位于视图中最后一个项目之后，则此属性为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="cursorUpdate"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果将光标定位于视图中的最后一个项目之后，则此属性为 <codeph>true</codeph>。如果 ICollectionView 为空（长度 == 0），此属性为 <codeph>true</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IViewCursor:mx.collections:IViewCursor:beforeFirst:get"><apiName>beforeFirst</apiName><shortdesc>
+      如果将光标定位于视图中第一个项目之前，此属性为 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="cursorUpdate"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果将光标定位于视图中第一个项目之前，则此属性为 <codeph>true</codeph>。如果 ICollectionView 为空（长度 == 0），此属性为 <codeph>true</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.collections:IViewCursor:mx.collections:IViewCursor:bookmark:get"><apiName>bookmark</apiName><shortdesc>
+      可以访问与当前属性返回的项目相对应的书签。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="cursorUpdate"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.collections:CursorBookmark</apiValueClassifier></apiValueDef><apiDesc>
+      可以访问与 <codeph>current</codeph> 属性返回的项目相对应的书签。该书签可用于将光标移动到先前访问的项目或相对于该项目的位置。（有关详细信息，请参阅 <codeph>seek()</codeph> 方法。）
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#IViewCursor/current"><linktext>current</linktext></link><link href="mx.collections.xml#IViewCursor/seek()"><linktext>seek()</linktext></link></related-links></apiValue><apiValue id="mx.collections:IViewCursor:mx.collections:IViewCursor:current:get"><apiName>current</apiName><shortdesc>
+      可以访问位于此光标引用的源集合中的位置的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="cursorUpdate"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      可以访问位于此光标引用的源集合中的位置的对象。如果光标超出了集合末端（<codeph>beforeFirst</codeph> 和 <codeph>afterLast</codeph>），这将返回 <codeph>null</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.collections.xml#IViewCursor/moveNext()"><linktext>moveNext()</linktext></link><link href="mx.collections.xml#IViewCursor/movePrevious()"><linktext>movePrevious()</linktext></link><link href="mx.collections.xml#IViewCursor/seek()"><linktext>seek()</linktext></link><link href="mx.collections.xml#IViewCursor/beforeFirst"><linktext>beforeFirst</linktext></link><link href="mx.collections.xml#IViewCursor/afterLast"><linktext>afterLast</linktext></link></related-links></apiValue><apiValue id="mx.collections:IViewCursor:mx.collections:IViewCursor:view:get"><apiName>view</apiName><shortdesc>
+      对与此光标关联的 ICollectionView 的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.collections:ICollectionView</apiValueClassifier></apiValueDef><apiDesc>
+      对与此光标关联的 ICollectionView 的引用。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

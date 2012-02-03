@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.delegates"><apiName>mx.automation.delegates</apiName><apiDetail/><apiClassifier id="mx.automation.delegates:TextFieldAutomationHelper"><apiName>TextFieldAutomationHelper</apiName><shortdesc> 
+	 Dienstklasse, welche die Wiederholung von Texteingabe und -auswahl erleichtert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc> 
+	 Dienstklasse, welche die Wiederholung von Texteingabe und -auswahl erleichtert.
+	  
+	  </apiDesc></apiClassifierDetail><apiConstructor id="mx.automation.delegates:TextFieldAutomationHelper:TextFieldAutomationHelper"><apiName>TextFieldAutomationHelper</apiName><shortdesc>
+		 Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>owner</apiItemName><apiType value="flash.events:IEventDispatcher"/><apiDesc>UI-Komponente, welche das TextField verwendet. Beispiel: Wenn eine TextArea-Komponente ein TextField verwendet, ist TextArea der Besitzer.
+		  
+		 </apiDesc></apiParam><apiParam><apiItemName>replayer</apiItemName><apiType value="mx.automation:IAutomationObject"/><apiDesc>Das IAutomation-Objekt der Komponente.
+		  
+		 </apiDesc></apiParam><apiParam><apiItemName>textField</apiItemName><apiType value="mx.core:IUITextField"/><apiDesc>Das TextField-Objekt innerhalb der Komponente.
+		  
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		 Konstruktor.
+		  
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates:TextFieldAutomationHelper:recordAutomatableEvent"><apiName>recordAutomatableEvent</apiName><shortdesc>
+		  Zeichnet die Interaktion des Benutzers mit dem Textsteuerelement auf.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>interaction</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das aufzuzeichnende Ereignis.
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cacheable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Enthält <codeph>true</codeph>, wenn dies ein Cache-fähiges Ereignis ist und <codeph>false</codeph>, wenn nicht.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Zeichnet die Interaktion des Benutzers mit dem Textsteuerelement auf.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:TextFieldAutomationHelper:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		  Wiederholt TypeTextEvents und TypeEvents.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Wenn „true“, wird das Ereignis wiederholt.
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Zu wiederholendes Ereignis.
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Wiederholt TypeTextEvents und TypeEvents. TypeTextEvents werden durch Aufrufen von replaceText für das zugrunde liegenden Textfeld wiederholt. TypeEvents werden abhängig von den eingegebenen Zeichen wiederholt. Beide lösen auch die ursprüngliche Tasteneingabe aus. Dies ist notwendig, um das ursprüngliche Verhalten für den Fall nachzuahmen, dass Komponenten auf Tasteneingabeereignisse warten (z. B. DataGrid wartet auf itemRenderer-Ereignisse oder eine benutzerdefinierte Komponente versucht, Tasten zu maskieren). Idealerweise würde der Code die ursprüngliche Tasteneingabe auslösen, aber das Flash Player TextField ignoriert die ihm gesendeten Ereignisse.
+		 
+		 </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates:DragManagerAutomationImpl"><apiName>DragManagerAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der DragManager-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der DragManager-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link></related-links><apiConstructor id="mx.automation.delegates:DragManagerAutomationImpl:DragManagerAutomationImpl"><apiName>DragManagerAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>proxy</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Zu automatisierendes DragManager-Objekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		  
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:getDragManagerProxy"><apiName>getDragManagerProxy</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="flash.display:DisplayObject"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:recordAutomatableDragCancel1"><apiName>recordAutomatableDragCancel1</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiType value="mx.core:IUIComponent"/></apiParam><apiParam><apiItemName>dragEvent</apiItemName><apiType value="mx.events:DragEvent"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:replayDragDrop"><apiName>replayDragDrop</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>realTarget</apiItemName><apiType value="flash.events:IEventDispatcher"/></apiParam><apiParam><apiItemName>target</apiItemName><apiType value="mx.automation:IAutomationObject"/></apiParam><apiParam><apiItemName>dragEvent</apiItemName><apiOperationClassifier>mx.automation.events:AutomationDragEvent</apiOperationClassifier></apiParam><apiParam><apiItemName>dontChangeCoords</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:setForcefulDragStart"><apiName>setForcefulDragStart</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates:DragManagerAutomationImpl:storeAIRDragSourceDetails"><apiName>storeAIRDragSourceDetails</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dragSource</apiItemName><apiType value="mx.core:DragSource"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

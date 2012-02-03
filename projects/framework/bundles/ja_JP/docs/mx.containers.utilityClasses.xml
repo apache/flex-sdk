@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.containers.utilityClasses"><apiName>mx.containers.utilityClasses</apiName><apiDetail/><apiClassifier id="mx.containers.utilityClasses:ConstraintRow"><apiName>ConstraintRow</apiName><shortdesc>
+  ConstraintRow クラスは、水平面に絶対配置されたコンテナを分割します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="container"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ConstraintRow クラスは、水平面に絶対配置されたコンテナを分割します。 ConstraintRow インスタンスには、固定、パーセント、およびコンテンツの 3 つのサイズ設定オプションがあります。 これらのオプションは、制約行の位置、コンテナ内で制約行が占有する領域、および制約行がコンテナのサイズ変更にどう対応するかを決定します。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.containers.utilityClasses:ConstraintRow:ConstraintRow"><apiName>ConstraintRow</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.containers.utilityClasses:ConstraintRow:initialized"><apiName>initialized</apiName><shortdesc>
+       MXML タグを使用して ConstraintRow インスタンスを作成したときに、MXML コンパイラーによって自動的に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>この ConstraintRow を含む MXML ドキュメントです。
+      
+       </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>無視されます。
+       
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+       MXML タグを使用して ConstraintRow インスタンスを作成したときに、MXML コンパイラーによって自動的に呼び出されます。 ActionScript を介して制約行を作成した場合、MXML ドキュメントと <codeph>null</codeph>（<codeph>id</codeph> 用）を渡してこのメソッドを呼び出す必要があります。
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:ConstraintRow:setActualHeight"><apiName>setActualHeight</apiName><shortdesc>
+      ConstraintRow のサイズを設定します。
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>h</apiItemName><apiType value="Number"/><apiDesc>親コンテナの処理中に計算された制約行の高さです。
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      ConstraintRow のサイズを設定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.containers.utilityClasses:ConstraintRow:baseline:get"><apiName>baseline</apiName><shortdesc>
+      ConstraintRow インスタンスのベースラインを指定する数値（ピクセル単位）。行の上端または行に含まれているエレメントの最大アセントを基準にした相対的な数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="baselineChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>"maxAscent:0"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      ConstraintRow インスタンスのベースラインを指定する数値（ピクセル単位）。行の上端または行に含まれているエレメントの最大アセントを基準にした相対的な数値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:explicitHeight:get"><apiName>explicitHeight</apiName><shortdesc>
+      ConstraintRow インスタンスの座標内における ConstraintRow インスタンスの明示的な高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="explicitHeightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ConstraintRow インスタンスの座標内における ConstraintRow インスタンスの明示的な高さ（ピクセル単位）を指定する数値です。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:height:get"><apiName>height</apiName><shortdesc>
+      親の座標内における ConstraintRow インスタンスの高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="heightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      親の座標内における ConstraintRow インスタンスの高さ（ピクセル単位）を指定する数値です。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:id:get"><apiName>id</apiName><shortdesc>
+      ConstraintRow インスタンスの ID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ConstraintRow インスタンスの ID です。 この値は制約行のインスタンス名になります。この値には、空白または特殊文字を含めないでください。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:maxHeight:get"><apiName>maxHeight</apiName><shortdesc>
+      ConstraintRow インスタンスの座標内における ConstraintRow インスタンスの最大の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxHeightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ConstraintRow インスタンスの座標内における ConstraintRow インスタンスの最大の高さ（ピクセル単位）を指定する数値です。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:minHeight:get"><apiName>minHeight</apiName><shortdesc>
+      ConstraintRow インスタンスの座標内における ConstraintRow インスタンスの最小の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minHeightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ConstraintRow インスタンスの座標内における ConstraintRow インスタンスの最小の高さ（ピクセル単位）を指定する数値です。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintRow:percentHeight:get"><apiName>percentHeight</apiName><shortdesc>
+      コンポーネントの高さを親のサイズに対する比率（パーセンテージ）で指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="percentHeightChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの高さを親のサイズに対する比率（パーセンテージ）で指定する数値です。 指定できる値は 0 ～ 100 です。 デフォルト値は NaN です。 <codeph>width</codeph> プロパティを設定すると、このプロパティが NaN にリセットされます。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.containers.utilityClasses:ConstraintColumn"><apiName>ConstraintColumn</apiName><shortdesc>
+  ConstraintColumn クラスは、垂直面に絶対配置されたコンテナを分割します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><Exclude kind="property" name="container"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IMXMLObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ConstraintColumn クラスは、垂直面に絶対配置されたコンテナを分割します。 ConstraintColumn インスタンスには、固定、パーセント、およびコンテンツの 3 つのサイズ設定オプションがあります。 これらのオプションは、制約列の位置、コンテナ内で制約列が占有する領域、および制約列がコンテナのサイズ変更にどう対応するかを決定します。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.containers.utilityClasses:ConstraintColumn:ConstraintColumn"><apiName>ConstraintColumn</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.containers.utilityClasses:ConstraintColumn:initialized"><apiName>initialized</apiName><shortdesc>
+       MXML タグを使用して ConstraintColumn インスタンスを作成したときに、MXML コンパイラーによって自動的に呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>document</apiItemName><apiType value="Object"/><apiDesc>この ConstraintColumn を含む MXML ドキュメントです。
+      
+       </apiDesc></apiParam><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>無視されます。
+       
+       </apiDesc></apiParam></apiOperationDef><apiDesc>
+       MXML タグを使用して ConstraintColumn インスタンスを作成したときに、MXML コンパイラーによって自動的に呼び出されます。 ActionScript を介して ConstraintColumn インスタンスを作成した場合、MXML ドキュメントと <codeph>null</codeph>（<codeph>id</codeph> 用）を渡してこのメソッドを呼び出す必要があります。
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:ConstraintColumn:setActualWidth"><apiName>setActualWidth</apiName><shortdesc>
+	  制約列のサイズを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/><apiDesc>親コンテナの処理中に計算された制約列の幅です。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  制約列のサイズを設定します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.containers.utilityClasses:ConstraintColumn:explicitWidth:get"><apiName>explicitWidth</apiName><shortdesc>
+      ConstraintColumn インスタンスの座標内における ConstraintColumn インスタンスの明示的な幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="explicitWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ConstraintColumn インスタンスの座標内における ConstraintColumn インスタンスの明示的な幅（ピクセル単位）を指定する数値です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:id:get"><apiName>id</apiName><shortdesc>
+      ConstraintColumn インスタンスの ID です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      ConstraintColumn インスタンスの ID です。 この値は ConstraintColumn インスタンスのインスタンス名になります。この値には、空白または特殊文字を含めないでください。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      ConstraintColumn インスタンスの座標内における ConstraintColumn インスタンスの最大の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="maxWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ConstraintColumn インスタンスの座標内における ConstraintColumn インスタンスの最大の幅（ピクセル単位）を指定する数値です。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      ConstraintColumn インスタンスの座標内における ConstraintColumn インスタンスの最小の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      ConstraintColumn インスタンスの座標内における ConstraintColumn インスタンスの最小の幅（ピクセル単位）を指定する数値です。
+     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:percentWidth:get"><apiName>percentWidth</apiName><shortdesc>
+      コンポーネントの幅を親コンテナのサイズに対する比率（パーセンテージ）で指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="percentWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      コンポーネントの幅を親コンテナのサイズに対する比率（パーセンテージ）で指定する数値です。 指定できる値は 0 ～ 100 です。 デフォルト値は NaN です。 <codeph>width</codeph> プロパティを設定すると、このプロパティが NaN にリセットされます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:ConstraintColumn:width:get"><apiName>width</apiName><shortdesc>
+      親コンテナの座標内における ConstraintColumn インスタンスの幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      親コンテナの座標内における ConstraintColumn インスタンスの幅（ピクセル単位）を指定する数値です。
+     
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.containers.utilityClasses:PostScaleAdapter"><apiName>PostScaleAdapter</apiName><shortdesc>
+  PostScaleAdapter クラスは、拡大 / 縮小の適用後に決定される width、height、min、max、explicit、measured などのプロパティに依存する、Flex 3 のクラスの互換性レイヤーとして使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IUIComponent</apiBaseInterface><apiBaseInterface>mx.core:IConstraintClient</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PostScaleAdapter クラスは、拡大 / 縮小の適用後に決定される width、height、min、max、explicit、measured などのプロパティに依存する、Flex 3 のクラスの互換性レイヤーとして使用されます。Flex 4 では拡大 / 縮小の適用前にプロパティが計算されるので、このクラスが役立ちます。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.containers.utilityClasses:PostScaleAdapter:PostScaleAdapter"><apiName>PostScaleAdapter</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:addEventListener"><apiName>addEventListener</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:dispatchEvent"><apiName>dispatchEvent</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getBounds"><apiName>getBounds</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>targetCoordinateSpace</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getCompatibleIUIComponent"><apiName>getCompatibleIUIComponent</apiName><shortdesc>
+      width、height、min、max、explicit、measured などをレポートする IUIComponent を使用する必要がある場合は、getCompatibleIUIComponent を呼び出します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.core:IUIComponent</apiOperationClassifier></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      拡大 / 縮小適用後の座標で width、height、min、max、explicit、measured などをレポートする IUIComponent を使用する必要がある場合は、getCompatibleIUIComponent を呼び出します。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getConstraintValue"><apiName>getConstraintValue</apiName><shortdesc>
+      
+      指定された制約値を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>制約値です。制約値が定義されていない場合は null です。
+     
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>constraintName</apiItemName><apiType value="String"/><apiDesc>制約値の名前です。 制約パラメーターには、"<codeph>baseline</codeph>"、"<codeph>bottom</codeph>"、"<codeph>horizontalCenter</codeph>"、"<codeph>left</codeph>"、"<codeph>right</codeph>"、"<codeph>top</codeph>" および "<codeph>verticalCenter</codeph>" があります。
+     
+      <p>これらのパラメーターの詳細については、Canvas コンテナ、Panel コンテナおよび Styles Metadata AnchorStyles を参照してください。</p>
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      指定された制約値を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getExplicitOrMeasuredHeight"><apiName>getExplicitOrMeasuredHeight</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getExplicitOrMeasuredWidth"><apiName>getExplicitOrMeasuredWidth</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Number"/></apiReturn></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:getRect"><apiName>getRect</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Rectangle"/></apiReturn><apiParam><apiItemName>targetCoordinateSpace</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:globalToLocal"><apiName>globalToLocal</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>point</apiItemName><apiType value="flash.geom:Point"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:hasEventListener"><apiName>hasEventListener</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:hitTestObject"><apiName>hitTestObject</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:hitTestPoint"><apiName>hitTestPoint</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>shapeFlag</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:initialize"><apiName>initialize</apiName><shortdesc>
+      
+      オブジェクトを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      オブジェクトを初期化します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:invalidateDisplayList"><apiName>invalidateDisplayList</apiName><shortdesc>
+      
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前に、コンポーネントの validateDisplayList() メソッドが呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前に、コンポーネントの <codeph>validateDisplayList()</codeph> メソッドが呼び出されます。
+	 
+	  <p>UIComponent を拡張するコンポーネントの場合は、<codeph>updateDisplayList()</codeph> が呼び出されることになります。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:invalidateProperties"><apiName>invalidateProperties</apiName><shortdesc>
+      
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前にコンポーネントの validateProperties() メソッドが呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前にコンポーネントの <codeph>validateProperties()</codeph> メソッドが呼び出されます。
+	 
+	  <p>UIComponent を拡張するコンポーネントの場合は、<codeph>commitProperties()</codeph> が呼び出されることになります。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:invalidateSize"><apiName>invalidateSize</apiName><shortdesc>
+      
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前に、コンポーネントの validateSize() メソッドが呼び出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+	  このメソッドを呼び出すと、表示リストがレンダリングされる前に、コンポーネントの <codeph>validateSize()</codeph> メソッドが呼び出されます。
+	 
+	  <p>UIComponent を拡張するコンポーネントの場合は、<codeph>measure()</codeph> が呼び出されることになります（ただし、コンポーネントに <codeph>explicitWidth</codeph> と <codeph>explicitHeight</codeph> の両方が設定されている場合を除く）。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:localToGlobal"><apiName>localToGlobal</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>point</apiItemName><apiType value="flash.geom:Point"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:move"><apiName>move</apiName><shortdesc>
+      
+	  このオブジェクトを指定の x および y 座標に移動します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの新しい x 位置です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの新しい y 位置です。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  このオブジェクトを指定の x および y 座標に移動します。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:owns"><apiName>owns</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>displayObject</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:parentChanged"><apiName>parentChanged</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>p</apiItemName><apiType value="flash.display:DisplayObjectContainer"/></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:removeEventListener"><apiName>removeEventListener</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>listener</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:setActualSize"><apiName>setActualSize</apiName><shortdesc>
+      
+	  このオブジェクトの実際のサイズを設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newWidth</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの新しい幅です。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>newHeight</apiItemName><apiType value="Number"/><apiDesc>このオブジェクトの新しい高さです。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  このオブジェクトの実際のサイズを設定します。
+	 
+	  <p>このメソッドは主に <codeph>updateDisplayList()</codeph> メソッドの実装に使用されます。ここでオブジェクトの実際のサイズを、その明示的サイズ、親との相対（％）サイズ、および測定されたサイズに基づいて計算します。 次に <codeph>setActualSize()</codeph> を呼び出して、この実際のサイズをオブジェクトに適用します。</p>
+	 
+	  <p>その他の状況では、このメソッドを呼び出す代わりに、<codeph>width</codeph>、<codeph>height</codeph>、<codeph>percentWidth</codeph>、<codeph>percentHeight</codeph> などのプロパティを設定することになります。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:setConstraintValue"><apiName>setConstraintValue</apiName><shortdesc>
+      
+      指定された制約値を設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>constraintName</apiItemName><apiType value="String"/><apiDesc>制約値の名前です。 制約パラメーターには、"<codeph>baseline</codeph>"、"<codeph>bottom</codeph>"、"<codeph>horizontalCenter</codeph>"、"<codeph>left</codeph>"、"<codeph>right</codeph>"、"<codeph>top</codeph>" および "<codeph>verticalCenter</codeph>" があります。
+     
+      <p>これらのパラメーターの詳細については、Canvas コンテナ、Panel コンテナおよび Styles Metadata AnchorStyles を参照してください。</p>
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiDesc>制約の新しい値を表します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      指定された制約値を設定します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:setVisible"><apiName>setVisible</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/></apiParam><apiParam><apiItemName>noEvent</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef><apiDesc>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:validateNow"><apiName>validateNow</apiName><shortdesc>
+      
+      必要に応じて、validateProperties()、validateSize() および validateDisplayList() を直ちに呼び出して、このオブジェクトのプロパティとレイアウトを検証および更新します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      必要に応じて、<codeph>validateProperties()</codeph>、<codeph>validateSize()</codeph> および <codeph>validateDisplayList()</codeph> を直ちに呼び出して、このオブジェクトのプロパティとレイアウトを検証および更新します。
+     
+      <p>プロパティが変更された場合、新しい値は通常、コンポーネントに対して即時に有効になりません。 通常は、その時点で実行する必要のあるすべてのアプリケーションコードが実行されます。 次に、LayoutManager が、検証の必要性と、表示リストオブジェクトの階層における深度に基づいて、コンポーネントで <codeph>validateProperties()</codeph>、<codeph>validateSize()</codeph> および <codeph>validateDisplayList()</codeph> メソッドの呼び出しを開始します。</p>
+	 
+      <p>例えば、<codeph>width</codeph> プロパティの設定は遅らされます。これは、オブジェクトの子または親の幅の再計算が必要になる可能性があるためです。 処理を遅らせることにより、アプリケーションコードで <codeph>width</codeph> プロパティが複数回設定されても、処理を何度も繰り返さずにすみます。このメソッドでは、この動作を手動でオーバーライドできます。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.containers.utilityClasses:PostScaleAdapter:willTrigger"><apiName>willTrigger</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:accessibilityProperties:get"><apiName>accessibilityProperties</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.accessibility:AccessibilityProperties"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:alpha:get"><apiName>alpha</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:baselinePosition:get"><apiName>baselinePosition</apiName><shortdesc>
+       
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+       
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:blendMode:get"><apiName>blendMode</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:cacheAsBitmap:get"><apiName>cacheAsBitmap</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:document:get"><apiName>document</apiName><shortdesc>
+      
+      このコンポーネントに関連付けられたドキュメントオブジェクトへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      このコンポーネントに関連付けられたドキュメントオブジェクトへの参照です。ドキュメントオブジェクトは、Flex アプリケーション、MXML コンポーネント、または ActionScript コンポーネントの階層の最上位にあるオブジェクトです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:enabled:get"><apiName>enabled</apiName><shortdesc>
+      
+      コンポーネントがユーザーの操作を受け入れることができるかどうかを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      コンポーネントがユーザーの操作を受け入れることができるかどうかを指定します。 <codeph>enabled</codeph> プロパティを <codeph>false</codeph> に設定した後でも、一部のコンポーネントは mouseOver などのマウス操作に応答します。 そのため、UIComponent を完全に無効にするには、<codeph>mouseEnabled</codeph> プロパティの値も <codeph>false</codeph> に設定する必要があります。 あるコンテナに対して <codeph>enabled</codeph> プロパティを <codeph>false</codeph> に設定すると、そのコンテナとそのすべての子がグレー表示になり、それらのコンテナと子には入力できなくなります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitHeight:get"><apiName>explicitHeight</apiName><shortdesc>
+      
+      コンポーネントの座標として明示的に指定されたコンポーネントの高さ（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標として明示的に指定されたコンポーネントの高さ（ピクセル単位）です。 高さが明示的に指定されていない場合、この値は <codeph>NaN</codeph> になります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitMaxHeight:get"><apiName>explicitMaxHeight</apiName><shortdesc>
+      
+      コンポーネントの座標としてコンポーネントの最大の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標としてコンポーネントの最大の高さ（ピクセル単位）を指定する数値です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitMaxWidth:get"><apiName>explicitMaxWidth</apiName><shortdesc>
+      
+      コンポーネントの座標としてコンポーネントの最大の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標としてコンポーネントの最大の幅（ピクセル単位）を指定する数値です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitMinHeight:get"><apiName>explicitMinHeight</apiName><shortdesc>
+      
+      コンポーネントの座標としてコンポーネントの最小の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標としてコンポーネントの最小の高さ（ピクセル単位）を指定する数値です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitMinWidth:get"><apiName>explicitMinWidth</apiName><shortdesc>
+      
+      コンポーネントの座標としてコンポーネントの最小の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標としてコンポーネントの最小の幅（ピクセル単位）を指定する数値です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:explicitWidth:get"><apiName>explicitWidth</apiName><shortdesc>
+      
+      コンポーネントの座標として明示的に指定されたコンポーネントの幅（ピクセル単位）です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標として明示的に指定されたコンポーネントの幅（ピクセル単位）です。 幅が明示的に指定されていない場合、この値は <codeph>NaN</codeph> になります。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:filters:get"><apiName>filters</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:focusPane:get"><apiName>focusPane</apiName><shortdesc>
+      
+      複数のコンポーネント間で共有され、フォーカスインジケーター描画のオーバーレイとして使用される単一の Sprite オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      
+      複数のコンポーネント間で共有され、フォーカスインジケーター描画のオーバーレイとして使用される単一の Sprite オブジェクトです。コンポーネントは、親がフォーカスの設定されたコンポーネントの場合にこのオブジェクトを共有します。コンポーネントが IFocusManagerComponent インターフェイスを実装している場合には共有しません。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:height:get"><apiName>height</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:includeInLayout:get"><apiName>includeInLayout</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:isPopUp:get"><apiName>isPopUp</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:loaderInfo:get"><apiName>loaderInfo</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:LoaderInfo"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:mask:get"><apiName>mask</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:maxHeight:get"><apiName>maxHeight</apiName><shortdesc>
+      
+      コンポーネントの座標としてコンポーネントの最大の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標としてコンポーネントの最大の高さ（ピクセル単位）を指定する数値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:maxWidth:get"><apiName>maxWidth</apiName><shortdesc>
+      
+      コンポーネントの座標としてコンポーネントの最大の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標としてコンポーネントの最大の幅（ピクセル単位）を指定する数値です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+      
+	  このオブジェクトの測定した高さです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+	  このオブジェクトの測定した高さです。
+	 
+	  <p>この数字は単なるグラフィックのピクセル数であるため、グラフィカルスキンの場合、これは通常ハードコードになります。 コードスキンの場合も、一定のサイズで描画する場合はハードコードにできます。 プロパティに応じてサイズが変わる場合は、ILayoutManagerClient により、適切なタイミングで <codeph>measure()</codeph> メソッドを呼び出して、<codeph>measuredHeight</codeph> を計算することもできます。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:measuredMinHeight:get"><apiName>measuredMinHeight</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:measuredMinWidth:get"><apiName>measuredMinWidth</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc>
+      
+	  このオブジェクトの測定した幅です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+	  このオブジェクトの測定した幅です。
+	 
+	  <p>この数字は単なるグラフィックのピクセル数であるため、グラフィカルスキンの場合、これは通常ハードコードになります。 コードスキンの場合も、一定のサイズで描画する場合はハードコードにできます。 プロパティに応じてサイズが変わる場合は、ILayoutManagerClient により、適切なタイミングで <codeph>measure()</codeph> メソッドを呼び出して、<codeph>measuredHeight</codeph> を計算することもできます。</p>
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:minHeight:get"><apiName>minHeight</apiName><shortdesc>
+      
+      コンポーネントの座標としてコンポーネントの最小の高さ（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標としてコンポーネントの最小の高さ（ピクセル単位）を指定する数値です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      
+      コンポーネントの座標としてコンポーネントの最小の幅（ピクセル単位）を指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの座標としてコンポーネントの最小の幅（ピクセル単位）を指定する数値です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:mouseX:get"><apiName>mouseX</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:mouseY:get"><apiName>mouseY</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:name:get"><apiName>name</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:opaqueBackground:get"><apiName>opaqueBackground</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:owner:get"><apiName>owner</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:parent:get"><apiName>parent</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:percentHeight:get"><apiName>percentHeight</apiName><shortdesc>
+      
+      コンポーネントの高さを親のサイズに対する比率（パーセンテージ）で指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの高さを親のサイズに対する比率（パーセンテージ）で指定する数値です。 指定できる値は 0 ～ 100 です。     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:percentWidth:get"><apiName>percentWidth</apiName><shortdesc>
+      
+      コンポーネントの幅を親のサイズに対する比率（パーセンテージ）で指定する数値です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      コンポーネントの幅を親のサイズに対する比率（パーセンテージ）で指定する数値です。 指定できる値は 0 ～ 100 です。     
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:root:get"><apiName>root</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:rotation:get"><apiName>rotation</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:scale9Grid:get"><apiName>scale9Grid</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:scaleX:get"><apiName>scaleX</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:scaleY:get"><apiName>scaleY</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:scrollRect:get"><apiName>scrollRect</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:stage:get"><apiName>stage</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:Stage"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:systemManager:get"><apiName>systemManager</apiName><shortdesc>
+      
+      このコンポーネントの SystemManager オブジェクトへの参照です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.managers:ISystemManager</apiValueClassifier></apiValueDef><apiDesc>
+      
+      このコンポーネントの SystemManager オブジェクトへの参照です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:transform:get"><apiName>transform</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Transform"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:tweeningProperties:get"><apiName>tweeningProperties</apiName><shortdesc>
+      
+      EffectManager によって使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      
+      EffectManager によって使用されます。 コンポーネントが Tween を実行するために EffectManager を使用していない場合は、null 以外の値を返します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:visible:get"><apiName>visible</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:width:get"><apiName>width</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:x:get"><apiName>x</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:PostScaleAdapter:y:get"><apiName>y</apiName><shortdesc>
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.containers.utilityClasses:IConstraintLayout"><apiName>IConstraintLayout</apiName><shortdesc>
+  IConstraintLayout は、コンテナがレイアウト内で ConstraintColumn クラスおよび ConstraintRow クラスをサポートしていることを示すマーカーインターフェイスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IConstraintLayout は、コンテナがレイアウト内で ConstraintColumn クラスおよび ConstraintRow クラスをサポートしていることを示すマーカーインターフェイスです。 Application、Canvas、および Panel の各コンテナは、ConstraintRow クラスと ConstraintColumn クラスをサポートしています。 これらのコンテナでこのタイプの制約を利用するには、<codeph>layout</codeph> プロパティを <codeph>"absolute"</codeph> に設定し、ConstraintColumn インスタンスおよび ConstraintRow インスタンスを作成します。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.containers.Canvas.xml"><linktext>mx.containers.Canvas</linktext></link><link href="" invalidHref="mx.containers.Panel.xml"><linktext>mx.containers.Panel</linktext></link><link href="" invalidHref="mx.core.Application.xml"><linktext>mx.core.Application</linktext></link><link href="mx.containers.utilityClasses.xml#ConstraintColumn"><linktext>mx.containers.utilityClasses.ConstraintColumn</linktext></link><link href="mx.containers.utilityClasses.xml#ConstraintRow"><linktext>mx.containers.utilityClasses.ConstraintRow</linktext></link><link href="" invalidHref="mx.modules.Module.xml"><linktext>mx.modules.Module</linktext></link></related-links><apiValue id="mx.containers.utilityClasses:IConstraintLayout:mx.containers.utilityClasses:IConstraintLayout:constraintColumns:get"><apiName>constraintColumns</apiName><shortdesc>
+      このコンテナを分割する ConstraintColumn インスタンスの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このコンテナを分割する ConstraintColumn インスタンスの配列です。 インデックス 0 の ConstraintColumn インスタンスは一番左の列です。インデックスは左から右へ行くほど大きくなります。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.containers.utilityClasses:IConstraintLayout:mx.containers.utilityClasses:IConstraintLayout:constraintRows:get"><apiName>constraintRows</apiName><shortdesc>
+      このコンテナを分割する ConstraintRow インスタンスの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/><apiDefaultValue>[]
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このコンテナを分割する ConstraintRow インスタンスの配列です。 インデックス 0 の ConstraintRow インスタンスは一番上の列です。インデックスは上から下へ行くほど大きくなります。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

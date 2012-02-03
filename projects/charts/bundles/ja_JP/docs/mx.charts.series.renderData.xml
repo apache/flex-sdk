@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.charts.series.renderData"><apiName>mx.charts.series.renderData</apiName><apiDetail/><apiClassifier id="mx.charts.series.renderData:HLOCSeriesRenderData"><apiName>HLOCSeriesRenderData</apiName><shortdesc>
+  HLOCSeries および CandlestickSeries オブジェクトがレンダリングする場合に必要なあらゆる情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HLOCSeries および CandlestickSeries オブジェクトがレンダリングする場合に必要なあらゆる情報を表します。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:HLOCSeriesRenderData:HLOCSeriesRenderData"><apiName>HLOCSeriesRenderData</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>データプロバイダーのアイテムを表す HLOCSeriesItem オブジェクトのリストです。
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>フィルター適用後に残ったデータプロバイダーのアイテムを表す HLOCSeriesItem オブジェクトのリストです。
+	 </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>アイテムの幅の半分をピクセル単位で表します。
+	 </apiDesc></apiParam><apiParam><apiItemName>renderedXOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>	各アイテムの x 値からのオフセットをピクセル単位で表します。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:HLOCSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+	  アイテムの幅の半分をピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  アイテムの幅の半分をピクセル単位で表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:HLOCSeriesRenderData:renderedXOffset"><apiName>renderedXOffset</apiName><shortdesc>
+	  各アイテムの x 値からのオフセットをピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  各アイテムの x 値からのオフセットをピクセル単位で表します。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:PlotSeriesRenderData"><apiName>PlotSeriesRenderData</apiName><shortdesc>
+  PlotSeries がレンダリングする場合に必要なあらゆる情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PlotSeries がレンダリングする場合に必要なあらゆる情報を表します。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:PlotSeriesRenderData:PlotSeriesRenderData"><apiName>PlotSeriesRenderData</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>dataProvider のアイテムを表す PlotSeriesItem オブジェクトのリストです。
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>フィルター適用後に残った dataProvider のアイテムを表す PlotSeriesItem オブジェクトのリストです。
+	 </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>個々の PlotSeriesItems オブジェクトの半径です。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:PlotSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+	  個々の PlotSeriesItems オブジェクトの半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  個々の PlotSeriesItems オブジェクトの半径です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:ColumnSeriesRenderData"><apiName>ColumnSeriesRenderData</apiName><shortdesc>
+  ColumnSeries がレンダリングする場合に必要なあらゆる情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColumnSeries がレンダリングする場合に必要なあらゆる情報を表します。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:ColumnSeriesRenderData:ColumnSeriesRenderData"><apiName>ColumnSeriesRenderData</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>dataProvider のアイテムを表す ColumnSeriesItem オブジェクトのリストです。
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>フィルター適用後に残った dataProvider のアイテムを表す ColumnSeriesItem オブジェクトのリストです。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>縦棒の下端の垂直位置をピクセル単位で表します。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>縦棒の幅の半分をピクセル単位で表します。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedXOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>各縦棒の x 値からのオフセットをピクセル単位で表します。
+      </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>縦棒系列によってレンダリングされるラベルの縮尺率です。
+      </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>縦棒系列によってレンダリングされるラベルのレイアウトに関連付けられたデータの構造です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+      縦棒系列によってレンダリングされるラベルのレイアウトに関連付けられたデータの構造です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      縦棒系列によってレンダリングされるラベルのレイアウトに関連付けられたデータの構造です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+      縦棒系列によってレンダリングされるラベルの縮尺率です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      縦棒系列によってレンダリングされるラベルの縮尺率です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      縦棒の下端の垂直位置をピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      縦棒の下端の垂直位置をピクセル単位で表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+      縦棒の幅の半分をピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      縦棒の幅の半分をピクセル単位で表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:ColumnSeriesRenderData:renderedXOffset"><apiName>renderedXOffset</apiName><shortdesc>
+      各縦棒の x 値からのオフセットをピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      各縦棒の x 値からのオフセットをピクセル単位で表します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:AreaSeriesRenderData"><apiName>AreaSeriesRenderData</apiName><shortdesc>
+  AreaSeries がレンダリングする場合に必要なあらゆる情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AreaSeries がレンダリングする場合に必要なあらゆる情報を表します。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:AreaSeriesRenderData:AreaSeriesRenderData"><apiName>AreaSeriesRenderData</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>element</apiItemName><apiOperationClassifier>mx.charts.series:AreaSeries</apiOperationClassifier><apiDesc>この構造が関連付けられている AreaSeries オブジェクトです。
+      </apiDesc></apiParam><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>dataProvider のアイテムを表す AreaSeriesItem オブジェクトのリストです。
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>フィルター適用後に残った dataProvider のアイテムを表す AreaSeriesItem オブジェクトのリストです。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>面系列の下端の垂直位置をピクセル単位で表します。
+      </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>面系列の個々のアイテムの半径です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:element"><apiName>element</apiName><shortdesc>
+      この構造が関連付けられている AreaSeries です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.charts.series:AreaSeries</apiValueClassifier></apiValueDef><apiDesc>
+      この構造が関連付けられている AreaSeries です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+      面系列の個々のアイテムの半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      面系列の個々のアイテムの半径です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:AreaSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      面系列の下端の垂直位置をピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      面系列の下端の垂直位置をピクセル単位で表します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:LineSeriesRenderData"><apiName>LineSeriesRenderData</apiName><shortdesc>
+  LineSeries がレンダリングする場合に必要なあらゆる情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LineSeries がレンダリングする場合に必要なあらゆる情報を表します。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:LineSeriesRenderData:LineSeriesRenderData"><apiName>LineSeriesRenderData</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>dataProvider のアイテムを表す LineSeriesItem オブジェクトのリストです。
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>フィルター適用後に残った dataProvider のアイテムを表す LineSeriesItem オブジェクトのリストです。
+	 </apiDesc></apiParam><apiParam><apiItemName>validPoints</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>キャッシュ内で有効なポイントの数です。
+	 </apiDesc></apiParam><apiParam><apiItemName>segments</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>LineSeries の不連続な各セグメントを表す LineSeriesSegment オブジェクトの配列です。
+	 </apiDesc></apiParam><apiParam><apiItemName>radius</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>LineSeries の個々のアイテムの半径です。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:radius"><apiName>radius</apiName><shortdesc>
+	  線系列の個々のアイテムの半径です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  線系列の個々のアイテムの半径です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:segments"><apiName>segments</apiName><shortdesc>
+	  線系列の不連続な各セグメントを表す LineSeriesSegment インスタンスの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+	  線系列の不連続な各セグメントを表す LineSeriesSegment インスタンスの配列です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:LineSeriesRenderData:validPoints"><apiName>validPoints</apiName><shortdesc>
+	  キャッシュ内のポイントのうち、軸によるフィルター処理で除外されなかったものの数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  キャッシュ内のポイントのうち、軸によるフィルター処理で除外されなかったものの数です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:BubbleSeriesRenderData"><apiName>BubbleSeriesRenderData</apiName><shortdesc>
+  BubbleSeries がレンダリングする場合に必要なあらゆる情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BubbleSeries がレンダリングする場合に必要なあらゆる情報を表します。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:BubbleSeriesRenderData:BubbleSeriesRenderData"><apiName>BubbleSeriesRenderData</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>dataProvider のアイテムを表す BubbleSeriesItem オブジェクトのリストです。
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>フィルター適用後に残った dataProvider のアイテムを表す BubbleSeriesItem オブジェクトのリストです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.charts.series.renderData:BarSeriesRenderData"><apiName>BarSeriesRenderData</apiName><shortdesc>
+  BarSeries がレンダリングする場合に必要なあらゆる情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  BarSeries がレンダリングする場合に必要なあらゆる情報を表します。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:BarSeriesRenderData:BarSeriesRenderData"><apiName>BarSeriesRenderData</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>dataProvider のアイテムを表す BarSeriesItem オブジェクトのリストです。
+      </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>フィルター適用後に残った dataProvider のアイテムを表す BarSeriesItem オブジェクトのリストです。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedBase</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>横棒の下端の水平位置をピクセル単位で表します。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedHalfWidth</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>横棒の幅の半分をピクセル単位で表します。
+      </apiDesc></apiParam><apiParam><apiItemName>renderedYOffset</apiItemName><apiType value="Number"/><apiData>0</apiData><apiDesc>各横棒の y 値からのオフセットをピクセル単位で表します。
+      </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>横棒系列によってレンダリングされるラベルの縮尺率です。
+      </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>横棒系列によってレンダリングされるラベルのレイアウトに関連付けられたデータの構造です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+      横棒系列によってレンダリングされるラベルのレイアウトに関連付けられたデータの構造です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      横棒系列によってレンダリングされるラベルのレイアウトに関連付けられたデータの構造です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+      横棒系列によってレンダリングされるラベルの縮尺率です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      横棒系列によってレンダリングされるラベルの縮尺率です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedBase"><apiName>renderedBase</apiName><shortdesc>
+      横棒の下端の水平位置をピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      横棒の下端の水平位置をピクセル単位で表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedHalfWidth"><apiName>renderedHalfWidth</apiName><shortdesc>
+      横棒の幅の半分をピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      横棒の幅の半分をピクセル単位で表します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:BarSeriesRenderData:renderedYOffset"><apiName>renderedYOffset</apiName><shortdesc>
+      各横棒の y 値からのオフセットをピクセル単位で表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      各横棒の y 値からのオフセットをピクセル単位で表します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.charts.series.renderData:PieSeriesRenderData"><apiName>PieSeriesRenderData</apiName><shortdesc>
+  PieSeries がレンダリングする場合に必要なあらゆる情報を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.charts.chartClasses:RenderData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PieSeries がレンダリングする場合に必要なあらゆる情報を表します。  
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.charts.series.renderData:PieSeriesRenderData:PieSeriesRenderData"><apiName>PieSeriesRenderData</apiName><shortdesc>
+	  コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>cache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>dataProvider のアイテムを表す PieSeriesItem オブジェクトのリストです。
+	 </apiDesc></apiParam><apiParam><apiItemName>filteredCache</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>フィルター適用後に残った dataProvider のアイテムを表す PieSeriesItem オブジェクトのリストです。
+	 </apiDesc></apiParam><apiParam><apiItemName>labelScale</apiItemName><apiType value="Number"/><apiData>1</apiData><apiDesc>PieSeries によってレンダリングされるラベルの縮尺率です。
+	 </apiDesc></apiParam><apiParam><apiItemName>labelData</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>PieSeries によってレンダリングされるラベルのレイアウトに関連付けられたデータの構造です。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  コンストラクターです。
+	 
+	 </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:itemSum"><apiName>itemSum</apiName><shortdesc>
+	  円系列に表示される値の合計です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  円系列に表示される値の合計です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:labelData"><apiName>labelData</apiName><shortdesc>
+	  円系列によってレンダリングされるラベルのレイアウトに関連付けられたデータの構造です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  円系列によってレンダリングされるラベルのレイアウトに関連付けられたデータの構造です。
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.charts.series.renderData:PieSeriesRenderData:labelScale"><apiName>labelScale</apiName><shortdesc>
+	  円系列によってレンダリングされるラベルの縮尺率です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+	  円系列によってレンダリングされるラベルの縮尺率です。
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

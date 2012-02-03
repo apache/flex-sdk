@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.olap.aggregators"><apiName>mx.olap.aggregators</apiName><apiDetail/><apiClassifier id="mx.olap.aggregators:MinAggregator"><apiName>MinAggregator</apiName><shortdesc>
+  Класс MinAggregator реализует агрегатор минимальных значений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MinAggregator реализует агрегатор минимальных значений. Агрегатор минимальных значений возвращает минимальное значение всех измерений. Flex использует этот агрегатор при установке для свойства <codeph>OLAPMeasure.aggregator</codeph> значения <codeph>MIN</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:MinAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeLoop()</codeph> и <codeph>computeEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Объект, представляющий анализируемые данные строк. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeObjectLoop()</codeph> и <codeph>computeObjectEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений. Примером агрегации агрегированных значений является вычисление среднего значения группы средних значений.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectLoop()</codeph>, который используется для сохранения результатов агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MinAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeObjectLoop()</codeph>. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:AverageAggregator"><apiName>AverageAggregator</apiName><shortdesc>
+  Класс AverageAggregator реализует агрегатор средних значений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс AverageAggregator реализует агрегатор средних значений. Агрегатор средних значений возвращает среднее значение измерений. Flex использует этот агрегатор при установке для свойства <codeph>OLAPMeasure.aggregator</codeph> значения <codeph>AVG</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:AverageAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeLoop()</codeph> и <codeph>computeEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Объект, представляющий анализируемые данные строк. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeObjectLoop()</codeph> и <codeph>computeObjectEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений. Примером агрегации агрегированных значений является вычисление среднего значения группы средних значений.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectLoop()</codeph>, который используется для сохранения результатов агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:AverageAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeObjectLoop()</codeph>. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:MaxAggregator"><apiName>MaxAggregator</apiName><shortdesc>
+  Класс MaxAggregator реализует агрегатор максимальных значений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MaxAggregator реализует агрегатор максимальных значений. Агрегатор максимальных значений возвращает максимальное значение всех измерений. Flex использует этот агрегатор при установке для свойства <codeph>OLAPMeasure.aggregator</codeph> значения <codeph>MAX</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:MaxAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeLoop()</codeph> и <codeph>computeEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Объект, представляющий анализируемые данные строк. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeObjectLoop()</codeph> и <codeph>computeObjectEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений. Примером агрегации агрегированных значений является вычисление среднего значения группы средних значений.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectLoop()</codeph>, который используется для сохранения результатов агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:MaxAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeObjectLoop()</codeph>. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:SumAggregator"><apiName>SumAggregator</apiName><shortdesc>
+  Класс SumAggregator реализует агрегатор сумм.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SumAggregator реализует агрегатор сумм. Агрегатор сумм возвращает сумму всех измерений. Flex использует этот агрегатор при установке для свойства <codeph>OLAPMeasure.aggregator</codeph> значения <codeph>SUM</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:SumAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeLoop()</codeph> и <codeph>computeEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowData</apiItemName><apiType value="Object"/><apiDesc>Объект, представляющий анализируемые данные строк. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeObjectLoop()</codeph> и <codeph>computeObjectEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений. Примером агрегации агрегированных значений является вычисление среднего значения группы средних значений.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectLoop()</codeph>, который используется для сохранения результатов агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:SumAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeObjectLoop()</codeph>. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.olap.aggregators:CountAggregator"><apiName>CountAggregator</apiName><shortdesc>
+  Класс CountAggregator реализует агрегатор количества.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.olap:IOLAPCustomAggregator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс CountAggregator реализует агрегатор количества. Агрегатор количества возвращает количество измерений. Flex использует этот агрегатор при установке для свойства <codeph>OLAPMeasure.aggregator</codeph> значения <codeph>COUNT</codeph>.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.olap.xml#OLAPMeasure"><linktext>mx.olap.OLAPMeasure</linktext></link></related-links><apiOperation id="mx.olap.aggregators:CountAggregator:computeBegin"><apiName>computeBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeLoop()</codeph> и <codeph>computeEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса вычисления значения агрегации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeEnd"><apiName>computeEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления значения агрегации. 
+     
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeLoop"><apiName>computeLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeLoop()</codeph>. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, представляющий анализируемые данные строк. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeObjectBegin"><apiName>computeObjectBegin</apiName><shortdesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, инициализированный для агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации. Этот объект передается последующим вызовам для методов <codeph>computeObjectLoop()</codeph> и <codeph>computeObjectEnd()</codeph>.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. Этот объект используется для хранения информации, необходимой для выполнения агрегации.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для запуска процесса агрегации агрегированных значений. Примером агрегации агрегированных значений является вычисление среднего значения группы средних значений.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeObjectEnd"><apiName>computeObjectEnd</apiName><shortdesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Агрегированное значение.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectLoop()</codeph>, который используется для сохранения результатов агрегации. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Имя свойства <codeph>OLAPMeasure.dataField</codeph> для измерения, для которого требуется агрегация.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод для завершения процесса вычисления. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.olap.aggregators:CountAggregator:computeObjectLoop"><apiName>computeObjectLoop</apiName><shortdesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>oldValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeObjectBegin()</codeph>, либо вычисленный посредством вызова метода <codeph>computeObjectLoop()</codeph>. Этот метод изменяет данный объект; он не возвращает каких-либо значений.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="Object"/><apiDesc>Объект, возвращенный посредством вызова метода <codeph>computeEnd()</codeph> для предыдущей агрегации. 
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Flex вызывает этот метод в случае, если требуется добавить к агрегации новое агрегированное значение.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

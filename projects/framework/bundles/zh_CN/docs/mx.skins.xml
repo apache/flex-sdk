@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins"><apiName>mx.skins</apiName><apiDetail/><apiClassifier id="mx.skins:RectangularBorder"><apiName>RectangularBorder</apiName><shortdesc>
+  RectangularBorder 类是各种类的抽象基类，用于在 UIComponent 周围绘制矩形边框。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IRectangularBorder</apiBaseInterface><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RectangularBorder 类是各种类的抽象基类，用于在 UIComponent 周围绘制矩形边框。
+ 
+  <p>此类可实现对 <codeph>backgroundImage</codeph>、<codeph>backgroundSize</codeph> 和 <codeph>backgroundAttachment</codeph> 样式的支持。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:RectangularBorder:RectangularBorder"><apiName>RectangularBorder</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins:RectangularBorder:layoutBackgroundImage"><apiName>layoutBackgroundImage</apiName><shortdesc>
+      对背景图像进行布局。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      对背景图像进行布局。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.skins:RectangularBorder:backgroundImageBounds:get"><apiName>backgroundImageBounds</apiName><shortdesc>
+      在其内绘制背景图像的矩形区域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      在其内绘制背景图像的矩形区域。如果父容器包含可滚动内容，则它可以大于边框尺寸。如果该属性为 null，则边框可使用父级的大小和 <codeph>viewMetrics</codeph> 属性来确定其值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:RectangularBorder:hasBackgroundImage:get"><apiName>hasBackgroundImage</apiName><shortdesc>
+      如果 RectangularBorder 实例包含背景图像，则包含 true。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      如果 RectangularBorder 实例包含背景图像，则包含 <codeph>true</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins:ProgrammaticSkin"><apiName>ProgrammaticSkin</apiName><shortdesc>
+  该类是外观元素的基类，它们通过编程方式来绘制自身。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFlexDisplayObject</apiBaseInterface><apiBaseInterface>mx.core:IInvalidating</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.styles:ISimpleStyleClient</apiBaseInterface><apiBaseInterface>mx.core:IProgrammaticSkin</apiBaseInterface><apiBaseClassifier>mx.core:FlexShape</apiBaseClassifier></apiClassifierDef><apiDesc>
+  该类是外观元素的基类，它们通过编程方式来绘制自身。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:ProgrammaticSkin:ProgrammaticSkin"><apiName>ProgrammaticSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins:ProgrammaticSkin:protected:drawRoundRect"><apiName>drawRoundRect</apiName><shortdesc>
+	  通过编程方式在此外观的 Graphics 对象中绘制一个矩形。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>此外观中矩形左上角的水平位置。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>此外观中矩形左上角的垂直位置。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>矩形的宽度（以像素为单位）。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>矩形的高度（以像素为单位）。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>cornerRadius</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>矩形的角半径。可以是 <codeph>null</codeph>、Number 或 Object。如果为 <codeph>null</codeph>，则表示该角应为方形而不是弧形。如果为 Number，则为所有四个角指定相同半径（以像素为单位）。如果为 Object，则应具有 <codeph>tl</codeph>、<codeph>tr</codeph>、<codeph>bl</codeph> 和 <codeph>br</codeph> 属性，这些属性值是用于指定左上角、右上角、左下角、右下角的半径的 Number（以像素为单位）。例如，您可以传递简单 Object，如 <codeph>{ tl: 5, tr: 5, bl: 0, br: 0 }</codeph>。默认值为 null（方形角）。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>填充的 RGB 颜色。可以是 <codeph>null</codeph>、uint 或 Array。如果为 <codeph>null</codeph>，则不为矩形填充颜色。如果为 uint，则会指定一个 RGB 填充色。例如，传递 <codeph>0xFF0000</codeph> 可填充红色。如果为 Array，则应包含用于指定渐变颜色的 uint。例如，传递 <codeph>[ 0xFF0000, 0xFFFF00, 0x0000FF ]</codeph> 可填充红-黄-蓝渐变。在渐变中最多可以指定 15 种颜色。默认值为 null（无填充颜色）。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>alpha</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>用于填充的 Alpha 值。可以是 null、Number 或 Array。如果 <codeph>color</codeph> 为空，则忽略此参数。如果 <codeph>color</codeph> 是用于指定 RGB 填充颜色的 uint，则 <codeph>alpha</codeph> 应该是用于指定填充透明度的 Number，其中 0.0 表示完全透明，1.0 表示完全不透明。在本例中，您还可以通过传递空值而不是 1.0 来指定完全不透明。如果 <codeph>color</codeph> 是用于指定渐变颜色的 Array，则 <codeph>alpha</codeph> 应该是长度相同的数字 Array，用于为渐变指定相应的 alpha 值。在本例中，默认值为 <codeph>null</codeph>（完全不透明）。
+	 
+      </apiDesc></apiParam><apiParam><apiItemName>gradientMatrix</apiItemName><apiType value="flash.geom:Matrix"/><apiData>null</apiData><apiDesc>用于渐变填充的 Matrix 对象。可使用实用程序方法 <codeph>horizontalGradientMatrix()</codeph>、<codeph>verticalGradientMatrix()</codeph> 和 <codeph>rotatedGradientMatrix()</codeph> 来创建此参数的值。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>gradientType</apiItemName><apiType value="String"/><apiData>linear</apiData><apiDesc>渐变填充的类型。可能的值为 <codeph>GradientType.LINEAR</codeph> 或 <codeph>GradientType.RADIAL</codeph>。（GradientType 类位于 flash.display 包中。）
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>gradientRatios</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>（可选默认值为 [0,255]）指定颜色分布。条目数必须与在 <codeph>color</codeph> 参数中定义的颜色数匹配。各值均定义 100% 采样的颜色所在位置的宽度百分比。值 0 表示渐变框中的左侧位置，255 表示渐变框中的右侧位置。 
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>hole</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>（可选）应从另一个实心填充的圆角矩形 { x: #, y: #, w: #, h: #, r: # 或 { br: #, bl: #, tl: #, tr: # } } 中央凸出的圆角矩形孔
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  通过编程方式在此外观的 Graphics 对象中绘制一个矩形。
+	 
+	  <p>矩形可以有圆角。其边缘使用 Graphics 对象的当前线条样式。可以使用纯色填充、渐变填充或无填充。纯色填充可以使用 Alpha 透明度。渐变填充可以为线性渐变或放射状渐变。可在沿着渐变的指定点上至多指定 15 个颜色和 Alpha 值，可为渐变指定旋转角度和转换矩阵。最后，该矩形可具有从其上切去的圆角矩形洞。</p>
+	 
+	  <p>该通用矩形绘制例程被很多外观所使用。该例程调用 <codeph>drawRect()</codeph> 或 <codeph>drawRoundRect()</codeph> 方法（在 flash.display.Graphics 类中）在此外观的 Graphics 对象中进行绘制。</p>
+	 
+	 </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.display.xml#Graphics/beginGradientFill()"><linktext>flash.display.Graphics.beginGradientFill()</linktext></link></related-links></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:getStyle"><apiName>getStyle</apiName><shortdesc>
+      返回指定样式属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>样式值。可以是样式属性可以使用的任何对象类型，如 int、Number、String 等。
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>样式属性的名称。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回指定样式属性的值。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:horizontalGradientMatrix"><apiName>horizontalGradientMatrix</apiName><shortdesc>
+	  创建水平渐变矩阵的实用程序函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>水平渐变矩阵。它是一个临时对象，只能用于对 <codeph>drawRoundRect()</codeph> 方法的单个后续调用。
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>渐变的左边缘。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>渐变的上边缘。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>渐变的宽度。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>渐变的高度。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  创建水平渐变矩阵的实用程序函数。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateDisplayList"><apiName>invalidateDisplayList</apiName><shortdesc conref="mx.core.UIComponent#invalidateDisplayList()">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="mx.core.UIComponent#invalidateDisplayList()">
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateProperties"><apiName>invalidateProperties</apiName><shortdesc>
+	  
+	  调用此方法将导致在呈示显示列表前调用组件的 validateProperties() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  
+	  调用此方法将导致在呈示显示列表前调用组件的 <codeph>validateProperties()</codeph> 方法。
+	 
+	  <p>对于扩展 UIComponent 的组件，这暗示调用 <codeph>commitProperties()</codeph>。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:invalidateSize"><apiName>invalidateSize</apiName><shortdesc>
+	  
+	  调用此方法将导致在呈示显示列表前调用组件的 validateSize() 方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  
+	  调用此方法将导致在呈示显示列表前调用组件的 <codeph>validateSize()</codeph> 方法。
+	 
+	  <p>对于扩展 UIComponent 的组件，这暗示调用 <codeph>measure()</codeph>，除非组件设置了 <codeph>explicitWidth</codeph> 和 <codeph>explicitHeight</codeph>。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:move"><apiName>move</apiName><shortdesc>
+	  将此对象移动到指定的 x 和 y 坐标。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>水平位置（以像素为单位）。
+	 
+     	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>垂直位置（以像素为单位）。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  将此对象移动到指定的 x 和 y 坐标。
+	 
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:rotatedGradientMatrix"><apiName>rotatedGradientMatrix</apiName><shortdesc>
+	  创建旋转渐变矩阵的实用程序函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>水平渐变矩阵。它是一个临时对象，只能用于对 <codeph>drawRoundRect()</codeph> 方法的单个后续调用。
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>渐变的左边缘。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>渐变的上边缘。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>渐变的宽度。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>渐变的高度。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rotation</apiItemName><apiType value="Number"/><apiDesc>旋转量（以度为单位）。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  创建旋转渐变矩阵的实用程序函数。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:setActualSize"><apiName>setActualSize</apiName><shortdesc>
+	  设置该对象的高度和宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newWidth</apiItemName><apiType value="Number"/><apiDesc>该对象的宽度（以像素为单位）。
+	 
+     	  </apiDesc></apiParam><apiParam><apiItemName>newHeight</apiItemName><apiType value="Number"/><apiDesc>该对象的高度（以像素为单位）。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  设置该对象的高度和宽度。
+	 
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+	  每当样式更改时，重绘此外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>更改的样式属性的名称；如果所有样式均已更改，则为 null。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  每当样式更改时，重绘此外观。子类可以覆盖此方法并在调用 invalidateDisplayList() 之前执行更加具体的测试。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+	  通过编程方式绘制此外观的图形。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>  该对象在进行任何缩放之前的宽度（以像素为单位）。
+	 
+          </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>  该对象在进行任何缩放之前的高度（以像素为单位）。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  通过编程方式绘制此外观的图形。
+	 
+	  <p>子类应覆盖此方法并包扩对如 <codeph>graphics.moveTo()</codeph> 和 <codeph>graphics.lineTo()</codeph> 的方法的调用。</p>
+	 
+	  <p>此过程发生在对源的任何缩放（如用户代码或缩放效果）之前。组件并不知道之后发生的缩放。</p> 
+	 
+          </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+	  当此控件绘制自身时，LayoutManager 调用此函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  当此控件绘制自身时，LayoutManager 调用此函数。实际绘制发生在 <codeph>updateDisplayList</codeph> 函数中，它由此函数调用。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateNow"><apiName>validateNow</apiName><shortdesc>
+	  验证并更新此对象的属性和布局，如果需要的话重绘对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  验证并更新此对象的属性和布局，如果需要的话重绘对象。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+	  此函数是一个空存根，以便 ProgrammaticSkin 可以实现 ILayoutManagerClient 接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  此函数是一个空存根，以便 ProgrammaticSkin 可以实现 ILayoutManagerClient 接口。外观不调用 <codeph>LayoutManager.invalidateProperties()</codeph>，它通常会触发对此方法的调用。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:validateSize"><apiName>validateSize</apiName><shortdesc>
+	  此函数是一个空存根，以便 ProgrammaticSkin 可以实现 ILayoutManagerClient 接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>确定是否验证该外观的子项。 
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  此函数是一个空存根，以便 ProgrammaticSkin 可以实现 ILayoutManagerClient 接口。外观不调用 <codeph>LayoutManager.invalidateSize()</codeph>，它通常会触发对此方法的调用。
+         
+     	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins:ProgrammaticSkin:protected:verticalGradientMatrix"><apiName>verticalGradientMatrix</apiName><shortdesc>
+	  创建垂直渐变矩阵的实用程序函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>水平渐变矩阵。它是一个临时对象，只能用于对 <codeph>drawRoundRect()</codeph> 方法的单个后续调用。
+	  
+	  </apiDesc><apiType value="flash.geom:Matrix"/></apiReturn><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>渐变的左边缘。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>渐变的上边缘。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>渐变的宽度。
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>渐变的高度。
+	 
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  创建垂直渐变矩阵的实用程序函数。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.skins:ProgrammaticSkin:initialized:get"><apiName>initialized</apiName><shortdesc conref="mx.core.UIComponent#initialized">
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#initialized">
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+	  此对象的测量高度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  此对象的测量高度。它应被子类覆盖，以返回外观的首选高度。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:measuredWidth:get"><apiName>measuredWidth</apiName><shortdesc>
+	  此对象的测量宽度。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+	  此对象的测量宽度。它应被子类覆盖，以返回外观的首选宽度。
+	 
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:nestLevel:get"><apiName>nestLevel</apiName><shortdesc conref="mx.core.UIComponent#nestLevel">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc conref="mx.core.UIComponent#nestLevel">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:processedDescriptors:get"><apiName>processedDescriptors</apiName><shortdesc conref="mx.core.UIComponent#processedDescriptors">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.UIComponent#processedDescriptors">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:styleName:get"><apiName>styleName</apiName><shortdesc>
+      用于获取样式值的父组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      用于获取样式值的父组件。通常将其设置为创建此外观的组件。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.skins:ProgrammaticSkin:updateCompletePendingFlag:get"><apiName>updateCompletePendingFlag</apiName><shortdesc>
+	  一个标志，确定某个对象是否已通过所有三个阶段的布局验证（假设需要通过所有验证）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  一个标志，确定某个对象是否已通过所有三个阶段的布局验证（假设需要通过所有验证）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.skins:Border"><apiName>Border</apiName><shortdesc>
+  Border 类是各种类的抽象基类，用于在 UIComponent 周围绘制边框（矩形框或非矩形框）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><helpid>3321
+  
+  </helpid></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiTipTexts><apiTipText>
+  </apiTipText></apiTipTexts><apiBaseInterface>mx.core:IBorder</apiBaseInterface><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Border 类是各种类的抽象基类，用于在 UIComponent 周围绘制边框（矩形框或非矩形框）。此类自身不进行任何实际绘制。
+ 
+  <p>如果创建新的非矩形边框类，则应扩展该类。如果创建新的矩形边框类，则应扩展抽象子类 RectangularBorder。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins:Border:Border"><apiName>Border</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.skins:Border:borderMetrics:get"><apiName>borderMetrics</apiName><shortdesc>
+	  边框边缘的粗细。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.core:EdgeMetrics</apiValueClassifier></apiValueDef><apiDesc>
+	  边框边缘的粗细。
+	 
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

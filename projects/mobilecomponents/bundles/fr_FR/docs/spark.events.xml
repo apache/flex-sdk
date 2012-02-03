@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.events"><apiName>spark.events</apiName><apiDetail/><apiClassifier id="spark.events:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+  La classe ViewNavigatorEvent représente les objets d’événement distribués par la classe View.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  La classe ViewNavigatorEvent représente les objets d’événement distribués par la classe View.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#View"><linktext>spark.components.View</linktext></link></related-links><adobeApiEvent id="spark.events:ViewNavigatorEvent:REMOVING_removing"><apiName>removing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:REMOVING</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE_activate"><apiName>activate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_ACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE_deactivate"><apiName>deactivate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE</apiEventType><adobeApiEventClassifier>spark.events:ViewNavigatorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:ViewNavigatorEvent:ViewNavigatorEvent"><apiName>ViewNavigatorEvent</apiName><shortdesc>
+      Constructeur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>Type d’événement, indiquant quelle action a déclenché l’événement.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Détermine si l’événement peut se propager vers le haut de la hiérarchie de la liste d’affichage.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Indique si le comportement associé à l’événement peut être évité.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>L’action de navigation validée par le navigateur de vue ayant entraîné l’événement.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Constructeur.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:ViewNavigatorEvent:REMOVING"><apiName>REMOVING</apiName><shortdesc>
+      La constante ViewNavigatorEvent.REMOVING définit la valeur de la propriété type de l’objet d’événement d’un événement removing.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>removing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La constante <codeph>ViewNavigatorEvent.REMOVING</codeph> définit la valeur de la propriété <codeph>type</codeph> de l’objet d’événement d’un événement <codeph>removing</codeph>. Cet événement est distribué lorsqu'un écran est sur le point d'être remplacé par un autre écran via une action du navigateur. Si <codeph>preventDefault()</codeph> est appelé sur cet événement, la suppression de la vue sera annulée.
+     
+      <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>L’action de navigation validée par le navigateur de vue ayant entraîné l’événement.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Objet définissant l’écouteur d’événement qui traite l’événement. Par exemple, si vous utilisez <codeph>myButton.addEventListener()</codeph> pour enregistrer un écouteur d’événement, myButton est la valeur de <codeph>currentTarget</codeph>. </entry></row><row><entry><codeph>target</codeph></entry><entry>Objet qui a distribué l’événement (il ne s’agit pas toujours de l’objet qui écoute l’événement). Pour accéder systématiquement à l’objet qui écoute l’événement, utilisez la propriété <codeph>currentTarget</codeph>.</entry></row><row><entry><codeph>Type</codeph></entry><entry>ViewNavigatorEvent.SCREEN_REMOVING</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_ACTIVATE"><apiName>VIEW_ACTIVATE</apiName><shortdesc>
+      La constante ViewNavigatorEvent.VIEW_ACTIVATE définit la valeur de la propriété type de l’objet d’événement d’un événement viewActivate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewActivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La constante <codeph>ViewNavigatorEvent.VIEW_ACTIVATE</codeph> définit la valeur de la propriété <codeph>type</codeph> de l’objet d’événement d’un événement <codeph>viewActivate</codeph>. Cet événement est distribué lorsqu'un composant est activé.
+     
+      <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>L’action de navigation validée par le navigateur de vue ayant entraîné l’événement.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Objet définissant l’écouteur d’événement qui traite l’événement. Par exemple, si vous utilisez <codeph>myButton.addEventListener()</codeph> pour enregistrer un écouteur d’événement, myButton est la valeur de <codeph>currentTarget</codeph>. </entry></row><row><entry><codeph>target</codeph></entry><entry>Objet qui a distribué l’événement (il ne s’agit pas toujours de l’objet qui écoute l’événement). Pour accéder systématiquement à l’objet qui écoute l’événement, utilisez la propriété <codeph>currentTarget</codeph>.</entry></row><row><entry><codeph>Type</codeph></entry><entry>ViewNavigatorEvent.VIEW_ACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:VIEW_DEACTIVATE"><apiName>VIEW_DEACTIVATE</apiName><shortdesc>
+      La constante ViewNavigatorEvent.VIEW_DEACTIVATE définit la valeur de la propriété type de l’objet d’événement d’un événement viewDeactivate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewDeactivate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      La constante <codeph>ViewNavigatorEvent.VIEW_DEACTIVATE</codeph> définit la valeur de la propriété <codeph>type</codeph> de l’objet d’événement d’un événement <codeph>viewDeactivate</codeph>. Cet événement est distribué lorsqu'un composant est désactivé.
+     
+      <p>Les valeurs des propriétés de l’objet d’événement sont les suivantes :</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>Propriété</entry><entry>Valeur</entry></row></thead><tbody><row><entry><codeph>action</codeph></entry><entry>L’action de navigation validée par le navigateur de vue ayant entraîné l’événement.</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>returnValue</codeph></entry><entry>null</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>Objet définissant l’écouteur d’événement qui traite l’événement. Par exemple, si vous utilisez <codeph>myButton.addEventListener()</codeph> pour enregistrer un écouteur d’événement, myButton est la valeur de <codeph>currentTarget</codeph>. </entry></row><row><entry><codeph>target</codeph></entry><entry>Objet qui a distribué l’événement (il ne s’agit pas toujours de l’objet qui écoute l’événement). Pour accéder systématiquement à l’objet qui écoute l’événement, utilisez la propriété <codeph>currentTarget</codeph>.</entry></row><row><entry><codeph>Type</codeph></entry><entry>ViewNavigatorEvent.VIEW_DEACTIVATE</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ViewNavigatorEvent:action"><apiName>action</apiName><shortdesc>
+      L’action de navigation validée par le navigateur de vue ayant entraîné l’événement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      L’action de navigation validée par le navigateur de vue ayant entraîné l’événement. Les actions possibles incluent l’activation ou la désactivation d’une vue.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

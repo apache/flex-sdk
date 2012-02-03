@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins.halo"><apiName>mx.skins.halo</apiName><apiDetail/><apiClassifier id="mx.skins.halo:ActivatorSkin"><apiName>ActivatorSkin</apiName><shortdesc>
+  定义 MenuBarItem 对象的 up、down 和 over 状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  定义 MenuBarItem 对象的 up、down 和 over 状态。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ActivatorSkin:ActivatorSkin"><apiName>ActivatorSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressIndeterminateSkin"><apiName>ProgressIndeterminateSkin</apiName><shortdesc>
+  ProgressBar 的不确定状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ProgressBar 的不确定状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressIndeterminateSkin:ProgressIndeterminateSkin"><apiName>ProgressIndeterminateSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollThumbSkin"><apiName>ScrollThumbSkin</apiName><shortdesc>
+  ScrollBar 中滑块的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollBar 中滑块的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollThumbSkin:ScrollThumbSkin"><apiName>ScrollThumbSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ButtonSkin"><apiName>ButtonSkin</apiName><shortdesc>
+  Button 所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Button 所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ButtonSkin:ButtonSkin"><apiName>ButtonSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ApplicationBackground"><apiName>ApplicationBackground</apiName><shortdesc>
+  应用程序背景渐变的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  应用程序背景渐变的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ApplicationBackground:ApplicationBackground"><apiName>ApplicationBackground</apiName><shortdesc>
+      构造函数	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:MenuBarBackgroundSkin"><apiName>MenuBarBackgroundSkin</apiName><shortdesc>
+  MenuBar 背景的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MenuBar 背景的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:MenuBarBackgroundSkin:MenuBarBackgroundSkin"><apiName>MenuBarBackgroundSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:WindowBackground"><apiName>WindowBackground</apiName><shortdesc>
+  Window 组件背景渐变的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Window 组件背景渐变的外观。
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:WindowBackground:WindowBackground"><apiName>WindowBackground</apiName><shortdesc>
+      构造函数  
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数  
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollArrowSkin"><apiName>ScrollArrowSkin</apiName><shortdesc>
+  ScrollBar 中 up 或 down 按钮的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollBar 中 up 或 down 按钮的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollArrowSkin:ScrollArrowSkin"><apiName>ScrollArrowSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ColorPickerSkin"><apiName>ColorPickerSkin</apiName><shortdesc>
+  ColorPicker 所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorPicker 所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ColorPickerSkin:ColorPickerSkin"><apiName>ColorPickerSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollTrackSkin"><apiName>ScrollTrackSkin</apiName><shortdesc>
+  ScrollBar 中轨道的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ScrollBar 中轨道的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollTrackSkin:ScrollTrackSkin"><apiName>ScrollTrackSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:CheckBoxIcon"><apiName>CheckBoxIcon</apiName><shortdesc>
+  CheckBox 中图标的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CheckBox 中图标的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:CheckBoxIcon:CheckBoxIcon"><apiName>CheckBoxIcon</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridHeaderBackgroundSkin"><apiName>DataGridHeaderBackgroundSkin</apiName><shortdesc>
+  DataGrid 控件中列标题背景的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGrid 控件中列标题背景的外观。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.skins.halo:DataGridHeaderBackgroundSkin:DataGridHeaderBackgroundSkin"><apiName>DataGridHeaderBackgroundSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:TabSkin"><apiName>TabSkin</apiName><shortdesc>
+  TabNavigator 或 TabBar 中 Tab 的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TabNavigator 或 TabBar 中 Tab 的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:TabSkin:TabSkin"><apiName>TabSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:RadioButtonIcon"><apiName>RadioButtonIcon</apiName><shortdesc>
+  RadioButton 中图标的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadioButton 中图标的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:RadioButtonIcon:RadioButtonIcon"><apiName>RadioButtonIcon</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderThumbSkin"><apiName>SliderThumbSkin</apiName><shortdesc>
+  Slider 中滑块的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Slider 中滑块的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderThumbSkin:SliderThumbSkin"><apiName>SliderThumbSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins.halo:SliderThumbSkin:protected:drawThumbState"><apiName>drawThumbState</apiName><shortdesc>
+	 供内部使用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>borderColors</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>fillColors</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>fillAlphas</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>drawBacking</apiItemName><apiType value="Boolean"/></apiParam><apiParam><apiItemName>drillHole</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+	 供内部使用。
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.skins.halo:SwatchPanelSkin"><apiName>SwatchPanelSkin</apiName><shortdesc>
+  SwatchPanel 边框的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SwatchPanel 边框的外观。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SwatchPanelSkin:SwatchPanelSkin"><apiName>SwatchPanelSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:NumericStepperDownSkin"><apiName>NumericStepperDownSkin</apiName><shortdesc>
+  NumericStepper 中 down 按钮的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumericStepper 中 down 按钮的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:NumericStepperDownSkin:NumericStepperDownSkin"><apiName>NumericStepperDownSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:NumericStepperUpSkin"><apiName>NumericStepperUpSkin</apiName><shortdesc>
+  NumericStepper 中 up 按钮的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumericStepper 中 up 按钮的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:NumericStepperUpSkin:NumericStepperUpSkin"><apiName>NumericStepperUpSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:LinkSeparator"><apiName>LinkSeparator</apiName><shortdesc>
+  LinkBar 中链接之间的分隔符的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LinkBar 中链接之间的分隔符的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:LinkSeparator:LinkSeparator"><apiName>LinkSeparator</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:HaloBorder"><apiName>HaloBorder</apiName><shortdesc>
+  定义 Halo 主题默认边框的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:RectangularBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  定义 Halo 主题默认边框的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:HaloBorder:HaloBorder"><apiName>HaloBorder</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpIcon"><apiName>PopUpIcon</apiName><shortdesc>
+  PopUpButton 中图标的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PopUpButton 中图标的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpIcon:PopUpIcon"><apiName>PopUpIcon</apiName><shortdesc>
+      构造函数	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PanelSkin"><apiName>PanelSkin</apiName><shortdesc>
+  PanelSkin 类定义 Panel、TitleWindow 和 Alert 组件的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins.halo:HaloBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PanelSkin 类定义 Panel、TitleWindow 和 Alert 组件的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PanelSkin:PanelSkin"><apiName>PanelSkin</apiName><shortdesc>
+      构造函数
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressMaskSkin"><apiName>ProgressMaskSkin</apiName><shortdesc>
+  ProgressBar 的确定和不确定栏的蒙版的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ProgressBar 的确定和不确定栏的遮罩的外观。遮罩定义显示进度栏或不确定的进度栏的区域。默认情况下，遮罩定义将从轨道插入 1 像素的进度栏。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#ProgressBar"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiConstructor id="mx.skins.halo:ProgressMaskSkin:ProgressMaskSkin"><apiName>ProgressMaskSkin</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:TitleBackground"><apiName>TitleBackground</apiName><shortdesc>
+  Panel 标题栏区域的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Panel 标题栏区域的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:TitleBackground:TitleBackground"><apiName>TitleBackground</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridColumnDropIndicator"><apiName>DataGridColumnDropIndicator</apiName><shortdesc>
+  DataGrid 中列拖放指示符的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGrid 中列拖放指示符的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridColumnDropIndicator:DataGridColumnDropIndicator"><apiName>DataGridColumnDropIndicator</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ComboBoxArrowSkin"><apiName>ComboBoxArrowSkin</apiName><shortdesc>
+  ComboBox 中按钮的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBox 中按钮的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ComboBoxArrowSkin:ComboBoxArrowSkin"><apiName>ComboBoxArrowSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:AccordionHeaderSkin"><apiName>AccordionHeaderSkin</apiName><shortdesc>
+  Accordion 中 AccordionHeader 的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Accordion 中 AccordionHeader 的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:AccordionHeaderSkin:AccordionHeaderSkin"><apiName>AccordionHeaderSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderTrackSkin"><apiName>SliderTrackSkin</apiName><shortdesc>
+  Slider 中轨道的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Slider 中轨道的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderTrackSkin:SliderTrackSkin"><apiName>SliderTrackSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridSortArrow"><apiName>DataGridSortArrow</apiName><shortdesc>
+  DataGrid 内列标题中排序箭头的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGrid 内列标题中排序箭头的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridSortArrow:DataGridSortArrow"><apiName>DataGridSortArrow</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:LinkButtonSkin"><apiName>LinkButtonSkin</apiName><shortdesc>
+  LinkButton 所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LinkButton 所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:LinkButtonSkin:LinkButtonSkin"><apiName>LinkButtonSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserIndicator"><apiName>DateChooserIndicator</apiName><shortdesc>
+  DateChooser 指示符的外观，用于显示今天日期、滚动日期和选定日期。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateChooser 指示符的外观，用于显示今天日期、滚动日期和选定日期。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserIndicator:DateChooserIndicator"><apiName>DateChooserIndicator</apiName><shortdesc>
+      构造函数	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridColumnResizeSkin"><apiName>DataGridColumnResizeSkin</apiName><shortdesc>
+  DataGrid 中列调整符的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGrid 中列调整符的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridColumnResizeSkin:DataGridColumnResizeSkin"><apiName>DataGridColumnResizeSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridHeaderSeparator"><apiName>DataGridHeaderSeparator</apiName><shortdesc>
+  DataGrid 中列标题间的分隔符的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DataGrid 中列标题间的分隔符的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridHeaderSeparator:DataGridHeaderSeparator"><apiName>DataGridHeaderSeparator</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ButtonBarButtonSkin"><apiName>ButtonBarButtonSkin</apiName><shortdesc>
+  ButtonBar 中 ButtonBarButtons 的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonBar 中 ButtonBarButtons 的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ButtonBarButtonSkin:ButtonBarButtonSkin"><apiName>ButtonBarButtonSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderHighlightSkin"><apiName>SliderHighlightSkin</apiName><shortdesc>
+  Slider 轨道加亮状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Slider 轨道加亮状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderHighlightSkin:SliderHighlightSkin"><apiName>SliderHighlightSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:HaloColors"><apiName>HaloColors</apiName><shortdesc>
+  定义支持 Halo 主题的组件所使用的颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  定义支持 Halo 主题的组件所使用的颜色。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.skins.halo:HaloColors:addHaloColors"><apiName>addHaloColors</apiName><shortdesc>
+	  计算支持 Halo 主题的组件所使用的颜色，如斜面边缘颜色。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Object"/><apiDesc>针对其存储计算所得颜色值的对象。  
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>themeColor</apiItemName><apiType value="uint"/><apiDesc><codeph>themeColor</codeph> 样式属性的值。
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>fillColor0</apiItemName><apiType value="uint"/><apiDesc>填充的起始颜色。
+
+	 </apiDesc></apiParam><apiParam><apiItemName>fillColor1</apiItemName><apiType value="uint"/><apiDesc>填充的结束颜色。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  计算支持 Halo 主题的组件所使用的颜色，如斜面边缘颜色。该方法使用 <codeph>themeColor</codeph> 和 <codeph>fillColors</codeph> 属性计算其颜色。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins.halo:HaloColors:getCacheKey"><apiName>getCacheKey</apiName><shortdesc>
+	  根据传入的颜色返回一个唯一的哈希键。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="restParam"/><apiDesc>RGB 颜色以 <codeph>uint</codeph> 值形式表示的任意数（例如 0xFF0000）。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  根据传入的颜色返回一个唯一的哈希键。该键用于存储计算的颜色，以便只需计算一次。
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserYearArrowSkin"><apiName>DateChooserYearArrowSkin</apiName><shortdesc>
+  DateChooser 中下一年和上一年按钮的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateChooser 中下一年和上一年按钮的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserYearArrowSkin:DateChooserYearArrowSkin"><apiName>DateChooserYearArrowSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpButtonSkin"><apiName>PopUpButtonSkin</apiName><shortdesc>
+  PopUpButton 所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IProgrammaticSkin</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PopUpButton 所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpButtonSkin:PopUpButtonSkin"><apiName>PopUpButtonSkin</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SwatchSkin"><apiName>SwatchSkin</apiName><shortdesc>
+  ColorPicker 中所有颜色样本的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ColorPicker 中所有颜色样本的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SwatchSkin:SwatchSkin"><apiName>SwatchSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressBarSkin"><apiName>ProgressBarSkin</apiName><shortdesc>
+  ProgressBar 的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ProgressBar 的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressBarSkin:ProgressBarSkin"><apiName>ProgressBarSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserMonthArrowSkin"><apiName>DateChooserMonthArrowSkin</apiName><shortdesc>
+  DateChooser 中下个月和上个月按钮的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DateChooser 中下个月和上个月按钮的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserMonthArrowSkin:DateChooserMonthArrowSkin"><apiName>DateChooserMonthArrowSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressTrackSkin"><apiName>ProgressTrackSkin</apiName><shortdesc>
+  ProgressBar 中轨道的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ProgressBar 中轨道的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressTrackSkin:ProgressTrackSkin"><apiName>ProgressTrackSkin</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  构造函数。
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpMenuIcon"><apiName>PopUpMenuIcon</apiName><shortdesc>
+  PopUpMenuButton 中图标的所有状态的外观。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins.halo:PopUpIcon</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PopUpMenuButton 中图标的所有状态的外观。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpMenuIcon:PopUpMenuIcon"><apiName>PopUpMenuIcon</apiName><shortdesc>
+      构造函数	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

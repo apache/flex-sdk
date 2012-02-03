@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.delegates.core"><apiName>mx.automation.delegates.core</apiName><apiDetail/><apiClassifier id="mx.automation.delegates.core:ScrollControlBaseAutomationImpl"><apiName>ScrollControlBaseAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der ScrollControlBase-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der ScrollControlBase-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.ScrollControlBase.xml"><linktext>mx.core.ScrollControlBase</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:ScrollControlBaseAutomationImpl:ScrollControlBaseAutomationImpl"><apiName>ScrollControlBaseAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:ScrollControlBase"/><apiDesc>Zu automatisierendes ScrollControlBase-Objekt.         
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:ScrollControlBaseAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:ScrollControlBaseAutomationImpl:replayAutomatableEvent"><apiName>replayAutomatableEvent</apiName><shortdesc>
+		 Wiederholt ScrollEvents.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc><codeph>true</codeph>, wenn die Wiederholung erfolgreich war. Wenn nicht <codeph>false</codeph>.     
+		  
+		  </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Das zu wiederholende Ereignis.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Wiederholt ScrollEvents. ScrollEvents werden durch Aufrufen von ScrollBar.scrollIt für die betreffende horizontale oder vertikale ScrollBar wiederholt.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.core:ContainerAutomationImpl"><apiName>ContainerAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Containerklasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Containerklasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Container.xml"><linktext>mx.core.Container</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:ContainerAutomationImpl:ContainerAutomationImpl"><apiName>ContainerAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:Container"/><apiDesc>Zu automatisierendes Containerobjekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:ContainerAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.automation.delegates.core:UITextFieldAutomationImpl"><apiName>UITextFieldAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der UITextField-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.automation:IAutomationObject</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der UITextField-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.UITextField.xml"><linktext>mx.core.UITextField</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:UITextFieldAutomationImpl:UITextFieldAutomationImpl"><apiName>UITextFieldAutomationImpl</apiName><shortdesc>
+		 Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:UITextField"/><apiDesc>Zu automatisierendes UITextField-Objekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		 Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:UITextFieldAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationOwner:get"><apiName>automationOwner</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationParent:get"><apiName>automationParent</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationValue:get"><apiName>automationValue</apiName><shortdesc>
+		  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+		  </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.automation.delegates.core:UITextFieldAutomationImpl:automationVisible:get"><apiName>automationVisible</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.core:RepeaterAutomationImpl"><apiName>RepeaterAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Repeater-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.delegates.core:UIComponentAutomationImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der Repeater-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.Repeater.xml"><linktext>mx.core.Repeater</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:RepeaterAutomationImpl:RepeaterAutomationImpl"><apiName>RepeaterAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:Repeater"/><apiDesc>Zu automatisierendes Repeaterobjekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:RepeaterAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Der SystemManager der Anwendung.
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.core:RepeaterAutomationImpl:automationTabularData:get"><apiName>automationTabularData</apiName><shortdesc>
+		  Ein Array aller Komponenten innerhalb des Repeaters, die in der Automatisierungshierarchie gefunden wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		  Ein Array aller Komponenten innerhalb des Repeaters, die in der Automatisierungshierarchie enthalten sind.
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.delegates.core:UIComponentAutomationImpl"><apiName>UIComponentAutomationImpl</apiName><shortdesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der UIComponent-Klasse.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.automation:IAutomationObject</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	  Definiert erforderliche Methoden und Eigenschaften für die Durchführung der Instrumentation der UIComponent-Klasse. 
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link></related-links><apiConstructor id="mx.automation.delegates.core:UIComponentAutomationImpl:UIComponentAutomationImpl"><apiName>UIComponentAutomationImpl</apiName><shortdesc>
+		  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>obj</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>Zu automatisierendes UIComponent-Objekt.     
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  Konstruktor.
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:protected:addLayoutCompleteSynchronization"><apiName>addLayoutCompleteSynchronization</apiName><shortdesc>
+		  Richtet die Synchronisierung der Automatisierung mit dem UPDATE_COMPLETE-Ereignis des Layout Managers ein.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  Richtet die Synchronisierung der Automatisierung mit dem UPDATE_COMPLETE-Ereignis des Layout Managers ein. Wenn bestimmte Aktionen wiederholt werden, muss die Automatisierung warten, bevor sie das nächste Ereignis wiederholen kann. Das Framework benötigt diese Wartezeit, um die von den Komponenten abgefragten Aktionen abzuschließen. Normalerweise signalisiert ein Layout Manager Update Complete-Ereignis das Ende aller Updates. Diese Methode fügt eine Synchronisation hinzu, welche als abgeschlossen gemeldet wird, sobald das Update Complete-Ereignis empfangen wird.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:protected:addMouseEvent"><apiName>addMouseEvent</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam><apiParam><apiItemName>priority</apiItemName><apiType value="int"/><apiData>0</apiData></apiParam><apiParam><apiItemName>useWeekRef</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:protected:componentInitialized"><apiName>componentInitialized</apiName><shortdesc>
+		  Methode, die aufgerufen wird, nachdem die Komponente initialisiert wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  Methode, die aufgerufen wird, nachdem die Komponente initialisiert wurde. Damit kann auf Subkomponenten zugegriffen und diese beeinflusst werden.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:init"><apiName>init</apiName><shortdesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>root</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>Das DisplayObject-Objekt, das den Anwendungsstamm repräsentiert. 
+		  
+		  </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Registriert die Delegatenklasse für eine Komponentenklasse beim Automatisierungsmanager.
+		  
+		  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.automation.delegates.core:UIComponentAutomationImpl:protected:removeMouseEvent"><apiName>removeMouseEvent</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="flash.display:DisplayObject"/></apiParam><apiParam><apiItemName>event</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>handler</apiItemName><apiType value="Function"/></apiParam><apiParam><apiItemName>useCapture</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationEnabled:get"><apiName>automationEnabled</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationName:get"><apiName>automationName</apiName><shortdesc>
+		  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+		  </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationOwner:get"><apiName>automationOwner</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationParent:get"><apiName>automationParent</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationValue:get"><apiName>automationValue</apiName><shortdesc>
+		  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+		  </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:automationVisible:get"><apiName>automationVisible</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.delegates.core:UIComponentAutomationImpl:uiComponent:get"><apiName>uiComponent</apiName><shortdesc>
+		  Gibt die Komponenteninstanz zurück, die mit der Delegateninstanz verknüpft ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+		  Gibt die Komponenteninstanz zurück, die mit der Delegateninstanz verknüpft ist.
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

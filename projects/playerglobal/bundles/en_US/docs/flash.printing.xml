@@ -1,0 +1,1258 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="flash.printing" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiPackage/apiPackage "><apiName class="- topic/title reference/title apiRef/apiName ">flash.printing</apiName><apiDetail class="- topic/body reference/refbody apiRef/apiDetail "/><apiClassifier languages="" id="flash.printing:PrintUIOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintUIOptions</apiName><shortdesc class="- topic/shortdesc ">
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+ The PrintUIOptions class is used to specify options for print dialogs that are displayed to the
+ user.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ The PrintUIOptions class is used to specify options for print dialogs that are displayed to the
+ user. Create a PrintUIOptions instance, set its properties, and pass it as the
+ <codeph class="+ topic/ph pr-d/codeph ">uiOptions</codeph> parameter of the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.showPageSetupDialog()</codeph> 
+ or <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start2()</codeph> method.
+ 
+ <p class="- topic/p ">For example, the following code uses a PrintUIOptions instance to specify the 
+ min and max page numbers when the Page Setup dialog is displayed:</p>
+ 
+ <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">import flash.printing.PrintJob;
+ 
+ var myPrintJob:PrintJob = new PrintJob();
+ if (myPrintJob.supportsPageSetupDialog)
+ {
+     var uiOpt:PrintUIOptions = new PrintUIOptions();
+     uiOpt.minPage = 1;
+     uiOpt.maxPage = 3;
+     myPrintJob.showPageSetupDialog(uiOpt);
+ }</codeblock>
+ 
+ </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob" class="- topic/link "><linktext class="- topic/linktext ">PrintJob</linktext></link><link href="flash.printing.xml#PrintJob/showPageSetupDialog()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.showPageSetupDialog()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link></related-links><apiConstructor id="flash.printing:PrintUIOptions:PrintUIOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">PrintUIOptions</apiName><shortdesc class="- topic/shortdesc ">
+	 Creates a new PrintUIOptions object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Creates a new PrintUIOptions object. You pass this object to the 
+	 <codeph class="+ topic/ph pr-d/codeph ">uiOptions</codeph> parameter of the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.showPageSetupDialog()</codeph> 
+	 or <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start2()</codeph> method.
+	 
+	 </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/showPageSetupDialog()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.showPageSetupDialog()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link></related-links></apiConstructor><apiValue id="flash.printing:PrintUIOptions:disablePageRange" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">disablePageRange</apiName><shortdesc class="- topic/shortdesc ">
+	 Specifies whether the page range in the print dialog is disabled (true) or 
+	 the user can edit it (false).</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier><apiDefaultValue>false
+	 
+	 </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Specifies whether the page range in the print dialog is disabled (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) or 
+	 the user can edit it (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>). The default value is <codeph class="+ topic/ph pr-d/codeph ">false</codeph>, 
+	 indicating that there is no restriction on editing the page range.
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintUIOptions:maxPage" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">maxPage</apiName><shortdesc class="- topic/shortdesc ">
+	 The maxiumum page number the user can enter
+	 in the print dialog.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier><apiDefaultValue>0
+	 
+	 </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 The maxiumum page number the user can enter
+	 in the print dialog. The default value is 0, indicating that there is
+	 no restriction on the maximum page number.
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintUIOptions:minPage" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">minPage</apiName><shortdesc class="- topic/shortdesc ">
+	 The minimum page number a user can enter
+	 in the print dialog.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">uint</apiValueClassifier><apiDefaultValue>0
+	 
+	 </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 The minimum page number a user can enter
+	 in the print dialog. The default value is 0, indicating that there is
+	 no restriction on the minimum page number.
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintMethod" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintMethod</apiName><shortdesc class="- topic/shortdesc ">
+This class provides values for the PrintJobOptions.printMethod property 
+to specify the method of printing a page.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+This class provides values for the <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> property 
+to specify the method of printing a page.
+</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link></related-links><apiValue id="flash.printing:PrintMethod:AUTO" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">AUTO</apiName><shortdesc class="- topic/shortdesc ">
+	Automatic selection of the best method of printing.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printMethod.auto, auto
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">auto</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	Automatic selection of the best method of printing. This value indicates
+	that vector or bitmap printing is chosen automatically, based on 
+	the content to print. Vector printing is used whenever the content 
+	can be faithfully reproduced by that method. If transparency or certain 
+	other effects are present, bitmap printing is used instead.
+	
+	<p class="- topic/p ">This constant is used with the <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> property.
+	Use the syntax <codeph class="+ topic/ph pr-d/codeph ">PrintMethod.AUTO</codeph>.</p>
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link><link href="flash.printing.xml#PrintMethod/VECTOR" class="- topic/link "><linktext class="- topic/linktext ">VECTOR</linktext></link><link href="flash.printing.xml#PrintMethod/BITMAP" class="- topic/link "><linktext class="- topic/linktext ">BITMAP</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintMethod:BITMAP" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">BITMAP</apiName><shortdesc class="- topic/shortdesc ">
+	The bitmap method of printing.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printMethod.bitmap, bitmap
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">bitmap</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The bitmap method of printing. 
+	
+	<p class="- topic/p ">This constant is used with the <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> property.
+	Use the syntax <codeph class="+ topic/ph pr-d/codeph ">PrintMethod.BITMAP</codeph>.</p>
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link><link href="flash.printing.xml#PrintMethod/VECTOR" class="- topic/link "><linktext class="- topic/linktext ">VECTOR</linktext></link><link href="flash.printing.xml#PrintMethod/AUTO" class="- topic/link "><linktext class="- topic/linktext ">AUTO</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintMethod:VECTOR" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">VECTOR</apiName><shortdesc class="- topic/shortdesc ">
+	The vector method of printing.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printMethod.vector, vector
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">vector</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The vector method of printing. 
+	
+	<p class="- topic/p ">This constant is used with the <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions.printMethod</codeph> property.
+	Use the syntax <codeph class="+ topic/ph pr-d/codeph ">PrintMethod.VECTOR</codeph>.</p>
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link><link href="flash.printing.xml#PrintMethod/BITMAP" class="- topic/link "><linktext class="- topic/linktext ">BITMAP</linktext></link><link href="flash.printing.xml#PrintMethod/AUTO" class="- topic/link "><linktext class="- topic/linktext ">AUTO</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintJobOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintJobOptions</apiName><shortdesc class="- topic/shortdesc ">
+	 The PrintJobOptions class contains properties to use with the
+	 options parameter of the PrintJob.addPage() method.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 The PrintJobOptions class contains properties to use with the
+	 <codeph class="+ topic/ph pr-d/codeph ">options</codeph> parameter of the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> method.
+	 For more information about <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph>, see the PrintJob class.
+	 </apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob" class="- topic/link "><linktext class="- topic/linktext ">PrintJob</linktext></link><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link></related-links><apiConstructor id="flash.printing:PrintJobOptions:PrintJobOptions" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">PrintJobOptions</apiName><shortdesc class="- topic/shortdesc ">
+		 Creates a new PrintJobOptions object.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">printAsBitmap</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, this object is printed as a bitmap.
+		 If <codeph class="+ topic/ph pr-d/codeph ">false</codeph>, this object is printed as a vector. 
+		 
+		 <p class="- topic/p ">If the content that you're printing includes a bitmap image, 
+		 set the <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> property to <codeph class="+ topic/ph pr-d/codeph ">true</codeph> to include any
+		 alpha transparency and color effects.
+		 If the content does not include bitmap images, omit this parameter to print
+		 the content in higher quality vector format (the default option).</p>
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">Note:</i>Adobe AIR does not support vector printing on Mac OS.</p>
+		 
+		 </apiDesc></apiParam></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Creates a new PrintJobOptions object. Pass this object
+		 to the <codeph class="+ topic/ph pr-d/codeph ">options</codeph> parameter of the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> method.
+		 
+		 </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link></related-links></apiConstructor><apiValue id="flash.printing:PrintJobOptions:pixelsPerInch" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pixelsPerInch</apiName><shortdesc class="- topic/shortdesc ">
+		 Specifies the resolution to use for bitmaps, in pixels per inch.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">NaN</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Specifies the resolution to use for bitmaps, in pixels per inch.
+		 The default value is <codeph class="+ topic/ph pr-d/codeph ">Number.NaN</codeph>, indicating that the native
+		 printer resolution is used.
+		 
+		 <p class="- topic/p ">The resolution setting is for both bitmap and vector printing. For bitmap printing,
+		 resolution controls how the entire page is rasterized. For vector printing, resolution
+		 controls how specific content, such as bitmaps and gradients, is rasterized.</p>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJobOptions:printAsBitmap" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printAsBitmap</apiName><shortdesc class="- topic/shortdesc ">
+		 Specifies whether the content in the print job is printed as a bitmap or as a vector.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">false</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Specifies whether the content in the print job is printed as a bitmap or as a vector.
+		 The default value is <codeph class="+ topic/ph pr-d/codeph ">false</codeph>, for vector printing.
+		 
+		 <p class="- topic/p ">If the content that you're printing includes a bitmap image, 
+		 set <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> to <codeph class="+ topic/ph pr-d/codeph ">true</codeph> to include any
+		 alpha transparency and color effects.
+		 If the content does not include bitmap images, print
+		 the content in higher quality vector format (the default option).</p>
+		 <p class="- topic/p ">For example, to print your content as a bitmap, use the following syntax:</p> 
+		 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+		 var options:PrintJobOptions = new PrintJobOptions();
+		 options.printAsBitmap = true;
+		 myPrintJob.addPage(mySprite, null, options);
+		 </codeblock>
+		 
+		 <p class="- topic/p "><i class="+ topic/ph hi-d/i ">Note:</i>Adobe AIR does not support vector printing on Mac OS.</p>
+		 
+		 </apiDesc><example conref="examples\printAsBitmapExample.as" class="- topic/example "> The following example first loads a picture and puts it in a rectangle frame, then print the picture as a bitmap.  
+ 
+ <ol class="- topic/ol "><li class="- topic/li ">The constructor loads the picture (<codeph class="+ topic/ph pr-d/codeph ">image.jpg</codeph>) using the <codeph class="+ topic/ph pr-d/codeph ">Loader</codeph> and <codeph class="+ topic/ph pr-d/codeph ">URLRequest</codeph> objects.
+ It also checks if an error occurred during loading. Here the file is assumed to be in the same directory as the SWF file. 
+ The SWF file needs to be compiled with Local Playback Secuirty set to Access Local Files Only.</li><li class="- topic/li ">When the picture is loaded (the event is complete), the <codeph class="+ topic/ph pr-d/codeph ">completeHandler()</codeph> method is called.</li><li class="- topic/li ">The <codeph class="+ topic/ph pr-d/codeph ">completeHandler()</codeph> method, creates a <codeph class="+ topic/ph pr-d/codeph ">BitmapData</codeph> object, and loads the picture (bitmap) in it. 
+ A rectangle is drawn in the <codeph class="+ topic/ph pr-d/codeph ">Sprite</codeph> object (<codeph class="+ topic/ph pr-d/codeph ">frame</codeph>) and the <codeph class="+ topic/ph pr-d/codeph ">beginBitmapFill()</codeph> method is used 
+ to fill the rectangle with the picture (a <codeph class="+ topic/ph pr-d/codeph ">BitmapData</codeph> object). A <codeph class="+ topic/ph pr-d/codeph ">Matrix</codeph> object also is used to scale the 
+ image to fit the rectangle. (Note that this will distort the image. It is used in this example to make sure the image fits.) 
+ Once the image is filled, the <codeph class="+ topic/ph pr-d/codeph ">printPage()</codeph> method is called.</li><li class="- topic/li ">The <codeph class="+ topic/ph pr-d/codeph ">printPage()</codeph> method creates a new instance of the print job and starts the printing process, which invokes the 
+ print dialog box for the user, and populates the properties of the print job. The <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> method contains the 
+ details about the print job. Here, the frame with the picture (a Sprite object) is set to print as a bitmap and not 
+ as a vector. <codeph class="+ topic/ph pr-d/codeph ">options</codeph> is an instance of <codeph class="+ topic/ph pr-d/codeph ">PrintJobOptions</codeph> class and its property <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> 
+ is set to <codeph class="+ topic/ph pr-d/codeph ">true</codeph> in order to print as a bitmap (default setting is false).</li></ol>
+ <p class="- topic/p ">Note: There is very limited error handling defined for this example.</p>
+ 
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.display.Sprite;
+    import flash.display.Loader;
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;    
+    import flash.printing.PrintJob;
+    import flash.printing.PrintJobOptions;
+    import flash.events.Event;
+    import flash.events.IOErrorEvent;
+    import flash.net.URLRequest;
+    import flash.geom.Matrix;
+
+    public class printAsBitmapExample extends Sprite {
+
+        private var frame:Sprite = new Sprite();
+        private var url:String = "image.jpg";
+        private var loader:Loader = new Loader();
+
+        public function printAsBitmapExample() {
+
+           var request:URLRequest = new URLRequest(url);
+  
+           loader.load(request);
+           loader.contentLoaderInfo.addEventListener(Event.COMPLETE, completeHandler);
+           loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+        }
+
+        private function completeHandler(event:Event):void {
+        
+            var picture:Bitmap = Bitmap(loader.content);
+            var bitmap:BitmapData = picture.bitmapData;
+
+            var matrix:Matrix = new Matrix();
+
+            matrix.scale((200 / bitmap.width), (200 / bitmap.height));
+            
+            frame.graphics.lineStyle(10);
+            frame.graphics.beginBitmapFill(bitmap, matrix, true);
+            frame.graphics.drawRect(0, 0, 200, 200);
+            frame.graphics.endFill();
+
+            addChild(frame);
+             
+            printPage();    
+        }
+
+        private function ioErrorHandler(event:IOErrorEvent):void {
+            trace("Unable to load the image: " + url);
+        }
+
+        private function printPage ():void {
+            var myPrintJob:PrintJob = new PrintJob();
+            var options:PrintJobOptions = new PrintJobOptions();
+            options.printAsBitmap = true;
+            
+            myPrintJob.start();
+  
+            try {
+                myPrintJob.addPage(frame, null, options);
+            }
+            catch(e:Error) {
+                trace ("Had problem adding the page to print job: " + e);
+            }
+ 
+            try {
+            myPrintJob.send();
+            }
+            catch (e:Error) {
+                trace ("Had problem printing: " + e);    
+            }
+        }
+    }
+}
+
+</codeblock></example></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printMethod</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJobOptions:printMethod:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printMethod</apiName><shortdesc class="- topic/shortdesc ">
+		 Specifies that the Flash runtime chooses the most appropriate
+		 printing method, or that the author wishes to explicitly select
+		 vector or bitmap printing.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The <codeph class="+ topic/ph pr-d/codeph ">printMethod</codeph> specified is not one of the
+     	 values defined in the <codeph class="+ topic/ph pr-d/codeph ">PrintMethod</codeph> class.
+     	 
+		 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+		 Specifies that the Flash runtime chooses the most appropriate
+		 printing method, or that the author wishes to explicitly select
+		 vector or bitmap printing.
+		 
+		 <p class="- topic/p ">Set the property to one of the following values defined in the
+		 <codeph class="+ topic/ph pr-d/codeph ">PrintMethod</codeph> class:</p>
+		 <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintMethod.AUTO</codeph>: Specifies that vector or bitmap printing 
+		 is chosen automatically, based on the content to be printed. Vector 
+		 printing will be used whenever the content can be faithfully reproduced by 
+		 that method. If transparency or certain other effects are present, bitmap 
+		 printing will be used instead.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintMethod.VECTOR</codeph>: Speifies vector printing.
+		 This setting is the same as setting <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> to <codeph class="+ topic/ph pr-d/codeph ">false</codeph>.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintMethod.BITMAP</codeph>: Specifies bitmap printing.
+		 Same as setting <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> to <codeph class="+ topic/ph pr-d/codeph ">true</codeph>.</li></ul>
+		 
+		 <p class="- topic/p ">If printMethod is set to one of these supported values, then printAsBitmap 
+		 is ignored.</p>
+		 
+		 <p class="- topic/p ">The default value is <codeph class="+ topic/ph pr-d/codeph ">null</codeph>; the printAsBitmap property is 
+		 used.</p>
+		 
+     	 </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOptions/printAsBitmap" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOptions.printAsBitmap</linktext></link><link href="flash.printing.xml#PrintMethod" class="- topic/link "><linktext class="- topic/linktext ">PrintMethod class</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintJob" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintJob</apiName><shortdesc class="- topic/shortdesc ">
+ The PrintJob class lets you create content and print it to one or
+ more pages.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, print
+ </keyword></asCustoms></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ The PrintJob class lets you create content and print it to one or
+ more pages. This class
+ lets you render content that is visible, dynamic or offscreen to the user, prompt users with a
+ single Print dialog box, and print an unscaled document with
+ proportions that map to the proportions of the content. This
+ capability is especially useful for rendering and printing dynamic
+ content, such as database content and dynamic text.
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Mobile Browser Support:</b> This class is not supported in mobile browsers.</p>
+ 
+ <p class="- topic/p "><i class="+ topic/ph hi-d/i ">AIR profile support:</i> This feature is supported 
+ on all desktop operating systems, but it is not supported on mobile devices or AIR for TV devices. You can test 
+ for support at run time using the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.isSupported</codeph> property. See 
+ <xref href="http://help.adobe.com/en_US/air/build/WS144092a96ffef7cc16ddeea2126bb46b82f-8000.html" class="- topic/xref ">
+ AIR Profile Support</xref> for more information regarding API support across multiple profiles.</p>
+ 
+ <p class="- topic/p ">Use the <codeph class="+ topic/ph pr-d/codeph ">PrintJob()</codeph> constructor to create a print job.</p>
+ 
+ <p class="- topic/p ">Additionally, with the PrintJob class's properties, you can read your user's
+ printer settings, such as page height, width, and image orientation, and
+ you can configure your document to dynamically format Flash content
+ that is appropriate for the printer settings.</p>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> ActionScript 3.0 does not restrict a PrintJob object 
+ to a single frame (as did previous versions of ActionScript). However, since 
+ the operating system displays print status information to the user after the 
+ user has clicked the OK button in the Print dialog box, you should call 
+ <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> and <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> as soon as 
+ possible to send pages to the spooler. A delay reaching the frame containing 
+ the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> call delays the printing process.</p>
+ <p class="- topic/p ">Additionally, a 15 second script timeout limit applies to the following intervals:</p>
+ <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> and the first <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> and the next <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li ">The last <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> and <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph></li></ul>
+ 
+ <p class="- topic/p ">If any of the above intervals span more than 15 seconds, the next call to 
+ <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> on the PrintJob instance returns <codeph class="+ topic/ph pr-d/codeph ">false</codeph>, 
+ and the next <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> on the PrintJob instance causes 
+ the Flash Player or Adobe AIR to throw a runtime exception.</p>
+ 
+ </apiDesc><example conref="examples\PrintJobExample_Simple.as" class="- topic/example "> The following example show the basics of printing. A new PrintJob is created, 
+ and if started successfully, the <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> method adds the sprite as a single page. 
+ The <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> method spools the page to the printer.
+
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package 
+{ 
+    import flash.printing.PrintJob; 
+    import flash.display.Sprite; 
+ 
+    public class BasicPrintExample extends Sprite 
+    { 
+        var myPrintJob:PrintJob = new PrintJob(); 
+        var mySprite:Sprite = new Sprite();
+        mySprite.graphics.beginFill(0x336699);
+    mySprite.graphics.drawCircle(100, 100, 50);
+ 
+        public function BasicPrintExample() 
+        { 
+            if (myPrintJob.start()) {
+            try {
+                myPrintJob.addPage(mySprite);
+            }
+            catch(e:Error) {
+                // handle error 
+            }
+            myPrintJob.send();
+        } 
+    } 
+}
+</codeblock></example><example conref="examples\PrintJobExample.as" class="- topic/example "> The following example uses the class <codeph class="+ topic/ph pr-d/codeph ">PrintJobExample</codeph> to create a small document and
+ then send the document to the printer.  This is accomplished using the following steps:
+ <ol class="- topic/ol "><li class="- topic/li ">Declare two variables of type Sprite named <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> and <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph>.</li><li class="- topic/li ">Call <codeph class="+ topic/ph pr-d/codeph ">init()</codeph>, which assigns a new Sprite instance to both <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> and
+  <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> and then calls <codeph class="+ topic/ph pr-d/codeph ">createSheet()</codeph> using different arguments.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">createSheet()</codeph> does the following:
+  <ol outputclass="A" class="- topic/ol "><li class="- topic/li ">The Sprite object passed in is used to draw a rectangle with a light-gray background, a 
+      one-pixel black border, and that is 100 pixels wide by 200 pixels high at x = 0, y = 0.</li><li class="- topic/li ">A new TextField object is created named <codeph class="+ topic/ph pr-d/codeph ">txt</codeph> with the same dimensions as
+      the Sprite, the wordWrap property set to <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, and the text property set to
+      the String passed as an argument to <codeph class="+ topic/ph pr-d/codeph ">createSheet()</codeph>.</li><li class="- topic/li ">If the Object argument passed is not null, create a new Sprite instance named 
+      <codeph class="+ topic/ph pr-d/codeph ">img</codeph> that is used to draw a white rectangle using the coordinate and dimension properties 
+      of the Object passed.  The white rectangle is added to the display list of the Sprite object using 
+      <codeph class="+ topic/ph pr-d/codeph ">addChild()</codeph>.</li><li class="- topic/li ">The <codeph class="+ topic/ph pr-d/codeph ">txt</codeph> TextField is added to the display list of the Sprite object using
+      <codeph class="+ topic/ph pr-d/codeph ">addChild()</codeph>.</li></ol></li><li class="- topic/li ">Back in the constructor, the print method that is enabled (not commented out) is called.  Since the
+  methods are very similar, <codeph class="+ topic/ph pr-d/codeph ">printOnePerPage()</codeph> is described below.</li><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">printOnePerPage()</codeph> does the following:
+  <ol outputclass="A" class="- topic/ol "><li class="- topic/li ">Declare a new PrintJob object named <codeph class="+ topic/ph pr-d/codeph ">pj</codeph> and <codeph class="+ topic/ph pr-d/codeph ">pagesToPrint</codeph> as a uint.</li><li class="- topic/li ">Open the operating system's native print dialog box and wait for user to click <codeph class="+ topic/ph pr-d/codeph ">OK</codeph>.</li><li class="- topic/li ">Check the orientation and if Landscape is selected, throw an error and exit.</li><li class="- topic/li ">Set up the page height and width for <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> and <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph>.</li><li class="- topic/li ">Send <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph> and <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> to the print spooler using <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph>.</li><li class="- topic/li ">If the number of pages to print is &gt; 0, print all spooled pages.</li></ol></li><li class="- topic/li ">The <codeph class="+ topic/ph pr-d/codeph ">draw()</codeph> method is called, which re-sizes the two Sprite properties to fit on the stage
+  and re-positions <codeph class="+ topic/ph pr-d/codeph ">sheet2</codeph> such that it is just right of <codeph class="+ topic/ph pr-d/codeph ">sheet1</codeph>.</li></ol>
+ 
+ <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note: </b> the constructor is set up such that one of three printing methods (one sheet per
+ page, two sheets per page, or printing on the top half of the page) can be selected, based on preference. 
+ This example will not work correctly unless exactly two of the print methods are disabled using code
+ comments.  The example is set up such that <codeph class="+ topic/ph pr-d/codeph ">printOnePerPage()</codeph> will be called.</p>
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+package {
+    import flash.printing.PrintJob;
+    import flash.printing.PrintJobOrientation;
+    import flash.display.Stage;
+    import flash.display.Sprite;
+    import flash.text.TextField;
+    import flash.geom.Rectangle;
+       
+    public class PrintJobExample extends Sprite {
+        private var sheet1:Sprite;
+        private var sheet2:Sprite;
+           
+        public function PrintJobExample() {
+            init();
+            printOnePerPage();
+//            printTwoPerPage();
+//            printTopHalf();
+            draw();
+        }
+        
+        private function init():void {
+            sheet1 = new Sprite();
+            createSheet(sheet1, "Once upon a time...", {x:10, y:50, width:80, height:130});
+
+            sheet2 = new Sprite();
+            createSheet(sheet2, "There was a great story to tell, and it ended quickly.\n\nThe end.", null);
+        }
+        
+        private function createSheet(sheet:Sprite, str:String, imgValue:Object):void {
+            sheet.graphics.beginFill(0xEEEEEE);
+            sheet.graphics.lineStyle(1, 0x000000);
+            sheet.graphics.drawRect(0, 0, 100, 200);
+            sheet.graphics.endFill();
+            
+            var txt:TextField = new TextField();
+            txt.height = 200;
+            txt.width = 100;
+            txt.wordWrap = true;
+            txt.text = str;
+            
+            if(imgValue != null) {
+                var img:Sprite = new Sprite();
+                img.graphics.beginFill(0xFFFFFF);
+                img.graphics.drawRect(imgValue.x, imgValue.y, imgValue.width, imgValue.height);
+                img.graphics.endFill();
+                sheet.addChild(img);
+            }
+            sheet.addChild(txt);
+        }
+        
+        private function printOnePerPage():void {
+            var pj:PrintJob = new PrintJob();
+            var pagesToPrint:uint = 0;
+            if(pj.start()) {                
+                if(pj.orientation == PrintJobOrientation.LANDSCAPE) {    
+                    throw new Error("Without embedding fonts you must print one sheet per page with an orientation of portrait.");
+                }
+                
+                sheet1.height = pj.pageHeight;
+                sheet1.width = pj.pageWidth;
+                sheet2.height = pj.pageHeight;
+                sheet2.width = pj.pageWidth;
+
+                try {
+                    pj.addPage(sheet1);
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                try {
+                    pj.addPage(sheet2);
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                if(pagesToPrint &gt; 0) {
+                    pj.send();
+                }
+            }
+        }
+        
+        private function printTwoPerPage():void {
+            var pj:PrintJob = new PrintJob();
+            var pagesToPrint:uint = 0;
+            if(pj.start()) {                
+                if(pj.orientation == PrintJobOrientation.PORTRAIT) {
+                    throw new Error("Without embedding fonts you must print two sheets per page with an orientation of landscape.");
+                }
+                
+                sheet1.height = pj.pageHeight;
+                sheet1.width = pj.pageWidth/2;
+                sheet2.height = pj.pageHeight;
+                sheet2.width = pj.pageWidth/2;
+
+                var sheets:Sprite = new Sprite();
+                sheets.addChild(sheet1);
+                sheets.addChild(sheet2);
+                sheets.getChildAt(1).x = sheets.getChildAt(0).width;
+                try {
+                    pj.addPage(sheets);
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                if(pagesToPrint &gt; 0) {
+                    pj.send();
+                }
+            }
+        }
+
+        private function printTopHalf():void {
+            var pj:PrintJob = new PrintJob();
+            var pagesToPrint:uint = 0;
+            if(pj.start()) {                
+                if(pj.orientation == PrintJobOrientation.PORTRAIT) {
+                    throw new Error("Without embedding fonts you must print the top half with an orientation of landscape.");
+                }
+                
+                sheet1.height = pj.pageHeight;
+                sheet1.width = pj.pageWidth/2;
+                sheet2.height = pj.pageHeight;
+                sheet2.width = pj.pageWidth/2;
+
+                var sheets:Sprite = new Sprite();
+                sheets.addChild(sheet1);
+                sheets.addChild(sheet2);
+                sheets.getChildAt(1).x = sheets.getChildAt(0).width;
+                try {
+                    pj.addPage(sheets, new Rectangle(0, 0, sheets.width, sheets.height/2));
+                    pagesToPrint++;
+                }
+                catch(e:Error) {
+                    // do nothing
+                }
+
+                if(pagesToPrint &gt; 0) {
+                    pj.send();
+                }
+            }
+        }
+
+
+        private function draw():void {
+            var sheetWidth:Number = this.stage.stageWidth/2;
+            var sheetHeight:Number = this.stage.stageHeight;
+            
+            addChild(sheet1);
+            sheet1.width = sheetWidth;
+            sheet1.height = sheetHeight;
+            
+            addChild(sheet2);
+            sheet2.width = sheetWidth;
+            sheet2.height = sheetHeight;
+            sheet2.x = sheet1.width;
+        }        
+    }
+}
+</codeblock></example><example conref="examples\PrintJobExample.2.as" class="- topic/example "> The following example demonstrates additional printing features. 
+ The example initializes the PrintJob settings for number of copies, 
+ paper size (legal), and page orientation (landscape). It forces the 
+ Page Setup dialog to be displayed first, then starts the print job 
+ by displaying the Print dialog.
+<codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock "> 
+package 
+ { 
+     import flash.display.Sprite; 
+     import flash.display.Stage; 
+     import flash.geom.Rectangle; 
+     import flash.printing.PaperSize; 
+     import flash.printing.PrintJob; 
+    import flash.printing.PrintJobOrientation; 
+    import flash.printing.PrintUIOptions; 
+    import flash.text.TextField; 
+      
+     public class PrintJobExample extends Sprite 
+     { 
+         private var bg:Sprite; 
+         private var txt:TextField; 
+        private var pj:PrintJob; 
+        private var uiOpt:PrintUIOptions; 
+  
+         public function PrintJobExample():void 
+         { 
+            var pj = new PrintJob(); 
+            uiOpt = new PrintUIOptions(); 
+            initPrintJob(); 
+             initContent(); 
+             draw(); 
+             printPage(); 
+         } 
+          
+         private function printPage():void 
+         { 
+            if (pj.supportsPageSetupDialog) 
+            { 
+                pj.showPageSetupDialog(); 
+            }
+            
+             if (pj.start2(uiOpt, true)) 
+             { 
+                   try 
+                 { 
+                     pj.addPage(this, new Rectangle(0, 0, 100, 100)); 
+                 } 
+                 catch (error:Error) 
+                 { 
+                     // Do nothing. 
+                 } 
+                 pj.send(); 
+             } 
+             else 
+             { 
+                 txt.text = "Print job terminated"; 
+                pj.terminate(); 
+             } 
+         } 
+         
+         private function initContent():void 
+         { 
+             bg = new Sprite(); 
+             bg.graphics.beginFill(0x00FF00); 
+             bg.graphics.drawRect(0, 0, 100, 200); 
+             bg.graphics.endFill(); 
+              
+             txt = new TextField(); 
+             txt.border = true; 
+             txt.text = "Hello World"; 
+         } 
+          
+        private function initPrintJob():void 
+        { 
+            pj.setPaperSize(PaperSize.LEGAL); 
+            pj.orientation = PrintJobOrientation.LANDSCAPE; 
+            pj.copies = 2; 
+            pj.jobName = "Flash test print";
+        } 
+         
+         private function draw():void 
+         { 
+             addChild(bg); 
+             addChild(txt); 
+             txt.x = 50; 
+             txt.y = 50; 
+         } 
+     } 
+}
+</codeblock></example></apiClassifierDetail><apiConstructor id="flash.printing:PrintJob:PrintJob" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation apiOperation/apiConstructor"><apiName class="- topic/title reference/title apiRef/apiName ">PrintJob</apiName><shortdesc class="- topic/shortdesc ">
+ Creates a PrintJob object that you can use to print one or more pages.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><maelexample>See <code>PrintJob.addPage()</code>.
+ 
+ </maelexample></asCustoms></prolog><apiConstructorDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail apiOperation/apiConstructorDetail"><apiConstructorDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiConstructorDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc "> In Flash Player and AIR prior to AIR 2, throws an exception if another PrintJob object is still active.
+ 
+ </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException></apiConstructorDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+ Creates a PrintJob object that you can use to print one or more pages.
+ After you create a PrintJob object, you need to use (in the following sequence) the
+ <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph>, <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph>, and then 
+ <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> methods to send the print job to the printer.
+ 
+ <p class="- topic/p ">For example, you can replace the <codeph class="+ topic/ph pr-d/codeph ">[params]</codeph> placeholder text for the 
+ <codeph class="+ topic/ph pr-d/codeph ">myPrintJob.addPage()</codeph> method calls with custom parameters as shown in the 
+ following code:</p>
+ 
+ <pre xml:space="preserve" class="- topic/pre ">
+ // create PrintJob object
+ var myPrintJob:PrintJob = new PrintJob();
+  
+ // display Print dialog box, but only initiate the print job
+ // if start returns successfully.
+ if (myPrintJob.start()) {
+  
+    // add specified page to print job
+    // repeat once for each page to be printed
+    try {
+      myPrintJob.addPage([params]);
+    }
+    catch(e:Error) {
+      // handle error 
+    }
+    try {
+      myPrintJob.addPage([params]);
+    }
+    catch(e:Error) {
+      // handle error 
+    }
+ 
+    // send pages from the spooler to the printer, but only if one or more
+    // calls to addPage() was successful. You should always check for successful 
+    // calls to start() and addPage() before calling send().
+    myPrintJob.send();
+ }
+ </pre>
+ 
+ <p class="- topic/p ">In AIR 2 or later, you can create and use multiple PrintJob instances. Properties set on 
+ the PrintJob instance are retained after printing completes. This allows you to re-use a PrintJob 
+ instance and maintain a user's selected printing preferences, while offering different printing 
+ preferences for other content in your application. For content in Flash Player and in AIR prior to version 2, you cannot create a 
+ second PrintJob object while the first one is still active. 
+ If you create a second PrintJob object (by calling <codeph class="+ topic/ph pr-d/codeph ">new PrintJob()</codeph>) 
+ while the first PrintJob object is still active, the second PrintJob object 
+ will not be created. So, you may check for the <codeph class="+ topic/ph pr-d/codeph ">myPrintJob</codeph> value before 
+ creating a second PrintJob.</p>
+ 
+ </apiDesc></apiConstructorDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link></related-links></apiConstructor><apiOperation id="flash.printing:PrintJob:addPage" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">addPage</apiName><shortdesc class="- topic/shortdesc ">
+     Sends the specified Sprite object as a single page to the print spooler.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.addpage, addpage
+	 </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Throws an exception if you haven't called <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or the 
+	 user cancels the print job
+	 
+	 
+	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">Error</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Error</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">sprite</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.display:Sprite</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The Sprite containing the content to print. 
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">printArea</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.geom:Rectangle</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc "> A Rectangle object that specifies the area to print.	 
+	 
+	 <p class="- topic/p ">A rectangle's width and height are pixel values. A printer uses points as print units 
+	 of measurement. Points are a fixed physical size (1/72 inch), but the size of a pixel, 
+	 onscreen, depends on the resolution of the particular screen. So, the conversion rate 
+	 between pixels and points depends on the printer settings and whether the sprite is 
+	 scaled. An unscaled sprite that is 72 pixels wide prints out one inch wide, with 
+	 one point equal to one pixel, independent of screen resolution.</p>
+	 
+	 <p class="- topic/p ">You can use the following equivalencies to convert inches 
+	 or centimeters to twips or points (a twip is 1/20 of a point):</p>
+	 
+	 <ul class="- topic/ul "><li class="- topic/li ">1 point = 1/72 inch = 20 twips</li><li class="- topic/li ">1 inch = 72 points = 1440 twips</li><li class="- topic/li ">1 cm = 567 twips</li></ul>
+	 
+	 <p class="- topic/p ">If you omit the <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> parameter, or if it is passed incorrectly, 
+	 the full area of the <codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> parameter is printed.</p>
+	 
+	 <p class="- topic/p ">If you don't want to specify a value for <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> but want to specify a value for <codeph class="+ topic/ph pr-d/codeph ">options</codeph> 
+	 or <codeph class="+ topic/ph pr-d/codeph ">frameNum</codeph>, pass <codeph class="+ topic/ph pr-d/codeph ">null</codeph> for <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph>.</p>
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">options</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.printing:PrintJobOptions</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An optional parameter that specifies whether to print as vector or bitmap.
+	 The default value is <codeph class="+ topic/ph pr-d/codeph ">null</codeph>, which represents a request for vector printing. 
+	 To print <codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> as a 
+	 bitmap, set the <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> property of the PrintJobOptions object
+	 to <codeph class="+ topic/ph pr-d/codeph ">true</codeph>. Remember the following suggestions when determining whether to
+	 set <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> to <codeph class="+ topic/ph pr-d/codeph ">true</codeph>:
+	 
+	 <ul class="- topic/ul "><li class="- topic/li ">If the content you're printing includes a bitmap image, set 
+	 <codeph class="+ topic/ph pr-d/codeph ">printAsBitmap</codeph> to <codeph class="+ topic/ph pr-d/codeph ">true</codeph> to include any alpha transparency
+	 and color effects.</li><li class="- topic/li ">If the content does not include bitmap images, omit this parameter
+	 to print the content in higher quality vector format.</li></ul>
+	 
+	 <p class="- topic/p ">If <codeph class="+ topic/ph pr-d/codeph ">options</codeph> is omitted or is passed incorrectly, vector printing is used. 
+	 If you don't want to specify a value for 
+	 <codeph class="+ topic/ph pr-d/codeph ">options</codeph> but want to specify a value for <codeph class="+ topic/ph pr-d/codeph ">frameNumber</codeph>, 
+	 pass <codeph class="+ topic/ph pr-d/codeph ">null</codeph> for <codeph class="+ topic/ph pr-d/codeph ">options</codeph>.</p>
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">frameNum</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">int</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">0</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An optional number that lets you specify which frame 
+	 of a MovieClip object to print. Passing a <codeph class="+ topic/ph pr-d/codeph ">frameNum</codeph> does not invoke   
+	 ActionScript on that frame. If you omit this parameter and the 
+	 <codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> parameter is a MovieClip object, the current 
+	 frame in <codeph class="+ topic/ph pr-d/codeph ">sprite</codeph> is printed.	 
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Sends the specified Sprite object as a single page to the print spooler. Before using this 
+     method, you must create a PrintJob object and then use <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or 
+	 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph>. Then,
+     after calling <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> one or more times for a print job, use 
+	 <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> to send the spooled pages to the printer. In other words, after you create
+     a PrintJob object, use (in the following sequence) <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or 
+	 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph>, <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph>, and then <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> to send 
+	 the print job to the printer. You can call <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> multiple times after a 
+	 single call to <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> to print several pages in a print job.
+     
+     <p class="- topic/p ">If <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> causes Flash Player to throw an exception (for example, 
+	 if you haven't called <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or the user cancels the print job), any 
+	 subsequent calls to <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> fail. However, if previous calls to 
+	 <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> are successful, the concluding <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> command sends 
+	 the successfully spooled pages to the printer.</p>
+	 
+     <p class="- topic/p ">If the print job takes more than 15 seconds to complete an <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> 
+	 operation, Flash Player throws an exception on the next <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> call.</p>
+	 
+     <p class="- topic/p ">If you pass a value for the <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> parameter, the 
+	 <codeph class="+ topic/ph pr-d/codeph "><i class="+ topic/ph hi-d/i ">x</i></codeph> and <codeph class="+ topic/ph pr-d/codeph "><i class="+ topic/ph hi-d/i ">y</i></codeph> coordinates of the 
+     <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> Rectangle map to the upper-left corner (0, 0 coordinates) of the 
+	 printable area on the page. The read-only properties 
+	 <codeph class="+ topic/ph pr-d/codeph ">pageHeight</codeph> and <codeph class="+ topic/ph pr-d/codeph ">pageWidth</codeph> describe the printable area set by 
+     <codeph class="+ topic/ph pr-d/codeph ">start()</codeph>. Because the printout aligns with the upper-left corner 
+	 of the printable area on the page, when the area defined in <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> 
+	 is bigger than the printable area on the page, the printout is cropped to the right 
+	 or bottom (or both) of the area defined by <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph>. 
+     In Flash Professional, if you don't pass a value for <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> and the 
+	 Stage is larger than the printable area, the same type of clipping 
+	 occurs. In Flex or Flash Builder, if you don't pass a value for 
+	 <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph> and the screen is larger than the printable area, the 
+	 same type of clipping takes place.</p>
+	 
+	 <p class="- topic/p ">If you want to scale a Sprite object before you print it, set scale 
+	 properties (see <codeph class="+ topic/ph pr-d/codeph ">flash.display.DisplayObject.scaleX</codeph> and 
+	 <codeph class="+ topic/ph pr-d/codeph ">flash.display.DisplayObject.scaleY</codeph>) before calling this method, 
+	 and set them back to their original values after printing. The scale of a Sprite 
+	 object has no relation to <codeph class="+ topic/ph pr-d/codeph ">printArea</codeph>. That is, if you specify a print 
+	 area that is 50 x 50 pixels, 2500 pixels are printed. If you scale the Sprite object, 
+	 the same 2500 pixels are printed, but the Sprite object is printed at the scaled size.</p>
+	 
+	 <p class="- topic/p ">The Flash Player printing feature supports PostScript and non-PostScript printers. 
+	 Non-PostScript printers convert vectors to bitmaps.</p>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link><link href="flash.display.xml#DisplayObject" class="- topic/link "><linktext class="- topic/linktext ">DisplayObject class</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:selectPaperSize" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">selectPaperSize</apiName><shortdesc class="- topic/shortdesc ">
+     Set the paper size.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.selectPaperSize, selectPaperSize
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">if the <codeph class="+ topic/ph pr-d/codeph ">paperSize</codeph> parameter is not one of the 
+	 acceptable values defined in the PaperSize class.
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">ArgumentError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">ArgumentError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">paperSize</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">String</apiOperationClassifier><apiDesc class="- topic/section reference/section apiRef/apiDesc ">The paper size to use for subsequent pages in the print job
+	 
+	 </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Set the paper size. The acceptable values for the <codeph class="+ topic/ph pr-d/codeph ">paperSize</codeph> parameter 
+	 are constants in the PaperSize class. Calling this method affects print 
+	 settings as if the user chooses a paper size in the Page Setup or Print dialogs.
+     
+     <p class="- topic/p ">You can call this method at any time. Call this method before starting 
+     a print job to set the default paper size in the Page Setup and Print dialogs. Call 
+	 this method while a print job is in progress to set the paper size for 
+     a range of pages within the job.</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     import flash.printing.PrintJob;
+     import flash.printing.PaperSize;
+	 
+     var myPrintJob:PrintJob = new PrintJob();
+     myPrintJob.selectPaperSize(PaperSize.ENV_10);
+     </codeblock>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PaperSize" class="- topic/link "><linktext class="- topic/linktext ">PaperSize</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:send" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">send</apiName><shortdesc class="- topic/shortdesc ">
+      Sends spooled pages to the printer after successful calls to the start() or 
+	 start2() and addPage() methods.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.send, send
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+      Sends spooled pages to the printer after successful calls to the <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or 
+	 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> and <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> methods.
+	 
+	 <p class="- topic/p ">This method does not succeed if the call to the <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> method fails, or 
+	 if a call to the <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> method throws an exception. To avoid an error, 
+	 check that the <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> method returns 
+	 <codeph class="+ topic/ph pr-d/codeph ">true</codeph> and catch any <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> exceptions before calling 
+	 this method. The following example demonstrates how to properly check for errors
+	 before calling this method:</p>
+	 
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var myPrintJob:PrintJob = new PrintJob();
+     if (myPrintJob.start()) {
+       try {
+         myPrintJob.addPage([params]);
+       }
+       catch(e:Error) {
+          // handle error 
+       }
+     
+       myPrintJob.send();
+     }
+     </codeblock>
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:showPageSetupDialog" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">showPageSetupDialog</apiName><shortdesc class="- topic/shortdesc ">
+     Displays the operating system's Page Setup dialog if the current environment 
+     supports it.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.showPageSetupDialog, showPageSetupDialog
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">if the system does not support Page Setup. Use the 
+	 <codeph class="+ topic/ph pr-d/codeph ">supportsPageSetupDialog</codeph> property to determine if Page Setup is supported.
+	 </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">if any print job (including the current one) is active.
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc "><codeph class="+ topic/ph pr-d/codeph ">true</codeph> if the user chooses "OK" in the Page Setup dialog. This 
+	 indicates that some PrintJob properties may have changed. Returns <codeph class="+ topic/ph pr-d/codeph ">false</codeph> 
+	 if the user chooses "Cancel" in the Page Setup dialog.
+     
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Displays the operating system's Page Setup dialog if the current environment 
+     supports it. Use the <codeph class="+ topic/ph pr-d/codeph ">supportsPageSetupDialog</codeph> property to determine if Page Setup 
+     is supported.
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 import flash.printing.PrintJob;
+	 
+	 var myPrintJob:PrintJob = new PrintJob();
+	 if (myPrintJob.supportsPageSetupDialog)
+	 {
+	     myPrintJob.showPageSetupDialog();
+	 }
+	 </codeblock>
+     
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/supportsPageSetupDialog" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.supportsPageSetupDialog</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:start2" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start2</apiName><shortdesc class="- topic/shortdesc ">
+     Optionally displays the operating system's Print dialog box, starts spooling, and 
+     possibly modifies the PrintJob read-only property values.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.start2, start2
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">If the Page Setup dialog is being displayed, or if 
+	 another print job is currently active
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A value of <codeph class="+ topic/ph pr-d/codeph ">true</codeph> if the user clicks OK when the Print dialog box appears,
+     or if the Print dialog is not shown and there is no error; 
+     <codeph class="+ topic/ph pr-d/codeph ">false</codeph> if the user clicks Cancel or if an error occurs.
+     
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">uiOptions</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.printing:PrintUIOptions</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">null</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">An object designating which options are displayed in the Print dialog that
+	 is shown to the user. If the <codeph class="+ topic/ph pr-d/codeph ">showPrintDialog</codeph> parameter is <codeph class="+ topic/ph pr-d/codeph ">false</codeph>,
+	 this value is ignored.
+	 
+	 </apiDesc></apiParam><apiParam class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiParam "><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">showPrintDialog</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier><apiData class="- topic/ph reference/ph apiRef/apiData ">true</apiData><apiDesc class="- topic/section reference/section apiRef/apiDesc ">Whether or not the Print dialog is shown to the user before starting
+	 the print job
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Optionally displays the operating system's Print dialog box, starts spooling, and 
+     possibly modifies the PrintJob read-only property values.
+     
+     <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">uiOptions</codeph> parameter allows the caller to control which options are displayed in 
+     the Print dialog. See the <codeph class="+ topic/ph pr-d/codeph ">PrintUIOptions</codeph> class. This parameter is ignored if 
+     <codeph class="+ topic/ph pr-d/codeph ">showPrintDialog</codeph> is false.</p>
+     
+     <p class="- topic/p ">Even when <codeph class="+ topic/ph pr-d/codeph ">showPrintDialog</codeph> is <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, this method's behavior 
+	 can differ from the <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> method. On some operating systems, 
+	 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> shows the Page Setup dialog followed by the Print dialog. 
+	 In contrast, <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> never shows the Page Setup dialog.</p>
+	 
+	 <p class="- topic/p ">In the following example, the min and max page settings in the Print dialog are set
+	 before the dialog is displayed to the user:</p>
+     
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     import flash.printing.PrintJob;
+     import flash.printing.PrintUIOptions;
+	 
+     var myPrintJob:PrintJob = new PrintJob();
+     var uiOpt:PrintUIOptions = new PrintUIOptions();
+     uiOpt.minPage = 1;
+     uiOpt.maxPage = 3;
+     var accepted:Boolean = myPrintJob.start2(uiOpt);
+     </codeblock>
+	 
+	 </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:start" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">start</apiName><shortdesc class="- topic/shortdesc ">
+     Displays the operating system's Print dialog box and starts spooling.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.start, print
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">in AIR 2 or later, if another PrintJob is currently active
+	 
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">A value of <codeph class="+ topic/ph pr-d/codeph ">true</codeph> if the user clicks OK when the Print dialog box appears; <codeph class="+ topic/ph pr-d/codeph ">false</codeph> if the user clicks Cancel or if an error occurs.
+     
+     </apiDesc><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">Boolean</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Displays the operating system's Print dialog box and starts spooling. The Print dialog box lets the user change print settings. When the 
+     <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> method returns successfully (the user clicks OK in the Print dialog 
+     box), the following properties are populated, representing the user's chosen print settings:
+      
+     <adobetable class="innertable"><tgroup cols="4" class="- topic/tgroup "><thead class="- topic/thead "><row class="- topic/row "><entry class="- topic/entry ">Property</entry><entry class="- topic/entry ">Type</entry><entry class="- topic/entry ">Units</entry><entry class="- topic/entry ">Notes</entry></row></thead><tbody class="- topic/tbody "><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.paperHeight</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">Points</entry><entry class="- topic/entry ">Overall paper height.</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.paperWidth</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">Points</entry><entry class="- topic/entry ">Overall paper width.</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.pageHeight</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">Points</entry><entry class="- topic/entry ">Height of actual printable area on the page; any user-set margins are ignored.</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.pageWidth</codeph></entry><entry class="- topic/entry ">Number</entry><entry class="- topic/entry ">Points</entry><entry class="- topic/entry ">Width of actual printable area on the page; any user-set margins are ignored.</entry></row><row class="- topic/row "><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph></entry><entry class="- topic/entry ">String</entry><entry class="- topic/entry "/><entry class="- topic/entry "><codeph class="+ topic/ph pr-d/codeph ">"portrait"</codeph> (<codeph class="+ topic/ph pr-d/codeph ">flash.printing.PrintJobOrientation.PORTRAIT</codeph>) or <codeph class="+ topic/ph pr-d/codeph ">"landscape"</codeph> (<codeph class="+ topic/ph pr-d/codeph ">flash.printing.PrintJobOrientation.LANDSCAPE</codeph>).</entry></row></tbody></tgroup></adobetable>
+     	 
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> If the user cancels the Print dialog box, the properties are not populated.</p>
+     <p class="- topic/p ">After the user clicks OK in the Print dialog box, the player begins spooling a print job to the operating system. 
+     Because the operating system then begins displaying information to the user about the printing progress, 
+     you should call the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> and <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph> calls as soon as possible to send 
+     pages to the spooler. You can use the read-only height, width, and orientation properties this method populates to 
+     format the printout.</p>
+     <p class="- topic/p ">Test to see if this method returns <codeph class="+ topic/ph pr-d/codeph ">true</codeph> (when the user clicks OK in the operating system's Print 
+     dialog box) before any subsequent calls to <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> and <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph>:</p>
+     <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+     var myPrintJob:PrintJob = new PrintJob();
+        if(myPrintJob.start()) {
+          // addPage() and send() statements here
+        }
+     </codeblock>
+     <p class="- topic/p ">For the given print job instance, if any of the following intervals last more than
+     15 seconds the next call to <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> will return <codeph class="+ topic/ph pr-d/codeph ">false</codeph>:</p>
+     <ul class="- topic/ul "><li class="- topic/li "><codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> and the first <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li ">One <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> and the next <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph></li><li class="- topic/li ">The last <codeph class="+ topic/ph pr-d/codeph ">PrintJob.addPage()</codeph> and <codeph class="+ topic/ph pr-d/codeph ">PrintJob.send()</codeph></li></ul>
+     </apiDesc></apiOperationDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/addPage()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.addPage()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link></related-links></apiOperation><apiOperation id="flash.printing:PrintJob:terminate" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiOperation/apiOperation "><apiName class="- topic/title reference/title apiRef/apiName ">terminate</apiName><shortdesc class="- topic/shortdesc ">
+     Signals that the print job should be terminated without sending.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.terminate, terminate
+     </keyword></asCustoms></prolog><apiOperationDetail class="- topic/body reference/refbody apiRef/apiDetail apiOperation/apiOperationDetail "><apiOperationDef class="- topic/section reference/section apiRef/apiDef apiOperation/apiOperationDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiReturn class="- topic/ph reference/ph apiRef/apiDefItem apiOperation/apiReturn "><apiType value="void" name="type" class="- topic/state reference/state apiRef/apiType "/></apiReturn></apiOperationDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Signals that the print job should be terminated without sending. Use this method 
+	 when a print job has already been initiated by a call to <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or 
+	 <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph>, but when it is not appropriate to send any pages to the printer. 
+	 Typically, <codeph class="+ topic/ph pr-d/codeph ">terminate()</codeph> is only used to recover from errors.
+     
+     <p class="- topic/p ">After calling this method, the PrintJob instance can be reused. Wherever possible, 
+     the job's print settings are retained for subsequent use.</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiValue id="flash.printing:PrintJob:active:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">active</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates whether a print job is currently active.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates whether a print job is currently active. A print job is active (the property
+	 value is <codeph class="+ topic/ph pr-d/codeph ">true</codeph>) in either of two conditions:
+	 
+     <ul class="- topic/ul "><li class="- topic/li ">A Page Setup or Print dialog is being displayed.</li><li class="- topic/li ">The <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> method has been called with 
+	 a <codeph class="+ topic/ph pr-d/codeph ">true</codeph> return value, and the <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> or 
+	 <codeph class="+ topic/ph pr-d/codeph ">terminate()</codeph> method has not been called.</li></ul>
+	 
+	 <p class="- topic/p ">If this property is <codeph class="+ topic/ph pr-d/codeph ">true</codeph> and you call the <codeph class="+ topic/ph pr-d/codeph ">showPageSetupDialog()</codeph>,
+	 <codeph class="+ topic/ph pr-d/codeph ">start()</codeph>, or <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> method, the runtime throws an exception.</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/start()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start()</linktext></link><link href="flash.printing.xml#PrintJob/start2()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.start2()</linktext></link><link href="flash.printing.xml#PrintJob/send()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.send()</linktext></link><link href="flash.printing.xml#PrintJob/terminate()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.terminate()</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:copies:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">copies</apiName><shortdesc class="- topic/shortdesc ">
+     The number of copies that the print system prints of any pages subsequently added to the 
+	 print job.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The number of copies that the print system prints of any pages subsequently added to the 
+	 print job. This value is the number of copies entered by the user in the operating system's 
+     Print dialog. If the the number of copies was not displayed in the 
+     Print dialog, or the dialog was not presented to the user, the value is 1 (unless it has 
+	 been changed by application code).
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:firstPage:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">firstPage</apiName><shortdesc class="- topic/shortdesc ">
+     The page number of the first page of the range entered by the user in the operating system's 
+	 Print dialog.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The page number of the first page of the range entered by the user in the operating system's 
+	 Print dialog. This property is zero if the user requests that all pages be printed, or 
+     if the page range was not displayed in the Print dialog, or if the Print dialog 
+     has not been presented to the user.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:isColor:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isColor</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates whether the currently selected printer at the current print settings prints 
+	 using color (true) or grayscale (false).</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates whether the currently selected printer at the current print settings prints 
+	 using color (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) or grayscale (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>).
+	 
+	 <p class="- topic/p ">If a color-or-grayscale value can't be determined, the value is <codeph class="+ topic/ph pr-d/codeph ">true</codeph>.</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:isSupported:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">isSupported</apiName><shortdesc class="- topic/shortdesc ">
+    Indicates whether the PrintJob class is supported on the current platform (true) 
+	or not (false).</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="10.1" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    Indicates whether the PrintJob class is supported on the current platform (<codeph class="+ topic/ph pr-d/codeph ">true</codeph>) 
+	or not (<codeph class="+ topic/ph pr-d/codeph ">false</codeph>). 
+    
+    </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:jobName:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">jobName</apiName><shortdesc class="- topic/shortdesc ">
+     The name or title of the print job.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier><apiException class="+ topic/ph reference/ph apiRef/apiDefItem apiOperation/apiEvent adobe-api-d/apiException "><apiDesc class="- topic/section reference/section apiRef/apiDesc ">if code attempts to set the property while the <codeph class="+ topic/ph pr-d/codeph ">active</codeph> 
+	 property is <codeph class="+ topic/ph pr-d/codeph ">true</codeph>.
+     
+     </apiDesc><apiItemName class="- topic/keyword reference/keyword apiRef/apiItemName ">IllegalOperationError</apiItemName><apiOperationClassifier class="- topic/xref reference/xref apiRef/apiRelation apiOperation/apiOperationClassifier ">flash.errors:IllegalOperationError</apiOperationClassifier></apiException><apiDefaultValue>&lt;code&gt;null&lt;/code&gt;
+     
+     </apiDefaultValue></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The name or title of the print job. The job name is typically used by 
+     the operating system as the title of the job in the print queue, or 
+	 as the default name of a job that is printed to a file.
+     
+     <p class="- topic/p ">If you have not called <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> and you haven't 
+	 set a value for the property, this property's value is <codeph class="+ topic/ph pr-d/codeph ">null</codeph>.</p>
+     
+     <p class="- topic/p ">For each print job you execute with a PrintJob instance, set this property before 
+	 calling the <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> method.</p>
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:lastPage:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">lastPage</apiName><shortdesc class="- topic/shortdesc ">
+     The page number of the last page of the range entered by the user in the operating system's 
+	 Print dialog.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The page number of the last page of the range entered by the user in the operating system's 
+	 Print dialog. This property is zero if the user requests that all pages be printed, or 
+     if the page range was not displayed in the Print dialog, or if the Print dialog 
+     has not been presented to the user.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:maxPixelsPerInch:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">maxPixelsPerInch</apiName><shortdesc class="- topic/shortdesc ">
+     The physical resolution of the selected printer, in pixels per inch.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Number</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The physical resolution of the selected printer, in pixels per inch. The value 
+	 is calculated according to the current print settings as reported by the operating system.
+     
+     <p class="- topic/p ">If the resolution cannot be determined, the value is a standard default value. 
+     The default value is 600 ppi on Linux and 360 ppi on Mac OS. On Windows, 
+     the printer resolution is always available, so no default value is necessary.</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:orientation:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">orientation</apiName><shortdesc class="- topic/shortdesc ">
+    The image orientation for printing.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="read only" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="read only" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="read-write" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.orientation, orientation 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    The image orientation for printing. The acceptable values are defined as constants
+	in the PrintJobOrientation class.
+	
+    <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> For AIR 2 or later, set this property before 
+	starting a print job to set the default orientation in the Page Setup and Print dialogs.
+    Set the property while a print job is in progress (after calling <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or 
+	<codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> to set the orientation for a range of pages within the job.</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJobOrientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJobOrientation class</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:pageHeight:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pageHeight</apiName><shortdesc class="- topic/shortdesc ">
+     The height of the largest area which can be centered in the actual printable 
+     area on the page, in points.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.pageHeight, pageHeight 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The height of the largest area which can be centered in the actual printable 
+     area on the page, in points. 
+    Any user-set margins are ignored. This property is available only 
+    after a call to the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> method has been made.
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> For AIR 2 or later, this property is deprecated. Use 
+	 <codeph class="+ topic/ph pr-d/codeph ">printableArea</codeph> instead, which measures 
+     the printable area in fractional points and describes off-center printable areas 
+     accurately.</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/printableArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.printableArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:pageWidth:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">pageWidth</apiName><shortdesc class="- topic/shortdesc ">
+     The width of the largest area which can be centered in the actual printable 
+     area on the page, in points.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/><apiPlatform description="" name="AIR" version="1.0" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.pageWidth, pageWidth 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The width of the largest area which can be centered in the actual printable 
+     area on the page, in points. 
+    Any user-set margins are ignored. This property is available only 
+    after a call to the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> method has been made.
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> For AIR 2 or later, this property is deprecated. Use 
+	 <codeph class="+ topic/ph pr-d/codeph ">printableArea</codeph> instead, which measures 
+     the printable area in fractional points and describes off-center printable areas 
+     accurately.</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/printableArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.printableArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:paperArea:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">paperArea</apiName><shortdesc class="- topic/shortdesc ">
+     The bounds of the printer media in points.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.geom:Rectangle</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The bounds of the printer media in points. This value uses the same coordinate system 
+	 that is used for subsequent <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> calls.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:paperHeight:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">paperHeight</apiName><shortdesc class="- topic/shortdesc ">
+    The overall paper height, in points.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.paperHeight, paperHeight 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    The overall paper height, in points. This property is available only
+    after a call to the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> method has been made.
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> For AIR 2 or later, this property is deprecated. Use 
+	 <codeph class="+ topic/ph pr-d/codeph ">paperArea</codeph> instead, which measures the 
+     paper dimensions in fractional points.</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/paperArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.paperArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:paperWidth:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">paperWidth</apiName><shortdesc class="- topic/shortdesc ">
+    The overall paper width, in points.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9." class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob, printjob.paperWidth, paperWidth 
+    </keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">int</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+    The overall paper width, in points. This property is available only
+    after a call to the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.start()</codeph> method has been made.
+     
+     <p class="- topic/p "><b class="+ topic/ph hi-d/b ">Note:</b> For AIR 2 or later, this property is deprecated. Use 
+	 <codeph class="+ topic/ph pr-d/codeph ">paperArea</codeph> instead, which measures the 
+     paper dimensions in fractional points.</p>
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/paperArea" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.paperArea</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJob:printableArea:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printableArea</apiName><shortdesc class="- topic/shortdesc ">
+     The bounds of the printer media's printable area in points.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">flash.geom:Rectangle</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     The bounds of the printer media's printable area in points. This value uses the same 
+     coordinate system that is used for subsequent <codeph class="+ topic/ph pr-d/codeph ">addPage()</codeph> calls.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:printer:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printer</apiName><shortdesc class="- topic/shortdesc ">
+     Gets or sets the printer to use for the current print job.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiDynamic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiDynamic "/><apiValueAccess value="readwrite" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Gets or sets the printer to use for the current print job. The String passed 
+     to the setter and returned by the getter should match one of the strings in the 
+     Array returned by the <codeph class="+ topic/ph pr-d/codeph ">printers()</codeph> method. To indicate that the default 
+	 printer should be used, set the value to <codeph class="+ topic/ph pr-d/codeph ">null</codeph>. On operating systems 
+	 where the default printer cannot be determined, this property's value is <codeph class="+ topic/ph pr-d/codeph ">null</codeph>.
+	 
+	 <codeblock xml:space="preserve" class="+ topic/pre pr-d/codeblock ">
+	 import flash.printing.PrintJob;
+	 
+	 var myPrintJob:PrintJob = new PrintJob();
+	 myPrintJob.printer = "HP_LaserJet_1";
+	 myPrintJob.start();
+	 </codeblock>
+     
+     <p class="- topic/p ">Setting the value of this property attempts to select the printer immediately. 
+	 If the printer selection fails, this property's value resets to the previous value.
+	 You can determine if setting the printer value succeeds by reading the 
+	 value after attempting to set it, and confirming that it matches the value  
+     that was set.</p>
+     
+     <p class="- topic/p ">The <codeph class="+ topic/ph pr-d/codeph ">printer</codeph> property of an active print job cannot be changed. 
+	 Attempting to change it after calling the <codeph class="+ topic/ph pr-d/codeph ">start()</codeph> or <codeph class="+ topic/ph pr-d/codeph ">start2()</codeph> 
+	 method successfully and before calling <codeph class="+ topic/ph pr-d/codeph ">send()</codeph> or <codeph class="+ topic/ph pr-d/codeph ">terminate()</codeph> fails.</p>
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:printers:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">printers</apiName><shortdesc class="- topic/shortdesc ">
+     Provides a list of the available printers as String name values.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiType value="Vector$String" name="type" class="- topic/state reference/state apiRef/apiType "/></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Provides a list of the available printers as String name values. 
+     The list is not precalculated; it is generated when the function is called. If 
+     no printers are available or if the system does not support printing, the
+	 value is <codeph class="+ topic/ph pr-d/codeph ">null</codeph>. If the system supports printing but is not capable of returning 
+     a list of printers, the value is a Vector with a single element (its <codeph class="+ topic/ph pr-d/codeph ">length</codeph>
+	 property is 1). In that case, the single element is the actual printer name 
+	 or a default name if the current printer name cannot be determined.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PrintJob:supportsPageSetupDialog:get" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">supportsPageSetupDialog</apiName><shortdesc class="- topic/shortdesc ">
+     Indicates whether the Flash runtime environment supports a separate 
+     Page Setup dialog.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiProperty class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiProperty "/><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiValueAccess value="read" class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiValueAccess "/><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">Boolean</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+     Indicates whether the Flash runtime environment supports a separate 
+     Page Setup dialog. If this property is <codeph class="+ topic/ph pr-d/codeph ">true</codeph>, you can call 
+	 the <codeph class="+ topic/ph pr-d/codeph ">showPageSetupDialog()</codeph> method to display the operating 
+	 system's page setup dialog box.
+     
+     </apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/showPageSetupDialog()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.showPageSetupDialog()</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PrintJobOrientation" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PrintJobOrientation</apiName><shortdesc class="- topic/shortdesc ">
+This class provides values that are used by the PrintJob.orientation property for the image position of a printed page.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+This class provides values that are used by the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph> property for the image position of a printed page.
+</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/orientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.orientation</linktext></link></related-links><apiValue id="flash.printing:PrintJobOrientation:LANDSCAPE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">LANDSCAPE</apiName><shortdesc class="- topic/shortdesc ">
+	The landscape (horizontal) image orientation for printing.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob.landscape, landscape
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">landscape</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The landscape (horizontal) image orientation for printing. 
+	This constant is used with the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph> property.
+	Use the syntax <codeph class="+ topic/ph pr-d/codeph ">PrintJobOrientation.LANDSCAPE</codeph>.
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/orientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.orientation</linktext></link><link href="flash.printing.xml#PrintJobOrientation/PORTRAIT" class="- topic/link "><linktext class="- topic/linktext ">PORTRAIT</linktext></link></related-links></apiValue><apiValue id="flash.printing:PrintJobOrientation:PORTRAIT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">PORTRAIT</apiName><shortdesc class="- topic/shortdesc ">
+	The portrait (vertical) image orientation for printing.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="Flash" version="9" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata><asCustoms class="+ topic/metadata adobe-api-d/asCustoms "><keyword class="- topic/keyword ">printjob.portrait, portrait
+	</keyword></asCustoms></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">portrait</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	The portrait (vertical) image orientation for printing.
+	This constant is used with the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.orientation</codeph> property.
+	Use the syntax <codeph class="+ topic/ph pr-d/codeph ">PrintJobOrientation.PORTRAIT</codeph>.
+	
+	</apiDesc></apiValueDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/orientation" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.orientation</linktext></link><link href="flash.printing.xml#PrintJobOrientation/LANDSCAPE" class="- topic/link "><linktext class="- topic/linktext ">LANDSCAPE</linktext></link></related-links></apiValue></apiClassifier><apiClassifier languages="" id="flash.printing:PaperSize" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiClassifier/apiClassifier "><apiName class="- topic/title reference/title apiRef/apiName ">PaperSize</apiName><shortdesc class="- topic/shortdesc ">
+This class provides the available values for the paperSize parameter of 
+the PrintJob.selectPaperSize() method.</shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiClassifierDetail class="- topic/body reference/refbody apiRef/apiDetail apiClassifier/apiClassifierDetail "><apiClassifierDef class="- topic/section reference/section apiRef/apiDef apiClassifier/apiClassifierDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiFinal class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiFinal "/><apiBaseClassifier class="- topic/xref reference/xref apiRef/apiRelation apiClassifier/apiBaseClassifier ">Object</apiBaseClassifier></apiClassifierDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+This class provides the available values for the <codeph class="+ topic/ph pr-d/codeph ">paperSize</codeph> parameter of 
+the <codeph class="+ topic/ph pr-d/codeph ">PrintJob.selectPaperSize()</codeph> method. Each constant represents a paper size
+that is used to print a page.
+
+<p class="- topic/p ">The following table shows the approximate size for each paper type. The size is approximate 
+because there is some variation among printer drivers. For example, the width of A4 paper 
+can be 595.0, 595.2, 595.22 or 595.28 points depending on the driver.</p>
+
+<adobetable class="innertable"><tgroup cols="2" class="- topic/tgroup "><thead class="- topic/thead "><row class="- topic/row "><entry class="- topic/entry ">Value</entry><entry class="- topic/entry ">Size in points</entry></row></thead><tbody class="- topic/tbody "><row class="- topic/row "><entry class="- topic/entry ">A4</entry><entry class="- topic/entry ">595 x 842</entry></row><row class="- topic/row "><entry class="- topic/entry ">A5</entry><entry class="- topic/entry ">420 x 595</entry></row><row class="- topic/row "><entry class="- topic/entry ">A6</entry><entry class="- topic/entry ">297 x 420</entry></row><row class="- topic/row "><entry class="- topic/entry ">CHOUKEI3GOU</entry><entry class="- topic/entry ">340 x 666</entry></row><row class="- topic/row "><entry class="- topic/entry ">CHOUKEI4GOU</entry><entry class="- topic/entry ">298 x 666</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_10</entry><entry class="- topic/entry ">297 x 684</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_B5</entry><entry class="- topic/entry ">499 x 709</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_C5</entry><entry class="- topic/entry ">459 x 649</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_DL</entry><entry class="- topic/entry ">312 x 624</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_MONARCH</entry><entry class="- topic/entry ">279 x 540</entry></row><row class="- topic/row "><entry class="- topic/entry ">ENV_PERSONAL</entry><entry class="- topic/entry ">261 x 468</entry></row><row class="- topic/row "><entry class="- topic/entry ">EXECUTIVE</entry><entry class="- topic/entry ">522 x 756</entry></row><row class="- topic/row "><entry class="- topic/entry ">FOLIO</entry><entry class="- topic/entry ">612 x 936</entry></row><row class="- topic/row "><entry class="- topic/entry ">JIS_B5</entry><entry class="- topic/entry ">516 x 729</entry></row><row class="- topic/row "><entry class="- topic/entry ">LEGAL</entry><entry class="- topic/entry ">612 x 1008</entry></row><row class="- topic/row "><entry class="- topic/entry ">LETTER</entry><entry class="- topic/entry ">612 x 792</entry></row><row class="- topic/row "><entry class="- topic/entry ">STATEMENT</entry><entry class="- topic/entry ">396 x 612</entry></row></tbody></tgroup></adobetable>
+
+</apiDesc></apiClassifierDetail><related-links class="- topic/related-links "><link href="flash.printing.xml#PrintJob/selectPaperSize()" class="- topic/link "><linktext class="- topic/linktext ">PrintJob.selectPaperSize()</linktext></link></related-links><apiValue id="flash.printing:PaperSize:A4" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">A4</apiName><shortdesc class="- topic/shortdesc ">
+	 A4
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">a4</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 A4
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:A5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">A5</apiName><shortdesc class="- topic/shortdesc ">
+	 A5
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">a5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 A5
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:A6" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">A6</apiName><shortdesc class="- topic/shortdesc ">
+	 A6
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">a6</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 A6
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:CHOUKEI3GOU" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">CHOUKEI3GOU</apiName><shortdesc class="- topic/shortdesc ">
+	 Japanese choukei 3 gou (envelope)
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">choukei3gou</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Japanese choukei 3 gou (envelope)
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:CHOUKEI4GOU" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">CHOUKEI4GOU</apiName><shortdesc class="- topic/shortdesc ">
+	 Japanese choukei 4 gou (envelope)
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">choukei4gou</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Japanese choukei 4 gou (envelope)
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_10" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_10</apiName><shortdesc class="- topic/shortdesc ">
+	 Legal envelope
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_10</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Legal envelope
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_B5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_B5</apiName><shortdesc class="- topic/shortdesc ">
+	 B5 envelope
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_b5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 B5 envelope
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_C5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_C5</apiName><shortdesc class="- topic/shortdesc ">
+	 C5 envelope
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_c5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 C5 envelope
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_DL" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_DL</apiName><shortdesc class="- topic/shortdesc ">
+	 DL envelope
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_dl</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 DL envelope
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_MONARCH" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_MONARCH</apiName><shortdesc class="- topic/shortdesc ">
+	 Monarch envelope
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_monarch</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Monarch envelope
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:ENV_PERSONAL" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">ENV_PERSONAL</apiName><shortdesc class="- topic/shortdesc ">
+	 Personal envelope
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">env_personal</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Personal envelope
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:EXECUTIVE" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">EXECUTIVE</apiName><shortdesc class="- topic/shortdesc ">
+	 Executive size
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">executive</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Executive size
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:FOLIO" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">FOLIO</apiName><shortdesc class="- topic/shortdesc ">
+	 Folio size
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">folio</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Folio size
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:JIS_B5" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">JIS_B5</apiName><shortdesc class="- topic/shortdesc ">
+	 Japanese B5
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">jis_b5</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Japanese B5
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:LEGAL" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">LEGAL</apiName><shortdesc class="- topic/shortdesc ">
+	 Traditional legal size
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">legal</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Traditional legal size
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:LETTER" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">LETTER</apiName><shortdesc class="- topic/shortdesc ">
+	 Traditional letter size
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">letter</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Traditional letter size
+	 
+	 </apiDesc></apiValueDetail></apiValue><apiValue id="flash.printing:PaperSize:STATEMENT" ditaarch:DITAArchVersion="1.0" domains="(topic ui-d) (topic hi-d) (topic pr-d) (topic sw-d)                              (topic ut-d) (topic pr-d api-d)" class="- topic/topic reference/reference apiRef/apiRef apiValue/apiValue "><apiName class="- topic/title reference/title apiRef/apiName ">STATEMENT</apiName><shortdesc class="- topic/shortdesc ">
+	 Statement size
+	 
+	 </shortdesc><prolog class="- topic/prolog "><asMetadata class="+ topic/metadata adobe-api-d/asMetadata "><apiVersion class="+ topic/ph adobe-api-d/apiVersion "><apiLanguage version="3.0" class="+ topic/ph adobe-api-d/apiLanguage "/><apiPlatform description="" name="AIR" version="2" class="+ topic/ph adobe-api-d/apiPlatform "/></apiVersion></asMetadata></prolog><apiValueDetail class="- topic/body reference/refbody apiRef/apiDetail apiValue/apiValueDetail "><apiValueDef class="- topic/section reference/section apiRef/apiDef apiValue/apiValueDef "><apiAccess value="public" class="- topic/state reference/state apiRef/apiQualifier adobe-api-d/apiAccess "/><apiStatic class="+ topic/state reference/state apiRef/apiQualifier adobe-api-d/apiStatic "/><apiData class="- topic/ph reference/ph apiRef/apiData ">statement</apiData><apiValueClassifier class="- topic/xref reference/xref apiRef/apiRelation apiValue/apiValueClassifier ">String</apiValueClassifier></apiValueDef><apiDesc class="- topic/section reference/section apiRef/apiDesc ">
+	 Statement size
+	 
+	 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

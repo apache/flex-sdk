@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.states"><apiName>mx.states</apiName><apiDetail/><apiClassifier id="mx.states:RemoveChild"><apiName>RemoveChild</apiName><shortdesc>
+ 
+  RemoveChild クラスは、コンポーネントなどの子表示オブジェクトをビューステートの一部としてコンテナから削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RemoveChild&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:RemoveChild
+  <b>Properties</b>
+  target="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+  RemoveChild クラスは、コンポーネントなどの子表示オブジェクトをビューステートの一部としてコンテナから削除します。 子は表示リストから除外されるだけで、実際に削除されるわけではありません。 このクラスは、State クラスの <codeph>overrides</codeph> プロパティで使用します。
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#AddChild"><linktext>mx.states.AddChild</linktext></link><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link><link href="" invalidHref="mx.effects.RemoveChildAction.xml"><linktext>mx.effects.RemoveChildAction</linktext></link></related-links><apiConstructor id="mx.states:RemoveChild:RemoveChild"><apiName>RemoveChild</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:DisplayObject"/><apiData>null</apiData><apiDesc>ビューから削除する子です。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:RemoveChild:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  オーバーライドを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを適用します。 Flex では元の値が保持されるため、後で <codeph>remove()</codeph> メソッドに元の値を復元できます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:RemoveChild:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  オーバーライドを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを削除します。 <codeph>apply()</codeph> メソッドに記憶されている値が復元されます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:RemoveChild:target"><apiName>target</apiName><shortdesc>
+      ビューから削除する子です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      ビューから削除する子です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:SetEventHandler"><apiName>SetEventHandler</apiName><shortdesc>
+  SetEventHandler クラスは、特定のビューステートでのみアクティブになるイベントハンドラーを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetEventHanlder&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:SetEventHandler
+  <b>Properties</b>
+  name="null"
+  handlerFunction="null"
+  target="null"
+  
+  <b>Events</b>
+  handler=<i>No default</i>
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetEventHandler クラスは、特定のビューステートでのみアクティブになるイベントハンドラーを指定します。 例えば、基本ビューステートではあるイベントハンドラーを使用し、ビューステートを変更するときには別のイベントハンドラーを使用する Button コントロールを定義できます。
+ 
+  <p> このクラスは、State クラスの <codeph>overrides</codeph> プロパティで使用します。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#SetProperty"><linktext>mx.states.SetProperty</linktext></link><link href="mx.states.xml#SetStyle"><linktext>mx.states.SetStyle</linktext></link></related-links><adobeApiEvent id="mx.states:SetEventHandler_Object_handler"><apiName>handler</apiName><shortdesc>
+  name プロパティで指定されたイベントに応じて実行するイベントハンドラー関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>Object</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  <codeph>name</codeph> プロパティで指定されたイベントに応じて実行するイベントハンドラー関数です。 
+ 
+  <p><codeph>handler</codeph> プロパティと <codeph>handlerFunction</codeph> プロパティの両方を単一の <codeph>&lt;mx:SetEventHandler></codeph> タグに指定しないでください。</p>
+ 
+  <p>そのようにすると、Flex は <i/><codeph>handler</codeph> イベントを送出しません。 MXML 属性には <codeph>handler</codeph> キーワードのみを使用します。 <codeph>handler</codeph> ハンドラー属性を使用すると、Event オブジェクトだけではなく、複数のパラメーターを使用するメソッドを指定できます。また、MXML タグにイベントハンドラーのコードをインラインで指定できます。</p>
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.states:SetEventHandler:SetEventHandler"><apiName>SetEventHandler</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.events:EventDispatcher"/><apiData>null</apiData><apiDesc>処理対象のイベントを送出するオブジェクトです。 デフォルトでは、Flex は State オブジェクトの直接の親を使用します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>ハンドラーを設定するイベントタイプです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:SetEventHandler:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  オーバーライドを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを適用します。 Flex では元の値が保持されるため、後で <codeph>remove()</codeph> メソッドに元の値を復元できます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:SetEventHandler:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  オーバーライドを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを削除します。 <codeph>apply()</codeph> メソッドに記憶されている値が復元されます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:SetEventHandler:handlerFunction"><apiName>handlerFunction</apiName><shortdesc>
+      イベントのハンドラー関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      イベントのハンドラー関数です。 このプロパティは、ActionScript を使用してビューステートを作成し、それにアクセスする開発者を対象としています。 MXML では、同等の <codeph>handler</codeph> イベント属性も使用できますが、単一の MXML タグに両方の属性を使用しないでください。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetEventHandler:name"><apiName>name</apiName><shortdesc>
+      ハンドラーを設定する対象となるイベントの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      ハンドラーを設定する対象となるイベントの名前です。 SetEventHandler コンストラクターでこのプロパティを設定するか、プロパティ値を直接設定する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetEventHandler:originalHandlerFunction"><apiName>originalHandlerFunction</apiName><shortdesc>
+      オーバーライドを適用する前に削除するハンドラー関数です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      オーバーライドを適用する前に削除するハンドラー関数です。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetEventHandler:target"><apiName>target</apiName><shortdesc>
+      イベントを送出するコンポーネントです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      イベントを送出するコンポーネントです。 プロパティ値が <codeph>null</codeph> の場合、Flex では <codeph>&lt;mx:states></codeph> タグの直接の親が使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:OverrideBase"><apiName>OverrideBase</apiName><shortdesc>
+  OverrideBase クラスは、ビューステートで使用されるオーバーライドクラスの基本クラスです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.states:IOverride</apiBaseInterface><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OverrideBase クラスは、ビューステートで使用されるオーバーライドクラスの基本クラスです。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.states:OverrideBase:OverrideBase"><apiName>OverrideBase</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:OverrideBase:apply"><apiName>apply</apiName><shortdesc>
+      
+	  オーバーライドを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  オーバーライドを適用します。 Flex では元の値が保持されるため、後で <codeph>remove()</codeph> メソッドに元の値を復元できます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:OverrideBase:initialize"><apiName>initialize</apiName><shortdesc conref="IOverride#initialize()">
+      IOverride インターフェイスのメソッド。このクラスは、このインターフェイスのメソッドを空のメソッドとして実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="IOverride#initialize()">
+      IOverride インターフェイスのメソッド。このクラスは、このインターフェイスのメソッドを空のメソッドとして実装します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:OverrideBase:remove"><apiName>remove</apiName><shortdesc>
+      
+	  オーバーライドを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  オーバーライドを削除します。 <codeph>apply()</codeph> メソッドに記憶されている値が復元されます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.states:State"><apiName>State</apiName><shortdesc>
+  State クラスにより、コンポーネントの特定のビューである、ビューステートが定義されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="overrides"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;mx:State&gt;</code> tag has the following attributes:</p>
+ 
+  <pre>
+  &lt;mx:State
+  <b>Properties</b>
+  basedOn="null"
+  name="null"
+  overrides="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  State クラスにより、コンポーネントの特定のビューである、ビューステートが定義されます。 例えば、製品サムネールには、最小限の情報だけを表示する基本ビューステートと、追加情報を含む詳細ビューステートの 2 つのビューステートを定義できます。 <codeph>overrides</codeph> プロパティは、基本ビューステートに対して追加または削除する子クラスのセット、ビューステートが有効な場合に設定するプロパティ、スタイルおよびイベントハンドラーを指定します。
+ 
+  <p>State クラスは、Flex コンポーネントの <codeph>states</codeph> プロパティで使用します。 <codeph>states</codeph> プロパティは、アプリケーションまたはカスタムコントロールのルートにのみ指定できます。子コントロールには指定できません。</p>
+ 
+  <p>ビューステートを有効にするには、コンポーネントの <codeph>currentState</codeph> プロパティを設定します。</p>
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#AddChild"><linktext>mx.states.AddChild</linktext></link><link href="mx.states.xml#RemoveChild"><linktext>mx.states.RemoveChild</linktext></link><link href="mx.states.xml#SetEventHandler"><linktext>mx.states.SetEventHandler</linktext></link><link href="mx.states.xml#SetProperty"><linktext>mx.states.SetProperty</linktext></link><link href="mx.states.xml#SetStyle"><linktext>mx.states.SetStyle</linktext></link><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link></related-links><adobeApiEvent id="mx.states:State_mx.events.FlexEvent.EXIT_STATE_exitState"><apiName>exitState</apiName><shortdesc>
+  ビューステートが終了する直前に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.EXIT_STATE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ビューステートが終了する直前に送出されます。このイベントは、デフォルトのビューステートへの変更が削除される前に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.states:State_mx.events.FlexEvent.ENTER_STATE_enterState"><apiName>enterState</apiName><shortdesc>
+  ビューステートに移行した後に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.ENTER_STATE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  ビューステートに移行した後に送出されます。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.states:State:State"><apiName>State</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>properties</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>この State のプロパティ設定を含むオブジェクトです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.states:State:basedOn"><apiName>basedOn</apiName><shortdesc>
+      このビューステートが基礎とするビューステートの名前。このビューステートが指定されたビューステートに基づいていない場合は、null になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このビューステートが基礎とするビューステートの名前。このビューステートが指定されたビューステートに基づいていない場合は、<codeph>null</codeph> になります。 この値が <codeph>null</codeph> の場合、ビューステートは、State クラスを使用しないでコンポーネントに定義するプロパティ、スタイル、イベントハンドラーおよび子で構成されるルートステートに基づきます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:State:name"><apiName>name</apiName><shortdesc>
+      ビューステートの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      ビューステートの名前です。 State 名は特定のコンポーネントに対して一意である必要があります。 このプロパティは設定する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:State:overrides"><apiName>overrides</apiName><shortdesc>
+      IOverride インターフェイスを実装するオブジェクトの配列としての、ビューステートのオーバーライドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      IOverride インターフェイスを実装するオブジェクトの配列としての、ビューステートのオーバーライドです。 これらのオーバーライドは、このビューステートに移行すると順番に適用され、ビューステートが終了すると逆の順序で削除されます。
+     
+      <p>次の Flex クラスで IOverride インターフェイスを実装して、ビューステート特性を定義します。</p>
+      <ul>
+          <li>AddChild</li>
+          <li>RemoveChild</li>
+          <li>SetEventHandler</li>
+          <li>SetProperty</li>
+          <li>SetStyle</li>
+      </ul>
+     
+      <p><codeph>overrides</codeph> プロパティは、State クラスのデフォルトプロパティです。 MXML タグのシンタックスを使用してオーバーライドを定義する場合は、<codeph>&lt;mx:overrides></codeph> タグとその子 <codeph>&lt;mx:Array></codeph> タグを省略できます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:State:stateGroups"><apiName>stateGroups</apiName><shortdesc>
+      このビューステートが属しているステートグループを示すストリングの配列です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      このビューステートが属しているステートグループを示すストリングの配列です。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:InterruptionBehavior"><apiName>InterruptionBehavior</apiName><shortdesc>
+      InterruptionBehavior クラスは、mx.states.Transition クラスの interruptionBehavior プロパティで使用する定数を定義します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      InterruptionBehavior クラスは、mx.states.Transition クラスの <codeph>interruptionBehavior</codeph> プロパティで使用する定数を定義します。
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#Transition/interruptionBehavior"><linktext>Transition.interruptionBehavior</linktext></link></related-links><apiValue id="mx.states:InterruptionBehavior:END"><apiName>END</apiName><shortdesc>
+          他の実行中のトランジションを中断するトランジションが、他のトランジションを終了させてから実行を開始することを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>end</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          他の実行中のトランジションを中断するトランジションが、他のトランジションを終了させてから実行を開始することを指定します。トランジションは、トランジション内のすべてのエフェクトで <codeph>end()</codeph> メソッドを呼び出すことにより終了します。 <codeph>end()</codeph> メソッドを実行すると、すべてのエフェクトが終了状態にスナップします。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:InterruptionBehavior:STOP"><apiName>STOP</apiName><shortdesc>
+          他の実行中のトランジションを中断するトランジションが、他のトランジションをその時点で停止させてから実行を開始することを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>stop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          他の実行中のトランジションを中断するトランジションが、他のトランジションをその時点で停止させてから実行を開始することを指定します。トランジションは、トランジション内のすべてのエフェクトで <codeph>stop()</codeph> メソッドを呼び出すことにより停止します。
+         
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:AddItems"><apiName>AddItems</apiName><shortdesc>
+  解説は現在利用できません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="itemsFactory"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  解説は現在利用できません。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.states:AddItems:AddItems"><apiName>AddItems</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:AddItems:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  オーバーライドを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを適用します。 Flex では元の値が保持されるため、後で <codeph>remove()</codeph> メソッドに元の値を復元できます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddItems:createInstance"><apiName>createInstance</apiName><shortdesc>
+      ファクトリからアイテムインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ファクトリからアイテムインスタンスを作成します。このメソッドを使用する必要があるのは、<codeph>targetItems</codeph> プロパティおよび <codeph>creationPolicy</codeph> 値を <codeph>"none"</codeph> に指定する場合のみです。Flex では、<codeph>creationPolicy</codeph> プロパティ値が <codeph>"auto"</codeph> または <codeph>"all"</codeph> の場合に、このメソッドを自動的に呼び出します。 このメソッドを複数回呼び出す場合、アイテムインスタンスは最初の呼び出しでのみ作成されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddItems:initialize"><apiName>initialize</apiName><shortdesc>
+      
+      IOverride インターフェイスのメソッド。このクラスは、このインターフェイスのメソッドを空のメソッドとして実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      IOverride インターフェイスのメソッド。このクラスは、このインターフェイスのメソッドを空のメソッドとして実装します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddItems:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  オーバーライドを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを削除します。 <codeph>apply()</codeph> メソッドに記憶されている値が復元されます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:AddItems:AFTER"><apiName>AFTER</apiName><shortdesc>
+      解説は現在利用できません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>after</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      解説は現在利用できません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:BEFORE"><apiName>BEFORE</apiName><shortdesc>
+      解説は現在利用できません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>before</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      解説は現在利用できません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:FIRST"><apiName>FIRST</apiName><shortdesc>
+      解説は現在利用できません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>first</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      解説は現在利用できません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:LAST"><apiName>LAST</apiName><shortdesc>
+      解説は現在利用できません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      解説は現在利用できません。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:destination"><apiName>destination</apiName><shortdesc>
+      このオブジェクトを基準として子が追加されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このオブジェクトを基準として子が追加されます。 このプロパティは <codeph>position</codeph> プロパティと一緒に使用します。 このプロパティはオプションです。省略する場合、<codeph>State</codeph> オブジェクトの直接の親が使用されます。つまり、<codeph>states</codeph> プロパティを持つコンポーネントまたは State オブジェクトを指定する <codeph>&lt;mx:states></codeph> タグです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:isArray"><apiName>isArray</apiName><shortdesc>
+      target プロパティで表されるコレクションが、アイテムのコレクション（デフォルト）ではなく、単一の配列インスタンスとして扱われるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      target プロパティで表されるコレクションが、アイテムのコレクション（デフォルト）ではなく、単一の配列インスタンスとして扱われるかどうかを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:isStyle"><apiName>isStyle</apiName><shortdesc>
+      target プロパティで表されるコレクションが、スタイルであるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      target プロパティで表されるコレクションが、スタイルであるかどうかを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:position"><apiName>position</apiName><shortdesc>
+      relativeTo プロパティで指定されたオブジェクトを基準にした、表示リスト内での子の位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>last</apiData><apiType value="String"/><apiDefaultValue>AddItems.LAST
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>relativeTo</codeph> プロパティで指定されたオブジェクトを基準にした、表示リスト内での子の位置です。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:propertyName"><apiName>propertyName</apiName><shortdesc>
+      変更の対象となる配列プロパティの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      変更の対象となる配列プロパティの名前です。<codeph>destination</codeph> プロパティが Group または Container である場合、このプロパティはオプションです。定義されていない場合、アイテムは Group または Container の子として追加されます。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:relativeTo"><apiName>relativeTo</apiName><shortdesc>
+      このオブジェクトを基準として子が追加されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このオブジェクトを基準として子が追加されます。 このプロパティが使用されるのは、<codeph>position</codeph> プロパティが <codeph>AddItems.BEFORE</codeph> または <codeph>AddItems.AFTER</codeph> である場合のみです。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:vectorClass"><apiName>vectorClass</apiName><shortdesc>
+      ターゲットプロパティが表すコレクションが Vector の場合、ターゲットのタイプは vectorClass になります。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+      ターゲットプロパティが表すコレクションが Vector の場合、ターゲットのタイプは vectorClass になります。ターゲットプロパティを初期化するために使用します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:creationPolicy:get"><apiName>creationPolicy</apiName><shortdesc>
+      アイテムの作成ポリシーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムの作成ポリシーです。このプロパティは、いつ <codeph>itemsFactory</codeph> がアイテムのインスタンスを作成するかを決定します。Flex でこのプロパティを使用するのは、<codeph>itemsFactory</codeph> プロパティを指定する場合のみです。使用できる値は次のとおりです。
+     
+      <p/>
+     <adobetable class="innertable">
+         
+         
+         
+         
+     <tgroup cols="2"><thead><row><entry>値</entry><entry>説明</entry></row></thead><tbody><row><entry><codeph>auto</codeph></entry><entry>（デフォルト）最初に必要になったときにインスタンスを作成します。</entry></row><row><entry><codeph>all</codeph></entry><entry>アプリケーションが起動したときにインスタンスを作成します。</entry></row><row><entry><codeph>none</codeph></entry><entry>インスタンスを自動的に作成しません。 インスタンスを作成するには、<codeph>createInstance()</codeph> メソッドを呼び出す必要があります。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:destructionPolicy:get"><apiName>destructionPolicy</apiName><shortdesc>
+      アイテムの破棄ポリシーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"never"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      アイテムの破棄ポリシーです。このプロパティは、いつ <codeph>itemsFactory</codeph> が管理中の遅延インスタンスを破棄するかを決定します。デフォルトでは、一度インスタンス化されたインスタンスはすべてキャッシュされます（破棄ポリシーは 'never' です）。Flex でこのプロパティを使用するのは、<codeph>itemsFactory</codeph> プロパティを指定する場合のみです。使用できる値は次のとおりです。
+     
+      <p/>
+     <adobetable class="innertable">
+         
+         
+         
+     <tgroup cols="2"><thead><row><entry>値</entry><entry>説明</entry></row></thead><tbody><row><entry><codeph>never</codeph></entry><entry>（デフォルト）作成されたインスタンスは永久に破棄されません。</entry></row><row><entry><codeph>auto</codeph></entry><entry>インスタンスは、オーバーライドが適用されなくなったときに破棄されます。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:itemsFactory:get"><apiName>itemsFactory</apiName><shortdesc>
+     
+     アイテムを作成するファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:ITransientDeferredInstance</apiValueClassifier></apiValueDef><apiDesc>
+     
+     アイテムを作成するファクトリです。 
+     
+      <p>このプロパティを設定すると、アイテムは <codeph>creationPolicy</codeph> プロパティで決定された時点でインスタンス化されます。</p>
+      
+      <p><codeph>items</codeph> プロパティを設定する場合は、このプロパティを設定しないでください。このプロパティは、<codeph>AddItems</codeph> クラスのデフォルトプロパティです。このプロパティの <codeph>creationPolicy</codeph> を "all" に設定することは、<codeph>items</codeph> プロパティを設定することと同じです。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:items:get"><apiName>items</apiName><shortdesc>
+     
+      追加するアイテムです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc>
+     
+      追加するアイテムです。このプロパティを設定すると、アプリケーション起動時にアイテムが作成されます。このプロパティを設定することは、<codeph>creationPolicy</codeph> で <codeph>"all"</codeph> を指定して <codeph>itemsFactory</codeph> プロパティを設定することと同じです。
+     
+      <p><codeph>itemsFactory</codeph> プロパティを設定する場合は、このプロパティを設定しないでください。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:SetProperty"><apiName>SetProperty</apiName><shortdesc>
+  SetProperty クラスは、親ビューステートでのみ有効なプロパティ値を指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetProperty&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:SetProperty
+   <b>Properties</b>
+   name="null"
+   target="null"
+   value="undefined"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetProperty クラスは、親ビューステートでのみ有効なプロパティ値を指定します。 このクラスは、State クラスの <codeph>overrides</codeph> プロパティで使用します。
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#SetEventHandler"><linktext>mx.states.SetEventHandler</linktext></link><link href="mx.states.xml#SetStyle"><linktext>mx.states.SetStyle</linktext></link><link href="" invalidHref="mx.effects.SetPropertyAction.xml"><linktext>mx.effects.SetPropertyAction</linktext></link></related-links><apiConstructor id="mx.states:SetProperty:SetProperty"><apiName>SetProperty</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>プロパティ設定対象のオブジェクトです。 デフォルトでは、Flex は State オブジェクトの直接の親を使用します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>設定するプロパティです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiData>unknown</apiData><apiDesc>ビューステートのプロパティの値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFactory</apiItemName><apiOperationClassifier>mx.core:IDeferredInstance</apiOperationClassifier><apiData>null</apiData><apiDesc>共有値の取得先として使用する、オプションの書き込み専用プロパティです。これは、このオーバーライドの値が複数のステートまたはステートグループで共有される場合に主に使用されます。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:SetProperty:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  オーバーライドを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを適用します。 Flex では元の値が保持されるため、後で <codeph>remove()</codeph> メソッドに元の値を復元できます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:SetProperty:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  オーバーライドを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを削除します。 <codeph>apply()</codeph> メソッドに記憶されている値が復元されます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:SetProperty:name"><apiName>name</apiName><shortdesc>
+      変更するプロパティの名前です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      変更するプロパティの名前です。 SetProperty コンストラクターでこのプロパティを設定するか、プロパティ値を直接設定する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetProperty:target"><apiName>target</apiName><shortdesc>
+      変更するプロパティが含まれるオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      変更するプロパティが含まれるオブジェクトです。 プロパティ値が <codeph>null</codeph> の場合、Flex では State オブジェクトの直接の親が使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetProperty:value:get"><apiName>value</apiName><shortdesc>
+      プロパティの新しい値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      プロパティの新しい値を表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetProperty:valueFactory:set"><apiName>valueFactory</apiName><shortdesc>
+      共有値の取得先として使用する、オプションの書き込み専用プロパティです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiValueClassifier>mx.core:IDeferredInstance</apiValueClassifier><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      共有値の取得先として使用する、オプションの書き込み専用プロパティです。これは、このオーバーライドの値が複数のステートまたはステートグループで共有される場合に主に使用されます。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:AddChild"><apiName>AddChild</apiName><shortdesc>
+  AddChild クラスは、コンポーネントなどの子表示オブジェクトをビューステートの一部としてコンテナに追加します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="targetFactory"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AddChild&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:AddChild
+  <b>Properties</b>
+  target="null"
+  targetFactory="null"
+  creationPolicy="auto"
+  position="lastChild"
+  relativeTo="<i>parent of the State object</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddChild クラスは、コンポーネントなどの子表示オブジェクトをビューステートの一部としてコンテナに追加します。 このクラスは、State クラスの <codeph>overrides</codeph> プロパティで使用します。 <codeph>creationPolicy</codeph> プロパティを使用して、アプリケーションの起動時またはビューステートへの変更時に子の作成を指定します。 
+  
+  <p>子は、コンテナに追加されるまで <codeph>creationComplete</codeph> イベントを送出しません。 例えば、以下のコードは Button コントロールをビューステート変更の一部として追加します。</p>
+ 
+  <pre>
+  &lt;mx:AddChild relativeTo="{v1}">
+      &lt;mx:Button id="b0" label="New Button"/>
+  &lt;/mx:AddChild> </pre>
+ 
+  <p>前の例で、Button コントロールはステートを変更し、Button コントロールがコンテナに追加されるまで <codeph>creationComplete</codeph> イベントを送出しません。 AddChild クラスが Button とコンテナ（Canvas コンテナなど）の両方を定義する場合、Button コントロールは、作成されるときに creationComplete イベントを送出します。 例えば、<codeph>creationPolicy</codeph> プロパティを <codeph>all</codeph> に設定する場合、Button コントロールはアプリケーションの起動時にイベントを送出します。 <codeph>creationPolicy</codeph> プロパティを <codeph>auto</codeph> に設定する場合、Button コントロールは、ビューステートの変更時にイベントを送出します。 </p>
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#RemoveChild"><linktext>mx.states.RemoveChild</linktext></link><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link><link href="" invalidHref="mx.effects.AddChildAction.xml"><linktext>mx.effects.AddChildAction</linktext></link></related-links><apiConstructor id="mx.states:AddChild:AddChild"><apiName>AddChild</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>relativeTo</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiData>null</apiData><apiDesc>このコンポーネントを基準として子が追加されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:DisplayObject"/><apiData>null</apiData><apiDesc>子オブジェクト。 すべての Flex コンポーネントは、DisplayObject クラスのサブクラスです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>position</apiItemName><apiType value="String"/><apiData>lastChild</apiData><apiDesc><codeph>target</codeph> の表示リスト内での位置で、<codeph>relativeTo</codeph> コンポーネントに関連しています。 "firstChild"、"lastChild"、"before" または "after" のいずれかになります。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:AddChild:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  オーバーライドを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを適用します。 Flex では元の値が保持されるため、後で <codeph>remove()</codeph> メソッドに元の値を復元できます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddChild:createInstance"><apiName>createInstance</apiName><shortdesc>
+      ファクトリから子インスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      ファクトリから子インスタンスを作成します。 <codeph>targetFactory</codeph> プロパティおよび <codeph>creationPolicy</codeph> 値を <codeph>"none"</codeph> に指定する場合のみ、このメソッドを使用する必要があります。 Flex では、<codeph>creationPolicy</codeph> プロパティ値が <codeph>"auto"</codeph> または <codeph>"all"</codeph> の場合に、このメソッドを自動的に呼び出します。 このメソッドを複数回呼び出す場合、子インスタンスは最初の呼び出しでのみ作成されます。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddChild:initialize"><apiName>initialize</apiName><shortdesc>
+      
+      IOverride インターフェイスのメソッド。このクラスは、このインターフェイスのメソッドを空のメソッドとして実装します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      IOverride インターフェイスのメソッド。このクラスは、このインターフェイスのメソッドを空のメソッドとして実装します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddChild:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  オーバーライドを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを削除します。 <codeph>apply()</codeph> メソッドに記憶されている値が復元されます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:AddChild:position"><apiName>position</apiName><shortdesc>
+      relativeTo プロパティで指定されたオブジェクトを基準にした、表示リスト内での子の位置です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"lastChild"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      <codeph>relativeTo</codeph> プロパティで指定されたオブジェクトを基準にした、表示リスト内での子の位置です。 有効な値は、<codeph>"before"</codeph>、<codeph>"after"</codeph>、<codeph>"firstChild"</codeph> および <codeph>"lastChild"</codeph> です。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:relativeTo"><apiName>relativeTo</apiName><shortdesc>
+      このオブジェクトを基準として子が追加されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      このオブジェクトを基準として子が追加されます。 このプロパティは <codeph>position</codeph> プロパティと一緒に使用します。 このプロパティはオプションです。省略する場合、<codeph>State</codeph> オブジェクトの直接の親が使用されます。つまり、<codeph>states</codeph> プロパティを持つコンポーネントまたは State オブジェクトを指定する <codeph>&lt;mx:states></codeph> タグです。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:creationPolicy:get"><apiName>creationPolicy</apiName><shortdesc>
+      この子の作成ポリシーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      この子の作成ポリシーです。 このプロパティは、いつ <codeph>targetFactory</codeph> が子のインスタンスを作成するかを決定します。 <codeph>targetFactory</codeph> プロパティを指定する場合にのみ、このプロパティが使用されます。 使用できる値は次のとおりです。
+     
+      <p/>
+     <adobetable class="innertable">
+         
+         
+         
+         
+     <tgroup cols="2"><thead><row><entry>値</entry><entry>説明</entry></row></thead><tbody><row><entry><codeph>auto</codeph></entry><entry>（デフォルト）最初に必要になったときにインスタンスを作成します。</entry></row><row><entry><codeph>all</codeph></entry><entry>アプリケーションが起動したときにインスタンスを作成します。</entry></row><row><entry><codeph>none</codeph></entry><entry>インスタンスを自動的に作成しません。 インスタンスを作成するには、<codeph>createInstance()</codeph> メソッドを呼び出す必要があります。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:targetFactory:get"><apiName>targetFactory</apiName><shortdesc>
+     
+     子を作成するファクトリです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IDeferredInstance</apiValueClassifier></apiValueDef><apiDesc>
+     
+     子を作成するファクトリです。 次のアイテムのいずれかを指定できます。
+      <ul>
+          <li>IDeferredInstance インターフェイスを実装し、子インスタンスを作成するファクトリクラス。
+          </li>
+          <li>Button コントロールなどの Flex コンポーネント（UIComponent クラスのサブクラスとなるあらゆるクラス）。 Flex コンポーネントを使用する場合、Flex コンパイラーではファクトリクラス内でコンポーネントを自動的にラップします。
+          </li>
+      </ul>
+     
+      <p>このプロパティを設定すると、子は <codeph>creationPolicy</codeph> プロパティで決定された時点でインスタンス化されます。</p>
+      
+      <p><codeph>targetFactory</codeph> プロパティを設定している場合は、このプロパティを設定しないでください。 このプロパティは、<codeph>AddChild</codeph> クラスのデフォルトプロパティです。 このプロパティの <codeph>creationPolicy</codeph> を "all" に設定することは、<codeph>target</codeph> プロパティを設定することと同じです。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:target:get"><apiName>target</apiName><shortdesc>
+     
+      追加する子です。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+     
+      追加する子です。 このプロパティを設定すると、アプリケーション起動時に子インスタンスが作成されます。 このプロパティを設定することは、<codeph>targetFactory</codeph> プロパティを、<codeph>creationPolicy</codeph> を <codeph>"all"</codeph> として設定することと同じです。
+     
+      <p><codeph>targetFactory</codeph> プロパティを設定している場合は、このプロパティを設定しないでください。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:SetStyle"><apiName>SetStyle</apiName><shortdesc>
+  SetStyle クラスは、親ビューステートでのみ有効なスタイルを指定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetStyle&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:SetStyle
+   <b>Properties</b>
+   name="null"
+   target="null"
+   value"null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetStyle クラスは、親ビューステートでのみ有効なスタイルを指定します。 このクラスは、State クラスの <codeph>overrides</codeph> プロパティで使用します。
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#SetEventHandler"><linktext>mx.states.SetEventHandler</linktext></link><link href="mx.states.xml#SetProperty"><linktext>mx.states.SetProperty</linktext></link><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.states:SetStyle:SetStyle"><apiName>SetStyle</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.styles:IStyleClient</apiOperationClassifier><apiData>null</apiData><apiDesc>スタイル設定対象のオブジェクトです。 デフォルトでは、Flex は State オブジェクトの直接の親を使用します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>設定するスタイルです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>ビューステートのスタイルの値です。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFactory</apiItemName><apiOperationClassifier>mx.core:IDeferredInstance</apiOperationClassifier><apiData>null</apiData><apiDesc>共有値の取得先として使用する、オプションの書き込み専用プロパティです。これは、このオーバーライドの値が複数のステートまたはステートグループで共有される場合に主に使用されます。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      コンストラクターです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:SetStyle:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  オーバーライドを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを適用します。 Flex では元の値が保持されるため、後で <codeph>remove()</codeph> メソッドに元の値を復元できます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:SetStyle:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  オーバーライドを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  オーバーライドを削除します。 <codeph>apply()</codeph> メソッドに記憶されている値が復元されます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:SetStyle:name"><apiName>name</apiName><shortdesc>
+     
+      変更するスタイルの名前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     
+      変更するスタイルの名前。 SetStyle コンストラクターでこのプロパティを設定するか、プロパティ値を直接設定する必要があります。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetStyle:target"><apiName>target</apiName><shortdesc>
+     
+      スタイル変更対象のオブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     
+      スタイル変更対象のオブジェクトです。 プロパティ値が <codeph>null</codeph> の場合、Flex では State オブジェクトの直接の親が使用されます。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetStyle:value:get"><apiName>value</apiName><shortdesc>
+      スタイルの新しい値を表します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      スタイルの新しい値を表します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetStyle:valueFactory:set"><apiName>valueFactory</apiName><shortdesc>
+      共有値の取得先として使用する、オプションの書き込み専用プロパティです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiValueClassifier>mx.core:IDeferredInstance</apiValueClassifier><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      共有値の取得先として使用する、オプションの書き込み専用プロパティです。これは、このオーバーライドの値が複数のステートまたはステートグループで共有される場合に主に使用されます。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:IOverride"><apiName>IOverride</apiName><shortdesc>
+  IOverride インターフェイスは、ビューステートのオーバーライドに使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IOverride インターフェイスは、ビューステートのオーバーライドに使用されます。 State クラス <codeph>overrides</codeph> プロパティ配列のすべてのエントリに、このインターフェイスを実装する必要があります。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link></related-links><apiOperation id="mx.states:IOverride:mx.states:IOverride:apply"><apiName>apply</apiName><shortdesc>
+	  オーバーライドを適用します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  オーバーライドを適用します。 Flex では元の値が保持されるため、後で <codeph>remove()</codeph> メソッドに元の値を復元できます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:IOverride:mx.states:IOverride:initialize"><apiName>initialize</apiName><shortdesc>
+	  オーバーライドを初期化します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  オーバーライドを初期化します。 Flex では <codeph>apply()</codeph> メソッドを最初に呼び出す前にこのメソッドを呼び出すため、このメソッドのオーバーライドには、1 回だけ実行する初期化コードを配置します。
+ 	 
+	  <p>そのビューステートに移行すると、Flex が自動的にこのメソッドを呼び出します。 このメソッドは直接呼び出さないでください。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:IOverride:mx.states:IOverride:remove"><apiName>remove</apiName><shortdesc>
+	  オーバーライドを削除します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>このオーバーライドを含むステートオブジェクトの親です。ターゲットが明示的に指定されていない場合、オーバーライドのターゲットとして使用されます。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  オーバーライドを削除します。 <codeph>apply()</codeph> メソッドに記憶されている値が復元されます。
+	 
+	  <p>そのビューステートに移行すると、自動的にこのメソッドが呼び出されます。 このメソッドは直接呼び出さないでください。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.states:Transition"><apiName>Transition</apiName><shortdesc>
+  Transition クラスにより、ビューステートの変更に応じて再生される一連のエフェクトが定義されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="effect"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Transition&gt;</code> tag
+  defines the following attributes:</p>
+  
+  <pre>
+  &lt;mx:Transition
+    <b>Properties</b>
+    id="ID"
+    effect=""
+    fromState="&#42;"
+    toState="&#42;"
+    autoReverse="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Transition クラスにより、ビューステートの変更に応じて再生される一連のエフェクトが定義されます。 ビューステート定義がステートの変更方法を定義する一方、トランジションはステートの変更中に表示を変更する順序を定義します。
+ 
+  <p>トランジションを定義するには、アプリケーションの <codeph>transitions</codeph> プロパティを Transition オブジェクトの配列に設定します。 </p>
+ 
+  <p>Transition クラスの <codeph>toState</codeph> プロパティおよび <codeph>fromState</codeph> プロパティを使用して、トランジションをトリガーするステート変更を指定します。 デフォルトでは、<codeph>fromState</codeph> プロパティと <codeph>toState</codeph> プロパティの両方が "*" に設定されます。つまり、ビューステートに対するすべての変更にトランジションが適用されます。</p>
+ 
+  <p>変更前のビューステートを明示的に指定するには、<codeph>fromState</codeph> プロパティを使用します。変更後のビューステートを明示的に指定するには、<codeph>toState</codeph> プロパティを使用します。 1 つのステート変更が 2 つのトランジションに一致する場合は、<codeph>toState</codeph> プロパティが <codeph>fromState</codeph> プロパティよりも優先されます。 複数のトランジションが一致する場合、Flex はトランジション配列の最初の定義を使用します。 </p>
+ 
+  <p><codeph>effect</codeph> プロパティを使用して、トランジションを適用するときに再生する Effect オブジェクトを指定します。 通常、このオブジェクトには、Parallel エフェクトや Sequence エフェクトなどの複数のエフェクトの組み合わせが含まれます。次に例を示します。</p><pre>
+ 
+  &lt;mx:Transition id="myTransition" fromState="*" toState="*">
+    &lt;mx:Parallel>
+        ...
+    &lt;/mx:Parallel>
+  &lt;/mx:Transition>
+  </pre>
+ 
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.effects.AddChildAction.xml"><linktext>mx.effects.AddChildAction</linktext></link><link href="" invalidHref="mx.effects.RemoveChildAction.xml"><linktext>mx.effects.RemoveChildAction</linktext></link><link href="" invalidHref="mx.effects.SetPropertyAction.xml"><linktext>mx.effects.SetPropertyAction</linktext></link><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.states:Transition:Transition"><apiName>Transition</apiName><shortdesc>
+      コンストラクターです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      コンストラクターです。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.states:Transition:autoReverse"><apiName>autoReverse</apiName><shortdesc>
+      このトランジションが、正方向と逆方向の両方のビューステートの変更に適用されることを指定するには、true に設定します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false 
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      このトランジションが、正方向と逆方向の両方のビューステートの変更に適用されることを指定するには、<codeph>true</codeph> に設定します。 したがって、ビューステート A からビューステート B および B から A への変更に、このトランジションを使用します。 
+     
+      <p>ビューステート A からビューステート B へのトランジションを再生中に、逆方向のトランジションが発生して、現在のトランジションに割り込む場合があります。 逆方向のトランジションは、常に現在のトランジションを現在の場所で停止します。 つまり、逆方向のトランジションは、<codeph>interruptionBehavior</codeph> の実際の値に関係なく、常に <codeph>interruptionBehavior</codeph> プロパティが <codeph>stop</codeph> に設定されている場合のように再生されます。</p>
+     
+      <p>このプロパティがチェックされるのは、新しいトランジションが、現在再生中のトランジションとは正反対の方向に進行している場合のみです。 つまり、ステート A とステート B の間でトランジションが再生されている場合に、ステート A に戻るトランジションが開始された場合です。 </p>
+      
+      <p>トランジションが <codeph>toState</codeph>プロパティと <codeph>fromState</codeph> プロパティを使用して、ビューステート B から A へのトランジションを明示的に処理する場合、<codeph>autoReverse</codeph> プロパティは無視されます。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.states.xml#Transition/interruptionBehavior"><linktext>Transition.interruptionBehavior</linktext></link></related-links></apiValue><apiValue id="mx.states:Transition:effect"><apiName>effect</apiName><shortdesc>
+      このトランジションを適用するときに再生する IEffect オブジェクトです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.effects:IEffect</apiValueClassifier></apiValueDef><apiDesc>
+      このトランジションを適用するときに再生する IEffect オブジェクトです。 通常、このオブジェクトには、Parallel エフェクトや Sequence エフェクトなどの複数のエフェクトの組み合わせが含まれます。
+     
+      <p><codeph>effect</codeph> プロパティは、Transition クラスのデフォルトプロパティです。 MXML タグのシンタックスを使用している場合は、<codeph>&lt;mx:effect></codeph> タグを省略できます。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:Transition:fromState"><apiName>fromState</apiName><shortdesc>
+      トランジションを適用する場合に、変更前のビューステートを指定するストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>*</apiData><apiType value="String"/><apiDefaultValue>"&amp;#42;"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      トランジションを適用する場合に、変更前のビューステートを指定するストリングです。 デフォルト値は "*" で、任意のビューステートを意味します。
+     
+      <p>このプロパティは、基本ビューステートに対応する空のストリング "" に設定できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:Transition:interruptionBehavior"><apiName>interruptionBehavior</apiName><shortdesc>
+      複数のトランジションを同時に再生することはできません。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>end</apiData><apiType value="String"/><apiDefaultValue>end
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      複数のトランジションを同時に再生することはできません。トランジションを再生中に新しいトランジションが発生すると、現在のトランジションは割り込まれます。 このプロパティは、割り込み時の現在のトランジションの動作方法を制御します。 
+      
+      <p>デフォルトでは、現在のトランジションは終了します。つまり、トランジション内のすべてのエフェクトが終了値にスナップします。 これは、<codeph>end</codeph> のプロパティ値に対応しています。 このプロパティの値が <codeph>stop</codeph> の場合、現在のトランジションは現在の場所で停止します。 新しいトランジションは、前のトランジションの停止位置から再生を開始します。</p> 
+     
+      <p><codeph>stop</codeph> の値を指定すると、割り込まれたトランジションの外観を滑らかに処理できます。 これは、新しいトランジションが始まる前に、現在のトランジションが終了状態にスナップするのがユーザーに表示されないためです。</p>
+     
+      <p>一部のケースでは、割り込むトランジションが、現在のトランジションの逆方向の場合もあります。例えば、ビューステート A からビューステート B へのトランジションを再生中に、逆方向のトランジションが発生して現在のトランジションに割り込む場合があります。 トランジションインスタンスの <codeph>autoReverse</codeph> プロパティを <codeph>true</codeph> に設定すると、同じトランジションを使用して、正方向と逆方向の両方のトランジションを処理できます。 割り込むトランジションが、現在のトランジションの逆方向のトランジションで、<codeph>autoReverse</codeph> が <codeph>true</codeph> に設定されている場合、割り込むトランジションは、<codeph>interruptionBehavior</codeph> の実際の値に関係なく、<codeph>interruptionBehavior</codeph> プロパティが <codeph>stop</codeph> に設定されている場合のように実行されます。</p>
+     
+      <p>mx.states.InterruptionBehavior クラスは、このプロパティの想定される値を定義します。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.states.xml#Transition/autoReverse"><linktext>Transition.autoReverse</linktext></link><link href="mx.states.xml#InterruptionBehavior"><linktext>mx.states.InterruptionBehavior</linktext></link></related-links></apiValue><apiValue id="mx.states:Transition:toState"><apiName>toState</apiName><shortdesc>
+      トランジションを適用する場合に、変更後のビューステートを指定するストリングです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>*</apiData><apiType value="String"/><apiDefaultValue>"&amp;#42;"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      トランジションを適用する場合に、変更後のビューステートを指定するストリングです。 デフォルト値は "*" で、任意のビューステートを意味します。
+     
+      <p>このプロパティは、基本ビューステートに対応する空のストリング "" に設定できます。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

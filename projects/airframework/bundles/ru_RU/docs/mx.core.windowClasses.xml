@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.core.windowClasses"><apiName>mx.core.windowClasses</apiName><apiDetail/><apiClassifier id="mx.core.windowClasses:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+  Строка заголовка по умолчанию для экземпляра WindowedApplication или Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Строка заголовка по умолчанию для экземпляра WindowedApplication или Window.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:TitleBar:TitleBar"><apiName>TitleBar</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeButtons"><apiName>placeButtons</apiName><shortdesc>
+      Определяет размещение кнопок в строке заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>align</apiItemName><apiType value="String"/><apiDesc>выравнивание кнопок
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledWidth</apiItemName><apiType value="Number"/><apiDesc>ширина строки заголовка
+     
+      </apiDesc></apiParam><apiParam><apiItemName>unscaledHeight</apiItemName><apiType value="Number"/><apiDesc>высота строки заголовка
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>разрешенное расстояние слева для размещения углов и т. д.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>разрешенное расстояние справа для размещения углов и т. д.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cornerOffset</apiItemName><apiType value="Number"/><apiDesc>каким должен быть отступ от элементов для учета радиуса угла
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет размещение кнопок в строке заголовка.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:protected:placeTitle"><apiName>placeTitle</apiName><shortdesc>
+      Определяет выравнивание заголовка в строке заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>titleAlign</apiItemName><apiType value="String"/><apiDesc>способ выравнивания заголовка.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>leftOffset</apiItemName><apiType value="Number"/><apiDesc>разрешенное расстояние слева для размещения углов и т. д.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rightOffset</apiItemName><apiType value="Number"/><apiDesc>разрешенное расстояние справа для размещения углов и т. д.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>buttonAlign</apiItemName><apiType value="String"/><apiDesc>способ выравнивания кнопок
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Определяет выравнивание заголовка в строке заголовка.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.core.windowClasses:TitleBar:styleChanged"><apiName>styleChanged</apiName><shortdesc>
+      Вызывается классом StyleManager при изменении стиля.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/><apiDesc>имя измененного стиля. В некоторых случаях оно может иметь значение null, как правило, это происходит при изменении глобального стиля или свойства styleName.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается классом StyleManager при изменении стиля.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.core.windowClasses:TitleBar:closeButton"><apiName>closeButton</apiName><shortdesc>
+      Объект Button, определяющий кнопку закрытия.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      Объект Button, определяющий кнопку закрытия.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:maximizeButton"><apiName>maximizeButton</apiName><shortdesc>
+      Объект Button, определяющий кнопку развертывания окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      Объект Button, определяющий кнопку развертывания окна.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:minimizeButton"><apiName>minimizeButton</apiName><shortdesc>
+      Объект Button, определяющий кнопку свертывания окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls:Button"/></apiValueDef><apiDesc>
+      Объект Button, определяющий кнопку свертывания окна.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleTextField"><apiName>titleTextField</apiName><shortdesc>
+      Элемент UITextField в строке заголовка, отображающий заголовок приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Элемент UITextField в строке заголовка, отображающий заголовок приложения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Значок, отображаемый в строке заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Значок, отображаемый в строке заголовка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:TitleBar:title:get"><apiName>title</apiName><shortdesc>
+      Заголовок, появляющийся в строке заголовка окна и стыковочном узле или на панели задач.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Заголовок, появляющийся в строке заголовка окна и стыковочном узле или на панели задач.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.core.windowClasses:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+  Строка состояния по умолчанию для элемента WindowedApplication или Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Строка состояния по умолчанию для элемента WindowedApplication или Window.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.core.xml#Window"><linktext>mx.core.Window</linktext></link><link href="mx.core.xml#WindowedApplication"><linktext>mx.core.WindowedApplication</linktext></link></related-links><apiConstructor id="mx.core.windowClasses:StatusBar:StatusBar"><apiName>StatusBar</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.core.windowClasses:StatusBar:statusTextField"><apiName>statusTextField</apiName><shortdesc>
+      Ссылка на элемент UITextField, отображающий текст строки состояния.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Ссылка на элемент UITextField, отображающий текст строки состояния.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.core.windowClasses:StatusBar:status:get"><apiName>status</apiName><shortdesc>
+      Строка, отображаемая в строке состояния, если она является видимой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка, отображаемая в строке состояния, если она является видимой.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

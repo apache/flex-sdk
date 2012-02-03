@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.messages"><apiName>mx.messaging.messages</apiName><apiDetail/><apiClassifier id="mx.messaging.messages:SOAPMessage"><apiName>SOAPMessage</apiName><shortdesc>
+  SOAPMessages аналогичны HTTPRequestMessages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:HTTPRequestMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SOAPMessages аналогичны HTTPRequestMessages. При этом они всегда содержат текст запроса в оболочке SOAP XML, который отправляется с помощью HTTP POST. Кроме того, можно указать операцию SOAP.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:SOAPMessage:SOAPMessage"><apiName>SOAPMessage</apiName><shortdesc>
+      Создает неинициализированный SOAPMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает неинициализированный SOAPMessage.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:SOAPMessage:getSOAPAction"><apiName>getSOAPAction</apiName><shortdesc>
+      Предоставляет доступ к имени удаленного метода/операции, для которого будет выполнен вызов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает имя удаленного метода/операции, для которого будет выполнен вызов.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Предоставляет доступ к имени удаленного метода/операции, для которого будет выполнен вызов.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:SOAPMessage:SOAP_ACTION_HEADER"><apiName>SOAP_ACTION_HEADER</apiName><shortdesc>
+      Заголовок HTTP, сохраняющий операцию SOAP для SOAPMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>SOAPAction</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Заголовок HTTP, сохраняющий операцию SOAP для SOAPMessage.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:ErrorMessage"><apiName>ErrorMessage</apiName><shortdesc>
+  Класс ErrorMessage используется для создания отчетов об ошибках внутри системы обмена сообщениями.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AcknowledgeMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс ErrorMessage используется для создания отчетов об ошибках внутри системы обмена сообщениями. Сообщение об ошибке создается только в ответ на сообщение, передаваемое внутри системы.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:ErrorMessage:ErrorMessage"><apiName>ErrorMessage</apiName><shortdesc>
+      Создает экземпляр ErrorMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает экземпляр ErrorMessage.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:ErrorMessage:MESSAGE_DELIVERY_IN_DOUBT"><apiName>MESSAGE_DELIVERY_IN_DOUBT</apiName><shortdesc>
+      Если сообщение доставить невозможно, faultCode содержит эту константу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Client.Error.DeliveryInDoubt</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Если сообщение доставить невозможно, <codeph>faultCode</codeph> содержит эту константу. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:RETRYABLE_HINT_HEADER"><apiName>RETRYABLE_HINT_HEADER</apiName><shortdesc>
+      Имя заголовка подсказки о повторном выполнении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRetryableErrorHint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Имя заголовка подсказки о повторном выполнении. Указывает, что ошибка не является неисправимой, и вызвавшая ее операция может быть выполнена повторно.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:extendedData"><apiName>extendedData</apiName><shortdesc>
+     Расширенные данные, выбранные удаленным адресатом для этой ошибки, в целях упрощения пользовательской обработки ошибок на компьютере-клиенте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     Расширенные данные, выбранные удаленным адресатом для этой ошибки, в целях упрощения пользовательской обработки ошибок на компьютере-клиенте.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultCode"><apiName>faultCode</apiName><shortdesc>
+      Код ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Код ошибки. Как правило, это значение соответствует соглашению [outer_context]. [inner_context]. [issue]. Например: Channel.Connect.Failed, Server.Call.Failed и т. д.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultDetail"><apiName>faultDetail</apiName><shortdesc>
+      Подробное описание причины ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Подробное описание причины ошибки. Как правило, это трассировка стека удаленного адресата.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:faultString"><apiName>faultString</apiName><shortdesc>
+      Простое описание ошибки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Простое описание ошибки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:ErrorMessage:rootCause"><apiName>rootCause</apiName><shortdesc>
+      Если существует основная причина ошибки, то в этом свойстве содержится подробная информация о ней.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Если существует основная причина ошибки, то в этом свойстве содержится подробная информация о ней. Это может быть ErrorMessage, информационный объект NetStatusEvent или основное событие ошибки Adobe Flash: ErrorEvent, IOErrorEvent или SecurityErrorEvent.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:RemotingMessage"><apiName>RemotingMessage</apiName><shortdesc>
+  RemotingMessages используется для отправки запросов RPC в удаленную конечную точку.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemotingMessages используется для отправки запросов RPC в удаленную конечную точку. Эти сообщения используют свойство <codeph>operation</codeph> для указания метода, вызываемого в удаленном объекте. Свойство <codeph>destination</codeph> указывает, какой объект или служба должны использоваться.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:RemotingMessage:RemotingMessage"><apiName>RemotingMessage</apiName><shortdesc>
+      Создает неинициализированный RemotingMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает неинициализированный RemotingMessage.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:RemotingMessage:operation"><apiName>operation</apiName><shortdesc>
+      Предоставляет доступ к имени удаленного метода или операции, вызов которых должен быть выполнен.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к имени удаленного метода или операции, вызов которых должен быть выполнен.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:RemotingMessage:source"><apiName>source</apiName><shortdesc>
+      Это свойство предоставляется для обратной совместимости.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Это свойство предоставляется для обратной совместимости. Рекомендуется не предоставлять основной источник адресата RemoteObject на компьютере-клиенте и не использовать только один источник для адресата. Некоторые типы служб удаленного доступа могут игнорировать это свойство по соображениям безопасности.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AbstractMessage"><apiName>AbstractMessage</apiName><shortdesc>
+  Абстрактный базовый класс для всех сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:IMessage</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Абстрактный базовый класс для всех сообщений. Сообщения имеют два настраиваемых раздела; заголовки и тело. Свойство <codeph>headers</codeph> предоставляет доступ к специализированной метаинформации для определенного экземпляра сообщения. Свойство <codeph>headers</codeph> является ассоциативной матрицей с соответствующим именем заголовка в качестве ключа.
+  <p>
+  Тело сообщения содержит конкретные данные экземпляра, которые должны быть доставлены и обработаны удаленным адресатом. <codeph>body</codeph> представляет собой объект и содержит полезные данные сообщения.
+  </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AbstractMessage:AbstractMessage"><apiName>AbstractMessage</apiName><shortdesc>
+      Создает экземпляр AbstractMessage с пустым телом и заголовком.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает экземпляр AbstractMessage с пустым телом и заголовком. Сообщение этого типа не должно создаваться и использоваться напрямую.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:AbstractMessage:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает представление сообщения в виде строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Представление сообщения в виде строки.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает представление сообщения в виде строки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:AbstractMessage:DESTINATION_CLIENT_ID_HEADER"><apiName>DESTINATION_CLIENT_ID_HEADER</apiName><shortdesc>
+      Отправленные с сервера сообщения могут прибыть в одном пакете с сообщениями, потенциально предназначенными для других экземпляров получателя.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSDstClientId</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Отправленные с сервера сообщения могут прибыть в одном пакете с сообщениями, потенциально предназначенными для других экземпляров получателя. Каждое сообщение содержит заголовок, идентифицирующий экземпляр получателя сообщения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:ENDPOINT_HEADER"><apiName>ENDPOINT_HEADER</apiName><shortdesc>
+      Сообщения отмечены идентификатором конечной точки канала, через который они передаются.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSEndpoint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Сообщения отмечены идентификатором конечной точки канала, через который они передаются. Каналы устанавливают это значение автоматически при отправке сообщения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:FLEX_CLIENT_ID_HEADER"><apiName>FLEX_CLIENT_ID_HEADER</apiName><shortdesc>
+	  Этот заголовок используется для передачи значения глобального идентификатора FlexClient в исходящих сообщениях после присвоения его сервером.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSId</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Этот заголовок используется для передачи значения глобального идентификатора FlexClient в исходящих сообщениях после присвоения его сервером.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:PRIORITY_HEADER"><apiName>PRIORITY_HEADER</apiName><shortdesc>
+      Отправленные посредством MessageAgent сообщения могут иметь приоритетный заголовок с числовым значением от 0 до 9 (0 – самый низкий приоритет), и сервер может выбрать это числовое значение для расположения сообщений по приоритетам клиентов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPriority</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Отправленные посредством MessageAgent сообщения могут иметь приоритетный заголовок с числовым значением от 0 до 9 (0 – самый низкий приоритет), и сервер может выбрать это числовое значение для расположения сообщений по приоритетам клиентов. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REMOTE_CREDENTIALS_CHARSET_HEADER"><apiName>REMOTE_CREDENTIALS_CHARSET_HEADER</apiName><shortdesc>
+      Сообщения, которые должны устанавливать удаленные учетные данные адресата, возможно, должны также передавать набор символов кодирования, использованный для создания строки учетных данных, с помощью этого заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemoteCredentialsCharset</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Сообщения, которые должны устанавливать удаленные учетные данные адресата, возможно, должны также передавать набор символов кодирования, использованный для создания строки учетных данных, с помощью этого заголовка.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REMOTE_CREDENTIALS_HEADER"><apiName>REMOTE_CREDENTIALS_HEADER</apiName><shortdesc>
+      Сообщения, которые должны устанавливать удаленные учетные данные адресата, передают в этом заголовке учетные записи в кодировке Base64.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemoteCredentials</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Сообщения, которые должны устанавливать удаленные учетные данные адресата, передают в этом заголовке учетные записи в кодировке Base64.  
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:REQUEST_TIMEOUT_HEADER"><apiName>REQUEST_TIMEOUT_HEADER</apiName><shortdesc>
+	  Этот заголовок используется сообщениями, отправленными с указанным тайм-аутом выполнения запроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRequestTimeout</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  Этот заголовок используется сообщениями, отправленными с указанным тайм-аутом выполнения запроса. Значение тайм-аута выполнения запроса устанавливается в исходящих сообщениях службами или каналами, и это значение определяет для соответствующего MessageResponder время ожидания подтверждения, результата или ответа с отказом на сообщение до наступления тайм-аута выполнения запроса.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:STATUS_CODE_HEADER"><apiName>STATUS_CODE_HEADER</apiName><shortdesc>
+      Характер сообщения ответа можно определить по коду статуса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSStatusCode</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Характер сообщения ответа можно определить по коду статуса. Например, сообщения, полученные из канала на основе HTTP, должны передавать код статуса ответа HTTP (если он доступен).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:body:get"><apiName>body</apiName><shortdesc>
+      Текст сообщения содержит определенные данные, которые должны быть доставлены удаленному адресату.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Текст сообщения содержит определенные данные, которые должны быть доставлены удаленному адресату.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:clientId:get"><apiName>clientId</apiName><shortdesc>
+      clientId указывает MessageAgent, передавший сообщение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      clientId указывает MessageAgent, передавший сообщение.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:destination:get"><apiName>destination</apiName><shortdesc>
+      Адрес назначения сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Адрес назначения сообщения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:headers:get"><apiName>headers</apiName><shortdesc>
+      Заголовки сообщения представляют собой ассоциативный массив, ключом которого является имя заголовка, а значением – значение заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Заголовки сообщения представляют собой ассоциативный массив, ключом которого является имя заголовка, а значением – значение заголовка. Это свойство предоставляет доступ к специализированной метаинформации для определенного экземпляра сообщения. Базовые имена заголовков начинаются с префикса DS. Пользовательские имена заголовков должны начинаться с уникального префикса во избежание конфликта имен.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:messageId:get"><apiName>messageId</apiName><shortdesc>
+      Уникальный идентификатор сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Уникальный идентификатор сообщения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:timeToLive:get"><apiName>timeToLive</apiName><shortdesc>
+      Значение времени действия сообщения указывает, как долго сообщение считается действительным и подлежащим доставке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение времени действия сообщения указывает, как долго сообщение считается действительным и подлежащим доставке. Это значение используется совместно со значением <codeph>timestamp</codeph>. Время действия сообщения представляет собой количество миллисекунд, в течение которых сообщение остается действительным (начиная с указанного значения <codeph>timestamp</codeph>). Например, если <codeph>timestamp</codeph> имеет значение 04/05/05 1:30:45 PST, а <codeph>timeToLive</codeph> – значение 5000, то время действия этого сообщения завершится 5 апреля 2005 года в 1:30:50 по стандартному тихоокеанскому времени. По завершении времени действия сообщение не будет доставляться другим клиентам.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AbstractMessage:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      Предоставляет доступ к временной метке сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Предоставляет доступ к временной метке сообщения. Временная метка представляет собой дату и время отправки сообщения. Временная метка используется для отслеживания сообщения в системе, что гарантирует соблюдение уровня качества обслуживания и обеспечивает механизм прекращения срока действия сообщения.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#AbstractMessage/timeToLive"><linktext>timeToLive</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:MessagePerformanceUtils"><apiName>MessagePerformanceUtils</apiName><shortdesc> 
+     Служебный класс MessagePerformanceUtils используется для получения различных метрик размера и времени для сообщения, отправленного от клиента серверу, и сообщения ответа, а также для инициализированных сообщений от сервера клиенту.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc> 
+     Служебный класс MessagePerformanceUtils используется для получения различных метрик размера и времени для сообщения, отправленного от клиента серверу, и сообщения ответа, а также для инициализированных сообщений от сервера клиенту. Сбор метрик осуществляется при активации соответствующих свойств используемого канала: &lt;record-message-times> означает сбор информации о времени, &lt;record-message-sizes> означает сбор информации о размерах.
+     
+     <p>Тогда можно использовать методы этого служебного класса для извлечения различной функциональной информации о только что полученном сообщении.</p>
+     
+     <p>При активировании метрик экземпляр этого класса должен быть создан из обработчика ответа, подтверждения или сообщения с помощью кода, пример которого представлен ниже: </p>
+     
+     <pre>
+          var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(event.message);
+     </pre> 
+          </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:MessagePerformanceUtils:MessagePerformanceUtils"><apiName>MessagePerformanceUtils</apiName><shortdesc>
+         Конструктор создает экземпляр MPUtils с информацией из заголовков MPI переданного сообщения
+         
+         </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>message</apiItemName><apiType value="Object"/><apiDesc>Сообщение, заголовки MPI которого используются при извлечении информации о MPI
+                  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+         Конструктор создает экземпляр MPUtils с информацией из заголовков MPI переданного сообщения
+         
+         </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:MessagePerformanceUtils:prettyPrint"><apiName>prettyPrint</apiName><shortdesc>
+          Возвращает сводку по всей информации, доступной в MPI.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Строка, содержащая сводку по всей информации, доступной в MPI
+                  </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+          Возвращает сводку по всей информации, доступной в MPI. Например:
+         
+         <pre>
+              var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(message);                     
+              Alert.show(mpiutil.prettyPrint(), "MPI Output", Alert.NONMODAL);
+         </pre>            
+         
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:MessagePerformanceUtils:clientReceiveTime:get"><apiName>clientReceiveTime</apiName><shortdesc>
+         Временная метка в миллисекундах с начала эпохи получения клиентом ответа с сервера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Временная метка в миллисекундах с начала эпохи получения клиентом ответа с сервера.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:messageSize:get"><apiName>messageSize</apiName><shortdesc>
+         Размер первоначального сообщения клиента, измеренный во время десериализации в конечной точке сервера.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+         Размер первоначального сообщения клиента, измеренный во время десериализации в конечной точке сервера.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:networkRTT:get"><apiName>networkRTT</apiName><shortdesc>
+         Сетевое время обращения для сообщения клиента и ответа на него сервера вычисляется на основании разницы между общим временем и временем обработки сообщения сервером.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Сетевое время обращения для сообщения клиента и ответа на него сервера вычисляется на основании разницы между общим временем и временем обработки сообщения сервером.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:originatingMessageSentTime:get"><apiName>originatingMessageSentTime</apiName><shortdesc>
+         Заполняется только для инициированного сообщения, временная метка в миллисекундах с начала эпохи отправки сообщения клиентом, инициировавшим отправку сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Заполняется только для инициированного сообщения, временная метка в миллисекундах с начала эпохи отправки сообщения клиентом, инициировавшим отправку сообщения.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:originatingMessageSize:get"><apiName>originatingMessageSize</apiName><shortdesc>
+         Заполняется только для инициированного сообщения, размер сообщения (в байтах), первоначально вызвавшего инициированное сообщение..</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Заполняется только для инициированного сообщения, размер сообщения (в байтах), первоначально вызвавшего инициированное сообщение..
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:pushOneWayTime:get"><apiName>pushOneWayTime</apiName><shortdesc>
+         Заполняется только для инициированного сообщения, это сетевое время между сервером, инициирующим сообщение и клиентом, получающим его.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Заполняется только для инициированного сообщения, это сетевое время между сервером, инициирующим сообщение и клиентом, получающим его. Обратите внимание, что системные часы сервера и клиента должны быть синхронизированы.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:pushedMessageFlag:get"><apiName>pushedMessageFlag</apiName><shortdesc>
+         Возвращает true, если клиенту было отправлено сообщение, инициированное сервером, а не ответ на сообщение, инициированное в клиенте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+         Возвращает true, если клиенту было отправлено сообщение, инициированное сервером, а не ответ на сообщение, инициированное в клиенте.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:responseMessageSize:get"><apiName>responseMessageSize</apiName><shortdesc>
+         Размер сообщения ответа, отправленного клиенту сервером, измеренный во время сериализации в конечной точке сервера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef><apiDesc>
+         Размер сообщения ответа, отправленного клиенту сервером, измеренный во время сериализации в конечной точке сервера.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverAdapterExternalTime:get"><apiName>serverAdapterExternalTime</apiName><shortdesc>
+         Время, затраченное в модуле, вызываемом из адаптера, связанного с адресатом сообщения, но являющегося внешним для него, прежде чем был готов ответ на сообщение или было подготовлено инициированное сообщение для отправки принимающему клиенту.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Время, затраченное в модуле, вызываемом из адаптера, связанного с адресатом сообщения, но являющегося внешним для него, прежде чем был готов ответ на сообщение или было подготовлено инициированное сообщение для отправки принимающему клиенту.  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverAdapterTime:get"><apiName>serverAdapterTime</apiName><shortdesc>
+         Время, затраченное в адаптере, связанном с адресатом сообщения, прежде чем был готов ответ на сообщение или было подготовлено инициированное сообщение для отправки принимающему клиенту.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Время, затраченное в адаптере, связанном с адресатом сообщения, прежде чем был готов ответ на сообщение или было подготовлено инициированное сообщение для отправки принимающему клиенту.  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverNonAdapterTime:get"><apiName>serverNonAdapterTime</apiName><shortdesc>
+         Время обработки сообщения сервером, затраченное вне адаптера, связанного с адресатом этого сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Время обработки сообщения сервером, затраченное вне адаптера, связанного с адресатом этого сообщения.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverPollDelay:get"><apiName>serverPollDelay</apiName><shortdesc>
+         Время ожидания сообщения на сервере с момента готовности к отправке клиенту до момента опроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Время ожидания сообщения на сервере с момента готовности к отправке клиенту до момента опроса.
+                  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverPrePushTime:get"><apiName>serverPrePushTime</apiName><shortdesc>
+         Время между сервером, получающим сообщение клиента, и сервером, начинающим отправлять сообщения другим клиентам, как результат исходного сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Время между сервером, получающим сообщение клиента, и сервером, начинающим отправлять сообщения другим клиентам, как результат исходного сообщения.  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverProcessingTime:get"><apiName>serverProcessingTime</apiName><shortdesc>
+         Время между получением сервером сообщения клиента и временем ответа сервера на полученное сообщение или временем приведения в готовность инициированного сообщения, отправляемого принимающему клиенту.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Время между получением сервером сообщения клиента и временем ответа сервера на полученное сообщение или временем приведения в готовность инициированного сообщения, отправляемого принимающему клиенту.  
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:serverSendTime:get"><apiName>serverSendTime</apiName><shortdesc>
+         Временная метка в миллисекундах с начала эпохи отправки сервером ответа клиенту.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Временная метка в миллисекундах с начала эпохи отправки сервером ответа клиенту.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:totalPushTime:get"><apiName>totalPushTime</apiName><shortdesc>
+         Заполняется только для инициированного сообщения, это время между клиентом, отправляющим свое сообщение, и клиентом, получающим его.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Заполняется только для инициированного сообщения, это время между клиентом, отправляющим свое сообщение, и клиентом, получающим его. Обратите внимание, что системные часы этих двух клиентов должны быть синхронизированы.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:MessagePerformanceUtils:totalTime:get"><apiName>totalTime</apiName><shortdesc>
+         Время между моментом отправки клиентом сообщения и получением ответа на него с сервера
+         
+         </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+         Время между моментом отправки клиентом сообщения и получением ответа на него с сервера
+         
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:HTTPRequestMessage"><apiName>HTTPRequestMessage</apiName><shortdesc>
+  С помощью этого типа сообщений запросы HTTP отправляются в конечную точку HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  С помощью этого типа сообщений запросы HTTP отправляются в конечную точку HTTP. HTTPRequestMessage инкапсулирует информацию содержимого и заголовка, как правило, найденную в запросах HTTP, созданных браузером.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:HTTPRequestMessage:HTTPRequestMessage"><apiName>HTTPRequestMessage</apiName><shortdesc>
+      Создает неинициализированный запрос HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает неинициализированный запрос HTTP.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_FORM"><apiName>CONTENT_TYPE_FORM</apiName><shortdesc>
+      Указывает, что содержимое этого сообщения является формой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/x-www-form-urlencoded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что содержимое этого сообщения является формой.
+     
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_SOAP_XML"><apiName>CONTENT_TYPE_SOAP_XML</apiName><shortdesc>
+      Указывает, что содержимое сообщения содержит данные XML для запроса SOAP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text/xml; charset=utf-8</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что содержимое сообщения содержит данные XML для запроса SOAP.
+     
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_SOAP_XML;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:CONTENT_TYPE_XML"><apiName>CONTENT_TYPE_XML</apiName><shortdesc>
+      Указывает, что сообщение содержит код в формате XML.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>application/xml</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что сообщение содержит код в формате XML.
+     
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_XML;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:DELETE_METHOD"><apiName>DELETE_METHOD</apiName><shortdesc>
+      Указывает, что для запроса должен использоваться метод delete.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DELETE</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что для запроса должен использоваться метод delete.
+      
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.DELETE_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:GET_METHOD"><apiName>GET_METHOD</apiName><shortdesc>
+      Указывает, что для запроса должен использоваться метод get.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GET</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что для запроса должен использоваться метод get.
+     
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.GET_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:HEAD_METHOD"><apiName>HEAD_METHOD</apiName><shortdesc>
+      Указывает, что для запроса должен использоваться метод head.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>HEAD</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что для запроса должен использоваться метод head.
+     
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.HEAD_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:OPTIONS_METHOD"><apiName>OPTIONS_METHOD</apiName><shortdesc>
+      Указывает, что для запроса должен использоваться метод options.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>OPTIONS</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что для запроса должен использоваться метод options.
+     
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.OPTIONS_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:POST_METHOD"><apiName>POST_METHOD</apiName><shortdesc>
+      Указывает, что для запроса должен использоваться метод post.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>POST</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что для запроса должен использоваться метод post.
+     
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:PUT_METHOD"><apiName>PUT_METHOD</apiName><shortdesc>
+      Указывает, что для запроса должен использоваться метод put.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>PUT</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что для запроса должен использоваться метод put.
+     
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.PUT_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:TRACE_METHOD"><apiName>TRACE_METHOD</apiName><shortdesc>
+      Указывает, что для запроса должен использоваться метод trace.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>TRACE</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает, что для запроса должен использоваться метод trace.
+     
+      <p>В следующем примере показано использование этой константы:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.TRACE_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:contentType"><apiName>contentType</apiName><shortdesc>
+      Указывает тип содержимого сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает тип содержимого сообщения. Это значение должно быть известно адресату, которому отправляется запрос.
+     
+      <p>В следующем примере устанавливается свойство<codeph>contentType</codeph>:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:httpHeaders"><apiName>httpHeaders</apiName><shortdesc>
+      Содержит специальные заголовки HTTP, которые должны быть помещены в запрос, отправленный адресату.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Содержит специальные заголовки HTTP, которые должны быть помещены в запрос, отправленный адресату.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:recordHeaders"><apiName>recordHeaders</apiName><shortdesc>
+     Применяется только при взаимодействии через прокси-сервер, если прокси должен возвращать используемые заголовки запроса и ответа.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     Применяется только при взаимодействии через прокси-сервер, если прокси должен возвращать используемые заголовки запроса и ответа. Значение по умолчанию: false. В настоящее время устанавливается только при использовании NetworkMonitor.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:url"><apiName>url</apiName><shortdesc>
+      Содержит конечный адрес назначения для этого запроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Содержит конечный адрес назначения для этого запроса. URL-адрес, на который с помощью указанного метода будет отправлено содержимое сообщения, находящееся в свойстве <codeph>body</codeph>.
+     
+      <p>В следующем примере устанавливается свойство <codeph>url</codeph>:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:HTTPRequestMessage:method:get"><apiName>method</apiName><shortdesc>
+      Указывает метод, который должен использоваться для запроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает метод, который должен использоваться для запроса. Разрешенные значения:
+      <ul>
+        <li><codeph>HTTPRequestMessage.DELETE_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.GET_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.HEAD_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.POST_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.OPTIONS_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.PUT_METHOD</codeph></li>
+        <li><codeph>HTTPRequestMessage.TRACE_METHOD</codeph></li>
+      </ul>
+     
+      <p>В следующем примере устанавливается свойство <codeph>method</codeph>:</p>
+        <pre>
+          var msg:HTTPRequestMessage = new HTTPRequestMessage();
+          msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
+          msg.method = HTTPRequestMessage.POST_METHOD;
+          msg.url = "http://my.company.com/login";
+        </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AsyncMessage"><apiName>AsyncMessage</apiName><shortdesc>
+  AsyncMessage является базовым классом для всех асинхронных сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:ISmallMessage</apiBaseInterface><apiBaseClassifier>mx.messaging.messages:AbstractMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AsyncMessage является базовым классом для всех асинхронных сообщений.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AsyncMessage:AsyncMessage"><apiName>AsyncMessage</apiName><shortdesc>
+      Создает экземпляр AsyncMessage с пустым телом и заголовком.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>body</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Дополнительное тело для присвоения сообщению.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>headers</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Дополнительные заголовки для присвоения сообщению.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Создает экземпляр AsyncMessage с пустым телом и заголовком. Кроме действий по умолчанию, существует возможность передавать тело и заголовки сообщения конструктору. Пример подобного вызова для тела: <codeph>var msg:AsyncMessage = new AsyncMessage("Body text");</codeph> Пример, предоставляющий и тело, и заголовки: <codeph>var msg:AsyncMessage = new AsyncMessage("Body text", {"customerHeader":"customValue"});</codeph>
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:AsyncMessage:SUBTOPIC_HEADER"><apiName>SUBTOPIC_HEADER</apiName><shortdesc>
+	  В сообщениях, отправленных MessageAgent с указанным свойством subtopic, в этом заголовке определяется целевая подтема.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSSubtopic</apiData><apiType value="String"/></apiValueDef><apiDesc>
+	  В сообщениях, отправленных MessageAgent с указанным свойством <codeph>subtopic</codeph> в этом заголовке определяется целевая подтема.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:AsyncMessage:correlationId:get"><apiName>correlationId</apiName><shortdesc>
+      Предоставляет доступ к идентификатору корреляции сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Предоставляет доступ к идентификатору корреляции сообщения. Используется для подтверждения и для сегментации сообщений. <codeph>correlationId</codeph> содержит <codeph>messageId</codeph> предыдущего сообщения, на которое ссылается это сообщение.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#AbstractMessage/messageId"><linktext>mx.messaging.messages.AbstractMessage.messageId</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:AcknowledgeMessage"><apiName>AcknowledgeMessage</apiName><shortdesc>
+  AcknowledgeMessage подтверждает получение ранее переданного сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:ISmallMessage</apiBaseInterface><apiBaseClassifier>mx.messaging.messages:AsyncMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AcknowledgeMessage подтверждает получение ранее переданного сообщения. Каждое сообщение, переданное внутри системы передачи сообщений, должно получить подтверждение.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:AcknowledgeMessage:AcknowledgeMessage"><apiName>AcknowledgeMessage</apiName><shortdesc>
+      Создает экземпляр AcknowledgeMessage с пустым телом и заголовком.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает экземпляр AcknowledgeMessage с пустым телом и заголовком.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.messaging.messages:AcknowledgeMessage:ERROR_HINT_HEADER"><apiName>ERROR_HINT_HEADER</apiName><shortdesc>
+      Имя заголовка сообщения об ошибке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSErrorHint</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Имя заголовка сообщения об ошибке. Указывает, что подтверждение предназначено для сообщения, сгенерировавшего ошибку.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:IMessage"><apiName>IMessage</apiName><shortdesc>
+  Этот интерфейс определяет соглашение для объектов сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Этот интерфейс определяет соглашение для объектов сообщения.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:toString"><apiName>toString</apiName><shortdesc>
+      Этот метод возвращает представление сообщения в виде строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Представление сообщения в виде строки.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Этот метод возвращает представление сообщения в виде строки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:body:get"><apiName>body</apiName><shortdesc>
+      Текст сообщения содержит определенные данные, которые должны быть доставлены удаленному адресату.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Текст сообщения содержит определенные данные, которые должны быть доставлены удаленному адресату.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:clientId:get"><apiName>clientId</apiName><shortdesc>
+      clientId указывает клиент, с которого отправлено сообщение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      clientId указывает клиент, с которого отправлено сообщение.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:destination:get"><apiName>destination</apiName><shortdesc>
+      Адрес назначения сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Адрес назначения сообщения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:headers:get"><apiName>headers</apiName><shortdesc>
+      Предоставляет доступ к заголовкам сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Предоставляет доступ к заголовкам сообщения. Заголовки сообщения представляют собой ассоциативный массив, ключом в котором является имя заголовка. Это свойство предоставляет доступ к специализированной метаинформации определенного экземпляра сообщения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:messageId:get"><apiName>messageId</apiName><shortdesc>
+      Уникальный идентификатор сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Уникальный идентификатор сообщения. Идентификатор сообщения может использоваться для корреляции ответа с первоначальным сообщением запроса в сценариях передачи сообщений «запрос-ответ».
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:timeToLive:get"><apiName>timeToLive</apiName><shortdesc>
+      Значение времени действия сообщения указывает, как долго сообщение считается действительным и подлежащим доставке.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Значение времени действия сообщения указывает, как долго сообщение считается действительным и подлежащим доставке. Это значение используется совместно со значением <codeph>timestamp</codeph>. Время действия сообщения представляет собой количество миллисекунд, в течение которых сообщение остается действительным (начиная с указанного значения <codeph>timestamp</codeph>). Например, если <codeph>timestamp</codeph> имеет значение 04/05/05 1:30:45 PST, а <codeph>timeToLive</codeph> – значение 5000, то время действия этого сообщения завершится 5 апреля 2005 года в 1:30:50 по стандартному тихоокеанскому времени. По завершении времени действия сообщение не будет доставляться другим клиентам.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:IMessage:mx.messaging.messages:IMessage:timestamp:get"><apiName>timestamp</apiName><shortdesc>
+      Предоставляет доступ к временной метке сообщения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Предоставляет доступ к временной метке сообщения. Временная метка представляет собой дату и время отправки сообщения. Временная метка используется для отслеживания сообщений в системе, что обеспечивает соблюдение уровня качества обслуживания и прекращение срока действия сообщения.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.messages.xml#IMessage/timeToLive"><linktext>timeToLive</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:CommandMessage"><apiName>CommandMessage</apiName><shortdesc>
+  Класс CommandMessage предоставляет механизм отправки команд в инфраструктуру сервера, например команд, имеющих отношение к сценариям передачи сообщений о публикациях/подписке, к операциям ping и кластерным операциям.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.messages:AsyncMessage</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс CommandMessage предоставляет механизм отправки команд в инфраструктуру сервера, например команд, имеющих отношение к сценариям передачи сообщений о публикациях/подписке, к операциям ping и кластерным операциям.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.messaging.messages:CommandMessage:CommandMessage"><apiName>CommandMessage</apiName><shortdesc>
+      Создает экземпляр CommandMessage с пустым телом и заголовком, а также операцией по умолчанию UNKNOWN_OPERATION.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Создает экземпляр CommandMessage с пустым телом и заголовком, а также <codeph>операцией</codeph> по умолчанию <codeph>UNKNOWN_OPERATION</codeph>.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.messages:CommandMessage:getOperationAsString"><apiName>getOperationAsString</apiName><shortdesc>
+      Предоставляет описание указанной операции.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Краткое имя операции.
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>op</apiItemName><apiType value="uint"/><apiDesc>Одна из констант операции CommandMessage.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Предоставляет описание указанной операции. Этот метод используется в операциях <codeph>toString()</codeph> данного сообщения.
+     
+      </apiDesc><example>
+      <codeph><pre>
+         var msg:CommandMessage = CommandMessage(event.message);
+         trace("Current operation -'"+
+                CommandMessage.getOperationAsString(msg.operation)+ "'.");
+      </pre></codeph>
+      
+      </example></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.messages:CommandMessage:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает представление сообщения в виде строки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>Представление сообщения в виде строки.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает представление сообщения в виде строки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.messages:CommandMessage:ADD_SUBSCRIPTIONS"><apiName>ADD_SUBSCRIPTIONS</apiName><shortdesc> 
+     Заголовок, используемый в сообщении MULTI_SUBSCRIBE для указания массива пар «подтема – селектор», добавляемого к существующему набору подписок.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSAddSub</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+     Заголовок, используемый в сообщении MULTI_SUBSCRIBE для указания массива пар «подтема – селектор», добавляемого к существующему набору подписок.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:AUTHENTICATION_MESSAGE_REF_TYPE"><apiName>AUTHENTICATION_MESSAGE_REF_TYPE</apiName><shortdesc>
+      Тип сообщений сервера для команд аутентификации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>flex.messaging.messages.AuthenticationMessage</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Тип сообщений сервера для команд аутентификации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLIENT_PING_OPERATION"><apiName>CLIENT_PING_OPERATION</apiName><shortdesc>
+      Эта операция используется для тестирования возможности соединения с удаленной конечной точкой через текущий канал.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>5</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Эта операция используется для тестирования возможности соединения с удаленной конечной точкой через текущий канал.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLIENT_SYNC_OPERATION"><apiName>CLIENT_SYNC_OPERATION</apiName><shortdesc>
+      Эта операция используется удаленным адресатом для синхронизации с клиентом пропущенных или кэшированных сообщений в результате выданной клиентом команды опроса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>4</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Эта операция используется удаленным адресатом для синхронизации с клиентом пропущенных или кэшированных сообщений в результате выданной клиентом команды опроса.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CLUSTER_REQUEST_OPERATION"><apiName>CLUSTER_REQUEST_OPERATION</apiName><shortdesc>
+      Эта операция используется для запроса списка URI конечных точек преодоления отказа удаленного адресата на основе элементов кластера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>7</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Эта операция используется для запроса списка URI конечных точек преодоления отказа удаленного адресата на основе элементов кластера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:CREDENTIALS_CHARSET_HEADER"><apiName>CREDENTIALS_CHARSET_HEADER</apiName><shortdesc>
+     Заголовок для указания кодировки набора символов, использованной при кодировании учетных данных входа в систему.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSCredentialsCharset</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Заголовок для указания кодировки набора символов, использованной при кодировании учетных данных входа в систему. 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:DISCONNECT_OPERATION"><apiName>DISCONNECT_OPERATION</apiName><shortdesc>
+      Эта операция используется для указания на отключение канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>12</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Эта операция используется для указания на отключение канала.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:HEARTBEAT_HEADER"><apiName>HEARTBEAT_HEADER</apiName><shortdesc>
+     Заголовок, указывающий на то, что сообщение является периодическим сигналом.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DS&lt;3</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Заголовок, указывающий на то, что сообщение является периодическим сигналом.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:LOGIN_OPERATION"><apiName>LOGIN_OPERATION</apiName><shortdesc>
+     Эта операция используется для отправки учетных данных в конечную точку, что позволяет пользователю зарегистрироваться посредством текущего канала.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>8</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     Эта операция используется для отправки учетных данных в конечную точку, что позволяет пользователю зарегистрироваться посредством текущего канала. Учетные данные должны быть представлены в кодировке Base64 и сохранены в <codeph>body</codeph> сообщения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:LOGOUT_OPERATION"><apiName>LOGOUT_OPERATION</apiName><shortdesc>
+     Эта операция используется для регистрации пользователя вне текущего канала и аннулирования сеанса сервера, если канал функционирует на основе HTTP.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>9</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     Эта операция используется для регистрации пользователя вне текущего канала и аннулирования сеанса сервера, если канал функционирует на основе HTTP.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MAX_FREQUENCY_HEADER"><apiName>MAX_FREQUENCY_HEADER</apiName><shortdesc>
+     Заголовок для указания максимального количества сообщений, принимаемых получателем в секунду.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSMaxFrequency</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Заголовок для указания максимального количества сообщений, принимаемых получателем в секунду.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MESSAGING_VERSION"><apiName>MESSAGING_VERSION</apiName><shortdesc>
+     Во время квитирования установления связи с использованием исходной операции ping CommandMessage конечные точки могут неявно указать поддерживаемые ими функции, предоставляя последнюю версию процесса передачи сообщений.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSMessagingVersion</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Во время квитирования установления связи с использованием исходной операции ping CommandMessage конечные точки могут неявно указать поддерживаемые ими функции, предоставляя последнюю версию процесса передачи сообщений.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:MULTI_SUBSCRIBE_OPERATION"><apiName>MULTI_SUBSCRIBE_OPERATION</apiName><shortdesc>
+     Используется в MultiTopicConsumer для подписки/отмены подписки на несколько тем в одном сообщении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>11</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     Используется в MultiTopicConsumer для подписки/отмены подписки на несколько тем в одном сообщении.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:NEEDS_CONFIG_HEADER"><apiName>NEEDS_CONFIG_HEADER</apiName><shortdesc>
+     Заголовок, указывающий, что канал нуждается в конфигурировании со стороны сервера.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSNeedsConfig</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Заголовок, указывающий, что канал нуждается в конфигурировании со стороны сервера.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:NO_OP_POLL_HEADER"><apiName>NO_OP_POLL_HEADER</apiName><shortdesc>
+     Заголовок для подавления обработки ответа на опрос.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSNoOpPoll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Заголовок для подавления обработки ответа на опрос. Если клиент выполняет длительный опрос на сервере и запускает другой опрос, то ответ на этот последующий опрос должен быть отмечен данным заголовком. В этом случае ответ обрабатывается как пустая команда, и следующий опрос не планируется. Без этого последующий опрос поместит канал и конечную точку в занятый цикл опроса.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:POLL_OPERATION"><apiName>POLL_OPERATION</apiName><shortdesc>
+      Эта операция используется для получения информации с удаленного адреса назначения о задержанных, не доставленных сообщениях.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>2</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Эта операция используется для получения информации с удаленного адреса назначения о задержанных, не доставленных сообщениях.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:POLL_WAIT_HEADER"><apiName>POLL_WAIT_HEADER</apiName><shortdesc>
+     Заголовок для управления временем ожидания перед запуском команды опроса на следующем клиенте.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPollWait</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Заголовок для управления временем ожидания перед запуском команды опроса на следующем клиенте.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:PRESERVE_DURABLE_HEADER"><apiName>PRESERVE_DURABLE_HEADER</apiName><shortdesc>
+      Если в заголовке сообщения об отмене подписки этот параметр установлен в true, то длительные подписки JMS сохраняются.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSPreserveDurable</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Если в заголовке сообщения об отмене подписки этот параметр установлен в true, то длительные подписки JMS сохраняются.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:REMOVE_SUBSCRIPTIONS"><apiName>REMOVE_SUBSCRIPTIONS</apiName><shortdesc>
+     Аналогичен предыдущему, но указывает массив подтемы/селектора, который следует удалить
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSRemSub</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Аналогичен предыдущему, но указывает массив подтемы/селектора, который следует удалить
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SELECTOR_HEADER"><apiName>SELECTOR_HEADER</apiName><shortdesc>
+      Используемые получателем команды подписки передают в заголовке выражение получателя selector.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>DSSelector</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      Используемые получателем команды подписки передают в заголовке выражение получателя <codeph>selector</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBSCRIBE_OPERATION"><apiName>SUBSCRIBE_OPERATION</apiName><shortdesc>
+      Эта операция используется для подписки на удаленный адрес.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Эта операция используется для подписки на удаленный адрес.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBSCRIPTION_INVALIDATE_OPERATION"><apiName>SUBSCRIPTION_INVALIDATE_OPERATION</apiName><shortdesc>
+     Эта операция используется для указания на завершение срока подписки клиента с удаленным адресатом.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>10</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+     Эта операция используется для указания на завершение срока подписки клиента с удаленным адресатом.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:SUBTOPIC_SEPARATOR"><apiName>SUBTOPIC_SEPARATOR</apiName><shortdesc>
+     Строка разделителя, используемая для разделения подтемы и селекторов в заголовках добавления и удаления подписки.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>_;_</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Строка разделителя, используемая для разделения подтемы и селекторов в заголовках добавления и удаления подписки.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:TRIGGER_CONNECT_OPERATION"><apiName>TRIGGER_CONNECT_OPERATION</apiName><shortdesc>
+      Эта операция используется для запуска подключения ChannelSet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>13</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Эта операция используется для запуска подключения ChannelSet.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:UNKNOWN_OPERATION"><apiName>UNKNOWN_OPERATION</apiName><shortdesc>
+      Операция по умолчанию для новых экземпляров CommandMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>10000</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Операция по умолчанию для новых экземпляров CommandMessage.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:UNSUBSCRIBE_OPERATION"><apiName>UNSUBSCRIBE_OPERATION</apiName><shortdesc>
+      Эта операция используется для отмены подписки с удаленного адреса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1</apiData><apiType value="uint"/></apiValueDef><apiDesc>
+      Эта операция используется для отмены подписки с удаленного адреса.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.messages:CommandMessage:operation"><apiName>operation</apiName><shortdesc>
+      Предоставляет доступ к операции/команде для CommandMessage.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+      Предоставляет доступ к операции/команде для CommandMessage. Операции указывают способ обработки сообщения удаленным адресатом.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.messages:ISmallMessage"><apiName>ISmallMessage</apiName><shortdesc>
+ Интерфейс маркера, указывающий, что IMessage имеет меньшую альтернативную форму для сериализации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.messaging.messages:IMessage</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ Интерфейс маркера, указывающий, что IMessage имеет меньшую альтернативную форму для сериализации.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.messaging.messages:ISmallMessage:mx.messaging.messages:ISmallMessage:getSmallMessage"><apiName>getSmallMessage</apiName><shortdesc>
+     Этот метод должен быть реализован подклассами, имеющими «маленькую» форму, что обычно достигается с помощью flash.utils.IExternalizable.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает альтернативное представление flex.messaging.messages.IMessage, в результате чего сериализованная форма меньше стандартного сообщения.
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+     Этот метод должен быть реализован подклассами, имеющими «маленькую» форму, что обычно достигается с помощью <codeph>flash.utils.IExternalizable</codeph>. Если такая форма недоступна, метод должен возвращать пустое значение.
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

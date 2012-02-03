@@ -1,0 +1,1654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.accessibility"><apiName>spark.accessibility</apiName><apiDetail/><apiClassifier id="spark.accessibility:ButtonBarBaseAccImpl"><apiName>ButtonBarBaseAccImpl</apiName><shortdesc>
+  ButtonBarBaseAccImpl 是 spark.components.supportClasses.ButtonBarBase 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonBarBaseAccImpl 是 spark.components.supportClasses.ButtonBarBase 的辅助功能实现类。
+ 
+  <p>虽然 TabBar 有自己的辅助功能实现子类，但 ButtonBar 仅使用 ButtonBarBase 的子类。因此，本说明的其余部分指的是常用的 ButtonBar 组件，而不是 ButtonBarBase 基类。</p>
+ 
+  <p>创建 Spark ButtonBar 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 ButtonBar。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>ButtonBar 的 MSAA 子代是其按钮。如下文所述，这些 Button 的辅助功能由 ButtonBar 管理；Flash Player 会忽略这些按钮自身的 <codeph>accessibilityImplementation</codeph> 和 <codeph>accessibilityProperties</codeph>。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>ButtonBar 的 MSAA 角色为 ROLE_SYSTEM_TOOLBAR。</p>
+ 
+  <p>ButtonBar 中每个 Button 的角色为 ROLE_SYSTEM_PUSHBUTTON。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>ButtonBar 的默认 MSAA 名称为一个空字符串。该名称包装在 FormItem 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 ButtonBar 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>每个 Button 的名称由 ButtonBar 的 <codeph>itemToLabel()</codeph> 方法确定。</p>
+ 
+  <p>当更改 ButtonBar 或其某个 Button 的名称时，ButtonBar 将为该 Button 分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_NAMECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>ButtonBar 的 MSAA 描述默认为一个空字符串，但您可以设置 ButtonBar 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每个 Button 的描述都是一个空字符串。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>ButtonBar 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 ButtonBar 具有焦点时）</li>
+  </ul></p>
+ 
+  <p>ButtonBar 中 Button 的状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_FOCUSED（当该项具有焦点时）</li>
+    <li>STATE_SYSTEM_PRESSED（当选择 ButtonBar 时）</li>
+  </ul></p>
+ 
+  <p>当更改 ButtonBar 或其某个 Button 的状态时，ButtonBar 将为该按钮分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_STATECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>ButtonBar 或其中的 Button 没有 MSAA 值。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>ButtonBar 或其中 Button 的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>ButtonBar 没有 MSAA DefaultAction。</p>
+ 
+  <p>ButtonBar 中 Button 的 DefaultAction 为“按下”。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>ButtonBar 及其各个按钮接受焦点。接受焦点时，ButtonBar 将分派 MSAA 事件 EVENT_OBJECT_FOCUS。按钮通过箭头键导航获得焦点时，不会自动选择该按钮。要选择一个获得焦点的按钮，用户必须按空格键。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>MSAA 选择将按下与指定 childID 对应的按钮。一次只能按下一个按钮。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ButtonBarBaseAccImpl:ButtonBarBaseAccImpl"><apiName>ButtonBarBaseAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ButtonBarBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 ButtonBarBase 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 ButtonBarBase 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 ButtonBarBase 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+  TabBarAccImpl 是 spark.components.TabBar 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ButtonBarBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TabBarAccImpl 是 spark.components.TabBar 的辅助功能实现类。
+ 
+  <p>创建 Spark TabBar 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 TabBar。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>TabBar 的 MSAA 子代是其选项卡。如上文所述，这些选项卡的辅助功能由 TabBar 管理；Flash Player 会忽略这些选项卡自身的 <codeph>accessibilityImplementation</codeph> 和 <codeph>accessibilityProperties</codeph>。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>TabBar 的 MSAA 角色为 ROLE_SYSTEM_PAGETABLIST。</p>
+ 
+  <p>每个选项卡的角色为 ROLE_SYSTEM_PAGETAB。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>TabBar 的默认 MSAA 名称为一个空字符串。该名称包装在 FormItem 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 TabBar 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>每个选项卡的名称由 TabBar 的 <codeph>itemToLabel()</codeph> 方法确定。</p>
+ 
+  <p>当更改 TabBar 或其某个选项卡的名称时，TabBar 将为该选项卡分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_NAMECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>TabBar 的 MSAA 描述默认为一个空字符串，但您可以设置 TabBar 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每个选项卡的描述都是一个空字符串。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>TabBar 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 TabBar 具有焦点时）</li>
+  </ul></p>
+ 
+  <p>TabBar 中选项卡的状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_FOCUSED</li>
+    <li>STATE_SYSTEM_PRESSED</li>
+  </ul></p>
+ 
+  <p>当更改 TabBar 或其某个选项卡的状态时，TabBar 将为该选项卡分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_STATECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>TabBar 或其中的选项卡没有 MSAA 值。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>TabBar 或其中选项卡的 MSAA 位置是其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>TabBar 没有 MSAA DefaultAction。</p>
+ 
+  <p>TabBar 中选项卡的 DefaultAction 为“切换”。执行该操作时，将按下给定选项卡。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>TabBar 及其各个选项卡都接受焦点。接受焦点时，ButtonBar 将分派 MSAA 事件 EVENT_OBJECT_FOCUS。选项卡通过箭头键导航获得焦点时，不会自动按下。要按下获得焦点的选项卡，用户必须按空格键。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>MSAA 选择将按下与指定 childID 对应的选项卡。一次只能按下一个选项卡。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:TabBarAccImpl:TabBarAccImpl"><apiName>TabBarAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:TabBarAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 TabBar 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 TabBar 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 TabBar 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:DropDownListBaseAccImpl"><apiName>DropDownListBaseAccImpl</apiName><shortdesc>
+  DropDownListAccImpl 是 spark.components.supportClasses.DropDownListBase 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DropDownListAccImpl 是 spark.components.supportClasses.DropDownListBase 的辅助功能实现类。
+ 
+  <p>虽然 ComboBox 有自己的辅助功能实现子类，但 DropDownList 仅使用 DropDownListBase 的子类。因此，本说明的其余部分指的是常用的 DropDownList 组件，而不是 DropDownListBase 基类。</p>
+ 
+  <p>创建 Spark DropDownList 类之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 DropDownList。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>DropDownList 的 MSAA 子代为其列表项。子代数目是 <codeph>dataProvider</codeph> 中项的数目，而不只是可视呈示器的数目。</p>
+ 
+  <p>如下文所述，列表项的辅助功能由 DropDownList 管理；Flash Player 会忽略项呈示器的 <codeph>accessibilityImplementation</codeph> 和 <codeph>accessibilityProperties</codeph>。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>DropDownList 的 MSAA 角色为 ROLE_SYSTEM_COMBOBOX。</p>
+ 
+  <p>每个列表项的角色是 ROLE_SYSTEM_LISTITEM。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>DropDownList 的默认 MSAA 名称为一个空字符串。该名称包装在 FormItem 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 DropDownList 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>每个列表项的名称是由 DropDownList 的 <codeph>itemToLabel()</codeph> 方法确定的。</p>
+ 
+  <p>当更改 DropDownList 或其某个项的名称时，DropDownList 将为列表项分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_NAMECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>DropDownList 的 MSAA 描述默认为一个空字符串，但您可以设置 DropDownList 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每个列表项的描述都是一个空字符串。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>DropDownList 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 DropDownList 具有焦点时）</li>
+    <li>STATE_SYSTEM_EXPANDED（当该项打开时）</li>
+    <li>STATE_SYSTEM_COLLAPSED（当该项关闭时）</li>
+  </ul></p>
+ 
+  <p>列表项的状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED（当该项具有焦点时）</li>
+    <li>STATE_SYSTEM_SELECTABLE</li>
+    <li>STATE_SYSTEM_SELECTED（当选择该项时）</li>
+  </ul></p>
+ 
+  <p>当更改 DropDownList 或其某个列表项的状态时，DropDownList 将为该列表项分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_STATECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>DropDownList 的 MSAA 值为当前所选列表项的 MSAA 名称。</p>
+ 
+  <p>每个列表项的值都是一个空字符串。</p>
+ 
+  <p>更改 DropDownList 的值时，它将分派 MSAA 事件 EVENT_OBJECT_VALUECHANGE。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>DropDownList 或列表项的 MSAA 位置是其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>DropDownList 没有 MSAA DefaultAction</p>
+ 
+  <p>列表项的 DefaultAction 是“双击”。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>DropDownList 本身及其列表项都可以接收焦点，而无论 DropDownList 处于折叠状态还是展开状态。接收焦点时将引发 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>DropDownList 允许选择单个项，此时将引发 EVENT_OBJECT_SELECTION 事件。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:DropDownListBaseAccImpl:DropDownListBaseAccImpl"><apiName>DropDownListBaseAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:DropDownListBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 DropDownListBase 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 DropDownListBase 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 DropDownListBase 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+  ListBaseAccImpl 是以下类的超类：Spark ListAccImpl、DropDownListAccImpl、ComboBoxAccImpl、ButtonBarBaseAccImpl 和 TabBarAccImpl。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListBaseAccImpl 是以下类的超类：Spark ListAccImpl、DropDownListAccImpl、ComboBoxAccImpl、ButtonBarBaseAccImpl 和 TabBarAccImpl。
+ 
+  <p>有关 List、DropDownList、ComboBox、ButtonBar 和 TabBar 等 Spark 组件如何实现辅助功能的详细信息，请参阅这些类的相关文档。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.accessibility.xml#ListAccImpl"><linktext>spark.accessibility.ListAccImpl</linktext></link><link href="" invalidHref="spark.accessibility.DropDownListAccImpl.xml"><linktext>spark.accessibility.DropDownListAccImpl</linktext></link><link href="spark.accessibility.xml#ComboBoxAccImpl"><linktext>spark.accessibility.ComboBoxAccImpl</linktext></link><link href="spark.accessibility.xml#ButtonBarBaseAccImpl"><linktext>spark.accessibility.ButtonBarBaseAccImpl</linktext></link><link href="spark.accessibility.xml#TabBarAccImpl"><linktext>spark.accessibility.TabBarAccImpl</linktext></link></related-links><apiConstructor id="spark.accessibility:ListBaseAccImpl:ListBaseAccImpl"><apiName>ListBaseAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ListBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 ListBase 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 ListBase 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 ListBase 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:VideoPlayerAccImpl"><apiName>VideoPlayerAccImpl</apiName><shortdesc>
+  VideoPlayerAccImpl 是 spark.components.VideoPlayer 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  VideoPlayerAccImpl 是 spark.components.VideoPlayer 的辅助功能实现类。
+ 
+  <p>创建 Spark VideoPlayer 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 VideoPlayer。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>VideoPlayer 有 6 个 MSAA 子代：
+  <ol>
+    <li>播放/暂停控件</li>
+    <li>拖拉控件</li>
+    <li>播放时间指示器</li>
+    <li>静音控件</li>
+    <li>音量控件</li>
+    <li>全屏控件</li>
+  </ol></p>
+ 
+  <p>这些控件用于辅助功能时的显示顺序始终相同，而无论皮肤中的控件顺序如何。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>VideoPlayer 的 MSAA 角色为 ROLE_SYSTEM_PANE。</p>
+ 
+  <p>每个子控件的角色分别为：
+  <ol>
+    <li>播放/暂停控件：ROLE_SYSTEM_BUTTON</li>
+    <li>拖拉控件：ROLE_SYSTEM_SLIDER</li>
+    <li>播放时间指示器：ROLE_SYSTEM_STATICTEXT</li>
+    <li>静音控件：ROLE_SYSTEM_BUTTON</li>
+    <li>音量控件：ROLE_SYSTEM_SLIDER</li>
+    <li>全屏控件：ROLE_SYSTEM_BUTTON</li>
+  </ol></p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>VideoPlayer 的默认 MSAA 名称由与区域设置有关的资源指定。对于 en_US 区域设置，名称为“VideoPlayer”。该名称包装在 FormItem 元素中时，将与 FormItem 的标签结合使用。要覆盖此行为，请设置 VideoPlayer 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>每个子控件的名称都由资源以类似方式指定。en_US 名称为：
+  <ol>
+    <li>播放/暂停控件：“Play”或“Pause”</li>
+    <li>拖拉控件：“Scrub Bar”</li>
+    <li>播放时间指示器：显示的文本</li>
+    <li>静音控件：“Muted”或“Not muted”</li>
+    <li>音量控件：“Volume Bar”</li>
+    <li>全屏控件：“Full Screen”</li>
+  </ol></p>
+ 
+  <p>要覆盖这些子控件的名称，请更换 VideoPlayer 的皮肤并设置控件的 <codeph>accessibilityName</codeph>。</p>
+ 
+  <p>请注意，在您与“播放/暂停”控件以及“静音”控件交互时，会更改这些控件的 MSAA 名称。要指定这些名称，请将 <codeph>accessibilityName</codeph> 设置为逗号分隔的 MSAA 名称列表，如“Play,Pause”或“Not Muted,Muted”。</p>
+ 
+  <p>当更改 VideoPlayer 或其某个子控件的名称时，VideoPlayer 将为该控件分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_NAMECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>VideoPlayer 的 MSAA 描述默认为一个空字符串，但您可以设置 VideoPlayer 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每个子控件的描述都是一个空字符串。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>VideoPlayer 的 MSAA 状态是 STATE_SYSTEM_NORMAL。</p>
+ 
+  <p>每个子控件的状态分别为：
+  <ol>
+    <li>播放/暂停控件：
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+    <li>拖拉控件：
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+    <li>播放时间指示器：
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_READONLY</li>
+      </ul></li>
+    <li>静音控件：
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+    <li>音量控件：
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+    <li>全屏控件：
+      <ul>
+        <li>STATE_SYSTEM_UNAVAILABLE</li>
+        <li>STATE_SYSTEM_FOCUSABLE</li>
+        <li>STATE_SYSTEM_FOCUSED</li>
+      </ul></li>
+   </ol></p>
+ 
+   <p>当更改 VideoPlayer 或其某个子控件的状态时，VideoPlayer 将为该子控件分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_STATECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>VideoPlayer 没有 MSAA 值。</p>
+ 
+  <p>每个子控件的值分别为：
+  <ol>
+    <li>播放/暂停控件：没有值</li>
+    <li>拖拉控件：表示为时间量的滑块值</li>
+    <li>播放时间指示器：没有值</li>
+    <li>静音控件：没有值</li>
+    <li>音量控件：滑块值</li>
+    <li>全屏控件：没有值</li>
+  </ol></p>
+ 
+  <p>更改子控件的值时，VideoPlayer 将为该控件分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_VALUECHANGE。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>VideoPlayer 或其某个子控件的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>VideoPlayer 没有 MSAA DefaultAction。</p>
+ 
+  <p>每个子控件的 DefaultAction 分别为：
+  <ol>
+    <li>播放/暂停控件：“按下”</li>
+    <li>拖拉控件：无</li>
+    <li>播放时间指示器：无</li>
+    <li>静音控件：“按下”</li>
+    <li>音量控件：无</li>
+    <li>全屏控件：“按下”</li>
+  </ol></p>
+ 
+  <p>执行某个子控件的默认操作将产生以下效果：
+  <ol>
+    <li>播放/暂停控件：在播放和暂停之间切换</li>
+    <li>拖拉控件：无</li>
+    <li>播放时间指示器：无</li>
+    <li>静音控件：在静音和非静音之间切换</li>
+    <li>音量控件：无</li>
+    <li>全屏控件：在全屏和非全屏之间切换</li>
+  </ol></p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>VideoPlayer 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p>它的某些子控件也接受焦点：
+  <ol>
+    <li>播放/暂停控件：接受焦点</li>
+    <li>拖拉控件：接受焦点</li>
+    <li>播放时间指示器：不接受焦点</li>
+    <li>静音控件：将焦点转换到音量条</li>
+    <li>音量控件：接受焦点</li>
+    <li>全屏控件：接受焦点</li>
+  </ol></p>
+ 
+  <p>报告焦点时，如果 VideoPlayer 具有焦点，且其所有子控件都没有焦点，则它将报告自身具有焦点。否则，可能会报告为如下控件具有焦点：播放/暂停控件、拖拉控件、音量控件或全屏控件。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，VideoPlayer 不支持进行选择。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:VideoPlayerAccImpl:VideoPlayerAccImpl"><apiName>VideoPlayerAccImpl</apiName><shortdesc>
+	  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  构造函数。
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:VideoPlayerAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+	  启用 VideoPlayer 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  启用 VideoPlayer 类中的辅助功能。
+	 
+	  <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 VideoPlayer 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:TextBaseAccImpl"><apiName>TextBaseAccImpl</apiName><shortdesc>
+  TextBaseAccImpl 是 spark.components.TextBase 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TextBaseAccImpl 是 spark.components.TextBase 的辅助功能实现类。
+ 
+  <p>创建 Spark Label 或 RichText 组件之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作该 Label 或 RichText 组件。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>TextBase 没有 MSAA 子代。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>TextBase 的 MSAA 角色为 ROLE_SYSTEM_STATICTEXT。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>TextBase 的默认 MSAA 名称为其显示的文本。该文本包装在 FormItem 中时，会与 FormItem 的标签结合使用。要覆盖此行为，请设置组件的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>更改名称时，TextBase 将分派 MSAA 事件 EVENT_OBJECT_NAMECHANGE。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>TextBase 的 MSAA 描述默认为一个空字符串，但您可以设置 TextBase 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>TextBase 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_READONLY</li>
+  </ul></p>
+ 
+  <p>更改状态时，TextBase 将分派 MSAA 事件 EVENT_OBJECT_STATECHANGE。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>TextBase 没有 MSAA 值。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>TextBase 的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>TextBase 没有 MSAA DefaultAction。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>TextBase 不接受焦点。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，TextBase 不支持进行选择。</p>
+ 
+  <p><b>其他</b></p>
+ 
+  <p>MSAA 文档建议将 <codeph>accessibilityShortcut</codeph> 设置为任何关联的输入组件的快捷键键击。因为快捷键是一种辅助功能属性，并且不能通过 AccessibilityImplementation 实现，所以不能在 TextBaseAccImpl 中解决。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:TextBaseAccImpl:TextBaseAccImpl"><apiName>TextBaseAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:TextBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 TextBase 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 TextBase 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 TextBase 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:SliderBaseAccImpl"><apiName>SliderBaseAccImpl</apiName><shortdesc>
+  SliderBaseAccImpl 是 spark.components.supportClasses.SliderBase 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SliderBaseAccImpl 是 spark.components.supportClasses.SliderBase 的辅助功能实现类。
+ 
+  <p>Spark HSlider 和 VSlider 组件扩展 SliderBase，并使用 SlideBaseAccImpl 作为其辅助功能实现类。虽然没有名为 Slider 的 Spark 类，但是为方便起见，本说明的其余部分使用 Slider 一词表示 HSlider 或 VSlider。</p>
+ 
+  <p>创建 Slider 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 Slider。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>Slider 包含 3 个 MSAA 子代：
+  <ol>
+    <li>滑块左侧或底部的可单击区域</li>
+    <li>滑块</li>
+    <li>滑块右侧或顶部的可单击区域</li>
+  </ol></p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>Slider 的 MSAA 角色为 ROLE_SYSTEM_SLIDER。</p>
+ 
+  <p>每个子代的角色为：
+  <ol>
+    <li>ROLE_SYSTEM_PUSHBUTTON</li>
+    <li>ROLE_SYSTEM_INDICATOR</li>
+    <li>ROLE_SYSTEM_PUSHBUTTON</li>
+  </ol></p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>Slider 的默认 MSAA 名称为一个空字符串。该名称包装在 FormItem 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 Slider 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>每个子代的名称来源于与区域设置有关的资源。在 en_US 区域设置中，其名称为：
+  <ol>
+    <li>HSlider 的名称为“Page left”，VSlider 的名称为“Page up”</li>
+    <li>“Position”</li>
+    <li>HSlider 的名称为“Page right”，VSlider 的名称为“Page down”</li>
+  </ol></p>
+ 
+  <p>当更改 Slider 或其某个子部件的名称时，Slider 将为该部件分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_NAMECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>Slider 的 MSAA 描述默认为一个空字符串，但您可以设置 Slider 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每个子部件的描述都是一个空字符串。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>Slider 的 MSAA 状态是以下项的组合： 
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 Slider 具有焦点时）</li>
+  </ul></p>
+ 
+  <p>每个子部件的状态为：
+  <ul>
+     <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+  </ul></p>
+ 
+  <p>当更改 Slider 或其某个子部件的状态时，Slider 将为该部件分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_STATECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>Slider 的 MSAA 值是介于 0 和 100 之间的数字，</p>
+ 
+  <p>其子部件没有 MSAA 值。</p>
+ 
+  <p>更改 Slider 的值时，Slider 将分派 MSAA 事件 EVENT_OBJECT_VALUECHANGE。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>Slider 或其滑块的 MSAA 位置是其边界矩形。针对表示与滑块相邻的轨道条区域的两个子代，将返回 Slider 的边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>Slider 及其子部件没有默认操作。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>Slider 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+ <p>就 MSAA 而言，Slider 不支持进行选择。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:SliderBaseAccImpl:SliderBaseAccImpl"><apiName>SliderBaseAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:SliderBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 SliderBase 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 SliderBase 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Slider 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ButtonBaseAccImpl"><apiName>ButtonBaseAccImpl</apiName><shortdesc>
+  ButtonBaseAccImpl 是 spark.components.supportClasses.ButtonBase 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ButtonBaseAccImpl 是 spark.components.supportClasses.ButtonBase 的辅助功能实现类。
+ 
+  <p>虽然 ToggleButton、CheckBox 和 RadioButton 都有自己的辅助功能实现子类，但 Button 仅使用 ButtonBase 的子类。因此，本说明的其余部分指的是常用的 Button 组件，而不是 ButtonBase 基类。</p>
+ 
+  <p>创建 Spark Button 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 Button。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>Button 没有 MSAA 子代。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>Button 的 MSAA 角色为 ROLE_SYSTEM_PUSHBUTTON。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>Button 的默认 MSAA 名称为其显示的标签。该标签包装在 FormItem 元素中时，将与 FormItem 的标签结合使用。要覆盖此行为，请设置 Button 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>更改名称时，Button 将分派 MSAA 事件 EVENT_OBJECT_NAMECHANGE。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>Button 的 MSAA 描述默认为一个空字符串，但您可以设置 Button 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>Button 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 Button 具有焦点时）</li>
+  </ul></p>
+ 
+  <p>更改状态时，Button 将分派 MSAA 事件 EVENT_OBJECT_STATECHANGE。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>Button 没有 MSAA 值。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>Button 的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>Button 的 MSAA DefaultAction 是“按下”。</p>
+ 
+  <p>如果 Button 处于启用状态，则当 MSAA 客户端通知 Button 执行此操作时，将生成空格键的 KEY_DOWN 和 KEY_UP MouseEvent，以便模拟通过键盘按下 ButtonBase。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>Button 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，Button 不支持进行选择。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ButtonBaseAccImpl:ButtonBaseAccImpl"><apiName>ButtonBaseAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ButtonBaseAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 Button 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 Button 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Button 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+  TitleWindowAccImpl 是 spark.components.TitleWindow 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:PanelAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TitleWindowAccImpl 是 spark.components.TitleWindow 的辅助功能实现类。
+ 
+  <p>创建 Spark TitleWindow 时，会将特殊子 Sprite 的 <codeph>accessibilityImplementation</codeph> 属性设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看此组件。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>TitleWindow 没有 MSAA 子代。实际 TitleWindow 的所有子代都是 FlashPlayer 的 MSAA 树中 TitleWindow 的同级，因为 Flash Player 不支持某些对象，这些对象包含具有子代的辅助功能实现，而这些子代又包含自身的辅助功能实现。</p>
+ 
+  <p>TitleWindowAcImpl 设置为 <codeph>titleDisplay</codeph> 的 <codeph>accessibilityImplementation</codeph>，因为如果将它设置在 TitleWindow 本身，将不允许 TitleWindows 的子代在 MSAA 中公开。因此，在 <codeph>titleDisplay</codeph> 中绘制了一个不可见矩形，并使该矩形与整个 TitleWindow 大小相同，以便 MSAA 位置为整个 TitleWindow 的边界矩形。诸如 JAWS 之类的屏幕阅读器根据 MSAA 位置通告某个组件是否位于 TitleWindow 中，因为 MSAA 结构是平面结构。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>TitleWindow 的 MSAA 角色为 ROLE_SYSTEM_PANE。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>TitleWindow 的默认 MSAA 名称是其显示的标题。要覆盖此行为，请设置 TitleWindow 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>更改名称时，TitleWindow 将分派 MSAA 事件 EVENT_OBJECT_NAMECHANGE。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>TitleWindow 的 MSAA 描述默认为一个空字符串，但您可以设置 TitleWindows 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>TitleWindow 的 MSAA 状态始终是 STATE_SYSTEM_MOVEABLE。</p>
+ 
+  <p>因为未更改状态，所以 TitleWindow 不会分派 MSAA 事件 EVENT_OBJECT_STATECHANGE。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>TitleWindow 的 MSAA 值始终是一个空字符串。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>TitleWindow 的 MSAA 位置是其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>TitleWindow 没有 MSAA DefaultAction。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>TitleWindow 不接受焦点。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，TitleWindow 不支持进行选择。</p>
+ 
+  <p><b>其他</b></p>
+ 
+  <p>TitleWindow 还分派以下 MSAA 事件：
+  <ul>
+     <li>创建时分派 EVENT_OBJECT_CREATE</li>
+     <li>关闭时分派 EVENT_OBJECT_DESTROY</li>
+     <li>移动时分派 EVENT_OBJECT_LOCATIONCHANGE</li>
+  </ul></p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:TitleWindowAccImpl:TitleWindowAccImpl"><apiName>TitleWindowAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:TitleWindowAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 TitleWindow 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 TitleWindow 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 TitleWindow 的实例时，第一个特殊子 Sprite 的 <codeph>accessibilityImplementation</codeph> 属性将设置为此类的实例。如果 TitleWindowAccImpl 附加到 TitleWindow 本身，则将忽略 TitleWindow 的子代的辅助功能实现。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:NumericStepperAccImpl"><apiName>NumericStepperAccImpl</apiName><shortdesc>
+  NumericStepperAccImpl 是 spark.components.NumericStepper 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:SpinnerAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NumericStepperAccImpl 是 spark.components.NumericStepper 的辅助功能实现类。
+ 
+  <p>创建 Spark NumericStepper 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 NumericStepper。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>NumericStepper 有两个 MSAA 子代，即它的增加和减少按钮。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>NumericStepper 的 MSAA 角色为 ROLE_SYSTEM_TEXT。</p>
+ 
+  <p>每个子按钮的角色为 ROLE_SYSTEM_PUSHBUTTON。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>NumericStepper 的默认 MSAA 名称为一个空字符串。该名称包装在 FormItem 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 NumericStepper 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>每个子按钮的名称来源于与区域设置有关的资源。对于 en_US 区域设置，子按钮名称为“More”和“Less”。</p>
+ 
+  <p>当更改 NumericStepper 或其某个子按钮的名称时，NumericStepper 将为该按钮分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_NAMECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>NumericStepper 的 MSAA 描述默认为一个空字符串，但您可以设置 NumericStepper 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每个子按钮的描述都是一个空字符串。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>NumericStepper 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 Spinner 具有焦点时）</li>
+  </ul></p>
+ 
+  <p>当更改 NumericStepper 或其某个子按钮的状态时，NumericStepper 将为该按钮分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_STATECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>NumericStepper 的 MSAA 值是当前存放在 NumericStepper 中的值。</p>
+ 
+  <p>子按钮没有 MSAA 值。</p>
+ 
+  <p>更改 NumericStepper 的值时，NumericStepper 将分派 MSAA 事件 EVENT_OBJECT_VALUECHANGE。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>NumericStepper 或其某个子按钮的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>NumericStepper 没有 MSAA DefaultAction。</p>
+ 
+  <p>每个子按钮的 DefaultAction 为“按下”。</p>
+ 
+  <p>执行其中一个子按钮的默认操作将增加或减少值。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>NumericStepper 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，NumericStepper 不支持进行选择。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:NumericStepperAccImpl:NumericStepperAccImpl"><apiName>NumericStepperAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:NumericStepperAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 Spinner 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 Spinner 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Spinner 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+  ComboBoxAccImpl 是 spark.components.ComboBox 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:DropDownListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ComboBoxAccImpl 是 spark.components.ComboBox 的辅助功能实现类。
+ 
+  <p>创建 Spark ComboBox 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 ComboBox。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>ComboBox 的 MSAA 子代是其可编辑的 TextInput（childID 为 1）和其列表项（childID 为 2、3 ... n）。子代数目是 <codeph>dataProvider</codeph> 中项的数目加一，而不是可视呈示器的数目加一。</p>
+ 
+  <p>如下文所述，TextInput 及其列表项的辅助功能由 ComboBox 管理；Flash Player 会忽略它们的 <codeph>accessibilityImplementation</codeph> 和 <codeph>accessibilityProperties</codeph>。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>ComboBox 的 MSAA 角色为 ROLE_SYSTEM_COMBOBOX。</p>
+ 
+  <p>可编辑 TextInput 的 MSAA 角色为 ROLE_SYSTEM_TEXT。</p>
+ 
+  <p>每个列表项的角色是 ROLE_SYSTEM_LISTITEM。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>ComboBox 的 MSAA 名称及其可编辑 TextInput 默认为空字符串。该名称包装在 FormItem 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 ComboBox 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>每个列表项的名称由 ComboBox 的 <codeph>itemToLabel()</codeph> 方法确定</p>
+ 
+  <p>当更改 ComboBox 或其某个项的名称时，ComboBox 将为该列表项分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_NAMECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>ComboBox 的 MSAA 描述默认为一个空字符串，但您可以设置 ComboBox 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每个列表项的描述都是一个空字符串。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>ComboBox 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 ComboBox 具有焦点时）</li>
+    <li>STATE_SYSTEM_EXPANDED（当该项打开时）</li>
+    <li>STATE_SYSTEM_COLLAPSED（当该项关闭时）</li>
+  </ul></p>
+ 
+  <p>可编辑 TextInput 的状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 ComboBox 具有焦点时）</li>
+  </ul></p>
+ 
+  <p>列表项的状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED（当该项具有焦点时）</li>
+    <li>STATE_SYSTEM_SELECTABLE</li>
+    <li>STATE_SYSTEM_SELECTED（当选择该项时）</li>
+  </ul></p>
+ 
+  <p>当 ComboBox、其 TextInput 或其某个列表项的状态更改时，ComboBox 将为 TextInput 或该列表项分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_STATECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>ComboBox 的 MSAA 值为当前所选列表项的 MSAA 名称，或输入到 TextInput 中的文本。</p>
+ 
+  <p>列表项的值始终是空字符串。</p>
+ 
+  <p>更改 ComboBox 的值时，ComboBox 将分派 MSAA 事件 EVENT_OBJECT_VALUECHANGE。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>ComboBox、其 TextInput 或其某个列表项的 MSAA 位置是其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>ComboBox 或其 TextInput 都没有 MSAA DefaultAction。</p>
+ 
+  <p>列表项的 DefaultAction 是“双击”。执行此操作时即选择该项。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>ComboBox 本身及其列表项都可以接收焦点，而无论 ComboBox 处于折叠状态还是展开状态。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>ComboBox 允许选择单个项，此时将引发 EVENT_OBJECT_SELECTION 事件。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ComboBoxAccImpl:ComboBoxAccImpl"><apiName>ComboBoxAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ComboBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 ComboBox 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 ComboBox 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 ComboBox 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+  RadioButtonAccImpl 是 spark.components.RadioButton 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:CheckBoxAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RadioButtonAccImpl 是 spark.components.RadioButton 的辅助功能实现类。
+ 
+  <p>创建 Spark RadioButton 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 RadioButton。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>RadioButton 没有 MSAA 子代。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>RadioButton 的 MSAA 角色为 ROLE_SYSTEM_RADIOBUTTON。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>RadioButton 的默认 MSAA 名称为其显示的标签。该标签包装在 FormItem 中时，将与 FormItem 的标签结合使用。要覆盖此行为，请设置 RadioButton 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>更改名称时，RadioButton 将分派 MSAA 事件 EVENT_OBJECT_NAMECHANGE。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>RadioButton 的 MSAA 描述默认为一个空字符串，但您可以设置 RadioButton 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>RadioButton 的 MSAA 状态是以下项的组合： 
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 RadioButton 具有焦点时）</li>
+    <li>STATE_SYSTEM_CHECKED（当选择状态为 true 时）</li>
+  </ul></p>
+ 
+  <p>更改状态时，RadioButton 将分派 MSAA 事件 EVENT_OBJECT_STATECHANGE。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>RadioButton 没有 MSAA 值。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>RadioButton 的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>RadioButton 的 MSAA DefaultAction 为“选中”。</p>
+ 
+  <p>如果 RadioButton 处于启用状态，则当 MSAA 客户端通知 RadioButton 执行此操作时，将生成 SPACE 键的 KEY_DOWN 和 KEY_UP MouseEvent，以便模拟通过键盘按下 RadioButton。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>RadioButton 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，RadioButton 不支持进行选择。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:RadioButtonAccImpl:RadioButtonAccImpl"><apiName>RadioButtonAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:RadioButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 RadioButton 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 RadioButton 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 RadioButton 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ToggleButtonAccImpl"><apiName>ToggleButtonAccImpl</apiName><shortdesc>
+  ToggleButtonAccImpl 是 spark.components.ToggleButton 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ButtonBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ToggleButtonAccImpl 是 spark.components.ToggleButton 的辅助功能实现类。
+ 
+  <p>创建 Spark ToggleButton 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 ToggleButton。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>ToggleButton 没有 MSAA 子代。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>ToggleButton 的 MSAA 角色为 ROLE_SYSTEM_PUSHBUTTON。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>ToggleButton 的默认 MSAA 名称为其显示的标签。该标签包装在 FormItem 元素中时，将与 FormItem 的标签结合使用。要覆盖此行为，请设置 ToggleButton 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>要为基于图标的 ToggleButton 的不同状态提供两个单独的名称（如“Mute”和“Unmute”，或“Play”和“Pause”），则可以在 <codeph>accessibilityName</codeph> 属性中使用逗号分隔这两个名称，如 <codeph>accessibilityProperty="Mute,Unmute"</codeph>。使用这种特定于状态的名称时，按钮在按下时将不会公开其“按下”状态。</p>
+ 
+  <p>更改名称时，ToggleButton 将分派 MSAA 事件 EVENT_OBJECT_NAMECHANGE。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>ToggleButton 的 MSAA 描述默认为一个空字符串，但您可以设置 ToggleButton 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>ToggleButton 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 CheckBox 具有焦点时）</li>
+    <li>STATE_SYSTEM_PRESSED（当选择状态为 true 时使用，但在已提供特定于状态的名称时不使用）</li>
+  </ul></p>
+ 
+  <p>更改状态时，ToggleButton 将分派 MSAA 事件 EVENT_OBJECT_STATECHANGE。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>ToggleButton 没有 MSAA 值。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>ToggleButton 的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>ToggleButton 的 MSAA DefaultAction 是“切换”。</p>
+ 
+  <p>如果 ToggleButton 处于启用状态，则当 MSAA 客户端通知 Button 执行此操作时，将生成空格键的 KEY_DOWN 和 KEY_UP MouseEvent，以便模拟通过键盘按下 ToggleButton。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>ToggleButton 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，ToggleButton 不支持进行选择。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ToggleButtonAccImpl:ToggleButtonAccImpl"><apiName>ToggleButtonAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ToggleButtonAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 ToggleButton 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 ToggleButton 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 ToggleButton 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+  ListAccImpl 是 spark.components.List 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ListAccImpl 是 spark.components.List 的辅助功能实现类。
+ 
+  <p>创建 Spark ListBase 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 List。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>列表的 SAA 子代为其列表项。子代数目是 <codeph>dataProvider</codeph> 中项的数目，而不只是可视呈示器的数目。</p>
+ 
+  <p>如上文所述，列表项的辅助功能由 List 管理；Flash Player 会忽略项呈示器的 <codeph>accessibilityImplementation</codeph> 和 <codeph>accessibilityProperties</codeph>。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>List 的 MSAA 角色为 ROLE_SYSTEM_LIST。</p>
+ 
+  <p>List 中每个列表项的角色为 ROLE_SYSTEM_LISTITEM。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>List 的默认 MSAA 名称为一个空字符串。该名称包装在 FormItem 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 List 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>每个列表项的名称是由 List 的 <codeph>itemToLabel()</codeph> 方法确定的。</p>
+ 
+  <p>当更改 List 或其某个项的名称时，List 将为该列表项分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_NAMECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>List 的 MSAA 描述默认为一个空字符串，但您可以设置 List 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每个列表项的描述都是一个空字符串。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>List 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 List 具有焦点时）</li>
+    <li>STATE_SYSTEM_MULTISELECTABLE（当 allowMultipleSelection 为 true 时）</li>
+  </ul></p>
+ 
+  <p>列表项的状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_FOCUSABLE</li>
+    <li>STATE_SYSTEM_FOCUSED（当具有焦点时）</li>
+    <li>STATE_SYSTEM_SELECTABLE</li>
+    <li>STATE_SYSTEM_SELECTED（当 List 包含尖号时）</li>
+  </ul></p>
+ 
+  <p>更改 List 或其某个列表项的状态时，List 将为该列表项分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_STATECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>List 或列表项没有 MSAA 值。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>List 或其列表项的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>List 没有 MSAA DefaultAction。</p>
+ 
+  <p>列表项的 MSAA DefaultAction 为“双击”。</p>
+ 
+  <p>针对某个列表项执行默认操作会选择该项。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>List 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>List 允许选择单个或多个列表项，具体取决于 <codeph>allowMultipleSelection</codeph> 属性。选择某项时，该项会分派 MSAA 事件 EVENT_OBJECT_SELECTION。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:ListAccImpl:ListAccImpl"><apiName>ListAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:ListAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 List 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 List 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 List 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+  这是 spark.components.DataGrid 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ListBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  这是 spark.components.DataGrid 的辅助功能实现类。
+ 
+  <p>创建 Spark DataGrid 之后，其 <codeph>focusOwner</codeph> 子对象的 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。辅助功能实现放置于该占位符 <codeph>focusOwner</codeph> 对象上，以便 DataGrid 的辅助功能实现不掩盖项编辑器的辅助功能实现。DataGrid 组件自身不具有辅助功能实现。需要该步骤，因为 Flash Player 的当前版本不支持 MSAA 对象的多个级别。项编辑器可以是任意组件并需要是全部 MSAA 对象。项编辑器对象会作为 MSAA 树结构中 DataGrid 的同级对象出现。每个项编辑器的辅助功能实现因此通过与该组件相关联的辅助功能实现（如 CheckBox 的 <codeph>CheckBoxAccImpl</codeph>）处理。项编辑器的辅助功能实现仅在存在项编辑器会话时出现，且同时仅可以有一个项编辑器活动；因此，在任意时间具有项编辑器辅助功能实现活动的一个实例，或不存在实例。</p>
+ 
+  <p>在 <codeph>DataGrid</codeph> 类中覆盖两种方法，以正确处理 <codeph>DataGrid</codeph> 和 <codeph>DataGrid</codeph> 的 <codeph>focusOwner</codeph> 子级之间的焦点。<codeph>GridItemRenderer</codeph> 类将项呈示器的辅助功能关闭，因为默认情况下，会按照 DataGrid 辅助功能实现下的简单对象处理。当其限制非项编辑器组件（如 CheckBox、Panel 等）可以在 DataGrid 中的使用方式时，可防止这些项目显示为 MSAA 树中 DataGrid 的同级。允许所有网格项呈示器显示为 MSAA 树中 DataGrid 的同级后，会使屏幕阅读器的用户感到困惑，因为没有任何上下文或关系。若需要显示这些已启用辅助功能的呈示器，开发人员当然可以覆盖该默认行为。</p>
+ 
+  <p>然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 DataGrid。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><codeph>DataGridAccImpl</codeph> 扩展 <codeph>ListBaseAccImpl</codeph>（因为 <codeph>DataGrid</codeph> 扩展用于扩展 <codeph>ListBase</codeph> 类的 <codeph>DataGridBase</codeph>）。Spark <codeph>DataGridAccImpl</codeph> 与 MX <codeph>AdvancedDataGridAccImpl</codeph> 最为相似，因为 AdvancedDataGrid 也支持 MX DataGrid 所不支持的单个单元格和行选择。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>按此顺序，DataGrid 的 MSAA 子代为</p>
+  <ul>
+  <li>每个可见标题单元格的一个子代（从左侧开始）。“可见”在此处意味着不是由开发人员隐藏的 (<codeph>column.visible=false</codeph>)。开发人员未标记为不可见但向下滚动屏幕在此认为“可见”的列标题。</li>
+  <li>在行选择模式下，网格中每个数据行的一个子代；或者</li>
+  <li>在单元格选择模式下，网格中每个单元格的一个子代，不包括不可见（如上所述）列中的单元格。</li>
+  </ul>
+ 
+  <p>子代的数量依赖于 <codeph>dataProvider</codeph> 中行与列的数量，而不是当前显示在屏幕上的项目数量。</p>
+ 
+  <p>请注意，与 <codeph>ListBase</codeph> 不同，DataGrid 子代计数不反映控件的数据行数量。辅助技术因此应避免将 <codeph>AccChildCount</codeph> 用作报告行计数的方法。</p>
+ 
+  <p>该属性不是由项编辑器的 DataGrid 辅助功能实现处理的，因为项编辑器对自己进行管理。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>DataGrid 的 MSAA 的角色为 <codeph>ROLE_SYSTEM_LIST</codeph>。</p>
+ 
+  <p>DataGrid 中每个数据行或单元格的角色为 <codeph>ROLE_SYSTEM_LISTITEM</codeph>。</p>
+ 
+  <p>DataGrid 中的每个标题单元格的角色为 <codeph>ROLE_SYSTEM_COLUMNHEADER</codeph>。</p>
+ 
+  <p>该属性不是由项编辑器的 DataGrid 辅助功能实现处理的，因为项编辑器对自己进行管理。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>DataGrid 的 MSAA 名称默认为一个空字符串。该名称包装在 <codeph>FormItem</codeph> 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 DataGrid 的 <codeph>accessibilityName</codeph> 属性。设置 <codeph>accessibilityName</codeph> 属性也会将可访问名称应用于代表 DataGrid 的 DataGrid 的 <codeph>focusOwner</codeph> 子对象。</p>
+ 
+  <p>每个数据行的名称（在行选择模式下）是表单“_column1Name_: _column1Value_, _column2Name_: _column2Value_, ..., _columnNName_: _columnNValue_, Row _m_ of _n_”的字符串。列使用逗号互相分隔，且列名称和值使用冒号互相分隔。开发人员隐藏的列会从 Name 字符串中完全省略。示例 Name 字符串：“Contact Name: Doug, Contact Phone: 555-1212, Contact Zip: 12345, row 3 of 7”。</p>
+  <p>请注意，“Row _m_ of _n_”已本地化。</p>
+ 
+  <p>在列 1 中的每个数据单元格的 Name（在单元格选择模式下）是表单“_columnName_: _columnValue_, Row _m_ of _n_”的字符串。例如：“Contact Phone: 555-1212, Row 2 of 5”。随后的列使用相同格式，但省略“Row _m_ of _n_”部分。</p>
+  <p>请注意，“Row _m_ of _n_”已本地化。</p>
+ 
+  <p>列标题（在单元格或行选择模式下）的 Name 字符串通常是标题文本。例如：“Contact Phone”。但如果网格按相应列进行了排序，则字符串“sorted”或“sorted descending”会追加至列名，以显示排序和方向。例如：“Contact Name sorted”。对于多列排序，级别字符串也追加，用于指示排序列的集合中每个列的级别。例如，如果网格首先按列 3 排序，然后按列 2 排序，其列 2 按降序排序，列 3 的名称以“Sorted Level 1”结束，列 2 的名称以“Sorted descending level 2”结束。本地化指示升序排序、降序排序和排序级别的字符串。</p>
+ 
+  <p>当更改 DataGrid 或其某个项的名称时，DataGrid 将为行或单元格分派具有正确 childID 的 MSAA 事件 <codeph>EVENT_OBJECT_NAMECHANGE</codeph>，或者为其本身分派 0。</p>
+ 
+  <p>如果辅助功能名称不是为项编辑器设置的，则会基于单元格的列标题名称设置一个辅助功能名称。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>DataGrid 的 MSAA 描述默认为一个空字符串，但您可以设置 DataGrid 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每行、每个单元格或每个标题的说明都是空字符串，且无法由 AccImpl 设置。</p>
+ 
+  <p>该属性不是由项编辑器的 DataGrid 辅助功能实现处理的，因为项编辑器对自己进行管理。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>DataGrid 的 MSAA 状态是以下项的组合：</p>
+  <ul>
+  <li><codeph>STATE_SYSTEM_UNAVAILABLE</codeph>（当 <codeph>enabled</codeph> 为 <codeph>false</codeph> 时）</li>
+  <li><codeph>STATE_SYSTEM_FOCUSABLE</codeph>（当 <codeph>enabled</codeph> 为 <codeph>true</codeph> 时）</li>
+  <li><codeph>STATE_SYSTEM_FOCUSED</codeph>（当 <codeph>enabled</codeph> 为 <codeph>true</codeph> 且 DataGrid 具有焦点时）</li>
+  <li><codeph>STATE_SYSTEM_MULTISELECTABLE</codeph>（当 <codeph>allowMultipleSelection</codeph> 为 true 时）</li>
+  </ul>
+ 
+  <p>数据行或单元格的状态是以下项的组合：</p>
+  <ul>
+  <li><codeph>STATE_SYSTEM_FOCUSABLE</codeph></li>
+  <li><codeph>STATE_SYSTEM_FOCUSED</codeph>（当具有焦点时）</li>
+  <li><codeph>STATE_SYSTEM_OFFSCREEN</codeph>（当行或单元格滚动到屏幕外时）</li>
+  <li><codeph>STATE_SYSTEM_SELECTABLE</codeph></li>
+  <li><codeph>STATE_SYSTEM_SELECTED</codeph>（当选择该项时）</li>
+  </ul>
+ 
+  <p>标题单元格的状态是 <codeph>STATE_SYSTEM_NORMAL</codeph>，因为标题单元格可能无法获得焦点或无法被选中。因为当前已实现，所以标题单元格可能不会报告 <codeph>STATE_SYSTEM_OFFSCREEN</codeph>，即使已移动网格自身，使其标题在屏幕外，也会如此。</p>
+ 
+  <p>当更改 DataGrid 或其某个项的状态时，DataGrid 将为该行或单元格分派具有正确 childID 的 MSAA 事件 <codeph>EVENT_OBJECT_STATECHANGE</codeph>，或者为其本身分派 0。</p>
+ 
+  <p>该属性不是由项编辑器的 DataGrid 辅助功能实现处理的，因为项编辑器对自己进行管理。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>DataGrid 与其子代（行、单元格和标题）不具有 MSAA 值。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>DataGrid 的 MSAA 位置或其中的行、数据单元格或标题单元格是其边界矩形。未定义当前在屏幕上不显示的项目的位置。</p>
+ 
+  <p>该属性不是由项编辑器的 DataGrid 辅助功能实现处理的，因为项编辑器对自己进行管理。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>DataGrid 没有 MSAA DefaultAction。行或单元格的 MSAA DefaultAction 是“双击”，标题单元格的 MSAA DefaultAction 是“单击”，且请求默认操作字符串时，会返回相应的本地化字符串。</p>
+ 
+  <p>在数据行或单元格上执行默认操作会导致其获得焦点并将其选中，并可能导致其它行为（具体取决于单元格/行类型）。在标题上执行默认操作会导致按相应列将网格进行排序。在标题上重复的默认操作会在升序和降序之间切换排序顺序。在此次编写中，没有通过 AccImpl 安排同时在几个列中进行多级别排序。</p>
+ 
+  <p>该属性不是由项编辑器的 DataGrid 辅助功能实现处理的，因为项编辑器对自己进行管理。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>在网格中没有特定项目（行或单元格，具体取决于选择模式）作为焦点时，焦点返回 0，指示该网格自身已具有焦点。此种情况仅在网格不包含数据时发生。</p>
+ 
+  <p>当行（行选择模式）或单元格（单元格选择模式）具有焦点时，焦点返回设置了焦点的项目的 childID。</p>
+ 
+  <p>当 DataGrid 获得焦点时，其分派 MSAA 事件 <codeph>EVENT_OBJECT_FOCUS</codeph>。焦点在网格中的行或单元格之间移动时也会分派该事件。</p>
+ 
+  <p>项编辑器启动或出现时，焦点更改事件会在项编辑器上触发。保存或关闭项编辑器时，会在 DataGrid 上触发焦点更改事件。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>DataGrid 允许选中单个行、单个单元格、多个行或多个单元格，具体取决于 <codeph>allowMultipleSelection</codeph> 属性。选择将返回选中项目的整数 childID 数组。</p>
+ 
+  <p>专门选择某项时，该项会分派 MSAA 事件 <codeph>EVENT_OBJECT_SELECTION</codeph>。当单元格（单元格选择模式）或行（行选择模式）添加至当前选择集时，分派的事件为 <codeph>EVENT_OBJECT_SELECTIONADD</codeph>。同样，如果项目（单元格或行）从选择中删除，则已分派事件为 <codeph>EVENT_OBJECT_SELECTIONREMOVE</codeph>。如果所有选择已清除（不管已选择项目的数量），或已执行选择所有或选择区域操作，则已分派事件为 <codeph>EVENT_OBJECT_SELECTIONWITHIN</codeph>。与上述情况都不匹配的任何选择操作会分派 <codeph>EVENT_OBJECT_SELECTION</codeph>。</p>
+ 
+  <p>该属性不是由项编辑器的 DataGrid 辅助功能实现处理的，因为项编辑器对自己进行管理。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p><codeph>accSelect</codeph> 方法实现通过 MSAA 针对 DataGrid 中涉及选择和/或焦点的更改所进行的请求。DataGrid 的 AccImpl 支持对 DataGrid 其自身的焦点设置，或对 DataGrid 中的某一数据项或数据项集（行或单元格，具取决于选择模式）的焦点设置。支持的操作包括设置焦点，专门选择某一项，以及从选择中添加和删除某一项或项集，所有都按照在 Microsoft Active Accessibility 规范中的定义。在此次编写中，尝试使用 <codeph>accSelect</codeph> 扩展在单元格多选择模式下已选择的多单元格区域以同时包括更多行和列，产生的结果与使用鼠标执行相同操作而产生的结果可能不同。</p>
+ 
+  <p>该属性不是由项编辑器的 DataGrid 辅助功能实现处理的，因为项编辑器对自己进行管理。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:DataGridAccImpl:DataGridAccImpl"><apiName>DataGridAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:DataGridAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 DataGrid 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 DataGrid 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 DataGrid 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+  CheckBoxAccImpl 是 spark.components.CheckBox 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.accessibility:ButtonBaseAccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  CheckBoxAccImpl 是 spark.components.CheckBox 的辅助功能实现类。
+ 
+  <p>创建 Spark CheckBox 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 CheckBox。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>CheckBox 没有 MSAA 子代。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>CheckBox 的 MSAA 角色为 ROLE_SYSTEM_CHECKBOX。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>CheckBox 的默认 MSAA 名称为其显示的标签。该标签包装在 FormItem 元素中时，将与 FormItem 的标签结合使用。要覆盖此行为。请设置 CheckBox 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>更改名称时，CheckBox 将分派 MSAA 事件 EVENT_OBJECT_NAMECHANGE。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>CheckBox 的 MSAA 描述默认为一个空字符串，但您可以设置 CheckBox 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>CheckBox 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 CheckBox 具有焦点时）</li>
+    <li>STATE_SYSTEM_CHECKED（当选择状态为 true 时）</li>
+  </ul></p>
+ 
+  <p>更改名称时，CheckBox 将分派 MSAA 事件 EVENT_OBJECT_STATECHANGE。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>CheckBox 没有 MSAA 值。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>CheckBox 的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>CheckBox 的 MSAA DefaultAction 为“选中”或“取消选中”，具体取决于其当前是否处于选中状态。</p>
+ 
+  <p>如果 CheckBox 处于启用状态，则当 MSAA 客户端通知 CheckBox 执行此操作时，将生成空格键的 KEY_DOWN 和 KEY_UP MouseEvent，以便模拟通过键盘按下 CheckBox。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>CheckBox 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，CheckBox 不支持进行选择。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:CheckBoxAccImpl:CheckBoxAccImpl"><apiName>CheckBoxAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:CheckBoxAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 CheckBox 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 CheckBox 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 CheckBox 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:RichEditableTextAccImpl"><apiName>RichEditableTextAccImpl</apiName><shortdesc>
+  RichEditableTextAccImpl 是 spark.components.RichEditableText 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RichEditableTextAccImpl 是 spark.components.RichEditableText 的辅助功能实现类。
+ 
+  <p>创建 Spark RichEditableText 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 RichEditableText。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>RichEditableText 没有 MSAA 子代。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>RichEditableText 的 MSAA 角色为 ROLE_SYSTEM_TEXT。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>RichEditableText 的默认 MSAA 名称为空字符串。该名称包装在 FormItem 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 RichEditableText 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>更改名称时，RichEditableText 将分派 MSAA 事件 EVENT_OBJECT_NAMECHANGE。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>RichEditableText 的 MSAA 描述默认为一个空字符串，但您可以设置 RichEditableText 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>RichEditableText 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 RichEditableText 具有焦点时）</li>
+    <li>STATE_SYSTEM_PROTECTED（当 displayAsPassword 为 true 时）</li>
+    <li>STATE_SYSTEM_READONLY（当可编辑状态为 false 时）</li>
+  </ul></p>
+ 
+  <p>更改状态时，RichEditableText 将分派 MSAA 事件 EVENT_OBJECT_STATECHANGE。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>RichEditableText 的 MSAA 值就是其 <codeph>text</codeph> 属性。</p>
+ 
+  <p>更改值时，RichEditableText 将分派 MSAA 事件 EVENT_OBJECT_VALUECHANGE。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>RichEditableText 的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>RichEditableText 没有 MSAA DefaultAction。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>RichEditableText 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，RichEditableText 不支持进行选择，并且文本选择不是 Microsoft 的 IAccessibility COM 接口中的一项功能。但在 Player 10.1 和更高版本中，屏幕阅读器可以在 Adobe 的 ISimpleTextSelection COM 接口中通过 <codeph>GetSelection()</codeph> 方法确定当前选择的文本范围，该方法将调用此类中的 <codeph>selectionAnchorIndex</codeph> 和 <codeph>selectionActiveIndex</codeph> getter。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:RichEditableTextAccImpl:RichEditableTextAccImpl"><apiName>RichEditableTextAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:RichEditableTextAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 RichEditableText 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 RichEditableText 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 RichEditableText 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.accessibility:RichEditableTextAccImpl:selectionActiveIndex:get"><apiName>selectionActiveIndex</apiName><shortdesc>
+      相对于 RichEditableText 的 text 字符串开头的字符位置，用于指定用箭头键扩展选区时该选区的终点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+     
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      相对于 RichEditableText 的 <codeph>text</codeph> 字符串开头的字符位置，用于指定用箭头键扩展选区时该选区的终点。
+     
+      <p>活动位置可以是选区的起点或终点。</p>
+     
+      <p>例如，如果拖动选择位置 12 到位置 8 之间的区域，则 <codeph>selectionAnchorPosition</codeph> 将为 12，<codeph>selectionActivePosition</codeph> 将为 8，按向左箭头后 <codeph>selectionActivePosition</codeph> 将变为 7。</p>
+     
+      <p>值为 -1 时，表示“未设置”。</p>
+	 
+	  <p>在 Player 10.1 及更高版本和 AIR 2.0 及更高版本中，AccessibilityImplementation 可以实现 <codeph>selectionAnchorIndex</codeph> 和 <codeph>selectionAnchorIndex</codeph>，以使辅助功能客户端通过 Adobe 的 ISimpleTextSelection COM 接口了解 TLF 文本中的文本选择。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.accessibility.xml#RichEditableTextAccImpl/selectionAnchorIndex"><linktext>spark.accessibility.RichEditableTextAccImpl.selectionAnchorIndex</linktext></link><link href="spark.components.xml#RichEditableText/selectionActivePosition"><linktext>spark.components.RichEditableText.selectionActivePosition</linktext></link></related-links></apiValue><apiValue id="spark.accessibility:RichEditableTextAccImpl:selectionAnchorIndex:get"><apiName>selectionAnchorIndex</apiName><shortdesc>
+      相对于 RichEditableText 的 text 字符串开头的字符位置，用于指定用箭头键扩展选区时保持固定的选区终点。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.0"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/><apiDefaultValue>-1
+     
+	  </apiDefaultValue></apiValueDef><apiDesc>
+      相对于 RichEditableText 的 <codeph>text</codeph> 字符串开头的字符位置，用于指定用箭头键扩展选区时保持固定的选区终点。
+     
+      <p>锚点位置可以是选区的起点或终点。</p>
+     
+      <p>例如，如果拖动选择位置 12 到位置 8 之间的区域，则 <codeph>selectionAnchorPosition</codeph> 将为 12，<codeph>selectionActivePosition</codeph> 将为 8，按向左箭头后 <codeph>selectionActivePosition</codeph> 将变为 7。</p>
+     
+      <p>值为 -1 时，表示“未设置”。</p>
+	 
+	  <p>在 Player 10.1 及更高版本和 AIR 2.0 及更高版本中，AccessibilityImplementation 可以实现 <codeph>selectionAnchorIndex</codeph> 和 <codeph>selectionAnchorIndex</codeph>，以使辅助功能客户端通过 Adobe 的 ISimpleTextSelection COM 接口了解 TLF 文本中的文本选择。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.accessibility.xml#RichEditableTextAccImpl/selectionActiveIndex"><linktext>spark.accessibility.RichEditableTextAccImpl.selectionActiveIndex</linktext></link><link href="spark.components.xml#RichEditableText/selectionAnchorPosition"><linktext>spark.components.RichEditableText.selectionAnchorPosition</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.accessibility:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+  PanelAccImpl 是 spark.components.Panel 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PanelAccImpl 是 spark.components.Panel 的辅助功能实现类。
+ 
+  <p>创建 Spark Panel 时，会将特定子 Sprite 的 <codeph>accessibilityImplementation</codeph> 属性设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 Panel。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>Panel 没有 MSAA 子代。实际 Panel 的所有子代是 FlashPlayer 的 MSAA 树中 Panel 的同级，因为 Flash Player 不支持某些对象，这些对象包含具有子代的辅助功能实现，而这些子代又包含自身的辅助功能实现。</p>
+ 
+  <p>PanelAccImpl 设置为 <codeph>titleDisplay</codeph> 对象的 <codeph>accessibilityImplementation</codeph>，因为如果将它设置在 Panel 自身上，将不允许 Panel 的子代在 MSAA 中公开。因此，在 <codeph>titleDisplay</codeph> 中绘制了一个不可见矩形，并使该矩形与整个 Panel 大小相同，以便 MSAA 位置为整个 Panel 的边界矩形。诸如 JAWS 之类的屏幕阅读器根据 MSAA 位置通告某个组件是否位于分组中，因为 MSAA 结构是平面结构。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>Panel 的 MSAA 角色为 ROLE_SYSTEM_GROUPING。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>Panel 的默认 MSAA 名称为其显示的标题。要覆盖此行为，请设置 Panel 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>更改名称时，Panel 将分派 MSAA 事件 EVENT_OBJECT_NAMECHANGE。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>Panel 的 MSAA 描述默认为一个空字符串，但您可以设置 Panel 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>Panel 的 MSAA 状态始终为 STATE_SYSTEM_NORMAL，用于指示未设置状态标志。</p>
+ 
+  <p>因为未更改状态，所以 Panel 不会分派 MSAA 事件 EVENT_OBJECT_STATECHANGE。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>Panel 的 MSAA 值始终是一个空字符串。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>Panel 的 MSAA 位置是其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>Panel 没有 MSAA DefaultAction。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>Panel 不接受焦点。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，Panel 不支持进行选择。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:PanelAccImpl:PanelAccImpl"><apiName>PanelAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:PanelAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 Panel 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 Panel 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Panel 的实例时，第一个特殊子 Sprite 的 <codeph>accessibilityImplementation</codeph> 属性将设置为此类的实例。如果 PanelAccImpl 附加到 Panel 本身，则会忽略 Panel 的子代的辅助功能实现。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.accessibility:SpinnerAccImpl"><apiName>SpinnerAccImpl</apiName><shortdesc>
+  SpinnerAccImpl 是 spark.components.Spinner 的辅助功能实现类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.accessibility:AccImpl</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SpinnerAccImpl 是 spark.components.Spinner 的辅助功能实现类。
+ 
+  <p>创建 Spark Spinner 之后，其 <codeph>accessibilityImplementation</codeph> 属性即设置为此类的实例。然后，Flash Player 将使用此类允许诸如屏幕阅读器之类的 MSAA 客户端查看和操作 Spinner。有关辅助功能实现类和 MSAA 的背景信息，请参阅 mx.accessibility.AccImpl 和 flash.accessibility.AccessibilityImplementation 类。</p>
+ 
+  <p><b>子代</b></p>
+ 
+  <p>Spinner 包含 2 个 MSAA 子代，即它的增加和减少按钮。</p>
+ 
+  <p><b>角色</b></p>
+ 
+  <p>Spinner 的 MSAA 角色为 ROLE_SYSTEM_SPINBUTTON。</p>
+ 
+  <p>每个子按钮的角色为 ROLE_SYSTEM_PUSHBUTTON。</p>
+ 
+  <p><b>名称</b></p>
+ 
+  <p>Spinner 的默认 MSAA 名称为一个空字符串。该名称包装在 FormItem 元素中时，即为 FormItem 的标签。要覆盖此行为，请设置 Spinner 的 <codeph>accessibilityName</codeph> 属性。</p>
+ 
+  <p>每个子按钮的名称来源于与区域设置有关的资源。对于 en_US 区域设置，子按钮名称为“More”和“Less”。</p>
+ 
+  <p>当更改 Spinner 或其某个子按钮的名称时，Spinner 将为该按钮分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_NAMECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>描述</b></p>
+ 
+  <p>Spinner 的 MSAA 描述默认为一个空字符串，但您可以设置 Spinner 的 <codeph>accessibilityDescription</codeph> 属性。</p>
+ 
+  <p>每个子按钮的描述都是一个空字符串。</p>
+ 
+  <p><b>状态</b></p>
+ 
+  <p>Spinner 的 MSAA 状态是以下项的组合：
+  <ul>
+    <li>STATE_SYSTEM_UNAVAILABLE（当启用状态为 false 时）</li>
+    <li>STATE_SYSTEM_FOCUSABLE（当启用状态为 true 时）</li>
+    <li>STATE_SYSTEM_FOCUSED（当启用状态为 true 且 Spinner 具有焦点时）</li>
+  </ul></p>
+ 
+  <p>当更改 Spinner 或其某个子按钮的状态时，Spinner 将为该按钮分派具有正确 childID 的 MSAA 事件 EVENT_OBJECT_STATECHANGE，或者为其本身分派 0。</p>
+ 
+  <p><b>值</b></p>
+ 
+  <p>Spinner 的 MSAA 值是当前存放在 Spinner 中的值。</p>
+ 
+  <p>子按钮没有 MSAA 值。</p>
+ 
+  <p>更改 Spinner 的值时，Spinner 将分派 MSAA 事件 EVENT_OBJECT_VALUECHANGE。</p>
+ 
+  <p><b>位置</b></p>
+ 
+  <p>Spinner 或其某个子按钮的 MSAA 位置为其边界矩形。</p>
+ 
+  <p><b>默认操作</b></p>
+ 
+  <p>Spinner 没有 MSAA DefaultAction。</p>
+ 
+  <p>每个子按钮的 DefaultAction 为“按下”。</p>
+ 
+  <p>执行其中一个子按钮的默认操作将增加或减少值。</p>
+ 
+  <p><b>焦点</b></p>
+ 
+  <p>Spinner 接受焦点。在接受焦点时，它将分派 MSAA 事件 EVENT_OBJECT_FOCUS。</p>
+ 
+  <p><b>选择</b></p>
+ 
+  <p>就 MSAA 而言，Spinner 不支持进行选择。</p>
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.accessibility:SpinnerAccImpl:SpinnerAccImpl"><apiName>SpinnerAccImpl</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>master</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>此 AccImpl 实例使其具有辅助功能的 UIComponent 实例。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.accessibility:SpinnerAccImpl:enableAccessibility"><apiName>enableAccessibility</apiName><shortdesc>
+      启用 Spinner 类中的辅助功能。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      启用 Spinner 类中的辅助功能。
+     
+      <p>此方法将由 MXML 编译器自动生成的应用程序启动代码调用。之后，在初始化 Spinner 实例时，会将这些实例的 <codeph>accessibilityImplementation</codeph> 属性设置为该类的实例。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

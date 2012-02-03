@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.automation.events"><apiName>mx.automation.events</apiName><apiDetail/><apiClassifier id="mx.automation.events:AutomationDragEventWithPositionInfo"><apiName>AutomationDragEventWithPositionInfo</apiName><shortdesc>
+	  AutomationDragEventWithPositionInfo 类表示作为拖放操作的一部分进行分派的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.automation.events:AutomationDragEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationDragEventWithPositionInfo 类表示作为拖放操作的一部分进行分派的事件对象。但此对象将从有助于确定拖动位置信息的组件进行分派
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link></related-links><adobeApiEvent id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_COMPLETE_dragComplete"><apiName>dragComplete</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_COMPLETE</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEventWithPositionInfo</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_DROP_dragDrop"><apiName>dragDrop</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_DROP</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEventWithPositionInfo</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_START_dragStart"><apiName>dragStart</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_START</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEventWithPositionInfo</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationDragEventWithPositionInfo:AutomationDragEventWithPositionInfo"><apiName>AutomationDragEventWithPositionInfo</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>指定的放置操作，如 <codeph>DragManager.MOVE</codeph>。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否按下 Control 键。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否按下 Alt 键。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否按下 Shift 键。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>localx</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>事件发生点相对于所属 Sprite 的水平坐标。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>localy</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>事件发生点相对于所属 Sprite 的垂直坐标。
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。通常由 Flex 控件调用且不用于应用程序代码。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_COMPLETE"><apiName>DRAG_COMPLETE</apiName><shortdesc>
+		  定义 dragComplete 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragComplete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  定义 <codeph>dragComplete</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Alt 键。</entry></row><row><entry><codeph>action</codeph></entry><entry>引发该事件的操作：<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> 或 <codeph>DragManager.NONE</codeph>。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Control 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的对象。例如，如果使用 <codeph>myButton.addEventListener()</codeph> 注册事件侦听器，则 <codeph>myButton</codeph> 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>正在拖动的项目。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>作为所拖放项目的父级的对象。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的对象；它不一定是侦听该事件的对象。使用 <codeph>currentTarget</codeph> 属性可以始终访问侦听该事件的对象。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_DROP"><apiName>DRAG_DROP</apiName><shortdesc>
+		  定义 dragDrop 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragDrop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  定义 <codeph>dragDrop</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Alt 键。</entry></row><row><entry><codeph>action</codeph></entry><entry>引发该事件的操作：<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> 或 <codeph>DragManager.NONE</codeph>。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Control 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的对象。例如，如果使用 <codeph>myButton.addEventListener()</codeph> 注册事件侦听器，则 <codeph>myButton</codeph> 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>正在拖动的项目。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>作为所拖放项目的父级的对象。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的对象；它不一定是侦听该事件的对象。使用 <codeph>currentTarget</codeph> 属性可以始终访问侦听该事件的对象。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEventWithPositionInfo:DRAG_START"><apiName>DRAG_START</apiName><shortdesc>
+		  定义 dragStart 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragStart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  定义 <codeph>dragStart</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Alt 键。</entry></row><row><entry><codeph>action</codeph></entry><entry>引发该事件的操作：<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> 或 <codeph>DragManager.NONE</codeph>。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Control 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的对象。例如，如果使用 <codeph>myButton.addEventListener()</codeph> 注册事件侦听器，则 <codeph>myButton</codeph> 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>正在拖动的项目。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>作为所拖放项目的父级的对象。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的对象；它不一定是侦听该事件的对象。使用 <codeph>currentTarget</codeph> 属性可以始终访问侦听该事件的对象。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationRecordEvent"><apiName>AutomationRecordEvent</apiName><shortdesc>
+	  AutomationRecordEvent 类表示由 AutomationManager 分派的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationRecordEvent 类表示由 AutomationManager 分派的事件对象。由功能测试类和必须记录用户交互的任何其它类使用。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:AutomationRecordEvent:RECORD_record"><apiName>record</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationRecordEvent:RECORD</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationRecordEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationRecordEvent:AutomationRecordEvent"><apiName>AutomationRecordEvent</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>record</apiData><apiDesc>事件类型；指示引发事件的动作。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>该事件是否可以在显示列表层次结构得到冒泡处理。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>是否可以阻止与事件相关联的行为。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>automationObject</apiItemName><apiType value="mx.automation:IAutomationObject"/><apiData>null</apiData><apiDesc>正在分派交互的 UIComponent 的委托。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>replayableEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>表示交互的基础事件。
+		 
+          </apiDesc></apiParam><apiParam><apiItemName>args</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>已传递到当前正被记录的方法的参数数组。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>该操作的可显示名称。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cacheable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>如果事件应保存在事件缓存中，则为 <codeph>true</codeph>，否则为 <codeph>false</codeph>。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>recordTriggeredByCustomHandling</apiItemName><apiType value="Boolean"/><apiData>false</apiData></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationRecordEvent:CUSTOM_RECORD"><apiName>CUSTOM_RECORD</apiName><shortdesc>
+		  请参阅 IAutomationManager 中的 recordCustomAutomationEvent，以了解此常量的用法
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>customRecord</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  请参阅 IAutomationManager 中的 recordCustomAutomationEvent，以了解此常量的用法
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:RECORD"><apiName>RECORD</apiName><shortdesc>
+		  AutomationRecordEvent.RECORD 常量定义 record 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>record</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>AutomationRecordEvent.RECORD</codeph> 常量定义 <codeph>record</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>args</codeph></entry><entry>针对此方法的参数数组。</entry></row><row><entry><codeph>automationObject</codeph></entry><entry>正在分派交互的 UIComponent 的委托。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>true</entry></row><row><entry><codeph>cacheable</codeph></entry><entry>如果事件应保存在事件缓存中，则为 <codeph>true</codeph>，否则为 <codeph>false</codeph>。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>methodName</codeph></entry><entry>该操作的可显示名称 </entry></row><row><entry><codeph>replayableEvent</codeph></entry><entry>表示交互的基础事件。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:args"><apiName>args</apiName><shortdesc>
+		  事件的一种序列化表示形式，为该事件的属性值 Array。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+		  事件的一种序列化表示形式，为该事件的属性值 Array。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:automationObject"><apiName>automationObject</apiName><shortdesc>
+		  正在记录此事件的 UIComponent 对象的委托。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  正在记录此事件的 UIComponent 对象的委托。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:cacheable"><apiName>cacheable</apiName><shortdesc>
+		  如果此事件可缓存，则包含 true，否则包含 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  如果此事件可缓存，则包含 <codeph>true</codeph>，否则包含 <codeph>false</codeph>。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:name"><apiName>name</apiName><shortdesc>
+		  自动化事件名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  自动化事件名称。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:recordTriggeredByCustomHandling"><apiName>recordTriggeredByCustomHandling</apiName><shortdesc>
+		  如果此事件的当前记录是由自定义记录事件引起的，则包含 true；如果不是，则包含 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  如果此事件的当前记录是由自定义记录事件引起的，则包含 <codeph>true</codeph>；如果不是，则包含 <codeph>false</codeph>。用户可以使用此字段区分由框架和自定义记录触发的记录事件。例如，如果列表具有 select 事件，且当前使用索引或选定的项目记录选择细节。然而，用户希望使用所有这两种方法记录细节，但使用同一个事件名称，这样，区分由框架触发的 select 事件和通过使用自动管理器上的 recordCustomAutomationEvent() API 触发的 select 事件将变得相当麻烦。如果该事件是使用 recordCustomAutomationEvent() API 触发的，则此标志将为 true。在其它所有情况下，框架将使此标志保持使用默认值
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationRecordEvent:replayableEvent"><apiName>replayableEvent</apiName><shortdesc>
+		  基础交互。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+		  基础交互。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationEvent"><apiName>AutomationEvent</apiName><shortdesc>
+	  AutomationEvent 类表示由 AutomationManager 分派的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationEvent 类表示由 AutomationManager 分派的事件对象。由功能测试类和必须记录用户交互的任何其它类使用。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:AutomationEvent:BEGIN_RECORD_record"><apiName>record</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationEvent:BEGIN_RECORD</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationEvent:END_RECORD_record"><apiName>record</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationEvent:END_RECORD</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationEvent:AutomationEvent"><apiName>AutomationEvent</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>beginRecord</apiData><apiDesc>事件类型；指示引发事件的动作。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>该事件是否可以在显示列表层次结构得到冒泡处理。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>是否可以阻止与事件相关联的行为。
+		 
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationEvent:BEGIN_RECORD"><apiName>BEGIN_RECORD</apiName><shortdesc>
+		  AutomationEvent.BEGIN_RECORD 常量定义 beginRecord 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>beginRecord</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>AutomationEvent.BEGIN_RECORD</codeph> 常量定义 <codeph>beginRecord</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>true</entry></row><row><entry><codeph>cacheable</codeph></entry><entry>如果事件应保存在事件缓存中，则为 <codeph>true</codeph>，否则为 <codeph>false</codeph>。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationEvent:END_RECORD"><apiName>END_RECORD</apiName><shortdesc>
+		  AutomationEvent.BEGIN_RECORD 常量定义 endRecord 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>endRecord</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>AutomationEvent.BEGIN_RECORD</codeph> 常量定义 <codeph>endRecord</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>true</entry></row><row><entry><codeph>cacheable</codeph></entry><entry>如果事件应保存在事件缓存中，则为 <codeph>true</codeph>，否则为 <codeph>false</codeph>。</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationReplayEvent"><apiName>AutomationReplayEvent</apiName><shortdesc>
+	  AutomationReplayEvent 类表示由 AutomationManager 分派、并由功能测试类以及必须重播用户交互的任何其它类使用的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationReplayEvent 类表示由 AutomationManager 分派、并由功能测试类以及必须重播用户交互的任何其它类使用的事件对象。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:AutomationReplayEvent:REPLAY_replay"><apiName>replay</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationReplayEvent:REPLAY</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationReplayEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationReplayEvent:AutomationReplayEvent"><apiName>AutomationReplayEvent</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>replay</apiData><apiDesc>事件类型；指示引发事件的动作。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>该事件是否可以在显示列表层次结构得到冒泡处理。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>是否可以阻止与事件相关联的行为。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>automationObject</apiItemName><apiType value="mx.automation:IAutomationObject"/><apiData>null</apiData><apiDesc>之前分派交互的 UIComponent 的委托。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>replayableEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>需要重放的事件。
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationReplayEvent:REPLAY"><apiName>REPLAY</apiName><shortdesc>
+		  AutomationReplayEvent.REPLAY 常量定义 replay 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>replay</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>AutomationReplayEvent.REPLAY</codeph> 常量定义 <codeph>replay</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>automationObject</codeph></entry><entry>之前分派交互的 UIComponent 的委托。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>replayableEvent</codeph></entry><entry>需要重放的事件。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationReplayEvent:automationObject"><apiName>automationObject</apiName><shortdesc>
+		  由于未真正分派的事件上的目标不可用而重播此事件时所用的 UIComponent 对象的委托。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  由于未真正分派的事件上的目标不可用而重播此事件时所用的 UIComponent 对象的委托。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationReplayEvent:replayableEvent"><apiName>replayableEvent</apiName><shortdesc>
+		  要重放的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+		  要重放的事件。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationReplayEvent:succeeded"><apiName>succeeded</apiName><shortdesc>
+		  如果重播成功，则包含 true，否则包含 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		  如果重播成功，则包含 <codeph>true</codeph>，否则包含 <codeph>false</codeph>。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:MarshalledAutomationEvent"><apiName>MarshalledAutomationEvent</apiName><shortdesc>
+	  MarshalledAutomationEvents 类表示 AutomationManager 分派的事件对象。它表示与封送相关的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  MarshalledAutomationEvents 类表示 AutomationManager 分派的事件对象。它表示与封送相关的事件。
+	  
+	  </apiDesc></apiClassifierDetail><apiConstructor id="mx.automation.events:MarshalledAutomationEvent:MarshalledAutomationEvent"><apiName>MarshalledAutomationEvent</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam><apiParam><apiItemName>applicationName</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam><apiParam><apiItemName>interAppDataToSubApp</apiItemName><apiType value="Array"/><apiData>null</apiData></apiParam><apiParam><apiItemName>interAppDataToMainApp</apiItemName><apiType value="Array"/><apiData>null</apiData></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="mx.automation.events:MarshalledAutomationEvent:marshal"><apiName>marshal</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.automation.events:MarshalledAutomationEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="mx.automation.events:MarshalledAutomationEvent:BEGIN_RECORDING"><apiName>BEGIN_RECORDING</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>BeginRecording</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_COMPLETE_REQUEST"><apiName>DRAG_DROP_COMPLETE_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>completeDragDrop</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PERFORM_REQUEST_TO_ROOT_APP"><apiName>DRAG_DROP_PERFORM_REQUEST_TO_ROOT_APP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>performDragDropRequestToRootApp</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PERFORM_REQUEST_TO_SUB_APP"><apiName>DRAG_DROP_PERFORM_REQUEST_TO_SUB_APP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>performDragDropRequestToSubApp</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PROXY_RETRIEVE_REPLY"><apiName>DRAG_DROP_PROXY_RETRIEVE_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GiveProxyReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:DRAG_DROP_PROXY_RETRIEVE_REQUEST"><apiName>DRAG_DROP_PROXY_RETRIEVE_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GiveProxy</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:END_RECORDING"><apiName>END_RECORDING</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>EndRecording</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:INITIAL_DETAILS_REPLY"><apiName>INITIAL_DETAILS_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>InitialDetailsReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:INITIAL_DETAILS_REQUEST"><apiName>INITIAL_DETAILS_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>InitialDetailsRequest</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:POPUP_HANDLER_REQUEST"><apiName>POPUP_HANDLER_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>HandlePopUp</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:START_POINT_REPLY"><apiName>START_POINT_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>startPointReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:START_POINT_REQUEST"><apiName>START_POINT_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>startPointRequest</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:UNIQUE_APPID_REPLY"><apiName>UNIQUE_APPID_REPLY</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GetUniqueAppIDReply</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:UNIQUE_APPID_REQUEST"><apiName>UNIQUE_APPID_REQUEST</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>GetUniqueAppID</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:UPDATE_SYCHRONIZATION"><apiName>UPDATE_SYCHRONIZATION</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>UpdateSynchronization</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:applicationName"><apiName>applicationName</apiName><shortdesc>
+		  包含表示应用程序的应用程序名称的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  包含表示应用程序的应用程序名称的<codeph>字符串</codeph>。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:interAppDataToMainApp"><apiName>interAppDataToMainApp</apiName><shortdesc>
+		  包含表示 findObjectID 的结果详细信息的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+		  包含表示 findObjectID 的结果详细信息的<codeph>对象</codeph>。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:MarshalledAutomationEvent:interAppDataToSubApp"><apiName>interAppDataToSubApp</apiName><shortdesc>
+		  包含表示 findObjectID 的 descriptionXML 详细信息的字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+		  包含表示 findObjectID 的 descriptionXML 详细信息的<codeph>字符串</codeph>。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:ListItemSelectEvent"><apiName>ListItemSelectEvent</apiName><shortdesc>
+	  ListItemSelectEvent 类表示在选择或取消选择基于列表的控件中的项目（如 Menu、DataGrid 或 Tree 控件）时分派的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  ListItemSelectEvent 类表示在选择或取消选择基于列表的控件中的项目（如 Menu、DataGrid 或 Tree 控件）时分派的事件对象。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:DESELECT_deselect"><apiName>deselect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:DESELECT</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:MULTI_SELECT_multiselect"><apiName>multiselect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:MULTI_SELECT</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:SELECT_INDEX_select"><apiName>select</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:SELECT_INDEX</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:ListItemSelectEvent:SELECT_select"><apiName>select</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:ListItemSelectEvent:SELECT</apiEventType><adobeApiEventClassifier>mx.automation.events:ListItemSelectEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:ListItemSelectEvent:ListItemSelectEvent"><apiName>ListItemSelectEvent</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiData>null</apiData><apiDesc>用于项目的项呈示器对象。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>触发选择动作的事件（如鼠标或键盘事件）。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>在此事件过程中是否按下 Alt 键。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>在此事件过程中是否按下 Ctrl 键。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>在此事件过程中是否按下 Shift 键。
+		 
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。通常由 Flex 控件调用且不用于应用程序代码。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:ListItemSelectEvent:DESELECT"><apiName>DESELECT</apiName><shortdesc>
+		  ListItemSelectEvent.DESELECT 常量定义取消对先前所选项目的选择时分派的事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>deselect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>ListItemSelectEvent.DESELECT</codeph> 常量定义取消对先前所选项目的选择时分派的事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性具有下列值。并非所有属性对于各种事件都有意义。有关详细信息，请参阅详细的属性说明。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Alt 键。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Ctrl 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>用于项目的项呈示器对象。</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>触发该动作的事件（如，鼠标或键盘事件）。</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.DESELECT</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:MULTI_SELECT"><apiName>MULTI_SELECT</apiName><shortdesc>
+		  ListItemSelectEvent.MULTI_SELECT 常量定义在选择多个项目的操作中选取某个项目时所分派的事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>multiSelect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>ListItemSelectEvent.MULTI_SELECT</codeph> 常量定义在选择多个项目的操作中选取某个项目时所分派的事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性具有下列值。并非所有属性对于各种事件都有意义。有关详细信息，请参阅详细的属性说明。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Alt 键。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Ctrl 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>用于项目的项呈示器对象。</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>触发该动作的事件（如，鼠标或键盘事件）。</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.MULTI_SELECT</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:SELECT_INDEX"><apiName>SELECT_INDEX</apiName><shortdesc>
+		  ListItemSelectEvent.SELECT_INDEX 常量为选择某个项目的索引时分派的事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>selectIndex</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>ListItemSelectEvent.SELECT_INDEX</codeph> 常量为选择某个项目的索引时分派的事件定义事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性具有下列值。并非所有属性对于各种事件都有意义。有关详细信息，请参阅详细的属性说明。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Alt 键。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Ctrl 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>itemIndex</codeph></entry><entry>要选择的项目的数据提供程序索引。</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>触发该动作的事件（如，鼠标或键盘事件）。</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.SELECT_INDEX</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:SELECT"><apiName>SELECT</apiName><shortdesc>
+		  ListItemSelectEvent.SELECT 常量定义在选取单个项目时分派的事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>select</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>ListItemSelectEvent.SELECT</codeph> 常量定义在选取单个项目时分派的事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性具有下列值。并非所有属性对于各种事件都有意义。有关详细信息，请参阅详细的属性说明。</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Alt 键。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>ctrlKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Ctrl 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>用于项目的项呈示器对象。</entry></row><row><entry><codeph>shiftKey</codeph></entry><entry>一个布尔值，指示在该事件过程中是否按下了 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>触发该动作的事件（如，鼠标或键盘事件）。</entry></row><row><entry><codeph>type</codeph></entry><entry>ListItemSelectEvent.SELECT</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:altKey"><apiName>altKey</apiName><shortdesc>
+		  指示在此事件过程中是否按下 Alt 键。如果是，则为 true；否则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  指示在此事件过程中是否按下 Alt 键。如果是，则为 <codeph>true</codeph>；否则为 <codeph>false</codeph>。
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:ctrlKey"><apiName>ctrlKey</apiName><shortdesc>
+		  指示在此事件过程中是否按下 Ctrl 键。如果是，则为 true；否则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  指示在此事件过程中是否按下 Ctrl 键。如果是，则为 <codeph>true</codeph>；否则为 <codeph>false</codeph>。
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:itemAutomationValue"><apiName>itemAutomationValue</apiName><shortdesc>
+		  要选择的项目的 automationValue 字符串。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  要选择的项目的 automationValue 字符串。要选择的项目在控件中不可见时可使用此字符串。 
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:itemIndex"><apiName>itemIndex</apiName><shortdesc>
+		  要选择的项目的数据提供程序索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="uint"/></apiValueDef><apiDesc>
+		  要选择的项目的数据提供程序索引。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+		  用于要选择或取消选择的项目的项呈示器对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDefaultValue>null
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  用于要选择或取消选择的项目的项呈示器对象。您可以使用此属性访问单元格数据。
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:shiftKey"><apiName>shiftKey</apiName><shortdesc>
+		  用于指示在此事件过程中是否按下 Shift 键。如果是，则为 true；否则为 false。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/><apiDefaultValue>false
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  指示在此事件过程中是否按下 Shift 键。如果是，则为 <codeph>true</codeph>；否则为 <codeph>false</codeph>。
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:ListItemSelectEvent:triggerEvent"><apiName>triggerEvent</apiName><shortdesc>
+		  触发项目选择事件的事件（如，键盘或鼠标事件）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/><apiDefaultValue>null
+		  
+		  </apiDefaultValue></apiValueDef><apiDesc>
+		  触发项目选择事件的事件（如，键盘或鼠标事件）。
+		 
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:TextSelectionEvent"><apiName>TextSelectionEvent</apiName><shortdesc>
+	 使用 TextSelectionEvent 类可以在文本字段内跟踪选定内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 使用 TextSelectionEvent 类可以在文本字段内跟踪选定内容。
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:TextSelectionEvent:TEXT_SELECTION_CHANGE_textSelectionChange"><apiName>textSelectionChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:TextSelectionEvent:TEXT_SELECTION_CHANGE</apiEventType><adobeApiEventClassifier>mx.automation.events:TextSelectionEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:TextSelectionEvent:TextSelectionEvent"><apiName>TextSelectionEvent</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>textSelectionChange</apiData><apiDesc>事件类型；指示引发事件的动作。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>beginIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>选择开始处的索引。
+		  
+		  </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>选择结束处的索引。
+		  
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。
+		  
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:TextSelectionEvent:TEXT_SELECTION_CHANGE"><apiName>TEXT_SELECTION_CHANGE</apiName><shortdesc>
+		  TextSelectionEvent.TEXT_SELECTION_CHANGE 常量定义 textSelectionChange 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>textSelectionChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>TextSelectionEvent.TEXT_SELECTION_CHANGE</codeph> 常量定义 <codeph>textSelectionChange</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>beginIndex</codeph></entry><entry>选择开始处的索引。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>endIndex</codeph></entry><entry>选择结束处的索引。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:TextSelectionEvent:beginIndex"><apiName>beginIndex</apiName><shortdesc>
+		  选择开始处的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+		  选择开始处的索引。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:TextSelectionEvent:endIndex"><apiName>endIndex</apiName><shortdesc>
+		  选择结束处的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+		  选择结束处的索引。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:AutomationDragEvent"><apiName>AutomationDragEvent</apiName><shortdesc>
+	  AutomationDragEvent 类表示作为拖放操作的一部分进行分派的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  AutomationDragEvent 类表示作为拖放操作的一部分进行分派的事件对象。
+	 
+	  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link><link href="" invalidHref="mx.core.UIComponent.xml"><linktext>mx.core.UIComponent</linktext></link></related-links><adobeApiEvent id="mx.automation.events:AutomationDragEvent:DRAG_COMPLETE_dragComplete"><apiName>dragComplete</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEvent:DRAG_COMPLETE</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEvent:DRAG_DROP_dragDrop"><apiName>dragDrop</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEvent:DRAG_DROP</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.automation.events:AutomationDragEvent:DRAG_START_dragStart"><apiName>dragStart</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:AutomationDragEvent:DRAG_START</apiEventType><adobeApiEventClassifier>mx.automation.events:AutomationDragEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:AutomationDragEvent:AutomationDragEvent"><apiName>AutomationDragEvent</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>action</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>指定的放置操作，如 <codeph>DragManager.MOVE</codeph>。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否按下 Control 键。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否按下 Alt 键。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指示是否按下 Shift 键。
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。通常由 Flex 控件调用且不用于应用程序代码。
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:AutomationDragEvent:DRAG_COMPLETE"><apiName>DRAG_COMPLETE</apiName><shortdesc>
+		  定义 dragComplete 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragComplete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  定义 <codeph>dragComplete</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Alt 键。</entry></row><row><entry><codeph>action</codeph></entry><entry>引发该事件的操作：<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> 或 <codeph>DragManager.NONE</codeph>。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Control 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的对象。例如，如果使用 <codeph>myButton.addEventListener()</codeph> 注册事件侦听器，则 <codeph>myButton</codeph> 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>正在拖动的项目。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>作为所拖放项目的父级的对象。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的对象；它不一定是侦听该事件的对象。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听该事件的对象。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:DRAG_DROP"><apiName>DRAG_DROP</apiName><shortdesc>
+		  定义 dragDrop 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragDrop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  定义 <codeph>dragDrop</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Alt 键。</entry></row><row><entry><codeph>action</codeph></entry><entry>引发该事件的操作：<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> 或 <codeph>DragManager.NONE</codeph>。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Control 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的对象。例如，如果使用 <codeph>myButton.addEventListener()</codeph> 注册事件侦听器，则 <codeph>myButton</codeph> 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>正在拖动的项目。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>作为所拖放项目的父级的对象。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的对象；它不一定是侦听该事件的对象。使用 <codeph>currentTarget</codeph> 属性可以始终访问侦听该事件的对象。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:DRAG_START"><apiName>DRAG_START</apiName><shortdesc>
+		  定义 dragStart 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dragStart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  定义 <codeph>dragStart</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>altKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Alt 键。</entry></row><row><entry><codeph>action</codeph></entry><entry>引发该事件的操作：<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> 或 <codeph>DragManager.NONE</codeph>。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>true</codeph></entry></row><row><entry><codeph>ctrlKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Control 键。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的对象。例如，如果使用 <codeph>myButton.addEventListener()</codeph> 注册事件侦听器，则 <codeph>myButton</codeph> 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>draggedItem</codeph></entry><entry>正在拖动的项目。</entry></row><row><entry><codeph>dropParent</codeph></entry><entry>作为所拖放项目的父级的对象。</entry></row><row><entry><codeph>shiftKey</codeph></entry>
+		         <entry>指示是 (<codeph>true</codeph>) 否 (<codeph>false</codeph>) 按下 Shift 键。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的对象；它不一定是侦听该事件的对象。使用 <codeph>currentTarget</codeph> 属性可以始终访问侦听该事件的对象。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:action"><apiName>action</apiName><shortdesc>
+		  所需的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+		  所需的操作。<codeph>DragManager.COPY</codeph>、<codeph>DragManager.LINK</codeph>、<codeph>DragManager.MOVE</codeph> 或 <codeph>DragManager.NONE</codeph> 中的任意一项。
+		 
+		  </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.managers.DragManager.xml"><linktext>mx.managers.DragManager</linktext></link></related-links></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:draggedItem"><apiName>draggedItem</apiName><shortdesc>
+		  包含正在拖动的子 IAutomationObject 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  包含正在拖动的子 IAutomationObject 对象。
+		  
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:AutomationDragEvent:dropParent"><apiName>dropParent</apiName><shortdesc>
+		  作为所拖放项目的父级的 IAutomationObject 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.automation:IAutomationObject"/></apiValueDef><apiDesc>
+		  作为所拖放项目的父级的 IAutomationObject 对象。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.automation.events:MenuShowEvent"><apiName>MenuShowEvent</apiName><shortdesc>
+	  MenuShowEvent 类表示与 menuBar 相关联的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  MenuShowEvent 类表示与 menuBar 相关联的事件。
+	 
+	  
+	  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.automation.events:MenuShowEvent:MENU_SHOW_menuShow"><apiName>menuShow</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.automation.events:MenuShowEvent:MENU_SHOW</apiEventType><adobeApiEventClassifier>mx.automation.events:MenuShowEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.automation.events:MenuShowEvent:MenuShowEvent"><apiName>MenuShowEvent</apiName><shortdesc>
+		  构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+		 
+		  </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.menuClasses:IMenuBarItemRenderer"/><apiData>null</apiData><apiDesc>相关菜单项的 IMenuBarItemRenderer。
+		 
+		  
+		  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		  构造函数。通常由 Menu 对象调用。 
+		 
+		  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.automation.events:MenuShowEvent:MENU_SHOW"><apiName>MENU_SHOW</apiName><shortdesc>
+		  MenuShowEvent.MENU_SHOW 常量定义 menuShow 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>menuShow</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  <codeph>MenuShowEvent.MENU_SHOW</codeph> 常量定义 <codeph>menuShow</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。
+		 
+		  <p>事件对象的属性有下列值：</p>
+		  <adobetable class="innertable">
+		     
+		     
+		     
+		     
+		     
+		     
+		  <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>用于关联菜单项的项呈示器对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+		 
+		  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.automation.events:MenuShowEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+		  发生该事件的关联菜单项的项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.controls.menuClasses:IMenuBarItemRenderer"/></apiValueDef><apiDesc>
+		  发生该事件的关联菜单项的项呈示器。
+		  
+		  </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -1,0 +1,1083 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects"><apiName>spark.effects</apiName><apiDetail/><apiClassifier id="spark.effects:AnimateTransform3D"><apiName>AnimateTransform3D</apiName><shortdesc>
+  AnimateTransform3D 效果将 AnimateTransform 效果的功能扩展到 3D 转换属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateTransform&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateTransform
+    <b>Properties</b>
+    id="ID"
+    applyChangesPostLayout="true"
+    applyLocalProjection="false"
+    autoCenterProjection="true"
+    fieldOfView="no default"
+    focalLength="no default"
+    projectionX="0"
+    projectionY="0"
+    removeLocalProjectionWhenComplete="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimateTransform3D 效果将 AnimateTransform 效果的功能扩展到 3D 转换属性。与 AnimateTransform 一样，此效果不能直接使用，而是提供其子类所使用的常用功能。要获取 3D 效果，请使用子类 Move3D、Rotate3D 和 Scale3D。
+ 
+  <p>对于 AnimateTransform，存在此效果的某些属性，这些属性是与在运行时结合到一起的所有其它转换效果共享的。特别是，与投影相关的属性 <codeph>applyLocalProjection</codeph>、<codeph>removeProjectionWhenComplete</codeph>、<codeph>autoCenterProjection</codeph>、<codeph>fieldOfView</codeph>、<codeph>focalLength</codeph>、<codeph>projectionX</codeph> 和 <codeph>projectionY</codeph> 都是共享属性。以相似方式在所有 3D 效果上设置这些属性，可以将这些效果组合成一个复合效果以获得预期的结果。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateTransformInstance"><linktext>spark.effects.supportClasses.AnimateTransformInstance</linktext></link></related-links><apiConstructor id="spark.effects:AnimateTransform3D:AnimateTransform3D"><apiName>AnimateTransform3D</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateTransform3D:autoCenterProjection"><apiName>autoCenterProjection</apiName><shortdesc>
+      设置为 false 可以禁止 3D 效果自动将投影点设置到目标中心。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      设置为 <codeph>false</codeph> 可以禁止 3D 效果自动将投影点设置到目标中心。接着使用 <codeph>projectionX</codeph> 和 <codeph>projectionY</codeph> 属性将投影点显式设置为投影点距目标 (0, 0) 坐标的偏移量。
+     
+      <p>这些 3D 效果的工作方式是将三维图像映射到二维表示形式，以在计算机屏幕上显示。投影点定义视野的中心，并控制目标从三维形式投影到屏幕上的方式。</p>
+     
+      <p>仅在将 <codeph>applyLocalProjection</codeph> 设置为 <codeph>true</codeph> 时才使用此属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:fieldOfView"><apiName>fieldOfView</apiName><shortdesc>
+      为三维视野指定一个角度（介于 0 度到 180 度之间）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      为三维视野指定一个角度（介于 <codeph>0</codeph> 度到 <codeph>180</codeph> 度之间）。此值可确定应用于具有非零 z 坐标的三维显示对象的透视转换和扭曲的强度。
+     
+      <p>若角度接近于 <codeph>0</codeph>，则表示屏幕的二维 x 和 y 坐标与三维 x、y 和 z 坐标大致相同，只不过具有少许扭曲或无扭曲。换句话说，若角度较小，则沿 z 轴下移的显示对象看起来大小不变且移动距离很小。 </p>
+     
+      <p>若值接近于 <codeph>180</codeph> 度，则会产生鱼眼镜头效果，即 <codeph>z</codeph> 值小于 <codeph>0</codeph> 的位置将被放大，而 <codeph>z</codeph> 值大于 <codeph>0</codeph> 的位置将被最小化。若角度较大，则沿 z 轴下移的显示对象看起来大小变化很快且移动距离很大。如果视野设置为 <codeph>0</codeph> 或 <codeph>180</codeph>，则屏幕上不会显示任何内容。</p>
+     
+      <p>仅在将 <codeph>applyLocalProjection</codeph> 设置为 <codeph>true</codeph> 时才使用此属性。</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link><link href="" invalidHref="flash.geom.PerspectiveProjection.xml"><linktext>flash.geom.PerspectiveProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:focalLength"><apiName>focalLength</apiName><shortdesc>
+      眼睛或视点的原点 (0,0,0) 与位于 z 轴的显示对象之间的距离。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      眼睛或视点的原点 (0,0,0) 与位于 z 轴的显示对象之间的距离。在透视转换过程中，将使用视野的角度和舞台的高宽比（舞台宽度除以舞台高度）来自动计算 <codeph>focalLength</codeph>。
+      
+      <p>仅在将 <codeph>applyLocalProjection</codeph> 设置为 <codeph>true</codeph> 时才使用此属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link><link href="" invalidHref="flash.geom.PerspectiveProjection.xml"><linktext>flash.geom.PerspectiveProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:projectionX"><apiName>projectionX</apiName><shortdesc>
+      将投影点设置为投影点在 x 方向距目标 (0, 0) 坐标的偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      将投影点设置为投影点在 x 方向距目标 (0, 0) 坐标的偏移量。默认情况下，应用 3D 效果时，该效果会自动将投影点设置为目标的中心。可以将效果的 <codeph>autoCenterProjection</codeph> 属性设置为 <codeph>false</codeph> 以禁用此默认值，并改为使用 <codeph>projectionX</codeph> 和 <codeph>projectionY</codeph> 属性。
+      
+      <p>仅在将 <codeph>applyLocalProjection</codeph> 设置为 <codeph>true</codeph> 时才使用此属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:projectionY"><apiName>projectionY</apiName><shortdesc>
+      将投影点设置为投影点在 y 方向距目标 (0, 0) 坐标的偏移量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      将投影点设置为投影点在 y 方向距目标 (0, 0) 坐标的偏移量。默认情况下，应用 3D 效果时，该效果会自动将投影点设置为目标的中心。可以将效果的 <codeph>autoCenterProjection</codeph> 属性设置为 <codeph>false</codeph> 以禁用此默认值，并改为使用 <codeph>projectionX</codeph> 和 <codeph>projectionY</codeph> 属性。
+      
+      <p>仅在将 <codeph>applyLocalProjection</codeph> 设置为 <codeph>true</codeph> 时才使用此属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:removeLocalProjectionWhenComplete"><apiName>removeLocalProjectionWhenComplete</apiName><shortdesc>
+      如果为 true，则该效果会在它完成播放时从目标组件的父组件中删除透视投影。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      如果为 <codeph>true</codeph>，则该效果会在它完成播放时从目标组件的父组件中删除透视投影。默认情况下，保留透视投影。
+     
+      <p>仅在将 <codeph>applyLocalProjection</codeph> 设置为 <codeph>true</codeph> 时才使用此属性。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/applyLocalProjection"><linktext>applyLocalProjection</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform3D:applyChangesPostLayout:get"><apiName>applyChangesPostLayout</apiName><shortdesc> 
+      由 AnimateTransform 的子类用于指定该效果是否更改布局管理器所用的转换值，或者它是否更改运行布局之后使用的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      由 AnimateTransform 的子类用于指定该效果是否更改布局管理器所用的转换值，或者它是否更改运行布局之后使用的值。因为 Flex 布局系统忽略 3D 转换属性，所以此类会覆盖 <codeph>AnimateTransform.applyChangesPostLayout</codeph> 属性，从而为 3D 效果将该默认值设置为 <codeph>true</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateTransform3D:applyLocalProjection:get"><apiName>applyLocalProjection</apiName><shortdesc>
+      若为 true，则该效果会使用效果中的其它投影相关属性创建透视投影，并在它开始播放时将其应用于目标组件的父项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      若为 <codeph>true</codeph>，则该效果会使用效果中的其它投影相关属性创建透视投影，并在它开始播放时将其应用于目标组件的父项。默认情况下，在效果完成后，会将投影留在父项上；若要在效果结束时删除投影，请将 <codeph>removeLocalProjectionWhenComplete</codeph> 设置为 <codeph>true</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AnimateTransform3D/removeLocalProjectionWhenComplete"><linktext>removeLocalProjectionWhenComplete</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.effects:AnimateTransitionShader"><apiName>AnimateTransitionShader</apiName><shortdesc>
+ AnimateTransitionShader 效果可设置两个位图之间的过渡的动画，一个位图表示起始状态 (bitmapFrom)，另一个表示结束状态 (bitmapTo)。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="spark.effects:AnimateTransitionShader">
+<description>
+  AnimateTransitionShader 效果使用 Pixel Bender，不受 AIR 手机应用程序支持。
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateTransitionShader&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateTransitionShader
+    <b>Properties</b>
+    id="ID"
+    bitmapFrom="no default"
+    bitmapTo="no default"
+    shaderByteCode="no default"
+    sahderProperties="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+ AnimateTransitionShader 效果可设置两个位图之间的过渡的动画，一个位图表示起始状态 (<codeph>bitmapFrom</codeph>)，另一个表示结束状态 (<codeph>bitmapTo</codeph>)。
+ 
+ <p>该动画使用这两个位图作为输入，通过运行 <codeph>shader</codeph> 属性所指定的像素着色器程序来执行。位图由 flash.display.BitmapData 类的实例表示。您可以使用 Adobe Pixel Bender Toolkit 创建自己的像素着色器程序。</p>
+ 
+ <p>只要有一个位图未提供，就会根据目标在过渡中的相应状态或者直接从目标（如果未在过渡中运行该效果）以动态方式确定值。如果效果在过渡中运行，且目标对象在状态更改过程中消失或出现，则在该对象消失时会有一个全透明的位图代表它。</p>
+ 
+ <p>因为需要有关于仅存在于这些类中的对象的信息才能捕获对象的位图，所以此效果仅能在 UIComponent 或 GraphicElement 目标上运行。</p>
+ 
+ <p>由于效果是基于位图的，且基础像素着色器程序希望两个位图的大小相同，因此仅当两个位图大小相同时，效果才会正常工作。这意味着如果目标对象更改了大小或方向，从而导致边框大小发生改变，效果就可能无法正常播放。</p>
+ 
+ <p>此效果及其子类与 Flex 中其他效果的不同之处在于，它们旨在独立运行，当与其他效果同时运行时，可能不会产生预期结果。此约束的事实依据是：之前和之后位图都会在效果开始之前捕获。因此，如果在计算这些位图之后目标对象发生了改变（如另一个效果正在更改目标的属性），则这些更改不会体现在预计算的位图中，且结果可能并非像期望的那样。为确保正确播放这些基于位图的效果，应该在其目标对象上单独播放它们。</p>
+  
+  </apiDesc><example conref="AnimateTransitionShaderExample.mxml"><swfblock conref="examples/AnimateTransitionShaderExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.display.BitmapData.xml"><linktext>flash.display.BitmapData</linktext></link><link href="spark.effects.supportClasses.xml#AnimateTransitionShaderInstance"><linktext>spark.effects.supportClasses.AnimateTransitionShaderInstance</linktext></link><link href="spark.primitives.supportClasses.xml#GraphicElement"><linktext>spark.primitives.supportClasses.GraphicElement</linktext></link></related-links><apiConstructor id="spark.effects:AnimateTransitionShader:AnimateTransitionShader"><apiName>AnimateTransitionShader</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateTransitionShader:bitmapFrom"><apiName>bitmapFrom</apiName><shortdesc>
+     代表此效果的起始状态的位图数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:BitmapData"/></apiValueDef><apiDesc>
+     代表此效果的起始状态的位图数据。如果未设置此属性，则它会在播放效果时自动计算，方法是拍摄目标对象的快照，或者使用透明位图（如果过渡的起始视图状态中没有该对象）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateTransitionShader:bitmapTo"><apiName>bitmapTo</apiName><shortdesc>
+     代表此效果的结束状态的位图数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:BitmapData"/></apiValueDef><apiDesc>
+     代表此效果的结束状态的位图数据。如果未设置此属性，则它会在播放效果时自动计算，方法是拍摄目标对象的快照，或者使用透明位图（如果过渡的结束视图状态中没有该对象）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateTransitionShader:shaderByteCode"><apiName>shaderByteCode</apiName><shortdesc>
+     效果在两个位图之间设置动画时使用的像素着色器程序的字节码。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     效果在两个位图之间设置动画时使用的像素着色器程序的字节码。此属性可以表示为 ByteArray 或者代表 ByteArray 的 Class（嵌入资源后的结果）。
+     
+     <p>像素着色器程序可以具有任意功能和输入，但是最少必须拥有三个 <codeph>image4</codeph> 输入。第一个输入可以随意命名，但不可由像素着色器程序代码使用，它存在的意义仅在于满足 Flash 有关将过滤对象指定给第一个输入这一要求。请注意，像素着色器程序中完全未使用的输入会被优化排除，因此您的代码至少应该引用此输入一次。</p>
+     
+     <p>至少必须还有两个名为 <codeph>from</codeph> 和 <codeph>to</codeph> 的输入位图，分别代表之前和之后位图图像。最后还必须定义一个名为 <codeph>progress</codeph> 的 <codeph>float</codeph> 参数，该参数包含效果的已过去部分。</p>
+     
+     <p>您可以指定两个可选参数：<codeph>width</codeph> 和 <codeph>height</codeph>。如果有这两个参数，则会自动将它们设置为效果目标的宽度和高度。</p>
+     
+     <p>有关为 Flash 编写像素着色器程序的更多信息，请参阅 Pixel Bender Toolkit 文档。还可以在 Flex 源代码的 frameworks\projects\flex4\src\spark\effects 目录中查看 CrossFade.pbk 文件的源代码。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateTransitionShader:shaderProperties"><apiName>shaderProperties</apiName><shortdesc>
+     在播放之前已传递到像素着色器程序的参数名/值对的映射。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     在播放之前已传递到像素着色器程序的参数名/值对的映射。例如，要在其 Wipe.pbj 内具有 Pixel Bender pbj 文件的着色器中设置名为 <codeph>direction</codeph> 的参数，调用代码可以执行下列操作：
+     
+     <pre>
+       [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
+       private var WipeCodeClass:Class;
+       var shaderEffect = new AnimateTransitionShader();
+       shaderEffect.shaderByteCode = WipeCodeClass;
+       shaderEffect.shaderProperties = {direction : 1};
+     </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Move3D"><apiName>Move3D</apiName><shortdesc>
+  Move3D 类在 x、y 和 z 维度上移动目标对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Move3D&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Move3D
+    <b>Properties</b>
+    id="ID"
+    xBy="no default"
+    xFrom="no default"
+    xTo="no default"
+    yBy="no default"
+    yFrom="no default"
+    yTo="no default"
+    zBy="no default"
+    zFrom="no default"
+    zTo="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform3D</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Move3D 类在 x、y 和 z 维度上移动目标对象。Move3D 效果的 x、y 和 z 属性规范指定对于转换中心应该在 x、y 和 z 上发生的更改，整体转换效果是围绕转换中心发生的。 
+ 
+  <p>与所有基于 AnimateTransform 的效果一样，此效果仅可用于 UIComponent 和 GraphicElement 的子类，因为这些效果依赖于这些类中的特定转换函数。另外，正在同一目标上并行运行的转换效果会作为一个单一效果实例运行。因此，这些转换效果会共享由任何起作用的效果设置的转换中心。</p>
+  
+  </apiDesc><example conref="Move3DEffectExample.mxml"><swfblock conref="examples/Move3DEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.xml#Move"><linktext>spark.effects.Move</linktext></link></related-links><apiConstructor id="spark.effects:Move3D:Move3D"><apiName>Move3D</apiName><shortdesc> 
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc> 
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Move3D:xBy"><apiName>xBy</apiName><shortdesc> 
+      按其修改目标的 x 位置的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      按其修改目标的 x 位置的像素数目。值可以为负数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:xFrom"><apiName>xFrom</apiName><shortdesc> 
+      目标的初始 x 位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的初始 x 位置（以像素为单位）。如果忽略此值，Flex 将使用起始视图状态中的值（如果效果正在过渡中播放）或者目标的当前值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:xTo"><apiName>xTo</apiName><shortdesc> 
+      最终 x（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      最终 x（以像素为单位）。如果忽略此值，Flex 将使用起始状态中的值（如果效果正在状态过渡中播放）或者目标的当前值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:yBy"><apiName>yBy</apiName><shortdesc> 
+      按其修改目标的 y 位置的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      按其修改目标的 y 位置的像素数目。此值可以为负值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:yFrom"><apiName>yFrom</apiName><shortdesc> 
+      目标的初始 y 位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的初始 y 位置（以像素为单位）。如果忽略此值，Flex 将使用起始视图状态中的值（如果效果正在过渡中播放）或者目标的当前值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:yTo"><apiName>yTo</apiName><shortdesc> 
+      目标的最终 y 位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的最终 y 位置（以像素为单位）。如果忽略此值，Flex 将使用结束视图状态中的值（如果效果正在过渡中播放）或者目标的当前值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:zBy"><apiName>zBy</apiName><shortdesc> 
+      修改目标的 z 位置所依据的像素数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      修改目标的 z 位置所依据的像素数。值可以为负数。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:zFrom"><apiName>zFrom</apiName><shortdesc> 
+      目标的初始 z 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的初始 z 位置。如果忽略此值，Flex 将使用起始视图状态中的值（如果效果正在过渡中播放）或者目标的当前值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move3D:zTo"><apiName>zTo</apiName><shortdesc> 
+      目标的最后 z 位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的最后 z 位置。如果忽略此值，Flex 将使用起始状态中的值（如果效果正在状态过渡中播放）或者目标的当前值。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Wipe"><apiName>Wipe</apiName><shortdesc>
+  Wipe 效果通过在第一个和第二个位图之间运行定向划出来执行位图过渡效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="spark.effects:Wipe">
+<description>
+  Wipe 效果使用 Pixel Bender，不受 AIR 手机应用程序支持。
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Wipe&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Wipe
+    <b>Properties</b>
+    id="ID"
+    direction="right"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransitionShader</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Wipe 效果通过在第一个和第二个位图之间运行定向划出来执行位图过渡效果。此划出操作会在动画过程中沿着 <codeph>direction</codeph> 属性所指定的方向展示第二个位图。
+ 
+  <p>效果加载的像素着色器程序运行基础位图效果。如果希望使用不同的 Wipe 行为，可指定自定义像素着色器程序。像素着色器程序必须遵循为 AnimateTransitionShader 类的 <codeph>shaderByteCode</codeph> 属性指定的约束，并提供三个附加参数。Wipe 着色器需要的附加参数为：</p>
+ 
+  <ul>
+    <li>一个整型 <codeph>direction</codeph> 参数，其值与 Wipe 类中相关 String 属性的含义相同。</li>
+    <li>两个浮点参数：<codeph>imageWidth</codeph> 和 <codeph>imageHeight</codeph>。 </li>
+  </ul>
+ 
+  <p>所有这些参数都会在开始播放效果时在着色器上设置，因此它们必须存在且进行某些适当的操作才能让效果正常运行。</p>
+  
+  </apiDesc><example conref="WipeExample.mxml"><swfblock conref="examples/WipeExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.xml#WipeDirection"><linktext>spark.effects.WipeDirection</linktext></link><link href="spark.effects.xml#AnimateTransitionShader"><linktext>spark.effects.AnimateTransitionShader</linktext></link><link href="spark.effects.xml#AnimateTransitionShader/shaderByteCode"><linktext>spark.effects.AnimateTransitionShader.shaderByteCode</linktext></link></related-links><apiConstructor id="spark.effects:Wipe:Wipe"><apiName>Wipe</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Wipe:direction"><apiName>direction</apiName><shortdesc>
+      在动画过程中划出的移动方向：WipeDirection.RIGHT、WipeDirection.LEFT、WipeDirection.UP 或 WipeDirection.DOWN。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>right</apiData><apiType value="String"/><apiDefaultValue>WipeDirection.RIGHT
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      在动画过程中划出的移动方向：<codeph>WipeDirection.RIGHT</codeph>、<codeph>WipeDirection.LEFT</codeph>、<codeph>WipeDirection.UP</codeph> 或 <codeph>WipeDirection.DOWN</codeph>。 
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#WipeDirection/RIGHT"><linktext>WipeDirection.RIGHT</linktext></link><link href="spark.effects.xml#WipeDirection/UP"><linktext>WipeDirection.UP</linktext></link><link href="spark.effects.xml#WipeDirection/LEFT"><linktext>WipeDirection.LEFT</linktext></link><link href="spark.effects.xml#WipeDirection/DOWN"><linktext>WipeDirection.DOWN</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.effects:CallAction"><apiName>CallAction</apiName><shortdesc>
+ CallAction 效果对 target 对象调用由 functionName 属性指定的函数，并使用由 args 属性指定的可选参数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:CallAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:CallAction
+    <b>Properties</b>
+    id="ID"
+    functionName="no default"
+    args="no default"
+  /&gt;
+  </pre>
+  
+ ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+ CallAction 效果对 <codeph>target</codeph> 对象调用由 <codeph>functionName</codeph> 属性指定的函数，并使用由 <codeph>args</codeph> 属性指定的可选参数。对于将函数调用过程作为组合效果的组成部分的效果序列，该效果是很有用的。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#CallActionInstance"><linktext>spark.effects.supportClasses.CallActionInstance</linktext></link></related-links><apiConstructor id="spark.effects:CallAction:CallAction"><apiName>CallAction</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:CallAction:args"><apiName>args</apiName><shortdesc> 
+     传递给此效果所调用的函数的参数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc> 
+     传递给此效果所调用的函数的参数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:CallAction:functionName"><apiName>functionName</apiName><shortdesc> 
+     此效果播放时在目标上调用的函数的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+     此效果播放时在目标上调用的函数的名称。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:AddAction"><apiName>AddAction</apiName><shortdesc>
+  AddAction 类用于定义与视图状态定义的 AddChild 属性对应的动作效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AddAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AddAction
+    <b>Properties</b>
+    id="ID"
+    index="-1"
+    position="index"
+    relativeTo=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddAction 类用于定义与视图状态定义的 <codeph>AddChild</codeph> 属性对应的动作效果。您可以在过渡定义中使用 AddAction 效果来控制在过渡期间何时发生 AddChild 属性定义的视图状态更改。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AddActionInstance"><linktext>spark.effects.supportClasses.AddActionInstance</linktext></link><link href="" invalidHref="mx.states.AddChild.xml"><linktext>mx.states.AddChild</linktext></link></related-links><apiConstructor id="spark.effects:AddAction:AddAction"><apiName>AddAction</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AddAction:AFTER"><apiName>AFTER</apiName><shortdesc>
+     常量，用于指定相对于由 relativeTo 属性所指定的对象而添加项目的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>after</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     常量，用于指定相对于由 <codeph>relativeTo</codeph> 属性所指定的对象而添加项目的位置。
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:BEFORE"><apiName>BEFORE</apiName><shortdesc>
+     常量，用于指定相对于由 relativeTo 属性所指定的对象而添加项目的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>before</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     常量，用于指定相对于由 <codeph>relativeTo</codeph> 属性所指定的对象而添加项目的位置。
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:FIRST_CHILD"><apiName>FIRST_CHILD</apiName><shortdesc>
+     常量，用于指定相对于由 relativeTo 属性所指定的对象而添加项目的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>firstChild</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     常量，用于指定相对于由 <codeph>relativeTo</codeph> 属性所指定的对象而添加项目的位置。
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:INDEX"><apiName>INDEX</apiName><shortdesc>
+     常量，用于指定相对于由 relativeTo 属性所指定的对象而添加项目的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>index</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     常量，用于指定相对于由 <codeph>relativeTo</codeph> 属性所指定的对象而添加项目的位置。
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:LAST_CHILD"><apiName>LAST_CHILD</apiName><shortdesc>
+     常量，用于指定相对于由 relativeTo 属性所指定的对象而添加项目的位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>lastChild</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     常量，用于指定相对于由 <codeph>relativeTo</codeph> 属性所指定的对象而添加项目的位置。
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/position"><linktext>position</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:index"><apiName>index</apiName><shortdesc> 
+      父项中子项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/><apiDefaultValue>-1
+      
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      父项中子项的索引。值 -1 表示将子项添加为父项的最后一个子项。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AddAction:position"><apiName>position</apiName><shortdesc> 
+      显示列表中子项的位置，随 relativeTo 属性指定的对象而变化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>index</apiData><apiType value="String"/><apiDefaultValue>AddAction.INDEX
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      显示列表中子项的位置，随 <codeph>relativeTo</codeph> 属性指定的对象而变化。有效的值为 <codeph>AddAction.BEFORE</codeph>、<codeph>AddAction.AFTER</codeph>、<codeph>AddAction.FIRST_CHILD</codeph>、<codeph>AddAction.LAST_CHILD</codeph> 和 <codeph>AddAction.INDEX</codeph>，其中 <codeph>AddAction.INDEX</codeph> 指定如何使用 <codeph>index</codeph> 属性来确定子代的位置。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.xml#AddAction/BEFORE"><linktext>BEFORE</linktext></link><link href="spark.effects.xml#AddAction/AFTER"><linktext>AFTER</linktext></link><link href="spark.effects.xml#AddAction/FIRST_CHILD"><linktext>FIRST_CHILD</linktext></link><link href="spark.effects.xml#AddAction/LAST_CHILD"><linktext>LAST_CHILD</linktext></link><link href="spark.effects.xml#AddAction/INDEX"><linktext>INDEX</linktext></link></related-links></apiValue><apiValue id="spark.effects:AddAction:relativeTo"><apiName>relativeTo</apiName><shortdesc> 
+      子组件的添加位置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef><apiDesc> 
+      子组件的添加位置。默认情况下，Flex 根据视图状态定义中的 <codeph>AddChild</codeph> 属性定义确定此值。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:AnimateFilter"><apiName>AnimateFilter</apiName><shortdesc>
+  AnimateFilter 效果可将 mx.filters.IBitmapFilter 实例应用至目标，并使您能够设置各个值之间的滤镜的属性的动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateFilter&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateFilter
+    <b>Properties</b>
+    id="ID"
+    bitmapFilter="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimateFilter 效果可将 mx.filters.IBitmapFilter 实例应用至目标，并使您能够设置各个值之间的滤镜的属性的动画。与对目标的属性进行动画设置的效果不同，AnimateFilter 效果是对应用于目标的滤镜的属性进行动画设置。
+ 
+  <p>能用于此效果的滤镜在 spark.filters 中定义。包。公用滤镜包括 DropShadowFilter、GlowFilter、BlurFilter 和 ShaderFilter。</p>
+ 
+  <p>要定义要设置动画的滤镜的属性，可将 SimpleMotionPath 对象的 Array 传递至 AnimateFilter 效果的 <codeph>motionPath</codeph> 属性。每个 SimpleMotionPath 对象都定义滤镜的一个属性、该属性的起始值和该属性的结束值。</p>
+  
+  </apiDesc><example conref="AnimateFilterEffectExample.mxml"><swfblock conref="examples/AnimateFilterEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateFilterInstance"><linktext>spark.effects.supportClasses.AnimateFilterInstance</linktext></link></related-links><apiConstructor id="spark.effects:AnimateFilter:AnimateFilter"><apiName>AnimateFilter</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+     
+      </apiDesc></apiParam><apiParam><apiItemName>filter</apiItemName><apiType value="mx.filters:IBitmapFilter"/><apiData>null</apiData><apiDesc>要应用于目标的滤镜。能用于此效果的滤镜在 spark.filters 中定义。包。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateFilter:bitmapFilter"><apiName>bitmapFilter</apiName><shortdesc>
+      要应用以及设置动画的 IBitmapFilter 实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.filters:IBitmapFilter"/></apiValueDef><apiDesc>
+      要应用以及设置动画的 IBitmapFilter 实例。
+     
+      <p>能用于此效果的滤镜在 spark.filters 中定义。包。公用滤镜包括 DropShadowFilter、GlowFilter、BlurFilter 和 ShaderFilter。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Rotate"><apiName>Rotate</apiName><shortdesc>
+  Rotate 效果在 x, y 平面中围绕转换中心旋转目标对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Rotate&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Rotate
+    id="ID"
+    angleBy="val"
+    angleFrom="val"
+    angleTo="val"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Rotate 效果在 x, y 平面中围绕转换中心旋转目标对象。 
+ 
+  <p>如果指定了三个角度值（angleFrom、angleTo 或 angleBy）中的任意两个，Flex 将计算出第三个。如果指定了所有这三个值，Flex 将忽略 <codeph>angleBy</codeph> 值。</p>
+ 
+  <p>与所有基于 AnimateTransform 的效果一样，此效果将仅可用于 UIComponent 和 GraphicElement 的子类，因为这些效果依赖于这些类中的特定转换函数。 </p>
+  
+  </apiDesc><example conref="RotateEffectExample.mxml"><swfblock conref="examples/RotateEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Rotate:Rotate"><apiName>Rotate</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Rotate:angleBy"><apiName>angleBy</apiName><shortdesc> 
+      旋转目标对象的度数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      旋转目标对象的度数。该值可以为负数。
+     
+      <p>如果 <codeph>angleBy</codeph> 的值为负数，目标会按逆时针方向旋转。否则，它将以顺时针方向旋转。如果希望对目标进行多次旋转，请将此值设置为较大的正数或较小的负数。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate:angleFrom"><apiName>angleFrom</apiName><shortdesc> 
+      目标对象的起始旋转角度（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标对象的起始旋转角度（以度为单位）。有效值范围是 0 到 360。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate:angleTo"><apiName>angleTo</apiName><shortdesc> 
+      目标对象的结束旋转角度（以度为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标对象的结束旋转角度（以度为单位）。此值可以是正值也可以是负值。
+     
+      <p>如果 <codeph>angleTo</codeph> 的值比 <codeph>angleFrom</codeph> 的值小，则目标沿逆时针方向旋转。否则，它将以顺时针方向旋转。如果希望对目标进行多次旋转，请将此值设置为较大的正数或较小的负数。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Scale3D"><apiName>Scale3D</apiName><shortdesc>
+  Scale3D 类在三维方向上围绕转换中心缩放目标对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Scale3D&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Scale3D
+    <b>Properties</b>
+    id="ID"
+    scaleXBy="no default"
+    scaleXFrom="no default"
+    scaleXTo="no default"
+    scaleYBy="no default"
+    scaleYFrom="no default"
+    scaleYTo="no default"
+    scaleZBy="no default"
+    scaleZFrom="no default"
+    scaleZTo="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform3D</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Scale3D 类在三维方向上围绕转换中心缩放目标对象。比例为 2.0 表示对象放大了 2 倍，比例 0.5 则表示对象缩小了 2 倍。比例值为 0.0 时无效。
+ 
+  <p>与所有基于 AnimateTransform 的效果一样，此效果仅可用于 UIComponent 和 GraphicElement 的子类，因为这些效果依赖于这些类中的特定转换函数。另外，正在同一目标上并行运行的转换效果会作为一个单一效果实例运行。因此，这些转换效果会共享由任何起作用的效果设置的转换中心。</p>
+  
+  </apiDesc><example conref="Scale3DEffectExample.mxml"><swfblock conref="examples/Scale3DEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Scale3D:Scale3D"><apiName>Scale3D</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Scale3D:scaleXBy"><apiName>scaleXBy</apiName><shortdesc>
+      在 x 方向上按其缩放对象的因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 x 方向上按其缩放对象的因子。这是可以替代其他 from/to 值之一而使用的一个可选参数，用于指定要添加到 from 值的 delta，或者用于通过从 to 值减去而得出 from 值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleXFrom"><apiName>scaleXFrom</apiName><shortdesc>
+      在 x 方向上的起始比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 x 方向上的起始比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleXTo"><apiName>scaleXTo</apiName><shortdesc>
+      在 x 方向上的结束比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 x 方向上的结束比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleYBy"><apiName>scaleYBy</apiName><shortdesc>
+     在 y 方向上按其缩放对象的因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+     在 y 方向上按其缩放对象的因子。这是可以替代其他 from/to 值之一而使用的一个可选参数，用于指定要添加到 from 值的 delta，或者用于通过从 to 值减去而得出 from 值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleYFrom"><apiName>scaleYFrom</apiName><shortdesc>
+      在 y 方向上的起始比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 y 方向上的起始比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleYTo"><apiName>scaleYTo</apiName><shortdesc>
+      在 y 方向上的结束比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 y 方向上的结束比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleZBy"><apiName>scaleZBy</apiName><shortdesc>
+      在 z 方向上按其缩放对象的因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 z 方向上按其缩放对象的因子。这是可以替代其他 from/to 值之一而使用的一个可选参数，用于指定要添加到 from 值的 delta，或者用于通过从 to 值减去而得出 from 值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleZFrom"><apiName>scaleZFrom</apiName><shortdesc>
+      在 z 方向上的起始比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 z 方向上的起始比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale3D:scaleZTo"><apiName>scaleZTo</apiName><shortdesc>
+      在 z 方向上的结束比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 z 方向上的结束比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Move"><apiName>Move</apiName><shortdesc>
+  Move 效果按 x 和 y 方向移动目标对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Move&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Move
+    id="ID"
+    xBy="val"
+    xFrom="val" 
+    xTo="val"
+    yBy="val"
+    yFrom="val"
+    yTo="val"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Move 效果按 x 和 y 方向移动目标对象。Move 效果的 x 和 y 属性规范指定对于转换中心应该在 x 和 y 上发生的更改，整体转换是围绕转换中心发生的。因此，如果设置了 <codeph>autoCenterTransform</codeph> 属性，此效果中的 from/to/by 值将定义将目标的中心移动的量，而不是定义目标的 (x,y) 坐标。
+ 
+  <p>与所有基于转换的效果一样，此效果仅能用于 UIComponent 和 GraphicElement 的子类。</p>
+  
+  </apiDesc><example conref="MoveEffectExample.mxml"><swfblock conref="examples/MoveEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Move:Move"><apiName>Move</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Move:xBy"><apiName>xBy</apiName><shortdesc> 
+      按其修改目标的 x 位置的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      按其修改目标的 x 位置的像素数目。值可以为负数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:xFrom"><apiName>xFrom</apiName><shortdesc> 
+      目标的初始 x 位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的初始 x 位置（以像素为单位）。如果忽略此值，Flex 将使用起始视图状态中的值（如果效果正在过渡中播放）或者目标的当前值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:xTo"><apiName>xTo</apiName><shortdesc> 
+      最终 x（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      最终 x（以像素为单位）。如果忽略此值，Flex 将使用起始状态中的值（如果效果正在状态过渡中播放）或者目标的当前值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:yBy"><apiName>yBy</apiName><shortdesc> 
+      按其修改目标的 y 位置的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      按其修改目标的 y 位置的像素数目。此值可以为负值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:yFrom"><apiName>yFrom</apiName><shortdesc> 
+      目标的初始 y 位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的初始 y 位置（以像素为单位）。如果忽略此值，Flex 将使用起始视图状态中的值（如果效果正在过渡中播放）或者目标的当前值。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Move:yTo"><apiName>yTo</apiName><shortdesc> 
+      目标的最终 y 位置（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的最终 y 位置（以像素为单位）。如果忽略此值，Flex 将使用结束视图状态中的值（如果效果正在过渡中播放）或者目标的当前值。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:CrossFade"><apiName>CrossFade</apiName><shortdesc>
+ CrossFade 效果通过在第一个和第二个位图之间运行淡入淡出来执行位图过渡效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="spark.effects:CrossFade">
+<description>
+  CrossFade 效果使用 Pixel Bender，不受 AIR 手机应用程序支持。
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><DefaultProperty name="motionPaths"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransitionShader</apiBaseClassifier></apiClassifierDef><apiDesc>
+ CrossFade 效果通过在第一个和第二个位图之间运行<i>淡入淡出</i>来执行位图过渡效果。淡入淡出操作将在动画的持续时间内混合这两个位图。
+ 
+ <p>对于动画中的任何点，如果该动画的已过去部分和缓动部分为 <codeph>f</codeph>，且第一个和第二个位图中的像素值为 <codeph>v1</codeph> 和 <codeph>v2</codeph>，则图像中任何像素的结果像素值 <codeph>v</codeph> 都会为：</p>
+ 
+ <pre>v = v1 * (1 - f) + v2 * f</pre>
+ 
+ <p>位图效果由该效果所加载的像素着色器程序运行。通过向 <codeph>shaderByteCode</codeph> 属性指定像素着色器程序，可以另行指定淡入淡出行为。像素着色器程序必须满足 AnimateTransitionShader 效果中定义的要求。 </p>
+ 
+ </apiDesc><example conref="CrossFadeExample.mxml"><swfblock conref="examples/CrossFadeExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.xml#AnimateTransitionShader"><linktext>spark.effects.AnimateTransitionShader</linktext></link><link href="spark.effects.xml#AnimateTransitionShader/shaderByteCode"><linktext>spark.effects.AnimateTransitionShader.shaderByteCode</linktext></link></related-links><apiConstructor id="spark.effects:CrossFade:CrossFade"><apiName>CrossFade</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects:Fade"><apiName>Fade</apiName><shortdesc>
+  Fade 效果设置组件的 alpha 属性的动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Fade&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Fade 
+    id="ID"
+    alphaFrom="val"
+    alphaTo="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Fade 效果设置组件的 <codeph>alpha</codeph> 属性的动画。如果它是在对象（其 <codeph>visible</codeph> 属性被设置为 false）上手动播放（在某个过渡之外）的，且被告知从零到非零值设置 <codeph>alpha</codeph> 的动画，则将其淡入的副作用是它会将 <codeph>visible</codeph> 设置为 true。作为过渡的一部分运行时，它将考虑已指定状态的值，但可能使用 <codeph>visible</codeph> 属性，以及该对象在 before/after 状态中是否为子项，来确定用于设置 <codeph>alpha</codeph> 的动画的起始值和结束值（如果没有为该效果指定 <codeph>alphaFrom</codeph> 和 <codeph>alphaTo</codeph>）。
+  
+  </apiDesc><example conref="FadeEffectExample.mxml"><swfblock conref="examples/FadeEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#FadeInstance"><linktext>spark.effects.supportClasses.FadeInstance</linktext></link></related-links><apiConstructor id="spark.effects:Fade:Fade"><apiName>Fade</apiName><shortdesc>
+     构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+     构造函数。 
+    
+     </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Fade:alphaFrom"><apiName>alphaFrom</apiName><shortdesc> 
+      介于 0.0 和 1.0 之间的 alpha 属性的初始值，其中 0.0 表示透明，1.0 表示完全不透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      介于 0.0 和 1.0 之间的 <codeph>alpha</codeph> 属性的初始值，其中 0.0 表示透明，1.0 表示完全不透明。 
+     
+      <p>如果效果导致目标组件消失，则默认值为目标的 <codeph>alpha</codeph> 属性的当前值。如果效果导致目标组件显示，则默认值为 0.0。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Fade:alphaTo"><apiName>alphaTo</apiName><shortdesc> 
+      介于 0.0 和 1.0 之间的 alpha 属性的最终值，其中 0.0 表示透明，1.0 表示完全不透明。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      介于 0.0 和 1.0 之间的 <codeph>alpha</codeph> 属性的最终值，其中 0.0 表示透明，1.0 表示完全不透明。
+     
+      <p>如果效果导致目标组件消失，则默认值为 0.0。如果效果导致目标组件显示，则默认值为目标的 <codeph>alpha</codeph> 属性的当前值。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Animate"><apiName>Animate</apiName><shortdesc>
+ 此 Animate 效果可设置各个值之间的任意属性集的动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="suspendBackgroundProcessing"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Animate&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Animate
+    <b>Properties</b>
+    id="ID"
+    disableLayout="false"
+    easer="{spark.effects.easing.Sine(.5)}"
+    interpolator="NumberInterpolator"
+    motionPaths="no default"
+    repeatBehavior="loop"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 此 Animate 效果可设置各个值之间的任意属性集的动画。通过设置 <codeph>motionPaths</codeph> 属性，指定要设置动画的属性和值。 
+  
+  </apiDesc><example conref="AnimateEffectExample.mxml"><swfblock conref="examples/AnimateEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateInstance"><linktext>spark.effects.supportClasses.AnimateInstance</linktext></link></related-links><adobeApiEvent id="spark.effects:Animate_mx.events.EffectEvent.EFFECT_REPEAT_effectRepeat"><apiName>effectRepeat</apiName><shortdesc>
+ 对于任何重复次数超过一次的效果，当效果开始新的重复时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.EffectEvent.EFFECT_REPEAT</apiEventType><adobeApiEventClassifier>mx.events.EffectEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 对于任何重复次数超过一次的效果，当效果开始新的重复时分派。Flex 还会同时为该效果分派 <codeph>effectUpdate</codeph> 事件。
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.effects:Animate_mx.events.EffectEvent.EFFECT_UPDATE_effectUpdate"><apiName>effectUpdate</apiName><shortdesc>
+ 每当效果更新目标时分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.EffectEvent.EFFECT_UPDATE</apiEventType><adobeApiEventClassifier>mx.events.EffectEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+ 每当效果更新目标时分派。
+ 
+ </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.effects:Animate:Animate"><apiName>Animate</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Animate:disableLayout:get"><apiName>disableLayout</apiName><shortdesc>
+     如果为 true，则效果通过将容器的 autoLayout 属性设置为 false 对其目标的父容器禁用布局，并同时对目标对象禁用任何布局约束。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+     </apiDefaultValue></apiValueDef><apiDesc>
+     如果为 <codeph>true</codeph>，则效果通过将容器的 <codeph>autoLayout</codeph> 属性设置为 false 对其目标的父容器禁用布局，并同时对目标对象禁用任何布局约束。效果完成时，将还原这些属性。
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Animate:easer:get"><apiName>easer</apiName><shortdesc>
+     此效果的缓动行为。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>spark.effects.easing.Sine(.5)
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     此效果的缓动行为。此 IEaser 对象用于将动画的已过去部分转换为缓动部分，随后缓动部分将用于计算该缓动的已过去部分的值。
+     
+     <p>请注意，可以在效果级别和关键帧级别（在该级别上，关键帧包含 MotionPath 结构中使用的值/时间）同时设置缓动。这些缓动行为构建于彼此之上。<codeph>easer</codeph> 控制全局效果的缓动。关键帧控制动画的任何特定时间间隔中的缓动。默认情况下，Animate 的缓动是非线性的 (Sine(.5))。关键帧的缓动是线性的。如果您需要改为在关键帧级别上具有缓动的效果，则可将该效果的缓动设置为线性的，然后再在关键帧上专门设置缓动。</p>
+     
+     </apiDesc></apiValueDetail><related-links><link href="spark.effects.easing.xml#Sine"><linktext>spark.effects.easing.Sine</linktext></link></related-links></apiValue><apiValue id="spark.effects:Animate:interpolator:get"><apiName>interpolator</apiName><shortdesc>
+     此效果计算属性的起始值和结束值之间的值所用的插补器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+     此效果计算属性的起始值和结束值之间的值所用的插补器。默认情况下，NumberInterpolator 类处理内插值，或者在开始值和结束值为 Array 或 Vector 的情况下，由 MultiValueInterpolator 类处理内插值。其它类型的插值，或者应该以不同的方式插补的 Number（如包含颜色通道信息的 <codeph>uint</codeph> 值）的插值，可以通过提供不同的插补器来处理。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link><link href="spark.effects.interpolation.xml#MultiValueInterpolator"><linktext>spark.effects.interpolation.MultiValueInterpolator</linktext></link></related-links></apiValue><apiValue id="spark.effects:Animate:motionPaths:get"><apiName>motionPaths</apiName><shortdesc>
+     MotionPath 对象的 Vector，其中的每个对象都带有正在设置动画的属性的名称以及该属性在动画过程中所采用的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$spark.effects.animation:MotionPath"/></apiValueDef><apiDesc>
+     MotionPath 对象的 Vector，其中的每个对象都带有正在设置动画的属性的名称以及该属性在动画过程中所采用的值。此 Vector 优先于 Animate 的子类中所声明的任何属性。例如，如果此 Array 是直接在 Move 效果上设置的，则会忽略 Move 效果的任何属性（如 <codeph>xFrom</codeph>）。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Animate:repeatBehavior:get"><apiName>repeatBehavior</apiName><shortdesc>
+     一种重复效果的行为，这意味着 repeatCount 等于 0 或大于 1 的效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RepeatBehavior.LOOP
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     一种重复效果的行为，这意味着 <codeph>repeatCount</codeph> 等于 0 或大于 1 的效果。此值应该为 <codeph>RepeatBehavior.LOOP</codeph>（表示动画每次都以相同顺序重复）或 <codeph>RepeatBehavior.REVERSE</codeph>（表示动画在每次迭代时都反转方向）。
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Resize"><apiName>Resize</apiName><shortdesc>
+  Resize 效果在指定的时间间隔更改组件的宽度或高度，或同时更改这两者。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Resize&gt;</code> tag
+  inherits all of the tag attributes of its superclass, 
+  and adds the following tab attributes:</p>
+  
+  <pre>
+  &lt;s:Resize
+    id="ID"
+    widthFrom="val"
+    heightFrom="val"
+    widthTo="val"
+    heightTo="val"
+    widthBy="val"
+    heightBy="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Resize 效果在指定的时间间隔更改组件的宽度或高度，或同时更改这两者。 
+  
+  <p>如果您仅指定 <codeph>widthFrom</codeph>、<codeph>widthTo</codeph> 和 <codeph>widthBy</codeph> 属性这三个值中的两个值，则 Flex 会计算第三个值。如果指定了所有这三个值，Flex 将忽略 <codeph>widthBy</codeph> 值。如果您仅指定 <codeph>widthBy</codeph> 或 <codeph>widthTo</codeph> 值，则会将 <codeph>widthFrom</codeph> 属性设置为对象的当前宽度。对于 <codeph>heightFrom</codeph>、<codeph>heightTo</codeph> 和 <codeph>heightBy</codeph> 属性值，同样如此。</p>
+  
+  </apiDesc><example conref="ResizeEffectExample.mxml"><swfblock conref="examples/ResizeEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#ResizeInstance"><linktext>spark.effects.supportClasses.ResizeInstance</linktext></link></related-links><apiConstructor id="spark.effects:Resize:Resize"><apiName>Resize</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Resize:heightBy"><apiName>heightBy</apiName><shortdesc> 
+      组件高度所修改的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      组件高度所修改的像素数目。值可以为负数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:heightFrom"><apiName>heightFrom</apiName><shortdesc> 
+      初始高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      初始高度（以像素为单位）。如果将其忽略，Flex 会使用目标的当前高度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:heightTo"><apiName>heightTo</apiName><shortdesc> 
+      目标的最终高度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的最终高度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:widthBy"><apiName>widthBy</apiName><shortdesc> 
+      按其修改目标的宽度的像素数目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      按其修改目标的宽度的像素数目。值可以为负数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:widthFrom"><apiName>widthFrom</apiName><shortdesc> 
+      目标的初始宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的初始宽度（以像素为单位）。如果省略，Flex 将使用当前宽度。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Resize:widthTo"><apiName>widthTo</apiName><shortdesc> 
+      目标的最终宽度（以像素为单位）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标的最终宽度（以像素为单位）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Scale"><apiName>Scale</apiName><shortdesc>
+  Scale 效果围绕转换中心在 x 和 y 方向上缩放目标对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Scale&gt;</code> tag
+  inherits all of the tag attributes of its of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Scale
+    id="ID"
+    scaleXBy="val"
+    scaleXFrom="val"
+    scaleXTo="val"
+    scaleYBy="val"
+    scaleYFrom="val"
+    scaleYTo="val"
+   /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Scale 效果围绕转换中心在 x 和 y 方向上缩放目标对象。比例为 2.0 表示对象放大了 2 倍，比例 0.5 则表示对象缩小了 2 倍。比例值为 0.0 时无效。
+ 
+  <p>与所有基于 AnimateTransform 的效果一样，此效果将仅可用于 UIComponent 和 GraphicElement 的子类，因为这些效果依赖于这些类中的特定转换函数。 </p>
+  
+  </apiDesc><example conref="ScaleEffectExample.mxml"><swfblock conref="examples/ScaleEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Scale:Scale"><apiName>Scale</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Scale:scaleXBy"><apiName>scaleXBy</apiName><shortdesc>
+      在 x 方向上按其缩放对象的因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 x 方向上按其缩放对象的因子。这是可以替代其他 from/to 值之一而使用的一个可选参数，用于指定要添加到 from 值的 delta，或者用于通过从 to 值减去而得出 from 值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleXFrom"><apiName>scaleXFrom</apiName><shortdesc>
+      在 x 方向上的起始比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 x 方向上的起始比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleXTo"><apiName>scaleXTo</apiName><shortdesc>
+      在 x 方向上的结束比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 x 方向上的结束比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleYBy"><apiName>scaleYBy</apiName><shortdesc>
+     在 y 方向上按其缩放对象的因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+     在 y 方向上按其缩放对象的因子。这是可以替代其他 from/to 值之一而使用的一个可选参数，用于指定要添加到 from 值的 delta，或者用于通过从 to 值减去而得出 from 值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleYFrom"><apiName>scaleYFrom</apiName><shortdesc>
+      在 y 方向上的起始比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 y 方向上的起始比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Scale:scaleYTo"><apiName>scaleYTo</apiName><shortdesc>
+      在 y 方向上的结束比例因子。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      在 y 方向上的结束比例因子。比例值为 0.0 时无效。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:RemoveAction"><apiName>RemoveAction</apiName><shortdesc>
+  RemoveAction 类可定义与视图状态定义的 RemoveChild 属性对应的动作效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:RemoveAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+
+  <pre>
+  &lt;s:RemoveAction
+    <b>Properties</b>
+    id="ID"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RemoveAction 类可定义与视图状态定义的 RemoveChild 属性对应的动作效果。您可以在过渡定义中使用 RemoveAction 效果来控制在过渡期间何时发生由 RemoveChild 属性定义的视图状态更改。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#RemoveActionInstance"><linktext>spark.effects.supportClasses.RemoveActionInstance</linktext></link><link href="" invalidHref="mx.states.RemoveChild.xml"><linktext>mx.states.RemoveChild</linktext></link></related-links><apiConstructor id="spark.effects:RemoveAction:RemoveAction"><apiName>RemoveAction</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="spark.effects:SetAction"><apiName>SetAction</apiName><shortdesc>
+  SetAction 类可定义用于设置已命名属性或样式的值的动作效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="duration"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:SetAction&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:SetAction
+    <b>Properties</b>
+    id="ID"
+    property=""
+    value=""
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.effects:Effect</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetAction 类可定义用于设置已命名属性或样式的值的动作效果。您可以在过渡定义中使用 SetAction 效果来控制在转换期间何时发生由属性或样式定义的视图状态更改。
+  
+  </apiDesc><example conref="SetActionEffectExample.mxml"><swfblock conref="examples/SetActionEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#SetActionInstance"><linktext>spark.effects.supportClasses.SetActionInstance</linktext></link></related-links><apiConstructor id="spark.effects:SetAction:SetAction"><apiName>SetAction</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:SetAction:property"><apiName>property</apiName><shortdesc> 
+      所更改的属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc> 
+      所更改的属性的名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:SetAction:value"><apiName>value</apiName><shortdesc> 
+      属性的新值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc> 
+      属性的新值。如果是在过渡中运行，且未指定值，Flex 会基于新视图状态所设置的值来确定该值。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:AnimateTransform"><apiName>AnimateTransform</apiName><shortdesc>
+  AnimateTransform 效果控制目标对象上所有与转换相关的动画。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="repeatDelay"/><Exclude kind="property" name="repeatBehavior"/><Exclude kind="property" name="repeatCount"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateTransform&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateTransform
+    <b>Properties</b>
+    id="ID"
+    applyChangesPostLayout="false"
+    autoCenterTransform="false"
+    transformX="0"
+    transformY="0"
+    transformZ="0"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimateTransform 效果控制目标对象上所有与转换相关的动画。在修改 overlapping 属性值时，平移、缩放和旋转等转换操作都会组合成同时运行的单个操作，以避免发生任何冲突。此效果的工作原理是：将目标上当前所有转换效果组合成该目标的单个效果实例。即同一 Parallel 效果内的多个转换效果将被组合到一起（在一个 Sequence 内的转换效果将单独运行）。
+ 
+  <p>如果在内部发生了这种多个转换效果的组合，则必须遵循下列约束：</p>
+ 
+  <ul>
+    <li>目标对象的 <codeph>transformCenter</codeph> 全局地应用于该目标上的所有转换效果，因此它必须在所有目标上设为相同的值。</li>
+    <li>Transform 效果会忽略重复参数，因为任一单个的 Transform 效果的效果都会影响同一目标上运行的其他所有 Transform 效果。效果还可以通过将它们封装在 CompositeEffect 中的方式来进行重复。</li>
+    <li>AnimateTransform 类的子类提供了对转换效果进行简单操作的便捷方式，但是如果要对基础关键帧时间和值进行完全控制和精细操作，请直接使用 AnimateTransform 效果。</li>
+  </ul>
+  
+  <p>此效果及其子类的另一个约束是：目标的类型必须为 UIComponent 或 GraphicElement（或者这些类的子类）或拥有以类似方式定义并实现 <codeph>transformAround()</codeph> 和 <codeph>transformPointToParent()</codeph> 函数的其他任何对象。</p>
+  
+  <p>此效果不能直接使用，而是显示其子类所用的常用功能。要使用转换效果，请使用子类效果（Move、Move3D、Scale、Scale3D、Rotate 和 Rotate3D）。</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateTransformInstance"><linktext>spark.effects.supportClasses.AnimateTransformInstance</linktext></link></related-links><apiConstructor id="spark.effects:AnimateTransform:AnimateTransform"><apiName>AnimateTransform</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateTransform:autoCenterTransform"><apiName>autoCenterTransform</apiName><shortdesc>
+      指定在转换效果开始播放时，该效果是否围绕目标的中心 (width/2, height/2) 发生。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指定在转换效果开始播放时，该效果是否围绕目标的中心 <codeph>(width/2, height/2)</codeph> 发生。如果未设置该标志，转换中心将由对象的转换中心 (<codeph>transformX, transformY, transformZ</codeph>) 和此效果中的 <codeph>transformX, transformY, transformZ</codeph> 属性决定。也就是说，转换中心就是目标对象的转换中心，其中的任何 <codeph>transformX、transformY、transformZ</codeph> 属性（如果已设置）都将由效果中的这些值覆盖。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/transformX"><linktext>mx.core.UIComponent.transformX</linktext></link><link href="" invalidHref="mx.core.xml#UIComponent/transformY"><linktext>mx.core.UIComponent.transformY</linktext></link><link href="" invalidHref="mx.core.xml#UIComponent/transformZ"><linktext>mx.core.UIComponent.transformZ</linktext></link><link href="spark.effects.xml#AnimateTransform/transformX"><linktext>transformX</linktext></link><link href="spark.effects.xml#AnimateTransform/transformY"><linktext>transformY</linktext></link><link href="spark.effects.xml#AnimateTransform/transformZ"><linktext>transformZ</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform:transformX"><apiName>transformX</apiName><shortdesc>
+      设置转换中心的 x 坐标（由 autoCenterTransform 属性覆盖时除外）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      设置转换中心的 x 坐标（由 <codeph>autoCenterTransform</codeph> 属性覆盖时除外）。
+     
+      <p>如果 <codeph>autoCenterTransform</codeph> 为 <codeph>false</codeph>，转换中心将由目标对象的 <codeph>transformX</codeph>、<codeph>transformY</codeph> 和 <codeph>transformZ</codeph> 属性确定，但是这些属性都可以通过在此效果中分别对它们进行设置来覆盖。</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/transformX"><linktext>mx.core.UIComponent.transformX</linktext></link><link href="spark.effects.xml#AnimateTransform/autoCenterTransform"><linktext>autoCenterTransform</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform:transformY"><apiName>transformY</apiName><shortdesc>
+      设置转换中心的 y 坐标（由 autoCenterTransform 属性覆盖时除外）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      设置转换中心的 y 坐标（由 <codeph>autoCenterTransform</codeph> 属性覆盖时除外）。
+     
+      <p>如果 <codeph>autoCenterTransform</codeph> 为 <codeph>false</codeph>，转换中心将由目标对象的 <codeph>transformX</codeph>、<codeph>transformY</codeph> 和 <codeph>transformZ</codeph> 属性确定，但是这些属性都可以通过在此效果中分别对它们进行设置来覆盖。</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/transformY"><linktext>mx.core.UIComponent.transformY</linktext></link><link href="spark.effects.xml#AnimateTransform/autoCenterTransform"><linktext>autoCenterTransform</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform:transformZ"><apiName>transformZ</apiName><shortdesc>
+      设置转换中心的 z 坐标（由 autoCenterTransform 属性覆盖时除外）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      设置转换中心的 z 坐标（由 <codeph>autoCenterTransform</codeph> 属性覆盖时除外）。
+      
+      <p>如果 <codeph>autoCenterTransform</codeph> 为 <codeph>false</codeph>，转换中心将由目标对象的 <codeph>transformX</codeph>、<codeph>transformY</codeph> 和 <codeph>transformZ</codeph> 属性确定，但是这些属性都可以通过在此效果中分别对它们进行设置来覆盖。</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.xml#UIComponent/transformZ"><linktext>mx.core.UIComponent.transformZ</linktext></link><link href="spark.effects.xml#AnimateTransform/autoCenterTransform"><linktext>autoCenterTransform</linktext></link></related-links></apiValue><apiValue id="spark.effects:AnimateTransform:applyChangesPostLayout:get"><apiName>applyChangesPostLayout</apiName><shortdesc> 
+      AnimateTransform 的子类使用此标志指定该效果是否更改布局管理器所用的转换值，或者它是否更改运行布局之后使用的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc> 
+      AnimateTransform 的子类使用此标志指定该效果是否更改布局管理器所用的转换值，或者它是否更改运行布局之后使用的值。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:AnimateColor"><apiName>AnimateColor</apiName><shortdesc>
+  AnimateColor 效果设置 color 属性随时间发生的变化的动画，逐个通道地在给定的 from/to 颜色值之间进行插补。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:AnimateColor&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:AnimateColor
+    <b>Properties</b>
+    id="ID"
+    colorFrom="no default"
+    colorPropertyName="color"
+    colorTo="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:Animate</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AnimateColor 效果设置 color 属性随时间发生的变化的动画，逐个通道地在给定的 from/to 颜色值之间进行插补。设置 color 属性的动画时请使用此效果而不是 Animate 或其它效果。 
+  
+  </apiDesc><example conref="AnimateColorEffectExample.mxml"><swfblock conref="examples/AnimateColorEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.supportClasses.xml#AnimateColorInstance"><linktext>spark.effects.supportClasses.AnimateColorInstance</linktext></link></related-links><apiConstructor id="spark.effects:AnimateColor:AnimateColor"><apiName>AnimateColor</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。  
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:AnimateColor:colorFrom"><apiName>colorFrom</apiName><shortdesc>
+      起始颜色值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/><apiDefaultValue>0xFFFFFF
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      起始颜色值。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateColor:colorPropertyName"><apiName>colorPropertyName</apiName><shortdesc>
+      此动画所影响的目标对象上的 color 属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>color</apiData><apiType value="String"/><apiDefaultValue>"color"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      此动画所影响的目标对象上的 color 属性的名称。color 属性是采用 32 位颜色值的属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:AnimateColor:colorTo"><apiName>colorTo</apiName><shortdesc>
+     结束颜色值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>4.294967295E9</apiData><apiType value="uint"/><apiDefaultValue>0xFFFFFF
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     结束颜色值。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:Rotate3D"><apiName>Rotate3D</apiName><shortdesc>
+  Rotate3D 类在三维方向上围绕 x、y 或 z 轴旋转目标对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><Exclude kind="property" name="motionPaths"/><DefaultProperty name="motionPaths"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Rotate3D&gt;</code> tag
+  inherits all of the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Rotate3D
+    <b>Properties</b>
+    id="ID"
+    angleXFrom="no default"
+    angleXTo="no default"
+    angleYFrom="no default"
+    angleYTo="no default"
+    angleZFrom="no default"
+    angleZTo="no default"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects:AnimateTransform3D</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Rotate3D 类在三维方向上围绕 x、y 或 z 轴旋转目标对象。旋转是围绕目标的转换中心发生的。 
+ 
+  <p>与所有基于 AnimateTransform 的效果一样，此效果仅可用于 UIComponent 和 GraphicElement 的子类，因为这些效果依赖于这些类中的特定转换函数。另外，正在同一目标上并行运行的转换效果会作为一个单一效果实例运行。因此，这些转换效果会共享由任何起作用的效果设置的转换中心。</p>
+  
+  </apiDesc><example conref="Rotate3DEffectExample.mxml"><swfblock conref="examples/Rotate3DEffectExample.swf"/></example></apiClassifierDetail><apiConstructor id="spark.effects:Rotate3D:Rotate3D"><apiName>Rotate3D</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要使用此效果为其设置动画的 Object。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects:Rotate3D:angleXFrom"><apiName>angleXFrom</apiName><shortdesc> 
+      目标对象围绕 x 轴旋转的起始角度（以度表示）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标对象围绕 x 轴旋转的起始角度（以度表示）。有效值范围是 0 到 360。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleXTo"><apiName>angleXTo</apiName><shortdesc> 
+      目标对象围绕 x 轴旋转的结束角度（以度表示）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标对象围绕 x 轴旋转的结束角度（以度表示）。此值可以是正值也可以是负值。
+     
+      <p>如果 <codeph>angleTo</codeph> 的值比 <codeph>angleFrom</codeph> 的值小，则目标沿逆时针方向旋转。否则，它将以顺时针方向旋转。如果希望对目标进行多次旋转，请将此值设置为较大的正数或较小的负数。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleYFrom"><apiName>angleYFrom</apiName><shortdesc> 
+      目标对象围绕 y 轴旋转的起始角度（以度表示）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标对象围绕 y 轴旋转的起始角度（以度表示）。有效值范围是 0 到 360。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleYTo"><apiName>angleYTo</apiName><shortdesc> 
+      目标对象围绕 y 轴旋转的结束角度（以度表示）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标对象围绕 y 轴旋转的结束角度（以度表示）。此值可以是正值也可以是负值。
+     
+      <p>如果 <codeph>angleTo</codeph> 的值比 <codeph>angleFrom</codeph> 的值小，则目标沿逆时针方向旋转。否则，它将以顺时针方向旋转。如果希望对目标进行多次旋转，请将此值设置为较大的正数或较小的负数。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleZFrom"><apiName>angleZFrom</apiName><shortdesc> 
+      目标对象围绕 z 轴旋转的起始角度（以度表示）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标对象围绕 z 轴旋转的起始角度（以度表示）。有效值范围是 0 到 360。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:Rotate3D:angleZTo"><apiName>angleZTo</apiName><shortdesc> 
+      目标对象围绕 z 轴旋转的结束角度（以度表示）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc> 
+      目标对象围绕 z 轴旋转的结束角度（以度表示）。此值可以是正值也可以是负值。
+     
+      <p>如果 <codeph>angleTo</codeph> 的值比 <codeph>angleFrom</codeph> 的值小，则目标沿逆时针方向旋转。否则，它将以顺时针方向旋转。如果希望对目标进行多次旋转，请将此值设置为较大的正数或较小的负数。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects:WipeDirection"><apiName>WipeDirection</apiName><shortdesc>
+  WipeDirection 类定义 Wipe 类的 direction 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WipeDirection 类定义 Wipe 类的 <codeph>direction</codeph> 属性的值。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Wipe"><linktext>spark.effects.Wipe</linktext></link></related-links><apiValue id="spark.effects:WipeDirection:DOWN"><apiName>DOWN</apiName><shortdesc>
+      从顶部开始并向下移动的划出方向
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>down</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      从顶部开始并向下移动的划出方向
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:WipeDirection:LEFT"><apiName>LEFT</apiName><shortdesc>
+      从右侧开始并向左侧移动的划出方向
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      从右侧开始并向左侧移动的划出方向
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:WipeDirection:RIGHT"><apiName>RIGHT</apiName><shortdesc>
+      从左侧开始并向右侧移动的划出方向
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>right</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      从左侧开始并向右侧移动的划出方向
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects:WipeDirection:UP"><apiName>UP</apiName><shortdesc>
+      从底部开始并向上移动的划出方向
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>up</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      从底部开始并向上移动的划出方向
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

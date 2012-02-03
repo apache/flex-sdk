@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.modules"><apiName>spark.modules</apiName><apiDetail/><apiClassifier id="spark.modules:ModuleLoader"><apiName>ModuleLoader</apiName><shortdesc>
+  ModuleLoader ist eine Komponente, die sich ähnlich einem SWFLoader verhält, mit dem Unterschied, dass sie einer Vereinbarung mit den geladenen Inhalten folgt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="spark.modules:ModuleLoader">
+<description>
+  Module werden nicht für AIR-Mobile-Anwendungen unterstützt.
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><DefaultProperty name="mxmlContent"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:INavigatorContent</apiBaseInterface><apiBaseClassifier>spark.components:Group</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ModuleLoader ist eine Komponente, die sich ähnlich einem SWFLoader verhält, mit dem Unterschied, dass sie einer Vereinbarung mit den geladenen Inhalten folgt. Diese Vereinbarung schreibt vor, dass die untergeordnete SWF-Datei IFlexModuleFactory implementiert und dass diese benutzt werden kann, um bei Bedarf mehrere Instanzen der Unterklasse zu erzeugen.
+   <p>Der ModuleLoader ist mit zurückgestellter Instanziierung verbunden und stellt sicher, dass durch ModuleManager-Singleton nicht mehr als eine Kopie der Module SWF-Datei über das Netzwerk übertragen wird.</p>
+  
+  </apiDesc><example conref="ModuleLoaderExample.mxml"><swfblock conref="examples/ModuleLoaderExample.swf"/></example><example conref="ModuleVerticalLayout.mxml"/><example conref="ModuleHorizontalLayout.mxml"/></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.ModuleManager.xml"><linktext>mx.modules.ModuleManager</linktext></link><link href="spark.modules.xml#Module"><linktext>spark.modules.Module</linktext></link><link href="" invalidHref="mx.controls.SWFLoader.xml"><linktext>mx.controls.SWFLoader</linktext></link></related-links><adobeApiEvent id="spark.modules:ModuleLoader_mx.events.ModuleEvent.UNLOAD_unload"><apiName>unload</apiName><shortdesc>
+  Wird ausgelöst, wenn die Moduldaten entladen werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.UNLOAD</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn die Moduldaten entladen werden.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.modules:ModuleLoader_mx.events.ModuleEvent.PROGRESS_progress"><apiName>progress</apiName><shortdesc>
+  Wird in regelmäßigen Abständen ausgelöst, während das Modul lädt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.PROGRESS.</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird in regelmäßigen Abständen ausgelöst, während das Modul lädt.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.modules:ModuleLoader_mx.events.ModuleEvent.ERROR_error"><apiName>error</apiName><shortdesc>
+  Wird ausgelöst, wenn das Modul einen Fehler ausgibt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.ERROR</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn das Modul einen Fehler ausgibt.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.modules:ModuleLoader_mx.events.ModuleEvent.READY_ready"><apiName>ready</apiName><shortdesc>
+  Wird ausgelöst, wenn das Laden des Moduls beendet ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.READY</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn das Laden des Moduls beendet ist.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.modules:ModuleLoader_mx.events.ModuleEvent.SETUP_setup"><apiName>setup</apiName><shortdesc>
+  Wird ausgelöst, wenn Informationen über das Modul (mit der info()-Methode) verfügbar sind, das Modul jedoch noch nicht bereit ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.ModuleEvent.SETUP</apiEventType><adobeApiEventClassifier>mx.events.ModuleEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn Informationen über das Modul (mit der <codeph>info()</codeph>-Methode) verfügbar sind, das Modul jedoch noch nicht bereit ist.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.modules:ModuleLoader_mx.events.FlexEvent.URL_CHANGED_urlChanged"><apiName>urlChanged</apiName><shortdesc>
+  Wird ausgelöst, wenn dem ModuleLoader eine neue URL zugewiesen wurde.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.URL_CHANGED</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn dem ModuleLoader eine neue URL zugewiesen wurde.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.modules:ModuleLoader_mx.events.FlexEvent.LOADING_loading"><apiName>loading</apiName><shortdesc>
+  Wird ausgelöst, wenn der ModuleLoader beginnt, eine URL zu laden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.LOADING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn der ModuleLoader beginnt, eine URL zu laden.
+   </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.modules:ModuleLoader:ModuleLoader"><apiName>ModuleLoader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.modules:ModuleLoader:loadModule"><apiName>loadModule</apiName><shortdesc>
+      Lädt das Modul.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Der Ort des Moduls, als URL ausgedrückt. Dieser Parameter ist optional. Wenn dieser Parameter „null“ ist, wird der Wert der <codeph>url</codeph>-Eigenschaft benutzt. Wenn dieser Parameter bereitgestellt wird, wird die <codeph>url</codeph>-Eigenschaft auf den Wert der URL aktualisiert.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bytes</apiItemName><apiType value="flash.utils:ByteArray"/><apiData>null</apiData><apiDesc>Ein ByteArray-Objekt. Vom ByteArray wird erwartet, dass es die Bytes einer SWF-Datei enthält, die ein kompiliertes Modul darstellen. Das ByteArray-Objekt kann über die URLLoader-Klasse bezogen werden. Wenn dieser Parameter festgelegt ist, wird das Modul aus dem ByteArray geladen und der URL-Parameter wird benutzt, um das Modul in der <codeph>ModuleManager.getModule()</codeph>-Methode zu identifizieren. Er darf daher nicht „null“ sein. Wenn dieser Parameter „null“ ist, wird das Modul von der URL geladen, entweder über den URL-Parameter, wenn er nicht „null“ ist, oder die URL-Eigenschaft als Fallback.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Lädt das Modul. Wenn das Laden des Moduls beendet ist, fügt es der ModuleLoader mithilfe der <codeph>addChild()</codeph>-Methode als untergeordnetes Element hinzu. Dies wird normalerweise mit zurückgestellter Instanziierung ausgelöst.
+      
+      <p>Wenn das Modul bereits geladen ist, hat diese Methode keine Auswirkung. Sie lädt das Modul kein zweites Mal.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.modules:ModuleLoader:unloadModule"><apiName>unloadModule</apiName><shortdesc>
+      Entlädt das Modul und setzt es auf „null“.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Entlädt das Modul und setzt es auf <codeph>null</codeph>. Wenn eine Instanz des Moduls zuvor als untergeordnetes Element hinzugefügt wurde, ruft diese Methode die <codeph>removeChild()</codeph>-Methode für das untergeordnete Element auf. 
+      <p>Wenn das Modul nicht existiert oder schon entladen wurde, hat diese Methode keine Auswirkung.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.modules:ModuleLoader:applicationDomain"><apiName>applicationDomain</apiName><shortdesc>
+      Die Anwendungsdomäne, in welche das Modul zu laden ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.system:ApplicationDomain"/></apiValueDef><apiDesc>
+      Die Anwendungsdomäne, in welche das Modul zu laden ist. Mit Anwendungsdomänen werden Klassen unterteilt, die sich in der gleichen Sicherheitsdomäne befinden. Dies ermöglicht mehrere Definitionen der gleichen Klasse und die Wiederverwendung übergeordneter Definitionen in Unterklassen.
+      
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.ApplicationDomain.xml"><linktext>flash.system.ApplicationDomain</linktext></link><link href="" invalidHref="flash.system.SecurityDomain.xml"><linktext>flash.system.SecurityDomain</linktext></link></related-links></apiValue><apiValue id="spark.modules:ModuleLoader:child"><apiName>child</apiName><shortdesc>
+      Das von der Modul-Factory erstellte IVisualElement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IVisualElement"/></apiValueDef><apiDesc>
+      Das von der Modul-Factory erstellte IVisualElement.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.modules:ModuleLoader:creationPolicy:get"><apiName>creationPolicy</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>auto
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="spark.modules:ModuleLoader:icon:get"><apiName>icon</apiName><shortdesc>
+      Die Klasse des von manchen Navigatorcontainern angezeigten Symbols zur Darstellung dieses Containers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="iconChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Klasse des von manchen Navigatorcontainern angezeigten Symbols zur Darstellung dieses Containers.
+           <p>Beispiel: Wenn dieser Container ein untergeordnetes Element eines TabNavigator ist, wird dieses Symbol auf der entsprechenden Registerkarte angezeigt. Ist dieser Container ein untergeordnetes Element eines Accordion, wird dieses Symbol im entsprechenden Header angezeigt.</p>
+           <p>Verwenden Sie zum Einbetten des Symbols in der SWF-Datei die @Embed()-Anweisung des MXML-Compilers:</p>
+           <pre>
+        icon="@Embed('filepath')"
+      </pre>
+           <p>Das Bild kann eine Datei in den Formaten JPEG, GIF, PNG, SVG oder SWF sein.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.modules:ModuleLoader:label:get"><apiName>label</apiName><shortdesc>
+      Der von manchen Navigatorcontainern angezeigte Text, der diesen Container repräsentieren soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der von manchen Navigatorcontainern angezeigte Text, der diesen Container repräsentieren soll.
+           <p>Beispiel: Wenn dieser Container ein untergeordnetes Element eines TabNavigator ist, wird dieser String auf der entsprechenden Registerkarte angezeigt. Ist dieser Container ein untergeordnetes Element eines Accordion, wird dieser String im entsprechenden Header angezeigt.</p>
+           </apiDesc></apiValueDetail></apiValue><apiValue id="spark.modules:ModuleLoader:url:get"><apiName>url</apiName><shortdesc>
+      Der Ort des Moduls als URL ausgedrückt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Ort des Moduls als URL ausgedrückt.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.modules:Module"><apiName>Module</apiName><shortdesc>
+  Die Basisklasse für MXML-basierte dynamisch ladbare Module.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion><discouragedForProfiles><DiscouragedForProfile name="mobileDevice" owner="spark.modules:Module">
+<description>
+  Module werden nicht für AIR-Mobile-Anwendungen unterstützt.
+ </description>
+	</DiscouragedForProfile></discouragedForProfiles><DefaultProperty name="mxmlContentFactory"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.modules:IModule</apiBaseInterface><apiBaseClassifier>spark.components:SkinnableContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die Basisklasse für MXML-basierte dynamisch ladbare Module. Sie erweitern die Klasse in MXML, indem Sie das <codeph>&lt;s:Module></codeph>-Tag in einer MXML-Datei verwenden. Das folgende Beispiel zeigt wie:
+  
+  <pre>
+  &lt;?xml version="1.0"?>
+  &lt;!-- This module loads an image. -->
+  &lt;s:Module  width="100%" height="100%" xmlns:s="library://ns.adobe.com/flex/spark">
+  
+    &lt;s:Image source="trinity.gif"/>
+  
+  &lt;/s:Module>
+  </pre>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.modules.ModuleManager.xml"><linktext>mx.modules.ModuleManager</linktext></link><link href="spark.modules.xml#ModuleLoader"><linktext>spark.modules.ModuleLoader</linktext></link></related-links><apiConstructor id="spark.modules:Module:Module"><apiName>Module</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

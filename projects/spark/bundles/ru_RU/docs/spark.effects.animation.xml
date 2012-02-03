@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.animation"><apiName>spark.effects.animation</apiName><apiDetail/><apiClassifier id="spark.effects.animation:Keyframe"><apiName>Keyframe</apiName><shortdesc>
+  Класс Keyframe определяет значение свойства в определенное время в течение выполнения эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Keyframe&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:Keyframe 
+    id="ID"
+    easier="Linear"
+    time="val"
+    value="val"
+    valueBy="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Keyframe определяет значение свойства в определенное время в течение выполнения эффекта. Например, можно создать три ключевых кадра, которые определяют значение свойства в начале, в середине и в конце эффекта. Данный эффект анимирует изменение свойства целевого объекта от одного ключевого кадра к другому во время выполнения эффекта.
+ 
+  <p>Совокупность ключевых кадров эффекта называется путем движения эффекта. Путь движения может определять любое количество ключевых кадров. Эффект вычисляет значение свойства путем интерполяции между значениями, указанными двумя ключевыми кадрами. </p>
+ 
+  <p>Для хранения совокупности объектов ключевых кадров, представляющих путь движения эффекта, необходимо использовать класс MotionPath. Класс MotionPath определяет имя свойства в целевом объекте и совокупность объектов ключевых кадров, определяющих значения свойства в различное время выполнения эффекта.</p>
+  
+  </apiDesc><example conref="KeyFrameEffectExample.mxml"><swfblock conref="examples/KeyFrameEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>MotionPath</linktext></link></related-links><apiConstructor id="spark.effects.animation:Keyframe:Keyframe"><apiName>Keyframe</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>time</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>Время (в миллисекундах), когда целевой объект эффекта данного ключевого кадра должен принять значение, указанное параметром <codeph>value</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Значение, которое целевой объект эффекта должен иметь при данном значении <codeph>time</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueBy</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Дополнительный параметр, который в случае его предоставления вызывает динамическое вычисление значения <codeph>value</codeph> посредством добавления значения<codeph>valueBy</codeph> к значению <codeph>value</codeph> предыдущего ключевого кадра в наборе ключевых кадров в объекте MotionPath. Это значение игнорируется, если данный ключевой кадр является первым в последовательности.
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:Keyframe:clone"><apiName>clone</apiName><shortdesc>
+      Возвращает копию данного объекта ключевого кадра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Копия данного объекта ключевого кадра.
+     
+      </apiDesc><apiOperationClassifier>spark.effects.animation:Keyframe</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Возвращает копию данного объекта ключевого кадра.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:Keyframe:easer"><apiName>easer</apiName><shortdesc>
+      К движению применено поведение замедления между предыдущим объектом ключевого кадра в пути движения и данным объектом ключевого кадра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>Linear
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      К движению применено поведение замедления между предыдущим объектом ключевого кадра в пути движения и данным объектом ключевого кадра. По умолчанию замедление линейно или вообще отсутствует. 
+     
+      <p>Следует отметить, что вышестоящий эффект уже, возможно, имеет примененное ко всей анимации замедление. Поэтому если взамен необходима анимация по интервалам ключевого кадра, то, возможно, потребуется установить линейный общий эффект замедления (spark.effects.easing.Linear), а затем по мере необходимости установить <codeph>easer</codeph> в каждом соответствующем ключевом кадре.</p>
+     
+      <p>Поскольку это свойство оказывает влияние на интервал в последовательности между предыдущим и данным объектами ключевого кадра, то свойство <codeph>easer</codeph> игнорируется для первого в последовательности объекта ключевого кадра.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:time"><apiName>time</apiName><shortdesc>
+      Время (в миллисекундах), когда целевой объект эффекта данного ключевого кадра должен принять значение, определенное свойством value.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Number"/></apiValueDef><apiDesc>
+      Время (в миллисекундах), когда целевой объект эффекта данного ключевого кадре должен принять значение, определенное свойством <codeph>value</codeph>. Время является относительным для времени начала эффекта, определенного данным ключевым кадром.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:valueBy"><apiName>valueBy</apiName><shortdesc>
+      Дополнительный параметр, который в случае его указания используется для вычисления значения value в данном или предыдущем ключевом кадре.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Дополнительный параметр, который в случае его указания используется для вычисления значения <codeph>value</codeph> в данном или предыдущем ключевом кадре. Если значение <codeph>value</codeph> не установлено в предыдущем ключевом кадре, но этот кадр определяет значения <codeph>value</codeph> и <codeph>valueBy</codeph>, то значение <codeph>value</codeph> в предыдущем ключевом кадре вычисляется как <codeph>value</codeph> минус <codeph>valueBy</codeph> в данном ключевом кадре.
+     
+      <p>Схожим образом, если не определено значение <codeph>value</codeph> в данном ключевом кадре, но значения <codeph>valueBy</codeph> в данном и <codeph>value</codeph> в предыдущем ключевых кадрах установлены, то значение <codeph>value</codeph> в данном ключевом кадре вычисляется как <codeph>value</codeph> в предыдущем кадре плюс <codeph>valueBy</codeph> в данном ключевом кадре.</p>
+      
+      <p>Значение <codeph>valueBy</codeph> игнорируется для первого ключевого кадра в последовательности, так как оно применимо только к интервалу, предшествующему ключевому кадру, которого не существует для первого ключевого кадра.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Keyframe:value"><apiName>value</apiName><shortdesc>
+      Значение, которое свойство целевого объекта эффекта должно принимать в момент времени, определенный свойством time.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Значение, которое свойство целевого объекта эффекта должно принимать в момент времени, определенный свойством<codeph>time</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:IAnimationTarget"><apiName>IAnimationTarget</apiName><shortdesc>
+  Интерфейс IAnimationTarget реализуется классами, поддерживающими события экземпляра Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейс IAnimationTarget реализуется классами, поддерживающими события экземпляра Animation.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Animation"><linktext>spark.effects.animation.Animation</linktext></link></related-links><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationEnd"><apiName>animationEnd</apiName><shortdesc>
+      Вызывается при завершении экземпляра Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Объект Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается при завершении экземпляра Animation.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationRepeat"><apiName>animationRepeat</apiName><shortdesc>
+      Вызывается при повторении экземпляра Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Объект Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается при повторении экземпляра Animation. Свойство <codeph>repeatCount</codeph> экземпляра Animation должно быть равно 0 (бесконечное число повторений) или иметь значение больше 1.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationStart"><apiName>animationStart</apiName><shortdesc>
+      Вызывается при запуске экземпляра Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Объект Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается при запуске экземпляра Animation. Если для элемента Animation задано свойство <codeph>startDelay</codeph>, данная функция вызывается по истечении указанного времени задержки.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationStop"><apiName>animationStop</apiName><shortdesc>
+      Вызывается при остановке экземпляра Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Объект Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается при остановке экземпляра Animation. Это отличается от метода <codeph> animationEnd</codeph>, вызываемого при окончании анимации, автоматически устанавливая конечные значения целевых объектов. Метод <codeph>animationStop()</codeph> вызывается при остановке анимации в позиции, в которой она находится. Обработка этого события позволяет выполнить необходимую очистку при прерывании анимации.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:IAnimationTarget:spark.effects.animation:IAnimationTarget:animationUpdate"><apiName>animationUpdate</apiName><shortdesc>
+      Вызывается в ходе каждого обновления экземпляра Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>animation</apiItemName><apiOperationClassifier>spark.effects.animation:Animation</apiOperationClassifier><apiDesc>Объект Animation.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Вызывается в ходе каждого обновления экземпляра Animation. Если класс реализации обеспечивает прослушивание элемента Animation для получения возможности выполнения каких-либо операций после вычисления значений Animation для заданного периода времени, указанные значения должны быть использованы именно в этой функции. Другие методы в этом интерфейсе являются более информационными. Они сообщат прослушивателям о начале, остановке или повторе анимации. Этот метод вызывается после вычисления значений, когда с ними могут быть произведены какие-либо операции. 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.animation:MotionPath"><apiName>MotionPath</apiName><shortdesc>
+  Класс MotionPath определяет совокупность объектов ключевых кадров эффекта и имя свойства целевого объекта для анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="keyframes"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:MotionPath&gt;</code> tag
+  inherits the tag attributes of its superclass,
+  and adds the following tag attributes:</p>
+  
+  <pre>
+  &lt;s:MotionPath 
+    id="ID"
+    interpolator="NumberInterpolator"
+    keyframes="val"
+    property="val"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс MotionPath определяет совокупность объектов ключевых кадров эффекта и имя свойства целевого объекта для анимации. Каждый объект ключевого кадра определяет значение свойства в определенный момент времени в процессе выполнения эффекта. Эффект вычисляет значение свойства target путем интерполяции между значениями, указанными двумя ключевыми кадрами.
+  
+  </apiDesc><example conref="KeyFrameEffectExample.mxml"><swfblock conref="examples/KeyFrameEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#Keyframe"><linktext>Ключевой кадр</linktext></link><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link></related-links><apiConstructor id="spark.effects.animation:MotionPath:MotionPath"><apiName>MotionPath</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Имя свойства целевого объекта, которое используется для анимации.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:MotionPath:clone"><apiName>clone</apiName><shortdesc>
+      Возвращает копию данного объекта MotionPath, включая копии каждого ключевого кадра.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Копия данного объекта MotionPath, включая копии каждого ключевого кадра.
+      
+      </apiDesc><apiOperationClassifier>spark.effects.animation:MotionPath</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Возвращает копию данного объекта MotionPath, включая копии каждого ключевого кадра.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:MotionPath:getValue"><apiName>getValue</apiName><shortdesc>
+      При задании истекшей доли времени вычисляет и возвращает интерполированное значение.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Интерполированное значение.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>Доля полной продолжительности эффекта (значение от 0,0 до 1,0).
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      При задании истекшей доли времени вычисляет и возвращает интерполированное значение. Функция определяет интервал ключевого кадра, в который попадает эта доля, и выполняет интерполяцию в пределах этого интервала между значениями граничных ключевых кадров данного интервала.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:MotionPath:interpolator"><apiName>interpolator</apiName><shortdesc>
+      Интерполятор определяет способ вычисления промежуточных значений в процессе анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+      Интерполятор определяет способ вычисления промежуточных значений в процессе анимации. По умолчанию, класс MotionPath предполагает наличие значений типа Number и может автоматически вычислять промежуточные числовые значения. Если для класса MotionPath заданы ключевые кадры с нечисловыми значениями или если для требуемого поведения необходимо использовать иной способ интерполяции (например, интерполяция цвета по каналам), то потребуется предоставить какой-либо интерполятор.
+     
+      <p>Flex поддерживает предопределенные интерполяторы в пакете spark.effects.interpolation.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:MotionPath:keyframes"><apiName>keyframes</apiName><shortdesc>
+      Последовательность объектов ключевых кадров, представляющих собой пары «время/значение», которые свойство принимает в процессе анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Vector$spark.effects.animation:Keyframe"/></apiValueDef><apiDesc>
+      Последовательность объектов ключевых кадров, представляющих собой пары «время/значение», которые свойство принимает в процессе анимации. Каждая последовательная пара ключевых кадров управляет анимацией в течение промежутка времени между ними. Дополнительные свойства <codeph>easer</codeph> и <codeph>valueBy</codeph> последнего ключевого кадра используются для определения поведения в течение этого интервала. Последовательность ключевых кадров должна быть отсортирована в порядке увеличения значений времени.
+     
+      <p>Анимация всегда начинается на значении time=0 и продолжается в течение времени, равного значению <codeph>time</codeph> последнего ключевого кадра. Если ключевой кадр для значения time=0 не определен, то он является неявным и анимация начинается с использованием значения свойства target. </p>
+     
+      <p>Поскольку ключевые кадры явно задают времена, задействованные в процессе анимации, продолжительность какого-либо эффекта, использующего ключевые кадры, устанавливается в соответствии с максимальным временем последнего ключевого кадра из всех MotionPaths данного эффекта. Например, если для эффекта заданы ключевые кадры со значениями времени, равными 0, 500, 1000 и 2000, то эффективная продолжительность этого эффекта будет 2000 мс, независимо от того, какое значение установлено для свойства данного эффекта <codeph>duration</codeph>. Поскольку последний ключевой кадр определяет продолжительность, то он должен присутствовать в любом MotionPath. Таким образом, продолжительность MotionPath задается неявно значением времени последнего ключевого кадра.</p>
+     
+      <p>Значение <codeph>value</codeph> любого ключевого кадра может остаться неопределенным (незаданным, либо со значением <codeph>null</codeph>, либо со значением <codeph>NaN</codeph>). В этом случае, значение value определяется динамически при запуске анимации. Любое неопределенное значение определяется следующим образом. </p>
+      <ol>
+        <li>В случае если это первый ключевой кадр, то значение вычисляется из следующего ключевого кадра, если таковой имеет заданные значения <codeph>value</codeph> и <codeph>valueBy</codeph>; при этом вычисляемое значение будет разницей значений value и valueBy. В противном случае ему присваивается текущее значение свойства целевого объекта.</li>
+        <li>В случае если это последний ключевой кадр и анимация выполняется в процессе перехода, то используется значение состояния представления целевого объекта перехода.</li>
+        <li>В противном случае, значение <codeph>value</codeph> любого ключевого кадра вычисляется путем добавления значения <codeph>value</codeph> предыдущего ключевого кадра к значению <codeph>valueBy</codeph> текущего, если значение <codeph>valueBy</codeph> задано.</li>
+      </ol>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#Keyframe"><linktext>Ключевой кадр</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:MotionPath:property"><apiName>property</apiName><shortdesc>
+      Имя свойства целевого объекта эффекта, подлежащего анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      Имя свойства целевого объекта эффекта, подлежащего анимации.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:RepeatBehavior"><apiName>RepeatBehavior</apiName><shortdesc>
+  Класс RepeatBehavior определяет константы для использования вместе со свойством repeatBehavior классов Animate и Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс RepeatBehavior определяет константы для использования вместе со свойством <codeph>repeatBehavior</codeph> классов Animate и Animation.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Animate/repeatBehavior"><linktext>spark.effects.Animate.repeatBehavior</linktext></link><link href="spark.effects.animation.xml#Animation/repeatBehavior"><linktext>Animation.repeatBehavior</linktext></link></related-links><apiValue id="spark.effects.animation:RepeatBehavior:LOOP"><apiName>LOOP</apiName><shortdesc>
+     Указывает на то, что повторяемая анимация должна воспроизводиться в прямом направлении в каждой итерации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>loop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Указывает на то, что повторяемая анимация должна воспроизводиться в прямом направлении в каждой итерации.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:RepeatBehavior:REVERSE"><apiName>REVERSE</apiName><shortdesc>
+     Указывает на то, что повторяемая анимация должна воспроизводиться в обратном направлении в каждой итерации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>reverse</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     Указывает на то, что повторяемая анимация должна воспроизводиться в обратном направлении в каждой итерации. Например, реверсированная анимация будет воспроизведена в прямом направлении на четных итерациях и в обратном направлении на нечетных.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:SimpleMotionPath"><apiName>SimpleMotionPath</apiName><shortdesc>
+  Класс SimpleMotionPath определяет имя свойства и значения, которые это свойство принимает во времени для экземпляров эффекта Animate.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="keyframes"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.effects.animation:MotionPath</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс SimpleMotionPath определяет имя свойства и значения, которые это свойство принимает во времени для экземпляров эффекта Animate. 
+ 
+  <p>Этот класс, являющийся простым подклассом MotionPath, служит для определения двух ключевых кадров, содержащих свойства <codeph>valueFrom</codeph>, <codeph>valueTo</codeph> и <codeph>valueBy</codeph>. Сам по себе класс MotionPath может определять любое количество ключевых кадров.</p>
+ 
+  </apiDesc><example conref="SimpleMotionPathEffectExample.mxml"><swfblock conref="examples/SimpleMotionPathEffectExample.swf"/></example></apiClassifierDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>MotionPath</linktext></link></related-links><apiConstructor id="spark.effects.animation:SimpleMotionPath:SimpleMotionPath"><apiName>SimpleMotionPath</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Имя свойства, подлежащего анимации.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFrom</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Начальное значение свойства.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>valueTo</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Конечное значение свойства.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>valueBy</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Дополнительный параметр, указывающий значение дельты, используемое для вычисления значений «с» либо «до», если одно из них опущено. 
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. Можно указать оба параметра <codeph>valueFrom</codeph> и <codeph>valueTo</codeph>, либо параметр <codeph>valueBy</codeph>, и или параметр<codeph>valueFrom</codeph> или <codeph>valueTo</codeph>. Если эти параметры опущены, Flex вычисляет их исходя из целевого объекта эффекта.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.effects.animation:SimpleMotionPath:valueBy:get"><apiName>valueBy</apiName><shortdesc>
+      Необязательное свойство, указывающее значение дельта, используемое для вычисления значений valueFrom или valueTo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Необязательное свойство, указывающее значение дельта, используемое для вычисления значений <codeph>valueFrom</codeph> или <codeph>valueTo</codeph>. Предоставление этого необязательного свойства позволяет эффекту вычислять необходимое значения «до» или «после», если они не предоставлены или должны быть определены динамически в начале анимации.
+     
+      <p>Использование значения <codeph>valueBy</codeph> зависит от того, какие другие значения установлены. Если ни одно из них не установлено, то значение <codeph>valueFrom</codeph> определяется из текущего значения свойства в целевом объекте, а свойство <codeph>valueTo</codeph> приравнивается <codeph>valueFrom + valueBy</codeph>. Если установлено только одно значение, то неустановленное значение вычисляется с помощью другого значения: <codeph>valueTo = valueFrom + valueBy</codeph> или <codeph>valueFrom = valueTo - valueBy</codeph>). Если установлены оба значения, то свойство <codeph>valueBy</codeph> игнорируется.</p>
+     
+      <p>Следует отметить, что <codeph>valueBy</codeph> относится к типу объект, и эффект не может непосредственно вычислить другие значения из него. Свойство использует интерполятор эффекта для вычисления значений, вызывая методы интерполятора <codeph>increment()</codeph> и <codeph>decrement()</codeph>. Если интерполятор не установлен, то по умолчанию используется NumberInterpolator.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:SimpleMotionPath:valueFrom:get"><apiName>valueFrom</apiName><shortdesc>
+      Начальное значение свойства в процессе анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Начальное значение свойства в процессе анимации.
+     
+      <p>Значение Null или NaN (для чисел) указывает на то, что значение должно быть определено динамически в процессе выполнения либо путем прямого извлечения значения из свойства target, либо путем его вычисления, если другое значение допустимо и предоставлено допустимое значение <codeph>valueBy</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:SimpleMotionPath:valueTo:get"><apiName>valueTo</apiName><shortdesc>
+      Целевое значение анимации именованного свойства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Целевое значение анимации именованного свойства.
+     
+      <p>Значение Null или NaN (для чисел) указывает на то, что значение должно быть определено динамически в процессе выполнения либо путем прямого извлечения значения из свойства target, либо путем его вычисления, если другое значение допустимо и предоставлено допустимое значение <codeph>valueBy</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.animation:Animation"><apiName>Animation</apiName><shortdesc>
+  Класс Animation определяет анимацию, осуществляемую между начальным и конечным значениями свойства в указанный период времени.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="motionPaths"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Animation определяет анимацию, осуществляемую между начальным и конечным значениями свойства в указанный период времени. К анимации относятся изменение позиции, выполняемое с помощью эффекта Move, изменение размеров, выполняемое с помощью эффекта Resize, изменение видимости, выполняемое с помощью эффекта Fade, а также другие виды анимации, используемые эффектами или выполняемые непосредственно с классом Animation.
+ 
+  <p>Этот класс определяет временные параметры и значения анимации. Другой код (в эффектах или в коде приложения) связывает анимацию с целевыми объектами и свойствами таким образом, что значения анимации, созданные классом Animation, впоследствии могут быть применены к целевым объектам и свойствам для фактического инициирования анимации этих объектов.</p>
+ 
+  <p>При определении эффектов анимации, как правило, создается экземпляр класса Animate или подкласса Animate. Экземпляр Animation создается в методе <codeph>play()</codeph>. Экземпляр Animation принимает начальное и конечное значения, значение продолжительности и дополнительные параметры, например объекты замедления и интерполятора.</p>
+ 
+  <p>Объект Animation обеспечивает вызов прослушивателей сообщения в начале и конце анимации, при повторении анимации и через регулярные интервалы обновления в ходе анимации. В ходе этих вызовов выполняется передача значений, рассчитанных экземпляром Animation на основе начального и конечного значений и объектов замедления и интерполятора. Впоследствии данные значения можно использовать для установки значений свойств в целевых объектах.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.effects.xml#Animate"><linktext>spark.effects.Animate</linktext></link><link href="spark.effects.supportClasses.xml#AnimateInstance"><linktext>spark.effects.supportClasses.AnimateInstance</linktext></link></related-links><apiConstructor id="spark.effects.animation:Animation:Animation"><apiName>Animation</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>duration</apiItemName><apiType value="Number"/><apiData>500</apiData><apiDesc>Продолжительность анимации в миллисекундах.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>property</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Анимируемые свойства.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Начальное значение свойства.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Конечное значение свойства.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор. Необязательные параметры <codeph>property</codeph>, <codeph>startValue</codeph> и <codeph>endValue</codeph> определяют простую анимацию с одним объектом MotionPath и двумя ключевыми кадрами. Если одно из значений не равно null, <codeph>startValue</codeph> становится <codeph>value</codeph> первого ключевого кадра в точке time=0 и <codeph>endValue</codeph> становится <codeph>value</codeph> второго ключевого кадра в конце анимации.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.animation:Animation:end"><apiName>end</apiName><shortdesc>
+      Прерывает анимацию, переходит непосредственно в конец анимации и запускает функцию animationEnd() на animationTarget.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Прерывает анимацию, переходит непосредственно в конец анимации и запускает функцию animationEnd() на <codeph>animationTarget</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:pause"><apiName>pause</apiName><shortdesc>
+      Приостанавливает эффект до вызова метода resume().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Приостанавливает эффект до вызова метода <codeph>resume()</codeph>. Если метод <codeph>stop()</codeph> вызывается перед методом <codeph>resume()</codeph>, продолжение анимации будет невозможно.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:play"><apiName>play</apiName><shortdesc>
+      Запуск анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Запуск анимации. Если анимация уже воспроизводится, то она будет остановлена, а затем вновь воспроизведена.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:resume"><apiName>resume</apiName><shortdesc>
+      Продолжает воспроизведение эффекта после установки паузы путем вызова метода pause().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Продолжает воспроизведение эффекта после установки паузы путем вызова метода <codeph>pause()</codeph>. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.animation:Animation:stop"><apiName>stop</apiName><shortdesc>
+      Останавливает анимацию, заканчивая ее без вызова метода end().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Останавливает анимацию, заканчивая ее без вызова метода <codeph>end()</codeph>. Будет вызвана функция animationStop() на <codeph>animationTarget</codeph>.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.animation:Animation:currentValue"><apiName>currentValue</apiName><shortdesc>
+      Object, содержащий рассчитанные значения с текущего кадра элемента Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Object, содержащий рассчитанные значения с текущего кадра элемента Animation. Значения хранятся в виде значений карты с использованием имен свойств в качестве ключа.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:duration"><apiName>duration</apiName><shortdesc>
+      Продолжительность анимации в миллисекундах без учета всех повторений, определенных свойством repeatCount.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>500</apiData><apiType value="Number"/><apiDefaultValue>500
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Продолжительность анимации в миллисекундах без учета всех повторений, определенных свойством <codeph>repeatCount</codeph>.
+     
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:interpolator"><apiName>interpolator</apiName><shortdesc>
+      Интерполятор, используемый экземпляром Animation для вычисления значений между начальным и конечным значениями свойства.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier></apiValueDef><apiDesc>
+      Интерполятор, используемый экземпляром Animation для вычисления значений между начальным и конечным значениями свойства. По умолчанию класс использует класс NumberInterpolator или, в случае если начальные и конечные значения являются массивами или векторами, класс MultiValueInterpolator. Интерполяция других типов данных или таких чисел, которые должны быть интерполированы по-другому, например значения <codeph>uint</codeph>, содержащие информацию о цветовых каналах, могут быть обработаны при помощи другого интерполятора.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.interpolation.xml#NumberInterpolator"><linktext>spark.effects.interpolation.NumberInterpolator</linktext></link><link href="spark.effects.interpolation.xml#MultiValueInterpolator"><linktext>spark.effects.interpolation.MultiValueInterpolator</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:motionPaths"><apiName>motionPaths</apiName><shortdesc>
+      Набор объектов MotionPath, определяющих свойства и значения, которые будут анимированы с помощью Animation.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Vector$spark.effects.animation:MotionPath"/></apiValueDef><apiDesc>
+      Набор объектов MotionPath, определяющих свойства и значения, которые будут анимированы с помощью Animation.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#MotionPath"><linktext>spark.effects.animation.MotionPath</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:animationTarget:get"><apiName>animationTarget</apiName><shortdesc>
+      Объект IAnimationTarget, получающий информацию обо всех событиях начала, окончания, повторения и обновления для этой анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.animation:IAnimationTarget</apiValueClassifier><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Объект IAnimationTarget, получающий информацию обо всех событиях начала, окончания, повторения и обновления для этой анимации. Значение <codeph>null</codeph> указывает на отсутствие целевого адреса для уведомления.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:cycleFraction:get"><apiName>cycleFraction</apiName><shortdesc>
+      Текущая доля затраченного времени в анимации после применения замедления.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Текущая доля затраченного времени в анимации после применения замедления. Это значение от 0 до 1. Анимационный «цикл» определен как однократное повторение анимации, где свойство <codeph>repeatCount</codeph> определяет количество циклов, которые будут воспроизведены.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:cycleTime:get"><apiName>cycleTime</apiName><shortdesc>
+      Текущая позиция в миллисекундах в текущем цикле анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Текущая позиция в миллисекундах в текущем цикле анимации. Это значение лежит в диапазоне между 0 и <codeph>duration</codeph>. Анимационный «цикл» определен как однократное повторение анимации, где свойство <codeph>repeatCount</codeph> определяет количество циклов, которые будут воспроизведены. Для изменения позиции анимации используйте метод <codeph>seek()</codeph>.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:easer:get"><apiName>easer</apiName><shortdesc>
+      Реакция замедления для этого эффекта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.easing:IEaser</apiValueClassifier><apiDefaultValue>Sine(.5)
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Реакция замедления для этого эффекта. Этот объект IEaser используется для преобразования доли времени, потребовавшегося на анимацию, в долю времени, затраченного на замедление, которая затем используется для расчета значений по этой доле затраченного на замедление времени. 
+     
+      <p>Значение <codeph>null</codeph> указывает то, что замедление не используется, что эквивалентно применению линейного замедления или <codeph>animation.easer = Linear.getInstance();</codeph>.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:isPlaying:get"><apiName>isPlaying</apiName><shortdesc>
+      Если значение равно true, анимация воспроизводится в настоящий момент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если значение равно <codeph>true</codeph>, анимация воспроизводится в настоящий момент. Значение <codeph>false</codeph> присваивается, если анимация была воспроизведена без остановки (программным способом или автоматически) или приостановлена.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:playReversed:get"><apiName>playReversed</apiName><shortdesc>
+      Если значение равно true, анимация воспроизводится в обратном направлении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если значение равно <codeph>true</codeph>, анимация воспроизводится в обратном направлении. Если в настоящее время анимация воспроизводится в обратном направлении к указанному значению <codeph>playReversed</codeph>, то анимация изменит направление динамически.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:playheadTime:get"><apiName>playheadTime</apiName><shortdesc>
+      Общее затраченное время анимации, включая любую задержку начала и повторения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Общее затраченное время анимации, включая любую задержку начала и повторения. Для анимации с воспроизводимым первым циклом это значение будет равно значению параметра <codeph>cycleTime</codeph>.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:repeatBehavior:get"><apiName>repeatBehavior</apiName><shortdesc>
+      Задает поведение повторяющейся анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>RepeatBehavior.LOOP
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Задает поведение повторяющейся анимации. Свойство <codeph>repeatCount</codeph> повторяющейся анимации имеет значение 0 или целочисленное значение больше 1. Этим значением может являться либо <codeph>RepeatBehavior.LOOP</codeph>, что означает повторение анимации в одном и том же порядке при каждом вызове, либо <codeph>RepeatBehavior.REVERSE</codeph>, что означает смену направления анимации для каждой итерации.
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#RepeatBehavior"><linktext>spark.effects.animation.RepeatBehavior</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:repeatCount:set"><apiName>repeatCount</apiName><shortdesc>
+      Число повторений этой анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Число повторений этой анимации. Значение 0 указывает на бесконечное количество повторений.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.effects.animation:Animation:repeatDelay:set"><apiName>repeatDelay</apiName><shortdesc>
+      Время задержки в миллисекундах перед началом каждого цикла повторения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Время задержки в миллисекундах перед началом каждого цикла повторения. Установка в качестве данного значения числа, отличного от 0, обеспечивает завершение предыдущего цикла анимации точно на его конечном значении. Однако во время плавного перехода анимации от ожидания завершения одного цикла к началу следующего цикла это значение может быть пропущено повторениями без заданного параметра задержки. Это свойство должно иметь значение >= 0.
+     
+      <p>Эти свойство используется для первого повторения после первого цикла анимации. Для задержки первого цикла анимации применяется свойство <codeph>startDelay</codeph>. </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.effects.animation.xml#Animation/startDelay"><linktext>startDelay</linktext></link></related-links></apiValue><apiValue id="spark.effects.animation:Animation:startDelay:set"><apiName>startDelay</apiName><shortdesc>
+      Время ожидания начала анимации.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Время ожидания начала анимации. Это свойство должно иметь значение >= 0.
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

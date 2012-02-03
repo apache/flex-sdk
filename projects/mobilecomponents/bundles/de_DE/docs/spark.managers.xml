@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.managers"><apiName>spark.managers</apiName><apiDetail/><apiClassifier id="spark.managers:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+  Die PersistenceManager-Klasse ist ein einfacher Persistenzmanager, der durch ein lokales gemeinsames Objekt namens FxAppCache unterstützt wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.managers:IPersistenceManager</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die PersistenceManager-Klasse ist ein einfacher Persistenzmanager, der durch ein lokales gemeinsames Objekt namens FxAppCache unterstützt wird. Wenn sie initialisiert ist, lädt sie ein lokales gemeinsames Objekt, das mit ihrer ID übereinstimmt. Ein lokales gemeinsames Objekt wurde nicht gefunden und wird erstellt.
+ 
+  <p>Wenn Werte über den Manager gespeichert werden, ist es wichtig, dass alle Werte richtig in ein gemeinsames Objekt geschrieben werden können. Komplexe Objekte, die Klassen oder nicht standardmäßige Flash-Grundtypen speichern, müssen das flash.net.IExternalizable-Interface implementieren, damit sie ordnungsgemäß funktionieren. Beim Speichern nicht kompatibler Objekte kommt es nicht zu einem Laufzeitfehler, sondern zu undefiniertem Verhalten beim Abrufen von Daten.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.utils.IExternalizable.xml"><linktext>flash.utils.IExternalizable</linktext></link></related-links><apiConstructor id="spark.managers:PersistenceManager:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.managers:PersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      
+      Löscht alle vom Persistenzmanager gespeicherten Daten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Löscht alle vom Persistenzmanager gespeicherten Daten.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      
+      Gibt den Wert einer im Persistenzmanager gespeicherten Eigenschaft zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Wert einer im Persistenzmanager gespeicherten Eigenschaft.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>Der Eigenschaftenschlüssel.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Gibt den Wert einer im Persistenzmanager gespeicherten Eigenschaft zurück. Eigenschaften werden als Schlüssel:Wert-Paare gespeichert.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:load"><apiName>load</apiName><shortdesc>
+      
+      Initialisiert den Persistenzmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn der Vorgang erfolgreich war.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Initialisiert den Persistenzmanager.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:save"><apiName>save</apiName><shortdesc>
+      
+      Gibt die vom Persistenzmanager verwalteten Daten auf ein Speichermedium oder einen anderen externen Speicher aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn der Vorgang erfolgreich war.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      Gibt die vom Persistenzmanager verwalteten Daten auf ein Speichermedium oder einen anderen externen Speicher aus.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      
+      Speichert einen Wert im Persistenzmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>Schlüssel, mit dem der Wert gespeichert wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Das zu speichernde Wertobjekt.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Speichert einen Wert im Persistenzmanager. Eigenschaften werden als Schlüssel:Wert-Paare gespeichert.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.managers:IPersistenceManager"><apiName>IPersistenceManager</apiName><shortdesc>
+  IPersistenceManager definiert die Schnittstelle, die alle Persistenzmanager implementieren müssen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IPersistenceManager definiert die Schnittstelle, die alle Persistenzmanager implementieren müssen. Diese Objekte sorgen für das dauerhafte Speichern von Daten zwischen Anwendungssitzungen.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.managers.xml#PersistenceManager"><linktext>spark.managers.PersistenceManager</linktext></link></related-links><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      Löscht alle vom Persistenzmanager gespeicherten Daten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Löscht alle vom Persistenzmanager gespeicherten Daten.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      Gibt den Wert einer im Persistenzmanager gespeicherten Eigenschaft zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Wert einer im Persistenzmanager gespeicherten Eigenschaft.
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>Der Eigenschaftenschlüssel.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt den Wert einer im Persistenzmanager gespeicherten Eigenschaft zurück. Eigenschaften werden als Schlüssel:Wert-Paare gespeichert.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:load"><apiName>load</apiName><shortdesc>
+      Initialisiert den Persistenzmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn der Vorgang erfolgreich war.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Initialisiert den Persistenzmanager.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:save"><apiName>save</apiName><shortdesc>
+      Gibt die vom Persistenzmanager verwalteten Daten auf ein Speichermedium oder einen anderen externen Speicher aus.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn der Vorgang erfolgreich war.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Gibt die vom Persistenzmanager verwalteten Daten auf ein Speichermedium oder einen anderen externen Speicher aus.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      Speichert einen Wert im Persistenzmanager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>Schlüssel, mit dem der Wert gespeichert wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>Das zu speichernde Wertobjekt.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Speichert einen Wert im Persistenzmanager. Eigenschaften werden als Schlüssel:Wert-Paare gespeichert.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

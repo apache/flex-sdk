@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.rpc.wsdl"><apiName>mx.rpc.wsdl</apiName><apiDetail/><apiClassifier id="mx.rpc.wsdl:WSDLBinding"><apiName>WSDLBinding</apiName><shortdesc>
+ 绑定定义发送到操作的消息和从操作发送的消息（按特定 portType 定义）的消息格式和协议。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 绑定定义发送到操作的消息和从操作发送的消息（按特定 portType 定义）的消息格式和协议。
+ <p>
+ 当前，WSDL 仅支持 SOAP 绑定。
+ </p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.rpc.wsdl:WSDLBinding:WSDLBinding"><apiName>WSDLBinding</apiName><shortdesc>
+    创建一个新的 WSDLBinding。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>此绑定的唯一名称。
+     
+     </apiDesc></apiParam></apiConstructorDef><apiDesc>
+    创建一个新的 WSDLBinding。当前，WSDL 仅支持 SOAP 绑定。
+    
+    </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.rpc.wsdl:WSDLBinding:name:get"><apiName>name</apiName><shortdesc>
+     此绑定的唯一名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     此绑定的唯一名称。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:portType:get"><apiName>portType</apiName><shortdesc>
+     此绑定的 portType，提供此绑定操作的接口定义。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.rpc.wsdl:WSDLPortType"/></apiValueDef><apiDesc>
+     此绑定的 portType，提供此绑定操作的接口定义。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:style:get"><apiName>style</apiName><shortdesc>
+     表示 SOAP 绑定样式属性，是此绑定下定义的任何操作的默认设置。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     表示 SOAP 绑定样式属性，是此绑定下定义的任何操作的默认设置。样式指示操作是面向 RPC（包含参数和返回值的消息）还是面向文档（包含文档的消息）。
+     <p>
+     默认值为 <codeph>document</codeph>。
+     </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.rpc.wsdl:WSDLBinding:transport:get"><apiName>transport</apiName><shortdesc>
+     表示 SOAP 绑定传输属性，指示用于发送 SOAP 编码消息的传输的 URI。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     表示 SOAP 绑定传输属性，指示用于发送 SOAP 编码消息的传输的 URI。默认 URI 为 http://schemas.xmlsoap.org/soap/http/，此 URI 指定 HTTP 上的 SOAP（是当前仅支持的传输）。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

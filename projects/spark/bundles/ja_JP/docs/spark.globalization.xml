@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.globalization"><apiName>spark.globalization</apiName><apiDetail/><apiClassifier id="spark.globalization:SortingCollator"><apiName>SortingCollator</apiName><shortdesc>
+  SortingCollator クラスは、エンドユーザーに表示されるテキストストリングのリストをソートするなどの言語的なソート目的に適した初期設定を使用して、ロケールに依存したストリングの比較機能を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:CollatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>SortingCollator</codeph> クラスは、エンドユーザーに表示されるテキストストリングのリストをソートするなどの言語的なソート目的に適した初期設定を使用して、ロケールに依存したストリングの比較機能を提供します。
+ 
+  <p>このクラスは <codeph>flash.globalization.Collator</codeph> のラッパークラスです。したがって、ロケール固有のストリングの比較が <codeph>flash.globalization.Collator</codeph> によって提供されます。 ただし、この SortingCollator クラスは MXML 宣言で使用でき、要求されたロケール ID 名にロケールスタイルを使用し、バインド可能なメソッドおよびプロパティを持ちます。 また、flash.globalization クラスによってエラーまたは警告が生成される場合は、<codeph>LastOperationStatus</codeph> が設定されます。</p>
+ 
+  <p>flash.globalization.Collator クラスでは、フォーマット機能と、ロケール固有データの提供用に、基盤となるオペレーティングシステムを使用します。 一部のオペレーティングシステムでは、flash.globalization クラスがサポートされておらず、このラッパークラスが代替機能を提供します。</p>
+ 
+  </apiDesc><example conref="SortingCollatorExample.mxml"><swfblock conref="examples/SortingCollatorExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links><apiConstructor id="spark.globalization:SortingCollator:SortingCollator"><apiName>SortingCollator</apiName><shortdesc>
+      指定されたロケールの規則に従ってストリング比較を提供する新しい SortingCollator オブジェクトを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      指定されたロケールの規則に従ってストリング比較を提供する新しい SortingCollator オブジェクトを作成します。
+     
+      <p>このクラスは、エンドユーザーに表示されるテキストストリングのリストをソートするなどの汎用の言語的なソートを使用するための様々な照合オプションの初期値を設定します。 このモードでは、ストリングの比較を行うときに、大文字と小文字の違いやアクセント付き文字など、ロケール固有の違いが考慮されます。
+      </p>
+     
+      <p>このクラスのインスタンスによって提供される比較は、<codeph>initialMode</codeph> パラメーターを <codeph>CollatorMode.SORTING</codeph> に設定して <codeph>flash.globalization.Collator</codeph> のインスタンスを作成するのと同等です。 このモードの詳細および例については、<codeph>flash.globalization.Collator</codeph> クラスのマニュアルを参照してください。
+      </p>
+     
+      <p>このクラスのロケールはロケールスタイルによって提供されます。 ロケールスタイルは、次のいくつかの方法で設定できます。</p>
+     
+      <ul>
+          <li>UIComponent の addStyleClient メソッドを呼び出すことによって <codeph>UIComponent</codeph> からスタイルを継承する。</li>
+          <li>MXML 宣言内でクラスを使用し、宣言を格納するドキュメントからロケールを継承する。
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+             &lt;s:SortingCollator id="sc" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>MXML 宣言を使用し、代入のリスト内でロケールの値を指定する。
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+          &lt;s:SortingCollator id="sc_France" locale="fr-FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>setStyle メソッド（<codeph>sc.setStyle("locale", "fr-FR")</codeph> など）を呼び出す。</li>
+      </ul>
+     
+      <p>
+      <codeph>locale</codeph> スタイルが上記のいずれかの手法で設定されていない場合は、このクラスのインスタンスが <codeph>StyleClient</codeph> として <codeph>topLevelApplication</codeph> に追加されるため、<codeph>locale</codeph> 依存のプロパティ getter または <codeph>locale</codeph> 依存のメソッドが呼び出されるときに、<codeph>topLevelApplication</codeph> オブジェクトから <codeph>locale</codeph> が継承されます。
+      </p>   
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links></apiConstructor></apiClassifier><apiClassifier id="spark.globalization:StringTools"><apiName>StringTools</apiName><shortdesc>
+  StringTools クラスはロケールに依存した大文字と小文字の変換メソッドを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:GlobalizationBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>StringTools</codeph> クラスはロケールに依存した大文字と小文字の変換メソッドを提供します。
+ 
+  <p>このクラスは <codeph>flash.globalization.StringTools</codeph> のラッパークラスです。 したがって、大文字と小文字の変換機能は <codeph>flash.globalization.StringTools</codeph> クラスによって提供されます。 ただし、この <codeph>StringTools</codeph> クラスは MXML 宣言で使用でき、要求されたロケール ID 名にロケールスタイルを使用し、バインド可能なメソッドおよびプロパティを持ちます。 また、flash.globalization クラスによってエラーまたは警告が生成される場合は、イベントが生成されます。</p>
+ 
+  <p><codeph>flash.globalization.StringTools</codeph>￼ クラスは大文字と小文字の変換機能のために基盤となるオペレーティングシステムを使用します。<codeph>flash.globalization</codeph> クラスがサポートされない一部のオペレーティングシステムでは、このラッパークラスは <codeph>String</codeph> クラスによって提供される大文字と小文字の変換機能を利用した代替機能を提供します。</p>
+ 
+  </apiDesc><example conref="StringToolsExample.mxml"><swfblock conref="examples/StringToolsExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links><apiConstructor id="spark.globalization:StringTools:StringTools"><apiName>StringTools</apiName><shortdesc>
+      指定されたロケールの規則に応じて大文字と小文字の変換機能とその他のユーティリティを提供する新しい StringTools オブジェクトを構築します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      指定されたロケールの規則に応じて大文字と小文字の変換機能とその他のユーティリティを提供する新しい StringTools オブジェクトを構築します。このクラスのロケールはロケールスタイルによって提供されます。 ロケールスタイルは、次のいくつかの方法で設定できます。
+     
+      <ul>
+      <li>UIComponent の addStyleClient メソッドを呼び出すことによって <codeph>UIComponent</codeph> からスタイルを継承する。</li>
+     
+      <li>MXML 宣言内でクラスを使用し、宣言を格納するドキュメントからロケールを継承する。例：
+      <pre>
+      &lt;fx:Declarations>
+             &lt;s:StringTools id="st" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+     
+      <li>MXML 宣言を使用し、代入のリスト内でロケールの値を指定する。例：
+      <pre>
+      &lt;fx:Declarations>
+          &lt;s:StringTools id="st_turkish" locale="tr-TR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+     
+      <li>setStyle メソッド（<codeph>st.setStyle("locale", "tr-TR")</codeph> など）を呼び出す。</li>
+      </ul>
+     
+      <p>
+      <codeph>locale</codeph> スタイルが上記のいずれかの手法で設定されていない場合は、このクラスのインスタンスが <codeph>StyleClient</codeph> として <codeph>topLevelApplication</codeph> に追加されるため、<codeph>locale</codeph> 依存のプロパティ getter または <codeph>locale</codeph> 依存のメソッドが呼び出されるときに、<codeph>topLevelApplication</codeph> オブジェクトから <codeph>locale</codeph> が継承されます。
+      </p>   
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links></apiConstructor><apiOperation id="spark.globalization:StringTools:getAvailableLocaleIDNames"><apiName>getAvailableLocaleIDNames</apiName><shortdesc conref="spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="Vector$String"/><apiDesc>このクラスおよびオペレーティングシステムでサポートされているすべてのロケール ID 名を含む文字列のベクトル。
+                   </apiDesc></apiReturn></apiOperationDef><apiDesc conref="spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.globalization:StringTools:toLowerCase"><apiName>toLowerCase</apiName><shortdesc>
+      言語の規則に応じて、ストリングを小文字に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>変換された小文字のストリング。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="String"/><apiDesc>小文字に変換する<codeph>String</codeph>。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      言語の規則に応じて、ストリングを小文字に変換します。ロケールによって、出力ストリングの長さと入力ストリングの長さが一致しない場合があります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links></apiOperation><apiOperation id="spark.globalization:StringTools:toUpperCase"><apiName>toUpperCase</apiName><shortdesc>
+      言語の規則に応じて、ストリングを大文字に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>変換された大文字のストリング。
+     
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>s</apiItemName><apiType value="String"/><apiDesc>大文字に変換する <codeph>String</codeph>。
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      言語の規則に応じて、ストリングを大文字に変換します。ロケールによって、出力ストリングの長さと入力ストリングの長さが一致しない場合があります。
+     
+      </apiDesc></apiOperationDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.xml"><linktext>flash.globalization.StringTools</linktext></link></related-links></apiOperation><apiValue id="spark.globalization:StringTools:actualLocaleIDName:get"><apiName>actualLocaleIDName</apiName><shortdesc>
+      
+      このクラスオブジェクトで使用される実際のロケール ID の名前。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      このクラスオブジェクトで使用される実際のロケール ID の名前。これはフォーマットするデータと機能にオペレーティングシステムからアクセスするために使用されるロケールです。
+     
+      <p><codeph>locale</codeph> スタイルによって設定されたロケールが使用できない場合、<codeph>actualLocaleIDName</codeph> の値は <codeph>locale</codeph> スタイルの値とは異なります。 この値は使用中の代替ロケールを示します。 locale スタイルが <codeph>LocaleID.DEFAULT</codeph> に設定された場合、ユーザーのオペレーティングシステムによって指定されたロケールの名前が使用されます。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.StringTools.actualLocaleIDName.xml"><linktext>flash.globalization.StringTools.actualLocaleIDName</linktext></link><link href="spark.globalization.xml#StringTools/StringTools()"><linktext>StringTools()</linktext></link></related-links></apiValue><apiValue id="spark.globalization:StringTools:lastOperationStatus:get"><apiName>lastOperationStatus</apiName><shortdesc>
+      
+      このクラスオブジェクトが実行した最新の操作のステータス。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty isBindable="true" name="change"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      
+      このクラスオブジェクトが実行した最新の操作のステータス。コンストラクターまたはこのクラスのメソッドが呼び出されたり、プロパティが設定されたりすると、必ず <codeph>lastOperationStatus</codeph> が設定されます。有効な値については、各メソッドの説明を参照してください。
+     
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.globalization:MatchingCollator"><apiName>MatchingCollator</apiName><shortdesc>
+  MatchingCollator クラスは、テキストのブロックから一致する単語を検索するなどの汎用のストリング照合に適した初期設定を使用して、ロケールに依存したストリングの比較機能を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>spark.globalization.supportClasses:CollatorBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  <codeph>MatchingCollator</codeph> クラスは、テキストのブロックから一致する単語を検索するなどの汎用のストリング照合に適した初期設定を使用して、ロケールに依存したストリングの比較機能を提供します。
+ 
+  <p>このクラスは <codeph>flash.globalization.Collator</codeph> のラッパークラスです。したがって、ロケール固有のストリングの比較が <codeph>flash.globalization.Collator</codeph> によって提供されます。 ただし、この MatchingCollator クラスは MXML 宣言で使用でき、要求されたロケール ID 名にロケールスタイルを使用し、バインド可能なメソッドおよびプロパティを持ちます。 また、flash.globalization クラスによってエラーまたは警告が生成される場合は、<codeph>LastOperationStatus</codeph> が設定されます。</p>
+ 
+  <p>flash.globalization.Collator クラスでは、フォーマット機能と、ロケール固有データの提供用に、基盤となるオペレーティングシステムを使用します。 一部のオペレーティングシステムでは、flash.globalization クラスがサポートされておらず、このラッパークラスが代替機能を提供します。</p>
+ 
+  </apiDesc><example conref="MatchingCollatorExample.mxml"><swfblock conref="examples/MatchingCollatorExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links><apiConstructor id="spark.globalization:MatchingCollator:MatchingCollator"><apiName>MatchingCollator</apiName><shortdesc>
+      指定されたロケールの規則に従ってストリング比較を提供する新しい MatchingCollator オブジェクトを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      指定されたロケールの規則に従ってストリング比較を提供する新しい MatchingCollator オブジェクトを作成します。
+     
+      <p>このクラスは、2 つのストリングが同等かどうかを判別したり、テキストのブロックから一致する単語を検索したりするなどの汎用のストリング照合で使用する様々な照合用の初期値を設定します。 このモードでは、ストリングの比較を行うときに、大文字と小文字の違い、アクセント付き文字などが無視されます。</p>
+     
+      <p>このクラスのインスタンスによって提供される比較は、<codeph>initialMode</codeph> パラメーターを <codeph>CollatorMode.MATCHING</codeph> に設定して <codeph>flash.globalization.Collator</codeph> のインスタンスを作成するのと同等です。 このモードの詳細および例については、<codeph>flash.globalization.Collator</codeph> クラスのマニュアルを参照してください。</p>
+     
+      <p>このクラスのロケールはロケールスタイルによって提供されます。 ロケールスタイルは、次のいくつかの方法で設定できます。</p>
+     
+      <ul>
+          <li>UIComponent の addStyleClient メソッドを呼び出すことによって <codeph>UIComponent</codeph> からスタイルを継承する。</li>
+          <li>MXML 宣言内でクラスを使用し、宣言を格納するドキュメントからロケールを継承する。
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+             &lt;s:MatchingCollator id="mc" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>MXML 宣言を使用し、代入のリスト内でロケールの値を指定する。
+      <pre>
+      Example:
+      &lt;fx:Declarations>
+          &lt;s:MatchingCollator id="mc_France" locale="fr-FR" />
+      &lt;/fx:Declarations>
+      </pre>
+      </li>
+          <li>setStyle メソッド（<codeph>mc.setStyle("locale", "fr-FR")</codeph> など）を呼び出す。</li>
+      </ul>
+      <p>
+      <codeph>locale</codeph> スタイルが上記のいずれかの手法で設定されていない場合は、このクラスのインスタンスが <codeph>StyleClient</codeph> として <codeph>topLevelApplication</codeph> に追加されるため、<codeph>locale</codeph> 依存のプロパティ getter または <codeph>locale</codeph> 依存のメソッドが呼び出されるときに、<codeph>topLevelApplication</codeph> オブジェクトから <codeph>locale</codeph> が継承されます。
+      </p>   
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="flash.globalization.Collator.xml"><linktext>flash.globalization.Collator</linktext></link></related-links></apiConstructor></apiClassifier><apiClassifier id="spark.globalization:LastOperationStatus"><apiName>LastOperationStatus</apiName><shortdesc>
+  LastOperationStatus クラスは、最近のほとんどのグローバリゼーションサービス操作のステータスを表す定数値を列挙します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.55"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LastOperationStatus クラスは、最近のほとんどのグローバリゼーションサービス操作のステータスを表す定数値を列挙します。これらの値は、ほとんどの  globalization クラスで使用できる読み取り専用プロパティ <codeph>lastOperationStatus</codeph> によって取得できます。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.xml"><linktext>flash.globalization.LastOperationStatus</linktext></link></related-links><apiValue id="spark.globalization:LastOperationStatus:BUFFER_OVERFLOW_ERROR"><apiName>BUFFER_OVERFLOW_ERROR</apiName><shortdesc>
+      所定のバッファが結果を保持するのに十分でないことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>bufferOverflowError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      所定のバッファが結果を保持するのに十分でないことを示します。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.BUFFER_OVERFLOW_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.BUFFER_OVERFLOW_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:ERROR_CODE_UNKNOWN"><apiName>ERROR_CODE_UNKNOWN</apiName><shortdesc>
+      リターンエラーコードが不明であることを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5s"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>errorCodeUnknown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      リターンエラーコードが不明であることを示します。操作が正しく実行されず、リターンエラーコードが返されると、非静的メソッドまたは読み取り / 書き込みプロパティにより、このエラーが返される場合があります。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.ERROR_CODE_UNKNOWN.xml"><linktext>flash.globalization.LastOperationStatus.ERROR_CODE_UNKNOWN</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:ILLEGAL_ARGUMENT_ERROR"><apiName>ILLEGAL_ARGUMENT_ERROR</apiName><shortdesc>
+      メソッドに渡された引数が不正であることを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>illegalArgumentError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      メソッドに渡された引数が不正であることを示しています。
+     
+      <p>例えば、次のコードは <codeph>CurrencyFormatter.grouping</codeph> プロパティが無効な値「3;」に設定されると、無効な引数エラーステータスが設定されることを示しています。</p>
+     
+      <pre>
+      var cf:CurrencyFormatter = new CurrencyFormatter();
+      cf.setStyle("locale","en_US");
+      cf.groupingPattern = "3;";
+      trace(cf.lastOperationStatus); // "illegalArgumentError"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.ILLEGAL_ARGUMENT_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.ILLEGAL_ARGUMENT_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:INDEX_OUT_OF_BOUNDS_ERROR"><apiName>INDEX_OUT_OF_BOUNDS_ERROR</apiName><shortdesc>
+      イテレーターが範囲を超えたか、または月、日または時間に無効なパラメーターが指定されたことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>indexOutOfBoundsError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      イテレーターが範囲を超えたか、または月、日または時間に無効なパラメーターが指定されたことを示しています。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.INDEX_OUT_OF_BOUNDS_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.INDEX_OUT_OF_BOUNDS_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:INVALID_ATTR_VALUE"><apiName>INVALID_ATTR_VALUE</apiName><shortdesc>
+      所定の属性値が予期された範囲外であることを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invalidAttrValue</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      所定の属性値が予期された範囲外であることを示しています。
+     
+      <p>次の例は、<codeph>NumberFormatter.negativeNumberFormat</codeph> プロパティを範囲外の値に設定したために、無効な属性値ステータスになっていることを示しています。</p>
+     
+      <pre>
+      var nf:NumberFormatter = new NumberFormatter();
+      nf.setStyle("locale","en_US");
+      nf.negativeNumberFormat = 9;
+      nf.lastOperationStatus; // "invalidAttrValue"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.INVALID_ATTR_VALUE.xml"><linktext>flash.globalization.LastOperationStatus.INVALID_ATTR_VALUE</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:INVALID_CHAR_FOUND"><apiName>INVALID_CHAR_FOUND</apiName><shortdesc>
+      無効な Unicode 値が見つかったことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invalidCharFound</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      無効な Unicode 値が見つかったことを示しています。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.INVALID_CHAR_FOUND.xml"><linktext>flash.globalization.LastOperationStatus.INVALID_CHAR_FOUND</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:LOCALE_UNDEFINED_ERROR"><apiName>LOCALE_UNDEFINED_ERROR</apiName><shortdesc>
+      Locale が定義されていないことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>localeUndefinedError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>Locale</codeph> が定義されていないことを示します。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.globalization:LastOperationStatus:MEMORY_ALLOCATION_ERROR"><apiName>MEMORY_ALLOCATION_ERROR</apiName><shortdesc>
+      メモリ割り当てが失敗したことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>memoryAllocationError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      メモリ割り当てが失敗したことを示しています。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.MEMORY_ALLOCATION_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.MEMORY_ALLOCATION_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:NO_ERROR"><apiName>NO_ERROR</apiName><shortdesc>
+      最後の操作がエラーがなく成功したことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>noError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      最後の操作がエラーがなく成功したことを示しています。このステータスは、すべてのコンストラクター、非静的メソッド、静的メソッドおよび読み取り / 書き込みプロパティで返される可能性があります。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.NO_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.NO_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:NUMBER_OVERFLOW_ERROR"><apiName>NUMBER_OVERFLOW_ERROR</apiName><shortdesc>
+      操作の結果の値が指定された数値型を超えたことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>numberOverflowError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      操作の結果の値が指定された数値型を超えたことを示しています。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.NUMBER_OVERFLOW_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.NUMBER_OVERFLOW_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:PARSE_ERROR"><apiName>PARSE_ERROR</apiName><shortdesc>
+      数字の解析が失敗したことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>parseError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      数字の解析が失敗したことを示しています。このステータスは、<codeph>CurrencyFormatter.parse()</codeph> および <codeph>NumberFormatter.parseNumber()</codeph> などのフォーマッタークラスのメソッドを解析すると返されることがあります。例えば、「12abc34」という値をパラメーターとして <codeph>CurrencyFormatter.parse()</codeph> メソッドに渡すと、メソッドによって「NaN」が返され、<codeph>lastOperationStatus</codeph> の値が <codeph>LastOperationStatus.PARSE_ERROR</codeph> に設定されます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.PARSE_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.PARSE_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:PATTERN_SYNTAX_ERROR"><apiName>PATTERN_SYNTAX_ERROR</apiName><shortdesc>
+      数字、日付、または時間のフォーマットのパターンが無効であることを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>patternSyntaxError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      数字、日付、または時間のフォーマットのパターンが無効であることを示しています。このステータスは、ユーザーのオペレーティングシステムで、特定のパターンがサポートされていない場合に設定されます。
+     
+      <p>例えば、次のコードは無効な「xx」パターンの後に <codeph>lastOperationStatus</codeph> プロパティの値が日付フォーマットに使用されていることを示しています。</p>
+     
+      <pre>
+      var df:DateTimeFormatter = new DateTimeFormatter();
+      df.setStyle("locale","en_US");
+      df.setDateTimePattern("xx");
+      trace(df.lastOperationStatus); // "patternSyntaxError"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.PATTERN_SYNTAX_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.PATTERN_SYNTAX_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:PLATFORM_API_FAILED"><apiName>PLATFORM_API_FAILED</apiName><shortdesc>
+      基盤となるプラットフォーム API が操作に失敗したことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>platformAPIFailed</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      基盤となるプラットフォーム API が操作に失敗したことを示しています。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.PLATFORM_API_FAILED.xml"><linktext>flash.globalization.LastOperationStatus.PLATFORM_API_FAILED</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:TRUNCATED_CHAR_FOUND"><apiName>TRUNCATED_CHAR_FOUND</apiName><shortdesc>
+      切り詰められた Unicode 文字値が見つかったことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>truncatedCharFound</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      切り詰められた Unicode 文字値が見つかったことを示しています。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.TRUNCATED_CHAR_FOUND.xml"><linktext>flash.globalization.LastOperationStatus.TRUNCATED_CHAR_FOUND</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:UNEXPECTED_TOKEN"><apiName>UNEXPECTED_TOKEN</apiName><shortdesc>
+      ロケール ID 文字列で予期せぬトークンが検出されたことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unexpectedToken</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ロケール ID 文字列で予期せぬトークンが検出されたことを示しています。
+     
+      <p>例えば、不完全な文字列の後に <codeph>lastOperationStatus</codeph> プロパティの値がロケール ID を要求するときに使用されていることを示しています。結果として、<codeph>LocaleID.getKeysAndValues()</codeph> メソッドへの呼び出しの後で、<codeph>lastOperationStatus</codeph> プロパティが <codeph>LocaleID.getKeysAndValues()</codeph> メソッドに設定されます。</p>
+     
+      <pre>
+      var locale:flash.globalization.LocaleID = new flash.globalization.LocaleID("en-US@Collation");
+      var kav:Object = locale.getKeysAndValues();
+      trace(locale.lastOperationStatus); // "unexpectedToken"
+      </pre>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.UNEXPECTED_TOKEN.xml"><linktext>flash.globalization.LastOperationStatus.UNEXPECTED_TOKEN</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:UNSUPPORTED_ERROR"><apiName>UNSUPPORTED_ERROR</apiName><shortdesc>
+      要求された操作またはオプションがサポートされていないことを示しています。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unsupportedError</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      要求された操作またはオプションがサポートされていないことを示しています。このステータスは、<codeph>DateTimeFormatter.setDateTimePattern()</codeph> などのメソッドを使用した場合や <codeph>Collator.ignoreCase</codeph> などのプロパティを取得したときに返されることがあります。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.UNSUPPORTED_ERROR.xml"><linktext>flash.globalization.LastOperationStatus.UNSUPPORTED_ERROR</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:USING_DEFAULT_WARNING"><apiName>USING_DEFAULT_WARNING</apiName><shortdesc>
+      一番最近の操作中にオペレーティングシステムのデフォルト値が使用されたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>usingDefaultWarning</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      一番最近の操作中にオペレーティングシステムのデフォルト値が使用されたことを示します。クラスコンストラクターがこのステータスを返すことができます。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.USING_DEFAULT_WARNING.xml"><linktext>flash.globalization.LastOperationStatus.USING_DEFAULT_WARNING</linktext></link></related-links></apiValue><apiValue id="spark.globalization:LastOperationStatus:USING_FALLBACK_WARNING"><apiName>USING_FALLBACK_WARNING</apiName><shortdesc>
+      一番最近の操作中に代替値が設定されたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.1"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>usingFallbackWarning</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      一番最近の操作中に代替値が設定されたことを示します。このステータスは、コンストラクターおよび <codeph>DateTimeFormatter.setDateTimeStyles()</codeph> などのメソッドを使用した場合や <codeph>CurrencyFormatter.groupingPattern</codeph> などのプロパティを取得したときに返されることがあります。
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.globalization.LastOperationStatus.USING_FALLBACK_WARNING.xml"><linktext>flash.globalization.LastOperationStatus.USING_FALLBACK_WARNING</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

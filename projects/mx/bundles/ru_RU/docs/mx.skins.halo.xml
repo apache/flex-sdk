@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.skins.halo"><apiName>mx.skins.halo</apiName><apiDetail/><apiClassifier id="mx.skins.halo:ActivatorSkin"><apiName>ActivatorSkin</apiName><shortdesc>
+  Определяет состояния нажатия, отжатия и наведения для объектов MenuBarItem.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Определяет состояния нажатия, отжатия и наведения для объектов MenuBarItem.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ActivatorSkin:ActivatorSkin"><apiName>ActivatorSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressIndeterminateSkin"><apiName>ProgressIndeterminateSkin</apiName><shortdesc>
+  Тема оформления для неопределенного состояния элемента управления ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для неопределенного состояния элемента управления ProgressBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressIndeterminateSkin:ProgressIndeterminateSkin"><apiName>ProgressIndeterminateSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollThumbSkin"><apiName>ScrollThumbSkin</apiName><shortdesc>
+  Тема оформления для всех состояний ползунка в элементе управления ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний ползунка в элементе управления ScrollBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollThumbSkin:ScrollThumbSkin"><apiName>ScrollThumbSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ButtonSkin"><apiName>ButtonSkin</apiName><shortdesc>
+  Тема оформления для всех состояний элемента управления Button.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний элемента управления Button.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ButtonSkin:ButtonSkin"><apiName>ButtonSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ApplicationBackground"><apiName>ApplicationBackground</apiName><shortdesc>
+  Тема оформления для фонового градиента приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для фонового градиента приложения.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ApplicationBackground:ApplicationBackground"><apiName>ApplicationBackground</apiName><shortdesc>
+      Конструктор	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:MenuBarBackgroundSkin"><apiName>MenuBarBackgroundSkin</apiName><shortdesc>
+  Тема оформления фона элемента управления MenuBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления фона элемента управления MenuBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:MenuBarBackgroundSkin:MenuBarBackgroundSkin"><apiName>MenuBarBackgroundSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:WindowBackground"><apiName>WindowBackground</apiName><shortdesc>
+  Тема оформления фонового градиента компонента Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления фонового градиента компонента Window.
+ 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:WindowBackground:WindowBackground"><apiName>WindowBackground</apiName><shortdesc>
+      Конструктор  
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор  
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollArrowSkin"><apiName>ScrollArrowSkin</apiName><shortdesc>
+  Тема оформления для всех состояний кнопки «Вверх» или «Вниз» элемента управления ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний кнопки «Вверх» или «Вниз» элемента управления ScrollBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollArrowSkin:ScrollArrowSkin"><apiName>ScrollArrowSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ColorPickerSkin"><apiName>ColorPickerSkin</apiName><shortdesc>
+  Тема оформления для всех состояний элемента управления ColorPicker.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний элемента управления ColorPicker.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ColorPickerSkin:ColorPickerSkin"><apiName>ColorPickerSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ScrollTrackSkin"><apiName>ScrollTrackSkin</apiName><shortdesc>
+  Тема оформления полосы прокрутки в элементе управления ScrollBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления полосы прокрутки в элементе управления ScrollBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ScrollTrackSkin:ScrollTrackSkin"><apiName>ScrollTrackSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:CheckBoxIcon"><apiName>CheckBoxIcon</apiName><shortdesc>
+  Тема оформления для всех состояний значка в элементе управления CheckBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний значка в элементе управления CheckBox.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:CheckBoxIcon:CheckBoxIcon"><apiName>CheckBoxIcon</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridHeaderBackgroundSkin"><apiName>DataGridHeaderBackgroundSkin</apiName><shortdesc>
+  Тема оформления фона заголовков столбцов в элементе управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления фона заголовков столбцов в элементе управления DataGrid.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.skins.halo:DataGridHeaderBackgroundSkin:DataGridHeaderBackgroundSkin"><apiName>DataGridHeaderBackgroundSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:TabSkin"><apiName>TabSkin</apiName><shortdesc>
+  Тема оформления для всех состояний вкладки в элементе TabNavigator или TabBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний вкладки в элементе TabNavigator или TabBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:TabSkin:TabSkin"><apiName>TabSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:RadioButtonIcon"><apiName>RadioButtonIcon</apiName><shortdesc>
+  Тема оформления для всех состояний значка в элементе управления RadioButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний значка в элементе управления RadioButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:RadioButtonIcon:RadioButtonIcon"><apiName>RadioButtonIcon</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderThumbSkin"><apiName>SliderThumbSkin</apiName><shortdesc>
+  Тема оформления для всех состояний ползунка элемента управления Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний ползунка элемента управления Slider.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderThumbSkin:SliderThumbSkin"><apiName>SliderThumbSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.skins.halo:SliderThumbSkin:protected:drawThumbState"><apiName>drawThumbState</apiName><shortdesc>
+	 Для внутреннего использования.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>borderColors</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>fillColors</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>fillAlphas</apiItemName><apiType value="Array"/></apiParam><apiParam><apiItemName>drawBacking</apiItemName><apiType value="Boolean"/></apiParam><apiParam><apiItemName>drillHole</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+	 Для внутреннего использования.
+	  
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.skins.halo:SwatchPanelSkin"><apiName>SwatchPanelSkin</apiName><shortdesc>
+  Тема оформления границы элемента SwatchPanel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления границы элемента SwatchPanel. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SwatchPanelSkin:SwatchPanelSkin"><apiName>SwatchPanelSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:NumericStepperDownSkin"><apiName>NumericStepperDownSkin</apiName><shortdesc>
+  Тема оформления для всех состояний кнопки «Вниз» в элементе управления NumericStepper.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний кнопки «Вниз» в элементе управления NumericStepper.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:NumericStepperDownSkin:NumericStepperDownSkin"><apiName>NumericStepperDownSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:NumericStepperUpSkin"><apiName>NumericStepperUpSkin</apiName><shortdesc>
+  Тема оформления для всех состояний кнопки «Вверх» в элементе управления NumericStepper.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний кнопки «Вверх» в элементе управления NumericStepper.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:NumericStepperUpSkin:NumericStepperUpSkin"><apiName>NumericStepperUpSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:LinkSeparator"><apiName>LinkSeparator</apiName><shortdesc>
+  Тема оформления разделителя между ссылками в элементе управления LinkBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления разделителя между ссылками в элементе управления LinkBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:LinkSeparator:LinkSeparator"><apiName>LinkSeparator</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:HaloBorder"><apiName>HaloBorder</apiName><shortdesc>
+  Определяет внешний вид границы по умолчанию в теме Halo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:RectangularBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Определяет внешний вид границы по умолчанию в теме Halo.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:HaloBorder:HaloBorder"><apiName>HaloBorder</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpIcon"><apiName>PopUpIcon</apiName><shortdesc>
+  Тема оформления для всех состояний значка в элементе управления PopUpButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний значка в элементе управления PopUpButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpIcon:PopUpIcon"><apiName>PopUpIcon</apiName><shortdesc>
+      Конструктор	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PanelSkin"><apiName>PanelSkin</apiName><shortdesc>
+  Класс PanelSkin определяет тему оформления компонентов Panel, TitleWindow и Alert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins.halo:HaloBorder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс PanelSkin определяет тему оформления компонентов Panel, TitleWindow и Alert.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PanelSkin:PanelSkin"><apiName>PanelSkin</apiName><shortdesc>
+      Конструктор
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressMaskSkin"><apiName>ProgressMaskSkin</apiName><shortdesc>
+  Тема оформления для маски определенных и неопределенных индикаторов в элементе управления ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для маски определенных и неопределенных индикаторов в элементе управления ProgressBar. Маска обеспечивает определение области, в которой отображается индикатор выполнения или неопределенный индикатор выполнения. По умолчанию в соответствии с маской индикатор выполнения должен быть вставлен на расстоянии в 1 пиксель от полосы прокрутки.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#ProgressBar"><linktext>mx.controls.ProgressBar</linktext></link></related-links><apiConstructor id="mx.skins.halo:ProgressMaskSkin:ProgressMaskSkin"><apiName>ProgressMaskSkin</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:TitleBackground"><apiName>TitleBackground</apiName><shortdesc>
+  Тема оформления области строки заголовка в элементе Panel.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления области строки заголовка в элементе Panel.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:TitleBackground:TitleBackground"><apiName>TitleBackground</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridColumnDropIndicator"><apiName>DataGridColumnDropIndicator</apiName><shortdesc>
+  Тема оформления индикатора перетаскивания столбцов в элементе управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления индикатора перетаскивания столбцов в элементе управления DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridColumnDropIndicator:DataGridColumnDropIndicator"><apiName>DataGridColumnDropIndicator</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ComboBoxArrowSkin"><apiName>ComboBoxArrowSkin</apiName><shortdesc>
+  Тема оформления для всех состояний кнопки в элементе управления ComboBox.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний кнопки в элементе управления ComboBox.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ComboBoxArrowSkin:ComboBoxArrowSkin"><apiName>ComboBoxArrowSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:AccordionHeaderSkin"><apiName>AccordionHeaderSkin</apiName><shortdesc>
+  Тема оформления для всех состояний объекта AccordionHeader в Accordion.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний объекта AccordionHeader в Accordion.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:AccordionHeaderSkin:AccordionHeaderSkin"><apiName>AccordionHeaderSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderTrackSkin"><apiName>SliderTrackSkin</apiName><shortdesc>
+  Тема оформления полосы прокрутки в элементе управления Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления полосы прокрутки в элементе управления Slider.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderTrackSkin:SliderTrackSkin"><apiName>SliderTrackSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridSortArrow"><apiName>DataGridSortArrow</apiName><shortdesc>
+  Тема оформления для стрелки сортировки в заголовке столбца элемента управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для стрелки сортировки в заголовке столбца элемента управления DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridSortArrow:DataGridSortArrow"><apiName>DataGridSortArrow</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:LinkButtonSkin"><apiName>LinkButtonSkin</apiName><shortdesc>
+  Тема оформления для всех состояний элемента управления LinkButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний элемента управления LinkButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:LinkButtonSkin:LinkButtonSkin"><apiName>LinkButtonSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserIndicator"><apiName>DateChooserIndicator</apiName><shortdesc>
+  Темы оформления индикаторов DateChooser для отображения текущей даты, даты, на которую наведен курсор, и выбранных дат.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Темы оформления индикаторов DateChooser для отображения текущей даты, даты, на которую наведен курсор, и выбранных дат.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserIndicator:DateChooserIndicator"><apiName>DateChooserIndicator</apiName><shortdesc>
+      Конструктор	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridColumnResizeSkin"><apiName>DataGridColumnResizeSkin</apiName><shortdesc>
+  Тема оформления для средства изменения размера столбца в элементе управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для средства изменения размера столбца в элементе управления DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridColumnResizeSkin:DataGridColumnResizeSkin"><apiName>DataGridColumnResizeSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DataGridHeaderSeparator"><apiName>DataGridHeaderSeparator</apiName><shortdesc>
+  Тема оформления разделителя между заголовками столбцов в элементе управления DataGrid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:ProgrammaticSkin</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления разделителя между заголовками столбцов в элементе управления DataGrid.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DataGridHeaderSeparator:DataGridHeaderSeparator"><apiName>DataGridHeaderSeparator</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ButtonBarButtonSkin"><apiName>ButtonBarButtonSkin</apiName><shortdesc>
+  Тема оформления для всех состояний ButtonBarButton в элементе управления ButtonBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний ButtonBarButton в элементе управления ButtonBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ButtonBarButtonSkin:ButtonBarButtonSkin"><apiName>ButtonBarButtonSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SliderHighlightSkin"><apiName>SliderHighlightSkin</apiName><shortdesc>
+  Тема оформления для состояния выделения полосы прокрутки в элементе управления Slider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для состояния выделения полосы прокрутки в элементе управления Slider.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SliderHighlightSkin:SliderHighlightSkin"><apiName>SliderHighlightSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:HaloColors"><apiName>HaloColors</apiName><shortdesc>
+  Определяет цвета, используемые компонентами, поддерживающими тему Halo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Определяет цвета, используемые компонентами, поддерживающими тему Halo.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.skins.halo:HaloColors:addHaloColors"><apiName>addHaloColors</apiName><shortdesc>
+	  Вычисляет цвета, используемые компонентами, поддерживающими тему Halo, например цвета скошенных краев.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="Object"/><apiDesc>Объект, в котором хранятся расчетные значения цветов.  
+	  
+	  </apiDesc></apiParam><apiParam><apiItemName>themeColor</apiItemName><apiType value="uint"/><apiDesc>Значение свойства стиля <codeph>themeColor</codeph>.
+	 
+	 </apiDesc></apiParam><apiParam><apiItemName>fillColor0</apiItemName><apiType value="uint"/><apiDesc>Начальный цвет заливки.
+
+	 </apiDesc></apiParam><apiParam><apiItemName>fillColor1</apiItemName><apiType value="uint"/><apiDesc>Конечный цвет заливки.
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Вычисляет цвета, используемые компонентами, поддерживающими тему Halo, например цвета скошенных краев. Для вычисления цветов в этом методе используются значения свойств <codeph>themeColor</codeph> и <codeph>fillColors</codeph>.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.skins.halo:HaloColors:getCacheKey"><apiName>getCacheKey</apiName><shortdesc>
+	  Возвращает уникальный хеш-ключ на основе передаваемых цветов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>colors</apiItemName><apiType value="restParam"/><apiDesc>Произвольный номер цвета в модели RGB, выраженный в виде значения <codeph>uint</codeph> (например, 0xFF0000).
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  Возвращает уникальный хеш-ключ на основе передаваемых цветов. Эта клавиша используется для сохранения вычисленных цветов, поэтому их расчет должен осуществляться только один раз.
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserYearArrowSkin"><apiName>DateChooserYearArrowSkin</apiName><shortdesc>
+  Тема оформления для всех состояний кнопок следующего и предыдущего годов в элементе управления DateChooser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний кнопок следующего и предыдущего годов в элементе управления DateChooser.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserYearArrowSkin:DateChooserYearArrowSkin"><apiName>DateChooserYearArrowSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpButtonSkin"><apiName>PopUpButtonSkin</apiName><shortdesc>
+  Тема оформления для всех состояний элемента управления PopUpButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IProgrammaticSkin</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний элемента управления PopUpButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpButtonSkin:PopUpButtonSkin"><apiName>PopUpButtonSkin</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:SwatchSkin"><apiName>SwatchSkin</apiName><shortdesc>
+  Оболочка, используемая для всех палитр цветов в ColorPicker.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Оболочка, используемая для всех палитр цветов в ColorPicker.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:SwatchSkin:SwatchSkin"><apiName>SwatchSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressBarSkin"><apiName>ProgressBarSkin</apiName><shortdesc>
+  Тема оформления элемента управления ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления элемента управления ProgressBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressBarSkin:ProgressBarSkin"><apiName>ProgressBarSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:DateChooserMonthArrowSkin"><apiName>DateChooserMonthArrowSkin</apiName><shortdesc>
+  Тема оформления для всех состояний кнопок следующего и предыдущего месяцев в элементе управления DateChooser.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний кнопок следующего и предыдущего месяцев в элементе управления DateChooser.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:DateChooserMonthArrowSkin:DateChooserMonthArrowSkin"><apiName>DateChooserMonthArrowSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:ProgressTrackSkin"><apiName>ProgressTrackSkin</apiName><shortdesc>
+  Тема оформления полосы прокрутки в элементе управления ProgressBar.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins:Border</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления полосы прокрутки в элементе управления ProgressBar.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:ProgressTrackSkin:ProgressTrackSkin"><apiName>ProgressTrackSkin</apiName><shortdesc>
+	  Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+	  Конструктор.
+	  
+	  </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.skins.halo:PopUpMenuIcon"><apiName>PopUpMenuIcon</apiName><shortdesc>
+  Тема оформления для всех состояний значка в элементе управления PopUpMenuButton.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.skins.halo:PopUpIcon</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Тема оформления для всех состояний значка в элементе управления PopUpMenuButton.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.skins.halo:PopUpMenuIcon:PopUpMenuIcon"><apiName>PopUpMenuIcon</apiName><shortdesc>
+      Конструктор	 
+      
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор	 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.states"><apiName>mx.states</apiName><apiDetail/><apiClassifier id="mx.states:RemoveChild"><apiName>RemoveChild</apiName><shortdesc>
+ 
+  RemoveChild 类将子显示对象（如组件）作为视图状态的一部分从容器中删除。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:RemoveChild&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:RemoveChild
+  <b>Properties</b>
+  target="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+  RemoveChild 类将子显示对象（如组件）作为视图状态的一部分从容器中删除。子项只是从显示列表中移除，但未被删除。可以在 State 类的 <codeph>overrides</codeph> 属性中使用该类。
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#AddChild"><linktext>mx.states.AddChild</linktext></link><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link><link href="" invalidHref="mx.effects.RemoveChildAction.xml"><linktext>mx.effects.RemoveChildAction</linktext></link></related-links><apiConstructor id="mx.states:RemoveChild:RemoveChild"><apiName>RemoveChild</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:DisplayObject"/><apiData>null</apiData><apiDesc>要从视图中删除的子项。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:RemoveChild:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  应用覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  应用覆盖。Flex 将保留原始值，以便以后可以在 <codeph>remove()</codeph> 方法中恢复该值。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:RemoveChild:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  删除覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  删除覆盖。在 <codeph>apply()</codeph> 方法中记住的值将被恢复。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:RemoveChild:target"><apiName>target</apiName><shortdesc>
+      要从视图中删除的子项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      要从视图中删除的子项。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:SetEventHandler"><apiName>SetEventHandler</apiName><shortdesc>
+  SetEventHandler 类指定只在特定视图状态期间才处于活动状态的事件处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetEventHanlder&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:SetEventHandler
+  <b>Properties</b>
+  name="null"
+  handlerFunction="null"
+  target="null"
+  
+  <b>Events</b>
+  handler=<i>No default</i>
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetEventHandler 类指定只在特定视图状态期间才处于活动状态的事件处理函数。例如，可以定义一个在基本视图状态中使用一个事件处理函数而当更换视图状态时使用另一个事件处理函数的 Button 控件。
+ 
+  <p> 可以在 State 类的 <codeph>overrides</codeph> 属性中使用该类。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#SetProperty"><linktext>mx.states.SetProperty</linktext></link><link href="mx.states.xml#SetStyle"><linktext>mx.states.SetStyle</linktext></link></related-links><adobeApiEvent id="mx.states:SetEventHandler_Object_handler"><apiName>handler</apiName><shortdesc>
+  为响应由 name 属性指定的事件而执行的事件处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>Object</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  为响应由 <codeph>name</codeph> 属性指定的事件而执行的事件处理函数。 
+ 
+  <p>请勿在一个 <codeph>&lt;mx:SetEventHandler></codeph> 标签中指定 <codeph>handler</codeph> 属性和 <codeph>handlerFunction</codeph> 属性。</p>
+ 
+  <p>Flex <i>不</i>分派 <codeph>handler</codeph> 事件。<codeph>handler</codeph> 关键字只能用作 MXML 属性。在使用 <codeph>handler</codeph> handler 属性时，可以指定使用多个参数（而不仅是 Event 对象）的方法，还可以在 MXML 标签中指定处理函数代码。</p>
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.states:SetEventHandler:SetEventHandler"><apiName>SetEventHandler</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="flash.events:EventDispatcher"/><apiData>null</apiData><apiDesc>分派要处理的事件的对象。默认情况下，Flex 使用 State 对象的直接父级。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要设置处理函数的事件类型。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:SetEventHandler:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  应用覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  应用覆盖。Flex 将保留原始值，以便以后可以在 <codeph>remove()</codeph> 方法中恢复该值。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:SetEventHandler:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  删除覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  删除覆盖。在 <codeph>apply()</codeph> 方法中记住的值将被恢复。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:SetEventHandler:handlerFunction"><apiName>handlerFunction</apiName><shortdesc>
+      事件的处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      事件的处理函数。此属性面向使用 ActionScript 创建和访问视图状态的开发人员。在 MXML 中，可以使用等效的 <codeph>handler</codeph> event 属性；不要在一个 MXML 标签中同时使用二者。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetEventHandler:name"><apiName>name</apiName><shortdesc>
+      要设置其处理函数的事件的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      要设置其处理函数的事件的名称。必须设置该属性，或在 SetEventHandler 构造函数中设置，或通过直接设置该属性值设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetEventHandler:originalHandlerFunction"><apiName>originalHandlerFunction</apiName><shortdesc>
+      应用覆盖之前要删除的处理函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      应用覆盖之前要删除的处理函数。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetEventHandler:target"><apiName>target</apiName><shortdesc>
+      分派事件的组件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      分派事件的组件。如果属性值为 <codeph>null</codeph>，则 Flex 将使用 <codeph>&lt;mx:states></codeph> 标签的直接父级。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:OverrideBase"><apiName>OverrideBase</apiName><shortdesc>
+  OverrideBase 类是视图状态所用的 override 类的基类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.states:IOverride</apiBaseInterface><apiBaseClassifier>mx.utils:OnDemandEventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  OverrideBase 类是视图状态所用的 override 类的基类。 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.states:OverrideBase:OverrideBase"><apiName>OverrideBase</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:OverrideBase:apply"><apiName>apply</apiName><shortdesc>
+      
+	  应用覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  应用覆盖。Flex 将保留原始值，以便以后可以在 <codeph>remove()</codeph> 方法中恢复该值。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:OverrideBase:initialize"><apiName>initialize</apiName><shortdesc conref="IOverride#initialize()">
+      IOverride 接口方法；该类将其作为空方法实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc conref="IOverride#initialize()">
+      IOverride 接口方法；该类将其作为空方法实现。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:OverrideBase:remove"><apiName>remove</apiName><shortdesc>
+      
+	  删除覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+	  删除覆盖。在 <codeph>apply()</codeph> 方法中记住的值将被恢复。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.states:State"><apiName>State</apiName><shortdesc>
+  State 类定义视图状态，即组件的特定视图。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="overrides"/></asMetadata><asCustoms><mxml><![CDATA[
+  <p>The <code>&lt;mx:State&gt;</code> tag has the following attributes:</p>
+ 
+  <pre>
+  &lt;mx:State
+  <b>Properties</b>
+  basedOn="null"
+  name="null"
+  overrides="null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+  State 类定义视图状态，即组件的特定视图。例如，产品缩略图可以有两个视图状态，包含最少信息的基本视图状态和包含附加信息的丰富视图状态。<codeph>overrides</codeph> 属性指定一组要添加到基本视图状态或从基本视图状态中删除的子类，以及当视图状态有效时要设置的属性、样式和事件处理函数。
+ 
+  <p>可以在 Flex 组件的 <codeph>states</codeph> 属性中使用 State 类。只能在应用程序或自定义控件的根中指定 <codeph>states</codeph> 属性，而不能在子控件中指定。</p>
+ 
+  <p>可通过设置组件的 <codeph>currentState</codeph> 属性来启用视图状态。</p>
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#AddChild"><linktext>mx.states.AddChild</linktext></link><link href="mx.states.xml#RemoveChild"><linktext>mx.states.RemoveChild</linktext></link><link href="mx.states.xml#SetEventHandler"><linktext>mx.states.SetEventHandler</linktext></link><link href="mx.states.xml#SetProperty"><linktext>mx.states.SetProperty</linktext></link><link href="mx.states.xml#SetStyle"><linktext>mx.states.SetStyle</linktext></link><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link></related-links><adobeApiEvent id="mx.states:State_mx.events.FlexEvent.EXIT_STATE_exitState"><apiName>exitState</apiName><shortdesc>
+  在即将退出视图状态之前分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.EXIT_STATE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在即将退出视图状态之前分派。在删除默认视图状态的更改之前分派此事件。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.states:State_mx.events.FlexEvent.ENTER_STATE_enterState"><apiName>enterState</apiName><shortdesc>
+  在进入视图状态后分派。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.ENTER_STATE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  在进入视图状态后分派。
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.states:State:State"><apiName>State</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>properties</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>一个对象，其中包含此 State 的属性设置。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.states:State:basedOn"><apiName>basedOn</apiName><shortdesc>
+      该视图状态所基于的视图状态的名称；如果该视图状态不是基于已命名的视图状态，则为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      该视图状态所基于的视图状态的名称；如果该视图状态不是基于已命名的视图状态，则为 <codeph>null</codeph>。如果该值为 <codeph>null</codeph>，则该视图状态基于根状态（包括不是使用 State 类为组件定义的属性、样式、事件处理函数和子项）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:State:name"><apiName>name</apiName><shortdesc>
+      视图状态的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      视图状态的名称。给定组件的状态名称必须唯一。必须设置此属性。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:State:overrides"><apiName>overrides</apiName><shortdesc>
+      该视图状态的覆盖，表现为实现 IOverride 接口的对象的数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      该视图状态的覆盖，表现为实现 IOverride 接口的对象的数组。这些覆盖在进入状态时按顺序应用，在退出状态时按相反的顺序删除。
+     
+      <p>以下 Flex 类实现 IOverride 接口，并可用来定义视图状态特性：</p>
+      <ul>
+          <li>AddChild</li>
+          <li>RemoveChild</li>
+          <li>SetEventHandler</li>
+          <li>SetProperty</li>
+          <li>SetStyle</li>
+      </ul>
+     
+      <p><codeph>overrides</codeph> 属性是 State 类的默认属性。如果使用 MXML 标签语法来定义覆盖，则可以省略 <codeph>&lt;mx:overrides></codeph> 标签及其子 <codeph>&lt;mx:Array></codeph> 标签。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:State:stateGroups"><apiName>stateGroups</apiName><shortdesc>
+      此视图状态作为 String 数组所属的状态组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      此视图状态作为 String 数组所属的状态组。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:InterruptionBehavior"><apiName>InterruptionBehavior</apiName><shortdesc>
+      InterruptionBehavior 类定义用于与 mx.states.Transition 类的 interruptionBehavior 属性一起使用的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+      InterruptionBehavior 类定义用于与 mx.states.Transition 类的 <codeph>interruptionBehavior</codeph> 属性一起使用的常量。
+     
+      </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#Transition/interruptionBehavior"><linktext>Transition.interruptionBehavior</linktext></link></related-links><apiValue id="mx.states:InterruptionBehavior:END"><apiName>END</apiName><shortdesc>
+          指定一个过渡（可中断另一个正在运行的过渡）在开始之前结束另一个过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>end</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          指定一个过渡（可中断另一个正在运行的过渡）在开始之前结束另一个过渡。通过对过渡中的所有效果调用 <codeph>end()</codeph> 方法来结束过渡。<codeph>end()</codeph> 方法导致所有效果到达结束状态。
+         
+          </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:InterruptionBehavior:STOP"><apiName>STOP</apiName><shortdesc>
+          指定一个过渡（可中断另一个正在运行的过渡）在开始之前停止正在进行的其它过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>stop</apiData><apiType value="String"/></apiValueDef><apiDesc>
+          指定一个过渡（可中断另一个正在运行的过渡）在开始之前停止正在进行的其它过渡。通过对过渡中的所有效果调用 <codeph>stop()</codeph> 方法来停止过渡。
+         
+          </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:AddItems"><apiName>AddItems</apiName><shortdesc>
+  文档当前不可用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion><DefaultProperty name="itemsFactory"/></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  文档当前不可用。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.states:AddItems:AddItems"><apiName>AddItems</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:AddItems:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  应用覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  应用覆盖。Flex 将保留原始值，以便以后可以在 <codeph>remove()</codeph> 方法中恢复该值。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddItems:createInstance"><apiName>createInstance</apiName><shortdesc>
+      从 factory 创建项目实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      从 factory 创建项目实例。必须在仅当指定 <codeph>targetItems</codeph> 属性并且 <codeph>creationPolicy</codeph> 的值为<codeph>“none”</codeph>时才使用此方法。如果 <codeph>creationPolicy</codeph> 属性值为 <codeph>"auto"</codeph> 或 <codeph>"all"</codeph>，Flex 将自动调用此方法。如果多次调用此方法，仅会在第一次调用时创建项目实例。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddItems:initialize"><apiName>initialize</apiName><shortdesc>
+      
+      IOverride 接口方法；该类将其作为空方法实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      IOverride 接口方法；该类将其作为空方法实现。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddItems:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  删除覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  删除覆盖。在 <codeph>apply()</codeph> 方法中记住的值将被恢复。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:AddItems:AFTER"><apiName>AFTER</apiName><shortdesc>
+      文档当前不可用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>after</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      文档当前不可用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:BEFORE"><apiName>BEFORE</apiName><shortdesc>
+      文档当前不可用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>before</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      文档当前不可用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:FIRST"><apiName>FIRST</apiName><shortdesc>
+      文档当前不可用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>first</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      文档当前不可用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:LAST"><apiName>LAST</apiName><shortdesc>
+      文档当前不可用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>last</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      文档当前不可用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:destination"><apiName>destination</apiName><shortdesc>
+      相对于其添加子项的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      相对于其添加子项的对象。该属性与 <codeph>position</codeph> 属性结合使用。此属性是可选的，如果省略此属性，Flex 将使用 <codeph>State</codeph> 对象的直接父级，即具有 <codeph>states</codeph> 属性的组件，或指定 State 对象的 <codeph>&lt;mx:states></codeph> 标签。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:isArray"><apiName>isArray</apiName><shortdesc>
+      指示由目标属性表示的集合是否将视为单个数组实例，而不是项目的集合（默认值）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示由目标属性表示的集合是否将视为单个数组实例，而不是项目的集合（默认值）。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:isStyle"><apiName>isStyle</apiName><shortdesc>
+      指示由目标属性表示的集合是否为样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      指示由目标属性表示的集合是否为样式。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:position"><apiName>position</apiName><shortdesc>
+      显示列表中子项的位置，随 relativeTo 属性指定的对象而变化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>last</apiData><apiType value="String"/><apiDefaultValue>AddItems.LAST
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      显示列表中子项的位置，与 <codeph>relativeTo</codeph> 属性指定的对象相关。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:propertyName"><apiName>propertyName</apiName><shortdesc>
+      正在修改的 Array 属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      正在修改的 Array 属性的名称。如果 <codeph>destination</codeph> 属性为 Group 或 Container，则此属性是可选属性。如果未定义，则项目将作为 Group/Container 的子项添加。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:relativeTo"><apiName>relativeTo</apiName><shortdesc>
+      相对于其添加子项的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      相对于其添加子项的对象。此属性仅在 <codeph>position</codeph> 属性为 <codeph>AddItems.BEFORE</codeph> 或 <codeph>AddItems.AFTER</codeph> 时才可使用。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:vectorClass"><apiName>vectorClass</apiName><shortdesc>
+      由目标属性表示的集合为矢量时，vectorClass 是目标的类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+      由目标属性表示的集合为矢量时，vectorClass 是目标的类型。它用于初始化目标属性。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:creationPolicy:get"><apiName>creationPolicy</apiName><shortdesc>
+      项目的创建策略。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      项目的创建策略。此属性确定 <codeph>itemsFactory</codeph> 将何时创建项目的实例。Flex 仅在指定 <codeph>itemsFactory</codeph> 属性时使用此属性。以下是有效值：
+     
+      <p/>
+     <adobetable class="innertable">
+         
+         
+         
+         
+     <tgroup cols="2"><thead><row><entry>值</entry><entry>意义</entry></row></thead><tbody><row><entry><codeph>auto</codeph></entry><entry>（默认值）在第一次需要实例时创建实例。</entry></row><row><entry><codeph>all</codeph></entry><entry>在应用程序启动时创建实例。</entry></row><row><entry><codeph>none</codeph></entry><entry>不自动创建实例。必须调用 <codeph>createInstance()</codeph> 方法来创建该实例。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:destructionPolicy:get"><apiName>destructionPolicy</apiName><shortdesc>
+      项目的破坏策略。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"never"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      项目的破坏策略。此属性确定 <codeph>itemsFactory</codeph> 将何时破坏它所管理的延迟实例。默认情况下，一旦将此属性实例化，所有实例都将缓存（破坏策略为“never”）。Flex 仅在指定 <codeph>itemsFactory</codeph> 属性时使用此属性。以下是有效值：
+     
+      <p/>
+     <adobetable class="innertable">
+         
+         
+         
+     <tgroup cols="2"><thead><row><entry>值</entry><entry>意义</entry></row></thead><tbody><row><entry><codeph>never</codeph></entry><entry>（默认值）创建后即永远不会破坏实例。</entry></row><row><entry><codeph>auto</codeph></entry><entry>当覆盖不再适用时破坏实例。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:itemsFactory:get"><apiName>itemsFactory</apiName><shortdesc>
+     
+     创建项目的 factory。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:ITransientDeferredInstance</apiValueClassifier></apiValueDef><apiDesc>
+     
+     创建项目的 factory。 
+     
+      <p>如果设置了此属性，项目将在由 <codeph>creationPolicy</codeph> 属性确定的时间实例化。</p>
+      
+      <p>如果设置了 <codeph>items</codeph> 属性，则不要设置此属性。此属性是 <codeph>AddItems</codeph> 类默认属性。设置 <codeph>creationPolicy</codeph> 为“all”的此属性等同于设置 <codeph>items</codeph> 属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddItems:items:get"><apiName>items</apiName><shortdesc>
+     
+      要添加的项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/></apiValueDef><apiDesc>
+     
+      要添加的项目。如果设置了此属性，将在应用程序启动时创建项目。设置此属性等同于设置 <codeph>creationPolicy</codeph> 为<codeph>“all”</codeph>的 <codeph>itemsFactory</codeph> 属性。
+     
+      <p>如果设置了 <codeph>itemsFactory</codeph> 属性，则不要设置此属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:SetProperty"><apiName>SetProperty</apiName><shortdesc>
+  SetProperty 类指定只在父视图状态期间有效的属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetProperty&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:SetProperty
+   <b>Properties</b>
+   name="null"
+   target="null"
+   value="undefined"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetProperty 类指定只在父视图状态期间有效的属性值。可以在 State 类的 <codeph>overrides</codeph> 属性中使用该类。
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#SetEventHandler"><linktext>mx.states.SetEventHandler</linktext></link><link href="mx.states.xml#SetStyle"><linktext>mx.states.SetStyle</linktext></link><link href="" invalidHref="mx.effects.SetPropertyAction.xml"><linktext>mx.effects.SetPropertyAction</linktext></link></related-links><apiConstructor id="mx.states:SetProperty:SetProperty"><apiName>SetProperty</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>要设置其属性的对象。默认情况下，Flex 使用 State 对象的直接父级。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要设置的属性。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="any"/><apiData>unknown</apiData><apiDesc>视图状态中的属性值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFactory</apiItemName><apiOperationClassifier>mx.core:IDeferredInstance</apiOperationClassifier><apiData>null</apiData><apiDesc>从中获取共享值的可选只写属性。此覆盖值由多个状态或状态组共享时，主要使用此属性。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:SetProperty:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  应用覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  应用覆盖。Flex 将保留原始值，以便以后可以在 <codeph>remove()</codeph> 方法中恢复该值。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:SetProperty:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  删除覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  删除覆盖。在 <codeph>apply()</codeph> 方法中记住的值将被恢复。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:SetProperty:name"><apiName>name</apiName><shortdesc>
+      要更改的属性的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      要更改的属性的名称。必须设置该属性，或在 SetProperty 构造函数中设置，或通过直接设置该属性值设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetProperty:target"><apiName>target</apiName><shortdesc>
+      包含要更改的属性的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      包含要更改的属性的对象。如果属性值为 <codeph>null</codeph>，则 Flex 将使用 State 对象的直接父级。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetProperty:value:get"><apiName>value</apiName><shortdesc>
+      属性的新值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      属性的新值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetProperty:valueFactory:set"><apiName>valueFactory</apiName><shortdesc>
+      从中获取共享值的可选只写属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiValueClassifier>mx.core:IDeferredInstance</apiValueClassifier><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      从中获取共享值的可选只写属性。此覆盖值由多个状态或状态组共享时，主要使用此属性。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:AddChild"><apiName>AddChild</apiName><shortdesc>
+  AddChild 类将子显示对象（如组件）作为视图状态的一部分添加到容器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="targetFactory"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:AddChild&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:AddChild
+  <b>Properties</b>
+  target="null"
+  targetFactory="null"
+  creationPolicy="auto"
+  position="lastChild"
+  relativeTo="<i>parent of the State object</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  AddChild 类将子显示对象（如组件）作为视图状态的一部分添加到容器。可以在 State 类的 <codeph>overrides</codeph> 属性中使用该类。可使用 <codeph>creationPolicy</codeph> 属性来指定在应用程序启动时还是当您更改到某一视图状态时创建子级。 
+  
+  <p>在子级添加到容器之前，子级不会分派 <codeph>creationComplete</codeph> 事件。例如，以下代码在视图状态更改过程中添加 Button 控件。</p>
+ 
+  <pre>
+  &lt;mx:AddChild relativeTo="{v1}">
+      &lt;mx:Button id="b0" label="New Button"/>
+  &lt;/mx:AddChild> </pre>
+ 
+  <p>在前面的示例中，在您更改状态以及 Button 控件被添加到容器之前，Button 控件不分派 <codeph>creationComplete</codeph> 事件。如果 AddChild 类同时定义了 Button 和容器（如 Canvas 容器），则 Button 控件将在其创建之后分派 creationComplete 事件。例如，如果 <codeph>creationPolicy</codeph> 属性设置为 <codeph>all</codeph>，Button 控件将在应用程序启动时分派该事件。如果 <codeph>creationPolicy</codeph> 属性设置为 <codeph>auto</codeph>，Button 控件将在您更改到视图状态时分派事件。 </p>
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#RemoveChild"><linktext>mx.states.RemoveChild</linktext></link><link href="mx.states.xml#Transition"><linktext>mx.states.Transition</linktext></link><link href="" invalidHref="mx.effects.AddChildAction.xml"><linktext>mx.effects.AddChildAction</linktext></link></related-links><apiConstructor id="mx.states:AddChild:AddChild"><apiName>AddChild</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>relativeTo</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiData>null</apiData><apiDesc>相对于添加子项的组件。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiType value="flash.display:DisplayObject"/><apiData>null</apiData><apiDesc>子对象。所有 Flex 组件都是 DisplayObject 类的子类。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>position</apiItemName><apiType value="String"/><apiData>lastChild</apiData><apiDesc><codeph>target</codeph> 显示列表中相对于 <codeph>relativeTo</codeph> 组件的位置。必须是以下中的一项：“firstChild”、“lastChild”、“before”或“after”。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:AddChild:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  应用覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  应用覆盖。Flex 将保留原始值，以便以后可以在 <codeph>remove()</codeph> 方法中恢复该值。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddChild:createInstance"><apiName>createInstance</apiName><shortdesc>
+      从 factory 创建子实例。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      从 factory 创建子实例。必须在仅当指定 <codeph>targetFactory</codeph> 属性并且 <codeph>creationPolicy</codeph> 的值为 <codeph>"none"</codeph> 时使用此方法。如果 <codeph>creationPolicy</codeph> 属性值为 <codeph>"auto"</codeph> 或 <codeph>"all"</codeph>，Flex 将自动调用此方法。如果多次调用此方法，仅在第一次调用时创建子实例。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddChild:initialize"><apiName>initialize</apiName><shortdesc>
+      
+      IOverride 接口方法；该类将其作为空方法实现。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      IOverride 接口方法；该类将其作为空方法实现。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:AddChild:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  删除覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  删除覆盖。在 <codeph>apply()</codeph> 方法中记住的值将被恢复。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:AddChild:position"><apiName>position</apiName><shortdesc>
+      显示列表中子项的位置，随 relativeTo 属性指定的对象而变化。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/><apiDefaultValue>"lastChild"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      显示列表中子项的位置，随 <codeph>relativeTo</codeph> 属性指定的对象而变化。有效值为 <codeph>"before"</codeph>、<codeph>"after"</codeph>、<codeph>"firstChild"</codeph> 和 <codeph>"lastChild"</codeph>。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:relativeTo"><apiName>relativeTo</apiName><shortdesc>
+      相对于其添加子项的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      相对于其添加子项的对象。该属性与 <codeph>position</codeph> 属性结合使用。此属性是可选的，如果省略此属性，Flex 将使用 <codeph>State</codeph> 对象的直接父级，即具有 <codeph>states</codeph> 属性的组件，或指定 State 对象的 <codeph>&lt;mx:states></codeph> 标签。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:creationPolicy:get"><apiName>creationPolicy</apiName><shortdesc>
+      该子级的创建策略。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>"auto"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      该子级的创建策略。该属性确定 <codeph>targetFactory</codeph> 将在何时创建该子级的实例。仅当指定 <codeph>targetFactory</codeph> 属性时，Flex 才使用该属性。以下是有效值：
+     
+      <p/>
+     <adobetable class="innertable">
+         
+         
+         
+         
+     <tgroup cols="2"><thead><row><entry>值</entry><entry>意义</entry></row></thead><tbody><row><entry><codeph>auto</codeph></entry><entry>（默认值）在第一次需要实例时创建实例。</entry></row><row><entry><codeph>all</codeph></entry><entry>在应用程序启动时创建实例。</entry></row><row><entry><codeph>none</codeph></entry><entry>不自动创建实例。必须调用 <codeph>createInstance()</codeph> 方法来创建该实例。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:targetFactory:get"><apiName>targetFactory</apiName><shortdesc>
+     
+     创建子级的 factory。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.core:IDeferredInstance</apiValueClassifier></apiValueDef><apiDesc>
+     
+     创建子级的 factory。可以指定以下任一项目：
+      <ul>
+          <li>实现 IDeferredInstance 接口并创建一个或多个子实例的 factory 类。
+          </li>
+          <li>Flex 组件（即任何为 UIComponent 类的子类的类），如 Button 控件。如果使用 Flex 组件，Flex 编译器会自动将该组件包装到 factory 类中。
+          </li>
+      </ul>
+     
+      <p>如果设置了该属性，子级将在由 <codeph>creationPolicy</codeph> 属性确定的时间实例化。</p>
+      
+      <p>如果设置了 <codeph>target</codeph> 属性，则不要设置该属性。该属性是 <codeph>AddChild</codeph> 类默认属性。设置该属性并将 <codeph>creationPolicy</codeph> 设置为“all”等同于设置 <codeph>target</codeph> 属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:AddChild:target:get"><apiName>target</apiName><shortdesc>
+     
+      要添加的子级。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef><apiDesc>
+     
+      要添加的子级。如果设置了该属性，将在应用程序启动时创建子实例。设置该属性等同于设置 <codeph>targetFactory</codeph> 属性并将 <codeph>creationPolicy</codeph> 设置为 <codeph>"all"</codeph>。
+     
+      <p>如果设置了 <codeph>targetFactory</codeph> 属性，则不要设置该属性。</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:SetStyle"><apiName>SetStyle</apiName><shortdesc>
+  SetStyle 类指定只在父视图状态期间有效的样式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:SetStyle&gt;</code> tag
+  has the following attributes:</p>
+  
+  <pre>
+  &lt;mx:SetStyle
+   <b>Properties</b>
+   name="null"
+   target="null"
+   value"null"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.states:OverrideBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  SetStyle 类指定只在父视图状态期间有效的样式。可以在 State 类的 <codeph>overrides</codeph> 属性中使用该类。
+ 
+  </apiDesc><example conref="StatesExample.mxml"><swfblock conref="examples/StatesExample.swf"/></example></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link><link href="mx.states.xml#SetEventHandler"><linktext>mx.states.SetEventHandler</linktext></link><link href="mx.states.xml#SetProperty"><linktext>mx.states.SetProperty</linktext></link><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.states:SetStyle:SetStyle"><apiName>SetStyle</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>mx.styles:IStyleClient</apiOperationClassifier><apiData>null</apiData><apiDesc>要设置其样式的对象。默认情况下，Flex 使用 State 对象的直接父级。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>要设置的样式。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>视图状态中的样式值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>valueFactory</apiItemName><apiOperationClassifier>mx.core:IDeferredInstance</apiOperationClassifier><apiData>null</apiData><apiDesc>从中获取共享值的可选只写属性。此覆盖值由多个状态或状态组共享时，主要使用此属性。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.states:SetStyle:apply"><apiName>apply</apiName><shortdesc>
+      
+      
+	  应用覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  应用覆盖。Flex 将保留原始值，以便以后可以在 <codeph>remove()</codeph> 方法中恢复该值。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:SetStyle:remove"><apiName>remove</apiName><shortdesc>
+      
+      
+	  删除覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      
+	  删除覆盖。在 <codeph>apply()</codeph> 方法中记住的值将被恢复。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.states:SetStyle:name"><apiName>name</apiName><shortdesc>
+     
+      要更改的样式的名称。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+     
+      要更改的样式的名称。必须设置该属性，或在 SetStyle 构造函数中设置，或通过直接设置该属性值设置。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetStyle:target"><apiName>target</apiName><shortdesc>
+     
+      要更改其样式的对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     
+      要更改其样式的对象。如果属性值为 <codeph>null</codeph>，则 Flex 将使用 State 对象的直接父级。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetStyle:value:get"><apiName>value</apiName><shortdesc>
+      样式的新值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      样式的新值。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:SetStyle:valueFactory:set"><apiName>valueFactory</apiName><shortdesc>
+      从中获取共享值的可选只写属性。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiValueClassifier>mx.core:IDeferredInstance</apiValueClassifier><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      从中获取共享值的可选只写属性。此覆盖值由多个状态或状态组共享时，主要使用此属性。 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.states:IOverride"><apiName>IOverride</apiName><shortdesc>
+  IOverride 接口用于视图状态覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IOverride 接口用于视图状态覆盖。State 类 <codeph>overrides</codeph> 属性数组中的所有条目均必须实现此接口。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.states.xml#State"><linktext>mx.states.State</linktext></link></related-links><apiOperation id="mx.states:IOverride:mx.states:IOverride:apply"><apiName>apply</apiName><shortdesc>
+	  应用覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  应用覆盖。Flex 将保留原始值，以便以后可以在 <codeph>remove()</codeph> 方法中恢复该值。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:IOverride:mx.states:IOverride:initialize"><apiName>initialize</apiName><shortdesc>
+	  初始化覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+	  初始化覆盖。Flex 在第一次调用 <codeph>apply()</codeph> 方法之前调用此方法，因此将覆盖的一次性初始化代码放在此方法中。
+ 	 
+	  <p>当进入状态时，Flex 自动调用此方法。不应直接对其进行调用。</p>
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.states:IOverride:mx.states:IOverride:remove"><apiName>remove</apiName><shortdesc>
+	  删除覆盖。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiOperationClassifier>mx.core:UIComponent</apiOperationClassifier><apiDesc>包含此覆盖的状态对象的父级。如果未指定明确目标，覆盖应使用它作为其目标。
+	  
+	  </apiDesc></apiParam></apiOperationDef><apiDesc>
+	  删除覆盖。在 <codeph>apply()</codeph> 方法中记住的值将被恢复。
+	 
+	  <p>当进入状态时自动调用此方法。不应直接对其进行调用。</p>
+	 
+	  </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.states:Transition"><apiName>Transition</apiName><shortdesc>
+  Transition 类定义了一组在响应视图状态更改时播放的效果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><DefaultProperty name="effect"/></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:Transition&gt;</code> tag
+  defines the following attributes:</p>
+  
+  <pre>
+  &lt;mx:Transition
+    <b>Properties</b>
+    id="ID"
+    effect=""
+    fromState="&#42;"
+    toState="&#42;"
+    autoReverse="false"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Transition 类定义了一组在响应视图状态更改时播放的效果。视图状态的定义定义了如何更改状态，而过渡则定义了在状态更改过程中可视更改发生的顺序。
+ 
+  <p>要定义过渡，可将应用程序的 <codeph>transitions</codeph> 属性设置为 Transition 对象的数组。 </p>
+ 
+  <p>可使用 Transition 类的 <codeph>toState</codeph> 和 <codeph>fromState</codeph> 属性来指定触发过渡的状态更改。默认情况下，<codeph>fromState</codeph> 和 <codeph>toState</codeph> 属性均设置为“*”，表示将过渡应用到视图状态的任何更改。</p>
+ 
+  <p>可以使用 <codeph>fromState</codeph> 属性来明确指定要从中进行更改的视图状态，使用 <codeph>toState</codeph> 属性来明确指定要更改到的视图状态。如果状态更改和两个过渡匹配，则 <codeph>toState</codeph> 属性优先于 <codeph>fromState</codeph> 属性。如果超过一个过渡匹配，Flex 将使用过渡数组中的第一个定义。 </p>
+ 
+  <p>可以使用 <codeph>effect</codeph> 属性来指定应用过渡时要播放的 Effect 对象。通常，它是一个包含多个效果的复合效果对象（如 Parallel 或 Sequence 效果），如下例所示：</p><pre>
+ 
+  &lt;mx:Transition id="myTransition" fromState="*" toState="*">
+    &lt;mx:Parallel>
+        ...
+    &lt;/mx:Parallel>
+  &lt;/mx:Transition>
+  </pre>
+ 
+  </apiDesc><example conref="TransitionExample.mxml"><swfblock conref="examples/TransitionExample.swf"/></example></apiClassifierDetail><related-links><link href="" invalidHref="mx.effects.AddChildAction.xml"><linktext>mx.effects.AddChildAction</linktext></link><link href="" invalidHref="mx.effects.RemoveChildAction.xml"><linktext>mx.effects.RemoveChildAction</linktext></link><link href="" invalidHref="mx.effects.SetPropertyAction.xml"><linktext>mx.effects.SetPropertyAction</linktext></link><link href="mx.effects.xml#SetStyleAction"><linktext>mx.effects.SetStyleAction</linktext></link></related-links><apiConstructor id="mx.states:Transition:Transition"><apiName>Transition</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.states:Transition:autoReverse"><apiName>autoReverse</apiName><shortdesc>
+      设置为 true 以指定该过渡应用于正向和逆向视图状态更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false 
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      设置为 <codeph>true</codeph> 以指定该过渡应用于正向和逆向视图状态更改。因此，对于从视图状态 A 到视图状态 B 的更改以及从视图状态 B 到视图状态 A 的更改，使用该过渡。 
+     
+      <p>正在播放从视图状态 A 到视图状态 B 的过渡时，可以发生逆向过渡以中断当前过渡。逆向过渡总是在当前过渡的当前位置将其终止。也就是说，逆向过渡始终播放，好像 <codeph>interruptionBehavior</codeph> 属性已设置为 <codeph>stop</codeph>，而忽略 <codeph>interruptionBehavior</codeph> 的实际值。</p>
+     
+      <p>仅当新过渡以与当前正在播放的过渡完全相反的方向播放时，此属性才会选中。也就是说，如果某个过渡正在状态 A 和 B 之间播放，则开始一个返回到状态 A 的过渡。 </p>
+      
+      <p>如果过渡使用 <codeph>toState</codeph> 和 <codeph>fromState</codeph> 属性显式处理从视图状态 B 到视图状态 A 的过渡，则 Flex 忽略 <codeph>autoReverse</codeph> 属性。 </p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.states.xml#Transition/interruptionBehavior"><linktext>Transition.interruptionBehavior</linktext></link></related-links></apiValue><apiValue id="mx.states:Transition:effect"><apiName>effect</apiName><shortdesc>
+      应用过渡时要播放的 IEffect 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.effects:IEffect</apiValueClassifier></apiValueDef><apiDesc>
+      应用过渡时要播放的 IEffect 对象。通常，它是一个包含多个效果的复合效果对象（如 Parallel 或 Sequence 效果）。
+     
+      <p><codeph>effect</codeph> 属性是 Transition 类的默认属性。如果使用 MXML 标签语法，则可省略 <codeph>&lt;mx:effect></codeph> 标签。</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:Transition:fromState"><apiName>fromState</apiName><shortdesc>
+      该字符串指定在应用过渡时要从中进行更改的视图状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>*</apiData><apiType value="String"/><apiDefaultValue>"&amp;#42;"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      该字符串指定在应用过渡时要从中进行更改的视图状态。默认值为“*”，表示任何视图状态。
+     
+      <p>可以将该属性设置为空字符串“”，它对应于基本视图状态。</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.states:Transition:interruptionBehavior"><apiName>interruptionBehavior</apiName><shortdesc>
+      Flex 不支持同时播放多个过渡。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>end</apiData><apiType value="String"/><apiDefaultValue>end
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Flex 不支持同时播放多个过渡。如果当前正在播放一个过渡，则发生一个新过渡时，将中断该当前过渡。该属性控制当前过渡中断时的行为方式。 
+      
+      <p>默认情况下，当前过渡结束，并且过渡中的所有效果到达其结束值。这与 <codeph>end</codeph> 的属性值相对应。如果此属性的值为 <codeph>stop</codeph>，则当前过渡在其当前位置终止。新过渡从上一个过渡的终止位置开始播放。</p> 
+     
+      <p><codeph>stop</codeph> 的值可以平滑中断的过渡的外观。这是因为在新过渡开始之前用户没有看到当前过渡到达其结束状态。</p>
+     
+      <p>在某些情况下，中断过渡可以是当前过渡的逆向过渡。例如，正在播放从视图状态 A 到视图状态 B 的过渡时，发生逆向过渡以中断当前过渡。如果将过渡实例的 <codeph>autoReverse</codeph> 属性设置为 <codeph>true</codeph>，可以使用相同过渡同时处理正向和逆向过渡。如果中断过渡是当前过渡的逆向过渡，并且将 <codeph>autoReverse</codeph> 设置为 <codeph>true</codeph>，则中断过渡运行，好像 <codeph>interruptionBehavior</codeph> 属性已设置为 <codeph>stop</codeph>，而忽略 <codeph>interruptionBehavior</codeph> 的实际值。</p>
+     
+      <p>mx.states.InterruptionBehavior 类定义此属性的可能值。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.states.xml#Transition/autoReverse"><linktext>Transition.autoReverse</linktext></link><link href="mx.states.xml#InterruptionBehavior"><linktext>mx.states.InterruptionBehavior</linktext></link></related-links></apiValue><apiValue id="mx.states:Transition:toState"><apiName>toState</apiName><shortdesc>
+      该字符串指定在应用过渡时要更改到的视图状态。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>*</apiData><apiType value="String"/><apiDefaultValue>"&amp;#42;"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      该字符串指定在应用过渡时要更改到的视图状态。默认值为“*”，表示任何视图状态。
+     
+      <p>可以将该属性设置为空字符串“”，它对应于基本视图状态。</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

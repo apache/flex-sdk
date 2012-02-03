@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apiMap><apiItemRef href="mx.charts.xml"><apiItemRef href="mx.charts.events.xml"/><apiItemRef href="mx.charts.series.xml"/><apiItemRef href="mx.charts.styles.xml"/><apiItemRef href="mx.charts.effects.xml"/><apiItemRef href="mx.charts.renderers.xml"/><apiItemRef href="mx.charts.chartClasses.xml"/><apiItemRef href="mx.charts.series.items.xml"/><apiItemRef href="mx.charts.series.renderData.xml"/><apiItemRef href="mx.charts.effects.effectClasses.xml"/></apiItemRef></apiMap>

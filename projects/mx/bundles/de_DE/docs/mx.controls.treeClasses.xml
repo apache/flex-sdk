@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.treeClasses"><apiName>mx.controls.treeClasses</apiName><apiDetail/><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor"><apiName>ITreeDataDescriptor</apiName><shortdesc>
+  Schnittstelle, die Methoden für die syntaktische Analyse und das Hinzufügen von Knoten zu einer Sammlung von Daten bereitstellt, die über ein Tree-Steuerelement angezeigt werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Schnittstelle, die Methoden für die syntaktische Analyse und das Hinzufügen von Knoten zu einer Sammlung von Daten bereitstellt, die über ein Tree-Steuerelement angezeigt werden.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Fügt einem Knoten an der angegebenen Indexposition einen untergeordneten Knoten hinzu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn erfolgreich.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Das Knotenobjekt, das dem untergeordneten Knoten übergeordnet ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Das Knotenobjekt, dem der Knoten übergeordnet ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die auf null basierende Indexposition für die Einordnung des untergeordneten Knotens.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die komplette Sammlung, zu der dieser Knoten gehört.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Fügt einem Knoten an der angegebenen Indexposition einen untergeordneten Knoten hinzu.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Stellt den Zugriff auf die untergeordneten Knoten eines Knotens bereit und gibt die Sammlungsansicht der untergeordneten Knoten zurück, wenn solche existieren.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Eine Sammlungsansicht, die die untergeordneten Knoten enthält.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das aktuell ausgewertete Knotenobjekt.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die komplette Sammlung, zu der dieser Knoten gehört.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Stellt den Zugriff auf die untergeordneten Knoten eines Knotens bereit und gibt die Sammlungsansicht der untergeordneten Knoten zurück, wenn solche existieren. Ein Knoten kann jedes Objekt in der Sammlung als seine untergeordneten Knoten zurückgeben. Untergeordnete Knoten müssen nicht verschachtelt sein. Es ist ratsam, dieselbe Sammlungsansicht für einen gegebenen Knoten zurückzugeben.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      Bezieht die Daten aus einem Knoten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die angeforderten Daten.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das Knotenobjekt, aus dem die Daten bezogen werden.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, die den Knoten enthält.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Bezieht die Daten aus einem Knoten.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      Prüft, ob in einem nicht beendenden Knoten untergeordnete Knoten vorhanden sind.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn der Knoten mindestens einen untergeordneten Knoten aufweist.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Der aktuelle Knoten.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die komplette Sammlung, zu der dieser Knoten gehört.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Prüft, ob in einem nicht beendenden Knoten untergeordnete Knoten vorhanden sind.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      Prüft, ob ein Knoten ein beendender Knoten ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Boolescher Wert, der anzeigt, dass dieser Knoten ein nicht beendender Knoten ist.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das aktuell ausgewertete Knotenobjekt.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die komplette Sammlung, zu der dieser Knoten gehört.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Prüft, ob ein Knoten ein beendender Knoten ist. Verzweigungen sind nicht beendend, müssen aber keine Endknoten haben.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor:mx.controls.treeClasses:ITreeDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Entfernt einen untergeodneten Knoten an der angegebenen Indexposition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn erfolgreich.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Das Knotenobjekt, das dem untergeordneten Knoten übergeordnet ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Das Knotenobjekt, das entfernt wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Die auf null basierende Indexposition des in Kürze zu löschenden Knotens.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die komplette Sammlung, zu der dieser Knoten gehört.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Entfernt einen untergeodneten Knoten an der angegebenen Indexposition.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:ITreeDataDescriptor2"><apiName>ITreeDataDescriptor2</apiName><shortdesc>
+  Die ITreeDataDescriptor2-Schnittstelle definiert Methoden für die syntaktische Analyse und das Hinzufügen von Knoten zu einer Sammlung von Daten, die über ein Tree-Steuerelement angezeigt werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Die ITreeDataDescriptor2-Schnittstelle definiert Methoden für die syntaktische Analyse und das Hinzufügen von Knoten zu einer Sammlung von Daten, die über ein Tree-Steuerelement angezeigt werden.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.collections.ICollectionView.xml"><linktext>mx.collections.ICollectionView</linktext></link></related-links><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      Gibt eine ICollectionView-Instanz zurück, die die hierarchischen Daten so anzeigt, als wären sie eine lineare ICollectionView-Instanz.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Eine ICollectionView-Instanz.
+     
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Die hierarchischen Daten.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>Eine Funktion, die ein Objekt übernimmt und die UID als String zurückgibt. Dieser Parameter ist in der Regel die <codeph>Tree.itemToUID()</codeph>-Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>Elemente, die geöffnet oder auf geöffnet gesetzt wurden.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, zu der dieser Knoten gehört.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt eine ICollectionView-Instanz zurück, die die hierarchischen Daten so anzeigt, als wären sie eine lineare ICollectionView-Instanz.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      Gibt die Tiefe des Knotens zurück, also die Anzahl seiner Vorgänger.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die Tiefe des Knotens, wobei 0 der obersten Ebene entspricht und -1 angibt, dass die Tiefe nicht berechnet werden kann.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das den Knoten definiert.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiType value="mx.collections:IViewCursor"/><apiDesc>Eine IViewCursor-Instanz, die für die Berechnung verwendet werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, zu der dieser Knoten gehört.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Tiefe des Knotens zurück, also die Anzahl seiner Vorgänger.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:ITreeDataDescriptor2:mx.controls.treeClasses:ITreeDataDescriptor2:getParent"><apiName>getParent</apiName><shortdesc>
+      Gibt den übergeordneten Knoten des Knotens zurück. Der übergeordnete Knoten eines Knotens der obersten Ebene ist null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der übergeordnete Knoten, dem der untergeordnete Knoten zugehört, <codeph>null</codeph> bei einem Knoten der obersten Ebene und <codeph>undefined</codeph>, wenn der übergeordnete Knoten nicht ermittelt werden kann.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das den Knoten definiert.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Eine ICollectionView-Instanz, die für die Berechnung verwendet werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, zu der dieser Knoten gehört.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt den übergeordneten Knoten des Knotens zurück. Der übergeordnete Knoten eines Knotens der obersten Ebene ist <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+  Die TreeListData-Klasse definiert den Datentyp der listData-Eigenschaft, die von Renderern oder Editoren, in denen Elemente abgelegt werden können, für das Tree-Steuerelement implementiert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:BaseListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die TreeListData-Klasse definiert den Datentyp der <codeph>listData</codeph>-Eigenschaft, die von Renderern oder Editoren, in denen Elemente abgelegt werden können, für das Tree-Steuerelement implementiert wird. Alle Renderer oder Editoren, in denen Elemente abgelegt werden können, müssen die IDropInListItemRenderer-Schnittstelle, mit der die <codeph>listData</codeph>-Eigenschaft definiert wird, implementieren.
+ 
+  <p>Obwohl die Eigenschaften dieser Klasse änderbar sind, sollten Sie sie unverändert beibehalten. Sie werden durch die Tree-Klasse initialisiert und von einem Renderer oder Editor für Elemente gelesen. Eine Veränderung dieser Werte kann zu unerwarteten Ergebnissen führen.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:TreeListData:TreeListData"><apiName>TreeListData</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>Textdarstellung der Daten des Elements.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Ein eindeutiger Bezeichner für das Element.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBase</apiOperationClassifier><apiDesc>Ein Verweis auf das Tree-Steuerelement.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Die Indexposition des Elements im Datenprovider für das Tree-Steuerelement.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Die Indexposition der Spalte in den aktuell sichtbaren Spalten des Steuerelements.
+	 
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeListData:depth"><apiName>depth</apiName><shortdesc>
+	  Die Ebene des Elements im Tree-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  Die Ebene des Elements im Tree-Steuerelement. Die oberste Ebene ist 1.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+	  Eine Klasse, die das Anzeige-Symbol für das Element im Tree-Steuerelement darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  Eine Klasse, die das Anzeige-Symbol für das Element im Tree-Steuerelement darstellt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+	  Enthält „true“, wenn der Knoten untergeordnete Knoten enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Enthält <codeph>true</codeph>, wenn der Knoten untergeordnete Knoten enthält.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:icon"><apiName>icon</apiName><shortdesc>
+	  Eine Klasse, die das Symbol für das Element im Tree-Steuerelement darstellt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Class"/></apiValueDef><apiDesc>
+	  Eine Klasse, die das Symbol für das Element im Tree-Steuerelement darstellt.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:indent"><apiName>indent</apiName><shortdesc>
+	  Der Standardeinzug für diese Zeile des Tree-Steuerelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+	  Der Standardeinzug für diese Zeile des Tree-Steuerelements.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:item"><apiName>item</apiName><shortdesc>
+	  Die Daten für dieses Element im Tree-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+	  Die Daten für dieses Element im Tree-Steuerelement.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeListData:open"><apiName>open</apiName><shortdesc>
+	  Enthält „true“, wenn der Knoten offen ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Enthält <codeph>true</codeph>, wenn der Knoten offen ist.
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.treeClasses:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+  Die DefaultDataDescriptor-Klasse stellt eine in Tree- oder Menu-Steuerelementen verwendete Standardimplementierung für den Zugriff auf die Daten und ihre Verarbeitung bereit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.controls.treeClasses:ITreeDataDescriptor2</apiBaseInterface><apiBaseInterface>mx.controls.menuClasses:IMenuDataDescriptor</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DefaultDataDescriptor-Klasse stellt eine in Tree- oder Menu-Steuerelementen verwendete Standardimplementierung für den Zugriff auf die Daten und ihre Verarbeitung bereit. Diese Implementierung behandelt e4x XML und Objektknoten auf ähnliche, aber doch unterschiedliche Weise. Sehen Sie sich die Beschreibung der einzelnen Methoden an, um Details über die Art des Zugriffs der Methode auf Werte in Knoten unterschiedlicher Art zu erfahren. Diese Klasse ist der Standardwert der <codeph>dataDescriptor</codeph>-Eigenschaften der Steuerelemente Tree, Menu, MenuBar und PopUpMenuButton.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.treeClasses.xml#ITreeDataDescriptor"><linktext>mx.controls.treeClasses.ITreeDataDescriptor</linktext></link><link href="" invalidHref="mx.controls.menuClasses.IMenuDataDescriptor.xml"><linktext>mx.controls.menuClasses.IMenuDataDescriptor</linktext></link><link href="mx.controls.xml#Menu"><linktext>mx.controls.Menu</linktext></link><link href="mx.controls.xml#MenuBar"><linktext>mx.controls.MenuBar</linktext></link><link href="mx.controls.xml#PopUpMenuButton"><linktext>mx.controls.PopUpMenuButton</linktext></link><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link></related-links><apiConstructor id="mx.controls.treeClasses:DefaultDataDescriptor:DefaultDataDescriptor"><apiName>DefaultDataDescriptor</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:addChildAt"><apiName>addChildAt</apiName><shortdesc>
+      Fügt einem Knoten an der angegebenen Indexposition einen untergeordneten Knoten hinzu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn erfolgreich.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Das Knotenobjekt, das dem untergeordneten Knoten übergeordnet ist.
+      </apiDesc></apiParam><apiParam><apiItemName>newChild</apiItemName><apiType value="Object"/><apiDesc>Das Knotenobjekt, dem der Knoten übergeordnet ist.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Auf null basierende Indexposition der Stelle, an der der untergerdnete Knoten relativ zum übergeordneten Knoten eingesetzt werden soll.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die komplette Sammlung, zu der dieser Knoten gehört.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Fügt einem Knoten an der angegebenen Indexposition einen untergeordneten Knoten hinzu. Diese Implementierung übernimmt folgende Aufgaben:
+     
+      <ul>
+          <li>Wenn der <codeph>parent</codeph>-Parameter „null“ oder „undefined“ ist, wird der <codeph>child</codeph>-Parameter an der angegebenen Indexposition in der Sammlung eingefügt, die durch den <codeph>model</codeph>-Parameter angegeben wird.
+          </li>
+          <li>Wenn der <codeph>parent</codeph>-Parameter ein Feld oder eine Eigenschaft <codeph>children</codeph> hat, fügt die Methode den <codeph>child</codeph>-Parameter an der Position des <codeph>index</codeph>-Parameters hinzu. In diesem Fall ist der <codeph>model</codeph>-Parameter nicht erforderlich.
+         </li>
+         <li>Wenn der <codeph>parent</codeph>-Parameter kein Feld oder keine Eigenschaft <codeph>children</codeph> hat, fügt die Methode die <codeph>children</codeph>-Eigenschaft dem <codeph>parent</codeph>-Element hinzu. Danach fügt die Methode den <codeph>child</codeph>-Parameter dem übergeordneten Element an der <codeph>index</codeph>-Parameterposition hinzu. In diesem Fall ist der <codeph>model</codeph>-Parameter nicht erforderlich.
+         </li>
+         <li>Wenn der <codeph>index</codeph>-Wert größer ist als die Sammlungslänge oder die Anzahl der untergeordneten Element im übergeordneten Element, wird das Objekt als letztes untergeordnetes Element hinzugefügt.
+         </li>
+     </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getChildren"><apiName>getChildren</apiName><shortdesc>
+      Stellt den Zugriff auf die untergeordneten Knoten eines Knotens bereit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Ein Objekt, das die untergeordneten Knoten enthält.
+      
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das aktuell ausgewertete Knotenobjekt.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, die den Knoten enthält; wird von dieser Klasse ignoriert.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Stellt den Zugriff auf die untergeordneten Knoten eines Knotens bereit. Gibt eine Sammlung von untergeordneten Knoten zurück, wenn solche existieren. Wenn der Knoten ein Objekt ist, gibt die Methode den Inhalt des <codeph>children</codeph>-Felds des Objekts als ArrayCollection zurück. Wenn der Knoten XML ist, gibt die Methode ein XMLListCollection-Objekt zurück, das die untergeordneten Elemente enthält.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getData"><apiName>getData</apiName><shortdesc>
+      Gibt die Daten eines Knotens zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Knoten.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das aktuell ausgewertete Knotenobjekt.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, die den Knoten enthält; wird von dieser Klasse ignoriert.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die Daten eines Knotens zurück. Gibt derzeit den kompletten Knoten zurück.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getGroupName"><apiName>getGroupName</apiName><shortdesc>
+      Gibt den Namen der Optionsfeld-Gruppe zurück, zu der der Knoten gehört, wenn eine solche vorhanden ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Wert des <codeph>groupName</codeph>-Attributs bzw. -Felds des Knotens oder ein leerer String, wenn ein solcher Eintrag nicht vorhanden ist.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Der Knoten, für den der Gruppenname abgerufen wird.
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt den Namen der Optionsfeld-Gruppe zurück, zu der der Knoten gehört, wenn eine solche vorhanden ist. Diese Methode wird für Steuerelemente in Menüform verwendet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getHierarchicalCollectionAdaptor"><apiName>getHierarchicalCollectionAdaptor</apiName><shortdesc>
+      
+      Gibt eine ICollectionView-Instanz zurück, die die hierarchischen Daten so anzeigt, als wären sie eine lineare ICollectionView-Instanz.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Eine ICollectionView-Instanz.
+     
+      </apiDesc><apiType value="mx.collections:ICollectionView"/></apiReturn><apiParam><apiItemName>hierarchicalData</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Die hierarchischen Daten.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>uidFunction</apiItemName><apiType value="Function"/><apiDesc>Eine Funktion, die ein Objekt übernimmt und die UID als String zurückgibt. Dieser Parameter ist in der Regel die <codeph>Tree.itemToUID()</codeph>-Methode.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>openItems</apiItemName><apiType value="Object"/><apiDesc>Elemente, die geöffnet oder auf geöffnet gesetzt wurden.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, zu der dieser Knoten gehört.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Gibt eine ICollectionView-Instanz zurück, die die hierarchischen Daten so anzeigt, als wären sie eine lineare ICollectionView-Instanz.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getNodeDepth"><apiName>getNodeDepth</apiName><shortdesc>
+      
+      Gibt die Tiefe des Knotens zurück, also die Anzahl seiner Vorgänger.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Die Tiefe des Knotens, wobei 0 der obersten Ebene entspricht und -1 angibt, dass die Tiefe nicht berechnet werden kann.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das den Knoten definiert.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>iterator</apiItemName><apiType value="mx.collections:IViewCursor"/><apiDesc>Eine IViewCursor-Instanz, die für die Berechnung verwendet werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, zu der dieser Knoten gehört.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Gibt die Tiefe des Knotens zurück, also die Anzahl seiner Vorgänger.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getParent"><apiName>getParent</apiName><shortdesc>
+      
+      Gibt den übergeordneten Knoten des Knotens zurück. Der übergeordnete Knoten eines Knotens der obersten Ebene ist null.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der übergeordnete Knoten, dem der untergeordnete Knoten zugehört, <codeph>null</codeph> bei einem Knoten der obersten Ebene und <codeph>undefined</codeph>, wenn der übergeordnete Knoten nicht ermittelt werden kann.
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das Objekt, das den Knoten definiert.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>collection</apiItemName><apiType value="mx.collections:ICollectionView"/><apiDesc>Eine ICollectionView-Instanz, die für die Berechnung verwendet werden kann.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, zu der dieser Knoten gehört.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      Gibt den übergeordneten Knoten des Knotens zurück. Der übergeordnete Knoten eines Knotens der obersten Ebene ist <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:getType"><apiName>getType</apiName><shortdesc>
+      Gibt den Typbezeichner eines Knotens zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Wert des <codeph>type</codeph>-Attributs oder -Felds bzw. ein leerer String, wenn ein solches Feld nicht vorhanden ist.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das Knotenobjekt, für das der Typ abgerufen werden soll.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt den Typbezeichner eines Knotens zurück. Diese Methode wird von Steuerelementen in Form von Menüs verwendet, um zu bestimmen, ob der Knoten ein Trennzeichen, ein Optionsfeld, ein Kontrollkästchen oder ein normales Element darstellt.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:hasChildren"><apiName>hasChildren</apiName><shortdesc>
+      Ermittelt, ob der Knoten untergeordnete Knoten enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn dieser Knoten aktuell untergeordnete Knoten enthält.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das aktuell ausgewertete Knotenobjekt.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, die den Knoten enthält; wird von dieser Klasse ignoriert.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ermittelt, ob der Knoten untergeordnete Knoten enthält. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isBranch"><apiName>isBranch</apiName><shortdesc>
+      Prüft, ob ein Knoten ein beendender Knoten ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn dieser Knoten ein nicht beendender Knoten ist.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Das aktuell ausgewertete Knotenobjekt.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die Sammlung, die den Knoten enthält; wird von dieser Klasse ignoriert.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Prüft, ob ein Knoten ein beendender Knoten ist. Verzweigungen sind nicht beendend, müssen aber keine Endknoten haben. Wenn der Knoten XML ist, wird <codeph>true</codeph> zurückgegeben, falls der Knoten untergeordnete Knoten oder ein <codeph>true isBranch</codeph>-Attribut hat. Wenn der Knoten ein Objekt ist, wird <codeph>true</codeph> zurückgegeben, wenn der Knoten ein (möglicherweise leeres) <codeph>children</codeph>-Feld hat.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isEnabled"><apiName>isEnabled</apiName><shortdesc>
+      Gibt zurück, ob der Knoten aktiviert ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Wert des <codeph>enabled</codeph>-Attributs oder -Felds des Knotens, bzw. <codeph>true</codeph>, wenn ein solcher Eintrag nicht vorhanden ist oder der Wert nicht <codeph>false</codeph> ist. 
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Der Knoten, für den der Status abgerufen werden soll.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt zurück, ob der Knoten aktiviert ist. Diese Methode wird für Steuerelemente in Menüform verwendet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:isToggled"><apiName>isToggled</apiName><shortdesc>
+      Gibt zurück, ob der Knoten umgeschaltet ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Wert des <codeph>toggled</codeph>Attributs bzw. -Felds des Knotens oder <codeph>false</codeph>, wenn ein solcher Eintrag nicht vorhanden ist.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Der Knoten, für den der Status abgerufen werden soll.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt zurück, ob der Knoten umgeschaltet ist. Diese Methode wird für Steuerelemente in Menüform verwendet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:removeChildAt"><apiName>removeChildAt</apiName><shortdesc>
+      Entfernt den untergeordneten Knoten an der angegebenen Indexposition.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, wenn erfolgreich.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>parent</apiItemName><apiType value="Object"/><apiDesc>Das Knotenobjekt, das derzeit übergeordnete Knoten für den untergerdneten Knoten hat.
+      </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="Object"/><apiDesc>Der Knoten, der entfernt wird.
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Der auf null basierende Index des zu entfernenden, untergeordneten Knotens im Verhältnis zum übergeordneten Knoten.
+      </apiDesc></apiParam><apiParam><apiItemName>model</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Die komplette Sammlung, zu der dieser Knoten gehört.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Entfernt den untergeodneten Knoten an der angegebenen Indexposition. Wenn der <codeph>parent</codeph>-Parameter „null“ oder „undefined“ ist, verwendet die Methode den <codeph>model</codeph>-Parameter für den Zugriff auf den untergeordneten Knoten, ansonsten verwendet sie den <codeph>parent</codeph>-Parameter und ignoriert den <codeph>model</codeph>-Parameter.
+    
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setEnabled"><apiName>setEnabled</apiName><shortdesc>
+      Legt den Wert des Felds oder Attributs im Datenprovider fest, der angibt, ob der Knoten aktiviert ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Der Knoten, für den der Status festgelegt werden soll.
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>Gibt zurück, ob der Knoten aktiviert ist.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Legt den Wert des Felds oder Attributs im Datenprovider fest, der angibt, ob der Knoten aktiviert ist. Diese Methode legt den Wert des <codeph>enabled</codeph>-Attributs oder -Felds des Knotens fest. Diese Methode wird für Steuerelemente in Menüform verwendet.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.treeClasses:DefaultDataDescriptor:setToggled"><apiName>setToggled</apiName><shortdesc>
+      Legt den Wert des Felds oder Attributs im Datenprovider fest, der angibt, ob der Knoten umgeschaltet ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>node</apiItemName><apiType value="Object"/><apiDesc>Der Knoten, für den der Status festgelegt werden soll.
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Boolean"/><apiDesc>Gibt zurück, ob der Knoten umgeschaltet ist.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Legt den Wert des Felds oder Attributs im Datenprovider fest, der angibt, ob der Knoten umgeschaltet ist. Diese Methode legt den Wert des <codeph>toggled</codeph>-Attributs oder -Felds des Knotens fest. Diese Methode wird für Steuerelemente in Menüform verwendet.
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.controls.treeClasses:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+  Die TreeItemRenderer-Klasse definiert den Standardelementrenderer für ein Tree-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Farbe der Komponente, wenn deaktiviert. Der Standardwert ist <codeph>0xAAB3B3</codeph>.
+ 
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.treeClasses:TreeItemRenderer" playerVersion="Flash9" type="uint">
+<description>
+  Textfarbe eines Komponenten-Labels. Der Standardwert für das Halo-Design ist <codeph>0x0B333C</codeph>. Der Standardwert für das Spark-Design ist <codeph>0x000000</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die TreeItemRenderer-Klasse definiert den Standardelementrenderer für ein Tree-Steuerelement. Standardmäßig zeichnet der Elementrenderer den mit den einzelnen Elementen in der Struktur verbundenen Text, ein optionales Symbol und ein optionales Anzeigesymbol.
+ 
+  <p>Sie können den Standardelementrenderer überschreiben, indem Sie einen benutzerdefinierten Elementrenderer erstellen.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#Tree"><linktext>mx.controls.Tree</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer.</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.treeClasses:TreeItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Wird ausgelöst, wenn sich die Data-Eigenschaft verändert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn sich die <codeph>data</codeph>-Eigenschaft verändert
+ 
+  <p>Wenn Sie eine Komponente als Elementrenderer verwenden, enthält die <codeph>data</codeph>-Eigenschaft die anzuzeigenden Daten. Sie können auf dieses Ereignis warten und die Komponente aktualisieren, wenn sich die <codeph>data</codeph>-Eigenschaft ändert.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.treeClasses:TreeItemRenderer:TreeItemRenderer"><apiName>TreeItemRenderer</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:disclosureIcon"><apiName>disclosureIcon</apiName><shortdesc>
+      Das interne IFlexDisplayObject, das das Anzeigesymbol in diesem Renderer anzeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      Das interne IFlexDisplayObject, das das Anzeigesymbol in diesem Renderer anzeigt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:icon"><apiName>icon</apiName><shortdesc>
+      Das interne IFlexDisplayObject, das das Symbol in diesem Renderer anzeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IFlexDisplayObject"/></apiValueDef><apiDesc>
+      Das interne IFlexDisplayObject, das das Symbol in diesem Renderer anzeigt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:protected:label"><apiName>label</apiName><shortdesc>
+      Das interne UITextField, das den Text in diesem Renderer anzeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="mx.core:IUITextField"/></apiValueDef><apiDesc>
+      Das interne UITextField, das den Text in diesem Renderer anzeigt.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Die Implementierung der data-Eigenschaft gemäß der IDataRenderer-Schnittstelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Die Implementierung der <codeph>data</codeph>-Eigenschaft gemäß der IDataRenderer-Schnittstelle.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer.</linktext></link></related-links></apiValue><apiValue id="mx.controls.treeClasses:TreeItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      Die Implementierung der listData-Eigenschaft gemäß der IDropInListItemRenderer-Schnittstelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      Die Implementierung der <codeph>listData</codeph>-Eigenschaft gemäß der IDropInListItemRenderer-Schnittstelle.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

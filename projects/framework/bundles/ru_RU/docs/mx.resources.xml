@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.resources"><apiName>mx.resources</apiName><apiDetail/><apiClassifier id="mx.resources:Locale"><apiName>Locale</apiName><shortdesc>
+  Класс Locale можно использовать для анализа строки языкового стандарта (например, en_US_MAC) по трем частям: код языка, код страны и вариант.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Класс Locale можно использовать для анализа строки языкового стандарта (например, <codeph>en_US_MAC</codeph>) по трем частям: код языка, код страны и вариант.
+ 
+  <p>В API-интерфейсах локализации в интерфейсах IResourceManager и IResourceBundle используются строки языковых стандартов, а не экземпляры Locale, поэтому этот класс редко используется в приложениях.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:Locale:Locale"><apiName>Locale</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>localeString</apiItemName><apiType value="String"/><apiDesc>Строка из 1, 2 или 3 частей, например <codeph>en</codeph>, <codeph>en_US</codeph> или <codeph>en_US_MAC</codeph>. Части разделены символами подчеркивания. Первая часть – это двухбуквенный код языка, определяемый стандартом ISO-639 и состоящий из строчных букв (например, <codeph>en</codeph> для английского языка). Вторая часть – это двухбуквенный код страны, определяемый стандартом ISO-3166 и состоящий из заглавных букв (например, <codeph>US</codeph> для США). Третья часть – это строка варианта, используемая для дополнительного разграничения нескольких языковых стандартов для одного и того же языка и страны. Иногда она используется для указания операционной системы, с которой должен использоваться языковой стандарт, (например, <codeph>MAC</codeph>, <codeph>WIN</codeph> или <codeph>UNIX</codeph>).
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:Locale:toString"><apiName>toString</apiName><shortdesc>
+      Возвращает строку языкового стандарта, которая использовалась для создания этого экземпляра языкового стандарта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Возвращает строку языкового стандарта, которая использовалась для создания этого экземпляра языкового стандарта.
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает строку языкового стандарта, которая использовалась для создания этого экземпляра языкового стандарта. Например:
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.toString()); // outputs "en_US_MAC"
+      </pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:Locale:country:get"><apiName>country</apiName><shortdesc>
+      Код страны данного экземпляра языкового стандарта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Код страны данного экземпляра языкового стандарта. [Только для чтения]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.country); // outputs "US"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:language:get"><apiName>language</apiName><shortdesc>
+      Код языка данного экземпляра языкового стандарта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Код языка данного экземпляра языкового стандарта. [Только для чтения]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.language); // outputs "en"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:Locale:variant:get"><apiName>variant</apiName><shortdesc>
+      Вариант данного экземпляра языкового стандарта.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Вариант данного экземпляра языкового стандарта. [Только для чтения]
+     
+      <pre>
+      var locale:Locale = new Locale("en_US_MAC");
+      trace(locale.variant); // outputs "MAC"
+      </pre>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceManager"><apiName>IResourceManager</apiName><shortdesc>
+  API-интерфейсы интерфейса IResourceManager обеспечивают поддержку локализации приложений Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  API-интерфейсы интерфейса IResourceManager обеспечивают поддержку локализации приложений Flex.
+ 
+  <p>В локализации используется три основных понятия: языковые стандарты, ресурсы и пакеты ресурсов.</p>
+ 
+  <p>Языковой стандарт указывает язык и страну, для которой было локализовано приложение. Например, языковой стандарт <codeph>en_US</codeph> указывает английский язык в качестве разговорного в США. (Для получения дополнительной информации см. класс mx.resources.Locale.)</p>
+ 
+  <p>Ресурс – это именованное значение, зависящее от языкового стандарта. Например, приложение имеет ресурс с именем <codeph>OPEN</codeph>. Значение ресурса для английского языкового стандарта – <codeph>Open</codeph>, а для французского языкового стандарта это значение – <codeph>Ouvrir</codeph>.</p>
+ 
+  <p>Пакет ресурсов – это именованная группа ресурсов, значения которых были локализованы для определенного языкового стандарта. Пакет ресурсов определяется комбинацией <codeph>bundleName</codeph> и <codeph>locale</codeph>, а также имеет объект <codeph>content</codeph>, содержащий пары «имя - значение» для ресурсов пакета. Для получения информации о создании пакетов ресурсов из файлов свойств см. документацию для mx.resources.IResourceBundle.</p>
+ 
+  <p>Одиночный объект ResourceManager, реализующий интерфейс IResourceManager, управляет несколькими пакетами ресурсов, в том числе для нескольких языковых стандартов, и предоставляет доступ к содержащимся в них ресурсам. Например, можно извлечь определенный ресурс как строку путем вызова <codeph>resourceManager.getString(bundleName, resourceName)</codeph>.</p>
+ 
+  <p>Все классы, являющиеся расширениями UIComponent, Formatter или Validator, имеют свойство <codeph>resourceManager</codeph>, которое предоставляет ссылку на объект, реализующий этот интерфейс. Другие классы могут выполнять вызов <codeph>ResourceManager.getInstance()</codeph> для получения этого объекта.</p>
+ 
+  <p>Методы поиска ресурсов (например, <codeph>getString()</codeph>) выполняют поиск ресурсов в языковых стандартах, указанных свойством <codeph>localeChain</codeph>. Путем изменения этого свойства можно указать для приложения использование, например японских, а не английских ресурсов.</p>
+ 
+  <p>При запуске приложения ResourceManager автоматически заполняется любыми пакетами ресурсов, которые были скомпилированы в приложение. По умолчанию при создании модуля кода ресурсы, необходимые для его классов, компилируются в модуль. При загрузке модуля в приложение любые пакеты, которых еще нет в приложении, добавляются в ResourceManager.</p>
+ 
+  <p>Можно скомпилировать «модули ресурсов», содержащие только ресурсы, и загрузить их с помощью метода <codeph>loadResourceModule()</codeph> интерфейса IResourceManager. С помощью модулей ресурсов можно обеспечить поддержку несколько языковых стандартов путем загрузки необходимых ресурсов во время выполнения вместо компиляции их в приложение.</p>
+ 
+  <p>Несмотря на то что обычно ResourceManager заполняется пакетами ресурсов, которые были скомпилированы в приложение или загружены из модулей, пакеты ресурсов можно также создавать программным путем и самостоятельно добавлять их к ResourceManager при помощи метода <codeph>addResourceBundle()</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:addResourceBundle"><apiName>addResourceBundle</apiName><shortdesc>
+      Добавляет указанный ResourceBundle в ResourceManager для обеспечения доступа к его ресурсам с помощью методов ResourceManager, например getString().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>resourceBundle</apiItemName><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier><apiDesc>Добавляемый пакет ресурсов.
+      </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Определяет, содержит ли ResourceManager слабую ссылку к пакету ресурсов. Если <codeph>useWeakReference</codeph> имеет значение <codeph>true</codeph>, то ResourceManager предоставит слабую ссылку на пакет ресурсов. Когда вызывающий модуль использует слабую ссылку, то обязанностью этого модуля является сохранение жесткой ссылки на пакет ресурсов, чтобы он не был преждевременно удален во время сборки мусора. Если <codeph>useWeakReference</codeph> имеет значение <codeph>false</codeph>, то ResourceManager сохраняет жесткую ссылку на пакет ресурсов, который, таким образом, не будет задействован во время сборки мусора.
+      
+      <p>Когда подчиненное приложение или модуль Flex автоматически добавляет свои откомпилированные пакеты ресурсов в ResourceManager, вызывается <codeph>addResourceBundle()</codeph> с <codeph>useWeakReference</codeph>, для которого указано значение <codeph>true</codeph>, что позволяет избежать закрепления в памяти. При создании пакетов ресурсов во время выполнения в подчиненном приложении или внешнем модуле необходимо выполнить эти же шаги. Затем для этих пакетов ресурсов необходимо определить жесткую ссылку, чтобы предотвратить их удаление во время сборки мусора.</p>
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Добавляет указанный ResourceBundle в ResourceManager для обеспечения доступа к его ресурсам с помощью методов ResourceManager, например <codeph>getString()</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:findResourceBundleWithResource"><apiName>findResourceBundleWithResource</apiName><shortdesc>
+      Выполняет поиск указанного ресурса в языковых стандартах в localeChain и возвращает первый пакет ресурсов, в котором он найден.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Первый ResourceBundle в <codeph>localeChain</codeph>, который содержит указанный ресурс, или <codeph>null</codeph>.
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета, например <codeph>MyResources</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Имя ресурса в пакете ресурсов.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Выполняет поиск указанного ресурса в языковых стандартах в <codeph>localeChain</codeph> и возвращает первый пакет ресурсов, в котором он найден. Если ресурс не найден, этот метод возвращает <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBoolean"><apiName>getBoolean</apiName><shortdesc>
+      Получает значение указанного ресурса как Boolean.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Логическое значение для ресурса или <codeph>false</codeph>, если ресурс не найден.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Имя ресурса в пакете ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Определенный языковой стандарт, используемый для поиска, или <codeph>null</codeph> для выполнения поиска во всех языковых стандартах в <codeph>localeChain</codeph>. Этот параметр является необязательным и по умолчанию его значение <codeph>null</codeph>; как правило, изменять данный параметр не требуется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает значение указанного ресурса как Boolean.
+     
+      <p>Этот метод сначала выполняет вызов <codeph>getString()</codeph> и преобразовывает результат в нижний регистр. А затем возвращает <codeph>true</codeph>, если результат был <codeph>true</codeph>. и <codeph>false</codeph> в противном случае.</p>
+     
+      <p>Если указанный ресурс не найден, этот метод возвращает <codeph>false</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getBundleNamesForLocale"><apiName>getBundleNamesForLocale</apiName><shortdesc>
+      Возвращает массив строк, определяющих имена пакетов для всех объектов ResourceBundle, существующих в ResourceManager и принадлежащих указанному языковому стандарту.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив имен пакета.
+     
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Строка языкового стандарта, например <codeph>en_US</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает массив строк, определяющих имена пакетов для всех объектов ResourceBundle, существующих в ResourceManager и принадлежащих указанному языковому стандарту.
+     
+      <p>В данном массиве порядок имен пакета не указан.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getClass"><apiName>getClass</apiName><shortdesc>
+      Получает значение указанного ресурса как Class.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение ресурса как <codeph>Class</codeph> или <codeph>null</codeph>, если ресурс не найден.
+      
+      </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Имя ресурса в пакете ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Определенный языковой стандарт, используемый для поиска, или <codeph>null</codeph> для выполнения поиска во всех языковых стандартах в <codeph>localeChain</codeph>. Этот параметр является необязательным и по умолчанию его значение <codeph>null</codeph>; как правило, изменять данный параметр не требуется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает значение указанного ресурса как Class.
+     
+      <p>Этот метод выполняет вызов <codeph>getObject()</codeph> и обеспечивает ввод класса с использованием оператора <codeph>as</codeph>. Результатом будет <codeph>null</codeph>, если значение ресурса не было ссылкой на класс. Это удобно, в случае если в файле свойств записаны, например, следующие строки</p>
+     
+      <pre>
+      IMAGE=Embed("image.jpg")
+      BUTTON_SKIN=ClassReference("skins.ButtonSkin_en_US")
+      </pre>
+     
+      <p>и необходимо получить класс, созданный директивой <codeph>Embed()</codeph> или <codeph>ClassReference()</codeph>.</p> 
+     
+      <p>Если указанный ресурс не найден, этот метод возвращает <codeph>null</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getInt"><apiName>getInt</apiName><shortdesc>
+      Получает значение указанного ресурса как int.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение ресурса как int или 0, если ресурс не найден.
+      
+      </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Имя ресурса в пакете ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Определенный языковой стандарт, используемый для поиска, или <codeph>null</codeph> для выполнения поиска во всех языковых стандартах в <codeph>localeChain</codeph>. Этот параметр является необязательным и по умолчанию его значение <codeph>null</codeph>; как правило, изменять данный параметр не требуется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает значение указанного ресурса как int.
+     
+      <p>Этот метод выполняет вызов <codeph>getObject()</codeph> и преобразует результат в int. Это удобно, если в файле свойств записана, например, следующая строка:</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>и необходимо получить значение 5, а не <codeph>"5"</codeph>.</p> 
+     
+      <p>Если указанный ресурс не найден, этот метод возвращает 0.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getLocales"><apiName>getLocales</apiName><shortdesc>
+      Возвращает массив строк, определяющих все языковые стандарты, для которых в ResourceManager существуют объекты ResourceBundle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив строк языковых стандартов.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает массив строк, определяющих все языковые стандарты, для которых в ResourceManager существуют объекты ResourceBundle.
+     
+      <p>В данном массиве порядок языковых стандартов не указан.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getNumber"><apiName>getNumber</apiName><shortdesc>
+      Получает значение указанного ресурса как Number.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение ресурса в виде числа или <codeph>NaN</codeph>, если ресурс не найден.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Имя ресурса в пакете ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Определенный языковой стандарт, используемый для поиска, или <codeph>null</codeph> для выполнения поиска во всех языковых стандартах в <codeph>localeChain</codeph>. Этот параметр является необязательным и по умолчанию его значение <codeph>null</codeph>; как правило, изменять данный параметр не требуется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает значение указанного ресурса как Number.
+     
+      <p>Этот метод выполняет вызов <codeph>getObject()</codeph> и преобразует результат в число. Это удобно, если в файле свойств записана, например, следующая строка:</p>
+     
+      <pre>
+      LONGITUDE=170.3
+      </pre>
+     
+      <p>и необходимо получить значение 170,3, а не <codeph>170,3</codeph>.</p> 
+     
+      <p>Если указанный ресурс не найден, этот метод возвращает <codeph>NaN</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getObject"><apiName>getObject</apiName><shortdesc>
+      Получает значение указанного ресурса как Object.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение ресурса точно в таком же виде, в каком оно хранится в объекте <codeph>content</codeph>, или <codeph>undefined</codeph>, если ресурс не найден.
+      
+      </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Имя ресурса в пакете ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Определенный языковой стандарт, используемый для поиска, или <codeph>null</codeph> для выполнения поиска во всех языковых стандартах в <codeph>localeChain</codeph>. Этот параметр является необязательным и по умолчанию его значение <codeph>null</codeph>; как правило, изменять данный параметр не требуется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает значение указанного ресурса как Object.
+     
+      <p>Значение возвращается без преобразования точно в таком же виде, в каком оно хранится в объекте <codeph>content</codeph> ResourceBundle. Если ресурс скомпилирован из файлов свойств, значение ресурса в объекте <codeph>content</codeph> всегда является строкой, если только не используется директива <codeph>Embed()</codeph> или <codeph>ClassReference()</codeph>. В этом случае значение ресурса всегда является классом. Для преобразования значений в более определенные типы используются методы <codeph>getString()</codeph>, <codeph>getStringArray()</codeph>, <codeph>getNumber()</codeph>, <codeph>getInt()</codeph> <codeph>getUint()</codeph>, <codeph>getBoolean()</codeph> и <codeph>getClass()</codeph>.</p>
+     
+      <p>Если указанный ресурс не найден, этот метод возвращает <codeph>undefined</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getPreferredLocaleChain"><apiName>getPreferredLocaleChain</apiName><shortdesc>
+      Возвращает массив строк, определяющих все языковые стандарты, для которых в ResourceManager существуют объекты ResourceBundle, и упорядоченных с использованием пользовательских установок, как изложено в Capabilities.language или Capabilities.languages.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив строк языковых стандартов.
+      
+      </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      Возвращает массив строк, определяющих все языковые стандарты, для которых в ResourceManager существуют объекты ResourceBundle, и упорядоченных с использованием пользовательских установок, как изложено в <codeph>Capabilities.language</codeph> или <codeph>Capabilities.languages</codeph>.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getResourceBundle"><apiName>getResourceBundle</apiName><shortdesc>
+      Возвращает ResourceBundle с указанным языковым стандартом и bundleName, который был ранее добавлен в ResourceManager с помощью addResourceBundle().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ResourceBundle с указанным <codeph>locale</codeph> и <codeph>bundleName</codeph>, если таковой существует; в противном случае <codeph>null</codeph>.
+     
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceBundle</apiOperationClassifier></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Строка языкового стандарта, например <codeph>en_US</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета, например <codeph>MyResources</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает ResourceBundle с указанным <codeph>locale</codeph> и <codeph>bundleName</codeph>, который был ранее добавлен в ResourceManager с помощью <codeph>addResourceBundle()</codeph>. Если такой ResourceBundle не существует, этот метод возвращает <codeph>null</codeph>.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getStringArray"><apiName>getStringArray</apiName><shortdesc>
+      Получает значение указанного ресурса как Array of Strings.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение ресурса как массив строк или <codeph>null</codeph>, если ресурс не найден.
+      
+      </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Имя ресурса в пакете ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Определенный языковой стандарт, используемый для поиска, или <codeph>null</codeph> для выполнения поиска во всех языковых стандартах в <codeph>localeChain</codeph>. Этот параметр является необязательным и по умолчанию его значение <codeph>null</codeph>; как правило, изменять данный параметр не требуется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает значение указанного ресурса как Array of Strings.
+     
+      <p>Этот метод предполагает, что значением ресурса является строка, содержащая список разделенных запятой элементов. Он выполняет вызов метода <codeph>getString()</codeph>, разделяет строку на элементы, разделенные запятыми, и сокращает пустое пространство перед каждым элементом и после него. Это удобно, если в файле свойств записана, например, следующая строка:</p>
+     
+      <pre>
+      COUNTRIES=India, China, Japan
+      </pre>
+     
+      <p>и необходимо получить значение <codeph>[ "India", "China", "Japan" ]</codeph>, а не значение <codeph>"India, China, Japan"</codeph>.</p> 
+     
+      <p>Если указанный ресурс не найден, этот метод возвращает <codeph>null</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getString"><apiName>getString</apiName><shortdesc>
+      Получает значение указанного ресурса как String после замены указанных значений на метки-заполнители.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение ресурса в виде строки или <codeph>null</codeph>, если ресурс не найден.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Имя ресурса в пакете ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>parameters</apiItemName><apiType value="Array"/><apiData>null</apiData><apiDesc>Массив параметров, замененных метками-заполнителями. Перед заменой каждый параметр преобразуется в строку с помощью метода <codeph>toString()</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Определенный языковой стандарт, используемый для поиска, или <codeph>null</codeph> для выполнения поиска во всех языковых стандартах в <codeph>localeChain</codeph>. Этот параметр является необязательным и по умолчанию его значение <codeph>null</codeph>; как правило, изменять данный параметр не требуется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает значение указанного ресурса как String после замены указанных значений на метки-заполнители.
+     
+      <p>Этот метод выполняет вызов <codeph>getObject()</codeph>, а затем преобразует результат в строку.</p>
+     
+      <p>Если в этот метод передается массив <codeph>parameters</codeph>, то параметры в нем преобразуются в строку и затем перед возвращением строки по порядку заменяются метками-заполнителями <codeph>"\0\}"</codeph>, <codeph>"\1\}"</codeph> и так далее.</p>
+     
+      <p>Если указанный ресурс не найден, этот метод возвращает <codeph>null</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:getUint"><apiName>getUint</apiName><shortdesc>
+      Получает значение указанного ресурса как uint.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Значение ресурса как uint или 0, если ресурс не найден.
+      
+      </apiDesc><apiType value="uint"/></apiReturn><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>resourceName</apiItemName><apiType value="String"/><apiDesc>Имя ресурса в пакете ресурсов.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Определенный языковой стандарт, используемый для поиска, или <codeph>null</codeph> для выполнения поиска во всех языковых стандартах в <codeph>localeChain</codeph>. Этот параметр является необязательным и по умолчанию его значение <codeph>null</codeph>; как правило, изменять данный параметр не требуется.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Получает значение указанного ресурса как uint.
+     
+      <p>Этот метод выполняет вызов <codeph>getObject()</codeph> и преобразует результат в uint. Это удобно, если в файле свойств записана, например, следующая строка:</p>
+     
+      <pre>
+      MINIMUM=5
+      </pre>
+     
+      <p>и необходимо получить значение 5, а не <codeph>"5"</codeph>.</p> 
+     
+      <p>Если указанный ресурс не найден, этот метод возвращает 0.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:initializeLocaleChain"><apiName>initializeLocaleChain</apiName><shortdesc>
+     Инициализирует свойство localeChain в ResourceManager с использованием алгоритма, который сравнивает список выбранных пользователем локалей, предоставленный операционной системой, со списком локалей, доступных в SWF.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>compiledLocales</apiItemName><apiType value="Array"/><apiDesc>Массив строк, определяющих локали, для которых выполнялась компиляция SWF.
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Инициализирует свойство <codeph>localeChain</codeph> в ResourceManager с использованием алгоритма, который сравнивает список выбранных пользователем локалей, предоставленный операционной системой, со списком локалей, доступных в SWF.
+    
+     <p>Например, если в операционной системе пользователь выбрал французский язык и компиляция SWF выполнялась для локалей en_US, fr_FR, и de_DE, то в <codeph>localeChain</codeph> первой локалью в этом списке будет fr_FR.</p>
+    
+     <p>Этот метод используется только классами, реализующими интерфейс IFlexModuleFactory.</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:installCompiledResourceBundles"><apiName>installCompiledResourceBundles</apiName><shortdesc>
+     Создает экземпляры всех подклассов ResourceBundle, которые были скомпилированы в SWF, и добавляет их в ResourceManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Массив экземпляров ResourceBundle, которые были созданы и добавлены в ResourceManager.
+      
+     </apiDesc><apiType value="Array"/></apiReturn><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiDesc> ApplicationDomain, используемый для поиска классов пакета ресурсов по имени.
+    
+     </apiDesc></apiParam><apiParam><apiItemName>locales</apiItemName><apiType value="Array"/><apiDesc>Массив строк, определяющих локали, для которых выполнялась компиляция SWF.
+    
+     </apiDesc></apiParam><apiParam><apiItemName>bundleNames</apiItemName><apiType value="Array"/><apiDesc>Массив строк, определяющих имена пакетов ресурсов, которые были скомпилированы в SWF.
+    
+     </apiDesc></apiParam><apiParam><apiItemName>useWeakReference</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Флаг, который указывает, необходимо ли установить пакеты ресурсов в ResourceManager с использованием слабой ссылки.
+    
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     Создает экземпляры всех подклассов ResourceBundle, которые были скомпилированы в SWF, и добавляет их в ResourceManager.
+    
+     <p>Например, если для параметра <codeph>locales</codeph> указано [ "en_US", "ja_JP" ] и для параметра <codeph>bundleNames</codeph> - [ "core", "controls" ], будет установлено четыре пакета ресурсов.</p>
+    
+     <p>Этот метод используется только классами, реализующими интерфейс IFlexModuleFactory.</p>
+    
+     </apiDesc></apiOperationDetail><related-links><link href="mx.core.xml#IFlexModuleFactory"><linktext>mx.core.IFlexModuleFactory</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:loadResourceModule"><apiName>loadResourceModule</apiName><shortdesc>
+      Начинает загружать модуль ресурса, содержащий пакеты ресурсов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Объект, связанный с этой конкретной операцией загрузки, передающей события <codeph>ResourceEvent.PROGRESS</codeph>, <codeph>ResourceEvent.COMPLETE</codeph> и <codeph>ResourceEvent.ERROR</codeph>.
+     
+      </apiDesc><apiType value="flash.events:IEventDispatcher"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>URL-адрес, с которого загружается модуль ресурса.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Выполнять ли вызов метода <codeph>update()</codeph> после завершения загрузки модуля.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>applicationDomain</apiItemName><apiType value="flash.system:ApplicationDomain"/><apiData>null</apiData><apiDesc>ApplicationDomain передается в метод <codeph>load()</codeph> класса IModuleInfo, загружающий модуль ресурса. Это дополнительный параметр и по умолчанию его значение <codeph>null</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>securityDomain</apiItemName><apiType value="flash.system:SecurityDomain"/><apiData>null</apiData><apiDesc>SecurityDomain передается в метод <codeph>load()</codeph> класса IModuleInfo, загружающий модуль ресурса. Это дополнительный параметр и по умолчанию его значение <codeph>null</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Начинает загружать модуль ресурса, содержащий пакеты ресурсов.
+     
+      <p>Каждый вызов этого метода возвращает новый объект передачи события, с помощью которого можно узнать, как выполняется загрузка, завершена ли она успешно или возникла ошибка. Этот объект передает события <codeph>ResourceEvent.PROGRESS</codeph>, <codeph>ResourceEvent.COMPLETE</codeph> и <codeph>ResourceEvent.ERROR</codeph>.</p>
+     
+      <p>После загрузки модуля пакеты ресурсов добавляются в ResourceManager, но <codeph>localeChain</codeph> остается неизменным. Если параметр <codeph>update</codeph> имеет значение <codeph>true</codeph>, то будет выполнен вызов метода <codeph>update()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.events.xml#ResourceEvent"><linktext>mx.events.ResourceEvent</linktext></link><link href="mx.resources.xml#IResourceManager/update()"><linktext>mx.resources.IResourceManager.update()</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundle"><apiName>removeResourceBundle</apiName><shortdesc>
+      Удаляет указанный ResourceBundle из ResourceManager, в результате чего будет невозможно получить доступ к его ресурсам с помощью методов ResourceManager, например getString().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Строка языкового стандарта, например <codeph>en_US</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiDesc>Имя пакета, например <codeph>MyResources</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет указанный ResourceBundle из ResourceManager, в результате чего будет невозможно получить доступ к его ресурсам с помощью методов ResourceManager, например <codeph>getString()</codeph>.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:removeResourceBundlesForLocale"><apiName>removeResourceBundlesForLocale</apiName><shortdesc>
+      Удаляет все ResourceBundle из ResourceManager, в результате чего будет невозможно получить доступ к их ресурсам с помощью методов ResourceManager, например getString().</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiDesc>Строка языкового стандарта, например <codeph>en_US</codeph>.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Удаляет все ResourceBundle из ResourceManager, в результате чего будет невозможно получить доступ к их ресурсам с помощью методов ResourceManager, например <codeph>getString()</codeph>.
+     
+      </apiDesc></apiOperationDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:unloadResourceModule"><apiName>unloadResourceModule</apiName><shortdesc>
+      Начинает выгрузку загруженного модуля ресурса.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>url</apiItemName><apiType value="String"/><apiDesc>URL-адрес, использованный для загрузки модуля ресурса.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>update</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>Определяет необходимость вызова метода <codeph>update()</codeph> после завершения выгрузки модуля.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Начинает выгрузку загруженного модуля ресурса.
+     
+      <p>После выгрузки модуля пакеты ресурсов удаляются из ResourceManager, однако <codeph>localeChain</codeph> остается неизменным. Если параметр <codeph>update</codeph> имеет значение <codeph>true</codeph>, то будет выполнен вызов метода <codeph>update()</codeph>.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.resources:IResourceManager:mx.resources:IResourceManager:update"><apiName>update</apiName><shortdesc>
+      Передает событие change из ResourceManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Передает событие <codeph>change</codeph> из ResourceManager.
+     
+      <p>Этот метод заставляет выражения привязки выполнить повторный анализ того, задействуют ли они методы ResourceManager <codeph>getObject()</codeph>, <codeph>getString()</codeph>, <codeph>getStringArray()</codeph>, <codeph>getNumber()</codeph>, <codeph>getInt()</codeph>, <codeph>getUint()</codeph>, <codeph>getBoolean()</codeph> или <codeph>getClass()</codeph>.</p>
+     
+      <p>Этот метод также вызывает выполнение метода <codeph>resourcesChanged()</codeph> UIComponent, Formatter или Validator. Много компонентов реализуют этот метод для обновления их состояния на основе последних ресурсов.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:IResourceManager:mx.resources:IResourceManager:localeChain:get"><apiName>localeChain</apiName><shortdesc>
+      Массив строк языковых стандартов, таких как [ "en_US" ], указывающий один или более языковых стандартов, в которых будет выполняться поиск ресурсов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef><apiDesc>
+      Массив строк языковых стандартов, таких как <codeph>[ "en_US" ]</codeph>, указывающий один или более языковых стандартов, в которых будет выполняться поиск ресурсов.
+      
+      <p>При выполнении вызова методов ResourceManager <codeph>getObject()</codeph>, <codeph>getString()</codeph>, <codeph>getStringArray()</codeph>, <codeph>getNumber()</codeph>, <codeph>getInt()</codeph>, <codeph>getUint()</codeph>, <codeph>getBoolean()</codeph> или <codeph>getClass()</codeph> для получения значения ресурса указывается имя пакета и имя ресурса, но не языковой стандарт. При запуске ResourceManager использует первый языковой стандарт в <codeph>localeChain</codeph> и выполняет поиск ResourceBundle с указанным для этого языкового стандарта именем пакета. Если такой ResourceBundle существует и существует указанный в нем ресурс, то возвращается значение этого ресурса. В противном случае ResourceManager переходит к использованию других языковых стандартов в <codeph>localeChain</codeph>.</p>
+     
+      <p>Эта схема обеспечивает возможность использования языковых стандартов с неполным набором локализованных ресурсов. Например, если требуется локализовать приложение для индийского английского, а не для американского английского, необходимо только предоставить ресурсы для языкового стандарта <codeph>en_IN</codeph> (индийская орфография и словоупотребление отличаются от используемых в США) и затем для свойства <codeph>localeChain</codeph> указать значение <codeph>[ "en_IN", "en_US" ]</codeph>.</p>
+     
+      <p>Предполагается, что многие классы инфраструктуры могут всегда получать необходимые ресурсы из некоторого языкового стандарта. В противном случае они возвращают ошибки. Поэтому необходимо, чтобы <codeph>localeChain</codeph> всегда содержал полный набор ресурсов. Для обеспечения этого языковой стандарт <codeph>en_US</codeph> можно хранить в конце <codeph>localeChain</codeph> до тех пор, пока не выполнена полная локализация всех ресурсов инфраструктуры, а также ресурсов собственного приложения.</p>
+     
+      <p>Установка этого свойства заставляет ResourceManager передать событие <codeph>change</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:ResourceManager"><apiName>ResourceManager</apiName><shortdesc>
+  Этот класс используется для получения одиночного экземпляра реализации IResourceManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Этот класс используется для получения одиночного экземпляра реализации IResourceManager. Интерфейсы IResourceManager и IResourceBundle работают совместно для обеспечения поддержки интернационализации приложений Flex.
+ 
+  <p>Одиночный экземпляр реализации IResourceManager управляет всеми локализованными ресурсами для приложения Flex.</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link></related-links><apiOperation id="mx.resources:ResourceManager:getInstance"><apiName>getInstance</apiName><shortdesc>
+      Получает одиночный экземпляр класса ResourceManager.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Объект, реализующий IResourceManager.
+      
+      </apiDesc><apiOperationClassifier>mx.resources:IResourceManager</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      Получает одиночный экземпляр класса ResourceManager. Этот объект управляет всеми локализованными ресурсами для приложения Flex.
+      
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.resources:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+  Обеспечивает реализацию интерфейса IResourceBundle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.resources:IResourceBundle</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Обеспечивает реализацию интерфейса IResourceBundle. Интерфейсы IResourceManager и IResourceBundle работают совместно для обеспечения поддержки интернационализации приложений Flex.
+ 
+  <p>Приложение Flex обычно имеет несколько экземпляров этого класса, управляемых одиночным экземпляром класса ResourceManager. Могут существовать экземпляры ResourceBundle для нескольких языковых стандартов (по одному экземпляру для каждого стандарта). Возможно наличие нескольких экземпляров ResourceBundle с различными именами пакета.</p>
+  
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#IResourceBundle"><linktext>mx.resources.IResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link></related-links><apiConstructor id="mx.resources:ResourceBundle:ResourceBundle"><apiName>ResourceBundle</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>locale</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Строка языкового стандарта, например <codeph>en_US</codeph>.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bundleName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Имя, определяющее этот пакет, например <codeph>MyResources</codeph>.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Конструктор.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.resources:ResourceBundle:protected:getContent"><apiName>getContent</apiName><shortdesc>
+      Если в пакет ресурсов скомпилирован файл свойств, компилятор MXML автоматически создает подкласс ResourceBundle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Объект, содержащий пары «ключ – значение» для ресурсов пакета.
+      
+      </apiDesc><apiType value="Object"/></apiReturn></apiOperationDef><apiDesc>
+      Если в пакет ресурсов скомпилирован файл свойств, компилятор MXML автоматически создает подкласс ResourceBundle. Подкласс отменяет этот метод для возвращения объекта, содержащего пары «ключ – значение» для ресурсов пакета.
+     
+      <p>При создании собственных экземпляров ResourceBundle пары «ключ – значение» можно установить в объекте <codeph>content</codeph>.</p>
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.resources:ResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc conref="mx.resources.IResourceBundle#bundleName">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#bundleName">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:content:get"><apiName>content</apiName><shortdesc conref="mx.resources.IResourceBundle#content">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#content">
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:ResourceBundle:locale:get"><apiName>locale</apiName><shortdesc conref="mx.resources.IResourceBundle#locale">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc conref="mx.resources.IResourceBundle#locale">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.resources:IResourceBundle"><apiName>IResourceBundle</apiName><shortdesc>
+  Интерфейсы IResourceManager и IResourceBundle работают совместно для обеспечения поддержки локализации приложений Flex.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  Интерфейсы IResourceManager и IResourceBundle работают совместно для обеспечения поддержки локализации приложений Flex.
+ 
+  <p>В локализации используется три основных понятия: языковые стандарты, ресурсы и пакеты ресурсов.</p>
+ 
+  <p>Языковой стандарт указывает язык и страну, для которой было локализовано приложение. Например, языковой стандарт <codeph>en_US</codeph> указывает английский язык в качестве разговорного в США. (Для получения дополнительной информации см. класс mx.resources.Locale.)</p>
+ 
+  <p>Ресурс – это именованное значение, зависящее от языкового стандарта. Например, приложение имеет ресурс с именем <codeph>OPEN</codeph>. Значение ресурса для английского языкового стандарта – <codeph>Open</codeph>, а для французского языкового стандарта это значение – <codeph>Ouvrir</codeph>.</p>
+ 
+  <p>Пакет ресурсов – это именованная группа ресурсов, значения которых были локализованы для определенного языкового стандарта. Пакет ресурсов определяется комбинацией <codeph>bundleName</codeph> и <codeph>locale</codeph>, а также имеет объект <codeph>content</codeph>, содержащий пары имя-значение для ресурсов пакета.</p>
+ 
+  <p>Интерфейс IResourceBundle представляет определенный пакет ресурсов. Однако большинство приложений будут использовать только IResourceManager. Одиночный объект ResourceManager, реализующий этот интерфейс, управляет несколькими пакетами ресурсов, в том числе для нескольких языковых стандартов, и предоставляет доступ к содержащимся в них ресурсам. Например, можно извлечь определенный ресурс как строку путем вызова <codeph>resourceManager.getString(bundleName, resourceName)</codeph>. Путем изменения свойства <codeph>localeChain</codeph> ResourceManager можно указать пакеты ресурсов, в которых будет выполняться поиск значений ресурсов.</p>
+ 
+  <p>Как правило, пакеты ресурсов не создаются вручную; обычно они компилируются из файлов ~~.properties. Файл свойств с именем MyResources.properties создает пакет ресурсов со значением <codeph>MyResources</codeph> для свойства <codeph>bundleName</codeph>. Как правило, создается несколько версий каждого файла свойств (по одной версии для каждого языкового стандарта, поддерживаемого приложением).</p>
+ 
+  <p>Файлы свойств Flex подобны файлам свойств Java, за исключением того, что они также поддерживают директивы MXML <codeph>Embed()</codeph> и <codeph>ClassReference()</codeph>. В файле свойств эти директивы функционируют аналогично тому, как они функционируют в файле CSS, создавая ссылки на классы. Кроме того, предполагается, что кодировка файлов свойств Flex всегда равна UTF-8.</p>
+ 
+  <p>Ресурсы инфраструктуры Flex были локализованы для американского английского языка (языковой стандарт <codeph>en_US</codeph>) и для японского языка (языковой стандарт <codeph>ja_JP</codeph>). Ресурсы инфраструктуры объединены в несколько пакетов, соответствующих пакетам инфраструктуры; например, пакет formatters используется классами пакета mx.formatters. (Существует также пакет SharedResources для ресурсов, используемых несколькими пакетами.)</p>
+ 
+  <p>Файлы свойств для ресурсов инфраструктуры, например formatters.properties, находятся в каталогах Flex SDK frameworks/projects/framework/bundles/{locale}/src. Как правило, приложения создают ссылку на инфраструктуры Flex в виде предварительно скомпилированной библиотеки framework.swc в каталоге frameworks/libs. Эта библиотека не содержит ресурсов. Вместо этого ресурсы инфраструктуры были скомпилированы в отдельные библиотеки пакетов ресурсов, например framework_rb.swc. Они расположены в каталогах frameworks/locales/{locale}, и приложение также должно создать ссылку на один или более из них.</p>
+ 
+  <p>Собственные ресурсы приложения можно объединять в любые удобные пакеты. При локализации приложения для языковых стандартов, отличных от <codeph>en_US</codeph> и <codeph>ja_JP</codeph>, необходимо также локализовать файлы свойств инфраструктуры для этих языковых стандартов и скомпилировать для них дополнительные библиотеки пакетов ресурсов.</p>
+ 
+  <p>При запуске приложения ResourceManager автоматически заполняется любыми пакетами ресурсов, которые были скомпилированы в приложение. По умолчанию при создании модуля кода ресурсы, необходимые для его классов, компилируются в модуль. При загрузке модуля в приложение любые пакеты, которых еще нет в приложении, добавляются в ResourceManager.</p>
+ 
+  <p>Можно скомпилировать «модули ресурсов», содержащие только ресурсы, и загрузить их с помощью метода <codeph>loadResourceModule()</codeph> интерфейса ResourceManager. С помощью модулей ресурсов можно обеспечить поддержку несколько языковых стандартов путем загрузки необходимых ресурсов во время выполнения вместо компиляции их в приложение.</p>
+ 
+  <p>Несмотря на то что обычно ResourceManager заполняется пакетами ресурсов, которые были скомпилированы в приложение или загружены из модулей, пакеты ресурсов можно также создавать программным путем и самостоятельно добавлять их к ResourceManager при помощи метода <codeph>addResourceBundle()</codeph>.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.resources.xml#ResourceBundle"><linktext>mx.resources.ResourceBundle</linktext></link><link href="mx.resources.xml#IResourceManager"><linktext>mx.resources.IResourceManager</linktext></link><link href="mx.resources.xml#ResourceManager"><linktext>mx.resources.ResourceManager</linktext></link></related-links><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:bundleName:get"><apiName>bundleName</apiName><shortdesc>
+      Имя, определяющее этот пакет ресурсов, например MyResources.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Имя, определяющее этот пакет ресурсов, например <codeph>MyResources</codeph>.
+     
+      <p>Это свойство, доступное только для чтения, настраивается при создании пакета ресурсов.</p>
+     
+      <p>Пакеты ресурсов, автоматически создаваемые из компилируемых файлов свойств, имеют имена пакетов, основанные на именах этих файлов. Например, файл свойств с именем MyResources.properties создаст пакет ресурсов, свойство <codeph>bundleName</codeph> которого будет иметь значение <codeph>MyResources</codeph>.</p>
+     
+      <p>ResourceManager может управлять несколькими пакетами с одинаковыми <codeph>bundleName</codeph> до тех пор, пока их свойства <codeph>locale</codeph> имеют различные значения.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:content:get"><apiName>content</apiName><shortdesc>
+      Объект, содержащий пары ключ-значение для ресурсов этого пакета ресурсов.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Объект, содержащий пары ключ-значение для ресурсов этого пакета ресурсов.
+     
+      <p>Как правило, для доступа к ресурсам необходимо использовать методы IResourceManager, например <codeph>getString()</codeph>, а не обращаться к ним непосредственно в пакете ресурсов. Однако при создании программным путем собственных пакетов ресурсов можно инициализировать их вместе с ресурсами следующим образом:</p>
+     
+      <pre>
+      var rb:IResourceBundle = new ResourceBundle("fr_FR", "MyResources");
+      rb.content["LANGUAGE"] = "Francais";
+      rb.content["GREETING"] = "Bonjour";
+      </pre>
+     
+      <p>Если пакет ресурса создается путем компиляции файла свойств, то значения ресурсов имеют тип «Строка» или тип «Класс». Например, если файл свойств содержит</p>
+     
+      <pre>
+      LANGUAGE=English
+      MINIMUM_AGE=18
+      ENABLED=true
+      LOGO=Embed("logo.png")
+      </pre>
+     
+      <p>то значением ресурса <codeph>LANGUAGE</codeph> является строка <codeph>English</codeph>, значением ресурса <codeph>MINIMUM_AGE</codeph> – строка <codeph>18</codeph>, значением ресурса <codeph>ENABLED</codeph> – строка <codeph>true</codeph> и значением ресурса <codeph>LOGO</codeph> – класс, представляющий встроенный файл PNG.</p>
+     
+      <p>Для преобразования таких строк ресурса, как <codeph>18</codeph> и <codeph>true</codeph> в тип, ожидаемый кодом, необходимо использовать методы IResourceManager, например <codeph>getInt()</codeph> и <codeph>getBoolean()</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.resources:IResourceBundle:mx.resources:IResourceBundle:locale:get"><apiName>locale</apiName><shortdesc>
+      Языковой стандарт, для которого были локализованы ресурсы этого пакета.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Языковой стандарт, для которого были локализованы ресурсы этого пакета. Это строка, например <codeph>en_US</codeph> для американского английского языка.
+     
+      <p>Это свойство, доступное только для чтения, настраивается при создании пакета ресурсов.</p>
+     
+      <p>Пакеты ресурсов, автоматически создаваемые из компилируемых файлов свойств, имеют языковые стандарты, основанные на параметре <codeph>-compiler.locale</codeph> компиляторов mxmlc или compc. Предположим, что приложение компилируется с параметром <codeph>-compiler.locale=en_US, ja_JP</codeph>, и указан параметр <codeph>-compiler.source-path=resources/{locale}</codeph>, чтобы были найдены ресурсы приложения, расположенные в папках resources/en_US/MyResources.properties и resources/ja_JP/MyResources.properties,. Таким образом, приложение будет иметь два пакета ресурсов, в которых свойства <codeph>bundleName</codeph> имеют значение <codeph>MyResources</codeph>. При этом в одном пакете свойство <codeph>locale</codeph> будет иметь значение <codeph>en_US</codeph>, а в другом пакете свойство <codeph>locale</codeph> будет иметь значение <codeph>ja_JP</codeph>.</p>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

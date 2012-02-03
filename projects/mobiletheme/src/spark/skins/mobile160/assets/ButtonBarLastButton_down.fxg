@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
+    scaleGridLeft="4" scaleGridTop="6" scaleGridRight="74" scaleGridBottom="34">
+    
+      <!-- shadow fill -->
+      <Path data="M0 0 74.6226 0C77.5918 0 80 2.42822 80 5.42334L80 34.5767C80 37.5718 77.5918 40 74.6226 40L0 40 0 0Z">
+        <fill>
+          <LinearGradient x="40" y="0.689941" scaleX="38.685" rotation="90">
+            <GradientEntry ratio="0" alpha="0.14902"/>
+            <GradientEntry ratio="1" alpha="0.34902"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+      
+      <!-- outer shadow -->
+      <Path y="0.680176" winding="nonZero" data="M0.666504 0.677734 74.6274 0.677734C76.8516 0.677734 78.6606 2.50195 78.6606 4.74512L78.6606 33.8984C78.6606 36.1416 76.8516 37.9658 74.6274 37.9658L0.666504 37.9658M0 0 0 38.644 74.6274 38.644C77.2227 38.644 79.3335 36.5151 79.3335 33.8984L79.3335
+ 4.74512C79.3335 2.12793 77.2227 0 74.6274 0L0 0Z">
+        <fill>
+          <SolidColor color="#000000" alpha="0.2"/>
+        </fill>
+      </Path>
+      
+      <!-- inner shadow -->
+      <Path x="0.666504" y="1.35596" winding="nonZero" data="M73.9561 0.666504C75.812 0.666504 77.3223 2.19238 77.3223 4.06738L77.3223 33.2207C77.3223 35.0957 75.812 36.6211 73.9561 36.6211L0.666992 36.6211 0.666992 0.666504 73.9561 0.666504ZM73.9561 0 0 0 0 37.2881 73.9561 37.2881C76.1797 37.2881 77.9893
+ 35.4639 77.9893 33.2207L77.9893 4.06738C77.9893 1.82422 76.1797 0 73.9561 0L73.9561 0Z">
+        <fill>
+          <SolidColor color="#000000" alpha="0.1"/>
+        </fill>
+      </Path>
+      
+      <!-- border -->
+      <Path winding="nonZero" data="M74.7109 0 0 0 0 0.655762 74.7109 0.655762C77.2622 0.655762 79.3384 2.71484 79.3384 5.24561L79.3384 34.7539C79.3384 37.2852 77.2622 39.3442 74.7109 39.3442L0 39.3442 0 40 74.7109 40C77.6313 40 80 37.6509 80 34.7539L80 5.24561C80 2.34863 77.6313
+ 0 74.7109 0Z">
+        <fill>
+          <SolidColor color="#464646"/>
+        </fill>
+      </Path>
+</Graphic>

@@ -1,0 +1,1142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.controls.dataGridClasses"><apiName>mx.controls.dataGridClasses</apiName><apiDetail/><apiClassifier id="mx.controls.dataGridClasses:DataGridHeader"><apiName>DataGridHeader</apiName><shortdesc> 
+  Die DataGridHeader-Klasse definiert den Standard-Spaltenüberschriftrenderer für ein DataGrid-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiBaseClassifier></apiClassifierDef><apiDesc> 
+  Die DataGridHeader-Klasse definiert den Standard-Spaltenüberschriftsrenderer für ein DataGrid-Steuerelement. Standardmäßig zeichnet der Spaltenüberschriftsrenderer den Text, der mit jeder Spaltenüberschrift in der Liste verknüpft ist, und einen optionalen Sortierpfeil (wenn nach dieser Spalte sortiert wird).
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridHeader:DataGridHeader"><apiName>DataGridHeader</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:clearSeparators"><apiName>clearSeparators</apiName><shortdesc>
+      Entfernt die Trennstriche zwischen Spaltenüberschriften, die der Benutzer verwendet, um die Breite von Spalten zu verändern.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Entfernt die Trennstriche zwischen Spaltenüberschriften, die der Benutzer verwendet, um die Breite von Spalten zu verändern.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:createChildren"><apiName>createChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawColumnDragOverlay"><apiName>drawColumnDragOverlay</apiName><shortdesc>
+      Zeichnet die Überlagerung auf die gezogene Spalte in das gegebene Sprite-Objekt an der Position, in der Breite, in der Höhe und mit der Farbe, die festgelegt wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Ein Sprite-Objekt, das die Grafiken enthalten sollte, die anzeigen, dass eine Spalte gezogen wird.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Die gewünschte X-Position für den Indikator.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Die gewünschte Y-Position für den Indikator.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Die gewünschte Breite für den Indikator.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Die vorgeschlagene Indikatorhöhe.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Die vorgeschlagene Indikatorfarbe.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Der Elementrenderer, der gezogen wird.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Zeichnet die Überlagerung auf die gezogene Spalte in das gegebene Sprite-Objekt an der Position, in der Breite, in der Höhe und mit der Farbe, die festgelegt wurden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawHeaderBackground"><apiName>drawHeaderBackground</apiName><shortdesc>
+      Zeichnet den Hintergrund der Spaltenüberschriften in das gegebene UIComponent-Objekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>headerBG</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>UIComponent mit Grafiken für den Header-Hintergrund.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Zeichnet den Hintergrund der Header in das gegebene UIComponent. Die gezeichneten Grafiken können horizontal skaliert werden, wenn sich die Breite der Komponente ändert, oder diese Methode wird neuerlich aufgerufen, um die Ausgabe mit einer anderen Breite oder Höhe zu zeichnen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawHeaderIndicator"><apiName>drawHeaderIndicator</apiName><shortdesc>
+      Zeichnet den Hervorhebungsindikator in das gegebene Sprite-Objekt an der festgelegten Position und in der festgelegten Breite, Höhe und Farbe.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Ein Sprite-Objekt, das die Grafiken enthalten sollte, die die Anzeige durch einen Renderer als hervorgehoben präsentiert.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Die gewünschte X-Position für den Indikator.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Die gewünschte Y-Position für den Indikator.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Die gewünschte Breite für den Indikator.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Die vorgeschlagene Indikatorhöhe.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Die vorgeschlagene Indikatorfarbe.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Der Elementrenderer, der hervorgehoben wird.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Zeichnet den Hervorhebungsindikator in das gegebene Sprite-Objekt an der festgelegten Position und in der festgelegten Breite, Höhe und Farbe.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawSelectionIndicator"><apiName>drawSelectionIndicator</apiName><shortdesc>
+      Zeichnet den Auswahlindikator in das gegebene Sprite-Objekt an der Position, in der Breite, in der Höhe und mit der Farbe, die festgelegt wurden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>indicator</apiItemName><apiType value="flash.display:Sprite"/><apiDesc>Ein Sprite-Objekt, das die Grafiken enthalten sollte, die die Anzeige durch einen Renderer als ausgewählt präsentiert.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>x</apiItemName><apiType value="Number"/><apiDesc>Die gewünschte X-Position für den Indikator.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>y</apiItemName><apiType value="Number"/><apiDesc>Die gewünschte Y-Position für den Indikator.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>width</apiItemName><apiType value="Number"/><apiDesc>Die gewünschte Breite für den Indikator.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>height</apiItemName><apiType value="Number"/><apiDesc>Die vorgeschlagene Indikatorhöhe.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>color</apiItemName><apiType value="uint"/><apiDesc>Die vorgeschlagene Indikatorfarbe.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Der Elementrenderer, der ausgewählt wird.
+     
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Zeichnet den Auswahlindikator in das gegebene Sprite-Objekt an der Position, in der Breite, in der Höhe und mit der Farbe, die festgelegt wurden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:drawSeparators"><apiName>drawSeparators</apiName><shortdesc>
+      Erstellt und zeigt die Trennstriche der Spaltenüberschriften an, die der Benutzer verwendet, um die Spaltenbreite zu ändern.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Erstellt Trennlinien für Spaltenüberschriften, mit deren Hilfe der Benutzer normalerweise die Breite der Spalten ändert, und zeigt sie an. In dieser Implementierung wird dasselbe Sprite wie für Hintergrund von Zeilen und Spalten verwendet. Zugleich werden Instanzen von <codeph>headerSeparatorSkin</codeph> hinzugefügt und Maus-Listener mit diesen verknüpft, damit die Benutzereingabe zum Ändern der Spaltenbreite erkannt wird.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:measure"><apiName>measure</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:placeSortArrow"><apiName>placeSortArrow</apiName><shortdesc>
+      Zeichnet die Grafik für den Sortierungspfeil in die Spalte, nach der momentan sortiert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Zeichnet die Grafik für den Sortierungspfeil in die Spalte, nach der momentan sortiert wird. In dieser Implementierung wird eine Instanz der durch die Stileigenschaft <codeph>sortArrowSkin</codeph> festgelegten Skin erstellt oder wiederverwendet und in die passende Spaltenüberschrift eingefügt. Falls der Sortierungspfeil den Text in der Spaltenüberschrift verdecken würde, wird die Spaltenüberschrift entsprechend verkleinert.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridHeader:protected:updateDisplayList"><apiName>updateDisplayList</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>w</apiItemName><apiType value="Number"/></apiParam><apiParam><apiItemName>h</apiItemName><apiType value="Number"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridHeader:bottomOffset"><apiName>bottomOffset</apiName><shortdesc>
+      Der Offset vom unteren Ende des Inhalts des Renderers in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Der Offset vom unteren Ende des Inhalts des Renderers in Pixeln.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedHeaderHeight"><apiName>cachedHeaderHeight</apiName><shortdesc>
+      Die zwischengespeicherte Höhe der Spaltenüberschrift in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Die zwischengespeicherte Höhe der Spaltenüberschrift in Pixeln.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedPaddingBottom"><apiName>cachedPaddingBottom</apiName><shortdesc>
+      Die zwischengespeicherte Auffülung für das untere Ende des Renderers in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Die zwischengespeicherte Auffülung für das untere Ende des Renderers in Pixeln.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:cachedPaddingTop"><apiName>cachedPaddingTop</apiName><shortdesc>
+	  Die zwischengespeicherte Auffülung für das obere Ende des Renderers in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+	  Die zwischengespeicherte Auffülung für das obere Ende des Renderers in Pixeln.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:dataGrid"><apiName>dataGrid</apiName><shortdesc>
+      Das DataGrid-Steuerelement, das mit diesem Renderer verknüpft ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls:DataGrid</apiValueClassifier></apiValueDef><apiDesc>
+      Das DataGrid-Steuerelement, das mit diesem Renderer verknüpft ist.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:protected:headerItems"><apiName>headerItems</apiName><shortdesc>
+      Ein Array von Spaltenüberschriftsrenderer-Instanzen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>unknown</apiData><apiType value="Array"/></apiValueDef><apiDesc>
+      Ein Array von Spaltenüberschriftsrenderer-Instanzen.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:leftOffset"><apiName>leftOffset</apiName><shortdesc>
+      Der Offset vom linken Rand des Inhalts des Renderers in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Der Offset vom linken Rand des Inhalts des Renderers in Pixeln.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:needRightSeparatorEvents"><apiName>needRightSeparatorEvents</apiName><shortdesc>
+	  Ob ganz rechts die Trennzeichenereignisse benötigt werden.
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Ob ganz rechts die Trennzeichenereignisse benötigt werden.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:needRightSeparator"><apiName>needRightSeparator</apiName><shortdesc>
+	  Ob ganz rechts ein Trennzeichen benötigt wird.
+	  
+	  </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef><apiDesc>
+	  Ob ganz rechts ein Trennzeichen benötigt wird.
+	  
+	  </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:rightOffset"><apiName>rightOffset</apiName><shortdesc>
+      Der Offset vom rechten Rand des Inhalts des Renderers in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Der Offset vom rechten Rand des Inhalts des Renderers in Pixeln.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:topOffset"><apiName>topOffset</apiName><shortdesc>
+      Der Offset vom oberen Ende des Inhalts des Renderers in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/></apiValueDef><apiDesc>
+      Der Offset vom oberen Ende des Inhalts des Renderers in Pixeln.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridHeader:enabled:set"><apiName>enabled</apiName><shortdesc conref="mx.core.IUIComponent#enabled">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiType value="Boolean"/></apiValueDef><apiDesc conref="mx.core.IUIComponent#enabled">
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridDragProxy"><apiName>DataGridDragProxy</apiName><shortdesc>
+  Die DataGridDragProxy-Klasse definiert den Standard-Zieh-Proxy, der verwendet wird, wenn Daten aus einem DataGrid-Steuerelement gezogen werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DataGridDragProxy-Klasse definiert den Standard-Zieh-Proxy, der verwendet wird, wenn Daten aus einem DataGrid-Steuerelement gezogen werden.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridDragProxy:DataGridDragProxy"><apiName>DataGridDragProxy</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridBase"><apiName>DataGridBase</apiName><shortdesc>
+  Die DataGridBase-Klasse ist die Basisklasse für Steuerelemente, die Listen von Elementen in mehreren Spalten anzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata><asCustoms><mxml><![CDATA[
+  
+  <p>The DataGridBase class inherits all the properties of its parent classes
+  and adds the following properties:</p>
+  
+  <pre>
+  &lt;mx:<i>tagname</i>
+    headerHeight="depends on styles and header renderer"
+    showHeaders="true|false"
+  /&gt;
+  </pre>
+  
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IFontContextComponent</apiBaseInterface><apiBaseClassifier>mx.controls.listClasses:ListBase</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DataGridBase-Klasse ist die Basisklasse für Steuerelemente, die Listen von Elementen in mehreren Spalten anzeigen. Sie wird nicht direkt in Anwendungen verwendet.
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridBase:DataGridBase"><apiName>DataGridBase</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:adjustRow"><apiName>adjustRow</apiName><shortdesc> 
+      Passt die Größe und die Positionen der Renderer für die angegebene rowNum, Zeilenposition und Höhe an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Die Menge von Zeilen (gesperrte Zeilen, normale Zeilen).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Die Zeilennummer.
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>Die Y-Position der Zeile.
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>Die Höhe der Zeile.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Passt die Größe und die Positionen der Renderer für die angegebene rowNum, Zeilenposition und Höhe an.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:calculateRowHeight"><apiName>calculateRowHeight</apiName><shortdesc>
+      Berechnet die Zeilenhöhe von Spalten in einer Zeile.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Die Zeilenhöhe in Pixeln.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das Datenproviderelement für die Zeile.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>Die aktuelle Höhe der Zeile.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>skipVisible</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Wenn <codeph>true</codeph>, ist das Messen von Elementrenderern in sichtbaren Spalten nicht nötig.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Berechnet die Zeilenhöhe von Spalten in einer Zeile. Wenn <codeph>skipVisible</codeph> den Wert <codeph>true</codeph> hat, kennt die DataGridBase-Klasse bereits die Höhe der Renderer für die Spalte, die in den Anzeigebereich passen, daher muss diese Methode nur für die Elementrenderer eine Berechnung anstellen, die existieren würden, wenn andere Spalten in dieser Zeile im Anzeigebereich wären. Dies ist erforderlich, damit in Fällen, wo der Benutzer einen horizontalen Bildlauf durchführt, die Zeilenhöhe nicht angepasst wird, wenn die einzelnen Spalten erscheinen oder aus dem Sichtbereich verschwinden.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:clearRow"><apiName>clearRow</apiName><shortdesc> 
+      Entfernt Renderer aus der Zeile, die für die gegebene rowNum leer sein sollte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Die Menge von Zeilen (gesperrte Zeilen, normale Zeilen).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Die Zeilennummer.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Entfernt Renderer aus der Zeile, die für die gegebene rowNum leer sein sollte.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:createColumnItemRenderer"><apiName>createColumnItemRenderer</apiName><shortdesc>
+      Gibt den Elementrenderer für eine Spaltenzelle oder eine Spaltenüberschrift zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Der Elementrenderer.
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>Die DataGridColumn-Instanz des Elementrenderers.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>forHeader</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, um den Spaltenüberschrift-Elementrenderer zurückzugeben, und <codeph>false</codeph>, um den Elementrenderer für die Spaltenzellen zurückzugeben.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Wenn <codeph>forHeader</codeph> <codeph>false</codeph> ist, das <codeph>data</codeph>-Objekt für den Elementrenderer. Wenn <codeph>forHeader</codeph> <codeph>true</codeph> ist, die DataGridColumn-Instanz.  
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt den Elementrenderer für eine Spaltenzelle oder eine Spaltenüberschrift zurück. Diese Methode gibt den Standardelementrenderer zurück, wenn der Spalte kein Renderer zugeordnet ist.
+     
+      <p>Diese Methode ist öffentlich und daher kann die DataGridHeader-Klasse darauf zugreifen. Sie wird hauptsächlich in Unterklassen des DataGrid-Steuerelements verwendet.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:drawVisibleItem"><apiName>drawVisibleItem</apiName><shortdesc>
+      Zeichnet ein Element, wenn es sichtbar ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Die UID, mit der der Renderer gefunden wird.
+      </apiDesc></apiParam><apiParam><apiItemName>selected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, wenn der Renderer im Status „ausgewählt“ gezeichnet werden soll.
+      </apiDesc></apiParam><apiParam><apiItemName>highlighted</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, wenn der Renderer in seinem hervorgehobenen Status gezeichnet werden soll.
+      </apiDesc></apiParam><apiParam><apiItemName>caret</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, wenn der Renderer so gezeichnet werden soll, als wäre er das Auswahl-Einfügezeichen.
+      </apiDesc></apiParam><apiParam><apiItemName>transition</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>true</codeph>, wenn der Auswahlstatus über einen Effekt ausgeblendet werden soll.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Zeichnet ein Element, wenn es sichtbar ist.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:finishKeySelection"><apiName>finishKeySelection</apiName><shortdesc>
+      Stellt ausgewählte Elemente basierend auf den Eigenschaften caretIndex und anchorIndex ein.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Stellt ausgewählte Elemente basierend auf den Eigenschaften <codeph>caretIndex</codeph> und <codeph>anchorIndex</codeph> ein. Diese Methode wird über die Tastaturauswahlprozeduren und die <codeph>updateDisplayList()</codeph>-Methode aufgerufen, wenn der Tastaturauswahlprozedur ein Seitenfehler gemeldet wird, während ein Bildlauf zur Anzeige zusätzlicher Elemente erfolgt.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:itemRendererToIndices"><apiName>itemRendererToIndices</apiName><shortdesc>
+      Gibt ein Point-Objekt zurück, das die columnIndex- und rowIndex-Eigenschaften eines Elementrenderers definiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiDesc>Ein Point-Objekt. Die <codeph>x</codeph>-Eigenschaft ist <codeph>columnIndex</codeph> und die <codeph>y</codeph>-Eigenschaft ist <codeph>rowIndex</codeph>.
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Ein Elementrenderer.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt ein Point-Objekt zurück, das die <codeph>columnIndex</codeph>- und <codeph>rowIndex</codeph>-Eigenschaften eines Elementrenderers definiert. Da Elementrenderer nur für Elemente innerhalb der Menge anzeigbarer Zeilen erstellt werden, können Sie diese Methode nicht verwenden, um die Indizes für Elemente zu abzurufen, die nicht sichtbar sind. Außerdem werden Elementrenderer wiederverwendet, sodass die Indexpositionen, die Sie für ein Element abrufen, geändert werden können, wenn dieser Elementrenderer wiederverwendet wird, um ein anderes Element anzuzeigen. In der Regel wird diese Methode während Maus- und Tastaturvorgängen aufgerufen, wenn die von einem Elementrenderer angezeigte Datenmenge noch nicht geändert wurde.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:layoutColumnItemRenderer"><apiName>layoutColumnItemRenderer</apiName><shortdesc>
+      Legt die Größe und temporäre Position eines itemRenderer-Objekts für eine Spalte fest und gibt seine Größe als Point-Objekt zurück.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Größe des Renderers als Point-Objekt.
+      
+      </apiDesc><apiType value="flash.geom:Point"/></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>Die DataGridColumn für den Renderer.
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Der Renderer.
+      </apiDesc></apiParam><apiParam><apiItemName>xx</apiItemName><apiType value="Number"/><apiDesc>Die X-Position.
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>Die Y-Position.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Legt die Größe und temporäre Position eines itemRenderer-Objekts für eine Spalte fest und gibt seine Größe als Point-Objekt zurück. Die endgültige Position kann später je nach den Ausrichtungseinstellungen angepasst werden.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:makeListData"><apiName>makeListData</apiName><shortdesc>
+      Erstellt eine neue DataGridListData-Instanz und füllt die Felder mit Daten aus dem Eingabe-Datenproviderelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Ein neu erstelltes ListData-Objekt.
+      
+      </apiDesc><apiType value="mx.controls.listClasses:BaseListData"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das Datenproviderelement, das für den Abruf der Daten in ListData verwendet wird.
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Die UID des Elements.
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Die Indexposition des Elements im Datenprovider.
+      </apiDesc></apiParam><apiParam><apiItemName>columnNum</apiItemName><apiType value="int"/><apiDesc>Der columnIndex, der mit diesem Element verknüpft ist. 
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>Die Spalte, die mit diesem Element verknüpft ist.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Erstellt eine neue DataGridListData-Instanz und füllt die Felder mit Daten aus dem Eingabe-Datenproviderelement. 
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:makeRow"><apiName>makeRow</apiName><shortdesc> 
+      Erstellt die Renderer für die gegebenen rowNum-, dataObject- und uid-Elemente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Höhe der Zeile.
+      
+      </apiDesc><apiType value="Number"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Die Menge von Zeilen (gesperrte Zeilen, normale Zeilen).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Die Zeilennummer.
+      </apiDesc></apiParam><apiParam><apiItemName>left</apiItemName><apiType value="Number"/><apiDesc>Der Offset vom linken Rand für die erste Spalte.
+      </apiDesc></apiParam><apiParam><apiItemName>right</apiItemName><apiType value="Number"/><apiDesc>Der Offset vom rechten Rand für die letzt Spalte.
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>Die Y-Position der Zeile.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Die Daten für die Zeile.
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Die UID für die Daten.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Erstellt die Renderer für die gegebenen rowNum-, dataObject- und uid-Elemente.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:moveSelectionVertically"><apiName>moveSelectionVertically</apiName><shortdesc>
+      Verschiebt die Auswahl in vertikaler Richtung, wenn der Benutzer mithilfe der Nach-oben- bzw. Nach-unten-Taste sowie in Verbindung mit der Umschalt- und Strg-Taste Elemente auswählt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>code</apiItemName><apiType value="uint"/><apiDesc>Die Taste, die gedrückt wurde (z. B. <codeph>Keyboard.DOWN</codeph>).
+      
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, wenn beim Drücken der Taste auf der Tastatur die Umschalttaste gehalten wurde.
+      
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, wenn beim Drücken der Taste auf der Tastatur die Strg-Taste gehalten wurde
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Verschiebt die Auswahl in vertikaler Richtung, wenn der Benutzer mithilfe der Nach-oben- bzw. Nach-unten-Taste sowie in Verbindung mit der Umschalt- und Strg-Taste Elemente auswählt. Diese Methode kann die Eigenschaften <codeph>horizontalScrollPosition</codeph>, <codeph>verticalScrollPosition</codeph> und <codeph>caretIndex</codeph> ändern sowie die <codeph>finishKeySelection()</codeph>-Methode aufrufen, um die Auswahl zu aktualisieren.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:prepareRowArray"><apiName>prepareRowArray</apiName><shortdesc> 
+      Sorgt dafür, dass die Zeilenarrays über eine Position für die angegebene Zeilennummer verfügen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Die Menge von Zeilen (gesperrte Zeilen, normale Zeilen).
+      
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Die Zeilennummer.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Sorgt dafür, dass die Zeilenarrays über eine Position für die angegebene Zeilennummer verfügen.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:removeExtraRow"><apiName>removeExtraRow</apiName><shortdesc> 
+      Entfernt Extrazeilen am Ende des contentHolder-Objekts.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Die Menge von Zeilen (gesperrte Zeilen, normale Zeilen).
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Entfernt Extrazeilen am Ende des contentHolder-Objekts.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:setRowInfo"><apiName>setRowInfo</apiName><shortdesc> 
+      Stellt die rowInfo-Eigenschaft für die entsprechende rowNum, Zeilenposition und Höhe ein.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Die Menge von Zeilen (gesperrte Zeilen, normale Zeilen).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Die Zeilennummer.
+      </apiDesc></apiParam><apiParam><apiItemName>yy</apiItemName><apiType value="Number"/><apiDesc>Die Y-Position der Zeile.
+      </apiDesc></apiParam><apiParam><apiItemName>hh</apiItemName><apiType value="Number"/><apiDesc>Die Höhe der Zeile.
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Die UID für die Daten.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc> 
+      Stellt die rowInfo-Eigenschaft für die entsprechende rowNum, Zeilenposition und Höhe ein.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:setupColumnItemRenderer"><apiName>setupColumnItemRenderer</apiName><shortdesc>
+      Richtet einen Elementrenderer für eine Spalte ein und setzt ihn in das listItems-Array an die angeforderte Position.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>Der Renderer für diese Spalte und Zeile.
+      
+      </apiDesc><apiType value="mx.controls.listClasses:IListItemRenderer"/></apiReturn><apiParam><apiItemName>c</apiItemName><apiOperationClassifier>mx.controls.dataGridClasses:DataGridColumn</apiOperationClassifier><apiDesc>Die DataGridColumn für den Renderer.
+      </apiDesc></apiParam><apiParam><apiItemName>contentHolder</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBaseContentHolder</apiOperationClassifier><apiDesc>Die Menge von Zeilen (gesperrte Zeilen, normale Zeilen).
+      </apiDesc></apiParam><apiParam><apiItemName>rowNum</apiItemName><apiType value="int"/><apiDesc>Die Zeilennummer.
+      </apiDesc></apiParam><apiParam><apiItemName>colNum</apiItemName><apiType value="int"/><apiDesc>Die Spaltennummer.
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Die Daten für die Zeile.
+      </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Die UID für die Daten.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Richtet einen Elementrenderer für eine Spalte ein und setzt ihn in das listItems-Array an die angeforderte Position.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridBase:protected:updateRendererDisplayList"><apiName>updateRendererDisplayList</apiName><shortdesc>
+      Zeichnet den Renderer synchron neu.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>r</apiItemName><apiType value="mx.controls.listClasses:IListItemRenderer"/><apiDesc>Der Renderer;
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Zeichnet den Renderer synchron neu.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnCaretIndicator"><apiName>columnCaretIndicator</apiName><shortdesc>
+      Das DisplayObject, das die Grafik enthält, die anzeigt, welcher Renderer das Einfügezeichen für lockedColumns ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Das DisplayObject, das die Grafik enthält, die anzeigt, welcher Renderer das Einfügezeichen für lockedColumns ist.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnHighlightIndicator"><apiName>columnHighlightIndicator</apiName><shortdesc>
+      Das DisplayObject, das die Grafik enthält, die anzeigt, welcher Renderer für lockedColumns hervorgehoben ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Sprite"/></apiValueDef><apiDesc>
+      Das DisplayObject, das die Grafik enthält, die anzeigt, welcher Renderer für lockedColumns hervorgehoben ist.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:columnMap"><apiName>columnMap</apiName><shortdesc>
+      Eine Zuordnung der Elementrenderer zu Spalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      Eine Zuordnung der Elementrenderer zu Spalten. Wie <codeph>ListBase.rowMap</codeph> enthält diese Eigenschaft eine Hash-Matrix von Elementrenderern und den Spalten, zu denen sie gehören. Elementrenderer werden nach ihrem DisplayObject-Namen indiziert.
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.listClasses.xml#ListBase/rowMap"><linktext>mx.controls.listClasses.ListBase.rowMap</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:freeItemRenderersTable"><apiName>freeItemRenderersTable</apiName><shortdesc>
+      Eine Tabelle nicht verwendeter Elementrenderer nach Spalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.utils:Dictionary"/></apiValueDef><apiDesc>
+      Eine Tabelle nicht verwendeter Elementrenderer nach Spalten. Die meisten Listenklassen verwenden Elementrenderer wieder, die sie bereits bei einem Bildlauf über den sichtbaren Bereich hinaus erstellt haben. Die wiederverwendeten Renderer werden hier gespeichert. Die Tabelle ist ein Wörterbuch, in dem die Einträge Arrays sind, die von der aktuellen DataGridColumn (nicht den dataField-Eigenschaften der Spalte oder anderen Eigenschaften) indiziert werden, und jedes Array ist ein Stapel derzeit nicht verwendeter Renderer.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:headerMask"><apiName>headerMask</apiName><shortdesc>
+      Die Spaltenüberschrift-Maske.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:Shape"/></apiValueDef><apiDesc>
+      Die Spaltenüberschrift-Maske.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:header"><apiName>header</apiName><shortdesc>
+      Die Spaltenüberschrift-Subkomponente.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiValueClassifier></apiValueDef><apiDesc>
+      Die Spaltenüberschrift-Subkomponente.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnAndRowContent"><apiName>lockedColumnAndRowContent</apiName><shortdesc>
+      Die Subkomponente, die gesperrte Zeilen für gesperrte Spalten enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridLockedRowContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      Die Subkomponente, die gesperrte Zeilen für gesperrte Spalten enthält.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnContent"><apiName>lockedColumnContent</apiName><shortdesc>
+      Die Subkomponente, die gesperrte Spalten enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.listClasses:ListBaseContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      Die Subkomponente, die gesperrte Spalten enthält.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedColumnHeader"><apiName>lockedColumnHeader</apiName><shortdesc>
+      Die Spaltenüberschrift-Subkomponente für gesperrte Spalten.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridHeaderBase</apiValueClassifier></apiValueDef><apiDesc>
+      Die Spaltenüberschrift-Subkomponente für gesperrte Spalten.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:protected:lockedRowContent"><apiName>lockedRowContent</apiName><shortdesc>
+      Die Subkomponente, die gesperrte Zeilen enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>mx.controls.dataGridClasses:DataGridLockedRowContentHolder</apiValueClassifier></apiValueDef><apiDesc>
+      Die Subkomponente, die gesperrte Zeilen enthält.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:fontContext:get"><apiName>fontContext</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFlexModuleFactory"/></apiValueDef><apiDesc>
+      </apiDesc></apiValueDetail><apiInheritDoc/></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:headerHeight:get"><apiName>headerHeight</apiName><shortdesc>
+      Die Höhe der Spaltenüberschriftzelle in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="resize"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/></apiValueDef><apiDesc>
+      Die Höhe der Spaltenüberschriftzelle in Pixeln. Wenn sie explizit gesetzt wurde, wird sie für alle Spaltenüberschriften verwendet. Wenn sie nicht explizit gesetzt wurde, basiert die Höhe auf den Stileinstellungen des Spaltenüberschriftsrenderers.  
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:lockedColumnCount:get"><apiName>lockedColumnCount</apiName><shortdesc>
+      Die Indexposition der ersten Spalte des Steuerelements, wo ein Bildlauf möglich ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Indexposition der ersten Spalte des Steuerelements, wo ein Bildlauf möglich ist. Spalten mit Indexpositionen unterhalb dieses Werts bleiben in der Ansicht fixiert. Nicht von allen Listenklassen unterstützt.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:lockedRowCount:get"><apiName>lockedRowCount</apiName><shortdesc>
+      Die Indexposition der ersten Zeile des Steuerelements, wo ein Bildlauf möglich ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Indexposition der ersten Zeile im Steuerelement, welches einen Bildlauf ausführt. Zeilen über dieser Zeile bleiben in der Ansicht fixiert.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridBase:showHeaders:get"><apiName>showHeaders</apiName><shortdesc>
+      Ein Flag, das anzeigt, ob das Steuerelement Spaltenüberschriften anzeigen soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="showHeadersChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das anzeigt, ob das Steuerelement Spaltenüberschriften anzeigen soll. Wenn <codeph>true</codeph>, zeigt das Steuerelement Spaltenüberschriften an. 
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridListData"><apiName>DataGridListData</apiName><shortdesc>
+  Die DataGridListData-Klasse definiert den Datentyp der listData-Eigenschaft, die von Renderern oder Editoren, in denen Elemente abgelegt werden können, für das DataGrid-Steuerelement implementiert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:BaseListData</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DataGridListData-Klasse definiert den Datentyp der <codeph>listData</codeph>-Eigenschaft, die von Renderern oder Editoren, in denen Elemente abgelegt werden können, für das DataGrid-Steuerelement implementiert wird. Alle Renderer oder Editoren, in denen Elemente abgelegt werden können, müssen die IDropInListItemRenderer-Schnittstelle, mit der die <codeph>listData</codeph>-Eigenschaft definiert wird, implementieren.
+ 
+  <p>Obwohl die Eigenschaften dieser Klasse änderbar sind, sollten Sie sie unverändert beibehalten. Sie werden durch die DataGrid-Klasse initialisiert und von einem Renderer oder Editor für Elemente gelesen. Eine Veränderung dieser Werte kann zu unerwarteten Ergebnissen führen.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridListData:DataGridListData"><apiName>DataGridListData</apiName><shortdesc>
+	  Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>text</apiItemName><apiType value="String"/><apiDesc>Textdarstellung der Daten des Elements.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>dataField</apiItemName><apiType value="String"/><apiDesc>Name des Felds oder der Eigenschaft im Datenprovider, der der Spalte zugeordnet ist.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiDesc>Die Spaltenindexposition des Elements in den Spalten für das DataGrid-Steuerelement.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Ein eindeutiger Bezeichner für das Element.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>owner</apiItemName><apiType value="mx.core:IUIComponent"/><apiDesc>Ein Verweis auf das DataGrid-Steuerelement.
+	 
+	  </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>Die Indexposition des Elements im Datenprovider für das DataGrid-Steuerelement.
+	  
+	  </apiDesc></apiParam></apiConstructorDef><apiDesc>
+	  Konstruktor.
+	 
+	  </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:DataGridListData:dataField"><apiName>dataField</apiName><shortdesc>
+	  Name des Felds oder der Eigenschaft im Datenprovider, der der Spalte zugeordnet ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="__NoChangeEvent__"/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+	  Name des Felds oder der Eigenschaft im Datenprovider, der der Spalte zugeordnet ist. 
+	  
+	  </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder"><apiName>DataGridLockedRowContentHolder</apiName><shortdesc>
+  Die DataGridLockedRowContentHolder-Klasse definiert einen Container in einem DataGrid-Steuerelement aller Elementrenderer und Elementeditoren des Steuerelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.controls.listClasses:ListBaseContentHolder</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DataGridLockedRowContentHolder-Klasse definiert einen Container in einem DataGrid-Steuerelement aller Elementrenderer und Elementeditoren des Steuerelements. Flex verwendet sie, um Bereiche der Renderer zu maskieren, die über das Steuerelement hinaus reichen, und um bestimmte Stile, wie z. B. <codeph>backgroundColor</codeph>, daran zu hindern, sich auf die Renderer zu erweitern, damit Hervorhebungen und alternative Zeilenfarben durch das Steuerelement angezeigt werden können.
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder:DataGridLockedRowContentHolder"><apiName>DataGridLockedRowContentHolder</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>parentList</apiItemName><apiOperationClassifier>mx.controls.listClasses:ListBase</apiOperationClassifier><apiDesc>Das DataGrid-Steuerelement.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="mx.controls.dataGridClasses:DataGridLockedRowContentHolder:measuredHeight:get"><apiName>measuredHeight</apiName><shortdesc>
+     Die gemessene Höhe des DataGrid-Steuerelements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef><apiDesc>
+     Die gemessene Höhe des DataGrid-Steuerelements.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridHeaderBase"><apiName>DataGridHeaderBase</apiName><shortdesc>
+  Die DataGridHeaderBase-Klasse definiert die Basisklasse für die DataGridHeader-Klasse, die Klasse, die den Elementrenderer für das DataGrid-Steuerelement definiert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.core:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DataGridHeaderBase-Klasse definiert die Basisklasse für die DataGridHeader-Klasse, die Klasse, die den Elementrenderer für das DataGrid-Steuerelement definiert. 
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="mx.controls.dataGridClasses:DataGridHeaderBase:DataGridHeaderBase"><apiName>DataGridHeaderBase</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor. 
+      
+      </apiDesc></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridColumn"><apiName>DataGridColumn</apiName><shortdesc>
+  Die Klasse „DataGridColumn“ beschreibt eine Spalte in einem DataGrid-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion><styles><style format="Length" inherit="no" name="paddingRight" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Die Anzahl von Pixeln zwischen der rechten Rahmenlinie des Containers und seinem Inhaltsbereich.
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="no" name="paddingLeft" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Die Anzahl von Pixeln zwischen der linken Rahmenlinie des Containers und seinem Inhaltsbereich.
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="headerStyleName" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Der Name einer CSS-Stildeklaration für die Steuerung anderer Aspekte der Darstellung der Spaltenüberschriften. Der Standardwert ist <codeph>undefined</codeph>. Das bedeutet, dass der Wert des <codeph>headerStyleName</codeph>-Stils des zugeordneten DataGrid-Steuerelements verwendet wird. Der Standardwert für das DataGrid-Steuerelement ist <codeph>„.dataGridStyles“</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  Die Hintergrundfarbe der Spalte. Der Standardwert ist <codeph>undefined</codeph>. Das bedeutet, dass der Wert des <codeph>backgroundColor</codeph>-Stils des zugeordneten DataGrid-Steuerelements verwendet wird. Der Standardwert für das DataGrid-Steuerelement ist <codeph>0xFFFFFF</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="textIndent" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Offset der ersten Textzeile von der linken Seite des Containers in Pixeln.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="no" name="textFieldClass" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="Class">
+<description>
+  Die Klasse, die IUITextField implementiert, das von dieser Komponente für die Darstellung von Text verwendet wird.
+ 
+  <p>Sie kann auf die mx.core.UITextField-Klasse (zur Verwendung der in Flash Player integrierten klassischen TextField-Klasse) oder die mx.core.UIFTETextField-Klasse (zur Verwendung des Text Layout Frameworks, um verbesserte Textdarstellungen, einschließlich bidirektionalem Layout, zu erhalten) eingestellt werden.</p>
+ 
+  </description>
+<default>mx.core.UITextField
+  
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style enumeration="none,underline" inherit="yes" name="textDecoration" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Bestimmt, ob der Text unterstrichen wird. Mögliche Werte sind <codeph>"none"</codeph> und <codeph>"underline"</codeph>.
+ 
+  </description>
+<default>"none"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="left,center,right" inherit="yes" name="textAlign" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Ausrichtung von Text in einem Container. Mögliche Werte sind <codeph>"left"</codeph>, <codeph>"right"</codeph> oder <codeph>"center"</codeph>.
+ 
+  <p>Der Standardwert für die meisten Steuerelemente ist <codeph>„left“</codeph>. Für die FormItem-Komponente ist der Standardwert <codeph>„right“</codeph>. Für die Button-, LinkButton- und AccordionHeader-Komponenten ist der Standardwert <codeph>„center“</codeph>, und diese Eigenschaft wird nur erkannt, wenn die <codeph>labelPlacement</codeph>-Eigenschaft auf <codeph>„left“</codeph> oder <codeph>„right“</codeph> eingestellt ist. Wenn <codeph>labelPlacement</codeph> auf <codeph>"top"</codeph> oder <codeph>"bottom"</codeph> gesetzt wird, werden der Text und eventuell vorhandene Symbole zentriert.</p>
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="locale" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="String">
+<description>
+  Das Gebietsschema des von dieser Komponente angezeigten Texts.
+ 
+  <p>FTE und TLF verwenden dieses Gebietsschema für die Zuordnung von Unicode-Schriftarten zu Schriftartglyphen und für die Suche nach Ausweichschriftarten.</p>
+ 
+  <p>Hinweis: Dieser Stil gilt nur, wenn eine MX-Komponente UIFTETextField als ihre <codeph>textFieldClass</codeph> festlegt.</p>
+ 
+  </description>
+<default>"en"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="letterSpacing" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Die Anzahl der zusätzlichen Pixel, die zwischen den Zeichen angezeigt werden. Durch einen positiven Wert wird der Zeichenabstand über den normalen Abstand hinaus vergrößert und durch einen negativen Wert verkleinert.
+ 
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="kerning" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Boolean">
+<description>
+  Ein boolescher Wert, der angibt, ob Kerning aktiviert (<codeph>true</codeph>) oder deaktiviert (<codeph>false</codeph>) ist. Kerning reduziert den Abstand zwischen bestimmten Zeichenpaaren, um die Lesbarkeit zu verbessern, und sollte nur verwendet werden, wenn dies wirklich nötig ist, etwa bei Titeln mit großer Schrift. Kerning wird nur für eingebettete Schriftarten unterstützt. Bestimmte Schriftarten wie Verdana und Schriftarten mit fester Breite wie Courier New unterstützen Kerning nicht
+ 
+  </description>
+<default>false
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,bold" inherit="yes" name="fontWeight" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Bestimmt, ob der Text fett formatiert wird. Gültige Werte sind <codeph>normal</codeph> und <codeph>bold</codeph>. Der Standardwert für die Button-Steuerelemente ist <codeph>bold</codeph>. Der Standardwert für alle anderen Steuerelemente ist <codeph>normal</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontThickness" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Legt die <codeph>thickness</codeph>-Eigenschaft von internen TextFields-Elementen fest, die Text in Flex-Steuerelementen darstellen. Diese Eigenschaft gibt die Stärke der Glyphenkanten an. Die möglichen Werte sind Zahlen von -200 bis 200. 
+  
+  <p>Diese Eigenschaft kommt nur zur Anwendung, wenn Sie eine eingebettete Schriftart verwenden und die <codeph>fontAntiAliasType</codeph>-Eigenschaft auf <codeph>„advanced“</codeph> eingestellt ist.</p>
+  
+  <p>Dieser Stil hat keine Auswirkung auf Systemschriftarten.</p>
+ 
+  <p>Dieser Stil wird auf den gesamten Text eines untergeordneten TextField-Steuerelements angewendet. Sie können ihn nicht auf einige Zeichen anwenden und auf andere nicht.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="normal,italic" inherit="yes" name="fontStyle" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Bestimmt, ob der Text kursiv formatiert wird. Gültige Werte sind <codeph>"normal"</codeph> und <codeph>"italic"</codeph>.
+ 
+  </description>
+<default>"normal"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style format="Length" inherit="yes" name="fontSize" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Die Höhe des Texts in Pixeln. Beim Halo-Design lautet der Standardwert für alle Steuerelemente mit Ausnahme des ColorPicker-Steuerelements 10. Für das ColorPicker-Steuerelement des Halo-Designs lautet der Standardwert 11. Beim Spark-Design lautet der Standardwert für alle Steuerelemente mit Ausnahme des ColorPicker-Steuerelements 12. Für das ColorPicker-Steuerelement des Spark-Designs lautet der Standardwert 11.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style inherit="yes" name="fontSharpness" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="Number">
+<description>
+  Legt die Eigenschaft <codeph>sharpness</codeph> von internen Textfeldern fest, die Text in Flex-Steuerelementen darstellen. Diese Eigenschaft gibt die Schärfe der Glyphenkanten an. Die möglichen Werte sind Zahlen von -400 bis 400. 
+  
+  <p>Diese Eigenschaft kommt nur zur Anwendung, wenn Sie eine eingebettete Schriftart verwenden und die <codeph>fontAntiAliasType</codeph>-Eigenschaft auf <codeph>„advanced“</codeph> eingestellt ist.</p>
+  
+  <p>Dieser Stil hat keine Auswirkungen auf Systemschriftarten.</p>
+ 
+  <p>Dieser Stil wird auf den gesamten Text eines untergeordneten TextField-Steuerelements angewendet. Sie können ihn nicht auf einige Zeichen anwenden und auf andere nicht.</p>
+  
+  </description>
+<default>0
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link></related-links></style><style enumeration="none,pixel,subpixel" inherit="yes" name="fontGridFitType" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Legt die Eigenschaft <codeph>gridFitType</codeph> von internen Textfeldern fest, die Text in Flex-Steuerelementen darstellen. Die möglichen Werte sind <codeph>"none"</codeph> (<codeph>flash.text.GridFitType.NONE</codeph>), <codeph>"pixel"</codeph> (<codeph>flash.text.GridFitType.PIXEL</codeph>) und <codeph>"subpixel"</codeph> (<codeph>flash.text.GridFitType.SUBPIXEL</codeph>). 
+  
+  <p>Diese Eigenschaft kommt nur zur Anwendung, wenn Sie eine eingebettete Schriftart verwenden und die <codeph>fontAntiAliasType</codeph>-Eigenschaft auf <codeph>„advanced“</codeph> eingestellt ist.</p>
+  
+  <p>Dieser Stil hat keine Auswirkungen auf Systemschriftarten.</p>
+ 
+  <p>Dieser Stil wird auf den gesamten Text eines untergeordneten TextField-Steuerelements angewendet. Sie können ihn nicht auf einige Zeichen anwenden und auf andere nicht.</p>
+ 
+  </description>
+<default>"pixel"
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.GridFitType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.GridFitType.xml"><linktext>flash.text.GridFitType</linktext></link></related-links></style><style inherit="yes" name="fontFamily" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Der Name der zu verwendenden Schriftart. Anders als in einer vollständigen CSS-Implementierung werden durch Kommas getrennte Listen nicht unterstützt. Sie können den Namen einer beliebigen Schriftartfamilie verwenden. Wenn Sie eine generische Schriftartbezeichnung wählen, wird diese in eine entsprechende Geräteschriftart konvertiert. Die Standardschriftart für das Halo-Design ist <codeph>"Verdana"</codeph>. Die Standardschriftart für das Spark-Design ist <codeph>"Arial"</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="normal,advanced" inherit="yes" name="fontAntiAliasType" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="String">
+<description>
+  Legt die Eigenschaft <codeph>antiAliasType</codeph> von internen Textfeldern fest. Die möglichen Werte sind <codeph>"normal"</codeph> (<codeph>flash.text.AntiAliasType.NORMAL</codeph>) und <codeph>"advanced"</codeph> (<codeph>flash.text.AntiAliasType.ADVANCED</codeph>). 
+  
+  <p>Der Standardwert ist <codeph>„advanced“</codeph>, wodurch ein Anti-Aliasing für die Schriftart aktiviert wird. Auf <codeph>„normal“</codeph> eingestellt, um das erweiterte Anti-Aliasing zu deaktivieren.</p>
+  
+  <p>Dieser Stil hat keine Auswirkungen auf Systemschriftarten.</p>
+  
+  <p>Dieser Stil wird auf alle Texte in einem TextField-Substeuerelement angewendet. Es ist nicht möglich, ihn selektiv auf einzelne Zeichen anzuwenden.</p>
+
+  </description>
+<default>"advanced"
+ 
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+
+<see>flash.text.AntiAliasType
+  
+  </see>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog><related-links><link href="" invalidHref="flash.text.TextField.xml"><linktext>flash.text.TextField</linktext></link><link href="" invalidHref="flash.text.AntiAliasType.xml"><linktext>flash.text.AntiAliasType</linktext></link></related-links></style><style format="Color" inherit="yes" name="disabledColor" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  Farbe des Texts in der Komponente, wenn deaktiviert.
+ 
+  </description>
+<default>0xAAB3B3
+  
+  </default>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style><style enumeration="ltr,rtl,inherit" inherit="yes" name="direction" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash10" type="String">
+<description>
+  Die Laufrichtung des von dieser Komponente angezeigten Texts.
+ 
+  <p>Zulässige Werte sind <codeph>"ltr"</codeph> für den von links nach rechts verlaufenden Text lateinischer Schriften und <codeph>"rtl"</codeph> für den von rechts nach links laufenden Text z. B. des Arabischen oder Hebräischen.</p>
+ 
+  <p>FTE und TLF verwenden diesen Wert in ihrem bidirektionalen Textlayoutalgorithmus, der die Unicode-Zeichenfolge der Glyphenfolge zuordnet.</p>
+ 
+  <p>Hinweis: Dieser Stil gilt nur, wenn eine MX-Komponente UIFTETextField als ihre <codeph>textFieldClass</codeph> festlegt.</p>
+ 
+  <p>Die <codeph>direction</codeph> wirkt sich auch auf die Ausrichtung des Texts an den Grenzen des TLFTextField aus. Sie beeinflusst jedoch nicht die Platzierung des TLFTextField innerhalb der Komponente.</p>
+ 
+  </description>
+<default>"ltr"
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="yes" name="color" owner="mx.controls.dataGridClasses:DataGridColumn" playerVersion="Flash9" type="uint">
+<description>
+  Farbe des Texts in der Komponente, einschließlich der Komponentenbeschriftung. Der Standardwert für das Halo-Design ist <codeph>0x0B333C</codeph>. Der Standardwert für das Spark-Design ist <codeph>0x000000</codeph>.
+  
+  </description>
+
+<playerversion>AIR 1.1
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 3
+ </productversion></asCustoms></prolog></style></styles></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>You use the <code>&lt;mx.DataGridColumn&gt;</code> tag to configure a column
+  of a DataGrid control.
+  You specify the <code>&lt;mx.DataGridColumn&gt;</code> tag as a child
+  of the columns property in MXML.
+  The <code>&lt;mx.DataGridColumn&gt;</code> tag inherits all of the 
+  tag attributes of its superclass, and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:DataGridColumn
+  <b>Properties </b>
+    dataField="<i>No default</i>"
+    dataTipField="<i>No default</i>"
+    dataTipFunction="<i>No default</i>"
+    editable="true|false"
+    editorDataField="text"
+    editorHeightOffset="0"
+    editorUsesEnterKey="false|true"
+    editorWidthOffset="0"
+    editorXOffset="0"
+    editorYOffset="0"
+    headerRenderer="DataGridItemRenderer"
+    headerText="<i>No default</i>"
+    headerWordWrap="undefined"
+    imeMode="null"
+    itemEditor="TextInput"
+    itemRenderer="DataGridItemRenderer"
+    labelFunction="<i>No default</i>"
+    minWidth="20"
+    rendererIsEditor="false|true"
+    resizable="true|false"
+    showDataTips="false|true"
+    sortable="true|false"
+    sortCompareFunction="<i>No default</i>"
+    sortDescending="false|true"
+    visible="true|false"
+    width="100"
+    wordWrap="false|true"
+ 
+  <b>Styles</b>
+    backgroundColor="0xFFFFFF"
+    color="<i>No default.</i>"
+    disabledColor="0xAAB3B3"
+    fontAntiAliasType="advanced"
+    fontFamily="<i>No default</i>"
+    fontGridFitType="pixel"
+    fontSharpness="0"
+    fontSize="<i>No default</i>"
+    fontStyle="normal|italic"
+    fontThickness="0"
+    fontWeight="normal|bold"
+    headerStyleName="<i>No default</i>"
+    paddingLeft="0"
+    paddingRight="0"
+    textAlign="right|center|left"
+    textDecoration="none|underline"
+    textIndent="0"
+  /&gt;
+  </pre>
+  </p>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IIMESupport</apiBaseInterface><apiBaseClassifier>mx.styles:CSSStyleDeclaration</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Mit der DataGridColumn-Klasse wird eine Spalte in einem DataGrid-Steuerelement beschrieben. Pro anzeigbarer Spalte gibt es ein DataGridColumn-Element, auch wenn die Spalte ausgeblendet ist oder außerhalb des Bildschirms liegt. Die Datenproviderelemente eines DataGrid-Steuerelements können Eigenschaften enthalten, die nicht angezeigt werden und daher keine DataGridColumn-Klasse benötigen. Mit einer DataGridColumn-Klasse können Sie Folgendes festlegen: Farbe und Schriftart des Texts in einer Spalte, welche Art von Komponente die Daten für die Spalte anzeigt, ob die Spalte bearbeitbar, sortierbar oder in der Größe veränderbar ist, sowie welcher Text für die Spaltenüberschrift verwendet wird.
+ 
+  <p><b>Hinweise:</b><ul>
+  <li>Eine DataGridColumn-Klasse enthält nur Informationen über eine Spalte. Sie ist nicht das übergeordnete Objekt der Elementrenderer in der Spalte.</li>
+  <li>Wenn Sie eine DataGridColumn-Klasse ohne <codeph>dataField</codeph>-Eigenschaft angeben, müssen Sie eine <codeph>sortCompareFunction</codeph>-Eigenschaft festlegen. Andernfalls kann es bei Sortiervorgängen zu Laufzeitfehlern kommen.</li></ul> 
+  </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link><link href="" invalidHref="mx.styles.CSSStyleDeclaration.xml"><linktext>mx.styles.CSSStyleDeclaration</linktext></link></related-links><apiConstructor id="mx.controls.dataGridClasses:DataGridColumn:DataGridColumn"><apiName>DataGridColumn</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>columnName</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>Der Name des Felds im Datenprovider, der der Spalte zugeordnet ist, und der Text für die Titelzelle dieser Spalte. Dies ist gleichbedeutend mit einem Einstellen der <codeph>dataField</codeph>- und <codeph>headerText</codeph>-Eigenschaften.
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      Konstruktor.
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:getItemRendererFactory"><apiName>getItemRendererFactory</apiName><shortdesc>
+      Gibt die geeignete Factory zurück und verwendet die Standard-Factory, wenn keine festgelegt ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Wenn <codeph>data</codeph> gleich Null ist, der Standardelementrenderer, sonst wird der benutzerdefinierte Elementrenderer zurückgegeben.
+      
+      </apiDesc><apiType value="mx.core:IFactory"/></apiReturn><apiParam><apiItemName>forHeader</apiItemName><apiType value="Boolean"/><apiDesc><codeph>true</codeph>, wenn dies ein Spaltenüberschriftsrenderer ist.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Die vom Elementrenderer darzustellenden Daten.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt die geeignete Factory zurück und verwendet die Standard-Factory, wenn keine festgelegt ist.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:itemToDataTip"><apiName>itemToDataTip</apiName><shortdesc>
+      Gibt ein Stringobjekt zurück, das der Elementrenderer basierend auf den dataTipField- und dataTipFunction-Eigenschaften als Datentipp für das angegebene Datenobjekt anzeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Anzeigbares Stringobjekt, das auf den Daten basiert.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das darzustellende Objekt.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt ein Stringobjekt zurück, das der Elementrenderer basierend auf den <codeph>dataTipField</codeph>- und <codeph>dataTipFunction</codeph>-Eigenschaften als Datentipp für das angegebene Datenobjekt anzeigt. Falls die Methode den Parameter nicht in einen String konvertieren kann, wird ein einzelnes Leerzeichen zurückgegeben.
+     
+      <p>Diese Methode wird von Entwicklern verwendet, die Unterklassen der DataGridColumn-Klasse erstellen. Sie ist nicht für die Verwendung durch Anwendungsentwickler vorgesehen.</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridColumn:itemToLabel"><apiName>itemToLabel</apiName><shortdesc>
+      Gibt das Stringobjekt zurück, das der Elementrenderer für das angegebene Datenobjekt anzeigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>Anzeigbares Stringobjekt, das auf den Daten basiert.
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiDesc>Das darzustellende Objekt.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Gibt das Stringobjekt zurück, das der Elementrenderer für das angegebene Datenobjekt anzeigt. Weisen „DataGridColumn“ oder das zugehörige DataGrid-Steuerelement eine <codeph>labelFunction</codeph>-Eigenschaft auf, deren Wert nicht null ist, wird die Funktion auf das Datenobjekt angewandt. Andernfalls entnimmt die Methode den Inhalt des Feldes, das durch die <codeph>dataField</codeph>-Eigenschaft angegeben wird, oder ruft den Stringwert des Datenobjekts ab. Falls die Methode den Parameter nicht in einen String konvertieren kann, wird ein einzelnes Leerzeichen zurückgegeben.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridColumn:draggable"><apiName>draggable</apiName><shortdesc>
+      Ein Flag, das anzeigt, ob der Benutzer die Spalte an eine neue Position ziehen darf. Wenn „true“, kann derr Benutzer die Spaltenüberschriften an eine neue Position ziehen.
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das anzeigt, ob der Benutzer die Spalte an eine neue Position ziehen darf. Wenn <codeph>true</codeph>, kann der Benutzer die Spaltenüberschriften an eine neue Position ziehen.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorDataField"><apiName>editorDataField</apiName><shortdesc>
+      Der Name der Elementeditoreigenschaft, die die neuen Daten für das Listenelement enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>text</apiData><apiType value="String"/><apiDefaultValue>"text"
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Der Name der Eigenschaft des Elementeditors, die die neuen Daten für das Listenelement enthält. So lautet beispielsweise der standardmäßige <codeph>itemEditor</codeph> „TextInput“. Daher ist der Standardwert der <codeph>editorDataField</codeph>-Eigenschaft <codeph>„text“</codeph>, wodurch die <codeph>text</codeph>-Eigenschaft des TextInput-Steuerelements angegeben wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorHeightOffset"><apiName>editorHeightOffset</apiName><shortdesc>
+      Die Höhe des Elementeditors in Pixeln, relativ zur Größe des Elementrenderers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Höhe des Elementeditors in Pixeln, relativ zur Größe des Elementrenderers. Diese Eigenschaft kann verwendet werden, um den Editor zu veranlassen, den Elementrenderer mit einigen wenigen Pixel zu überlappen, um einen Rahmen rund um den Editor zu kompensieren. Beachten Sie, dass eine Änderung dieser Werte bei angezeigtem Editor keine Auswirkungen auf den aktuellen Editor hat, sondern auf den nächsten Elementrenderer wirkt, der in einem Editor geöffnet wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorUsesEnterKey"><apiName>editorUsesEnterKey</apiName><shortdesc>
+      Ein Flag, das angibt, ob der Elementeditor die Eingabetaste verwendet.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false.
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das angibt, ob der Elementeditor die Eingabetaste verwendet. Wenn das Flag auf <codeph>true</codeph> steht, verwendet der Elementeditor die Eingabetaste und die DataGrid-Klasse sucht nicht nach der Eingabetaste oder bewegt den Editor als Reaktion. Beachten Sie, dass eine Änderung dieses Werts bei angezeigtem Editor keine Auswirkungen auf den aktuellen Editor hat, sondern auf den nächsten Elementrenderer wirkt, der in einem Editor geöffnet wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorWidthOffset"><apiName>editorWidthOffset</apiName><shortdesc>
+      Die Breite des Elementeditors in Pixeln, relativ zur Größe des Elementrenderers.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Breite des Elementeditors in Pixeln, relativ zur Größe des Elementrenderers. Diese Eigenschaft kann verwendet werden, um den Editor zu veranlassen, den Elementrenderer mit einigen wenigen Pixel zu überlappen, um einen Rahmen rund um den Editor zu kompensieren. Beachten Sie, dass eine Änderung dieser Werte bei angezeigtem Editor keine Auswirkungen auf den aktuellen Editor hat, sondern auf den nächsten Elementrenderer wirkt, der in einem Editor geöffnet wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorXOffset"><apiName>editorXOffset</apiName><shortdesc>
+      Die x-Position der linken oberen Ecke des Elementeditors in Pixeln, relativ zur oberen linken Ecke des Elements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die x-Position der oberen linken Ecke des Elementeditors in Pixeln, relativ zur oberen linken Ecke des Elements. Diese Eigenschaft kann verwendet werden, um den Editor zu veranlassen, den Elementrenderer mit einigen wenigen Pixel zu überlappen, um einen Rahmen rund um den Editor zu kompensieren. Beachten Sie, dass eine Änderung dieser Werte bei angezeigtem Editor keine Auswirkungen auf den aktuellen Editor hat, sondern auf den nächsten Elementrenderer wirkt, der in einem Editor geöffnet wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editorYOffset"><apiName>editorYOffset</apiName><shortdesc>
+      Die y-Position der oberen linken Ecke des Elementeditors in Pixeln, relativ zur oberen linken Ecke des Elements.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>0</apiData><apiType value="Number"/><apiDefaultValue>0
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die y-Position der oberen linken Ecke des Elementeditors in Pixeln, relativ zur oberen linken Ecke des Elements. Diese Eigenschaft kann verwendet werden, um den Editor zu veranlassen, den Elementrenderer mit einigen wenigen Pixel zu überlappen, um einen Rahmen rund um den Editor zu kompensieren. Beachten Sie, dass eine Änderung dieser Werte bei angezeigtem Editor keine Auswirkungen auf den aktuellen Editor hat, sondern auf den nächsten Elementrenderer wirkt, der in einem Editor geöffnet wird.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:itemEditor"><apiName>itemEditor</apiName><shortdesc>
+      Eine Klassenfactory für die Instanzen des Elementeditors, die verwendet wird, wenn die Spalte bearbeitet werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IFactory"/><apiDefaultValue>new ClassFactory(mx.controls.TextInput)
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Eine Klassenfactory für die Instanzen des Elementeditors, die verwendet wird, wenn die Spalte bearbeitet werden kann.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:rendererIsEditor"><apiName>rendererIsEditor</apiName><shortdesc>
+      Ein Flag, das anzeigt, dass der Elementrenderer auch ein Elementeditor ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das anzeigt, dass der Elementrenderer auch ein Elementeditor ist. Wenn diese Eigenschaft auf <codeph>true</codeph> steht, ignoriert Flex die <codeph>itemEditor</codeph>-Eigenschaft und verwendet den Elementrenderer für dieses Element als Editor.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:resizable"><apiName>resizable</apiName><shortdesc>
+      Ein Flag, das angibt, ob die Spaltenbreite geändert werden darf.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das angibt, ob die Spaltenbreite geändert werden darf. Wenn auf <codeph>true</codeph> eingestellt, kann der Benutzer die Rasterlinien zwischen den Spaltenüberschriften hin- und herziehen, um die Breite der Spalte zu verändern. 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortDescending"><apiName>sortDescending</apiName><shortdesc>
+      Gibt an, ob die Spalte in aufsteigender (false) oder absteigender (true) Reihenfolge sortiert wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/><apiDefaultValue>false;
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Gibt an, ob die Spalte in aufsteigender (<codeph>false</codeph>) oder absteigender (<codeph>true</codeph>) Reihenfolge sortiert wird.
+     
+      <p>Beim Einstellen dieser Eigenschaft wird die Sortierung nicht gestartet, sondern nur die Sortierrichtung festgelegt. Klicken Sie auf die Spaltenüberschrift, um die Sortierung durchzuführen.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortable"><apiName>sortable</apiName><shortdesc>
+      Ein Flag, das angibt, ob der Datenprovider durch Klicken auf die Überschrift dieser Spalte sortiert werden kann.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>true</apiData><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das angibt, ob der Datenprovider durch Klicken auf die Überschrift dieser Spalte sortiert werden kann. Wenn diese Eigenschaft und die <codeph>sortableColumns</codeph>-Eigenschaft von DataGrid jeweils auf <codeph>true</codeph> eingestellt sind, löst das DataGrid-Steuerelement ein <codeph>headerRelease</codeph>-Ereignis aus, sobald ein Benutzer die Maustaste auf dieser Spaltenüberschrift loslässt. Wenn keine andere Prozedur die <codeph>preventDefault()</codeph>-Methode für das <codeph>headerRelease</codeph>-Ereignis aufruft, wird die <codeph>dataField</codeph>-Eigenschaft oder die <codeph>sortCompareFunction</codeph>-Funktion in der Spalte verwendet, um die Elemente im Datenprovider neu zu ordnen.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataField:get"><apiName>dataField</apiName><shortdesc>
+      Der Name des Feldes bzw. der Eigenschaft im Datenproviderelement, das bzw. die mit der Spalte verknüpft ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Name des Felds oder der Eigenschaft im Datenproviderelement, das der Spalte zugeordnet ist. Jedes DataGridColumn-Steuerelement erfordert die Einstellung dieser Eigenschaft und/oder der <codeph>labelFunction</codeph>-Eigenschaft, damit der anzeigbare Text für den Elementrenderer berechnet werden kann. Wenn die <codeph>dataField</codeph>- und <codeph>labelFunction</codeph>-Eigenschaften eingestellt sind, werden die Daten mit <codeph>labelFunction</codeph> angezeigt und mit <codeph>dataField</codeph> sortiert. Wenn die in <codeph>dataField</codeph> benannte Eigenschaft nicht existiert, muss <codeph>sortCompareFunction</codeph> eingestellt sein, damit die Sortierung richtig funktioniert.
+     
+      <p>Dieser Wert dieser Eigenschaft ist nicht notwendigerweise der String, der in der Spaltenüberschrift angezeigt wird. Diese Eigenschaft wird nur verwendet, um auf die Daten im Datenprovider zuzugreifen. Weitere Informationen finden Sie unter der <codeph>headerText</codeph>-Eigenschaft.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.controls.dataGridClasses.xml#DataGridColumn/headerText"><linktext>headerText</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataTipField:get"><apiName>dataTipField</apiName><shortdesc>
+      Der Name des Felds im Datenprovider, das als Datentipp angezeigt werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFieldChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Name des Felds im Datenprovider, das als Datentipp angezeigt werden soll. Standardmäßig sucht das DataGrid-Steuerelement nach einer Eigenschaft namens <codeph>label</codeph> in jedem Datenproviderelement und zeigt es an. Wenn hingegen der Datenprovider keine <codeph>label</codeph>-Eigenschaft enthält, können Sie die <codeph>dataTipField</codeph>-Eigenschaft einstellen, um eine andere Eigenschaft anzugeben. So können Sie beispielsweise den Wert auf „FullName“ setzen, wenn ein Benutzer eine Gruppe von Namen der Personen aus einer Datenbank ansieht.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:dataTipFunction:get"><apiName>dataTipFunction</apiName><shortdesc>
+      Legt eine Rückruffunktion fest, die mit jedem Element des Datenproviders ausgeführt werden muss, um seinen Datentipp zu bestimmen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataTipFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Legt eine Rückruffunktion fest, die mit jedem Element des Datenproviders ausgeführt werden muss, um seinen Datentipp zu bestimmen. Diese Eigenschaft wird von der <codeph>itemToDataTip</codeph>-Methode verwendet.
+     
+      <p>Standardmäßig sucht das Steuerelement nach einer Eigenschaft namens <codeph>label</codeph> in jedem Datenproviderelement und zeigt es als seinen dataTip an. Allerdings haben einige Datenprovider keine <codeph>label</codeph>-Eigenschaft bzw. keine andere Eigenschaft, die Sie für die Anzeige von Daten in den Zeilen verwenden können. Beispiel: Sie verfügen über einen Datenprovider, der die Felder lastName und firstName enthält, aber Sie möchten als dataTip den vollen Namen anzeigen. Sie können eine Funktion für die <codeph>dataTipFunction</codeph>-Eigenschaft festlegen, die ein einzelnes Stringobjekt zurückgibt, das den Wert beider Felder enthält. Sie können auch die <codeph>dataTipFunction</codeph>-Eigenschaft verwenden, um Formatierungs- und Lokalisierungsaufgaben zu übernehmen.</p>
+     
+      <p>Die Funktion muss einen einzelnen Object-Parameter übernehmen, der das Datenproviderelement enthält, und ein Stringobjekt zurückgeben.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:editable:get"><apiName>editable</apiName><shortdesc>
+      Ein Flag, das angibt, ob die Elemente in der Spalte bearbeitet werden dürfen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das angibt, ob die Elemente in der Spalte bearbeitet werden dürfen. Wenn der Wert <codeph>true</codeph> ist und die <codeph>editable</codeph>-Eigenschaft von DataGrid ebenfalls <codeph>true</codeph> ist, dürfen die Elemente in der Spalte bearbeitet werden. Durch Anklicken oder Annavigieren mit der Tabulatortaste und den Pfeiltasten können einzelne Elemente bearbeitet werden.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:enableIME:get"><apiName>enableIME</apiName><shortdesc>
+      Ein Flag, das angibt, ob der IME (Eingabemethodeneditor) aktiviert werden soll, wenn die Komponente den Fokus erhält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Ein Flag, das angibt, ob der IME (Eingabemethodeneditor) aktiviert werden soll, wenn die Komponente den Fokus erhält. Wenn ein Editor aktiv ist, stellt er enableIME entsprechend ein.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerRenderer:get"><apiName>headerRenderer</apiName><shortdesc>
+      Die Klassenfactory für die Elementrenderer-Instanzen, die die Spaltenüberschrift für die Spalte anzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Die Klassenfactory für die Elementrenderer-Instanzen, die die Spaltenüberschrift für die Spalte anzeigen. Sie können einen Renderer, in dem Elemente abgelegt werden können, einen Inlineelementrenderer oder eine Rendererkomponente für ein benutzerdefiniertes Element als Wert dieser Eigenschaft festlegen.
+     
+      <p>Der Standardelementrenderer ist die DataGridItemRenderer-Klasse, die die Elementdaten als Text darstellt. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerText:get"><apiName>headerText</apiName><shortdesc>
+      Der Text der Spaltenüberschrift.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="headerTextChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Der Text des Headers für diese Spalte. Standardmäßig verwendet das DataGrid-Steuerelement den Wert der <codeph>dataField</codeph>-Eigenschaft als Text für die Überschrift.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:headerWordWrap:get"><apiName>headerWordWrap</apiName><shortdesc>
+      Ein Flag, das anzeigt, ob Text in der Spaltenüberschrift umbrochen wird, wenn er nicht in eine Zeile passt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das anzeigt, ob Text in der Spaltenüberschrift umbrochen wird, wenn er nicht in eine Zeile passt. Wenn <codeph>undefined</codeph>, wird die <codeph>wordWrap</codeph>-Eigenschaft des DataGrid-Steuerelements verwendet.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:imeMode:get"><apiName>imeMode</apiName><shortdesc>
+      Gibt den Modus des Eingabemethodeneditors (IME) an.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Gibt den Modus des Eingabemethodeneditors (IME) an. Mithilfe des Eingabemethodeneditors können chinesische, japanische und koreanische Schriftzeichen eingegeben werden. Flex aktiviert den IME-Modus, wenn das <codeph>itemFocusIn</codeph>-Ereignis eintritt, und stellt auf den vorherigen Wert zurück, wenn das <codeph>itemFocusOut</codeph>-Ereignis eintritt. Die flash.system.IMEConversionMode-Klasse definiert Konstanten für gültige Werte dieser Eigenschaft.  
+     
+      <p>Der Standardwert ist „null“ und in diesem Fall wird der Wert der <codeph>imeMode</codeph>-Eigenschaft des DataGrid-Steuerelements verwendet.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.system.IMEConversionMode.xml"><linktext>flash.system.IMEConversionMode</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:itemRenderer:get"><apiName>itemRenderer</apiName><shortdesc>
+      Die Klassenfactory für Elementrendererinstanzen, die die Daten für jedes Element in der Spalte anzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="itemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Die Klassenfactory für Elementrenderer-Instanzen, die die Daten für jedes Element in der Spalte anzeigen. Sie können einen Renderer, in dem Elemente abgelegt werden können, einen Inlineelementrenderer oder eine Rendererkomponente für ein benutzerdefiniertes Element als Wert dieser Eigenschaft festlegen.
+     
+      <p>Der Standardelementrenderer ist die DataGridItemRenderer-Klasse, die die Elementdaten als Text darstellt. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:labelFunction:get"><apiName>labelFunction</apiName><shortdesc>
+      Eine Funktion, die den in dieser Spalte anzuzeigenden Text bestimmt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="labelFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef><apiDesc>
+      Eine Funktion, die den in dieser Spalte anzuzeigenden Text bestimmt. Standardmäßig wird in der Spalte der Text des Datenfeldes angezeigt, das dem Spaltennamen entspricht. Möglicherweise soll jedoch der Text mehrerer Datenfelder oder es sollen im nicht gewünschten Format vorliegende Daten angezeigt werden. In diesem Fall geben Sie eine Rückruffunktion unter Verwendung von <codeph>labelFunction</codeph> an.
+     
+      <p>Für das DataGrid-Steuerelement hat die Methodensignatur folgende Form:</p>
+     
+      <pre>labelFunction(item:Object, column:DataGridColumn):String</pre>
+     
+      <p>Dabei gilt: <codeph>item</codeph> enthält das DataGrid-Elementobjekt und <codeph>column</codeph> legt die DataGrid-Spalte fest.</p>
+     
+      <p>Eine Rückruffunktion kann die Felder firstName und lastName in den Daten verketten, angepasste Formatierungen des Datums vornehmen oder eine Zahl konvertieren, um daraus den Namen des Monats zu bilden.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:minWidth:get"><apiName>minWidth</apiName><shortdesc>
+      Die Mindestbreite der Spalte.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="minWidthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>20
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Mindestbreite der Spalte.
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:nullItemRenderer:get"><apiName>nullItemRenderer</apiName><shortdesc>
+      Die Klassenfactory für Elementrendererinstanzen, die die Daten für jedes Element in der Spalte anzeigen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="nullItemRendererChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.core:IFactory"/></apiValueDef><apiDesc>
+      Die Klassenfactory für Elementrenderer-Instanzen, die die Daten für jedes Element in der Spalte anzeigen. Sie können einen Renderer, in dem Elemente abgelegt werden können, einen Inlineelementrenderer oder eine Rendererkomponente für ein benutzerdefiniertes Element als Wert dieser Eigenschaft festlegen.
+     
+      <p>Der Standardelementrenderer ist die DataGridItemRenderer-Klasse, die die Elementdaten als Text darstellt. </p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:showDataTips:get"><apiName>showDataTips</apiName><shortdesc>
+      Ein Flag, das anzeigt, ob die Datentipps in der Spalte gezeigt werden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das anzeigt, ob die Datentipps in der Spalte gezeigt werden. Wenn <codeph>true</codeph>, werden Datentipps für Text in den Zeilen angezeigt. Datentipps sind QuickInfo-Informationen, die den Text anzeigen, der zu lang für die Zeile ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:sortCompareFunction:get"><apiName>sortCompareFunction</apiName><shortdesc>
+     
+      Eine Rückruffunktion, die beim Sortieren der Daten in der Spalte aufgerufen wird.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="sortCompareFunctionChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+     
+      Eine Rückruffunktion, die beim Sortieren der Daten in der Spalte aufgerufen wird. Wenn diese Eigenschaft nicht festgelegt wird, versucht die Sortierfunktion, eine Basissortierung nach String oder Zahlen in den Daten durchzuführen. Wenn die Daten weder String noch Zahlen darstellen oder die <codeph>dataField</codeph>-Eigenschaft keine gültige Eigenschaft des Datenproviders ist, funktioniert die Sortierung nicht oder löst eine Ausnahme aus. Wenn Sie einen Wert für die <codeph>labelFunction</codeph>-Eigenschaft festlegen, müssen Sie normalerweise auch eine Funktion für die <codeph>sortCompareFunction</codeph>-Eigenschaft festlegen, es sei denn, Sortierfunktionen sind für diese Spalte nicht zulässig. Dies bedeutet, dass Sie eine Funktion festlegen, wenn der Wert aus der <codeph>dataField</codeph>-Spalte nicht auf dieselbe Weise wie der berechnete Wert der <codeph>labelFunction</codeph>-Eigenschaft sortiert wird.
+     
+      <p>Das DataGrid-Steuerelement verwendet diese Funktion, um die Elemente der Datenprovider-Sammlung zu sortieren. Die Funktionssignatur der Rückruffunktion übernimmt zwei Parameter und hat folgende Form:</p>
+     
+      <pre>mySortCompareFunction(obj1:Object, obj2:Object):int </pre>
+     
+      <p><codeph>obj1</codeph> - Ein Datenelement für den Vergleich.</p>
+     
+      <p><codeph>obj2</codeph> - Ein weiteres Datenelement, das mit obj1 verglichen wird.</p>
+     
+      <p>Die Funktion muss einen Wert zurückgeben, der auf dem Vergleich der Objekte basiert: </p>
+      <ul>
+        <li>-1, wenn obj1 vor obj2 in aufsteigender Folge erscheinen soll. </li>
+        <li>0, wenn obj1 = obj2. </li>
+        <li>1, wenn obj1 nach obj2 in absteigender Folge erscheinen soll.</li>
+      </ul>
+     
+      <p><b>Hinweis:</b> Die Parameter <codeph>obj1</codeph> und <codeph>obj2</codeph> sind ganze Datenproviderelemente und nicht nur die Daten für das Element.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:visible:get"><apiName>visible</apiName><shortdesc>
+      Ein Flag, das anzeigt, ob die Spalte sichtbar ist.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das anzeigt, ob die Spalte sichtbar ist. Wenn <codeph>true</codeph>, ist die Spalte sichtbar.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:width:get"><apiName>width</apiName><shortdesc>
+      Die Breite der Spalte in Pixeln.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="widthChanged"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>100
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Die Breite der Spalte in Pixeln. Wenn die <codeph>horizontalScrollPolicy</codeph> Eigenschaft von DataGrid <codeph>false</codeph> ist, müssen alle sichtbaren Spalten in den Anzeigebereich passen und die DataGrid-Klasse wird die Breite der Spalten nicht immer einhalten können, wenn die Gesamtbreite der Spalten zu klein oder zu groß für den Anzeigebereich ist.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridColumn:wordWrap:get"><apiName>wordWrap</apiName><shortdesc>
+      Ein Flag, das anzeigt, ob der Text in einer Zeile dieser Spalte umbrochen wird, wenn der Text nicht in eine Zeile passt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="any"/><apiDefaultValue>undefined
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Ein Flag, das anzeigt, ob der Text in einer Zeile dieser Spalte umbrochen wird, wenn der Text nicht in eine Zeile passt. Wenn <codeph>undefined</codeph>, wird die <codeph>wordWrap</codeph>-Eigenschaft des DataGrid-Steuerelements verwendet.
+     
+      <p>Wirkt sich nur aus, wenn die <codeph>DataGrid.variableRowHeight</codeph>-Eigenschaft ebenfalls <codeph>true</codeph> ist.</p>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.controls.dataGridClasses:DataGridItemRenderer"><apiName>DataGridItemRenderer</apiName><shortdesc>
+  Die DataGridItemRenderer-Klasse definiert den Standardelementrenderer für ein DataGrid-Steuerelement.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IDataRenderer</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IDropInListItemRenderer</apiBaseInterface><apiBaseInterface>mx.managers:ILayoutManagerClient</apiBaseInterface><apiBaseInterface>mx.controls.listClasses:IListItemRenderer</apiBaseInterface><apiBaseInterface>mx.styles:IStyleClient</apiBaseInterface><apiBaseClassifier>mx.core:UITextField</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Die DataGridItemRenderer-Klasse definiert den Standardelementrenderer für ein DataGrid-Steuerelement. Standardmäßig zeichnet der Elementrenderer den Text, der mit den einzelnen Elementen im Raster verbunden ist.
+ 
+  <p>Sie können den Standardelementrenderer überschreiben, indem Sie einen benutzerdefinierten Elementrenderer erstellen.</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="mx.controls.xml#DataGrid"><linktext>mx.controls.DataGrid</linktext></link><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer.</linktext></link><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links><adobeApiEvent id="mx.controls.dataGridClasses:DataGridItemRenderer_mx.events.FlexEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+  Wird ausgelöst, wenn sich die Data-Eigenschaft verändert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>mx.events.FlexEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Wird ausgelöst, wenn sich die <codeph>data</codeph>-Eigenschaft verändert
+ 
+  <p>Wenn Sie eine Komponente als Elementrenderer verwenden, enthält die <codeph>data</codeph>-Eigenschaft die anzuzeigenden Daten. Sie können auf dieses Ereignis warten und die Komponente aktualisieren, wenn sich die <codeph>data</codeph>-Eigenschaft ändert.</p>
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.controls.dataGridClasses:DataGridItemRenderer:DataGridItemRenderer"><apiName>DataGridItemRenderer</apiName><shortdesc>
+      Konstruktor.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Konstruktor.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:clearStyle"><apiName>clearStyle</apiName><shortdesc conref="mx.core.UIComponent#clearStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#clearStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:getClassStyleDeclarations"><apiName>getClassStyleDeclarations</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:getStyle"><apiName>getStyle</apiName><shortdesc conref="mx.core.UIComponent#getStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="any"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#getStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:initProtoChain"><apiName>initProtoChain</apiName><shortdesc>
+      Richtet die Objekte inheritingStyles und nonInheritingStyles sowie ihre Prototypketten ein, damit die getStyle()-Methode funktioniert.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Richtet die Objekte <codeph>inheritingStyles</codeph> und <codeph>nonInheritingStyles</codeph> sowie ihre Prototypketten ein, damit die <codeph>getStyle()</codeph>-Methode funktioniert.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:notifyStyleChangeInChildren"><apiName>notifyStyleChangeInChildren</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:regenerateStyleCache"><apiName>regenerateStyleCache</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:registerEffects"><apiName>registerEffects</apiName><shortdesc>
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>effects</apiItemName><apiType value="Array"/></apiParam></apiOperationDef><apiDesc>
+      </apiDesc></apiOperationDetail><apiInheritDoc/></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:setStyle"><apiName>setStyle</apiName><shortdesc conref="mx.core.UIComponent#setStyle()">
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>styleProp</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>newValue</apiItemName><apiType value="any"/></apiParam></apiOperationDef><apiDesc conref="mx.core.UIComponent#setStyle()">
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:protected:toolTipShowHandler"><apiName>toolTipShowHandler</apiName><shortdesc>
+      Die Ereignisprozedur zur Platzierung der QuickInfo.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="mx.events:ToolTipEvent"/><apiDesc>Das Ereignisobjekt.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Die Ereignisprozedur zur Platzierung der QuickInfo.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateDisplayList"><apiName>validateDisplayList</apiName><shortdesc>
+      Wenn Flex die LayoutManager.invalidateDisplayList()-Methode zu dieser ILayoutManagerClient-Instanz aufruft, wird diese Funktion aufgerufen, sobald die Anzeigeliste aktualisiert werden soll.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wenn Flex die <codeph>LayoutManager.invalidateDisplayList()</codeph>-Methode zu dieser ILayoutManagerClient-Instanz aufruft, wird diese Funktion aufgerufen, sobald die Anzeigeliste aktualisiert werden soll.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateProperties"><apiName>validateProperties</apiName><shortdesc>
+      Wenn Flex die LayoutManager.invalidateProperties()-Methode zu dieser ILayoutManagerClient-Instanz aufruft, wird diese Funktion aufgerufen, sobald die Eigenschaftswerte festgeschrieben werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Wenn Flex die <codeph>LayoutManager.invalidateProperties()</codeph>-Methode zu dieser ILayoutManagerClient-Instanz aufruft, wird diese Funktion aufgerufen, sobald die Eigenschaftswerte festgeschrieben werden sollen.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.controls.dataGridClasses:DataGridItemRenderer:validateSize"><apiName>validateSize</apiName><shortdesc>
+      Wenn Flex die LayoutManager.invalidateSize()-Methode zu dieser ILayoutManagerClient-Instanz aufruft, wird diese Funktion aufgerufen, sobald die Messungen vorgenommen werden sollen.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>recursive</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>Wenn <codeph>true</codeph>, rufen Sie diese Methode für die untergeordneten Objekte dieses Objekts auf.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Wenn Flex die <codeph>LayoutManager.invalidateSize()</codeph>-Methode zu dieser ILayoutManagerClient-Instanz aufruft, wird diese Funktion aufgerufen, sobald die Messungen vorgenommen werden sollen.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:data:get"><apiName>data</apiName><shortdesc>
+      Die Implementierung der data-Eigenschaft gemäß der IDataRenderer-Schnittstelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+      Die Implementierung der <codeph>data</codeph>-Eigenschaft gemäß der IDataRenderer-Schnittstelle. Der Wert wird ignoriert. Nur die listData-Eigenschaft wird verwendet.
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.core.IDataRenderer.xml"><linktext>mx.core.IDataRenderer.</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:listData:get"><apiName>listData</apiName><shortdesc>
+      Die Implementierung der listData-Eigenschaft gemäß der IDropInListItemRenderer-Schnittstelle.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true" name="dataChange"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.controls.listClasses:BaseListData"/></apiValueDef><apiDesc>
+      Die Implementierung der <codeph>listData</codeph>-Eigenschaft gemäß der IDropInListItemRenderer-Schnittstelle. Der Text des Renderers wird auf die <codeph>label</codeph>-Eigenschaft der listData-Eigenschaft eingestellt.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="mx.controls.listClasses.IDropInListItemRenderer.xml"><linktext>mx.controls.listClasses.IDropInListItemRenderer</linktext></link></related-links></apiValue><apiValue id="mx.controls.dataGridClasses:DataGridItemRenderer:styleDeclaration:get"><apiName>styleDeclaration</apiName><shortdesc>
+      Speicher für die Inline-Vererbungsstile zu diesem Objekt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="mx.styles:CSSStyleDeclaration"/></apiValueDef><apiDesc>
+      Speicher für die Inline-Vererbungsstile zu diesem Objekt. Diese CSSStyleDeclaration wird erstellt, wenn die setStyle()-Methode für diese Komponente zum ersten Mal aufgerufen wird, um einen Vererbungsstil festzulegen.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

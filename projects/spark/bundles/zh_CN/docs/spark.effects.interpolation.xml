@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.effects.interpolation"><apiName>spark.effects.interpolation</apiName><apiDetail/><apiClassifier id="spark.effects.interpolation:IInterpolator"><apiName>IInterpolator</apiName><shortdesc>
+  IInterpolator 接口是由为 Animation 类计算值的类实现的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IInterpolator 接口是由为 Animation 类计算值的类实现的。Animation 类可以处理在 Number 值和 Number 值的数组之间的参量插值，但它无法处理不同类型的插值，或在不同类型的值之间的插值。此接口的实现者可以提供任意插值功能，这样可以在任意值之间创建 Animation。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      如果有一个基值和一个从其减去的值，则返回该减量操作的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果有一个基值和一个从其减去的值，则返回该减量操作的结果。例如，如果这些对象只是 Number，则结果将会是 <codeph>Number(baseValue) - Number(incrementValue)</codeph>。如果有某些结束值和一个应该从其减去的 'by' 值，则当此函数需要动态地计算一个值时，动画系统会调用此函数。这两个参数都属于类型 Object，且不能简单地将它们加到一起。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      如果有一个基值和一个要添加到它的值，则返回该操作的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果有一个基值和一个要添加到它的值，则返回该操作的结果。例如，如果这些对象只是 Number，则结果将会是 <codeph>Number(baseValue) + Number(incrementValue)</codeph>。如果有某些开始值和一个应该添加到它的 'by' 值，则当此方法需要动态地计算一个值时，动画系统会调用此方法。这两个参数都属于类型 Object，且不能简单地将它们加到一起。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:IInterpolator:spark.effects.interpolation:IInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      如果有在 0.0 和 1.0 之间的某个动画的已过去部分，以及要插补的开始值和结束值，则返回内插值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>插值的结束值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果有在 0.0 和 1.0 之间的某个动画的已过去部分，以及要插补的开始值和结束值，则返回内插值。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:MultiValueInterpolator"><apiName>MultiValueInterpolator</apiName><shortdesc>
+  MultiValueInterpolator 类单独地插补开始元素和结束元素的 Array 或 Vector 的每个元素，使用另一个插补器为每个元素执行插值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MultiValueInterpolator 类单独地插补开始元素和结束元素的 Array 或 Vector 的每个元素，使用另一个插补器为每个元素执行插值。默认情况下，每个元素的插值都使用 NumberInterpolator 类，但是您可以使用一个不同的插补器构造一个 MultiValueInterpolator 实例。
+  
+  </apiDesc></apiClassifierDetail><related-links><link href=""><linktext/></link></related-links><apiConstructor id="spark.effects.interpolation:MultiValueInterpolator:MultiValueInterpolator"><apiName>MultiValueInterpolator</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>elementInterpolator</apiItemName><apiOperationClassifier>spark.effects.interpolation:IInterpolator</apiOperationClassifier><apiData>null</apiData><apiDesc>Array 的每个元素的插补器。如果未指定插补器，则使用 NumberInterpolator 类。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。 
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+     
+      如果有一个基值和一个从其减去的值，则返回该减量操作的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      如果有一个基值和一个从其减去的值，则返回该减量操作的结果。例如，如果这些对象只是 Number，则结果将会是 <codeph>Number(baseValue) - Number(incrementValue)</codeph>。如果有某些结束值和一个应该从其减去的 'by' 值，则当此函数需要动态地计算一个值时，动画系统会调用此函数。这两个参数都属于类型 Object，且不能简单地将它们加到一起。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:increment"><apiName>increment</apiName><shortdesc>
+     
+      如果有一个基值和一个要添加到它的值，则返回该操作的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+     
+      如果有一个基值和一个要添加到它的值，则返回该操作的结果。例如，如果这些对象只是 Number，则结果将会是 <codeph>Number(baseValue) + Number(incrementValue)</codeph>。如果有某些开始值和一个应该添加到它的 'by' 值，则当此方法需要动态地计算一个值时，动画系统会调用此方法。这两个参数都属于类型 Object，且不能简单地将它们加到一起。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:MultiValueInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      如果有在 0.0 和 1.0 之间的某个动画的已过去部分，以及要插补的开始值和结束值，则返回内插值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>插值的结束值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      如果有在 0.0 和 1.0 之间的某个动画的已过去部分，以及要插补的开始值和结束值，则返回内插值。MultiValueInterpolator 的插值包括对 startValue 和 endValue 数组或矢量的每个元素运行单独的插值，并返回包含这些内插值的新数组或矢量。如果 startValue 和 endValue 属于 Array 类型，则返回的对象将为 Array，否则返回的对象将属于 Vector 类型。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.effects.interpolation:MultiValueInterpolator:elementInterpolator:get"><apiName>elementInterpolator</apiName><shortdesc>
+      输入 Array 或 Vector 的每个元素的插补器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>spark.effects.interpolation:IInterpolator</apiValueClassifier><apiDefaultValue>NumberInterpolator
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      输入 Array 或 Vector 的每个元素的插补器。值为 null 指定使用 NumberInterpolator 类。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.effects.interpolation:NumberInterpolator"><apiName>NumberInterpolator</apiName><shortdesc>
+ NumberInterpolator 类在表示为 Number 实例的开始值和结束值之间提供插值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ NumberInterpolator 类在表示为 Number 实例的开始值和结束值之间提供插值。
+ 
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:NumberInterpolator:NumberInterpolator"><apiName>NumberInterpolator</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:NumberInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      
+      如果有一个基值和一个从其减去的值，则返回该减量操作的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      如果有一个基值和一个从其减去的值，则返回该减量操作的结果。例如，如果这些对象只是 Number，则结果将会是 <codeph>Number(baseValue) - Number(incrementValue)</codeph>。如果有某些结束值和一个应该从其减去的 'by' 值，则当此函数需要动态地计算一个值时，动画系统会调用此函数。这两个参数都属于类型 Object，且不能简单地将它们加到一起。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      返回此类的单元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>此类的单元素。
+     
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:NumberInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      返回此类的单元素。由于所有 NumberInterpolator 都有相同的行为，所以不需要一个以上实例。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      
+      如果有一个基值和一个要添加到它的值，则返回该操作的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      如果有一个基值和一个要添加到它的值，则返回该操作的结果。例如，如果这些对象只是 Number，则结果将会是 <codeph>Number(baseValue) + Number(incrementValue)</codeph>。如果有某些开始值和一个应该添加到它的 'by' 值，则当此方法需要动态地计算一个值时，动画系统会调用此方法。这两个参数都属于类型 Object，且不能简单地将它们加到一起。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:NumberInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      NumberInterpolator 的插值由 startValue 和 endValue 之间的一个简单参量计算组成，将 fraction 用作从头到尾已过去时间的部分：返回 startValue + fraction (endValue - startValue)；
+     
+      </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>插值的结束值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      NumberInterpolator 的插值由 <codeph>startValue</codeph> 和 <codeph>endValue</codeph> 之间的一个简单参量计算组成，将 <codeph>fraction</codeph> 用作从头到尾已过去时间的部分：
+     
+      <pre>return startValue + fraction (endValue - startValue);</pre>
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:RGBInterpolator"><apiName>RGBInterpolator</apiName><shortdesc>
+  RGBInterpolator 类提供表示 RGB 颜色的 uint 开始值和结束值之间的插值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RGBInterpolator 类提供表示 RGB 颜色的 <codeph>uint</codeph> 开始值和结束值之间的插值。插值是这样完成的：将开始值和结束值视为在最低位的 3 个字节中包含颜色通道信息的整数，然后分别插补每个通道。
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:RGBInterpolator:RGBInterpolator"><apiName>RGBInterpolator</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:RGBInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      返回逐通道相减的两个值的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回逐通道相减的两个值的结果。每个通道的最小值都为 0，以避免下溢问题。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      返回此类的单元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>此类的单元素。
+      
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:RGBInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      返回此类的单元素。由于所有 RGBInterpolator 都有相同的行为，因此不需要一个以上实例。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      返回逐通道相加的两个值的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回逐通道相加的两个值的结果。每个通道的最大值都为 255，以避免上溢问题。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:RGBInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      RGBInterpolator 类的插值在 startValue 和 endValue 的底部三个字节上都采用参量计算的形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>插值的结束值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      RGBInterpolator 类的插值在 <codeph>startValue</codeph> 和 <codeph>endValue</codeph> 的底部三个字节上都采用参量计算的形式。 
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.effects.interpolation:HSBInterpolator"><apiName>HSBInterpolator</apiName><shortdesc>
+  HSBInterpolator 类提供在 RGB uint 开始值和结束值之间的 Hue、Saturation 和 Brightness (HSB) 颜色插值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.effects.interpolation:IInterpolator</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  HSBInterpolator 类提供在 RGB <codeph>uint</codeph> 开始值和结束值之间的 Hue、Saturation 和 Brightness (HSB) 颜色插值。插值是这样完成的：将开始值和结束值视为在最低位的 3 个字节中包含 RGB 颜色通道信息的整数，将这些值转换为 HSB 值，然后为 h (hue)、s (saturation) 的 b (brightness) 参数中的每一个进行线性插补。
+ 
+  <p>因为与只是插补某个给定类型的典型插补器相比，此插补器可能会执行更多的计算，特别是用于转换 RGB 开始值和结束值，所以此插补器会提供向构造函数提供开始值和结束值的选项。如果指定了开始 RGB 值和结束 RGB 值，则这些值的转换只会计算一次，且不需要在动画播放过程中将来每次调用 <codeph>interpolate()</codeph> 方法时进行计算。</p>
+  
+  </apiDesc></apiClassifierDetail><apiConstructor id="spark.effects.interpolation:HSBInterpolator:HSBInterpolator"><apiName>HSBInterpolator</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>startRGB</apiItemName><apiType value="uint"/><apiData>unknown</apiData><apiDesc>开始颜色，作为一个无符号整数 RGB 值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endRGB</apiItemName><apiType value="uint"/><apiData>unknown</apiData><apiDesc>结束颜色，作为一个无符号整数 RGB 值。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。<codeph>startRGB</codeph> 和 <codeph>endRGB</codeph> 的可选参数通过在构造时执行 RGB 到 HSB 的转换（而不是以动态方式借助对 <codeph>interpolate()</codeph> 方法的每次调用），帮助优化运行时性能。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.effects.interpolation:HSBInterpolator:decrement"><apiName>decrement</apiName><shortdesc>
+      返回作为 HSB 颜色相加到一起的两个 RGB 值的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>decrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回作为 HSB 颜色相加到一起的两个 RGB 值的结果。会首先将每个值转换为一种 HSB 颜色，然后分别处理每个组件（色调、饱和度和亮度）。会将饱和度和亮度组件钳制到位于 0 和 1 之间，且会按 360 调制色度以位于 0 和 360 之间。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:getInstance"><apiName>getInstance</apiName><shortdesc>
+      返回此类的单元素。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>HSBInterpolator 类的单元素。
+      
+      </apiDesc><apiOperationClassifier>spark.effects.interpolation:HSBInterpolator</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      返回此类的单元素。 
+     
+      <p>请注意 HSBInterpolator 类的单元素可能比不上该类的单独实例有用，因为单独实例可以利用开始颜色和结束颜色的 RGB 到 HSB 转换的预先计算。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:increment"><apiName>increment</apiName><shortdesc>
+      返回作为 HSB 颜色相加到一起的两个 RGB 值的结果。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>baseValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>incrementValue</apiItemName><apiType value="Object"/><apiDesc>应用到 <codeph>baseValue</codeph> 的更改。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回作为 HSB 颜色相加到一起的两个 RGB 值的结果。会首先将每个值转换为一种 HSB 颜色，然后将分别处理每个组件（色调、饱和度和亮度）。会将饱和度和亮度组件钳制到位于 0 和 1 之间，且会按 360 调制色度以位于 0 和 360 之间。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.effects.interpolation:HSBInterpolator:interpolate"><apiName>interpolate</apiName><shortdesc>
+      HSBInterpolator 类的插值在从开始 RGB 颜色和结束 RGB 颜色派生的 HSB 颜色的三个值 h (hue)、s (saturation) 和 b (brightness) 的每一个上采用参量计算的形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>内插值。
+      
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>fraction</apiItemName><apiType value="Number"/><apiDesc>动画的已过去部分，在 0.0 和 1.0 之间。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>startValue</apiItemName><apiType value="Object"/><apiDesc>插值的开始值。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>endValue</apiItemName><apiType value="Object"/><apiDesc>插值的结束值。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      HSBInterpolator 类的插值在从开始 RGB 颜色和结束 RGB 颜色派生的 HSB 颜色的三个值 h (hue)、s (saturation) 和 b (brightness) 的每一个上采用参量计算的形式。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

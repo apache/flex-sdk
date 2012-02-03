@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.netmon"><apiName>mx.netmon</apiName><apiDetail/><apiClassifier id="mx.netmon:NetworkMonitor"><apiName>NetworkMonitor</apiName><shortdesc>
+  NetworkMonitor est un utilitaire utilisé par les classes de service d’entreprise et de structure pour envoyer des informations à la fonctionnalité de surveillance du réseau de Flash Builder.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  NetworkMonitor est un utilitaire utilisé par les classes de service d’entreprise et de structure pour envoyer des informations à la fonctionnalité de surveillance du réseau de Flash Builder. Le NetworkMonitor déclare des fonctions Impl à spécifier par une classe mélangée fournie par Flash Builder. Si ces fonctions ne sont pas assignées, l’utilitaire ne fait rien, ou renvoie false ou null selon le cas. Pour l’instant, nous n’utilisons pas de singleton ou d’objet d’occurrence pour simplifier le code qui appelle le moniteur.
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.netmon:NetworkMonitor:adjustNetConnectionURL"><apiName>adjustNetConnectionURL</apiName><shortdesc>
+      Ajustez l’URL de requêtes NetConnectionChannel et HTTPChannel afin qu’elle parcoure le moniteur. </shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>rootUrl</apiItemName><apiType value="String"/><apiDesc>à ajuster. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>url</apiItemName><apiType value="String"/></apiParam></apiOperationDef><apiDesc>
+      Ajustez l’URL de requêtes NetConnectionChannel et HTTPChannel afin qu’elle parcoure le moniteur. Renvoie l’url modifiée. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:adjustURLRequest"><apiName>adjustURLRequest</apiName><shortdesc>
+      Ajustez la requête URLRequest de sorte qu’elle passe par le moniteur.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>urlRequest</apiItemName><apiType value="flash.net:URLRequest"/><apiDesc>Requête URLRequest à ajuster (les adresses URL relatives sont prises en charge).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rootURL</apiItemName><apiType value="String"/><apiDesc>Calcule une URL absolue à partir de l’URL relative. Si nécessaire, transmettez l’URL du fichier SWF sous la forme de cette valeur. 
+     
+      </apiDesc></apiParam><apiParam><apiItemName>correlationID</apiItemName><apiType value="String"/><apiDesc>ID correlationID pouvant être utilisé pour les événements associés.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Ajustez la requête URLRequest de sorte qu’elle passe par le moniteur. L’objet URLRequest envoyé au moniteur possède deux en-têtes : 
+      <ul>
+        <li><codeph>Actualhostport</codeph> : le véritable <codeph>host:port</codeph> de l’URL. </li>
+        <li><codeph>Correlationid</codeph> : correlationID de la requête au cas où elles proviennent de la messagerie (les requêtes Image/Loader doivent créer leurs propres correlationID) </li>
+      </ul>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:isMonitoring"><apiName>isMonitoring</apiName><shortdesc>
+      Renvoie true si le moniteur est relié et en train de surveiller.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Renvoie true si le moniteur est relié et en train de surveiller.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:monitorEvent"><apiName>monitorEvent</apiName><shortdesc>
+      Indique au moniteur qu’un événement s’est produit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:Event"/><apiDesc>Evénement sur le point de se produire (ou qui s’est produit).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>correlationID</apiItemName><apiType value="String"/><apiDesc>ID correlationID à associer aux autres événements ou à la demande.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Indique au moniteur qu’un événement s’est produit. Cette méthode peut être utilisée par l’objet Loader pour surveiller la sécurité et les erreurs IO. Cette méthode ne doit pas être utilisée pour l’événement <codeph>complète</codeph> de l’objet Loader. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:monitorFault"><apiName>monitorFault</apiName><shortdesc>
+      Indique au moniteur qu’une erreur s’est produite.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>faultMessage</apiItemName><apiType value="Object"/><apiDesc>Message renvoyé indiquant le résultat. Nul si ceci est lié à une erreur d’invocation (non tapé ici pour éviter une liaison dans la dépendance).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>actualFault</apiItemName><apiType value="Object"/><apiDesc>Erreur qui s’est produite (non tapé ici pour éviter une liaison dans la dépendance).
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Indique au moniteur qu’une erreur s’est produite.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:monitorInvocation"><apiName>monitorInvocation</apiName><shortdesc>
+      Indique au moniteur qu’une invocation se produit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>id</apiItemName><apiType value="String"/><apiDesc>ID de la balise à l’origine de l’invocation si elle peut être déterminée.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>invocationMessage</apiItemName><apiType value="Object"/><apiDesc>Message allant être envoyé à travers le réseau (non tapé ici pour éviter une liaison dans la dépendance).
+      
+      </apiDesc></apiParam><apiParam><apiItemName>messageAgent</apiItemName><apiType value="Object"/></apiParam></apiOperationDef><apiDesc>
+      Indique au moniteur qu’une invocation se produit.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.netmon:NetworkMonitor:monitorResult"><apiName>monitorResult</apiName><shortdesc>
+      Indique au moniteur qu’un résultat a été renvoyé.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>resultMessage</apiItemName><apiType value="Object"/><apiDesc>Message renvoyé indiquant le résultat. (non tapé ici pour éviter une liaison dans la dépendance).
+     
+      </apiDesc></apiParam><apiParam><apiItemName>actualResult</apiItemName><apiType value="Object"/><apiDesc>Résultat décodé
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Indique au moniteur qu’un résultat a été renvoyé.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.netmon:NetworkMonitor:adjustNetConnectionURLImpl"><apiName>adjustNetConnectionURLImpl</apiName><shortdesc>
+      A être assigné par mélange.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      A être assigné par mélange.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:adjustURLRequestImpl"><apiName>adjustURLRequestImpl</apiName><shortdesc>
+      A être assigné par mélange.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      A être assigné par mélange.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:isMonitoringImpl"><apiName>isMonitoringImpl</apiName><shortdesc>
+      A être assigné par mélange.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      A être assigné par mélange.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:monitorEventImpl"><apiName>monitorEventImpl</apiName><shortdesc>
+      A être assigné par mélange.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      A être assigné par mélange.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:monitorFaultImpl"><apiName>monitorFaultImpl</apiName><shortdesc>
+      A être assigné par mélange.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      A être assigné par mélange.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:monitorInvocationImpl"><apiName>monitorInvocationImpl</apiName><shortdesc>
+      A être assigné par mélange.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      A être assigné par mélange.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.netmon:NetworkMonitor:monitorResultImpl"><apiName>monitorResultImpl</apiName><shortdesc>
+      A être assigné par mélange.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiType value="Function"/></apiValueDef><apiDesc>
+      A être assigné par mélange.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

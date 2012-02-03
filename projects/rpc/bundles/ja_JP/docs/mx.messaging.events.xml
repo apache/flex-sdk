@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="mx.messaging.events"><apiName>mx.messaging.events</apiName><apiDetail/><apiClassifier id="mx.messaging.events:ChannelFaultEvent"><apiName>ChannelFaultEvent</apiName><shortdesc>
+  ChannelFaultEvent クラスは、メッセージングシステム内でチャンネルフォルトイベントを伝達するときに使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.events:ChannelEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChannelFaultEvent クラスは、メッセージングシステム内でチャンネルフォルトイベントを伝達するときに使用されます。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:ChannelFaultEvent:FAULT_channelFault"><apiName>channelFault</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:ChannelFaultEvent:FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events:ChannelFaultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:ChannelFaultEvent:ChannelFaultEvent"><apiName>ChannelFaultEvent</apiName><shortdesc>
+      指定されたタイプでこのイベントのインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>イベントのタイプです。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作を回避できるかどうかを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>イベントを生成したチャンネル。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>チャンネルの再接続を処理中であるかどうかを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>code</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>フォルトコード。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>フォルトレベル。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>description</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>フォルトの説明。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>チャンネルの接続が拒否されたかどうかを示します。拒否された場合は、自動再接続が抑制されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>このイベントを生成したチャンネルが既に接続済みであるかどうかを示します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      指定されたタイプでこのイベントのインスタンスを作成します。 <codeph>rejected</codeph> および <codeph>connected</codeph> の各引数（スーパークラスの <codeph>ChannelEvent</codeph> で定義されたプロパティに対応します）は、このメソッドシグネチャに元から含まれていたものではありません。このシグネチャが <codeph>ChannelEvent</codeph> のコンストラクターと異なる場合でも後方互換性を維持できるように、引数のリストの末尾に追加されたものです。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:ChannelFaultEvent:clone"><apiName>clone</apiName><shortdesc>
+      ChannelFaultEvent のクローンを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この ChannelFaultEvent のコピー。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      ChannelFaultEvent のクローンを作成します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelFaultEvent:createErrorMessage"><apiName>createErrorMessage</apiName><shortdesc>
+      ChannelFaultEvent に基づいて ErrorMessage を作成します。faultCode、faultString、faultDetail および rootCause が、ChannelFaultEvent から新しい ErrorMessage にコピーされます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>ErrorMessage です。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+      ChannelFaultEvent に基づいて ErrorMessage を作成します。faultCode、faultString、faultDetail および rootCause が、ChannelFaultEvent から新しい ErrorMessage にコピーされます。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelFaultEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      バブリングされずキャンセルできない新しい ChannelFaultEvent を作成するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しい ChannelFaultEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:ChannelFaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiDesc>イベントを生成したチャンネル。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>チャンネルの再接続を処理中であるかどうかを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>code</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>フォルトコード。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>level</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>フォルトレベル。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>description</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>フォルトの説明。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>チャンネルの接続が拒否されたかどうかを示します。拒否された場合は、自動再接続が抑制されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>このイベントを生成したチャンネルが既に接続済みであるかどうかを示します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      バブリングされずキャンセルできない新しい ChannelFaultEvent を作成するためのユーティリティメソッドです。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelFaultEvent:toString"><apiName>toString</apiName><shortdesc>
+      ChannelFaultEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>ChannelFaultEvent のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      ChannelFaultEvent のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:ChannelFaultEvent:FAULT"><apiName>FAULT</apiName><shortdesc>
+      FAULT イベント型。フォルトが発生したチャンネルを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>channelFault</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FAULT イベント型。フォルトが発生したチャンネルを示します。
+      <p>この定数の値は <codeph>"channelFault"</codeph> です。</p>
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+            
+         
+         
+         
+         
+          
+                  
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>channel</codeph></entry><entry>このイベントを生成したチャンネル。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>faultCode</codeph></entry><entry>失敗に関する宛先固有の詳細を提供します。</entry></row><row><entry><codeph>faultDetail</codeph></entry><entry>失敗の宛先固有の理由へのアクセスを提供します。</entry></row><row><entry><codeph>faultString</codeph></entry><entry>チャンネル自体がフォルトを生成しなかった場合は、フォルトの根本的な理由へのアクセスを提供します。</entry></row><row><entry><codeph>reconnecting</codeph></entry><entry> このイベントを生成したチャンネルが再接続中かどうかを示します。</entry></row><row><entry><codeph>rootCause</codeph></entry><entry> チャンネル自体がフォルトを生成しなかった場合は、フォルトの根本的な理由へのアクセスを提供します。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:faultCode"><apiName>faultCode</apiName><shortdesc>
+      宛先固有の失敗の理由へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      宛先固有の失敗の理由へのアクセスを提供します。 詳細については、<codeph>faultString</codeph> および <codeph>faultDetails</codeph> プロパティを参照してください。
+     
+      <p>フォルトコードの形式はリモート宛先から提供されますが、通常は <codeph>host.operation.error</codeph> または <codeph>Channel.operation.error</codeph> の形式になります。例えば、<codeph>Server.Connect.Failed</codeph> や <codeph>Channel.Connect.Failed</codeph> などです。</p>
+      <p>
+     Channel.Connect.Failed は、Channel がリモート宛先に接続を試みて問題が発生したときには常に、Channel クラスおよびそのサブクラス（RTMPChannel、AMFChannel、HTTPChannel など）によって発行されます。Channel.Call.Failed は、既に接続されているチャネルが基になる NetConnection から Call.Failed コードを受け取ると、AMFChannel によって発行されます。AMFChannel クラスのみが NetConnection.Call.Failed を監視し、これを Channel.Call.Failed に変換します。</p>     
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#ChannelFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#ChannelFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:faultDetail"><apiName>faultDetail</apiName><shortdesc>
+      失敗に関する宛先固有の詳細を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      失敗に関する宛先固有の詳細を提供します。
+     
+      <p>通常、フォルトの詳細情報はリモート宛先でスローされた例外のスタックトレースです。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#ChannelFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#ChannelFaultEvent/faultCode"><linktext>faultCode</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:faultString"><apiName>faultString</apiName><shortdesc>
+      失敗の宛先固有の理由へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      失敗の宛先固有の理由へのアクセスを提供します。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#ChannelFaultEvent/faultCode"><linktext>faultCode</linktext></link><link href="mx.messaging.events.xml#ChannelFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:ChannelFaultEvent:rootCause"><apiName>rootCause</apiName><shortdesc>
+     チャンネル自体がフォルトを生成しなかった場合は、フォルトの根本的な理由へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+     チャンネル自体がフォルトを生成しなかった場合は、フォルトの根本的な理由へのアクセスを提供します。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:MessageAckEvent"><apiName>MessageAckEvent</apiName><shortdesc>
+  MessageAckEvent クラスは、メッセージングシステム内で確認応答メッセージを伝達するときに使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>mx.messaging.events:MessageEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MessageAckEvent クラスは、メッセージングシステム内で確認応答メッセージを伝達するときに使用されます。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:MessageAckEvent:ACKNOWLEDGE_acknowledge"><apiName>acknowledge</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageAckEvent:ACKNOWLEDGE</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageAckEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:MessageAckEvent:MessageAckEvent"><apiName>MessageAckEvent</apiName><shortdesc>
+      指定された応答メッセージおよび元の関連メッセージを使用して、このイベントのインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>MessageAckEvent のタイプ。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作を回避できるかどうかを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ack</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>このイベントで送出する AcknowledgeMessage。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>correlation</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>この応答に関連付けられたメッセージ。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      指定された応答メッセージおよび元の関連メッセージを使用して、このイベントのインスタンスを作成します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:MessageAckEvent:clone"><apiName>clone</apiName><shortdesc>
+      MessageAckEvent のクローンを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この MessageAckEvent のコピー。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      MessageAckEvent のクローンを作成します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageAckEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      バブリングされずキャンセルできない新しい MessageAckEvent を作成するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しい MessageAckEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:MessageAckEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>ack</apiItemName><apiOperationClassifier>mx.messaging.messages:AcknowledgeMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>このイベントで送出する AcknowledgeMessage。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>correlation</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>この応答に関連付けられたメッセージ。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      バブリングされずキャンセルできない新しい MessageAckEvent を作成するためのユーティリティメソッドです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageAckEvent:toString"><apiName>toString</apiName><shortdesc>
+      MessageAckEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>MessageAckEvent のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      MessageAckEvent のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:MessageAckEvent:ACKNOWLEDGE"><apiName>ACKNOWLEDGE</apiName><shortdesc>
+      ACKNOWLEDGE イベント型。確認応答の受信時に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>acknowledge</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ACKNOWLEDGE イベント型。確認応答の受信時に送出されます。
+      <p>この定数の値は <codeph>"acknowledge"</codeph> です。</p>
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+          
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>acknowledgeMessage</codeph></entry><entry> MessageEvent のメッセージプロパティを AcknowledgeMessage として取得するためのユーティリティプロパティです。</entry></row><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。</entry></row><row><entry><codeph>correlate</codeph></entry><entry> この応答に関連付けられた元のメッセージ。</entry></row><row><entry><codeph>message</codeph></entry><entry>このイベントに関連付けられたメッセージ。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageAckEvent:correlation"><apiName>correlation</apiName><shortdesc>
+      この応答に関連付けられた元のメッセージ。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      この応答に関連付けられた元のメッセージ。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageAckEvent:acknowledgeMessage:get"><apiName>acknowledgeMessage</apiName><shortdesc>
+      MessageEvent からメッセージプロパティを AcknowledgeMessage として取得するユーティリティプロパティです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>mx.messaging.messages:AcknowledgeMessage</apiValueClassifier></apiValueDef><apiDesc>
+      MessageEvent からメッセージプロパティを AcknowledgeMessage として取得するユーティリティプロパティです。  
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:ChannelEvent"><apiName>ChannelEvent</apiName><shortdesc>
+  ChannelEvent クラスは、メッセージングシステム内でチャンネルイベントを伝達するときに使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ChannelEvent クラスは、メッセージングシステム内でチャンネルイベントを伝達するときに使用されます。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:ChannelEvent:CONNECT_channelConnect"><apiName>channelConnect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:ChannelEvent:CONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events:ChannelEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging.events:ChannelEvent:DISCONNECT_channelDisconnect"><apiName>channelDisconnect</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:ChannelEvent:DISCONNECT</apiEventType><adobeApiEventClassifier>mx.messaging.events:ChannelEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:ChannelEvent:ChannelEvent"><apiName>ChannelEvent</apiName><shortdesc>
+      指定されたタイプとチャンネルインスタンスでこのイベントのインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>ChannelEvent タイプ。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作を回避できるかどうかを示します。RPC サブクラスで使用されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>イベントを生成したチャンネル。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>チャンネルの再接続を処理中であるかどうかを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>チャンネルの接続が拒否されたかどうかを示します。拒否された場合は、自動再接続が抑制されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>このイベントを生成したチャンネルが既に接続済みであるかどうかを示します。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      指定されたタイプとチャンネルインスタンスでこのイベントのインスタンスを作成します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:ChannelEvent:clone"><apiName>clone</apiName><shortdesc>
+      ChannelEvent のクローンを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この ChannelEvent のコピーです。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      ChannelEvent のクローンを作成します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      バブリングされずキャンセルできない新しい ChannelEvent を作成するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しい ChannelEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:ChannelEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>ChannelEvent タイプ。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>channel</apiItemName><apiOperationClassifier>mx.messaging:Channel</apiOperationClassifier><apiData>null</apiData><apiDesc>イベントを生成したチャンネル。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>reconnecting</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>チャンネルの再接続を処理中であるかどうかを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rejected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>チャンネルの接続が拒否されたかどうかを示します。拒否された場合は、自動再接続が抑制されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>connected</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>このイベントを生成したチャンネルが既に接続済みであるかどうかを示します。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      バブリングされずキャンセルできない新しい ChannelEvent を作成するためのユーティリティメソッドです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:ChannelEvent:toString"><apiName>toString</apiName><shortdesc>
+      ChannelEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>ChannelEvent のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      ChannelEvent のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:ChannelEvent:CONNECT"><apiName>CONNECT</apiName><shortdesc>
+      CONNECT イベント型。チャンネルがエンドポイントに接続されたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>channelConnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      CONNECT イベント型。チャンネルがエンドポイントに接続されたことを示します。
+      <p>この定数の値は <codeph>"channelConnect"</codeph> です。</p>
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+            
+         
+         
+         
+            
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>channel</codeph></entry><entry>このイベントが生成されたチャンネルです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>reconnecting</codeph></entry><entry> このイベントを生成したチャンネルが再接続中かどうかを示します。</entry></row><row><entry><codeph>rejected</codeph></entry><entry> このイベントを生成したチャンネルが拒否されたかどうかを示します。 アクティビティがないことによりチャンネルが切断された場合は、これが true になり、フェイルオーバーが行われず、代替チャンネルへの接続も行われません。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:DISCONNECT"><apiName>DISCONNECT</apiName><shortdesc>
+      DISCONNECT イベント型。チャンネルがエンドポイントから切断されたことを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>channelDisconnect</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      DISCONNECT イベント型。チャンネルがエンドポイントから切断されたことを示します。
+      <p>この定数の値は <codeph>"channelDisconnect"</codeph> です。</p>
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+            
+         
+         
+         
+            
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>channel</codeph></entry><entry>このイベントが生成されたチャンネルです。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row><row><entry><codeph>reconnecting</codeph></entry><entry> このイベントを生成したチャンネルが再接続中かどうかを示します。</entry></row><row><entry><codeph>rejected</codeph></entry><entry> このイベントを生成したチャンネルが拒否されたかどうかを示します。 アクティビティがないことによりチャンネルが切断された場合は、これが true になり、フェイルオーバーが行われず、代替チャンネルへの接続も行われません。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:channel"><apiName>channel</apiName><shortdesc>
+      このイベントを生成したチャンネル。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging:Channel</apiValueClassifier></apiValueDef><apiDesc>
+      このイベントを生成したチャンネル。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:connected"><apiName>connected</apiName><shortdesc>
+     このイベントを生成したチャンネルが既に接続済みであるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+     このイベントを生成したチャンネルが既に接続済みであるかどうかを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:reconnecting"><apiName>reconnecting</apiName><shortdesc>
+      このイベントを生成したチャンネルが再接続中であるかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このイベントを生成したチャンネルが再接続中であるかどうかを示します。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:ChannelEvent:rejected"><apiName>rejected</apiName><shortdesc>
+      このイベントを生成したチャンネルが拒否されたかどうかを示します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      このイベントを生成したチャンネルが拒否されたかどうかを示します。 アクティビティがないことによりチャンネルが切断された場合は、これが true になり、フェイルオーバーが行われず、代替チャンネルへの接続も行われません。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:MessageEvent"><apiName>MessageEvent</apiName><shortdesc>
+  MessageEvent クラスは、メッセージングシステム内でメッセージを伝達するときに使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  MessageEvent クラスは、メッセージングシステム内でメッセージを伝達するときに使用されます。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:MessageEvent:MESSAGE_message"><apiName>message</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageEvent:MESSAGE</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="mx.messaging.events:MessageEvent:RESULT_result"><apiName>result</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageEvent:RESULT</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:MessageEvent:MessageEvent"><apiName>MessageEvent</apiName><shortdesc>
+      指定されたタイプとメッセージでこのイベントのインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>MessageEvent のタイプ。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作を回避できるかどうかを示します。RPC サブクラスで使用されます。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>関連付けられるメッセージです。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      指定されたタイプとメッセージでこのイベントのインスタンスを作成します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:MessageEvent:clone"><apiName>clone</apiName><shortdesc>
+      MessageEvent のクローンを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>この MessageEvent のコピー。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      MessageEvent のクローンを作成します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      バブリングされずキャンセルできない新しい MessageEvent を作成するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しい MessageEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:MessageEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>MessageEvent のタイプ。
+      
+      </apiDesc></apiParam><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:IMessage</apiOperationClassifier><apiDesc>関連付けられるメッセージです。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      バブリングされずキャンセルできない新しい MessageEvent を作成するためのユーティリティメソッドです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageEvent:toString"><apiName>toString</apiName><shortdesc>
+      MessageEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>MessageEvent のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      MessageEvent のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:MessageEvent:MESSAGE"><apiName>MESSAGE</apiName><shortdesc>
+      MESSAGE イベント型。メッセージの受信時に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>message</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      MESSAGE イベント型。メッセージの受信時に送出されます。
+      <p>この定数の値は <codeph>"message"</codeph> です。</p>
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>message</codeph></entry><entry>このイベントに関連付けられたメッセージです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageEvent:RESULT"><apiName>RESULT</apiName><shortdesc>
+      RESULT イベント型。RPC エージェントがリモートサービスの宛先から結果を受信すると送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>result</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      RESULT イベント型。RPC エージェントがリモートサービスの宛先から結果を受信すると送出されます。
+      <p>この定数の値は <codeph>"result"</codeph> です。</p>
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>message</codeph></entry><entry>このイベントに関連付けられたメッセージです。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageEvent:message"><apiName>message</apiName><shortdesc>
+      このイベントに関連付けられたメッセージ。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:IMessage</apiValueClassifier></apiValueDef><apiDesc>
+      このイベントに関連付けられたメッセージ。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="mx.messaging.events:MessageFaultEvent"><apiName>MessageFaultEvent</apiName><shortdesc>
+ MessageFaultEvent クラスは、メッセージングシステム内でフォルトメッセージを伝達するときに使用されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+ MessageFaultEvent クラスは、メッセージングシステム内でフォルトメッセージを伝達するときに使用されます。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="mx.messaging.events:MessageFaultEvent:FAULT_fault"><apiName>fault</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.messaging.events:MessageFaultEvent:FAULT</apiEventType><adobeApiEventClassifier>mx.messaging.events:MessageFaultEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="mx.messaging.events:MessageFaultEvent:MessageFaultEvent"><apiName>MessageFaultEvent</apiName><shortdesc>
+      指定されたメッセージおよびフォルト情報に対するフォルトメッセージイベントのインスタンスを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>MessageAckEvent のタイプ。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントが表示リスト階層を上方にバブルできるかどうかを指定します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>イベントに関連付けられた動作を回避できるかどうかを示します。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiData>null</apiData><apiDesc>フォルトに関連付けられた ErrorMessage。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      指定されたメッセージおよびフォルト情報に対するフォルトメッセージイベントのインスタンスを作成します。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="mx.messaging.events:MessageFaultEvent:clone"><apiName>clone</apiName><shortdesc>
+      MessageFaultEvent のクローンを作成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>MessageFaultEvent のコピー。
+      
+      </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+      MessageFaultEvent のクローンを作成します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageFaultEvent:createEvent"><apiName>createEvent</apiName><shortdesc>
+      バブリングされずキャンセルできない新しい MessageFaultEvent を作成するためのユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しい MessageFaultEvent。
+      
+      </apiDesc><apiOperationClassifier>mx.messaging.events:MessageFaultEvent</apiOperationClassifier></apiReturn><apiParam><apiItemName>msg</apiItemName><apiOperationClassifier>mx.messaging.messages:ErrorMessage</apiOperationClassifier><apiDesc>フォルトに関連付けられた ErrorMessage。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      バブリングされずキャンセルできない新しい MessageFaultEvent を作成するためのユーティリティメソッドです。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.messaging.events:MessageFaultEvent:toString"><apiName>toString</apiName><shortdesc>
+      MessageFaultEvent のストリング表現を返します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>MessageFaultEvent のストリング表現です。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      MessageFaultEvent のストリング表現を返します。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="mx.messaging.events:MessageFaultEvent:FAULT"><apiName>FAULT</apiName><shortdesc>
+      FAULT イベント型。メッセージフォルトの発生時に送出されます。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fault</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      FAULT イベント型。メッセージフォルトの発生時に送出されます。
+      <p>この定数の値は <codeph>"fault"</codeph> です。</p>
+     
+      <p>イベントオブジェクトの各プロパティには次の値が設定されています。</p>
+      <adobetable class="innertable">
+         
+         
+            
+         
+         
+         
+         
+             
+                  
+         
+      <tgroup cols="2"><thead><row><entry>プロパティ</entry><entry>値</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>イベント処理を行うイベントリスナーの定義用オブジェクトを表します。 例えば、イベントリスナーの登録に <codeph>myButton.addEventListener()</codeph> を使用すると、myButton の値は <codeph>currentTarget</codeph> となります。 </entry></row><row><entry><codeph>faultCode</codeph></entry><entry>失敗に関する宛先固有の詳細を提供します。</entry></row><row><entry><codeph>faultDetail</codeph></entry><entry>失敗の宛先固有の理由へのアクセスを提供します。</entry></row><row><entry><codeph>faultString</codeph></entry><entry>チャンネル自体がフォルトを生成しなかった場合は、フォルトの根本的な理由へのアクセスを提供します。</entry></row><row><entry><codeph>message</codeph></entry><entry>このイベントの ErrorMessage。</entry></row><row><entry><codeph>rootCause</codeph></entry><entry> 失敗の根本的な理由へのアクセスを提供します（存在する場合）。</entry></row><row><entry><codeph>target</codeph></entry><entry>イベントを送出したオブジェクトを表します。このオブジェクトは必ずしもイベントを受け取るオブジェクトとは限りません。 イベントを受け取るオブジェクトに常にアクセスするには、<codeph>currentTarget</codeph> プロパティを使用してください。</entry></row></tbody></tgroup></adobetable>
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:message"><apiName>message</apiName><shortdesc>
+      このイベントの ErrorMessage。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>mx.messaging.messages:ErrorMessage</apiValueClassifier></apiValueDef><apiDesc>
+      このイベントの ErrorMessage。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:faultCode:get"><apiName>faultCode</apiName><shortdesc>
+      宛先固有のフォルトコードへのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      宛先固有のフォルトコードへのアクセスを提供します。 詳細については、<codeph>faultString</codeph> および <codeph>faultDetails</codeph> プロパティを参照してください。
+     
+      <p>フォルトコードの形式はリモート宛先から提供されますが、通常は以下の形式になります。<i>host.operation.error</i>（例：<codeph>"Server.Connect.Failed"</codeph>）</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#MessageFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:faultDetail:get"><apiName>faultDetail</apiName><shortdesc>
+      失敗に関する宛先固有の詳細を提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      失敗に関する宛先固有の詳細を提供します。
+     
+      <p>通常、フォルトの詳細情報はリモート宛先でスローされた例外のスタックトレースです。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/faultString"><linktext>faultString</linktext></link><link href="mx.messaging.events.xml#MessageFaultEvent/faultCode"><linktext>faultCode</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:faultString:get"><apiName>faultString</apiName><shortdesc>
+      宛先固有のフォルトの理由へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      宛先固有のフォルトの理由へのアクセスを提供します。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/faultCode"><linktext>faultCode</linktext></link><link href="mx.messaging.events.xml#MessageFaultEvent/faultDetail"><linktext>faultDetail</linktext></link></related-links></apiValue><apiValue id="mx.messaging.events:MessageFaultEvent:rootCause:get"><apiName>rootCause</apiName><shortdesc>
+      フォルトの根本的な理由がある場合は、その理由へのアクセスを提供します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="BlazeDS" version="4"/><apiTool description="" name="LCDS" version="3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+      フォルトの根本的な理由がある場合は、その理由へのアクセスを提供します。 宛先によってスローされたカスタム例外の場合、根本的な理由は単に ErrorMessage で伝達される最上位のフォルトを表します。
+     
+      </apiDesc></apiValueDetail><related-links><link href="mx.messaging.events.xml#MessageFaultEvent/rootCause"><linktext>MessageFaultEvent.rootCause</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

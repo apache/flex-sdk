@@ -1,0 +1,1362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.events"><apiName>spark.events</apiName><apiDetail/><apiClassifier id="spark.events:PopUpEvent"><apiName>PopUpEvent</apiName><shortdesc>
+  PopUpEvent 类表示由 SkinnablePopUpContainer 分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PopUpEvent 类表示由 SkinnablePopUpContainer 分派的事件。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.events:PopUpEvent:CLOSE_close"><apiName>close</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:PopUpEvent:CLOSE</apiEventType><adobeApiEventClassifier>spark.events:PopUpEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:PopUpEvent:OPEN_open"><apiName>open</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:PopUpEvent:OPEN</apiEventType><adobeApiEventClassifier>spark.events:PopUpEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:PopUpEvent:PopUpEvent"><apiName>PopUpEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>commit</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定侦听器是否应从 SkinnablePopUpContainer 中提交数据。仅与 <codeph>PopUpEvent.CLOSE</codeph> 事件一起使用。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="any"/><apiData>unknown</apiData><apiDesc>要提交的 数据。仅与 <codeph>PopUpEvent.CLOSE</codeph> 事件一起使用。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:PopUpEvent:CLOSE"><apiName>CLOSE</apiName><shortdesc>
+      PopUpEvent.CLOSE 常量为 close 事件定义 PopUpEvent 对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>close</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      PopUpEvent.CLOSE 常量为 <codeph>close</codeph> 事件定义 PopUpEvent 对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>commit</codeph></entry><entry>指定侦听器是否应提交数据。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>数据</codeph></entry><entry>任何从 SkinnablePopUpContainer 返回至应用程序的数据。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>PopUpEvent.OPEN</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:PopUpEvent:OPEN"><apiName>OPEN</apiName><shortdesc>
+      PopUpEvent.OPEN 常量为 open 事件定义 PopUpEvent 对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>open</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      PopUpEvent.OPEN 常量为 <codeph>open</codeph> 事件定义 PopUpEvent 对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>commit</codeph></entry><entry>未使用</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>数据</codeph></entry><entry>未使用</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>PopUpEvent.OPEN</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:PopUpEvent:commit"><apiName>commit</apiName><shortdesc>
+      指定事件侦听器是否应提交 data 属性中返回的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      指定事件侦听器是否应提交 <codeph>data</codeph> 属性中返回的数据。仅与 <codeph>PopUpEvent.CLOSE</codeph> 事件一起使用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:PopUpEvent:data"><apiName>data</apiName><shortdesc>
+      要提交的 数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+      要提交的 数据。仅与 <codeph>PopUpEvent.CLOSE</codeph> 事件一起使用。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:GridCaretEvent"><apiName>GridCaretEvent</apiName><shortdesc>
+  GridCaretEvent 类表示 Spark DataGrid 控件中的插入标记由于用户交互而发生更改时分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridCaretEvent 类表示 Spark DataGrid 控件中的插入标记由于用户交互而发生更改时分派的事件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridSelectionMode"><linktext>spark.components.gridClasses.GridSelectionMode</linktext></link></related-links><adobeApiEvent id="spark.events:GridCaretEvent:CARET_CHANGE_caretChange"><apiName>caretChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridCaretEvent:CARET_CHANGE</apiEventType><adobeApiEventClassifier>spark.events:GridCaretEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:GridCaretEvent:GridCaretEvent"><apiName>GridCaretEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata><asCustoms><spark.events.GridSelectionEventKind>
+     
+      </spark.events.GridSelectionEventKind></asCustoms></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>oldRowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>更改前尖号位置的从零开始的列索引。如果 <codeph>selectionMode</codeph> 是 <codeph>SelectionMode.SINGLE_ROW</codeph> 或 <codeph>SelectionMode.MULTIPLE_ROWS</codeph>，则为 -1。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>oldColumnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>更改前尖号位置的从零开始的行索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newRowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>更改后尖号位置的从零开始的列索引。如果 <codeph>selectionMode</codeph> 是 <codeph>SelectionMode.SINGLE_ROW</codeph> 或 <codeph>SelectionMode.MULTIPLE_ROWS</codeph>，则为 -1。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newColumnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>更改后尖号位置的从零开始的行索引。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.components.xml#DataGrid/columns"><linktext>spark.components.DataGrid.columns</linktext></link><link href="spark.components.xml#DataGrid/dataProvider"><linktext>spark.components.DataGrid.dataProvider</linktext></link></related-links></apiConstructor><apiValue id="spark.events:GridCaretEvent:CARET_CHANGE"><apiName>CARET_CHANGE</apiName><shortdesc>
+      GridSelectionEvent.CARET_CHANGE 常量为 caretChange 事件定义事件对象的 type 属性的值，指示当前尖号位置刚刚更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>caretChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>GridSelectionEvent.CARET_CHANGE</codeph> 常量为 <codeph>caretChange</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示当前尖号位置刚刚更改。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>newColumnIndex</codeph></entry><entry>尖号位置更改后的从零开始的列索引。如果 <codeph>selectionMode</codeph> 基于行，则为 -1。</entry></row><row><entry><codeph>newRowIndex</codeph></entry><entry>尖号位置更改后的从零开始的行索引。</entry></row><row><entry><codeph>oldColumnIndex</codeph></entry><entry>尖号位置更改前的从零开始的列索引。如果 <codeph>selectionMode</codeph> 基于行，则为 -1。</entry></row><row><entry><codeph>oldRowIndex</codeph></entry><entry>尖号位置更改前的从零开始的行索引。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdCaretEvent.CARET_CHANGE</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridCaretEvent:newColumnIndex"><apiName>newColumnIndex</apiName><shortdesc>
+      插入标记位置更改后，插入标记位置从零开始的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      插入标记位置更改后，插入标记位置从零开始的列索引。  
+     
+      <p>如果 <codeph>selectionMode</codeph> 为 <codeph>SelectionMode.SINGLE_ROW</codeph> 或 <codeph>SelectionMode.MULTIPLE_ROWS</codeph>，则为 -1 以指示它当前未使用。</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/columns"><linktext>spark.components.DataGrid.columns</linktext></link><link href="spark.components.xml#Grid/columns"><linktext>spark.components.Grid.columns</linktext></link></related-links></apiValue><apiValue id="spark.events:GridCaretEvent:newRowIndex"><apiName>newRowIndex</apiName><shortdesc>
+      插入标记位置更改后，插入标记位置从零开始的行索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      插入标记位置更改后，插入标记位置从零开始的行索引。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/dataProvider"><linktext>spark.components.DataGrid.dataProvider</linktext></link><link href="spark.components.xml#Grid/dataProvider"><linktext>spark.components.Grid.dataProvider</linktext></link></related-links></apiValue><apiValue id="spark.events:GridCaretEvent:oldColumnIndex"><apiName>oldColumnIndex</apiName><shortdesc>
+      插入标记位置更改前，插入标记位置从零开始的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      插入标记位置更改前，插入标记位置从零开始的列索引。      
+     
+      <p>如果 <codeph>selectionMode</codeph> 为 <codeph>SelectionMode.SINGLE_ROW</codeph> 或 <codeph>SelectionMode.MULTIPLE_ROWS</codeph>，则为 -1 以指示它当前未使用。</p>
+      
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/columns"><linktext>spark.components.DataGrid.columns</linktext></link><link href="spark.components.xml#Grid/columns"><linktext>spark.components.Grid.columns</linktext></link></related-links></apiValue><apiValue id="spark.events:GridCaretEvent:oldRowIndex"><apiName>oldRowIndex</apiName><shortdesc>
+      插入标记位置更改前，插入标记位置从零开始的行索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/><apiDefaultValue>-1
+     
+      </apiDefaultValue></apiValueDef><apiDesc>
+      插入标记位置更改前，插入标记位置从零开始的行索引。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/dataProvider"><linktext>spark.components.DataGrid.dataProvider</linktext></link><link href="spark.components.xml#Grid/dataProvider"><linktext>spark.components.Grid.dataProvider</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.events:DropDownEvent"><apiName>DropDownEvent</apiName><shortdesc>
+  DropDownEvent 类表示传递给 open 和 close 事件的事件侦听器的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  DropDownEvent 类表示传递给 <codeph>open</codeph> 和 <codeph>close</codeph> 事件的事件侦听器的事件对象。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.events:DropDownEvent:CLOSE_close"><apiName>close</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:DropDownEvent:CLOSE</apiEventType><adobeApiEventClassifier>spark.events:DropDownEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:DropDownEvent:OPEN_open"><apiName>open</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:DropDownEvent:OPEN</apiEventType><adobeApiEventClassifier>spark.events:DropDownEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:DropDownEvent:DropDownEvent"><apiName>DropDownEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>triggerEvent</apiItemName><apiType value="flash.events:Event"/><apiData>null</apiData><apiDesc>指示触发事件的输入操作类型的值
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:DropDownEvent:CLOSE"><apiName>CLOSE</apiName><shortdesc>
+      DropDownEvent.CLOSE 常量可为 close 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>close</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>DropDownEvent.CLOSE</codeph> 常量可为 <codeph>close</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>指示触发事件的输入操作类型的值。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:DropDownEvent:OPEN"><apiName>OPEN</apiName><shortdesc>
+      DropDownEvent.OPEN 常量可为 open 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>open</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>DropDownEvent.OPEN</codeph> 常量可为 <codeph>open</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>triggerEvent</codeph></entry><entry>指示触发事件的输入操作类型的值。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:DropDownEvent:triggerEvent"><apiName>triggerEvent</apiName><shortdesc>
+      如果控件打开或关闭以响应用户操作，则此属性包含指示输入操作类型的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.events:Event"/></apiValueDef><apiDesc>
+      如果控件打开或关闭以响应用户操作，则此属性包含指示输入操作类型的值。该值为 <codeph>InteractionInputType.MOUSE</codeph> 或 <codeph>InteractionInputType.KEYBOARD</codeph>。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:IndexChangeEvent"><apiName>IndexChangeEvent</apiName><shortdesc>
+  IndexChangeEvent 类表示 Spark 组件中的索引发生更改时分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  IndexChangeEvent 类表示 Spark 组件中的索引发生更改时分派的事件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.supportClasses.xml#ListBase"><linktext>spark.components.supportClasses.ListBase</linktext></link><link href="spark.components.xml#List"><linktext>spark.components.List</linktext></link><link href="spark.components.xml#ButtonBar"><linktext>spark.components.ButtonBar</linktext></link></related-links><adobeApiEvent id="spark.events:IndexChangeEvent:CARET_CHANGE_caretChange"><apiName>caretChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:IndexChangeEvent:CARET_CHANGE</apiEventType><adobeApiEventClassifier>spark.events:IndexChangeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:IndexChangeEvent:CHANGE_change"><apiName>change</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:IndexChangeEvent:CHANGE</apiEventType><adobeApiEventClassifier>spark.events:IndexChangeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:IndexChangeEvent:CHANGING_changing"><apiName>changing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:IndexChangeEvent:CHANGING</apiEventType><adobeApiEventClassifier>spark.events:IndexChangeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:IndexChangeEvent:IndexChangeEvent"><apiName>IndexChangeEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>oldIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>进行更改之前的从零开始的索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>进行更改之后的从零开始的索引。
+     
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:IndexChangeEvent:CARET_CHANGE"><apiName>CARET_CHANGE</apiName><shortdesc>
+      IndexChangeEvent.CARET_CHANGE 常量为 caretChange 事件定义事件对象的 type 属性值，指示处于焦点的当前项目将要更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>caretChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>IndexChangeEvent.CARET_CHANGE</codeph> 常量为 <codeph>caretChange</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值，指示处于焦点的当前项目将要更改。 
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>newIndex</codeph></entry><entry>更改后所选项的从零开始的索引。</entry></row><row><entry><codeph>oldIndex</codeph></entry><entry>更改前所选项的从零开始的索引。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>IndexChangeEvent.CARET_CHANGE</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:IndexChangeEvent:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+      IndexChangeEvent.CHANGE 常量可为 change 事件定义事件对象的 type 属性的值，指示索引已更改，比如，当基于 List 的控件更改其选择内容时即进行了更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>IndexChangeEvent.CHANGE</codeph> 常量可为 <codeph>change</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示索引已更改，比如，当基于 List 的控件更改其选择内容时即进行了更改。 
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>newIndex</codeph></entry><entry>进行更改之后的从零开始的索引。</entry></row><row><entry><codeph>oldIndex</codeph></entry><entry>进行更改之前的从零开始的索引。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>IndexChangeEvent.CHANGE</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:IndexChangeEvent:CHANGING"><apiName>CHANGING</apiName><shortdesc>
+      IndexChangeEvent.CHANGING 常量为 changing 事件定义事件对象的 type 属性值，指示当前选择将要更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>changing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>IndexChangeEvent.CHANGING</codeph> 常量为 <codeph>changing</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值，指示当前选择将要更改。 
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>newIndex</codeph></entry><entry>更改后所选项的从零开始的索引。</entry></row><row><entry><codeph>oldIndex</codeph></entry><entry>更改前所选项的从零开始的索引。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>IndexChangeEvent.CHANGING</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:IndexChangeEvent:newIndex"><apiName>newIndex</apiName><shortdesc>
+      进行更改之后的从零开始的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      进行更改之后的从零开始的索引。对于 <codeph>change</codeph> 事件，它是当前子项的索引。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:IndexChangeEvent:oldIndex"><apiName>oldIndex</apiName><shortdesc>
+      进行更改之前的从零开始的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      进行更改之前的从零开始的索引。对于 <codeph>change</codeph> 事件，它是上一子项的索引。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:GridItemEditorEvent"><apiName>GridItemEditorEvent</apiName><shortdesc>
+  GridItemEditorEvent 类表示在项编辑器的生命周期内分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridItemEditorEvent 类表示在项编辑器的生命周期内分派的事件。
+ 
+  <p>生命周期从 <codeph>GRID_ITEM_EDITOR_SESSION_STARTING</codeph> 事件的分派时开始。您可以通过在事件侦听器中调用 <codeph>preventDefault()</codeph> 方法取消事件，来停止编辑会话。</p>
+ 
+  <p>项编辑器打开之后，会分派 <codeph>GRID_ITEM_EDITOR_SESSION_START</codeph> 来通知侦听器已打开编辑器。</p>
+ 
+  <p>可以保存或取消编辑会话。如果已保存此会话，则会分派 <codeph>GRID_ITEM_EDITOR_SESSION_SAVE</codeph> 事件。如果已取消编辑器，则会分派 <codeph>GRID_ITEM_EDITOR_SESSION_CANCEL</codeph> 事件。 </p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.gridClasses.xml#IGridItemEditor"><linktext>spark.components.gridClasses.IGridItemEditor</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/itemEditor"><linktext>spark.components.gridClasses.GridColumn.itemEditor</linktext></link></related-links><adobeApiEvent id="spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_CANCEL_gridItemEditorSessionCancel"><apiName>gridItemEditorSessionCancel</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_CANCEL</apiEventType><adobeApiEventClassifier>spark.events:GridItemEditorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_SAVE_gridItemEditorSessionSave"><apiName>gridItemEditorSessionSave</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_SAVE</apiEventType><adobeApiEventClassifier>spark.events:GridItemEditorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_STARTING_gridItemEditorSessionStarting"><apiName>gridItemEditorSessionStarting</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_STARTING</apiEventType><adobeApiEventClassifier>spark.events:GridItemEditorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_START_gridItemEditorSessionStart"><apiName>gridItemEditorSessionStart</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_START</apiEventType><adobeApiEventClassifier>spark.events:GridItemEditorEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links></adobeApiEvent><apiConstructor id="spark.events:GridItemEditorEvent:GridItemEditorEvent"><apiName>GridItemEditorEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="uint"/><apiData>-1</apiData><apiDesc>正在编辑的从零开始的列索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="uint"/><apiData>-1</apiData><apiDesc>正在编辑的从零开始的列索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>spark.components.gridClasses:GridColumn</apiOperationClassifier><apiData>null</apiData><apiDesc>正在编辑的列。
+       
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links></apiConstructor><apiValue id="spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_CANCEL"><apiName>GRID_ITEM_EDITOR_SESSION_CANCEL</apiName><shortdesc>
+      GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL 常量为 cancelridItemEditor 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridItemEditorSessionCancel</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL</codeph> 常量为 <codeph>cancelridItemEditor</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。在不保存数据的情况下关闭项编辑器之后分派。  
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>已编辑但未修改的项目从零开始的列索引。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>已编辑但未修改的项目从零开始的行索引。</entry></row><row><entry><codeph>column</codeph></entry><entry>已编辑的单元格列。
+         </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>
+         GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links></apiValue><apiValue id="spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_SAVE"><apiName>GRID_ITEM_EDITOR_SESSION_SAVE</apiName><shortdesc>
+      GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE 常量为 saveGridItemEditor 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridItemEditorSessionSave</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE</codeph> 常量为 <codeph>saveGridItemEditor</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。在项编辑器中的数据已保存到数据提供程序中，并且编辑器已经关闭之后分派。  
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>已修改的项目从零开始的列索引。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>已修改的项目从零开始的行索引。</entry></row><row><entry><codeph>column</codeph></entry><entry>已编辑的单元格列。
+         </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>
+         GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links></apiValue><apiValue id="spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_STARTING"><apiName>GRID_ITEM_EDITOR_SESSION_STARTING</apiName><shortdesc>
+      GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING 常量为 startGridItemEditorSession 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridItemEditorSessionStarting</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING</codeph> 常量为 <codeph>startGridItemEditorSession</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。在请求新的项编辑器会话时分派。侦听器可以动态确定单元格是否可编辑，如果单元格不可编辑，则通过调用 <codeph>preventDefault()</codeph> 方法取消编辑。侦听器也可以动态更改所使用的编辑器，方法是将其它项编辑器指定给网格列。
+     
+      <p>如果取消该事件，则不会创建项编辑器。</p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>请求的项编辑器从零开始的列索引。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>请求的项编辑器从零开始的行索引。</entry></row><row><entry><codeph>column</codeph></entry><entry>与编辑请求相关联的单元格列。
+         </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>
+         GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links></apiValue><apiValue id="spark.events:GridItemEditorEvent:GRID_ITEM_EDITOR_SESSION_START"><apiName>GRID_ITEM_EDITOR_SESSION_START</apiName><shortdesc>
+      GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START 常量为 openGridItemEditor 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridItemEditorSessionStart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START</codeph> 常量为 <codeph>openGridItemEditor</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。在项编辑器打开之后立即分派。 
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>项编辑器从零开始的列索引。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>项编辑器从零开始的行索引。</entry></row><row><entry><codeph>column</codeph></entry><entry>正在编辑的单元格列。
+         </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>
+         GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link></related-links></apiValue><apiValue id="spark.events:GridItemEditorEvent:columnIndex"><apiName>columnIndex</apiName><shortdesc> 
+      正在编辑的从零开始的列索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc> 
+      正在编辑的从零开始的列索引。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridItemEditorEvent:column"><apiName>column</apiName><shortdesc>
+      正在编辑的单元格列。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      正在编辑的单元格列。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridItemEditorEvent:rowIndex"><apiName>rowIndex</apiName><shortdesc>
+      正在编辑的行索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      正在编辑的行索引。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:TextOperationEvent"><apiName>TextOperationEvent</apiName><shortdesc>
+  TextOperationEvent 类表示因用户操作（例如，插入字符、退格、粘贴、更改文本属性等）而改变文本内容时分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TextOperationEvent 类表示因用户操作（例如，插入字符、退格、粘贴、更改文本属性等）而改变文本内容时分派的事件。
+  
+  <p>由 SkinnableTextBase 类的子类分派此事件。这包括 RichEditableText 和使用 RichEditableText 的类，如 ComboBox、TextInput 和 TextArea。没有用户交互的 Text 控件（如 RichText 和 Label）不分派此种类型的事件。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#RichEditableText"><linktext>spark.components.RichEditableText</linktext></link><link href="spark.components.xml#TextArea"><linktext>spark.components.TextArea</linktext></link><link href="spark.components.xml#ComboBox"><linktext>spark.components.ComboBox</linktext></link><link href="spark.components.xml#TextInput"><linktext>spark.components.TextInput</linktext></link><link href="spark.components.supportClasses.xml#SkinnableTextBase"><linktext>spark.components.supportClasses.SkinnableTextBase</linktext></link></related-links><adobeApiEvent id="spark.events:TextOperationEvent:CHANGE_change"><apiName>change</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:TextOperationEvent:CHANGE</apiEventType><adobeApiEventClassifier>spark.events:TextOperationEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:TextOperationEvent:CHANGING_changing"><apiName>changing</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:TextOperationEvent:CHANGING</apiEventType><adobeApiEventClassifier>spark.events:TextOperationEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:TextOperationEvent:TextOperationEvent"><apiName>TextOperationEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>operation</apiItemName><apiType value="flashx.textLayout.operations:FlowOperation"/><apiData>null</apiData><apiDesc>表示正在由用户对文本执行的编辑操作的 FlowOperation 对象。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:TextOperationEvent:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+      TextOperationEvent.CHANGE 常量可为 change 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>TextOperationEvent.CHANGE</codeph> 常量可为 <codeph>change</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>operation</codeph></entry><entry>描述正在由用户对文本执行的编辑操作的 FlowOperation 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:TextOperationEvent:CHANGING"><apiName>CHANGING</apiName><shortdesc>
+      TextOperationEvent.CHANGING 常量可为 changing 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>changing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>TextOperationEvent.CHANGING</codeph> 常量可为 <codeph>changing</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>operation</codeph></entry><entry>描述正在由用户对文本执行的编辑操作的 FlowOperation 对象。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:TextOperationEvent:operation"><apiName>operation</apiName><shortdesc>
+      表示正在由用户对文本执行的编辑操作的 FlowOperation 对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flashx.textLayout.operations:FlowOperation"/></apiValueDef><apiDesc>
+      表示正在由用户对文本执行的编辑操作的 FlowOperation 对象。
+     
+      <p>这可能是 InsertTextOperation、DeleteTextOperation、SplitParagraphOperation、CutOperation、PasteOperation、UndoOperation 或 FlowOperation 的其他子类。</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flashx.textLayout.operations.InsertTextOperation.xml"><linktext>flashx.textLayout.operations.InsertTextOperation</linktext></link><link href="" invalidHref="flashx.textLayout.operations.DeleteTextOperation.xml"><linktext>flashx.textLayout.operations.DeleteTextOperation</linktext></link><link href="" invalidHref="flashx.textLayout.operations.SplitParagraphOperation.xml"><linktext>flashx.textLayout.operations.SplitParagraphOperation</linktext></link><link href="" invalidHref="flashx.textLayout.operations.PasteOperation.xml"><linktext>flashx.textLayout.operations.PasteOperation</linktext></link><link href="" invalidHref="flashx.textLayout.operations.CutOperation.xml"><linktext>flashx.textLayout.operations.CutOperation</linktext></link><link href="" invalidHref="flashx.textLayout.operations.UndoOperation.xml"><linktext>flashx.textLayout.operations.UndoOperation</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.events:RendererExistenceEvent"><apiName>RendererExistenceEvent</apiName><shortdesc>
+  RendererExistenceEvent 类表示在添加或删除 Spark DataGroup 的呈示器时分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RendererExistenceEvent 类表示在添加或删除 Spark DataGroup 的呈示器时分派的事件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGroup"><linktext>spark.components.DataGroup</linktext></link></related-links><adobeApiEvent id="spark.events:RendererExistenceEvent:RENDERER_ADD_rendererAdd"><apiName>rendererAdd</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:RendererExistenceEvent:RENDERER_ADD</apiEventType><adobeApiEventClassifier>spark.events:RendererExistenceEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:RendererExistenceEvent:RENDERER_REMOVE_rendererRemove"><apiName>rendererRemove</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:RendererExistenceEvent:RENDERER_REMOVE</apiEventType><adobeApiEventClassifier>spark.events:RendererExistenceEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:RendererExistenceEvent:RendererExistenceEvent"><apiName>RendererExistenceEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>renderer</apiItemName><apiType value="mx.core:IVisualElement"/><apiData>null</apiData><apiDesc>对已添加或删除的项呈示器的引用。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>数据提供程序中已添加或删除呈示器的位置处的索引。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>呈示器正在进行可视化的数据项目。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:RendererExistenceEvent:RENDERER_ADD"><apiName>RENDERER_ADD</apiName><shortdesc>
+      RendererExistenceEvent.RENDERER_ADD 常量可为 rendererAdd 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>rendererAdd</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>RendererExistenceEvent.RENDERER_ADD</codeph> 常量可为 <codeph>rendererAdd</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>data</codeph></entry><entry>呈示器正在进行可视化的数据项目。</entry></row><row><entry><codeph>index</codeph></entry><entry>已添加的呈示器的数据提供程序索引。</entry></row><row><entry><codeph>renderer</codeph></entry><entry>包含对已添加的呈示器的引用</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:RendererExistenceEvent:RENDERER_REMOVE"><apiName>RENDERER_REMOVE</apiName><shortdesc>
+      RendererExistenceEvent.RENDERER_REMOVE 常量可为 rendererRemove 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>rendererRemove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>RendererExistenceEvent.RENDERER_REMOVE</codeph> 常量可为 <codeph>rendererRemove</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>data</codeph></entry><entry>呈示器当时正在进行可视化的数据项目。</entry></row><row><entry><codeph>index</codeph></entry><entry>正在删除的呈示器的数据提供程序索引。</entry></row><row><entry><codeph>renderer</codeph></entry><entry>包含对将要删除的呈示器的引用。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:RendererExistenceEvent:data"><apiName>data</apiName><shortdesc>
+      呈示器的数据项目。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      呈示器的数据项目。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:RendererExistenceEvent:index"><apiName>index</apiName><shortdesc>
+      指向已添加或删除项呈示器的位置的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      指向已添加或删除项呈示器的位置的索引。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:RendererExistenceEvent:renderer"><apiName>renderer</apiName><shortdesc>
+      对已添加或删除的项呈示器的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IVisualElement"/></apiValueDef><apiDesc>
+      对已添加或删除的项呈示器的引用。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:ListEvent"><apiName>ListEvent</apiName><shortdesc>
+  为了响应 MouseEvent 而由 ListBase 组件（如 ButtonBar 和 List）分派的 ListEvent 是使用传入的鼠标事件的属性构造的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  为了响应 MouseEvent 而由 ListBase 组件（如 ButtonBar 和 List）分派的 ListEvent 是使用传入的鼠标事件的属性构造的。列表事件的 x、y 位置，即其 localX 和 localY 属性的值，是相对于整个组件定义的，而非只相对于已滚动到视图中的部分组件。同样，事件的行和列索引可能对应于未滚动到视图中的单元格。
+ 
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.events:ListEvent:ITEM_ROLL_OUT_itemRollOut"><apiName>itemRollOut</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ListEvent:ITEM_ROLL_OUT</apiEventType><adobeApiEventClassifier>spark.events:ListEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ListEvent:ITEM_ROLL_OVER_itemRollOver"><apiName>itemRollOver</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ListEvent:ITEM_ROLL_OVER</apiEventType><adobeApiEventClassifier>spark.events:ListEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:ListEvent:ListEvent"><apiName>ListEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>localX</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>区分导致此事件分派的鼠标动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>localY</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>relatedObject</apiItemName><apiType value="flash.display:InteractiveObject"/><apiData>null</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>事件相对于 List 的 x 坐标。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>事件相对于 List 的 y 坐标。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>触发此 ListEvent 的 MouseEvent 的 <codeph>relatedObject</codeph> 属性。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>buttonDown</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>是否按下 Control 键。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>delta</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>是否按下 Alt 键。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>是否按下 Shift 键。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>是否按下 Control 键。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiOperationClassifier>spark.components:IItemRenderer</apiOperationClassifier><apiData>null</apiData><apiDesc>未使用。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。通常由 Flex 控件调用且不用于应用程序代码。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:ListEvent:ITEM_ROLL_OUT"><apiName>ITEM_ROLL_OUT</apiName><shortdesc>
+      ListEvent.ITEM_ROLL_OUT 常量可为 itemRollOut 事件定义 ListEvent 对象的 type 属性的值，指示用户执行了将鼠标指针从控件中某个可视项目上移开的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemRollOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ListEvent.ITEM_ROLL_OUT 常量可为 <codeph>itemRollOut</codeph> 事件定义 ListEvent 对象的 <codeph>type</codeph> 属性的值，指示用户执行了将鼠标指针从控件中某个可视项目上移开的操作。
+     
+      <p>事件对象的属性有下列值：</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>itemIndex</codeph></entry><entry>由项呈示器所显示的事件发生项的数据提供程序索引。</entry></row><row><entry><codeph>item</codeph></entry><entry>项呈示器的数据提供程序项。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此项的项呈示器。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>ListEvent.ITEM_ROLL_OUT</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ListEvent:ITEM_ROLL_OVER"><apiName>ITEM_ROLL_OVER</apiName><shortdesc>
+      ListEvent.ITEM_ROLL_OVER 常量可为 itemRollOver 事件定义 ListEvent 对象的 type 属性的值，指示用户执行了将鼠标指针滑过控件中某个可视项目的操作。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>itemRollOver</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      ListEvent.ITEM_ROLL_OVER 常量可为 <codeph>itemRollOver</codeph> 事件定义 ListEvent 对象的 <codeph>type</codeph> 属性的值，指示用户执行了将鼠标指针滑过控件中某个可视项目的操作。
+     
+      <p>事件对象的属性有下列值：</p>
+     
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>itemIndex</codeph></entry><entry>由项呈示器所显示的事件发生项的数据提供程序索引。</entry></row><row><entry><codeph>item</codeph></entry><entry>项呈示器的数据提供程序项。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此项的项呈示器。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>类型</codeph></entry><entry>ListEvent.ITEM_ROLL_OVER</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ListEvent:itemIndex"><apiName>itemIndex</apiName><shortdesc>
+      项呈示器正在显示的数据项的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      项呈示器正在显示的数据项的索引。您可以使用此属性访问数据提供程序。 
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ListEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+      正在显示项的项呈示器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components:IItemRenderer</apiValueClassifier></apiValueDef><apiDesc>
+      正在显示项的项呈示器。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ListEvent:item"><apiName>item</apiName><shortdesc>
+      项呈示器正在显示的数据提供程序项。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10.2"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      项呈示器正在显示的数据提供程序项。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:ElementExistenceEvent"><apiName>ElementExistenceEvent</apiName><shortdesc>
+  ElementExistenceEvent 类表示创建或破坏 Group 的元素时分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  ElementExistenceEvent 类表示创建或破坏 Group 的元素时分派的事件。 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#Group"><linktext>spark.components.Group</linktext></link></related-links><adobeApiEvent id="spark.events:ElementExistenceEvent:ELEMENT_ADD_elementAdd"><apiName>elementAdd</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ElementExistenceEvent:ELEMENT_ADD</apiEventType><adobeApiEventClassifier>spark.events:ElementExistenceEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:ElementExistenceEvent:ELEMENT_REMOVE_elementRemove"><apiName>elementRemove</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:ElementExistenceEvent:ELEMENT_REMOVE</apiEventType><adobeApiEventClassifier>spark.events:ElementExistenceEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:ElementExistenceEvent:ElementExistenceEvent"><apiName>ElementExistenceEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>element</apiItemName><apiType value="mx.core:IVisualElement"/><apiData>null</apiData><apiDesc>对已添加或删除的元素的引用。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>指向已添加或删除元素的位置的索引。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:ElementExistenceEvent:ELEMENT_ADD"><apiName>ELEMENT_ADD</apiName><shortdesc>
+      ElementExistenceEvent.ELEMENT_ADD 常量可为 elementAdd 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>elementAdd</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>ElementExistenceEvent.ELEMENT_ADD</codeph> 常量可为 <codeph>elementAdd</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>element</codeph></entry><entry>包含对已添加的视觉元素的引用。</entry></row><row><entry><codeph>index</codeph></entry><entry>指向已添加视觉元素的位置的索引。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ElementExistenceEvent:ELEMENT_REMOVE"><apiName>ELEMENT_REMOVE</apiName><shortdesc>
+      ElementExistenceEvent.ELEMENT_REMOVE 常量可为 elementRemove 事件定义事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>elementRemove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>ElementExistenceEvent.ELEMENT_REMOVE</codeph> 常量可为 <codeph>elementRemove</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>element</codeph></entry><entry>对将要删除的可视元素的引用。</entry></row><row><entry><codeph>index</codeph></entry><entry>正在删除的可视元素的索引。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ElementExistenceEvent:element"><apiName>element</apiName><shortdesc>
+      对已添加或删除的视觉元素的引用。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="mx.core:IVisualElement"/></apiValueDef><apiDesc>
+      对已添加或删除的视觉元素的引用。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:ElementExistenceEvent:index"><apiName>index</apiName><shortdesc>
+      指向已添加或删除元素的位置的索引。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      指向已添加或删除元素的位置的索引。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:GridSortEvent"><apiName>GridSortEvent</apiName><shortdesc>
+  GridSortEvent 类表示 Spark DataGrid 控件的数据提供程序按用户单击 DataGrid 中列标题的结果进行排序时分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridSortEvent 类表示 Spark DataGrid 控件的数据提供程序按用户单击 DataGrid 中列标题的结果进行排序时分派的事件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.gridClasses.xml#GridColumn"><linktext>spark.components.gridClasses.GridColumn</linktext></link><link href="spark.components.xml#GridColumnHeaderGroup"><linktext>spark.components.GridColumnHeaderGroup</linktext></link></related-links><adobeApiEvent id="spark.events:GridSortEvent:SORT_CHANGE_sortChange"><apiName>sortChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridSortEvent:SORT_CHANGE</apiEventType><adobeApiEventClassifier>spark.events:GridSortEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="spark.components.xml#DataGrid/dataProvider"><linktext>spark.components.DataGrid.dataProvider</linktext></link><link href="spark.components.xml#DataGrid/sortByColumns"><linktext>spark.components.DataGrid.sortByColumns</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridSortEvent:SORT_CHANGING_sortChanging"><apiName>sortChanging</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridSortEvent:SORT_CHANGING</apiEventType><adobeApiEventClassifier>spark.events:GridSortEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="spark.components.xml#DataGrid/dataProvider"><linktext>spark.components.DataGrid.dataProvider</linktext></link><link href="spark.components.xml#DataGrid/sortByColumns"><linktext>spark.components.DataGrid.sortByColumns</linktext></link></related-links></adobeApiEvent><apiConstructor id="spark.events:GridSortEvent:GridSortEvent"><apiName>GridSortEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndices</apiItemName><apiType value="Vector$int"/><apiDesc>已排序列的列索引矢量。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>oldSortFields</apiItemName><apiType value="Array"/><apiDesc>上一次排序的 ISortFields 数组。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>newSortFields</apiItemName><apiType value="Array"/><apiDesc>此次排序的 ISortFields 数组。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:GridSortEvent:SORT_CHANGE"><apiName>SORT_CHANGE</apiName><shortdesc>
+      GridSortEvent.SORT_CHANGE 常量为 sortChange 事件定义事件对象的 type 属性值，其指示排序过滤器已应用于网格的 dataProvider 集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>sortChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>GridSortEvent.SORT_CHANGE</codeph> 常量为 <codeph>sortChange</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值，其指示排序过滤器已应用于网格的 <codeph>dataProvider</codeph> 集合。
+     
+      <p>通常，如果列标题鼠标单击触发了该排序，则 <codeph>columnIndices</codeph> 的上一个索引是列索引。请注意，交互式排序不需要由鼠标单击触发。</p>
+     
+      <p>当用户与此控件交互时，将分派此事件。通过编程方式对数据提供程序的集合进行排序时，此组件不会分派 <codeph>sortChange</codeph> 事件。 </p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>columnIndices</codeph></entry><entry>已排序列的列索引矢量。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myDataGrid.addEventListener()</codeph> 注册某个事件侦听器，则 myDataGrid 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>newSortFields</codeph></entry><entry>此次排序的 ISortFields 数组。</entry></row><row><entry><codeph>oldSortFields</codeph></entry><entry>上一次排序的 ISortFields 数组。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GridSelectionEvent.SORT_CHANGE</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/dataProvider"><linktext>spark.components.DataGrid.dataProvider</linktext></link><link href="spark.components.xml#DataGrid/sortByColumns"><linktext>spark.components.DataGrid.sortByColumns</linktext></link></related-links></apiValue><apiValue id="spark.events:GridSortEvent:SORT_CHANGING"><apiName>SORT_CHANGING</apiName><shortdesc>
+      GridSortEvent.SORT_CHANGING 常量为 sortChanging 事件定义事件对象的 type 属性值，其指示排序过滤器将应用于网格的 dataProvider 集合。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>sortChanging</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>GridSortEvent.SORT_CHANGING</codeph> 常量为 <codeph>sortChanging</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值，其指示排序过滤器将应用于网格的 <codeph>dataProvider</codeph> 集合。对该事件调用 preventDefault() 可防止排序发生，或者如果要更改排序的默认行为，可以修改 <codeph>columnIndices</codeph> 和 <codeph>newSortFields</codeph>。
+     
+      <p>通常，如果列标题鼠标单击触发了该排序，则 <codeph>columnIndices</codeph> 的上一个索引是列索引。请注意，交互式排序不需要由鼠标单击触发。</p>
+     
+      <p>当用户与此控件交互时，将分派此事件。通过编程方式对数据提供程序的集合进行排序时，此组件不会分派 <codeph>sortChanging</codeph> 事件。 </p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>columnIndices</codeph></entry><entry>要排序列的列索引矢量。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myDataGrid.addEventListener()</codeph> 注册某个事件侦听器，则 myDataGrid 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>newSortFields</codeph></entry><entry>此次排序的 ISortFields 数组。</entry></row><row><entry><codeph>oldSortFields</codeph></entry><entry>上一次排序的 ISortFields 数组。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GridSelectionEvent.SORT_CHANGING</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/dataProvider"><linktext>spark.components.DataGrid.dataProvider</linktext></link><link href="spark.components.xml#DataGrid/sortByColumns"><linktext>spark.components.DataGrid.sortByColumns</linktext></link></related-links></apiValue><apiValue id="spark.events:GridSortEvent:columnIndices"><apiName>columnIndices</apiName><shortdesc>
+      已排序列的列索引矢量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Vector$int"/></apiValueDef><apiDesc>
+      已排序列的列索引矢量。如果 <codeph>type</codeph> 为 <codeph>GridSelectionEvent.SORT_CHANGING</codeph>，则可以修改该值，且会将其用于更新网格的 <codeph>columnHeaderGroup</codeph> <codeph>visibleSortIndicatorIndices</codeph>。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/columnHeaderGroup"><linktext>spark.components.DataGrid.columnHeaderGroup</linktext></link><link href="spark.components.xml#GridColumnHeaderGroup/visibleSortIndicatorIndices"><linktext>spark.components.GridColumnHeaderGroup.visibleSortIndicatorIndices</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/columnIndex"><linktext>spark.components.gridClasses.GridColumn.columnIndex</linktext></link></related-links></apiValue><apiValue id="spark.events:GridSortEvent:newSortFields"><apiName>newSortFields</apiName><shortdesc>
+      此次排序的 ISortFields 数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Array"/></apiValueDef><apiDesc>
+      此次排序的 ISortFields 数组。如果 <codeph>type</codeph> 为 <codeph>GridSelectionEvent.SORT_CHANGING</codeph>，则可以修改该值，且会将其用于对网格的 <codeph>dataProvider</codeph> 进行排序。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/dataProvider"><linktext>spark.components.DataGrid.dataProvider</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/sortCompareFunction"><linktext>spark.components.gridClasses.GridColumn.sortCompareFunction</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/sortDescending"><linktext>spark.components.gridClasses.GridColumn.sortDescending</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/sortField"><linktext>spark.components.gridClasses.GridColumn.sortField</linktext></link></related-links></apiValue><apiValue id="spark.events:GridSortEvent:oldSortFields:get"><apiName>oldSortFields</apiName><shortdesc>
+      上一次排序的 ISortFields 数组。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+      上一次排序的 ISortFields 数组。这可能是 <codeph>null</codeph>。不应修改该数组中的元素。  
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/dataProvider"><linktext>spark.components.DataGrid.dataProvider</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/sortCompareFunction"><linktext>spark.components.gridClasses.GridColumn.sortCompareFunction</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/sortDescending"><linktext>spark.components.gridClasses.GridColumn.sortDescending</linktext></link><link href="spark.components.gridClasses.xml#GridColumn/sortField"><linktext>spark.components.gridClasses.GridColumn.sortField</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.events:LoaderInvalidationEvent"><apiName>LoaderInvalidationEvent</apiName><shortdesc>
+  LoaderInvalidationEvent 类表示分派的事件，以通知 ContentRequest 实例其原始请求已失效。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  LoaderInvalidationEvent 类表示分派的事件，以通知 ContentRequest 实例其原始请求已失效。
+  
+  </apiDesc></apiClassifierDetail><adobeApiEvent id="spark.events:LoaderInvalidationEvent:INVALIDATE_LOADER_invalidateLoader"><apiName>invalidateLoader</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:LoaderInvalidationEvent:INVALIDATE_LOADER</apiEventType><adobeApiEventClassifier>spark.events:LoaderInvalidationEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:LoaderInvalidationEvent:LoaderInvalidationEvent"><apiName>LoaderInvalidationEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>content</apiItemName><apiType value="any"/><apiDesc>使之失效的内容。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:LoaderInvalidationEvent:INVALIDATE_LOADER"><apiName>INVALIDATE_LOADER</apiName><shortdesc>
+      LoaderInvalidationEvent.INVALIDATE_LOADER 常量定义 invalidateLoader 事件的事件对象的 type 属性值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invalidateLoader</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>LoaderInvalidationEvent.INVALIDATE_LOADER</codeph> 常量定义 <codeph>invalidateLoader</codeph> 事件的事件对象的 <codeph>type</codeph> 属性值。 
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>content</codeph></entry><entry>使内容请求失效的内容。</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myDataGrid.addEventListener()</codeph> 注册某个事件侦听器，则 myDataGrid 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>LoaderInvalidationEvent.INVALIDATE_LOADER</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:LoaderInvalidationEvent:content"><apiName>content</apiName><shortdesc>
+      使内容请求失效的内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value=""/></apiValueDef><apiDesc>
+      使内容请求失效的内容。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:GridSelectionEvent"><apiName>GridSelectionEvent</apiName><shortdesc>
+  GridSelectionEvent 类表示当 Spark DataGrid 控件中的选定内容由于用户交互而发生更改时分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridSelectionEvent 类表示当 Spark DataGrid 控件中的选定内容由于用户交互而发生更改时分派的事件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.events.xml#GridSelectionEventKind"><linktext>spark.events.GridSelectionEventKind</linktext></link><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link></related-links><adobeApiEvent id="spark.events:GridSelectionEvent:SELECTION_CHANGE_selectionChange"><apiName>selectionChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridSelectionEvent:SELECTION_CHANGE</apiEventType><adobeApiEventClassifier>spark.events:GridSelectionEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="spark.components.xml#DataGrid/selectedCells"><linktext>spark.components.DataGrid.selectedCells</linktext></link><link href="spark.components.xml#DataGrid/selectedIndices"><linktext>spark.components.DataGrid.selectedIndices</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridSelectionEvent:SELECTION_CHANGING_selectionChanging"><apiName>selectionChanging</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridSelectionEvent:SELECTION_CHANGING</apiEventType><adobeApiEventClassifier>spark.events:GridSelectionEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="spark.components.xml#DataGrid/selectedCells"><linktext>spark.components.DataGrid.selectedCells</linktext></link><link href="spark.components.xml#DataGrid/selectedIndices"><linktext>spark.components.DataGrid.selectedIndices</linktext></link></related-links></adobeApiEvent><apiConstructor id="spark.events:GridSelectionEvent:GridSelectionEvent"><apiName>GridSelectionEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata><asCustoms><spark.events.GridSelectionEventKind>
+     
+      </spark.events.GridSelectionEventKind></asCustoms></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>kind</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>changing 事件的类型。有效值定义为 <codeph>GridSelectionEventKind </codeph> 类中的常量。此值确定使用事件中的哪些属性。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>selectionChange</apiItemName><apiOperationClassifier>spark.components.gridClasses:CellRegion</apiOperationClassifier><apiData>null</apiData><apiDesc>对当前选定内容建议的或接受的更改。使用 Spark DataGrid 选择方法确定当前选定内容。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail><related-links><link href="spark.components.xml#DataGrid/selectedCells"><linktext>spark.components.DataGrid.selectedCells</linktext></link><link href="spark.components.xml#DataGrid/selectedIndices"><linktext>spark.components.DataGrid.selectedIndices</linktext></link></related-links></apiConstructor><apiValue id="spark.events:GridSelectionEvent:SELECTION_CHANGE"><apiName>SELECTION_CHANGE</apiName><shortdesc>
+      GridSelectionEvent.SELECTION_CHANGE 常量为 selectionChange 事件定义事件对象的 type 属性值，指示当前选定内容刚刚更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>selectionChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>GridSelectionEvent.SELECTION_CHANGE</codeph> 常量为 <codeph>selectionChange</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性值，指示当前选定内容刚刚更改。
+     
+      <p>当用户与此控件交互时，将分派此事件。通过编程方式对数据提供程序的集合进行排序时，此组件不会分派 <codeph>selectionChange</codeph> 事件。 </p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry>kind<codeph/></entry><entry>changing 事件的类型。有效值定义为 GridSelectionEventKind 类中的常量。此值确定使用事件中的哪些属性。</entry></row><row><entry><codeph>selectionChange</codeph></entry><entry>由用户操作触发的刚刚完成的选定内容更改。使用 DataGrid 选择方法确定当前选定内容。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GridSelectionEvent.SELECTION_CHANGE</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/selectedCells"><linktext>spark.components.DataGrid.selectedCells</linktext></link><link href="spark.components.xml#DataGrid/selectedIndices"><linktext>spark.components.DataGrid.selectedIndices</linktext></link></related-links></apiValue><apiValue id="spark.events:GridSelectionEvent:SELECTION_CHANGING"><apiName>SELECTION_CHANGING</apiName><shortdesc>
+      GridSelectionEvent.SELECTION_CHANGING 常量为 selectionChanging 事件定义事件对象的 type 属性的值，指示当前选定内容将要更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>selectionChanging</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>GridSelectionEvent.SELECTION_CHANGING</codeph> 常量为 <codeph>selectionChanging</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值，指示当前选定内容将要更改。对此事件调用 preventDefault() 以防止更改选定内容。
+     
+      <p>当用户与此控件交互时，将分派此事件。通过编程方式对数据提供程序的集合进行排序时，此组件不会分派 <codeph>selectionChanging</codeph> 事件。 </p>
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry>kind<codeph/></entry><entry>changing 事件的类型。有效值定义为 GridSelectionEventKind 类中的常量。此值确定使用事件中的哪些属性。</entry></row><row><entry><codeph>selectionChange</codeph></entry><entry>由用户操作触发的后续选定内容更改。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GridSelectionEvent.SELECTION_CHANGING</entry></row></tbody></tgroup></adobetable>
+       
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid/selectedCells"><linktext>spark.components.DataGrid.selectedCells</linktext></link><link href="spark.components.xml#DataGrid/selectedIndices"><linktext>spark.components.DataGrid.selectedIndices</linktext></link></related-links></apiValue><apiValue id="spark.events:GridSelectionEvent:kind"><apiName>kind</apiName><shortdesc>
+      指示发生的事件类型。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef><apiDesc>
+      指示发生的事件类型。属性值可以是 GridSelectionEventKind 类中的一个值，也可以是 <codeph>null</codeph>，后者指示类型未知。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.events.xml#GridSelectionEventKind"><linktext>spark.events.GridSelectionEventKind</linktext></link></related-links></apiValue><apiValue id="spark.events:GridSelectionEvent:selectionChange"><apiName>selectionChange</apiName><shortdesc>
+      由某些用户操作触发的后续或刚刚完成的选定内容更改。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components.gridClasses:CellRegion</apiValueClassifier></apiValueDef><apiDesc>
+      由某些用户操作触发的后续或刚刚完成的选定内容更改。如果将此更改添加到当前选定内容，则它将不会表示完成的选择。使用 DataGrid 选择方法确定选定内容。
+     
+      </apiDesc></apiValueDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link></related-links></apiValue></apiClassifier><apiClassifier id="spark.events:TrackBaseEvent"><apiName>TrackBaseEvent</apiName><shortdesc>
+  表示从 TrackBase 组件分派的事件。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  表示从 TrackBase 组件分派的事件。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.supportClasses.xml#TrackBase"><linktext>spark.components.supportClasses.TrackBase</linktext></link></related-links><adobeApiEvent id="spark.events:TrackBaseEvent:THUMB_DRAG_thumbDrag"><apiName>thumbDrag</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:TrackBaseEvent:THUMB_DRAG</apiEventType><adobeApiEventClassifier>spark.events:TrackBaseEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:TrackBaseEvent:THUMB_PRESS_thumbPress"><apiName>thumbPress</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:TrackBaseEvent:THUMB_PRESS</apiEventType><adobeApiEventClassifier>spark.events:TrackBaseEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:TrackBaseEvent:THUMB_RELEASE_thumbRelease"><apiName>thumbRelease</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:TrackBaseEvent:THUMB_RELEASE</apiEventType><adobeApiEventClassifier>spark.events:TrackBaseEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:TrackBaseEvent:TrackBaseEvent"><apiName>TrackBaseEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:TrackBaseEvent:THUMB_DRAG"><apiName>THUMB_DRAG</apiName><shortdesc>
+      TrackBaseEvent.THUMB_DRAG 常量可为 thumbDrag 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>thumbDrag</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>TrackBaseEvent.THUMB_DRAG</codeph> 常量可为 <codeph>thumbDrag</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。 
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:TrackBaseEvent:THUMB_PRESS"><apiName>THUMB_PRESS</apiName><shortdesc>
+      TrackBaseEvent.THUMB_PRESS 常量可为 thumbPress 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>thumbPress</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>TrackBaseEvent.THUMB_PRESS</codeph> 常量可为 <codeph>thumbPress</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。 
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:TrackBaseEvent:THUMB_RELEASE"><apiName>THUMB_RELEASE</apiName><shortdesc>
+      TrackBaseEvent.THUMB_RELEASE 常量可为 thumbRelease 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>thumbRelease</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>TrackBaseEvent.THUMB_RELEASE</codeph> 常量可为 <codeph>thumbRelease</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。 
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:GridEvent"><apiName>GridEvent</apiName><shortdesc>
+  GridEvent 类扩展 MouseEvent 类以包括基于相对于网格单元格的事件位置的其它网格特定信息。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:MouseEvent</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridEvent 类扩展 MouseEvent 类以包括基于相对于网格单元格的事件位置的其它网格特定信息。该信息包含以下内容：
+ 
+  <ul>
+    <li>单元格的行和列索引。</li>
+    <li>单元格的 GridColumn 对象。</li>
+    <li>对应于单元格行的数据提供程序项。</li>
+    <li>项呈示器。</li>  
+  </ul>
+ 
+  <p>网格事件与鼠标事件一对一对应。分派 GridEvent 是为了响应从某个 Grid 后代到 Grid 本身而“冒泡”的鼠标事件。一个显著区别是保证网格事件的事件侦听器能识别整个从下向上拖动鼠标动作，即使此动作的向上拖动部分不发生在网格上。<codeph>gridMouseDrag</codeph> 事件对应于按住按钮的鼠标移动事件。</p> 
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#DataGrid"><linktext>spark.components.DataGrid</linktext></link><link href="spark.components.xml#Grid"><linktext>spark.components.Grid</linktext></link><link href="spark.components.gridClasses.xml#GridSelectionMode"><linktext>spark.components.gridClasses.GridSelectionMode</linktext></link></related-links><adobeApiEvent id="spark.events:GridEvent:GRID_CLICK_gridClick"><apiName>gridClick</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:GRID_CLICK</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:click"><linktext>flash.display.InteractiveObject.click</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:GRID_DOUBLE_CLICK_gridDoubleClick"><apiName>gridDoubleClick</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:GRID_DOUBLE_CLICK</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:doubleClick"><linktext>flash.display.InteractiveObject.doubleClick</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:GRID_MOUSE_DOWN_gridMouseDown"><apiName>gridMouseDown</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:GRID_MOUSE_DOWN</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:mouseDown"><linktext>flash.display.InteractiveObject.mouseDown</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:GRID_MOUSE_DRAG_gridMouseDrag"><apiName>gridMouseDrag</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:GRID_MOUSE_DRAG</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:GRID_MOUSE_UP_gridMouseUp"><apiName>gridMouseUp</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:GRID_MOUSE_UP</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:mouseUp"><linktext>flash.display.InteractiveObject.mouseUp</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:GRID_ROLL_OUT_gridRollOut"><apiName>gridRollOut</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:GRID_ROLL_OUT</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:rollOut"><linktext>flash.display.InteractiveObject.rollOut</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:GRID_ROLL_OVER_gridRollOver"><apiName>gridRollOver</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:GRID_ROLL_OVER</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:rollOver"><linktext>flash.display.InteractiveObject.rollOver</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:SEPARATOR_CLICK_separatorClick"><apiName>separatorClick</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:SEPARATOR_CLICK</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:SEPARATOR_DOUBLE_CLICK_separatorDoubleClick"><apiName>separatorDoubleClick</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:SEPARATOR_DOUBLE_CLICK</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:SEPARATOR_MOUSE_DOWN_separatorMouseDown"><apiName>separatorMouseDown</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:SEPARATOR_MOUSE_DOWN</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:rollOut"><linktext>flash.display.InteractiveObject.rollOut</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:SEPARATOR_MOUSE_DRAG_separatorMouseDrag"><apiName>separatorMouseDrag</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:SEPARATOR_MOUSE_DRAG</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:SEPARATOR_MOUSE_UP_separatorMouseUp"><apiName>separatorMouseUp</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:SEPARATOR_MOUSE_UP</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:rollOut"><linktext>flash.display.InteractiveObject.rollOut</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:SEPARATOR_ROLL_OUT_separatorRollOut"><apiName>separatorRollOut</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:SEPARATOR_ROLL_OUT</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:GridEvent:SEPARATOR_ROLL_OVER_separatorRollOver"><apiName>separatorRollOver</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:GridEvent:SEPARATOR_ROLL_OVER</apiEventType><adobeApiEventClassifier>spark.events:GridEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:GridEvent:GridEvent"><apiName>GridEvent</apiName><shortdesc>
+      为了响应鼠标事件而由 Grid 类分派的 GridEvent 是使用传入的鼠标事件的属性构造的。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>区分导致此事件分派的鼠标动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>localX</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>事件相对于网格的 x 坐标。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>localY</apiItemName><apiType value="Number"/><apiData>unknown</apiData><apiDesc>事件相对于网格的 y 坐标。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>relatedObject</apiItemName><apiType value="flash.display:InteractiveObject"/><apiData>null</apiData><apiDesc>发生事件的行索引，或 -1。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>ctrlKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>发生事件的列索引，或 -1。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>altKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>发生该事件的列或 null。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>shiftKey</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc><codeph>rowIndex</codeph> 中的数据提供程序项。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>buttonDown</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>触发此 GridEvent 的 MouseEvent 的 <codeph>relatedObject</codeph> 属性。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>delta</apiItemName><apiType value="int"/><apiData>0</apiData><apiDesc>发生事件的可视项呈示器或 null。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>rowIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>是否按下 Control 键。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>columnIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>是否按下 Alt 键。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>column</apiItemName><apiOperationClassifier>spark.components.gridClasses:GridColumn</apiOperationClassifier><apiData>null</apiData><apiDesc>是否按下 Shift 键。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>是否按下 Control 键。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>itemRenderer</apiItemName><apiOperationClassifier>spark.components.gridClasses:IGridItemRenderer</apiOperationClassifier><apiData>null</apiData><apiDesc>未使用。
+     
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      为了响应鼠标事件而由 Grid 类分派的 GridEvent 是使用传入的鼠标事件的属性构造的。网格事件的 x、y 位置（表示其 <codeph>localX</codeph> 和 <codeph>localY</codeph> 属性的值）是相对于整个网格定义的，而不是只相对于已滚动到视图中的部分网格定义的。同样，事件的行和列索引可能对应于未滚动到视图中的单元格。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:GridEvent:GRID_CLICK"><apiName>GRID_CLICK</apiName><shortdesc>
+      gridClick GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>gridClick</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.GRID_CLICK</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:click"><linktext>flash.display.InteractiveObject.click</linktext></link></related-links></apiValue><apiValue id="spark.events:GridEvent:GRID_DOUBLE_CLICK"><apiName>GRID_DOUBLE_CLICK</apiName><shortdesc>
+      gridDoubleClick GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridDoubleClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>gridDoubleClick</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.GRID_DOUBLE_CLICK</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:doubleClick"><linktext>flash.display.InteractiveObject.doubleClick</linktext></link></related-links></apiValue><apiValue id="spark.events:GridEvent:GRID_MOUSE_DOWN"><apiName>GRID_MOUSE_DOWN</apiName><shortdesc>
+      gridMouseDown GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridMouseDown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>gridMouseDown</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.GRID_MOUSE_DOWN</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:mouseDown"><linktext>flash.display.InteractiveObject.mouseDown</linktext></link></related-links></apiValue><apiValue id="spark.events:GridEvent:GRID_MOUSE_DRAG"><apiName>GRID_MOUSE_DRAG</apiName><shortdesc>
+      gridMouseDrag GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridMouseDrag</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>gridMouseDrag</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。仅当侦听器处理完 <codeph>mouseDown</codeph> 事件，然后按住按钮的同时移动鼠标时，才会分派此事件。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.GRID_MOUSE_DRAG</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:GRID_MOUSE_UP"><apiName>GRID_MOUSE_UP</apiName><shortdesc>
+      gridMouseUp GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridMouseUp</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>gridMouseUp</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.GRID_MOUSE_UP</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:mouseUp"><linktext>flash.display.InteractiveObject.mouseUp</linktext></link></related-links></apiValue><apiValue id="spark.events:GridEvent:GRID_ROLL_OUT"><apiName>GRID_ROLL_OUT</apiName><shortdesc>
+      gridRollOut GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridRollOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>gridRollOut</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.GRID_ROLL_OUT</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:rollOut"><linktext>flash.display.InteractiveObject.rollOut</linktext></link></related-links></apiValue><apiValue id="spark.events:GridEvent:GRID_ROLL_OVER"><apiName>GRID_ROLL_OVER</apiName><shortdesc>
+      gridRollOver GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>gridRollOver</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>gridRollOver</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.GRID_ROLL_OVER</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:rollOver"><linktext>flash.display.InteractiveObject.rollOver</linktext></link></related-links></apiValue><apiValue id="spark.events:GridEvent:SEPARATOR_CLICK"><apiName>SEPARATOR_CLICK</apiName><shortdesc>
+      separatorClick GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>separatorClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>separatorClick</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.SEPARATOR_CLICK</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:SEPARATOR_DOUBLE_CLICK"><apiName>SEPARATOR_DOUBLE_CLICK</apiName><shortdesc>
+      separatorDoubleClick GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>separatorDoubleClick</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>separatorDoubleClick</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.SEPARATOR_DOUBLE_CLICK</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:SEPARATOR_MOUSE_DOWN"><apiName>SEPARATOR_MOUSE_DOWN</apiName><shortdesc>
+      separatorMouseDown GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>separatorMouseDown</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>separatorMouseDown</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.SEPARATOR_MOUSE_DOWN</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:rollOut"><linktext>flash.display.InteractiveObject.rollOut</linktext></link></related-links></apiValue><apiValue id="spark.events:GridEvent:SEPARATOR_MOUSE_DRAG"><apiName>SEPARATOR_MOUSE_DRAG</apiName><shortdesc>
+      separatorMouseDrag GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>separatorMouseDrag</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>separatorMouseDrag</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.SEPARATOR_MOUSE_DRAG</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:SEPARATOR_MOUSE_UP"><apiName>SEPARATOR_MOUSE_UP</apiName><shortdesc>
+      separatorMouseUp GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>separatorMouseUp</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>separatorMouseUp</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.SEPARATOR_MOUSE_UP</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#InteractiveObject/event:rollOut"><linktext>flash.display.InteractiveObject.rollOut</linktext></link></related-links></apiValue><apiValue id="spark.events:GridEvent:SEPARATOR_ROLL_OUT"><apiName>SEPARATOR_ROLL_OUT</apiName><shortdesc>
+      separatorRollOut GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>separatorRollOut</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>separatorRollOut</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.SEPARATOR_ROLL_OUT</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:SEPARATOR_ROLL_OVER"><apiName>SEPARATOR_ROLL_OVER</apiName><shortdesc>
+      separatorRollOver GridEvent 的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>separatorRollOver</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>separatorRollOver</codeph> GridEvent 的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>column</codeph></entry><entry>发生事件的列；如果事件没有发生在列中，则为 null。</entry></row><row><entry><codeph>columnIndex</codeph></entry><entry>发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</entry></row><row><entry><codeph>grid</codeph></entry><entry>与此事件关联的网格。</entry></row><row><entry><codeph>item</codeph></entry><entry>此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</entry></row><row><entry><codeph>itemRenderer</codeph></entry><entry>显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</entry></row><row><entry><codeph>rowIndex</codeph></entry><entry>发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row><row><entry><codeph>type</codeph></entry><entry>GirdEvent.SEPARATOR_ROLL_OVER</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:columnIndex"><apiName>columnIndex</apiName><shortdesc>
+      发生事件的列索引；如果在网格列中没有发生事件，则为 -1。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      发生事件的列索引；如果在网格列中没有发生事件，则为 -1。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:column"><apiName>column</apiName><shortdesc>
+      发生事件的列；如果事件没有发生在列中，则为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components.gridClasses:GridColumn</apiValueClassifier></apiValueDef><apiDesc>
+      发生事件的列；如果事件没有发生在列中，则为 null。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:itemRenderer"><apiName>itemRenderer</apiName><shortdesc>
+      显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>spark.components.gridClasses:IGridItemRenderer</apiValueClassifier></apiValueDef><apiDesc>
+      显示此单元格的项呈示器；如果在可见单元格中没有发生事件，则为 null。 
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:item"><apiName>item</apiName><shortdesc>
+      此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef><apiDesc>
+      此行的数据提供程序项；如果在网格行中没有发生事件，则为 null。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:rowIndex"><apiName>rowIndex</apiName><shortdesc>
+      发生事件的行索引；如果在网格行中没有发生事件，则为 -1。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="int"/></apiValueDef><apiDesc>
+      发生事件的行索引；如果在网格行中没有发生事件，则为 -1。
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridEvent:grid:get"><apiName>grid</apiName><shortdesc>
+      与此事件关联的网格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>spark.components:Grid</apiValueClassifier></apiValueDef><apiDesc>
+      与此事件关联的网格。
+     
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:GridSelectionEventKind"><apiName>GridSelectionEventKind</apiName><shortdesc>
+  GridSelectionEventKind 类定义代表 spark.events.GridSelectionEvent 类 kind 属性的有效值的常量。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiFinal/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  GridSelectionEventKind 类定义代表 spark.events.GridSelectionEvent 类 <codeph>kind</codeph> 属性的有效值的常量。这些常量指示对选定内容进行的更改类型。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.events.xml#GridSelectionEvent/kind"><linktext>spark.events.GridSelectionEvent.kind</linktext></link><link href="spark.events.xml#GridSelectionEvent"><linktext>spark.events.GridSelectionEvent</linktext></link></related-links><apiValue id="spark.events:GridSelectionEventKind:ADD_CELL"><apiName>ADD_CELL</apiName><shortdesc> 
+      指示应将此单元格添加到当前选定内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>addCell</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应将此单元格添加到当前选定内容。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridSelectionEventKind:ADD_ROW"><apiName>ADD_ROW</apiName><shortdesc> 
+      指示应将此行添加到当前选定内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>addRow</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应将此行添加到当前选定内容。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridSelectionEventKind:CLEAR_SELECTION"><apiName>CLEAR_SELECTION</apiName><shortdesc> 
+      指示应清除当前选定内容。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>clearSelection</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应清除当前选定内容。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridSelectionEventKind:REMOVE_CELL"><apiName>REMOVE_CELL</apiName><shortdesc> 
+      指示应将此单元格从当前选定内容中删除。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>removeCell</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应将此单元格从当前选定内容中删除。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridSelectionEventKind:REMOVE_ROW"><apiName>REMOVE_ROW</apiName><shortdesc> 
+      指示应将此行从当前选定内容中删除。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>removeRow</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应将此行从当前选定内容中删除。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridSelectionEventKind:SELECT_ALL"><apiName>SELECT_ALL</apiName><shortdesc> 
+      指示应选择整个网格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>selectAll</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应选择整个网格。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridSelectionEventKind:SET_CELL_REGION"><apiName>SET_CELL_REGION</apiName><shortdesc> 
+      指示应将当前选定内容设置为此单元格区域。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>setCellRegion</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应将当前选定内容设置为此单元格区域。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridSelectionEventKind:SET_CELL"><apiName>SET_CELL</apiName><shortdesc> 
+      指示应将当前选定内容设置为此单元格。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>setCell</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应将当前选定内容设置为此单元格。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridSelectionEventKind:SET_ROWS"><apiName>SET_ROWS</apiName><shortdesc> 
+      指示应将当前选定内容设置为这些行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>setRows</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应将当前选定内容设置为这些行。
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:GridSelectionEventKind:SET_ROW"><apiName>SET_ROW</apiName><shortdesc> 
+      指示应将当前选定内容设置为此行。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>setRow</apiData><apiType value="String"/></apiValueDef><apiDesc> 
+      指示应将当前选定内容设置为此行。
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.events:TitleWindowBoundsEvent"><apiName>TitleWindowBoundsEvent</apiName><shortdesc>
+  TitleWindowBoundsEvent 类表示 Spark TitleWindow 的边界通过移动或调整大小发生更改时分派的事件对象。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+  TitleWindowBoundsEvent 类表示 Spark TitleWindow 的边界通过移动或调整大小发生更改时分派的事件对象。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#TitleWindow"><linktext>spark.components.TitleWindow</linktext></link></related-links><adobeApiEvent id="spark.events:TitleWindowBoundsEvent:WINDOW_MOVE_END_windowMoveEnd"><apiName>windowMoveEnd</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:TitleWindowBoundsEvent:WINDOW_MOVE_END</apiEventType><adobeApiEventClassifier>spark.events:TitleWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:TitleWindowBoundsEvent:WINDOW_MOVE_START_windowMoveStart"><apiName>windowMoveStart</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:TitleWindowBoundsEvent:WINDOW_MOVE_START</apiEventType><adobeApiEventClassifier>spark.events:TitleWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:TitleWindowBoundsEvent:WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:TitleWindowBoundsEvent:WINDOW_MOVE</apiEventType><adobeApiEventClassifier>spark.events:TitleWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.events:TitleWindowBoundsEvent:WINDOW_MOVING_windowMoving"><apiName>windowMoving</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>spark.events:TitleWindowBoundsEvent:WINDOW_MOVING</apiEventType><adobeApiEventClassifier>spark.events:TitleWindowBoundsEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.events:TitleWindowBoundsEvent:TitleWindowBoundsEvent"><apiName>TitleWindowBoundsEvent</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiDesc>事件类型；指示引发事件的动作。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>bubbles</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定该事件是否可以在显示列表层次结构得到冒泡处理。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>cancelable</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>指定是否可以防止与事件相关联的行为。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>beforeBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>操作之前的窗口范围。如果该事件是可取消的，则 <codeph>beforeBounds</codeph> 是窗口的当前边界。否则，它是发生更改之前的边界。
+     
+      </apiDesc></apiParam><apiParam><apiItemName>afterBounds</apiItemName><apiType value="flash.geom:Rectangle"/><apiData>null</apiData><apiDesc>操作之后的窗口范围。如果该事件是可取消的，则 <codeph>afterBounds</codeph> 是窗口的未来边界。否则，它是当前边界。
+      
+      </apiDesc></apiParam></apiConstructorDef><apiDesc>
+      构造函数。
+     
+      </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="spark.events:TitleWindowBoundsEvent:WINDOW_MOVE_END"><apiName>WINDOW_MOVE_END</apiName><shortdesc>
+      TitleWindowBoundsEvent.WINDOW_MOVE_END 常量可为 windowMoveEnd 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowMoveEnd</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>TitleWindowBoundsEvent.WINDOW_MOVE_END</codeph> 常量可为 <codeph>windowMoveEnd</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>对象的起始边界。</entry></row><row><entry><codeph>afterBounds</codeph></entry><entry>对象的最终边界。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:TitleWindowBoundsEvent:WINDOW_MOVE_START"><apiName>WINDOW_MOVE_START</apiName><shortdesc>
+      TitleWindowBoundsEvent.WINDOW_MOVE_START 常量可为 windowMoveStart 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowMoveStart</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>TitleWindowBoundsEvent.WINDOW_MOVE_START</codeph> 常量可为 <codeph>windowMoveStart</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>对象的起始边界。</entry></row><row><entry><codeph>afterBounds</codeph></entry><entry>null</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:TitleWindowBoundsEvent:WINDOW_MOVE"><apiName>WINDOW_MOVE</apiName><shortdesc>
+      TitleWindowBoundsEvent.WINDOW_MOVE 常量可为 windowMove 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowMove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>TitleWindowBoundsEvent.WINDOW_MOVE</codeph> 常量可为 <codeph>windowMove</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>false</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>对象的先前界限。</entry></row><row><entry><codeph>afterBounds</codeph></entry><entry>对象的当前边界。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:TitleWindowBoundsEvent:WINDOW_MOVING"><apiName>WINDOW_MOVING</apiName><shortdesc>
+      TitleWindowBoundsEvent.WINDOW_MOVING 常量可为 windowMoving 事件定义事件对象的 type 属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>windowMoving</apiData><apiType value="String"/></apiValueDef><apiDesc>
+      <codeph>TitleWindowBoundsEvent.WINDOW_MOVING</codeph> 常量可为 <codeph>windowMoving</codeph> 事件定义事件对象的 <codeph>type</codeph> 属性的值。
+     
+      <p>事件对象的属性有下列值：</p>
+      <adobetable class="innertable">
+         
+         
+         
+         
+         
+         
+         
+      <tgroup cols="2"><thead><row><entry>属性</entry><entry>值</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry>false</entry></row><row><entry><codeph>cancelable</codeph></entry><entry>true</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>用于定义处理该事件的事件侦听器的 Object。例如，如果您使用 <codeph>myButton.addEventListener()</codeph> 注册某个事件侦听器，则 myButton 为 <codeph>currentTarget</codeph> 的值。 </entry></row><row><entry><codeph>beforeBounds</codeph></entry><entry>对象的当前边界。</entry></row><row><entry><codeph>afterBounds</codeph></entry><entry>对象移动到当前光标位置之后的未来边界。</entry></row><row><entry><codeph>target</codeph></entry><entry>分派该事件的 Object；它不一定是侦听该事件的 Object。使用 <codeph>currentTarget</codeph> 属性始终可以访问侦听事件的 Object。</entry></row></tbody></tgroup></adobetable>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:TitleWindowBoundsEvent:afterBounds"><apiName>afterBounds</apiName><shortdesc>
+      操作之后的对象边界。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      操作之后的对象边界。如果该事件是可取消的，则 <codeph>afterBounds</codeph> 是窗口的未来边界。否则，它是当前边界。
+     
+      <p>以下列表显示了如何为不同的事件类型设置该属性：</p>
+     
+      <ul>
+        <li><codeph>WINDOW_MOVE</codeph> - 窗口的当前边界。</li>
+        <li><codeph>WINDOW_MOVE_END</codeph> - 拖动前窗口的最终边界。</li>
+        <li><codeph>WINDOW_MOVE_START</codeph> - null。</li>
+        <li><codeph>WINDOW_MOVING</codeph> - 窗口移动到当前光标位置之后的未来边界。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.events:TitleWindowBoundsEvent:beforeBounds"><apiName>beforeBounds</apiName><shortdesc>
+      操作之前的对象边界。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool description="" name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef><apiDesc>
+      操作之前的对象边界。如果该事件是可取消的，则 <codeph>beforeBounds</codeph> 是窗口的当前边界。否则，它是发生更改之前的边界。
+     
+      <p>以下列表显示了如何为不同的事件类型设置该属性：</p>
+     
+      <ul>
+        <li><codeph>WINDOW_MOVE</codeph> - 窗口的先前边界。</li>
+        <li><codeph>WINDOW_MOVE_END</codeph> - 拖动前窗口的起始边界。</li>
+        <li><codeph>WINDOW_MOVE_START </codeph> - 窗口的起始边界。</li>
+        <li><codeph>WINDOW_MOVING</codeph> - 窗口的当前边界。</li>
+      </ul>
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

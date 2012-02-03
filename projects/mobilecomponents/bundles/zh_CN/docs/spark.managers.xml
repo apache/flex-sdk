@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.managers"><apiName>spark.managers</apiName><apiDetail/><apiClassifier id="spark.managers:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+  PersistenceManager 类是由名为 FxAppCache 的本地共享对象返回的基本持久管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>spark.managers:IPersistenceManager</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  PersistenceManager 类是由名为 FxAppCache 的本地共享对象返回的基本持久管理器。初始化之后，将加载匹配其 ID 的本地共享对象。如果未找到本地共享对象，则创建此对象。
+ 
+  <p>在使用管理器存储值时，所有值应该都可以正确写入共享对象，这一点很重要。存储类或非标准 flash 基本类型的复杂对象必须实现 flash.net.IExternalizable 接口才能正常起作用。保存不兼容的对象不会导致 RTE，但读回数据时会创建未定义的行为。</p>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="" invalidHref="flash.utils.IExternalizable.xml"><linktext>flash.utils.IExternalizable</linktext></link></related-links><apiConstructor id="spark.managers:PersistenceManager:PersistenceManager"><apiName>PersistenceManager</apiName><shortdesc>
+      构造函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      构造函数。
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.managers:PersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      
+      清除所有正在由持久管理器存储的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      
+      清除所有正在由持久管理器存储的数据。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      
+      返回存储在持久管理器中的属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>存储在持久管理器中的属性的值。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>属性键。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      返回存储在持久管理器中的属性的值。将属性保存为键:值对。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:load"><apiName>load</apiName><shortdesc>
+      
+      初始化持久管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果操作成功，为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      初始化持久管理器。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:save"><apiName>save</apiName><shortdesc>
+      
+      将由持久管理器正在管理的数据清仓到磁盘或其它外部存储文件中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果操作成功，为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      
+      将由持久管理器正在管理的数据清仓到磁盘或其它外部存储文件中。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:PersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      
+      在持久管理器中存储值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>用于存储值的键.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要存储的值对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      
+      在持久管理器中存储值。将属性保存为键:值对。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="spark.managers:IPersistenceManager"><apiName>IPersistenceManager</apiName><shortdesc>
+  IPersistenceManager 定义所有持久管理器必须实现的接口。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  IPersistenceManager 定义所有持久管理器必须实现的接口。这些对象用于持久保存应用程序会话之间的数据。
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.managers.xml#PersistenceManager"><linktext>spark.managers.PersistenceManager</linktext></link></related-links><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:clear"><apiName>clear</apiName><shortdesc>
+      清除所有正在由持久管理器存储的数据。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      清除所有正在由持久管理器存储的数据。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:getProperty"><apiName>getProperty</apiName><shortdesc>
+      返回存储在持久管理器中的属性的值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>存储在持久管理器中的属性的值。
+     
+      </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>属性键。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      返回存储在持久管理器中的属性的值。将属性保存为键:值对。
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:load"><apiName>load</apiName><shortdesc>
+      初始化持久管理器。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果操作成功，为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      初始化持久管理器。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:save"><apiName>save</apiName><shortdesc>
+      将由持久管理器正在管理的数据清仓到磁盘或其它外部存储文件中。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>如果操作成功，为 <codeph>true</codeph>。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      将由持久管理器正在管理的数据清仓到磁盘或其它外部存储文件中。
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.managers:IPersistenceManager:spark.managers:IPersistenceManager:setProperty"><apiName>setProperty</apiName><shortdesc>
+      在持久管理器中存储值。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>key</apiItemName><apiType value="String"/><apiDesc>用于存储值的键.
+     
+      </apiDesc></apiParam><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiDesc>要存储的值对象。
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      在持久管理器中存储值。将属性保存为键:值对。
+     
+      </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

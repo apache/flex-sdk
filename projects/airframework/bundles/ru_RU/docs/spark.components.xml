@@ -1,0 +1,809 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<apiPackage id="spark.components"><apiName>spark.components</apiName><apiDetail/><apiClassifier id="spark.components:Window"><apiName>Window</apiName><shortdesc>
+  Window является контейнером верхнего уровня для дополнительных окон в приложении рабочего стола AIR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion><Exclude kind="effect" name="moveEffect"/><skinStates><SkinState name="disabledAndInactive" owner="spark.components:Window" playerVersion="Flash10">
+<description>
+  Приложение отключено и неактивно.
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndInactive" owner="spark.components:Window" playerVersion="Flash10">
+<description>
+  Приложение включено и неактивно.
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="spark.components:Window">
+<description>
+  Воспроизводится при отмене сворачивания компонента.
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="spark.components:Window">
+<description>
+  Воспроизводится при сворачивании компонента.
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="spark.components:Window">
+<description>
+  Воспроизводится при закрытии окна.
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect></effects><styles><style format="length" inherit="no" name="resizeAffordanceWidth" owner="spark.components:Window" playerVersion="Flash10" type="Number">
+<description>
+   Щелчок в окне рассматривается как щелчок границы окна, если он происходит на расстоянии в количество пикселей resizeAffordance от внешнего края окна.
+  
+  </description>
+<default>6
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="spark.components:Window" playerVersion="Flash10" type="uint">
+<description>
+  Фоновый цвет приложения. Этот цвет используется в качестве цвета рабочей области для приложения и цвета фона для HTML-тега embed.
+   
+  </description>
+<default>0xFFFFFF
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="spark.components:Window" playerVersion="Flash10" type="Number">
+<description>
+  Альфа-уровень цвета, определенного свойством <codeph>backgroundColor</codeph>. 
+   
+  </description>
+<default>1.0
+ 
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="mxmlContentFactory"/><skinParts><SkinPart name="gripper" owner="spark.components:Window" playerVersion="Flash10" required="false" var_type="spark.components:Button">
+<description>
+      Элемент темы оформления, определяющий кнопку захвата, используемую для изменения размера окна. 
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusBar" owner="spark.components:Window" playerVersion="AIR1.5" required="false" var_type="mx.core:IVisualElement">
+<description>
+      Элемент темы оформления, определяющий внешний вид строки состояния.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusText" owner="spark.components:Window" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      Элемент темы оформления, определяющий внешний вид текста строки состояния.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleBar" owner="spark.components:Window" playerVersion="AIR1.5" required="false" var_type="spark.components.windowClasses:TitleBar">
+<description>
+      Элемент темы оформления, определяющий строку заголовка.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart></skinParts></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;s:Window&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;s:Window
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    backgroundColor="white"
+    colorCorrection="default"
+    maxHeight="2880 less the height of the system chrome"
+    maximizable="true"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minimizable="true"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    resizable="true"
+    showStatusBar="true"
+    status=""
+    systemChrome="standard"
+    title=""
+    titleIcon="<i>null</i>"
+    transparent="false"
+    type="normal"
+    visible="true"
+    width="100"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    close="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowActivate="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowDeactivate="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>spark.components:SkinnableContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+  Window является контейнером верхнего уровня для дополнительных окон в приложении рабочего стола AIR.
+ 
+  <p>Контейнер Window является специальным видом контейнера в том смысле, что он не может быть использован внутри других контейнеров макета. Компонент spark.components.Window должен быть компонентом верхнего уровня в своем документе MXML.</p>
+ 
+  <p>Самый простой способ использования компонента Window для определения встроенного окна состоит в создании документа MXML с тегом <codeph>&lt;s:Window></codeph> в качестве тега верхнего уровня в документе. Компонент Window используется точно так же, как и любой другой контейнер, включая указание типа макета, определение нижестоящих элементов управления и т.д. Как и любой другой пользовательский компонент MXML, при компиляции приложения документ MXML компилируется в пользовательский класс, являющийся подклассом компонента Window.</p>
+ 
+  <p>В коде приложения для отображения на экране экземпляра пользовательского подкласса Window сначала следует создать экземпляр класса в коде (путем определения переменной и вызова конструктора <codeph>new MyWindowClass()</codeph>. Затем следует установить все свойства, которые необходимо указать для нового окна. Наконец, для открытия окна на экране следует вызвать метод <codeph>open()</codeph> компонента Window.</p>
+ 
+  <p>Следует отметить, что некоторые свойства класса Window могут быть установлены только <b>до</b> вызова метода <codeph>open()</codeph> для открытия окна. После создания основного NativeWindow эти инициализационные свойства могут быть прочитаны, но не могут быть изменены. Это ограничение распространяется на следующие свойства:</p>
+ 
+  <ul>
+    <li><codeph>maximizable;</codeph></li>
+    <li><codeph>minimizable;</codeph></li>
+    <li><codeph>resizable;</codeph></li>
+    <li><codeph>systemChrome;</codeph></li>
+    <li><codeph>transparent;</codeph></li>
+    <li><codeph>type</codeph></li>
+  </ul>
+ 
+  </apiDesc></apiClassifierDetail><related-links><link href="spark.components.xml#WindowedApplication"><linktext>spark.components.WindowedApplication</linktext></link></related-links><adobeApiEvent id="spark.components:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  Отправляется после изменения размеров основного NativeWindow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после изменения размеров основного NativeWindow.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  Отправляется после перемещения окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после перемещения окна.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  Отправляется при завершении начального макета Window и открытии основного NativeWindow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при завершении начального макета Window и открытии основного NativeWindow.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  Отправляется перед изменением размера основного NativeWindow, либо во время перетаскивания границ объекта Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется перед изменением размера основного NativeWindow, либо во время перетаскивания границ объекта Window.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  Отправляется при подключении или отключении компьютера от сети.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при подключении или отключении компьютера от сети.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  Отправляется перед перемещением окна и во время перетаскивания окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется перед перемещением окна и во время перетаскивания окна.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  Отправляется перед изменением состояния отображения на minimize, maximize или restore.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется перед изменением состояния отображения на minimize, maximize или restore.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  Отправляется после изменения состояния отображения на minimize, maximize или restore.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после изменения состояния отображения на minimize, maximize или restore.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  Отправляется перед закрытием окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется перед закрытием окна. Это событие допускает отмену.
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:Window_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  Отправляется после закрытия окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после закрытия окна.
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  Отправляется после деактивации окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после деактивации окна.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  Отправляется после активации окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после активации окна.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  Отправляется при деактивации приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при деактивации приложения.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:Window_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  Отправляется при активации приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при активации приложения.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components:Window:Window"><apiName>Window</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components:Window:activate"><apiName>activate</apiName><shortdesc>
+      Активирует основной NativeWindow (даже в том случае, когда приложение Window в настоящее время неактивно).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Активирует основной NativeWindow (даже в том случае, когда приложение Window в настоящее время неактивно).
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:close"><apiName>close</apiName><shortdesc>
+      Закрывает окно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Закрывает окно. Эта операция допускает отмену.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:getWindow"><apiName>getWindow</apiName><shortdesc>
+      Возвращает Window, который является вышестоящим элементом для этого компонента.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier></apiReturn><apiParam><apiItemName>component</apiItemName><apiType value="mx.core:UIComponent"/><apiDesc>компонент, Window которого требуетесь найти.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Возвращает Window, который является вышестоящим элементом для этого компонента.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:maximize"><apiName>maximize</apiName><shortdesc>
+      Разворачивает окно или не делает ничего, если оно уже развернуто.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Разворачивает окно или не делает ничего, если оно уже развернуто.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:minimize"><apiName>minimize</apiName><shortdesc>
+      Сворачивает окно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Сворачивает окно.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:protected:mouseDownHandler"><apiName>mouseDownHandler</apiName><shortdesc>
+      Управляет событиями нажатия мыши на границе окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/></apiParam></apiOperationDef><apiDesc>
+      Управляет событиями нажатия мыши на границе окна.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:open"><apiName>open</apiName><shortdesc>
+      Создает основной NativeWindow и открывает его.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>openWindowActive</apiItemName><apiType value="Boolean"/><apiData>true</apiData><apiDesc>указывает, было ли открыто активное Window (т.е. имело ли оно фокус). Значение по умолчанию – <codeph>true</codeph>.
+      
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Создает основной NativeWindow и открывает его. После закрытия объект Window остается действительной ссылкой, однако доступ к большинству свойств и методов не выполняется. Закрытые окна нельзя открыть повторно. 
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      Располагает окно сразу за другим.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если окно успешно переместилось назад; <codeph>false</codeph>, если окно невидимо или свернуто.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>IWindow (Window или WindowedAplication) для отправки этого окна назад.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Располагает окно сразу за другим. Для расположения окна позади NativeWindow, не реализующего IWindow, следует использовать метод <codeph>orderInBackOf()</codeph> nativeWindow этого окна.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      Располагает окно сразу перед другим.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если окно успешно переместилось вперед; <codeph>false</codeph>, если окно невидимо или свернуто.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>IWindow (Window или WindowedAplication) для отправки этого окна перед.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Располагает окно сразу перед другим. Для расположения окна перед NativeWindow, не реализующим IWindow, следует использовать метод <codeph>orderInFrontOf()</codeph> nativeWindow этого окна.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+      Располагает окно позади всех других в том же самом приложении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> если окно успешно переместилось назад; <codeph>false</codeph> если окно невидимо или свернуто.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Располагает окно позади всех других в том же самом приложении.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+      Отправляет окно вперед перед всеми другими в том же самом приложении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если окно успешно переместилось вперед; <codeph>false</codeph> если окно невидимо или свернуто.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+      Отправляет окно вперед перед всеми другими в том же самом приложении.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:Window:restore"><apiName>restore</apiName><shortdesc>
+      Восстанавливает окно (отменяет разворачивание, если оно развернуто или отменяет сворачивание, если оно свернуто).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Восстанавливает окно (отменяет разворачивание, если оно развернуто или отменяет сворачивание, если оно свернуто).
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components:Window:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      Определяет, располагается ли основной NativeWindow всегда перед другими окнами (включая окна других приложений).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Определяет, располагается ли основной NativeWindow всегда перед другими окнами (включая окна других приложений). Установка этого свойства устанавливает свойство <codeph>alwaysInFront</codeph> основного NativeWindow. Для получения дополнительной информации о влиянии на порядок наложения окон свойства <codeph>NativeWindow.alwaysInFront</codeph> см. описание этого свойства.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/alwaysInFront"><linktext>flash.display.NativeWindow.alwaysInFront</linktext></link></related-links></apiValue><apiValue id="spark.components:Window:closed:get"><apiName>closed</apiName><shortdesc>
+      Флаг, указывающий, закрыто ли окно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Флаг, указывающий, закрыто ли окно.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:colorCorrection:get"><apiName>colorCorrection</apiName><shortdesc>
+     Значение свойства colorCorrection рабочей области.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>ColorCorrection.DEFAULT
+     
+     </apiDefaultValue></apiValueDef><apiDesc>
+     Значение свойства <codeph>colorCorrection</codeph> рабочей области. Если это приложение не будет иметь доступа к свойству <codeph>colorCorrection</codeph> рабочей области, то значение свойства <codeph>colorCorrection</codeph> будет возвращаться как null. Только главное приложение имеет право устанавливать свойство <codeph>colorCorrection</codeph>. Если субприложение должно установить свойства коррекции цвета, то оно должно будет установить его с помощью экземпляра главного приложения, либо непосредственно с помощью экземпляра объекта, либо с помощью события (событие инфраструктуры для этих целей отсутствует).  
+    
+     </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      Определяет возможность разворачивания окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Определяет возможность разворачивания окна. После открытия окна значение этого свойства становится доступным только для чтения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      Определяет возможность сворачивания окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Определяет возможность сворачивания окна. После открытия окна значение этого свойства становится доступным только для чтения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      Основной NativeWindow, используемый этим компонентом Window.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      Основной NativeWindow, используемый этим компонентом Window.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:resizable:get"><apiName>resizable</apiName><shortdesc>
+      Определяет возможность изменения размеров окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Определяет возможность изменения размеров окна. После открытия окна значение этого свойства становится доступным только для чтения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      Если установлено значение true, то строка состояния отображается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если установлено значение <codeph>true</codeph>, то строка состояния отображается.
+     
+      <p>Строка состояния появляется только при использовании классов WindowedApplicationSkin или SparkChromeWindowedApplicationSkin в качестве темы оформления всего приложения или любого из его окон.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:status:get"><apiName>status</apiName><shortdesc>
+      Строка, отображаемая в строке состояния, если она является видимой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка, отображаемая в строке состояния, если она является видимой.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      Указывает тип системного хрома (при его наличии) окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает тип системного хрома (при его наличии) окна. Набор возможных значений определяется константами в классе NativeWindowSystemChrome.
+     
+      <p>После открытия окна значение этого свойства становится доступным только для чтения.</p>
+     
+      <p>Значением по умолчанию является <codeph>NativeWindowSystemChrome.STANDARD</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowSystemChrome.xml"><linktext>flash.display.NativeWindowSystemChrome</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/systemChrome"><linktext>flash.display.NativeWindowInitOptions.systemChrome</linktext></link></related-links></apiValue><apiValue id="spark.components:Window:title:get"><apiName>title</apiName><shortdesc>
+      Текст заголовка, появляющийся в строке заголовка окна и в панели задач.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Текст заголовка, появляющийся в строке заголовка окна и в панели задач.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Class (обычно изображение) используется для отображения значка строки заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Class (обычно изображение) используется для отображения значка строки заголовка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:transparent:get"><apiName>transparent</apiName><shortdesc>
+      Указывает, прозрачно ли окно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, прозрачно ли окно. Установка значения <codeph>true</codeph> для этого свойства для окна, использующего системный хром, не поддерживается.
+     
+      <p>После открытия окна значение этого свойства становится доступным только для чтения.</p>
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:Window:type:get"><apiName>type</apiName><shortdesc>
+      Указывает тип NativeWindow, который представляет этот компонент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает тип NativeWindow, который представляет этот компонент. Набор возможных значений определяется константами класса NativeWindowType.
+     
+      <p>После открытия окна значение этого свойства становится доступным только для чтения.</p>
+     
+      <p>Значением по умолчанию является <codeph>NativeWindowType.NORMAL</codeph>.</p>
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link><link href="" invalidHref="flash.display.xml#NativeWindowInitOptions/type"><linktext>flash.display.NativeWindowInitOptions.type</linktext></link></related-links></apiValue><apiValue id="spark.components:Window:menu:set"><apiName>menu</apiName><shortdesc>
+      Оконное меню для этого окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      Оконное меню для этого окна. Некоторые операционные системы не поддерживают оконное меню, в этом случае эти свойства игнорируются.
+      
+      </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="spark.components:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+  WindowedApplication определяет контейнер приложения, который используется для создания приложения Flex для приложений AIR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion><Exclude kind="effect" name="moveEffect"/><Exclude kind="property" name="controlBarVisible"/><Exclude kind="property" name="controlBarLayout"/><Exclude kind="property" name="controlBarGroup"/><Exclude kind="property" name="controlBarContent"/><skinStates><SkinState name="disabledAndInactive" owner="spark.components:WindowedApplication" playerVersion="Flash10">
+<description>
+  Приложение отключено и неактивно.
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState><SkinState name="normalAndInactive" owner="spark.components:WindowedApplication" playerVersion="Flash10">
+<description>
+  Приложение включено и неактивно.
+  
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></SkinState></skinStates><effects><effect event="windowUnminimize" name="unminimizeEffect" owner="spark.components:WindowedApplication">
+<description>
+  Воспроизводится при отмене сворачивания компонента.
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowMinimize" name="minimizeEffect" owner="spark.components:WindowedApplication">
+<description>
+  Воспроизводится при сворачивании компонента.
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect><effect event="windowClose" name="closeEffect" owner="spark.components:WindowedApplication">
+<description>
+  Воспроизводится при закрытии окна.
+  
+  </description>
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></effect></effects><styles><style format="length" inherit="no" name="resizeAffordanceWidth" owner="spark.components:WindowedApplication" playerVersion="Flash10" type="Number">
+<description>
+   Щелчок в окне рассматривается как щелчок границы окна, если он происходит на расстоянии в количество пикселей resizeAffordance от внешнего края окна.
+ 
+  </description>
+<default>6
+   
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style format="Color" inherit="no" name="backgroundColor" owner="spark.components:WindowedApplication" playerVersion="Flash10" type="uint">
+<description>
+  Фоновый цвет приложения. Этот цвет используется в качестве цвета рабочей области для приложения и цвета фона для HTML-тега embed.
+   
+  </description>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style><style inherit="no" name="backgroundAlpha" owner="spark.components:WindowedApplication" playerVersion="Flash10" type="Number">
+<description>
+  Альфа-уровень цвета, определенного свойством <codeph>backgroundColor</codeph>. 
+   
+  </description>
+<default>1.0
+   
+  </default>
+
+<playerversion>AIR 1.5
+  </playerversion>
+	<prolog><asCustoms><langversion>3.0
+  </langversion><productversion>Flex 4
+ </productversion></asCustoms></prolog></style></styles><DefaultProperty name="mxmlContentFactory"/><skinParts><SkinPart name="gripper" owner="spark.components:WindowedApplication" playerVersion="Flash10" required="false" var_type="spark.components:Button">
+<description>
+      Элемент темы оформления, определяющий кнопку захвата, используемую для изменения размера окна. 
+      
+      </description>
+
+<playerversion>AIR 1.5
+      </playerversion>
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusBar" owner="spark.components:WindowedApplication" playerVersion="AIR1.5" required="false" var_type="mx.core:IVisualElement">
+<description>
+      Элемент темы оформления, определяющий внешний вид строки состояния.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="statusText" owner="spark.components:WindowedApplication" playerVersion="AIR1.5" required="false" var_type="spark.components.supportClasses:TextBase">
+<description>
+      Элемент темы оформления, определяющий внешний вид текста строки состояния.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart><SkinPart name="titleBar" owner="spark.components:WindowedApplication" playerVersion="AIR1.5" required="false" var_type="spark.components.windowClasses:TitleBar">
+<description>
+      Элемент темы оформления, определяющий внешний вид строки заголовка.
+      
+      </description>
+
+	<prolog><asCustoms><langversion>3.0
+      </langversion><productversion>Flex 4
+     </productversion></asCustoms></prolog></SkinPart></skinParts></asMetadata><asCustoms><mxml><![CDATA[
+ 
+  <p>The <code>&lt;mx:WindowedApplication&gt;</code> tag inherits all of the tag
+  attributes of its superclass and adds the following tag attributes:</p>
+ 
+  <pre>
+  &lt;mx:WindowedApplication
+    <strong>Properties</strong>
+    alwaysInFront="false"
+    autoExit="true"
+    backgroundFrameRate="1"
+    dockIconMenu="<i>null</i>"
+    maxHeight="2880 less the height of the system chrome"
+    maxWidth="2880 less the width of the system chrome"
+    menu="<i>null</i>"
+    minHeight="dependent on the operating system and the AIR systemChrome setting"
+    minWidth="dependent on the operating system and the AIR systemChrome setting"
+    showStatusBar="true"
+    status=""
+    systemTrayIconMenu="<i>null</i>"
+    title=""
+    titleIcon="<i>null</i>"
+ 
+    <strong>Effects</strong>
+    closeEffect="<i>No default</i>"
+    minimizeEffect="<i>No default</i>"
+    unminimizeEffect="<i>No default</i>"
+ 
+    <strong>Events</strong>
+    applicationActivate="<i>No default</i>"
+    applicationDeactivate="<i>No default</i>"
+    close="<i>No default</i>"
+    closing="<i>No default</i>"
+    displayStateChange="<i>No default</i>"
+    displayStateChanging="<i>No default</i>"
+    invoke="<i>No default</i>"
+    moving="<i>No default</i>"
+    networkChange="<i>No default</i>"
+    resizing="<i>No default</i>"
+    windowActivate="<i>No default</i>"
+    windowComplete="<i>No default</i>"
+    windowDeactivate="<i>No default</i>"
+    windowMove="<i>No default</i>"
+    windowResize="<i>No default</i>"
+  /&gt;
+  </pre>
+ 
+  ]]></mxml></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>mx.core:IWindow</apiBaseInterface><apiBaseClassifier>spark.components:Application</apiBaseClassifier></apiClassifierDef><apiDesc>
+  WindowedApplication определяет контейнер приложения, который используется для создания приложения Flex для приложений AIR.
+ 
+  <p>WindowedApplication играет две роли. Он является заменой для тега &lt;mx:WindowedApplication>, функционируя в качестве точки входа в приложение AIR на основе Flex. Кроме того, как контейнер WindowedApplication определяет макет начального окна приложения Flex AIR – любой визуальный элемент управления, определенный в WindowedApplication, становится содержимым начального окна, загруженного приложением AIR.</p>
+ 
+  <p>WindowedApplication является приложением верхнего уровня приложения AIR на основе Flex. Он не предназначен для загрузки другими приложениями Flex. Если WindowedApplication необходимо загрузить другие приложения, то следует использовать класс Application в качестве контейнера для этих приложений. При возникновении необходимости в других окнах следует использовать класс Window в качестве контейнера для этих окон.</p>
+  
+  <p>Следует отметить, что поскольку WindowedApplication представляет только визуальное содержимое одиночного окна, а не всех окон в многооконном приложении, то экземпляр WindowedApplication отправляет только связанные с отображением события (события, наследуемые классом WindowedApplication от базовых классов экранных объектов, например InteractiveObject или UIComponent) для его собственной рабочей области и окна, а не для событий, происходящих в других окнах в приложении. В этом состоит отличие от приложения на основе браузера, в котором контейнер FxApplication отправляет события для всех окон в приложении (т.к. технически все эти окна являются экранными объектами, отображаемыми в одной рабочей области Application).</p>
+ 
+  </apiDesc><example conref="WindowedApplicationSample.mxml"/></apiClassifierDetail><related-links><link href="" invalidHref="spark.components.Windowed.xml"><linktext>spark.components.Windowed</linktext></link><link href="spark.skins.spark.xml#SparkChromeWindowedApplicationSkin"><linktext>spark.skins.spark.SparkChromeWindowedApplicationSkin</linktext></link><link href="spark.skins.spark.xml#WindowedApplicationSkin"><linktext>spark.skins.spark.WindowedApplicationSkin</linktext></link></related-links><adobeApiEvent id="spark.components:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE_windowResize"><apiName>windowResize</apiName><shortdesc>
+  Отправляется после изменения размеров основного объекта NativeWindow.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после изменения размеров основного объекта NativeWindow.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE_windowMove"><apiName>windowMove</apiName><shortdesc>
+  Отправляется после перемещения объекта WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE</apiEventType><adobeApiEventClassifier>mx.events.FlexNativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после перемещения объекта WindowedApplication.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.WINDOW_COMPLETE_windowComplete"><apiName>windowComplete</apiName><shortdesc>
+  Отправляется после завершения начального макета WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_COMPLETE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после завершения начального макета WindowedApplication. По умолчанию в это время WindowedApplication будет видим.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowBoundsEvent.RESIZING_resizing"><apiName>resizing</apiName><shortdesc>
+  Отправляется прежде, чем будут изменены размеры объекта WindowedApplication, или во время перетаскивания границ объекта WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.RESIZING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется прежде, чем будут изменены размеры объекта WindowedApplication, или во время перетаскивания границ объекта WindowedApplication.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.Event.NETWORK_CHANGE_networkChange"><apiName>networkChange</apiName><shortdesc>
+  Отправляется при подключении или отключении компьютера от сети.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.NETWORK_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при подключении или отключении компьютера от сети.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowBoundsEvent.MOVING_moving"><apiName>moving</apiName><shortdesc>
+  Отправляется перед перемещением объекта WindowedApplication, или во время перетаскивания объекта WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowBoundsEvent.MOVING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowBoundsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется перед перемещением объекта WindowedApplication, или во время перетаскивания объекта WindowedApplication.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.InvokeEvent_invoke"><apiName>invoke</apiName><shortdesc>
+  Отправляется при вызове приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>flash.events.InvokeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при вызове приложения.
+  
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING_displayStateChanging"><apiName>displayStateChanging</apiName><shortdesc>
+  Отправляется перед изменением состояния отображения на minimize, maximize или restore.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется перед изменением состояния отображения на minimize, maximize или restore.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE_displayStateChange"><apiName>displayStateChange</apiName><shortdesc>
+  Отправляется после изменения состояния отображения на minimize, maximize или restore.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE</apiEventType><adobeApiEventClassifier>flash.events.NativeWindowDisplayStateEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после изменения состояния отображения на minimize, maximize или restore.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.Event.CLOSING_closing"><apiName>closing</apiName><shortdesc>
+  Отправляется перед закрытием окна WindowedApplication.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSING</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется перед закрытием окна WindowedApplication. Допускает отмену.
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_flash.events.Event.CLOSE_close"><apiName>close</apiName><shortdesc>
+  Отправляется после закрытия окна приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>flash.events.Event.CLOSE</apiEventType><adobeApiEventClassifier>flash.events.Event</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после закрытия окна приложения.
+ 
+  </apiDesc></adobeApiEventDetail><related-links><link href="" invalidHref="flash.display.NativeWindow.xml"><linktext>flash.display.NativeWindow</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.WINDOW_DEACTIVATE_windowDeactivate"><apiName>windowDeactivate</apiName><shortdesc>
+  Отправляется после деактивации окна приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после деактивации окна приложения.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.WINDOW_ACTIVATE_windowActivate"><apiName>windowActivate</apiName><shortdesc>
+  Отправляется после активации окна приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.WINDOW_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется после активации окна приложения.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.APPLICATION_DEACTIVATE_applicationDeactivate"><apiName>applicationDeactivate</apiName><shortdesc>
+  Отправляется при деактивации приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_DEACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при деактивации приложения.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="spark.components:WindowedApplication_mx.events.AIREvent.APPLICATION_ACTIVATE_applicationActivate"><apiName>applicationActivate</apiName><shortdesc>
+  Отправляется при активации приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>mx.events.AIREvent.APPLICATION_ACTIVATE</apiEventType><adobeApiEventClassifier>mx.events.AIREvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+  Отправляется при активации приложения.
+ 
+  </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="spark.components:WindowedApplication:WindowedApplication"><apiName>WindowedApplication</apiName><shortdesc>
+      Конструктор.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+      Конструктор.
+      
+      </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="spark.components:WindowedApplication:activate"><apiName>activate</apiName><shortdesc>
+      Активирует основной NativeWindow (даже если это приложение неактивно).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Активирует основной NativeWindow (даже если это приложение неактивно).
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:close"><apiName>close</apiName><shortdesc>
+      Закрывает NativeWindow приложения (начальное собственное окно, открытое приложением).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Закрывает NativeWindow приложения (начальное собственное окно, открытое приложением). Эта операция допускает отмену.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:exit"><apiName>exit</apiName><shortdesc>
+      Закрывает окно и выходит из приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Закрывает окно и выходит из приложения.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:maximize"><apiName>maximize</apiName><shortdesc>
+      Разворачивает окно или не делает ничего, если оно уже развернуто.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Разворачивает окно или не делает ничего, если оно уже развернуто.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:minimize"><apiName>minimize</apiName><shortdesc>
+      Сворачивает окно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Сворачивает окно.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:protected:mouseDownHandler"><apiName>mouseDownHandler</apiName><shortdesc>
+      Управляет событиями нажатия мыши на границе окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:MouseEvent"/></apiParam></apiOperationDef><apiDesc>
+      Управляет событиями нажатия мыши на границе окна.
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderInBackOf"><apiName>orderInBackOf</apiName><shortdesc>
+      Располагает окно сразу за другим.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если окно успешно переместилось назад; <codeph>false</codeph>, если окно невидимо или свернуто.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>IWindow (Window или WindowedAplication) для отправки этого окна назад.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Располагает окно сразу за другим. Для отправки окна за NativeWindow, не реализующий IWindow, используйте метод NativeWindow <codeph>orderInBackOf()</codeph> этого окна.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderInFrontOf"><apiName>orderInFrontOf</apiName><shortdesc>
+      Располагает окно сразу перед другим.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если окно успешно переместилось вперед; <codeph>false</codeph>, если окно невидимо или свернуто.
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>window</apiItemName><apiOperationClassifier>mx.core:IWindow</apiOperationClassifier><apiDesc>IWindow (Window или WindowedAplication) для отправки этого окна перед.
+     
+      </apiDesc></apiParam></apiOperationDef><apiDesc>
+      Располагает окно сразу перед другим. Для отправки окна вперед NativeWindow, не реализующего IWindow, используйте метод NativeWindow <codeph>orderInFrontOf()</codeph> этого окна.
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderToBack"><apiName>orderToBack</apiName><shortdesc>
+       Располагает окно позади всех других в том же самом приложении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph> если окно успешно переместилось назад; <codeph>false</codeph> если окно невидимо или свернуто.
+       
+       </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+       Располагает окно позади всех других в том же самом приложении.
+      
+       </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:orderToFront"><apiName>orderToFront</apiName><shortdesc>
+   Отправляет окно вперед перед всеми другими в том же самом приложении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc><codeph>true</codeph>, если окно успешно переместилось вперед; <codeph>false</codeph> если окно невидимо или свернуто.
+   
+   </apiDesc><apiType value="Boolean"/></apiReturn></apiOperationDef><apiDesc>
+   Отправляет окно вперед перед всеми другими в том же самом приложении.
+  
+   </apiDesc></apiOperationDetail></apiOperation><apiOperation id="spark.components:WindowedApplication:restore"><apiName>restore</apiName><shortdesc>
+      Восстанавливает окно (отменяет разворачивание, если оно развернуто или отменяет сворачивание, если оно свернуто).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+      Восстанавливает окно (отменяет разворачивание, если оно развернуто или отменяет сворачивание, если оно свернуто).
+      
+      </apiDesc></apiOperationDetail></apiOperation><apiValue id="spark.components:WindowedApplication:alwaysInFront:get"><apiName>alwaysInFront</apiName><shortdesc>
+      Определяет, располагается ли основной NativeWindow всегда перед другими окнами.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>false
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Определяет, располагается ли основной NativeWindow всегда перед другими окнами.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:applicationID:get"><apiName>applicationID</apiName><shortdesc>
+      Идентификатор, который AIR использует для идентификации приложения.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Идентификатор, который AIR использует для идентификации приложения.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:autoExit:get"><apiName>autoExit</apiName><shortdesc>
+      Указывает, будет ли приложение AIR осуществлять выход при закрытии последнего окна или продолжит фоновую работу.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает, будет ли приложение AIR осуществлять выход при закрытии последнего окна или продолжит фоновую работу.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:backgroundFrameRate:get"><apiName>backgroundFrameRate</apiName><shortdesc>
+      Указывает частоту кадров для использования при неактивном приложении.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Number"/><apiDefaultValue>1
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Указывает частоту кадров для использования при неактивном приложении. При значении -1 фоновое регулирование частоты кадров не происходит.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:closed:get"><apiName>closed</apiName><shortdesc>
+      Возвращает значение true при закрытии основного окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Возвращает значение true при закрытии основного окна.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:dockIconMenu:get"><apiName>dockIconMenu</apiName><shortdesc>
+      Меню значка панели.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      Меню значка панели. Некоторые операционные системы не поддерживают меню значков панелей.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:maximizable:get"><apiName>maximizable</apiName><shortdesc>
+      Определяет возможность разворачивания окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Определяет возможность разворачивания окна.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:menu:get"><apiName>menu</apiName><shortdesc>
+      Меню программы для операционных систем, которые поддерживают меню программы, или меню окна начального окна приложения для операционных систем, поддерживающих меню окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      Меню программы для операционных систем, которые поддерживают меню программы, или меню окна начального окна приложения для операционных систем, поддерживающих меню окна.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:minimizable:get"><apiName>minimizable</apiName><shortdesc>
+      Определяет возможность сворачивания окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Определяет возможность сворачивания окна.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:nativeApplication:get"><apiName>nativeApplication</apiName><shortdesc>
+      Объект NativeApplication, представляющий приложение AIR.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.desktop:NativeApplication"/></apiValueDef><apiDesc>
+      Объект NativeApplication, представляющий приложение AIR.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:nativeWindow:get"><apiName>nativeWindow</apiName><shortdesc>
+      NativeWindow, используемый этим компонентом WindowedApplication (начальное встроенное окно приложения).</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:NativeWindow"/></apiValueDef><apiDesc>
+      NativeWindow, используемый этим компонентом WindowedApplication (начальное встроенное окно приложения).
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:resizable:get"><apiName>resizable</apiName><shortdesc>
+      Определяет возможность изменения размеров окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Определяет возможность изменения размеров окна.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:showStatusBar:get"><apiName>showStatusBar</apiName><shortdesc>
+      Если установлено значение true, то строка состояния отображается.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/><apiDefaultValue>true
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Если установлено значение <codeph>true</codeph>, то строка состояния отображается.
+     
+      <p>Строка состояния появляется только при использовании классов WindowedApplicationSkin или SparkChromeWindowedApplicationSkin в качестве темы оформления всего приложения или любого из его окон.</p>
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:status:get"><apiName>status</apiName><shortdesc>
+      Строка, отображаемая в строке состояния, если она является видимой.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Строка, отображаемая в строке состояния, если она является видимой.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:systemChrome:get"><apiName>systemChrome</apiName><shortdesc>
+      Указывает тип системного хрома (при его наличии) окна.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает тип системного хрома (при его наличии) окна. Набор возможных значений определяется константами в классе NativeWindowSystemChrome.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.xml#NativeWindow/systemChrome"><linktext>flash.display.NativeWindow.systemChrome</linktext></link></related-links></apiValue><apiValue id="spark.components:WindowedApplication:systemTrayIconMenu:get"><apiName>systemTrayIconMenu</apiName><shortdesc>
+      Меню значка на панели задач.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>mx.controls:FlexNativeMenu</apiValueClassifier></apiValueDef><apiDesc>
+      Меню значка на панели задач. Некоторые операционные системы не поддерживают меню значков на панели задач.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:title:get"><apiName>title</apiName><shortdesc>
+      Заголовок, появляющийся в строке заголовка окна и в панели задач.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/><apiDefaultValue>""
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Заголовок, появляющийся в строке заголовка окна и в панели задач. При использовании системного хрома и установки для этого свойства значения, отличного от тега &lt;title> в application.xml, можно увидеть, что заголовок из файла XML появляется кратко в начале.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:titleIcon:get"><apiName>titleIcon</apiName><shortdesc>
+      Class (обычно изображение) используется для отображения значка строки заголовка.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Class"/><apiDefaultValue>null
+      
+      </apiDefaultValue></apiValueDef><apiDesc>
+      Class (обычно изображение) используется для отображения значка строки заголовка.
+     
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:transparent:get"><apiName>transparent</apiName><shortdesc>
+      Указывает, прозрачно ли окно.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+      Указывает, прозрачно ли окно.
+      
+      </apiDesc></apiValueDetail></apiValue><apiValue id="spark.components:WindowedApplication:type:get"><apiName>type</apiName><shortdesc>
+      Указывает тип NativeWindow, который представляет этот компонент.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="AIR" version="1.5"/><apiTool name="Flex" version="4"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+      Указывает тип NativeWindow, который представляет этот компонент. Набор возможных значений определяется константами класса NativeWindowType.
+     
+      </apiDesc></apiValueDetail><related-links><link href="" invalidHref="flash.display.NativeWindowType.xml"><linktext>flash.display.NativeWindowType</linktext></link></related-links></apiValue></apiClassifier></apiPackage>
